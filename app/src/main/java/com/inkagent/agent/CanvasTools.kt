@@ -71,7 +71,7 @@ class CanvasTools(
 
     private fun place(idx: Int, kind: String, source: String, args: JSONObject, r: Rasterizer.Result, scale: Float): String {
         val w = r.cssWidth * PX_TO_PAGE * scale
-        val h = r.cssHeight * PX_TO_PAGE * scale
+        val h = w * r.bitmap.height / r.bitmap.width.coerceAtLeast(1)
         val x = if (args.has("x")) args.getDouble("x").toFloat() else 60f
         val y = if (args.has("y")) args.getDouble("y").toFloat() else nextFreeY(idx)
         val png = savePng(notebook.aiDir, r.bitmap, kind)
@@ -139,7 +139,8 @@ class CanvasTools(
                 val idx = pageIndex(args)
                 val src = args.getString("latex")
                 val r = raster.render("latex", src)
-                return ToolResult.text(place(idx, "latex", src, args, r, args.optDouble("scale", 1.0).toFloat()))
+                val msg = place(idx, "latex", src, args, r, args.optDouble("scale", 1.0).toFloat())
+                return ToolResult(listOf(Block.Text(msg + "\n渲染结果如图："), savePng(attachDir, r.bitmap, "latex")))
             }
         })
         reg.register(object : Tool {
@@ -158,7 +159,8 @@ class CanvasTools(
                 val src = args.getString("svg")
                 val widthPage = args.optDouble("width", 500.0).toFloat()
                 val r = raster.render("svg", src, (widthPage / PX_TO_PAGE).toInt())
-                return ToolResult.text(place(idx, "svg", src, args, r, 1f))
+                val msg = place(idx, "svg", src, args, r, 1f)
+                return ToolResult(listOf(Block.Text(msg + "\n渲染结果如图："), savePng(attachDir, r.bitmap, "svg")))
             }
         })
         reg.register(object : Tool {

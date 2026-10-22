@@ -114,6 +114,7 @@ class Agent(
         var claimed = mutableListOf(first)
         var reason = "completed"
         var step = 0
+        var errorText: String? = null
         try {
             while (true) {
                 step++
@@ -151,9 +152,11 @@ class Agent(
             reason = "aborted"
         } catch (e: Exception) {
             if (sig.cancelled) reason = "aborted"
-            else { reason = "error"; listener.onError(e.message ?: e.javaClass.simpleName) }
+            else { reason = "error"; android.util.Log.e("InkAgent", "turn failed", e); errorText = e.message; listener.onError(e.message ?: e.javaClass.simpleName) }
         } finally {
-            emit("turn/end", JSONObject().put("turn", turn).put("reason", reason))
+            val endData = JSONObject().put("turn", turn).put("reason", reason)
+            if (errorText != null) endData.put("error", errorText)
+            emit("turn/end", endData)
             signal = null
         }
     }

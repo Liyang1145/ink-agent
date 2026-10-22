@@ -252,7 +252,7 @@ class MainActivity : Activity() {
     override fun onPause() { super.onPause(); ui.removeCallbacks(saveRunnable); notebook.save() }
 
     private fun moreMenu() {
-        val items = arrayOf("清空本页手写", "清空本页 AI 图层", "删除本页")
+        val items = arrayOf("清空本页手写", "清空本页 AI 图层", "删除本页", "导出调试日志")
         AlertDialog.Builder(this).setItems(items) { _, w ->
             when (w) {
                 0 -> confirm("清空本页手写？（可撤销）") { pageView.clearInk() }
@@ -262,8 +262,55 @@ class MainActivity : Activity() {
                     else notebook.pages[0].let { it.strokes.clear(); it.ai.clear() }
                     pageView.goTo(pageView.pageIndex.coerceAtMost(notebook.pages.size - 1))
                 }
+                3 -> exportLogs()
             }
         }.show()
+    }
+
+    /** Zip the current session log, notebook, recent attachments and logcat into Downloads. */
+    private fun exportLogs() {
+        notebook.save()
+        Thread {
+            try {
+                val name = "InkAgent-log-${java.text.SimpleDateFormat("yyyyMMdd-HHmmss", java.util.Locale.US).format(java.util.Date())}.zip"
+                val bytes = java.io.ByteArrayOutputStream()
+                java.util.zip.ZipOutputStream(bytes).use { z ->
+                    fun put(n: String, data: ByteArray) { z.putNextEntry(java.util.zip.ZipEntry(n)); z.write(data); z.closeEntry() }
+                    val info = StringBuilder()
+                    info.append("version=${packageManager.getPackageInfo(packageName, 0).versionName}\n")
+                    info.append("device=${android.os.Build.MANUFACTURER} ${android.os.Build.MODEL} sdk=${android.os.Build.VERSION.SDK_INT}\n")
+                    info.append("density=${resources.displayMetrics.density} fontScale=${resources.configuration.fontScale}\n")
+                    info.append("model=${settings.label()}\nsystemPromptChars=${settings.systemPrompt.length}\n")
+                    settings.providers.forEach { info.append("provider ${it.name} ${it.protocol} ${it.baseUrl} keySet=${it.apiKey.isNotBlank()} models=${it.models}\n") }
+                    put("info.txt", info.toString().toByteArray())
+                    File(filesDir, "sessions/${agent.session.id}.jsonl").takeIf { it.exists() }?.let { put("session.jsonl", it.readBytes()) }
+                    File(filesDir, "notebook/notebook.json").takeIf { it.exists() }?.let { put("notebook.json", it.readBytes()) }
+                    (File(filesDir, "notebook/ai").listFiles() ?: emptyArray()).sortedByDescending { it.lastModified() }.take(20)
+                        .forEach { put("ai/${it.name}", it.readBytes()) }
+                    (attachDir.listFiles() ?: emptyArray()).sortedByDescending { it.lastModified() }.take(20)
+                        .forEach { put("attachments/${it.name}", it.readBytes()) }
+                    val log = try {
+                        Runtime.getRuntime().exec(arrayOf("logcat", "-d", "-v", "time", "-t", "3000")).inputStream.readBytes()
+                    } catch (e: Exception) { "logcat failed: ${e.message}".toByteArray() }
+                    put("logcat.txt", log)
+                }
+                val where: String
+                if (android.os.Build.VERSION.SDK_INT >= 29) {
+                    val values = android.content.ContentValues().apply {
+                        put(android.provider.MediaStore.MediaColumns.DISPLAY_NAME, name)
+                        put(android.provider.MediaStore.MediaColumns.MIME_TYPE, "application/zip")
+                        put(android.provider.MediaStore.MediaColumns.RELATIVE_PATH, "Download/")
+                    }
+                    val uri = contentResolver.insert(android.provider.MediaStore.Downloads.EXTERNAL_CONTENT_URI, values)
+                        ?: throw IllegalStateException("无法写入下载目录")
+                    contentResolver.openOutputStream(uri)!!.use { it.write(bytes.toByteArray()) }
+                    where = "下载/Download/$name"
+                } else {
+                    val f = File(getExternalFilesDir(null), name); f.writeBytes(bytes.toByteArray()); where = f.absolutePath
+                }
+                ui.post { AlertDialog.Builder(this).setMessage("已导出到：$where\n（不含 API Key）").setPositiveButton("好", null).show() }
+            } catch (e: Exception) { ui.post { toast("导出失败：${e.message}") } }
+        }.start()
     }
 
     private fun confirm(msg: String, action: () -> Unit) {

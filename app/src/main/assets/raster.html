@@ -34,11 +34,19 @@ function render(kind, src, widthPx){
       else if(!svg.getAttribute('width')){ svg.setAttribute('width', 600); }
     }
   }
+  box.style.transform='';
   var finish=function(){
-    requestAnimationFrame(function(){requestAnimationFrame(function(){
+    requestAnimationFrame(function(){
       var r=box.getBoundingClientRect();
-      Raster.done(Math.ceil(r.width), Math.ceil(r.height), window.devicePixelRatio||1);
-    });});
+      var w=Math.ceil(r.width), h=Math.ceil(r.height);
+      // shrink to fit the viewport so the capture never clips; Kotlin crops by content bounds
+      var fit=Math.min(1,(window.innerWidth-8)/Math.max(w,1),(window.innerHeight-8)/Math.max(h,1));
+      box.style.transformOrigin='0 0';
+      box.style.transform=fit<1?('scale('+fit+')'):'';
+      requestAnimationFrame(function(){requestAnimationFrame(function(){
+        Raster.done(w, h, fit);
+      });});
+    });
   };
   if(document.fonts && document.fonts.ready){ document.fonts.ready.then(finish); } else { setTimeout(finish,100); }
 }

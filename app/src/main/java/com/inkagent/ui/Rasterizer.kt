@@ -7,6 +7,7 @@ import android.graphics.Canvas
 import android.graphics.Color
 import android.os.Handler
 import android.os.Looper
+import android.util.Log
 import android.view.View
 import android.webkit.JavascriptInterface
 import android.webkit.WebView
@@ -44,6 +45,26 @@ class Rasterizer(context: Context) {
         view.loadUrl("file:///android_asset/raster.html")
     }
 
+    /** Bounding box of pixels that are not transparent and not near-white. */
+    private fun cropToContent(b: Bitmap): Bitmap {
+        val w = b.width; val h = b.height
+        val px = IntArray(w * h); b.getPixels(px, 0, w, 0, 0, w, h)
+        var l = w; var t = h; var r = -1; var bt = -1
+        for (y in 0 until h) { val row = y * w
+            for (x in 0 until w) { val p = px[row + x]
+                val a = p ushr 24
+                if (a < 10) continue
+                val rr = (p shr 16) and 0xff; val gg = (p shr 8) and 0xff; val bb = p and 0xff
+                if (rr > 245 && gg > 245 && bb > 245) continue
+                if (x < l) l = x; if (x > r) r = x; if (y < t) t = y; if (y > bt) bt = y
+            } }
+        if (r < 0) throw IllegalStateException("渲染结果为空（公式可能有语法错误）")
+        val pad = 6
+        l = (l - pad).coerceAtLeast(0); t = (t - pad).coerceAtLeast(0)
+        r = (r + pad).coerceAtMost(w - 1); bt = (bt + pad).coerceAtMost(h - 1)
+        return Bitmap.createBitmap(b, l, t, r - l + 1, bt - t + 1)
+    }
+
     /** Result in CSS px (pre-dpr) so callers can map to page units. */
     class Result(val bitmap: Bitmap, val cssWidth: Int, val cssHeight: Int)
 
@@ -55,23 +76,18 @@ class Rasterizer(context: Context) {
             var out: Result? = null
             var err: Throwable? = null
             main.post {
-                pending = { w, h, dpr ->
+                pending = { w, h, _ ->
                     pending = null
                     try {
-                        val pw = (w * dpr).toInt().coerceIn(1, 4096)
-                        val ph = (h * dpr).toInt().coerceIn(1, 4096)
-                        if (view.width < pw || view.height < ph) {
-                            view.layoutParams = view.layoutParams.apply { width = maxOf(view.width, pw); height = maxOf(view.height, ph) }
-                            view.measure(View.MeasureSpec.makeMeasureSpec(maxOf(view.width, pw), View.MeasureSpec.EXACTLY),
-                                View.MeasureSpec.makeMeasureSpec(maxOf(view.height, ph), View.MeasureSpec.EXACTLY))
-                            view.layout(view.left, view.top, view.left + maxOf(view.width, pw), view.top + maxOf(view.height, ph))
-                        }
-                        val bmp = Bitmap.createBitmap(pw, ph, Bitmap.Config.ARGB_8888)
-                        val c = Canvas(bmp)
+                        val vw = view.width.coerceAtLeast(1); val vh = view.height.coerceAtLeast(1)
+                        val full = Bitmap.createBitmap(vw, vh, Bitmap.Config.ARGB_8888)
+                        val c = Canvas(full)
                         c.translate(-view.scrollX.toFloat(), -view.scrollY.toFloat())
                         view.draw(c)
-                        out = Result(bmp, w, h)
-                    } catch (t: Throwable) { err = t }
+                        val cropped = cropToContent(full)
+                        Log.i("InkRaster", "kind=$kind css=${w}x$h view=${vw}x$vh crop=${cropped.width}x${cropped.height}")
+                        out = Result(cropped, w, h)
+                    } catch (t: Throwable) { Log.e("InkRaster", "capture failed", t); err = t }
                     latch.countDown()
                 }
                 val js = "render(${JSONObject.quote(kind)}, ${JSONObject.quote(source)}, $widthCssPx)"

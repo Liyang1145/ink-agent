@@ -96,7 +96,7 @@ class ChatView(context: Context) {
             }
             "turn/end" -> when (e.data.optString("reason")) {
                 "aborted" -> notice("已停止")
-                "error" -> notice("这一轮出错结束", true)
+                "error" -> notice("这一轮出错结束：" + e.data.optString("error"), true)
                 "max-steps" -> notice("达到单轮步数上限")
                 "max-tokens" -> notice("达到输出长度上限")
             }
