@@ -72,11 +72,18 @@ def wait_turn_end(n_expected, limit=240, every=15, tag='wait'):
     while time.time() - t0 < limit:
         time.sleep(5)
         txt = session_text()
-        ends = txt.count('"type":"turn/end"')
+        ends = txt.count('"type":"turn/end"') + txt.count('"type":"turn\\/end"')
         if ends >= n_expected: return txt
         if time.time() - t0 > (k + 1) * every:
             k += 1; shot(f'{tag}_{k}')
     note('!! turn did not finish in time'); return session_text()
+
+def type_text(t):
+    # WebView drops characters when `input text` injects a long burst; type word by word
+    words = t.split(' ')
+    for i, w in enumerate(words):
+        adb("shell input text '" + (w + ('%s' if i < len(words) - 1 else '')).replace("'", '') + "'")
+        time.sleep(0.25)
 
 def launch(extra=''):
     out = adb(f'shell am start -W -n {PKG}/.MainActivity {extra}', timeout=90)
@@ -164,7 +171,7 @@ def main():
     else: note('!! no EditText; tapping composer area'); tap(int(W * 0.8), H - 120)
     time.sleep(1)
     prompt = 'Solve the equation in the image. Write the solution on the canvas with canvas_write_latex, then call view_page to check how it looks, then reply briefly.'
-    adb("shell input text '" + prompt.replace(' ', '%s').replace("'", '') + "'")
+    type_text(prompt)
     time.sleep(1)
     adb('shell input keyevent 111')  # hide keyboard (ESC)
     time.sleep(1)
@@ -195,7 +202,7 @@ def main():
     p = find(lambda n: n.get('class') == 'android.widget.EditText')
     if p:
         tap(p[0], p[1]); time.sleep(1)
-        adb("shell input text 'Now%sdraw%sthe%sgraph%sof%sy=x^2-4%swith%scanvas_draw_svg%sbelow%sthe%ssolution,%sincluding%saxes.'")
+        type_text('Now draw the graph of y=x^2-4 with canvas_draw_svg below the solution, including axes.')
         adb('shell input keyevent 111'); time.sleep(1)
         tap_text('发送消息', required=False)
         time.sleep(3)

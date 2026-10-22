@@ -231,8 +231,8 @@ class PageView(context: Context, val notebook: Notebook) : View(context) {
         if (strokes.isEmpty() && ai.isEmpty()) return null
         val b = RectF()
         var first = true
-        strokes.forEach { if (first) { b.set(it.bounds); first = false } else b.union(it.bounds) }
-        ai.forEach { if (first) { b.set(it.rect()); first = false } else b.union(it.rect()) }
+        strokes.forEach { if (first) { b.set(it.bounds); first = false } else unionRect(b, it.bounds) }
+        ai.forEach { if (first) { b.set(it.rect()); first = false } else unionRect(b, it.rect()) }
         b.inset(-20f, -20f)
         return Notebook.render(page, b, maxSide = 1280, minSide = 512, strokes = strokes, ai = ai)
     }

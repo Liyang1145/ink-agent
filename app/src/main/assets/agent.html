@@ -51,7 +51,9 @@ svg.i{width:18px;height:18px;stroke:currentColor;fill:none;stroke-width:1.7;stro
 .grp-b{padding:2px 0 6px 10px;margin-left:5px;border-left:1px solid var(--border-2);}
 .grp-b[hidden]{display:none;}
 .think{color:var(--label-3);font-size:13.5px;}
-.think-h{display:flex;align-items:center;gap:4px;line-height:24px;color:var(--label-3);text-align:left;}
+.think-h{display:flex;align-items:center;gap:4px;line-height:24px;color:var(--label-3);text-align:left;width:100%;min-width:0;}
+.think-h span{flex:1;min-width:0;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;}
+.think-h .chev{flex:none;}
 .think-h .chev{width:12px;height:12px;transform:rotate(-90deg);transition:transform .1s;}
 .think-h[data-open] .chev{transform:none;}
 .think-b{white-space:pre-wrap;word-break:break-word;padding:2px 0 4px;}

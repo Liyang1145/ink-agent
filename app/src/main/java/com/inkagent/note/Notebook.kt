@@ -22,7 +22,13 @@ class Stroke(val color: Int, val baseWidth: Float) {
     }
 
     fun addRaw(x: Float, y: Float, w: Float) {
-        xs.add(x); ys.add(y); ws.add(w); bounds.union(x, y)
+        xs.add(x); ys.add(y); ws.add(w)
+        // RectF.union(x, y) uses if/else-if and never grows both edges from the empty sentinel,
+        // which left horizontal / leftward strokes with invalid bounds (dropped from lasso crops).
+        if (x < bounds.left) bounds.left = x
+        if (x > bounds.right) bounds.right = x
+        if (y < bounds.top) bounds.top = y
+        if (y > bounds.bottom) bounds.bottom = y
     }
 
     fun toJson(): JSONObject {
@@ -79,7 +85,7 @@ class Page(var width: Float = A4_W, var height: Float = A4_H) {
     /** A short textual inventory for the agent. */
     fun describe(index: Int): String {
         val inkBounds = RectF()
-        strokes.forEachIndexed { i, s -> if (i == 0) inkBounds.set(s.bounds) else inkBounds.union(s.bounds) }
+        strokes.forEachIndexed { i, s -> if (i == 0) inkBounds.set(s.bounds) else unionRect(inkBounds, s.bounds) }
         val sb = StringBuilder("第${index + 1}页：尺寸 ${width.toInt()}x${height.toInt()}，笔画 ${strokes.size} 条")
         if (strokes.isNotEmpty()) sb.append("，手写内容范围 x=${inkBounds.left.toInt()}..${inkBounds.right.toInt()} y=${inkBounds.top.toInt()}..${inkBounds.bottom.toInt()}")
         if (ai.isNotEmpty()) {
@@ -164,4 +170,11 @@ class Notebook(private val dir: File) {
             return bmp
         }
     }
+}
+
+
+/** Union that also accepts zero-width/height rects (a horizontal line, a dot); RectF.union ignores them. */
+fun unionRect(into: RectF, r: RectF) {
+    into.left = minOf(into.left, r.left); into.top = minOf(into.top, r.top)
+    into.right = maxOf(into.right, r.right); into.bottom = maxOf(into.bottom, r.bottom)
 }
