@@ -144,6 +144,10 @@ def focus():
 def dismiss_dialogs():
     for _ in range(3):
         f = focus()
+        if 'ImmersiveModeConfirmation' in f:
+            note('dismissing immersive-mode confirmation')
+            if not (tap_label('Got it') or tap_label('知道了')): adb('shell input keyevent 4')
+            time.sleep(2); continue
         if 'Not Responding' not in f and 'Application Error' not in f: return
         note('dismissing system dialog: ' + f)
         if not (tap_label('Wait') or tap_label('Close app') or tap_label('等待') or tap_label('关闭应用')):
@@ -173,6 +177,7 @@ def main():
     adb('logcat -c')
     adb('shell settings put global hide_error_dialogs 1')
     adb('shell settings put global anr_show_background 0')
+    adb('shell settings put secure immersive_mode_confirmations confirmed')
     time.sleep(40)
     dismiss_dialogs()
     adb('shell input keyevent 82'); adb('shell input keyevent 3')

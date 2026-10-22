@@ -1,5 +1,8 @@
 name: build-apk
-on: [push, workflow_dispatch]
+on:
+  push:
+    paths-ignore: ['tests/**', '**.md']
+  workflow_dispatch:
 jobs:
   build:
     runs-on: ubuntu-latest
