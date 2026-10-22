@@ -92,8 +92,18 @@ def focus():
     m = re.search(r'mCurrentFocus=.*', out)
     return m.group(0) if m else '?'
 
+def dismiss_dialogs():
+    for _ in range(3):
+        f = focus()
+        if 'Not Responding' not in f and 'Application Error' not in f: return
+        note('dismissing system dialog: ' + f)
+        if not (tap_text('Wait', required=False) or tap_text('Close app', required=False)):
+            adb('shell input keyevent 4')
+        time.sleep(2)
+
 def ensure_front(extra=''):
     for i in range(4):
+        dismiss_dialogs()
         f = focus(); note('focus: ' + f)
         if PKG in f: return True
         launch(extra); time.sleep(8)
@@ -108,7 +118,11 @@ def main():
     adb('shell settings put system accelerometer_rotation 0')
     adb('shell cmd window user-rotation lock 1')
     adb('logcat -c')
-    adb('shell input keyevent 82'); adb('shell input keyevent 3')  # unlock + home, settle launcher
+    adb('shell settings put global hide_error_dialogs 1')
+    adb('shell settings put global anr_show_background 0')
+    time.sleep(45)  # let the freshly booted system settle (systemui/gms ANRs on cold emulators)
+    dismiss_dialogs()
+    adb('shell input keyevent 82'); adb('shell input keyevent 3')
     time.sleep(5)
     ex = f'--es test_key {KEY} --ez test_finger true --es test_mode compact --es test_effort high'
     launch(ex)
