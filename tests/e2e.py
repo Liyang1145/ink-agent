@@ -87,6 +87,18 @@ def launch(extra=''):
     if not pid:
         note('crash buffer:\n' + adb('logcat -d -b crash', timeout=30)[-4000:])
 
+def focus():
+    out = adb('shell dumpsys window', timeout=60)
+    m = re.search(r'mCurrentFocus=.*', out)
+    return m.group(0) if m else '?'
+
+def ensure_front(extra=''):
+    for i in range(4):
+        f = focus(); note('focus: ' + f)
+        if PKG in f: return True
+        launch(extra); time.sleep(8)
+    note('!! app never reached the foreground'); return False
+
 def main():
     size = adb('shell wm size')
     W, H = [int(v) for v in re.findall(r'(\d+)x(\d+)', size)[-1]]
@@ -96,8 +108,12 @@ def main():
     adb('shell settings put system accelerometer_rotation 0')
     adb('shell cmd window user-rotation lock 1')
     adb('logcat -c')
-    launch(f'--es test_key {KEY} --ez test_finger true --es test_mode compact --es test_effort high')
-    time.sleep(6)
+    adb('shell input keyevent 82'); adb('shell input keyevent 3')  # unlock + home, settle launcher
+    time.sleep(5)
+    ex = f'--es test_key {KEY} --ez test_finger true --es test_mode compact --es test_effort high'
+    launch(ex)
+    time.sleep(10)
+    if not ensure_front(ex): raise SystemExit(1)
     shot('launch')
 
     # --- handwriting: "x^2 = 4" written with finger strokes on the canvas (left 60%) ---
