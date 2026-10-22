@@ -4,6 +4,9 @@ on:
     inputs:
       scenario: { description: 'full | ui-only', default: 'full' }
       build_run: { description: 'build-apk run id whose APK to test (empty = build here)', default: '' }
+permissions:
+  actions: read
+  contents: read
 jobs:
   e2e:
     runs-on: ubuntu-latest
