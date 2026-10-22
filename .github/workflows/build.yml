@@ -3,12 +3,25 @@ on: [push, workflow_dispatch]
 jobs:
   build:
     runs-on: ubuntu-latest
+    timeout-minutes: 60
     steps:
       - uses: actions/checkout@v4
       - uses: actions/setup-java@v4
         with: { distribution: temurin, java-version: '17' }
+      - name: Android SDK packages (NDK 27.0.12077973, CMake 3.22.1, API 36)
+        run: |
+          yes | "$ANDROID_HOME/cmdline-tools/latest/bin/sdkmanager" --licenses > /dev/null || true
+          "$ANDROID_HOME/cmdline-tools/latest/bin/sdkmanager" "ndk;27.0.12077973" "cmake;3.22.1" "platforms;android-36" "build-tools;36.0.0" > /dev/null
       - uses: gradle/actions/setup-gradle@v4
-        with: { gradle-version: '8.7' }
-      - run: gradle assembleDebug --stacktrace
+      - name: Native build cache
+        uses: actions/cache@v4
+        with:
+          path: |
+            app/.cxx
+            app/build/intermediates/cxx
+          key: cxx-${{ hashFiles('app/src/main/cpp/**/CMakeLists.txt', 'app/src/main/cpp/*.cmake', 'app/build.gradle.kts') }}
+      - name: Pin native source mtimes (lets ninja reuse cached objects)
+        run: find app/src/main/cpp -type f -exec touch -d '2020-01-01 00:00:00' {} +
+      - run: chmod +x gradlew && ./gradlew assembleDebug --stacktrace
       - uses: actions/upload-artifact@v4
         with: { name: InkAgent-debug, path: app/build/outputs/apk/debug/*.apk }
