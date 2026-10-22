@@ -93,6 +93,7 @@ val ToolbarItem.labelRes: Int
         ToolbarItem.COLORS -> R.string.toolbar_colours
         ToolbarItem.WAYPOINTS -> R.string.toolbar_waypoints
         ToolbarItem.MINIMAP -> R.string.toolbar_minimap
+        ToolbarItem.MORE -> R.string.more_tools
     }
 
 @get:StringRes

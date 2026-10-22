@@ -3,13 +3,13 @@
     <string name="app_name" translatable="false">InkAgent</string>
 
     <!-- Tools and toolbar items -->
-    <string name="tool_pen">钢笔</string>
+    <string name="tool_pen">笔</string>
     <string name="tool_dashed">虚线笔</string>
     <string name="tool_calligraphy">书法笔</string>
     <string name="tool_speed">速度笔</string>
     <string name="tool_taper">收尖笔</string>
     <string name="tool_highlighter">荧光笔</string>
-    <string name="tool_eraser">橡皮擦</string>
+    <string name="tool_eraser">橡皮</string>
     <string name="tool_pan">平移</string>
     <string name="tool_select">选择</string>
     <string name="tool_lasso">套索</string>
@@ -1014,4 +1014,14 @@
     <string name="toolbar_size_compact">紧凑</string>
     <string name="toolbar_size_regular">标准</string>
     <string name="toolbar_size_comfortable">宽松</string>
+    <!-- InkAgent -->
+    <string name="change_colour">改颜色</string>
+    <string name="add_to_agent">加入 Agent</string>
+    <string name="added_to_agent">已加入 Agent 输入框</string>
+    <string name="more_tools">更多</string>
+    <string name="tool_select_unified">选择</string>
+    <string name="select_mode_lasso">套索选择（长按切换为矩形）</string>
+    <string name="select_mode_rect">矩形选择（长按切换为套索）</string>
+    <string name="switched_lasso">已切换为套索选择</string>
+    <string name="switched_rect">已切换为矩形选择</string>
 </resources>

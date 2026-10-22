@@ -467,4 +467,5 @@ private fun itemIcon(item: ToolbarItem): ImageVector = when (item) {
     ToolbarItem.COLORS -> XnotesIcons.more
     ToolbarItem.WAYPOINTS -> XnotesIcons.bookmark
     ToolbarItem.MINIMAP -> XnotesIcons.map
+    ToolbarItem.MORE -> XnotesIcons.more
 }

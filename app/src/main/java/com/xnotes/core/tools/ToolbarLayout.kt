@@ -49,7 +49,10 @@ enum class ToolbarItem(val id: String) {
     WAYPOINTS("waypoints"),
 
     /** Canvas only: the overview map in the corner. */
-    MINIMAP("minimap");
+    MINIMAP("minimap"),
+
+    /** InkAgent: the "更多" menu that holds every hidden item (nothing is removed, only tucked away). */
+    MORE("more");
 
     companion object {
         fun fromId(id: String?): ToolbarItem? = entries.firstOrNull { it.id == id }
@@ -176,23 +179,28 @@ data class ToolbarLayout(val sections: List<ToolbarSection>) {
         val NOTE_ITEMS: Set<ToolbarItem> =
             ToolbarItem.entries.toSet() - setOf(ToolbarItem.WAYPOINTS, ToolbarItem.MINIMAP)
 
-        /** Mirrors the hardcoded bar exactly (see Toolbar.kt) so existing users see no change. */
-        val DEFAULT: ToolbarLayout = of(
-            listOf(ToolbarItem.HOME, ToolbarItem.TITLE),
-            listOf(ToolbarItem.SIDEBAR),
-            listOf(
-                ToolbarItem.PEN, ToolbarItem.DASHED, ToolbarItem.CALLIGRAPHY, ToolbarItem.SPEED,
-                ToolbarItem.TAPER, ToolbarItem.HIGHLIGHTER, ToolbarItem.ERASER,
-            ),
-            listOf(ToolbarItem.PAN, ToolbarItem.SELECT, ToolbarItem.LASSO, ToolbarItem.SCREENSHOT),
-            listOf(ToolbarItem.WAND, ToolbarItem.SHAPE, ToolbarItem.RULER, ToolbarItem.TEXT, ToolbarItem.TEXT_BOX, ToolbarItem.MARKUP),
-            listOf(ToolbarItem.IMAGE),
-            listOf(ToolbarItem.COLORS),
-            listOf(ToolbarItem.UNDO, ToolbarItem.REDO),
-            listOf(ToolbarItem.PAGE_NAV, ToolbarItem.STYLES, ToolbarItem.MARGINS, ToolbarItem.VIEW),
-            listOf(ToolbarItem.ZOOM, ToolbarItem.FIT, ToolbarItem.ZOOM_LOCK),
-            listOf(ToolbarItem.FULLSCREEN),
-        )
+        /**
+         * InkAgent's paged bar: only 笔 / 荧光笔 / 橡皮 / 选择 / 撤销 / 重做 are shown; every other xnotes item is
+         * kept in the layout but hidden, and the 更多 menu lists the hidden ones.
+         */
+        val DEFAULT: ToolbarLayout = run {
+            val shown = listOf(
+                listOf(ToolbarItem.HOME, ToolbarItem.TITLE),
+                listOf(ToolbarItem.PEN, ToolbarItem.HIGHLIGHTER, ToolbarItem.ERASER, ToolbarItem.SELECT),
+                listOf(ToolbarItem.UNDO, ToolbarItem.REDO),
+                listOf(ToolbarItem.MORE),
+            )
+            val hidden = listOf(
+                ToolbarItem.SIDEBAR, ToolbarItem.PAGE_NAV, ToolbarItem.COLORS,
+                ToolbarItem.DASHED, ToolbarItem.CALLIGRAPHY, ToolbarItem.SPEED, ToolbarItem.TAPER,
+                ToolbarItem.PAN, ToolbarItem.LASSO, ToolbarItem.SCREENSHOT,
+                ToolbarItem.WAND, ToolbarItem.SHAPE, ToolbarItem.RULER, ToolbarItem.TEXT, ToolbarItem.TEXT_BOX, ToolbarItem.MARKUP,
+                ToolbarItem.IMAGE, ToolbarItem.STYLES, ToolbarItem.MARGINS, ToolbarItem.VIEW,
+                ToolbarItem.ZOOM, ToolbarItem.FIT, ToolbarItem.ZOOM_LOCK, ToolbarItem.FULLSCREEN,
+            )
+            ToolbarLayout(shown.map { g -> ToolbarSection(g.map { ToolbarEntry(it) }) } +
+                ToolbarSection(hidden.map { ToolbarEntry(it, visible = false) }))
+        }
 
         /** Mirrors the hardcoded canvas bar (see InfiniteToolbar.kt). */
         val CANVAS_DEFAULT: ToolbarLayout = of(

@@ -3,17 +3,33 @@ on:
   workflow_dispatch:
     inputs:
       scenario: { description: 'full | ui-only', default: 'full' }
+      build_run: { description: 'build-apk run id whose APK to test (empty = build here)', default: '' }
 jobs:
   e2e:
     runs-on: ubuntu-latest
-    timeout-minutes: 45
+    timeout-minutes: 70
     steps:
       - uses: actions/checkout@v4
+      - name: Download APK from build run
+        if: ${{ github.event.inputs.build_run != '' }}
+        uses: actions/download-artifact@v4
+        with:
+          name: InkAgent-debug
+          path: apk
+          run-id: ${{ github.event.inputs.build_run }}
+          github-token: ${{ secrets.GITHUB_TOKEN }}
       - uses: actions/setup-java@v4
+        if: ${{ github.event.inputs.build_run == '' }}
         with: { distribution: temurin, java-version: '17' }
-      - uses: gradle/actions/setup-gradle@v4
-        with: { gradle-version: '8.7' }
-      - run: gradle assembleDebug
+      - name: Build APK
+        if: ${{ github.event.inputs.build_run == '' }}
+        run: |
+          yes | "$ANDROID_HOME/cmdline-tools/latest/bin/sdkmanager" --licenses > /dev/null || true
+          "$ANDROID_HOME/cmdline-tools/latest/bin/sdkmanager" "ndk;27.0.12077973" "cmake;3.22.1" "platforms;android-36" "build-tools;36.0.0" > /dev/null
+          chmod +x gradlew && ./gradlew assembleDebug
+          mkdir -p apk && cp app/build/outputs/apk/debug/*.apk apk/
+      - name: Locate APK
+        run: echo "APK=$(ls apk/*.apk | head -1)" >> $GITHUB_ENV
       - name: Free disk space
         run: |
           sudo rm -rf /usr/share/dotnet /opt/ghc /usr/local/share/boost /opt/hostedtoolcache/CodeQL /usr/local/lib/android/sdk/ndk /usr/local/.ghcup || true

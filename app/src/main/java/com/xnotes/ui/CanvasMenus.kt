@@ -11,6 +11,7 @@ import androidx.compose.foundation.layout.ExperimentalLayoutApi
 import androidx.compose.foundation.layout.FlowRow
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
+import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.heightIn
 import androidx.compose.foundation.layout.offset
 import androidx.compose.foundation.layout.padding
@@ -123,6 +124,9 @@ interface SelectionMenuHost : SwatchHost {
 
     /** Mirror the selection about its own centre, left to right or [upsideDown], as one undo step. */
     fun mirrorSelection(upsideDown: Boolean)
+
+    /** InkAgent: render the selection to PNG and put it in the agent composer's attachment tray (never sends). */
+    fun addSelectionToAgent() {}
 }
 
 /**
@@ -140,7 +144,7 @@ fun SelectionMenu(host: SelectionMenuHost) {
     var styleOpen by remember { mutableStateOf(false) }
 
     val barHeightPx = with(density) { 48.dp.toPx() }
-    val barWidthPx = with(density) { (6 * 46).dp.toPx() }
+    val barWidthPx = with(density) { (5 * 46 + 96).dp.toPx() }
     val gap = with(density) { 10.dp.toPx() }
     val centerX = ((rect.left + rect.right) / 2.0).toFloat()
     val xPx = (centerX - barWidthPx / 2f).coerceAtLeast(with(density) { 8.dp.toPx() })
@@ -161,11 +165,21 @@ fun SelectionMenu(host: SelectionMenuHost) {
                 .background(palette.menuBg.toComposeColor())
                 .border(1.dp, palette.border.toComposeColor(), MaterialTheme.shapes.medium),
         ) {
-            ActionIcon(XnotesIcons.trash, stringResource(R.string.delete), shortcut = Keys.DELETE) { host.deleteSelection() }
-            ActionIcon(XnotesIcons.cut, stringResource(R.string.cut)) { host.cutSelection() }
+            val styles = host.selectionStyles()
             ActionIcon(XnotesIcons.copy, stringResource(R.string.copy)) { host.copySelection(); host.dismissSelectionMenu() }
-            ActionIcon(XnotesIcons.front, stringResource(R.string.bring_to_front)) { host.bringToFront(); host.dismissSelectionMenu() }
-            ActionIcon(XnotesIcons.duplicate, stringResource(R.string.duplicate)) { host.duplicateSelection() }
+            ActionIcon(XnotesIcons.cut, stringResource(R.string.cut)) { host.cutSelection() }
+            ActionIcon(XnotesIcons.trash, stringResource(R.string.delete), shortcut = Keys.DELETE) { host.deleteSelection() }
+            Box {
+                ActionIcon(XnotesIcons.palette, stringResource(R.string.change_colour), enabled = styles.isNotEmpty()) { styleOpen = true }
+                if (styleOpen) {
+                    // Closing settles any preview the slider left open.
+                    SelectionStylePopup(host) { host.restyleSelection(null, null); styleOpen = false }
+                }
+            }
+            androidx.compose.material3.TextButton(
+                onClick = { host.addSelectionToAgent() },
+                modifier = Modifier.height(46.dp),
+            ) { Text(stringResource(R.string.add_to_agent), color = palette.accent.toComposeColor(), fontSize = 14.sp) }
             Box {
                 ActionIcon(XnotesIcons.more, stringResource(R.string.more)) { overflowOpen = true }
                 DropdownMenu(
@@ -173,9 +187,14 @@ fun SelectionMenu(host: SelectionMenuHost) {
                     onDismissRequest = { overflowOpen = false },
                     properties = PopupProperties(focusable = false),
                 ) {
-                    // Empty when nothing selected carries ink: an image or a text box has no
-                    // colour-and-width pair to restyle.
-                    val styles = host.selectionStyles()
+                    DropdownMenuItem(
+                        text = { Text(stringResource(R.string.bring_to_front)) },
+                        onClick = { overflowOpen = false; host.bringToFront(); host.dismissSelectionMenu() },
+                    )
+                    DropdownMenuItem(
+                        text = { Text(stringResource(R.string.duplicate)) },
+                        onClick = { overflowOpen = false; host.duplicateSelection() },
+                    )
                     DropdownMenuItem(
                         text = { Text(stringResource(R.string.change_style)) },
                         enabled = styles.isNotEmpty(),
@@ -208,10 +227,6 @@ fun SelectionMenu(host: SelectionMenuHost) {
                         text = { Text(stringResource(R.string.lock)) },
                         onClick = { overflowOpen = false; host.lockSelection() },
                     )
-                }
-                if (styleOpen) {
-                    // Closing settles any preview the slider left open.
-                    SelectionStylePopup(host) { host.restyleSelection(null, null); styleOpen = false }
                 }
             }
         }

@@ -153,6 +153,7 @@ fun InfiniteToolbar(
                         ToolbarIcon(XnotesIcons.bookmark, stringResource(R.string.toolbar_waypoints), active = waypointsOpen) { waypointsOpen = true }
                         if (waypointsOpen) CanvasWaypointsPopup(editor) { waypointsOpen = false }
                     }
+                    ToolbarItem.MORE -> Unit
                     ToolbarItem.MINIMAP ->
                         ToolbarIcon(XnotesIcons.map, stringResource(R.string.toolbar_minimap), active = editor.minimapVisible) {
                             editor.toggleMinimap()

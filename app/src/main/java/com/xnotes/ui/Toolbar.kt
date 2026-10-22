@@ -191,9 +191,16 @@ private fun ToolbarItemView(
         ToolbarItem.SIDEBAR ->
             ToolbarIcon(XnotesIcons.sidebar, stringResource(R.string.side_panel), active = editor.sidebarVisible, shortcut = Keys.SIDEBAR) { editor.toggleSidebar() }
 
+        // InkAgent: one 选择 button — freeform lasso by default, long-press flips to rectangle.
+        ToolbarItem.SELECT -> UnifiedSelectButton(editor, toolIcons, configForTool, setConfigForTool)
+        ToolbarItem.MORE -> MoreMenu(
+            editor, toolIcons, configForTool, setConfigForTool, switcherIndex, setSwitcherIndex,
+            onRename, onOpenBackstage, onInsertImage, onAddStickers, onToggleFullscreen, onImportTemplate,
+        )
+
         ToolbarItem.PEN, ToolbarItem.DASHED, ToolbarItem.CALLIGRAPHY, ToolbarItem.SPEED,
         ToolbarItem.TAPER, ToolbarItem.HIGHLIGHTER, ToolbarItem.ERASER, ToolbarItem.PAN,
-        ToolbarItem.SELECT, ToolbarItem.LASSO, ToolbarItem.SCREENSHOT, ToolbarItem.SHAPE,
+        ToolbarItem.LASSO, ToolbarItem.SCREENSHOT, ToolbarItem.SHAPE,
         ToolbarItem.TEXT, ToolbarItem.TEXT_BOX -> {
             val tool = Tool.fromId(item.id)
             if (tool != null) ToolButton(editor, tool, toolIcons[tool], configForTool, setConfigForTool)
@@ -267,6 +274,92 @@ private fun ToolbarItemView(
                     onClick = { if (i == editor.activeColorIndex) setSwitcherIndex(i) else editor.pickColor(i) },
                 )
                 if (switcherIndex == i) ColorSwitcherPopup(editor, i) { setSwitcherIndex(null) }
+            }
+        }
+    }
+}
+
+/** InkAgent: the single 选择 tool. Tap arms it (lasso or rectangle, whichever is current); tapping it armed opens its
+ *  settings; a long-press flips between freeform lasso and rectangle. */
+@Composable
+private fun UnifiedSelectButton(
+    editor: Editor,
+    toolIcons: Map<Tool, ImageVector>,
+    configForTool: Tool?,
+    setConfigForTool: (Tool?) -> Unit,
+) {
+    val current = if (editor.selectRect) Tool.SELECT else Tool.LASSO
+    val armed = editor.tool == Tool.SELECT || editor.tool == Tool.LASSO
+    val icon = toolIcons[current] ?: return
+    val switchedLasso = stringResource(R.string.switched_lasso)
+    val switchedRect = stringResource(R.string.switched_rect)
+    Box {
+        ToolbarIcon(
+            icon,
+            stringResource(R.string.tool_select_unified),
+            active = armed,
+            glideKey = Tool.SELECT,
+            hint = stringResource(if (editor.selectRect) R.string.select_mode_rect else R.string.select_mode_lasso),
+            onLongClick = {
+                editor.selectRect = !editor.selectRect
+                editor.selectTool(if (editor.selectRect) Tool.SELECT else Tool.LASSO)
+                editor.message = if (editor.selectRect) switchedRect else switchedLasso
+                setConfigForTool(null)
+            },
+        ) {
+            if (armed && editor.tool == current) setConfigForTool(Tool.SELECT)
+            else { editor.selectTool(current); setConfigForTool(null) }
+        }
+        if (configForTool == Tool.SELECT) SelectConfigPopup(editor) { setConfigForTool(null) }
+    }
+}
+
+/** InkAgent: "更多" — every toolbar item the layout hides, drawn with its own control so nothing loses a feature. */
+@OptIn(androidx.compose.foundation.layout.ExperimentalLayoutApi::class)
+@Composable
+private fun MoreMenu(
+    editor: Editor,
+    toolIcons: Map<Tool, ImageVector>,
+    configForTool: Tool?,
+    setConfigForTool: (Tool?) -> Unit,
+    switcherIndex: Int?,
+    setSwitcherIndex: (Int?) -> Unit,
+    onRename: () -> Unit,
+    onOpenBackstage: () -> Unit,
+    onInsertImage: () -> Unit,
+    onAddStickers: () -> Unit,
+    onToggleFullscreen: () -> Unit,
+    onImportTemplate: () -> Unit,
+) {
+    var open by remember { mutableStateOf(false) }
+    val hidden = editor.toolbarLayout.sections.flatMap { sec -> sec.entries.filter { !it.visible }.map { it.item } }
+        .filter { it != ToolbarItem.MORE && it != ToolbarItem.WAYPOINTS && it != ToolbarItem.MINIMAP }
+    val hiddenTools = hidden.mapNotNull { Tool.fromId(it.id) }.toSet() - setOf(Tool.SELECT)
+    Box {
+        ToolbarIcon(XnotesIcons.more, stringResource(R.string.more_tools), active = editor.tool in hiddenTools) { open = true }
+        if (open) androidx.compose.material3.DropdownMenu(expanded = true, onDismissRequest = { open = false; setConfigForTool(null) }) {
+            androidx.compose.runtime.CompositionLocalProvider(LocalToolGlide provides null) {
+                Text(
+                    stringResource(R.string.more_tools),
+                    color = LocalPalette.current.textDim.toComposeColor(),
+                    fontSize = 12.sp,
+                    modifier = Modifier.padding(horizontal = 12.dp, vertical = 4.dp),
+                )
+                androidx.compose.foundation.layout.FlowRow(
+                    modifier = Modifier.widthIn(max = 360.dp).padding(horizontal = 6.dp),
+                    verticalArrangement = Arrangement.Center,
+                ) {
+                    hidden.forEach { item ->
+                        ToolbarItemView(
+                            editor = editor, item = item, toolIcons = toolIcons,
+                            configForTool = configForTool, setConfigForTool = setConfigForTool,
+                            switcherIndex = switcherIndex, setSwitcherIndex = setSwitcherIndex,
+                            onRename = onRename, onOpenBackstage = { open = false; onOpenBackstage() },
+                            onInsertImage = onInsertImage, onAddStickers = onAddStickers,
+                            onToggleFullscreen = onToggleFullscreen, onImportTemplate = onImportTemplate,
+                        )
+                    }
+                }
             }
         }
     }
@@ -472,6 +565,7 @@ private const val GLIDE_MAX_MS = 300
  * bar's tools and its selection is the bar's gliding circle; otherwise [active] fades in a circle
  * of its own.
  */
+@OptIn(ExperimentalFoundationApi::class)
 @Composable
 internal fun ToolbarIcon(
     icon: ImageVector,
@@ -481,6 +575,7 @@ internal fun ToolbarIcon(
     glideKey: Any? = null,
     hint: String? = null,
     shortcut: String? = null,
+    onLongClick: (() -> Unit)? = null,
     onClick: () -> Unit,
 ) {
     val palette = LocalPalette.current
@@ -504,7 +599,10 @@ internal fun ToolbarIcon(
     val press by animateFloatAsState(if (pressed) 0.85f else 1f, spring(dampingRatio = 0.5f, stiffness = Spring.StiffnessMedium), label = "toolPress")
     Tooltip(contentDescription, hint = hint, shortcut = shortcut) {
         Box(
-            Modifier.size(bar.button).clickable(interaction, indication = null, enabled = enabled, role = Role.Button, onClick = onClick),
+            Modifier.size(bar.button).then(
+                if (onLongClick == null) Modifier.clickable(interaction, indication = null, enabled = enabled, role = Role.Button, onClick = onClick)
+                else Modifier.combinedClickable(interaction, indication = null, enabled = enabled, role = Role.Button, onLongClick = onLongClick, onClick = onClick),
+            ),
             contentAlignment = Alignment.Center,
         ) {
             Box(

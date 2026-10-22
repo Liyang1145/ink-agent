@@ -41,7 +41,7 @@ enum class Tool(val id: String) {
         fun fromId(id: String?): Tool? = entries.firstOrNull { it.id == id }
 
         /** Armed at startup. */
-        val DEFAULT = PAN
+        val DEFAULT = PEN
 
         /** Quick-tool-wheel order (spec 06 §11 / 10 §7). */
         val wheelOrder = listOf(PEN, DASHED, CALLIGRAPHY, SPEED, TAPER, HIGHLIGHTER, ERASER, SELECT, LASSO, SCREENSHOT, SHAPE, TEXT, MARKUP, PAN)

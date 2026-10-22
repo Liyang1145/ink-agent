@@ -145,6 +145,8 @@ class MainActivity : ComponentActivity() {
     private var editor: Editor? = null
     // A PDF handed to us by another app ("Open with" / Share); consumed once the editor is ready.
     private var pendingPdfImport by mutableStateOf<Uri?>(null)
+    // InkAgent: the agent side (panel WebView, sessions, tools), created once the editor exists.
+    private var agent: com.inkagent.AgentController? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -159,6 +161,7 @@ class MainActivity : ComponentActivity() {
         setContent {
             val context = LocalContext.current
             val ed = remember { Editor(context).also { editor = it } }
+            val agentCtrl = remember { com.inkagent.AgentController(this@MainActivity) { editor?.active }.also { agent = it } }
             LaunchedEffect(ed.fullscreen) { applyFullscreen(ed.fullscreen) }
             var ready by remember { mutableStateOf(false) }
             LaunchedEffect(Unit) {
@@ -166,11 +169,15 @@ class MainActivity : ComponentActivity() {
                 ed.restoreSession() // heavy load off-thread; loader animates meanwhile
                 val elapsed = android.os.SystemClock.uptimeMillis() - start
                 if (elapsed < MIN_LOADER_MS) kotlinx.coroutines.delay(MIN_LOADER_MS - elapsed)
+                com.inkagent.ui.openStartupNote(ed)
                 ready = true
+                agentCtrl.applyTestExtras(intent)
+                applyFingerExtra(intent)
                 ed.prewarmBackstage() // warm recents/explorer caches so the first backstage open is instant
             }
             XnotesTheme(ed.palette, ed.cornerStyle) {
                 CompositionLocalProvider(com.xnotes.ui.LocalToolbarLook provides ed.toolbarLook) {
+                  com.inkagent.ui.AgentShell(agentCtrl) {
                     Box(modifier = Modifier.fillMaxSize()) {
                         if (ready) EditorScreen(
                             ed,
@@ -187,6 +194,7 @@ class MainActivity : ComponentActivity() {
                             com.xnotes.ui.XnotesLoader()
                         }
                     }
+                  }
                 }
             }
         }
@@ -224,6 +232,8 @@ class MainActivity : ComponentActivity() {
         super.onNewIntent(intent)
         setIntent(intent)
         pdfImportUri(intent)?.let { pendingPdfImport = it }
+        agent?.applyTestExtras(intent)
+        applyFingerExtra(intent)
     }
 
     // The PDF uri carried by an inbound VIEW ("Open with") or SEND ("Share") intent, else null.
@@ -235,6 +245,17 @@ class MainActivity : ComponentActivity() {
                 IntentCompat.getParcelableExtra(intent, Intent.EXTRA_STREAM, Uri::class.java)
             else null
         else -> null
+    }
+
+    /** Debug hook (tests/e2e.py): --ez test_finger true|false toggles drawing with a finger. */
+    private fun applyFingerExtra(i: Intent?) {
+        if (applicationInfo.flags and android.content.pm.ApplicationInfo.FLAG_DEBUGGABLE == 0) return
+        val ed = editor ?: return
+        if (i?.hasExtra("test_finger") != true) return
+        val on = i.getBooleanExtra("test_finger", false)
+        ed.applyPreferences(ed.preferences.copy(fingerDraws = on))
+        ed.controller.fingerDraws = on
+        i.getStringExtra("test_tool")?.let { t -> com.xnotes.core.tools.Tool.fromId(t)?.let { ed.selectTool(it) } }
     }
 
     // uiMode is in configChanges, so a system dark/light flip lands here instead of recreating us.

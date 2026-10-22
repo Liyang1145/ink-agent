@@ -3349,6 +3349,9 @@ class InteractionController(
         maybeSwitchBackAfterSelect()
     }
 
+    /** InkAgent: a snapshot of what is selected right now (page index + item). */
+    fun selectedItems(): List<Selected> = selection.toList()
+
     fun selectAll() {
         val all = ArrayList<Selected>()
         state.document.pages.forEachIndexed { i, page ->

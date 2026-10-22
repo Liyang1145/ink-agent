@@ -575,6 +575,8 @@ class Editor(context: Context, val pane: Pane = Pane.PRIMARY) : ToolPopupHost, S
     var wandEnabled by mutableStateOf(false)
         private set
     var hasSelection by mutableStateOf(false)
+    /** InkAgent unified 选择 tool: false = freeform lasso (default), true = rectangle. Long-press the icon to flip. */
+    var selectRect by mutableStateOf(false)
         private set
     var shapeConfig by mutableStateOf(ShapeConfig())
         private set
@@ -6136,6 +6138,92 @@ class Editor(context: Context, val pane: Pane = Pane.PRIMARY) : ToolPopupHost, S
             out.toByteArray()
         }
     }
+
+    // --- InkAgent: hooks for the agent's canvas tools and the selection → agent tray ---
+
+    /** Render the current selection (its items only, on white) to PNG bytes, longest side ≤ [maxSide]. */
+    fun selectionPng(maxSide: Int = 1600): ByteArray? {
+        val sel = controller.selectedItems()
+        if (sel.isEmpty()) return null
+        var b = sel.first().item.paintBounds()
+        for (s in sel) b = b.union(s.item.paintBounds())
+        b = b.outset(12.0)
+        val scale = minOf(3.0, maxSide / maxOf(b.w, b.h, 1.0))
+        val w = (b.w * scale).toInt().coerceAtLeast(1)
+        val h = (b.h * scale).toInt().coerceAtLeast(1)
+        val surface = com.xnotes.platform.AndroidRasterSurface.create(w, h)
+        surface.fill(Rgba(255, 255, 255))
+        val r = surface.renderer()
+        r.scale(scale, scale)
+        r.translate(-b.left, -b.top)
+        for (s in sel) s.item.paint(r)
+        return java.io.ByteArrayOutputStream().use { out ->
+            surface.bitmap.compress(android.graphics.Bitmap.CompressFormat.PNG, 100, out)
+            out.toByteArray()
+        }
+    }
+
+    override fun addSelectionToAgent() {
+        val png = selectionPng() ?: return
+        com.inkagent.AgentBridge.attachPng(png)
+        selectionMenu = null
+        message = appContext.getString(R.string.added_to_agent)
+    }
+
+    /** Render page [index] (paper + items) so its longest side is about [maxSide] px; optional [region] in page units. */
+    fun agentRenderPage(index: Int, maxSide: Int = 1600, region: Rect? = null): android.graphics.Bitmap? {
+        val page = pageAt(index) ?: return null
+        val cover = state.footprint(page)
+        val full = renderThumbnail(page, (maxSide * cover.w / maxOf(cover.w, cover.h)).toInt().coerceAtLeast(64)) ?: return null
+        if (region == null) return full
+        val sc = full.width / cover.w
+        val l = ((region.left - cover.left) * sc).toInt().coerceIn(0, full.width - 1)
+        val t = ((region.top - cover.top) * sc).toInt().coerceIn(0, full.height - 1)
+        val rr = ((region.right - cover.left) * sc).toInt().coerceIn(l + 1, full.width)
+        val bb = ((region.bottom - cover.top) * sc).toInt().coerceIn(t + 1, full.height)
+        val crop = android.graphics.Bitmap.createBitmap(full, l, t, rr - l, bb - t)
+        val up = maxSide.toDouble() / maxOf(crop.width, crop.height)
+        return if (up > 1.2) android.graphics.Bitmap.createScaledBitmap(crop, (crop.width * minOf(up, 3.0)).toInt(), (crop.height * minOf(up, 3.0)).toInt(), true) else crop
+    }
+
+    /** Add an image item (e.g. an agent-rendered formula) at [rect] on page [index], as one undoable edit. Returns the item. */
+    fun agentInsertImage(index: Int, bytes: ByteArray, rect: Rect): ImageItem? {
+        val page = pageAt(index) ?: return null
+        val file = runCatching { java.io.File.createTempFile("ai", null, imageDir).apply { writeBytes(bytes) } }.getOrNull() ?: return null
+        val size = imageCodec.probeFile(file.path) ?: return null
+        val item = ImageItem(ImageData(file, size.width, size.height), rect)
+        page.items.add(item)
+        state.appendToCache(page, item)
+        history.push(AddItem(page, item))
+        state.document.dirty = true
+        refreshContent()
+        view.requestRender()
+        return item
+    }
+
+    /** Remove [items] from page [index] as one undoable edit. */
+    fun agentRemoveItems(index: Int, items: List<CanvasItem>) {
+        val page = pageAt(index) ?: return
+        if (items.isEmpty()) return
+        controller.clearSelection()
+        val removals = items.map { page to it }
+        for ((p, item) in removals) p.items.remove(item)
+        history.push(EraseItems(removals))
+        state.document.dirty = true
+        state.invalidatePage(page)
+        refreshContent()
+        view.requestRender()
+    }
+
+    /** InkAgent startup: show the note the session snapshot restored (when it lives in a folder). */
+    fun agentShowRestored(): Boolean {
+        if (canvasOpen || state.document.path == null) return false
+        noteOpen = true
+        return true
+    }
+
+    /** The paged note's current page index (0-based) and page count. */
+    fun agentCurrentPage(): Int = state.currentPageIndex()
 
     // --- selection edits ---
 

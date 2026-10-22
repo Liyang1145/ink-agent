@@ -1,0 +1,206 @@
+<!DOCTYPE html>
+<html lang="zh"><head><meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1,user-scalable=no">
+<style>
+:root{--label-1:#1f2329;--label-2:#4e5561;--label-3:#8a8f99;--label-4:#b5b9c1;--border:#e6e8eb;--fill:#f5f6f7;--fill-2:#eceef1;
+  --accent:#4d6bfe;--danger:#d93025;--ok:#2fb36b;--card:#fff;--bg:#f7f8fa;--mono:ui-monospace,"JetBrains Mono",Menlo,Consolas,monospace;}
+*{box-sizing:border-box;}
+html,body{margin:0;background:var(--bg);color:var(--label-1);font:14px/1.6 -apple-system,"PingFang SC","Noto Sans SC",sans-serif;-webkit-tap-highlight-color:transparent;}
+button{font:inherit;color:inherit;background:none;border:none;padding:0;cursor:pointer;}
+#top{position:sticky;top:0;z-index:5;display:flex;align-items:center;height:52px;padding:0 16px;background:rgba(247,248,250,.96);border-bottom:.5px solid var(--border);}
+#top h1{flex:1;font-size:17px;margin:0;font-weight:600;}
+#top .done{height:32px;padding:0 16px;border-radius:8px;background:var(--accent);color:#fff;}
+#nav{display:flex;gap:4px;padding:10px 16px 0;overflow-x:auto;}
+#nav button{height:32px;padding:0 14px;border-radius:16px;color:var(--label-2);white-space:nowrap;}
+#nav button.on{background:#fff;color:var(--label-1);font-weight:600;box-shadow:0 0 0 .5px var(--border);}
+main{max-width:760px;margin:0 auto;padding:12px 16px 60px;}
+section{display:none;flex-direction:column;gap:12px;}
+section.on{display:flex;}
+.title{font-size:16px;font-weight:500;margin:4px 0 0;}
+.intro{color:var(--label-3);margin:0;}
+.card{border:.5px solid var(--border);background:var(--card);border-radius:14px;padding:12px 14px;display:flex;flex-direction:column;gap:12px;}
+.head{display:flex;align-items:center;gap:10px;}
+.ident{display:inline-flex;align-items:center;gap:6px;min-width:0;flex:1;}
+.name{font-weight:500;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;}
+.tag{flex:none;padding:1px 6px;border:.5px solid var(--border);border-radius:4px;font-size:11px;line-height:16px;color:var(--label-2);}
+.dot{flex:none;width:8px;height:8px;border-radius:50%;background:var(--label-4);}
+.dot.ok{background:var(--ok);} .dot.error{background:var(--danger);} .dot.missing{background:var(--danger);}
+.sub{font-size:12.5px;color:var(--label-3);overflow:hidden;text-overflow:ellipsis;white-space:nowrap;}
+.btn{height:30px;padding:0 12px;border-radius:8px;border:.5px solid var(--border);background:#fff;font-size:13px;white-space:nowrap;}
+.btn.primary{background:var(--accent);border-color:var(--accent);color:#fff;}
+.btn.danger{color:var(--danger);}
+.btn:disabled{opacity:.5;}
+.editor{display:flex;flex-direction:column;gap:12px;background:var(--fill);border-radius:10px;padding:12px;}
+.field{display:flex;flex-direction:column;gap:4px;}
+.field label{font-size:12.5px;color:var(--label-2);}
+.field input,.field select,.field textarea{height:36px;border:.5px solid #d9dce1;border-radius:8px;padding:0 10px;font:inherit;background:#fff;outline:none;width:100%;}
+.field textarea{height:auto;min-height:90px;padding:8px 10px;font-family:var(--mono);font-size:12.5px;}
+.field .hint{font-size:12px;color:var(--label-3);}
+.keyrow{display:flex;gap:6px;} .keyrow input{flex:1;}
+.models{display:flex;flex-wrap:wrap;gap:6px;}
+.chip{display:inline-flex;align-items:center;gap:4px;height:28px;padding:0 4px 0 10px;border-radius:14px;background:#fff;border:.5px solid var(--border);font-size:12.5px;font-family:var(--mono);}
+.chip button{width:20px;height:20px;border-radius:10px;color:var(--label-3);}
+.row{display:flex;gap:8px;flex-wrap:wrap;align-items:center;}
+.foot{display:flex;justify-content:flex-end;gap:8px;}
+.msg{font-size:12.5px;color:var(--label-3);} .msg.err{color:var(--danger);} .msg.ok{color:var(--ok);}
+.add{height:40px;border:.5px dashed #c9cdd4;border-radius:12px;color:var(--label-2);background:#fff;}
+#pick{position:fixed;inset:0;background:rgba(0,0,0,.25);display:none;align-items:center;justify-content:center;z-index:9;}
+#pick .box{background:#fff;border-radius:14px;width:min(420px,92%);max-height:80%;display:flex;flex-direction:column;padding:14px;gap:8px;}
+#pick .list{overflow-y:auto;flex:1;}
+#pick label{display:flex;gap:8px;align-items:center;padding:4px 0;font-family:var(--mono);font-size:13px;}
+</style></head>
+<body>
+<div id="top"><h1>设置</h1><button class="done" onclick="Settings.close()">完成</button></div>
+<div id="nav">
+  <button data-s="models" class="on">模型</button>
+  <button data-s="default">默认模型</button>
+  <button data-s="agent">Agent</button>
+  <button data-s="search">联网搜索</button>
+  <button data-s="price">用量与价格</button>
+</div>
+<main>
+<section id="models" class="on">
+  <p class="title">模型</p>
+  <p class="intro">填入各提供商的 API 密钥即可使用其模型。</p>
+  <div id="plist" style="display:flex;flex-direction:column;gap:8px"></div>
+  <button class="add" onclick="addProvider()">＋ 添加模型提供商</button>
+</section>
+<section id="default">
+  <p class="title">默认模型</p>
+  <p class="intro">新对话和输入框里的模型选择默认用这里的设置；不设温度，只选推理强度。</p>
+  <div class="card">
+    <div class="field"><label>服务商</label><select id="dProv" onchange="fillModels()"></select></div>
+    <div class="field"><label>模型</label><select id="dModel"></select></div>
+    <div class="field"><label>推理强度</label><select id="dEffort"></select></div>
+    <div class="field"><label>最大输出 token 数</label><input id="dMax" inputmode="numeric" placeholder="使用提供商默认值"></div>
+    <div class="foot"><span class="msg" id="dMsg"></span><button class="btn primary" onclick="saveDefault()">保存</button></div>
+  </div>
+</section>
+<section id="agent">
+  <p class="title">Agent</p>
+  <div class="card">
+    <div class="field"><label>工作步骤展示</label><select id="aMode">
+      <option value="compact">简洁</option><option value="standard">标准</option><option value="detailed">详细</option><option value="verbose">完全展开</option></select>
+      <span class="hint">选择希望看到多少工具调用细节。</span></div>
+    <div class="field"><label>工作步骤收起时机</label><select id="aTiming"><option value="completion">回答结束后</option><option value="next-input">下次有新消息时</option></select></div>
+    <div class="field"><label>系统提示词</label><textarea id="aSys" placeholder="留空即无系统提示词" style="font-family:inherit;font-size:14px"></textarea></div>
+    <div class="foot"><span class="msg" id="aMsg"></span><button class="btn primary" onclick="saveGeneral('a')">保存</button></div>
+  </div>
+</section>
+<section id="search">
+  <p class="title">联网搜索</p>
+  <p class="intro">web_search 工具使用 Tavily（免费 1000 次/月）。</p>
+  <div class="card">
+    <div class="field"><label>Tavily API 密钥</label><div class="keyrow"><input id="sKey" type="password" autocomplete="off"></div></div>
+    <div class="foot"><span class="msg" id="sMsg"></span><button class="btn primary" onclick="saveGeneral('s')">保存</button></div>
+  </div>
+</section>
+<section id="price">
+  <p class="title">用量与价格</p>
+  <p class="intro">页脚的费用按此价格表计算（元 / 百万 tokens）。hit = 缓存命中输入，miss = 缓存未命中输入，out = 输出；每项为 [空闲时段, 高峰时段]；ctx = 上下文窗口。默认值取自 DeepSeek 官方价格页（高峰：北京时间工作日 9:00–12:00、14:00–18:00）。</p>
+  <div class="card">
+    <div class="field"><label>价格表（JSON）</label><textarea id="pJson" style="min-height:200px"></textarea></div>
+    <div class="foot"><span class="msg" id="pMsg"></span><button class="btn" onclick="resetPricing()">恢复默认</button><button class="btn primary" onclick="saveGeneral('p')">保存</button></div>
+  </div>
+</section>
+</main>
+<div id="pick"><div class="box"><div style="font-weight:600">选择要添加的模型</div><div class="intro" style="font-size:12.5px">这些是该提供商当前可用的模型，选择要加入模型目录的。</div>
+  <div class="row"><button class="btn" onclick="pickAll(true)">全选</button><button class="btn" onclick="pickAll(false)">全不选</button></div>
+  <div class="list" id="pickList"></div>
+  <div class="foot"><button class="btn" onclick="closePick()">取消</button><button class="btn primary" onclick="adoptPick()">添加所选</button></div></div></div>
+<script>
+var S=null, open={}, drafts={}, cbN=0, cbs={};
+function $(id){return document.getElementById(id);}
+function esc(s){return String(s==null?'':s).replace(/[&<>"]/g,function(c){return {'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c];});}
+document.querySelectorAll('#nav button').forEach(function(b){ b.onclick=function(){ document.querySelectorAll('#nav button').forEach(function(x){x.classList.toggle('on',x===b);}); document.querySelectorAll('section').forEach(function(x){x.classList.toggle('on',x.id===b.dataset.s);}); }; });
+function load(){ S=JSON.parse(Settings.getState()); render(); }
+var PROTO={'ANTHROPIC_MESSAGES':'Anthropic Messages','OPENAI_CHAT':'OpenAI Chat Completions'};
+function render(){
+  var box=$('plist'); box.innerHTML='';
+  S.providers.forEach(function(p){ box.appendChild(card(p)); });
+  Object.keys(drafts).forEach(function(k){ if(k.indexOf('new')===0) box.appendChild(card(drafts[k], true)); });
+  // default model
+  var dp=$('dProv'); dp.innerHTML=''; S.providers.forEach(function(p){ var o=document.createElement('option'); o.value=p.id; o.textContent=p.name; dp.appendChild(o); });
+  dp.value=S.providerId; fillModels(); $('dModel').value=S.model; $('dMax').value=S.maxTokens||'';
+  $('aMode').value=S.transcriptMode; $('aTiming').value=S.collapseTiming; $('aSys').value=S.systemPrompt;
+  $('sKey').value=''; $('sKey').placeholder=S.tavilySet?'留空使用已保存凭据（'+S.tavilyMasked+'）':'输入 API 密钥';
+  $('pJson').value=S.pricing;
+}
+function fillModels(){
+  var p=S.providers.filter(function(x){return x.id===$('dProv').value;})[0]; var m=$('dModel'), e=$('dEffort'); m.innerHTML=''; e.innerHTML='';
+  if(!p) return;
+  p.models.forEach(function(id){ var o=document.createElement('option'); o.value=id; o.textContent=id; m.appendChild(o); });
+  p.efforts.forEach(function(id){ var o=document.createElement('option'); o.value=id; o.textContent=S.effortLabels[id]||id; e.appendChild(o); });
+  e.value=p.efforts.indexOf(S.effort)>=0?S.effort:p.efforts[0];
+}
+function card(p, isNew){
+  var c=document.createElement('div'); c.className='card';
+  var st=!p.keySet&&!isNew?'missing':(p.status||'unknown');
+  var stLabel={ok:'连通正常',error:'连通失败',missing:'API 密钥缺失',unknown:p.keySet?'API 密钥已配置':'未测试'}[st];
+  if(!isNew){
+    c.innerHTML='<div class="head"><span class="ident"><span class="dot '+st+'" title="'+esc(stLabel)+'"></span><span class="name">'+esc(p.name)+'</span><span class="tag">'+esc(PROTO[p.protocol])+'</span></span>'+
+      '<button class="btn" data-a="edit">'+(open[p.id]?'收起':'编辑')+'</button><button class="btn danger" data-a="del">删除</button></div>'+
+      '<div class="sub">'+esc(p.baseUrl)+' · '+p.models.length+' 个模型 · '+esc(stLabel)+'</div>';
+    c.querySelector('[data-a=edit]').onclick=function(){ open[p.id]=!open[p.id]; if(open[p.id]) drafts[p.id]=JSON.parse(JSON.stringify(p)); else delete drafts[p.id]; render(); };
+    c.querySelector('[data-a=del]').onclick=function(){ if(confirmBox('删除 '+p.name+' 会移除其配置和存储的 API 密钥。')){ Settings.deleteProvider(p.id); load(); } };
+  } else {
+    c.innerHTML='<div class="head"><span class="ident"><span class="name">添加模型提供商</span><span class="tag">自定义</span></span></div>';
+  }
+  if(open[p.id]||isNew) c.appendChild(editor(drafts[p.id]||p, isNew));
+  return c;
+}
+function editor(d, isNew){
+  var e=document.createElement('div'); e.className='editor';
+  e.innerHTML=
+    '<div class="field"><label>显示名称</label><input data-f="name"></div>'+
+    '<div class="field"><label>API 地址</label><input data-f="baseUrl" placeholder="https://gateway.example/v1" inputmode="url"></div>'+
+    '<div class="field"><label>API 协议</label><select data-f="protocol"><option value="OPENAI_CHAT">OpenAI Chat Completions</option><option value="ANTHROPIC_MESSAGES">Anthropic Messages</option></select></div>'+
+    '<div class="field"><label>API 密钥</label><div class="keyrow"><input data-f="key" type="password" autocomplete="off"><button class="btn" data-a="reveal">显示密钥</button></div></div>'+
+    '<div class="field"><label>模型目录</label><div class="models"></div><div class="row"><input data-f="newModel" placeholder="模型 ID" style="flex:1;min-width:120px;height:32px;border:.5px solid #d9dce1;border-radius:8px;padding:0 10px;font:inherit"><button class="btn" data-a="addm">添加模型</button></div>'+
+      '<div class="row"><button class="btn" data-a="fetch">获取可用模型</button><button class="btn" data-a="reset">恢复默认模型</button></div><span class="hint" data-f="mhint"></span></div>'+
+    '<div class="foot"><span class="msg" data-f="msg"></span><button class="btn" data-a="cancel">取消</button><button class="btn primary" data-a="save">'+(isNew?'创建':'保存')+'</button></div>';
+  var q=function(s){return e.querySelector(s);};
+  q('[data-f=name]').value=d.name||''; q('[data-f=baseUrl]').value=d.baseUrl||''; q('[data-f=protocol]').value=d.protocol||'OPENAI_CHAT';
+  var key=q('[data-f=key]'); key.value=d.newKey||''; key.placeholder=d.keySet?'留空使用已保存凭据（'+d.keyMasked+'）':'输入 API 密钥';
+  ['name','baseUrl','protocol'].forEach(function(f){ q('[data-f='+f+']').oninput=q('[data-f='+f+']').onchange=function(){ d[f]=this.value; }; });
+  key.oninput=function(){ d.newKey=key.value; };
+  q('[data-a=reveal]').onclick=function(){ key.type=key.type==='password'?'text':'password'; this.textContent=key.type==='password'?'显示密钥':'隐藏密钥'; };
+  function chips(){ var m=q('.models'); m.innerHTML=''; (d.models||[]).forEach(function(id,i){ var c=document.createElement('span'); c.className='chip'; c.innerHTML=esc(id)+'<button aria-label="删除模型">✕</button>'; c.querySelector('button').onclick=function(){ d.models.splice(i,1); chips(); }; m.appendChild(c); });
+    q('[data-f=mhint]').textContent=(d.models||[]).length?'':'模型目录为空时选择器里不会显示模型。'; }
+  chips();
+  q('[data-a=addm]').onclick=function(){ var v=q('[data-f=newModel]').value.trim(); if(!v) return; d.models=d.models||[]; if(d.models.indexOf(v)<0) d.models.push(v); q('[data-f=newModel]').value=''; chips(); };
+  q('[data-a=reset]').onclick=function(){ var dm=JSON.parse(Settings.defaultModels(d.id||'')); if(dm.length){ d.models=dm; chips(); msg('已恢复默认模型'); } else msg('该提供商没有内置默认模型', true); };
+  function msg(t, err){ var m=q('[data-f=msg]'); m.textContent=t; m.className='msg'+(err?' err':''); }
+  q('[data-a=fetch]').onclick=function(){
+    if(!d.baseUrl){ msg('请先填写 API 地址，再获取。', true); return; }
+    msg('正在请求提供商…'); var id='cb'+(++cbN);
+    cbs[id]=function(err, list){ if(err){ msg('获取失败：'+err, true); return; } if(!list.length){ msg('提供商没有列出模型，请手动添加。', true); return; } msg('获取到 '+list.length+' 个模型'); openPick(list, d.models||[], function(sel){ d.models=sel; chips(); }); };
+    Settings.fetchModels(JSON.stringify({id:d.id||'',name:d.name,baseUrl:d.baseUrl,protocol:d.protocol,newKey:d.newKey||''}), id);
+  };
+  q('[data-a=cancel]').onclick=function(){ delete drafts[d.id||d._nid]; delete open[d.id]; render(); };
+  q('[data-a=save]').onclick=function(){
+    if(!d.baseUrl||!/^https?:\/\//.test(d.baseUrl)){ msg('请输入合法的 HTTP 或 HTTPS 地址。', true); return; }
+    var r=Settings.saveProvider(JSON.stringify({id:d.id||'',name:d.name||'',baseUrl:d.baseUrl,protocol:d.protocol||'OPENAI_CHAT',newKey:d.newKey||'',models:d.models||[]}));
+    if(r!=='ok'){ msg(r, true); return; }
+    delete drafts[d.id||d._nid]; delete open[d.id]; load();
+  };
+  return e;
+}
+function addProvider(){ var nid='new'+(++cbN); drafts[nid]={_nid:nid,name:'',baseUrl:'',protocol:'OPENAI_CHAT',models:[],keySet:false}; render(); }
+window.onModels=function(id, err, json){ var f=cbs[id]; delete cbs[id]; if(f) f(err||null, json?JSON.parse(json):[]); };
+var pickCb=null;
+function openPick(list, have, cb){ pickCb=cb; var l=$('pickList'); l.innerHTML=''; list.forEach(function(id){ var lb=document.createElement('label'); lb.innerHTML='<input type="checkbox" value="'+esc(id)+'"'+(have.indexOf(id)>=0||!have.length?' checked':'')+'> '+esc(id); l.appendChild(lb); }); $('pick').style.display='flex'; }
+function pickAll(b){ $('pickList').querySelectorAll('input').forEach(function(i){i.checked=b;}); }
+function closePick(){ $('pick').style.display='none'; }
+function adoptPick(){ var sel=[]; $('pickList').querySelectorAll('input').forEach(function(i){ if(i.checked) sel.push(i.value); }); closePick(); if(pickCb) pickCb(sel); }
+function confirmBox(t){ return window.confirm(t); }
+function saveDefault(){ var r=Settings.saveDefault(JSON.stringify({providerId:$('dProv').value,model:$('dModel').value,effort:$('dEffort').value,maxTokens:$('dMax').value})); $('dMsg').textContent=r==='ok'?'已保存':r; $('dMsg').className='msg '+(r==='ok'?'ok':'err'); load(); }
+function saveGeneral(w){
+  var o={}; if(w==='a'){ o.transcriptMode=$('aMode').value; o.collapseTiming=$('aTiming').value; o.systemPrompt=$('aSys').value; }
+  if(w==='s'){ if($('sKey').value) o.tavilyKey=$('sKey').value; }
+  if(w==='p'){ o.pricing=$('pJson').value; }
+  var r=Settings.saveGeneral(JSON.stringify(o)); var m=$(w+'Msg'); m.textContent=r==='ok'?'已保存':r; m.className='msg '+(r==='ok'?'ok':'err'); if(r==='ok') load();
+}
+function resetPricing(){ $('pJson').value=S.defaultPricing; }
+load();
+</script></body></html>
