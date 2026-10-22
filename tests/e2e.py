@@ -65,7 +65,7 @@ def line(x1, y1, x2, y2, n=8):
     return [(int(x1 + (x2 - x1) * i / n), int(y1 + (y2 - y1) * i / n)) for i in range(n + 1)]
 
 def session_text():
-    return adb(f"shell run-as {PKG} sh -c 'cat files/sessions/*.jsonl'", timeout=30)
+    return adb(f"shell \"run-as {PKG} sh -c 'cat files/sessions/*.jsonl' 2>/dev/null\"", timeout=60)
 
 def wait_turn_end(n_expected, limit=240, every=15, tag='wait'):
     t0 = time.time(); k = 0
@@ -79,7 +79,13 @@ def wait_turn_end(n_expected, limit=240, every=15, tag='wait'):
     note('!! turn did not finish in time'); return session_text()
 
 def launch(extra=''):
-    adb(f'shell am start -W -n {PKG}/.MainActivity {extra}', timeout=60)
+    out = adb(f'shell am start -W -n {PKG}/.MainActivity {extra}', timeout=90)
+    note('am start: ' + ' | '.join(l for l in out.splitlines() if l.strip() and 'test_key' not in l)[:300])
+    time.sleep(3)
+    pid = adb(f'shell pidof {PKG}').strip()
+    note('pid: ' + (pid or 'NOT RUNNING'))
+    if not pid:
+        note('crash buffer:\n' + adb('logcat -d -b crash', timeout=30)[-4000:])
 
 def main():
     size = adb('shell wm size')
@@ -88,7 +94,7 @@ def main():
     note(f'screen {W}x{H}')
     adb('install -r -g app/build/outputs/apk/debug/app-debug.apk', check=True, timeout=180)
     adb('shell settings put system accelerometer_rotation 0')
-    adb('shell settings put system user_rotation 1')
+    adb('shell cmd window user-rotation lock 1')
     adb('logcat -c')
     launch(f'--es test_key {KEY} --ez test_finger true --es test_mode compact --es test_effort high')
     time.sleep(6)
@@ -177,14 +183,19 @@ def main():
     launch('--es test_mode compact')
     return finish()
 
+def safe(f, *a):
+    try: return f(*a)
+    except Exception as e: note(f'!! finish step failed: {e}'); return ''
+
 def finish():
-    txt = session_text()
+    open(f'{OUT}/logcat.txt', 'w').write(safe(adb, 'logcat -d -v time') or '')
+    open(f'{OUT}/report.txt', 'w').write('\n'.join(report))
+    txt = safe(session_text)
     open(f'{OUT}/session.jsonl', 'w').write(txt)
-    adb(f"shell run-as {PKG} sh -c 'cat files/notebook/notebook.json'") and open(f'{OUT}/notebook.json', 'w').write(adb(f"shell run-as {PKG} sh -c 'cat files/notebook/notebook.json'"))
+    open(f'{OUT}/notebook.json', 'w').write(safe(adb, f"shell run-as {PKG} cat files/notebook/notebook.json") or '')
     os.makedirs(f'{OUT}/ai', exist_ok=True)
-    for f in adb(f"shell run-as {PKG} ls files/notebook/ai").split():
+    for f in (safe(adb, f"shell run-as {PKG} ls files/notebook/ai") or '').split():
         subprocess.run(f"adb exec-out run-as {PKG} cat files/notebook/ai/{f} > {OUT}/ai/{f}", shell=True)
-    open(f'{OUT}/logcat.txt', 'w').write(adb('logcat -d -v time', timeout=60))
     # summary
     for line in txt.splitlines():
         try: e = json.loads(line)
