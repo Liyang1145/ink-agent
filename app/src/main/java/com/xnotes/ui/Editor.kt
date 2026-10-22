@@ -575,9 +575,9 @@ class Editor(context: Context, val pane: Pane = Pane.PRIMARY) : ToolPopupHost, S
     var wandEnabled by mutableStateOf(false)
         private set
     var hasSelection by mutableStateOf(false)
+        private set
     /** InkAgent unified 选择 tool: false = freeform lasso (default), true = rectangle. Long-press the icon to flip. */
     var selectRect by mutableStateOf(false)
-        private set
     var shapeConfig by mutableStateOf(ShapeConfig())
         private set
     var message by mutableStateOf<String?>(null)
