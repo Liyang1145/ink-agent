@@ -69,7 +69,7 @@ class AgentController(private val activity: Activity, private val editorRef: () 
     }
 
     // ---------------- panel placement (read by AgentShell) ----------------
-    fun setCollapsed(b: Boolean) { collapsed = b; settings.panelCollapsed = b }
+    fun updateCollapsed(b: Boolean) { collapsed = b; settings.panelCollapsed = b }
     fun commitWidth() { settings.panelWidthDp = widthDp }
 
     // ---------------- agent events → UI ----------------
@@ -108,7 +108,7 @@ class AgentController(private val activity: Activity, private val editorRef: () 
         override fun onOpenSettings() = openSettings()
         override fun onStop() = agent.cancel()
         override fun currentPage() = (editorRef()?.agentCurrentPage() ?: 0) + 1
-        override fun onCollapse() = setCollapsed(true)
+        override fun onCollapse() = updateCollapsed(true)
         override fun listSessions(): String {
             val a = JSONArray()
             store.list().filter { it.hasContent || it.id == agent.session.id }.forEach {
@@ -140,7 +140,7 @@ class AgentController(private val activity: Activity, private val editorRef: () 
         val id = "c" + System.nanoTime().toString(36)
         val p = PendingConfirm(CountDownLatch(1))
         synchronized(confirms) { confirms[id] = p }
-        ui.post { if (collapsed) setCollapsed(false); panel.showConfirm(id, title, lines) }
+        ui.post { if (collapsed) updateCollapsed(false); panel.showConfirm(id, title, lines) }
         val answered = p.latch.await(10, TimeUnit.MINUTES)
         if (!answered) { synchronized(confirms) { confirms.remove(id) }; ui.post { panel.resolveConfirm(id, false) } }
         return answered && p.ok
@@ -169,7 +169,7 @@ class AgentController(private val activity: Activity, private val editorRef: () 
         ui.post {
             attachments.add(savePngBytes(attachDir, bytes, "sel"))
             renderTray()
-            if (collapsed) setCollapsed(false)
+            if (collapsed) updateCollapsed(false)
         }
     }
 
@@ -360,7 +360,7 @@ class AgentController(private val activity: Activity, private val editorRef: () 
         i.getStringExtra("test_model")?.let { settings.model = it }
         i.getStringExtra("test_effort")?.let { settings.effort = it }
         i.getStringExtra("test_mode")?.let { settings.transcriptMode = it; panel.setPolicy(it, settings.collapseTiming); panel.replay(agent.session) }
-        if (i.hasExtra("test_collapsed")) setCollapsed(i.getBooleanExtra("test_collapsed", false))
+        if (i.hasExtra("test_collapsed")) updateCollapsed(i.getBooleanExtra("test_collapsed", false))
         if (i.getBooleanExtra("test_settings", false)) ui.postDelayed({ openSettings() }, 500)
         if (i.getBooleanExtra("test_sessions", false)) ui.postDelayed({ panel.openSessions() }, 500)
         updateHeader(); pushStats()

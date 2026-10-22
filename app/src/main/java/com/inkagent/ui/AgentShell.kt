@@ -117,7 +117,7 @@ fun AgentShell(ctrl: AgentController, content: @Composable () -> Unit) {
                 .shadow(8.dp, CircleShape).clip(CircleShape).background(Color(0xFF4D6BFE))
                 .border(2.dp, Color.White, CircleShape)
                 .semantics { contentDescription = "展开 Agent" }
-                .clickable { ctrl.setCollapsed(false) },
+                .clickable { ctrl.updateCollapsed(false) },
             contentAlignment = Alignment.Center,
         ) { Text("AI", color = Color.White, fontSize = 20.sp) }
     }
