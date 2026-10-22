@@ -2,331 +2,445 @@ package com.inkagent
 
 import android.app.Activity
 import android.app.AlertDialog
-import android.content.Context
 import android.graphics.Bitmap
 import android.graphics.Color
+import android.graphics.RectF
 import android.graphics.Typeface
 import android.graphics.drawable.GradientDrawable
 import android.os.Bundle
 import android.os.Handler
 import android.os.Looper
 import android.text.InputType
-import android.util.Base64
 import android.view.Gravity
 import android.view.View
-import android.view.ViewGroup
 import android.widget.*
-import org.json.JSONArray
-import org.json.JSONObject
-import java.io.ByteArrayOutputStream
+import com.inkagent.agent.*
+import com.inkagent.llm.*
+import com.inkagent.note.Notebook
+import com.inkagent.note.PageView
+import com.inkagent.ui.ChatView
+import com.inkagent.ui.Rasterizer
+import java.io.File
 
 class MainActivity : Activity() {
 
-    private lateinit var ink: InkView
-    private lateinit var chatList: LinearLayout
-    private lateinit var chatScroll: ScrollView
+    private lateinit var settings: Settings
+    private lateinit var notebook: Notebook
+    private lateinit var pageView: PageView
+    private lateinit var raster: Rasterizer
+    private lateinit var chat: ChatView
+    private lateinit var store: SessionStore
+    private lateinit var agent: Agent
+    private val tools = ToolRegistry()
+
     private lateinit var input: EditText
-    private lateinit var preview: ImageView
-    private lateinit var previewBox: LinearLayout
     private lateinit var sendBtn: Button
-    private val toolButtons = HashMap<InkView.Tool, Button>()
+    private lateinit var stopBtn: Button
+    private lateinit var modelBtn: Button
+    private lateinit var sessionBtn: Button
+    private lateinit var tray: LinearLayout
+    private lateinit var trayScroll: HorizontalScrollView
+    private lateinit var aiToggle: Button
+    private val toolButtons = HashMap<PageView.Tool, Button>()
 
+    private val attachments = ArrayList<Block.Image>()
     private val ui = Handler(Looper.getMainLooper())
-    private val history = ArrayList<JSONObject>()
-    private var pendingImage: Bitmap? = null
-    private var busy = false
-
-    private val prefs by lazy { getSharedPreferences("llm", Context.MODE_PRIVATE) }
-
-    private val presets = linkedMapOf(
-        "自定义" to "",
-        "OpenAI" to "https://api.openai.com/v1",
-        "DeepSeek" to "https://api.deepseek.com/v1",
-        "通义千问 DashScope" to "https://dashscope.aliyuncs.com/compatible-mode/v1",
-        "智谱 GLM" to "https://open.bigmodel.cn/api/paas/v4",
-        "Moonshot Kimi" to "https://api.moonshot.cn/v1",
-        "OpenRouter" to "https://openrouter.ai/api/v1",
-        "Cline / ClinePass" to "https://api.cline.bot/api/v1",
-        "本地 Ollama" to "http://192.168.1.100:11434/v1",
-    )
-
-    private val defaultSystem = "你是一个数学学习助手。用户会发来他手写内容的截图（通常是数学公式或解题过程）。" +
-        "请先用 LaTeX 写出你识别到的内容，再给出检查和建议：指出错误的步骤、给出提示或讲解。回答用中文，简洁清晰。"
+    private var currentMsgId = ""
+    private val attachDir by lazy { File(filesDir, "attachments") }
 
     private fun dp(v: Int) = (v * resources.displayMetrics.density).toInt()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+        settings = Settings(this)
+        notebook = Notebook(File(filesDir, "notebook"))
+        store = SessionStore(File(filesDir, "sessions"))
+
         val root = LinearLayout(this).apply { orientation = LinearLayout.HORIZONTAL }
 
-        // ---------- left: canvas + toolbar ----------
+        // ================= left: canvas =================
         val left = LinearLayout(this).apply { orientation = LinearLayout.VERTICAL }
-        val toolbar = LinearLayout(this).apply {
-            orientation = LinearLayout.HORIZONTAL
-            setPadding(dp(8), dp(6), dp(8), dp(6))
-            setBackgroundColor(Color.rgb(245, 246, 248))
-            gravity = Gravity.CENTER_VERTICAL
+        val bar = LinearLayout(this).apply {
+            orientation = LinearLayout.HORIZONTAL; gravity = Gravity.CENTER_VERTICAL
+            setPadding(dp(6), dp(4), dp(6), dp(4)); setBackgroundColor(Color.rgb(245, 246, 248))
         }
-        fun toolBtn(label: String, t: InkView.Tool) = Button(this).apply {
-            text = label; isAllCaps = false
-            setOnClickListener { selectTool(t) }
-            toolButtons[t] = this
+        fun btn(label: String, onClick: () -> Unit) = Button(this).apply {
+            text = label; isAllCaps = false; minWidth = 0; minimumWidth = 0; setPadding(dp(10), 0, dp(10), 0)
+            setOnClickListener { onClick() }
         }
-        toolbar.addView(toolBtn("✏️ 笔", InkView.Tool.PEN))
-        toolbar.addView(toolBtn("🧽 橡皮", InkView.Tool.ERASER))
-        toolbar.addView(toolBtn("⭕ 圈选", InkView.Tool.LASSO))
-        toolbar.addView(Button(this).apply { text = "↶ 撤销"; isAllCaps = false; setOnClickListener { ink.undo() } })
-        toolbar.addView(Button(this).apply { text = "清空"; isAllCaps = false; setOnClickListener { confirmClear() } })
-        val fingerBox = CheckBox(this).apply {
-            text = "手指书写"
-            isChecked = prefs.getBoolean("finger", false)
-            setOnCheckedChangeListener { _, c -> ink.fingerCanDraw = c; prefs.edit().putBoolean("finger", c).apply() }
-        }
-        toolbar.addView(fingerBox)
-        val toolbarScroll = HorizontalScrollView(this).apply { addView(toolbar) }
-        left.addView(toolbarScroll, LinearLayout.LayoutParams(-1, -2))
+        fun toolBtn(label: String, t: PageView.Tool) = btn(label) { selectTool(t) }.also { toolButtons[t] = it }
+        bar.addView(toolBtn("✏️ 笔", PageView.Tool.PEN))
+        bar.addView(toolBtn("🧽 橡皮", PageView.Tool.ERASER))
+        bar.addView(toolBtn("⭕ 圈选", PageView.Tool.LASSO))
+        bar.addView(btn("↶") { pageView.undo() })
+        bar.addView(btn("◀") { pageView.goTo(pageView.pageIndex - 1) })
+        bar.addView(btn("▶") { pageView.goTo(pageView.pageIndex + 1) })
+        bar.addView(btn("＋页") { pageView.addPage() })
+        bar.addView(btn("⤓加长") { pageView.extend(true) })
+        bar.addView(btn("⤑加宽") { pageView.extend(false) })
+        aiToggle = btn("AI层:显示") { pageView.showAi = !pageView.showAi; updateAiToggle() }
+        bar.addView(aiToggle)
+        bar.addView(btn("撤AI") { pageView.undoLastAi() })
+        bar.addView(btn("更多") { moreMenu() })
+        bar.addView(CheckBox(this).apply {
+            text = "手指书写"; isChecked = settings.fingerDraw
+            setOnCheckedChangeListener { _, c -> pageView.fingerCanDraw = c; settings.fingerDraw = c }
+        })
+        left.addView(HorizontalScrollView(this).apply { addView(bar) }, LinearLayout.LayoutParams(-1, -2))
 
-        ink = InkView(this)
-        ink.fingerCanDraw = fingerBox.isChecked
-        ink.onLassoSelected = { bmp -> onSelection(bmp) }
-        left.addView(ink, LinearLayout.LayoutParams(-1, 0, 1f))
+        val canvasFrame = FrameLayout(this)
+        raster = Rasterizer(this)
+        canvasFrame.addView(raster.view, FrameLayout.LayoutParams(dp(900), dp(900)))
+        pageView = PageView(this, notebook)
+        pageView.fingerCanDraw = settings.fingerDraw
+        pageView.onLassoSelected = { addAttachment(it) }
+        pageView.onContentChanged = { scheduleSave() }
+        canvasFrame.addView(pageView, FrameLayout.LayoutParams(-1, -1))
+        left.addView(canvasFrame, LinearLayout.LayoutParams(-1, 0, 1f))
 
-        // ---------- right: agent panel ----------
+        // ================= right: agent =================
         val right = LinearLayout(this).apply {
-            orientation = LinearLayout.VERTICAL
-            setBackgroundColor(Color.rgb(250, 250, 252))
-            setPadding(dp(8), dp(6), dp(8), dp(8))
+            orientation = LinearLayout.VERTICAL; setBackgroundColor(Color.rgb(250, 251, 252))
+            setPadding(dp(6), dp(4), dp(6), dp(6))
         }
         val header = LinearLayout(this).apply { orientation = LinearLayout.HORIZONTAL; gravity = Gravity.CENTER_VERTICAL }
-        header.addView(TextView(this).apply {
-            text = "Agent"; textSize = 18f; setTypeface(typeface, Typeface.BOLD)
-        }, LinearLayout.LayoutParams(0, -2, 1f))
-        header.addView(Button(this).apply { text = "新对话"; isAllCaps = false; setOnClickListener { newChat() } })
-        header.addView(Button(this).apply { text = "⚙ 设置"; isAllCaps = false; setOnClickListener { showSettings() } })
+        sessionBtn = btn("会话") { sessionsDialog() }
+        header.addView(sessionBtn, LinearLayout.LayoutParams(0, -2, 1f))
+        header.addView(btn("＋新对话") { newSession() })
+        header.addView(btn("⚙") { settingsDialog() })
         right.addView(header)
+        modelBtn = btn("") { modelDialog() }.apply { textSize = 12f; setTextColor(Color.rgb(30, 100, 220)) }
+        right.addView(modelBtn, LinearLayout.LayoutParams(-1, -2))
 
-        chatList = LinearLayout(this).apply { orientation = LinearLayout.VERTICAL }
-        chatScroll = ScrollView(this).apply { addView(chatList) }
-        right.addView(chatScroll, LinearLayout.LayoutParams(-1, 0, 1f))
+        chat = ChatView(this)
+        right.addView(chat.view, LinearLayout.LayoutParams(-1, 0, 1f))
 
-        previewBox = LinearLayout(this).apply {
-            orientation = LinearLayout.HORIZONTAL; gravity = Gravity.CENTER_VERTICAL; visibility = View.GONE
-            setPadding(0, dp(4), 0, dp(4))
-        }
-        preview = ImageView(this).apply {
-            adjustViewBounds = true; maxHeight = dp(110); scaleType = ImageView.ScaleType.FIT_START
-            background = border(Color.rgb(30, 120, 255))
-        }
-        previewBox.addView(preview, LinearLayout.LayoutParams(0, -2, 1f))
-        previewBox.addView(Button(this).apply { text = "✕"; setOnClickListener { clearPending() } })
-        right.addView(previewBox)
+        tray = LinearLayout(this).apply { orientation = LinearLayout.HORIZONTAL; setPadding(0, dp(4), 0, dp(4)) }
+        trayScroll = HorizontalScrollView(this).apply { addView(tray); visibility = View.GONE }
+        right.addView(trayScroll, LinearLayout.LayoutParams(-1, -2))
 
-        val inputRow = LinearLayout(this).apply { orientation = LinearLayout.HORIZONTAL; gravity = Gravity.BOTTOM }
+        val row = LinearLayout(this).apply { orientation = LinearLayout.HORIZONTAL; gravity = Gravity.BOTTOM }
         input = EditText(this).apply {
-            hint = "圈选手写内容，或直接输入问题…"; maxLines = 5
+            hint = "输入问题；圈选内容会进附件栏；@页码 引用某页"; maxLines = 6; textSize = 15f
             inputType = InputType.TYPE_CLASS_TEXT or InputType.TYPE_TEXT_FLAG_MULTI_LINE
         }
-        inputRow.addView(input, LinearLayout.LayoutParams(0, -2, 1f))
-        sendBtn = Button(this).apply { text = "发送"; setOnClickListener { send() } }
-        inputRow.addView(sendBtn)
-        right.addView(inputRow)
+        row.addView(input, LinearLayout.LayoutParams(0, -2, 1f))
+        row.addView(btn("@页") { input.text.insert(input.selectionStart.coerceAtLeast(0), "@${pageView.pageIndex + 1} ") })
+        stopBtn = btn("■") { agent.cancel() }.apply { visibility = View.GONE; setTextColor(Color.rgb(200, 40, 40)) }
+        row.addView(stopBtn)
+        sendBtn = btn("发送") { send() }
+        row.addView(sendBtn)
+        right.addView(row)
 
         root.addView(left, LinearLayout.LayoutParams(0, -1, 3f))
         root.addView(View(this).apply { setBackgroundColor(Color.rgb(220, 222, 228)) }, LinearLayout.LayoutParams(dp(1), -1))
         root.addView(right, LinearLayout.LayoutParams(0, -1, 2f))
         setContentView(root)
 
-        selectTool(InkView.Tool.PEN)
-        if (prefs.getString("baseUrl", "").isNullOrBlank()) {
-            addBubble("system", "欢迎！先点右上角「⚙ 设置」填写 Base URL、API Key 和模型名（需支持图片输入的模型）。\n用笔写字，切到「⭕ 圈选」圈住内容即可发给 Agent。手指拖动可平移画布。")
+        // ================= agent =================
+        CanvasTools(pageView, notebook, raster, attachDir).register(tools) { settings.tavilyKey }
+        val session = settings.sessionId?.let { store.open(it) } ?: store.create().also { settings.sessionId = it.id }
+        agent = Agent(session, tools, { settings.callConfig() }, { settings.systemPrompt }, listener)
+        chat.replay(session)
+
+        selectTool(PageView.Tool.PEN)
+        updateAiToggle(); updateHeader()
+        pageView.post { pageView.goTo(0) }
+        if (settings.provider()?.apiKey.isNullOrBlank()) {
+            chat.notice("先点 ⚙ 设置，给服务商填 API Key（默认 DeepSeek）。")
         }
     }
 
-    private fun border(color: Int) = GradientDrawable().apply { setStroke(dp(1), color); cornerRadius = dp(6).toFloat() }
-
-    private fun selectTool(t: InkView.Tool) {
-        ink.tool = t
-        toolButtons.forEach { (k, b) -> b.setTextColor(if (k == t) Color.rgb(30, 120, 255) else Color.DKGRAY)
-            b.setTypeface(null, if (k == t) Typeface.BOLD else Typeface.NORMAL) }
+    // ---------------- agent events → UI ----------------
+    private val listener = object : AgentListener {
+        override fun onStatus(running: Boolean) = ui.post {
+            stopBtn.visibility = if (running) View.VISIBLE else View.GONE
+            sendBtn.text = if (running) "插话" else "发送"
+            updateHeader()
+        }.let { }
+        override fun onStepStart(turn: Int, step: Int) = ui.post { currentMsgId = "live-${System.nanoTime()}" }.let { }
+        override fun onChunk(chunk: Chunk) = ui.post {
+            when (chunk) {
+                is Chunk.TextDelta -> chat.appendText(currentMsgId, chunk.text)
+                is Chunk.ReasoningDelta -> chat.appendReasoning(currentMsgId, chunk.text)
+                is Chunk.ToolCallStart -> chat.toolStart(currentMsgId, chunk.id, chunk.name)
+                is Chunk.ToolArgsDelta -> chat.toolArgs(chunk.id, chunk.delta)
+            }
+        }.let { }
+        override fun onEvent(ev: SessionEvent) = ui.post {
+            when (ev.type) {
+                "user/message" -> chat.addUser(Block.listFromJson(ev.data.getJSONArray("content")))
+                "assistant/message" -> {
+                    // tool calls that arrived without stream deltas (non-streaming providers)
+                    chat.settle(currentMsgId)
+                }
+                "tool/result" -> {
+                    val blocks = Block.listFromJson(ev.data.getJSONArray("content"))
+                    chat.toolResult(ev.data.getString("callId"), blocks.filterIsInstance<Block.Text>().joinToString("\n") { it.text },
+                        ev.data.optBoolean("isError"), blocks.filterIsInstance<Block.Image>().firstOrNull()?.path)
+                }
+                "turn/end" -> when (ev.data.optString("reason")) {
+                    "aborted" -> chat.notice("已停止")
+                    "max-steps" -> chat.notice("达到单轮步数上限")
+                    "max-tokens" -> chat.notice("达到输出长度上限")
+                }
+            }
+            if (ev.type == "user/message") updateHeader()
+        }.let { }
+        override fun onError(message: String) = ui.post { chat.notice("出错：$message", true) }.let { }
     }
 
-    private fun confirmClear() {
-        AlertDialog.Builder(this).setMessage("清空整张画布？（可撤销）")
-            .setPositiveButton("清空") { _, _ -> ink.clearAll() }.setNegativeButton("取消", null).show()
-    }
-
-    private fun onSelection(bmp: Bitmap) {
-        pendingImage = bmp
-        preview.setImageBitmap(bmp)
-        previewBox.visibility = View.VISIBLE
-        if (prefs.getBoolean("autoSend", true) && !busy) send()
-        else Toast.makeText(this, "已选中，点发送", Toast.LENGTH_SHORT).show()
-    }
-
-    private fun clearPending() { pendingImage = null; previewBox.visibility = View.GONE }
-
-    private fun newChat() {
-        if (busy) return
-        history.clear(); chatList.removeAllViews(); clearPending()
-    }
-
-    private fun config() = LlmConfig(
-        baseUrl = prefs.getString("baseUrl", "") ?: "",
-        apiKey = prefs.getString("apiKey", "") ?: "",
-        model = prefs.getString("model", "") ?: "",
-        systemPrompt = prefs.getString("system", defaultSystem) ?: defaultSystem,
-        temperature = (prefs.getString("temp", "0.3") ?: "0.3").toDoubleOrNull() ?: 0.3,
-    )
-
+    // ---------------- sending ----------------
     private fun send() {
-        if (busy) return
-        val cfg = config()
-        if (cfg.baseUrl.isBlank() || cfg.model.isBlank()) { showSettings(); return }
-        val img = pendingImage
-        var text = input.text.toString().trim()
-        if (img == null && text.isEmpty()) return
-        if (text.isEmpty()) text = prefs.getString("defaultAsk", "请识别我圈中的手写内容，并检查、给出建议。") ?: ""
-
-        val msg = JSONObject().put("role", "user")
-        if (img != null) {
-            val b64 = encode(img)
-            val parts = JSONArray()
-                .put(JSONObject().put("type", "text").put("text", text))
-                .put(JSONObject().put("type", "image_url").put("image_url", JSONObject().put("url", "data:image/png;base64,$b64")))
-            msg.put("content", parts)
-        } else msg.put("content", text)
-
-        addBubble("user", text, img)
+        val text = input.text.toString().trim()
+        val content = ArrayList<Block>()
+        content.addAll(attachments)
+        // @N page references → attach a render of that page (dsh-style reference)
+        Regex("@(\\d+)").findAll(text).map { it.groupValues[1].toInt() }.distinct().forEach { n ->
+            val p = notebook.pages.getOrNull(n - 1) ?: return@forEach
+            val bmp = Notebook.render(p, RectF(0f, 0f, p.width, p.height), maxSide = 1600)
+            content.add(Block.Text("[第${n}页]"))
+            content.add(savePng(attachDir, bmp, "ref"))
+        }
+        if (text.isNotEmpty()) content.add(Block.Text(text))
+        if (content.isEmpty()) return
         input.setText("")
-        clearPending()
-        history.add(msg)
+        attachments.clear(); renderTray()
+        val msg = UserInput(content)
+        if (agent.running) agent.steer(msg) else agent.followup(msg)
+    }
 
-        val replyView = addBubble("assistant", "…")
-        val sb = StringBuilder()
-        busy = true; sendBtn.isEnabled = false
-        Thread {
-            try {
-                val full = LlmClient.chat(cfg, history) { piece ->
-                    sb.append(piece)
-                    val snap = sb.toString()
-                    ui.post { replyView.text = snap; scrollDown() }
+    private fun addAttachment(bmp: Bitmap) {
+        attachments.add(savePng(attachDir, bmp, "lasso"))
+        renderTray()
+    }
+
+    private fun renderTray() {
+        tray.removeAllViews()
+        attachments.forEachIndexed { i, a ->
+            val cell = FrameLayout(this).apply { setPadding(dp(2), dp(2), dp(2), dp(2)) }
+            cell.addView(ImageView(this).apply {
+                setImageBitmap(android.graphics.BitmapFactory.decodeFile(a.path))
+                adjustViewBounds = true; maxHeight = dp(80); maxWidth = dp(160)
+                scaleType = ImageView.ScaleType.FIT_CENTER
+                background = GradientDrawable().apply { setStroke(dp(1), Color.rgb(30, 120, 255)); cornerRadius = dp(6).toFloat(); setColor(Color.WHITE) }
+            }, FrameLayout.LayoutParams(-2, dp(80)))
+            cell.addView(TextView(this).apply {
+                text = "✕"; setTextColor(Color.WHITE); textSize = 12f; gravity = Gravity.CENTER
+                background = GradientDrawable().apply { shape = GradientDrawable.OVAL; setColor(Color.argb(180, 0, 0, 0)) }
+                setOnClickListener { attachments.removeAt(i); renderTray() }
+            }, FrameLayout.LayoutParams(dp(22), dp(22), Gravity.TOP or Gravity.END))
+            tray.addView(cell)
+        }
+        trayScroll.visibility = if (attachments.isEmpty()) View.GONE else View.VISIBLE
+    }
+
+    // ---------------- canvas helpers ----------------
+    private fun selectTool(t: PageView.Tool) {
+        pageView.tool = t
+        toolButtons.forEach { (k, b) ->
+            b.setTextColor(if (k == t) Color.rgb(30, 120, 255) else Color.DKGRAY)
+            b.setTypeface(null, if (k == t) Typeface.BOLD else Typeface.NORMAL)
+        }
+    }
+
+    private fun updateAiToggle() { aiToggle.text = if (pageView.showAi) "AI层:显示" else "AI层:隐藏" }
+
+    private val saveRunnable = Runnable { notebook.save() }
+    private fun scheduleSave() { ui.removeCallbacks(saveRunnable); ui.postDelayed(saveRunnable, 800) }
+
+    override fun onPause() { super.onPause(); ui.removeCallbacks(saveRunnable); notebook.save() }
+
+    private fun moreMenu() {
+        val items = arrayOf("清空本页手写", "清空本页 AI 图层", "删除本页")
+        AlertDialog.Builder(this).setItems(items) { _, w ->
+            when (w) {
+                0 -> confirm("清空本页手写？（可撤销）") { pageView.clearInk() }
+                1 -> confirm("清空本页 AI 图层？（可撤销）") { pageView.clearAi() }
+                2 -> confirm("删除第 ${pageView.pageIndex + 1} 页？不可撤销") {
+                    if (notebook.pages.size > 1) { notebook.pages.removeAt(pageView.pageIndex); notebook.save() }
+                    else notebook.pages[0].let { it.strokes.clear(); it.ai.clear() }
+                    pageView.goTo(pageView.pageIndex.coerceAtMost(notebook.pages.size - 1))
                 }
-                history.add(JSONObject().put("role", "assistant").put("content", full))
-                ui.post { if (full.isEmpty()) replyView.text = "（空回复）" }
-            } catch (e: Exception) {
-                history.removeAt(history.size - 1)
-                ui.post { replyView.text = "出错了：${e.message}"; replyView.setTextColor(Color.rgb(200, 40, 40)) }
-            } finally {
-                ui.post { busy = false; sendBtn.isEnabled = true; scrollDown() }
             }
-        }.start()
+        }.show()
     }
 
-    private fun encode(bmp: Bitmap): String {
-        val out = ByteArrayOutputStream()
-        bmp.compress(Bitmap.CompressFormat.PNG, 100, out)
-        return Base64.encodeToString(out.toByteArray(), Base64.NO_WRAP)
+    private fun confirm(msg: String, action: () -> Unit) {
+        AlertDialog.Builder(this).setMessage(msg).setPositiveButton("确定") { _, _ -> action() }.setNegativeButton("取消", null).show()
     }
 
-    private fun addBubble(role: String, text: String, img: Bitmap? = null): TextView {
-        val box = LinearLayout(this).apply {
-            orientation = LinearLayout.VERTICAL
-            setPadding(dp(10), dp(8), dp(10), dp(8))
-            background = GradientDrawable().apply {
-                cornerRadius = dp(10).toFloat()
-                setColor(when (role) { "user" -> Color.rgb(222, 236, 255); "assistant" -> Color.WHITE; else -> Color.rgb(255, 248, 225) })
-                if (role == "assistant") setStroke(dp(1), Color.rgb(228, 230, 235))
+    // ---------------- sessions ----------------
+    private fun updateHeader() {
+        sessionBtn.text = "💬 " + agent.session.title
+        modelBtn.text = "模型：" + settings.label()
+    }
+
+    private fun switchTo(s: Session) {
+        if (agent.running) { toast("先停止当前回答"); return }
+        agent.session = s; settings.sessionId = s.id
+        chat.replay(s); updateHeader()
+    }
+
+    private fun newSession() = switchTo(store.create())
+
+    private fun sessionsDialog() {
+        val list = store.list().filter { it.events.isNotEmpty() || it.id == agent.session.id }
+        val labels = list.map { (if (it.id == agent.session.id) "● " else "") + it.title }.toTypedArray()
+        val dlg = AlertDialog.Builder(this).setTitle("会话（长按删除）")
+            .setItems(labels) { _, w -> switchTo(list[w]) }
+            .setPositiveButton("新对话") { _, _ -> newSession() }
+            .setNegativeButton("关闭", null).create()
+        dlg.setOnShowListener {
+            dlg.listView.setOnItemLongClickListener { _, _, pos, _ ->
+                val s = list[pos]
+                confirm("删除会话「${s.title}」？") {
+                    store.delete(s.id)
+                    if (s.id == agent.session.id) newSession()
+                    dlg.dismiss()
+                }
+                true
             }
         }
-        if (img != null) box.addView(ImageView(this).apply {
-            setImageBitmap(img); adjustViewBounds = true; maxHeight = dp(140); scaleType = ImageView.ScaleType.FIT_START
-        })
-        val tv = TextView(this).apply {
-            this.text = text; textSize = 15f; setTextColor(Color.rgb(30, 30, 35)); setTextIsSelectable(true)
-        }
-        box.addView(tv)
-        val lp = LinearLayout.LayoutParams(-1, -2).apply { topMargin = dp(6) }
-        chatList.addView(box, lp)
-        scrollDown()
-        return tv
+        dlg.show()
     }
 
-    private fun scrollDown() = chatScroll.post { chatScroll.fullScroll(View.FOCUS_DOWN) }
-
-    private fun showSettings() {
+    // ---------------- model selection (dsh ui-model-selection) ----------------
+    private fun modelDialog() {
+        val providers = settings.providers
+        if (providers.isEmpty()) { settingsDialog(); return }
         val form = LinearLayout(this).apply { orientation = LinearLayout.VERTICAL; setPadding(dp(20), dp(8), dp(20), dp(8)) }
-        fun label(t: String) = TextView(this).apply { text = t; setPadding(0, dp(10), 0, 0); setTextColor(Color.GRAY) }
-        fun field(key: String, def: String, hintText: String, password: Boolean = false, multi: Boolean = false) =
-            EditText(this).apply {
-                setText(prefs.getString(key, def)); hint = hintText
-                inputType = when {
-                    password -> InputType.TYPE_CLASS_TEXT or InputType.TYPE_TEXT_VARIATION_PASSWORD
-                    multi -> InputType.TYPE_CLASS_TEXT or InputType.TYPE_TEXT_FLAG_MULTI_LINE
-                    else -> InputType.TYPE_CLASS_TEXT or InputType.TYPE_TEXT_VARIATION_URI
-                }
-                if (multi) { minLines = 3; maxLines = 8 }
-            }
-
-        val base = field("baseUrl", "", "https://api.openai.com/v1")
-        form.addView(label("服务商预设"))
-        val spinner = Spinner(this)
-        spinner.adapter = ArrayAdapter(this, android.R.layout.simple_spinner_dropdown_item, presets.keys.toList())
-        spinner.onItemSelectedListener = object : AdapterView.OnItemSelectedListener {
+        fun label(t: String) = TextView(this).apply { text = t; setTextColor(Color.GRAY); setPadding(0, dp(8), 0, 0) }
+        val pSpin = Spinner(this).apply { adapter = ArrayAdapter(this@MainActivity, android.R.layout.simple_spinner_dropdown_item, providers.map { it.name }) }
+        val modelEdit = AutoCompleteTextView(this).apply { threshold = 0; setText(settings.model); hint = "模型 id" }
+        val effSpin = Spinner(this)
+        val maxTok = EditText(this).apply { inputType = InputType.TYPE_CLASS_NUMBER; hint = "留空 = 默认"; setText(settings.maxTokens?.toString() ?: "") }
+        fun refresh(p: Provider, keepModel: Boolean) {
+            modelEdit.setAdapter(ArrayAdapter(this, android.R.layout.simple_dropdown_item_1line, p.models))
+            if (!keepModel) modelEdit.setText(p.models.firstOrNull() ?: "")
+            val eff = p.efforts()
+            effSpin.adapter = ArrayAdapter(this, android.R.layout.simple_spinner_dropdown_item, eff)
+            effSpin.setSelection(eff.indexOf(settings.effort).coerceAtLeast(0))
+        }
+        val startIdx = providers.indexOfFirst { it.id == settings.providerId }.coerceAtLeast(0)
+        pSpin.setSelection(startIdx)
+        refresh(providers[startIdx], true)
+        pSpin.onItemSelectedListener = object : AdapterView.OnItemSelectedListener {
             var first = true
-            override fun onItemSelected(p: AdapterView<*>?, v: View?, pos: Int, id: Long) {
-                if (first) { first = false; return }
-                val url = presets.values.toList()[pos]
-                if (url.isNotEmpty()) base.setText(url)
-            }
+            override fun onItemSelected(p: AdapterView<*>?, v: View?, pos: Int, id: Long) { refresh(providers[pos], first); first = false }
             override fun onNothingSelected(p: AdapterView<*>?) {}
         }
-        form.addView(spinner)
-        form.addView(label("Base URL（OpenAI 兼容，到 /v1 为止）")); form.addView(base)
-        val key = field("apiKey", "", "sk-...", password = true)
-        form.addView(label("API Key")); form.addView(key)
-        val model = field("model", "", "例如 gpt-4o / qwen-vl-max / glm-4v-plus")
-        form.addView(label("模型名（需支持图片输入）")); form.addView(model)
-        val temp = field("temp", "0.3", "0.3")
-        form.addView(label("Temperature")); form.addView(temp)
-        val ask = field("defaultAsk", "请识别我圈中的手写内容，并检查、给出建议。", "", multi = true)
-        form.addView(label("圈选后默认提问")); form.addView(ask)
-        val sys = field("system", defaultSystem, "", multi = true)
-        form.addView(label("System Prompt（Agent 角色）")); form.addView(sys)
-        val auto = CheckBox(this).apply { text = "圈选后自动发送"; isChecked = prefs.getBoolean("autoSend", true) }
-        form.addView(auto)
-
-        val scroll = ScrollView(this).apply { addView(form) }
-        AlertDialog.Builder(this).setTitle("LLM 设置").setView(scroll)
-            .setPositiveButton("保存") { _, _ ->
-                prefs.edit()
-                    .putString("baseUrl", base.text.toString().trim())
-                    .putString("apiKey", key.text.toString().trim())
-                    .putString("model", model.text.toString().trim())
-                    .putString("temp", temp.text.toString().trim())
-                    .putString("defaultAsk", ask.text.toString())
-                    .putString("system", sys.text.toString())
-                    .putBoolean("autoSend", auto.isChecked)
-                    .apply()
-                Toast.makeText(this, "已保存", Toast.LENGTH_SHORT).show()
+        modelEdit.setOnClickListener { modelEdit.showDropDown() }
+        form.addView(label("服务商")); form.addView(pSpin)
+        form.addView(label("模型")); form.addView(modelEdit)
+        form.addView(label("推理强度 reasoningEffort")); form.addView(effSpin)
+        form.addView(label("maxTokens")); form.addView(maxTok)
+        AlertDialog.Builder(this).setTitle("选择模型").setView(form)
+            .setPositiveButton("使用") { _, _ ->
+                val p = providers[pSpin.selectedItemPosition]
+                settings.providerId = p.id
+                settings.model = modelEdit.text.toString().trim()
+                settings.effort = effSpin.selectedItem?.toString() ?: p.efforts().first()
+                settings.maxTokens = maxTok.text.toString().toIntOrNull()
+                updateHeader()
             }
-            .setNeutralButton("测试连接") { _, _ ->
-                prefs.edit().putString("baseUrl", base.text.toString().trim()).putString("apiKey", key.text.toString().trim())
-                    .putString("model", model.text.toString().trim()).apply()
-                testConnection()
+            .setNeutralButton("管理服务商") { _, _ -> providersDialog() }
+            .setNegativeButton("取消", null).show()
+    }
+
+    // ---------------- settings ----------------
+    private fun settingsDialog() {
+        val form = LinearLayout(this).apply { orientation = LinearLayout.VERTICAL; setPadding(dp(20), dp(8), dp(20), dp(8)) }
+        fun label(t: String) = TextView(this).apply { text = t; setTextColor(Color.GRAY); setPadding(0, dp(10), 0, 0) }
+        val sys = EditText(this).apply {
+            setText(settings.systemPrompt); hint = "留空即无系统提示词"; minLines = 4; maxLines = 12
+            inputType = InputType.TYPE_CLASS_TEXT or InputType.TYPE_TEXT_FLAG_MULTI_LINE; gravity = Gravity.TOP
+        }
+        val tav = EditText(this).apply {
+            setText(settings.tavilyKey); hint = "tvly-…"
+            inputType = InputType.TYPE_CLASS_TEXT or InputType.TYPE_TEXT_VARIATION_PASSWORD
+        }
+        form.addView(Button(this).apply { text = "管理服务商与 API Key"; isAllCaps = false; setOnClickListener { providersDialog() } })
+        form.addView(Button(this).apply { text = "选择模型：" + settings.label(); isAllCaps = false; setOnClickListener { modelDialog() } })
+        form.addView(label("System Prompt")); form.addView(sys)
+        form.addView(label("Tavily API Key（联网搜索，免费 1000 次/月）")); form.addView(tav)
+        AlertDialog.Builder(this).setTitle("设置").setView(ScrollView(this).apply { addView(form) })
+            .setPositiveButton("保存") { _, _ ->
+                settings.systemPrompt = sys.text.toString()
+                settings.tavilyKey = tav.text.toString().trim()
+                updateHeader()
             }
             .setNegativeButton("取消", null).show()
     }
 
-    private fun testConnection() {
-        val cfg = config().copy(systemPrompt = "")
-        val tv = addBubble("system", "正在测试连接…")
-        Thread {
-            try {
-                val r = LlmClient.chat(cfg, listOf(JSONObject().put("role", "user").put("content", "回复两个字：你好"))) {}
-                ui.post { tv.text = "✅ 连接成功：$r" }
-            } catch (e: Exception) {
-                ui.post { tv.text = "❌ 连接失败：${e.message}" }
-            }
-        }.start()
+    private fun providersDialog() {
+        val providers = settings.providers.toMutableList()
+        val names = providers.map { "${it.name}  (${it.models.size} 个模型)" } + "＋ 添加服务商"
+        AlertDialog.Builder(this).setTitle("服务商（点一下编辑）")
+            .setItems(names.toTypedArray()) { _, w -> editProvider(providers.getOrNull(w)) }
+            .setNegativeButton("关闭", null).show()
     }
+
+    private fun editProvider(existing: Provider?) {
+        val form = LinearLayout(this).apply { orientation = LinearLayout.VERTICAL; setPadding(dp(20), dp(8), dp(20), dp(8)) }
+        fun label(t: String) = TextView(this).apply { text = t; setTextColor(Color.GRAY); setPadding(0, dp(8), 0, 0) }
+        val name = EditText(this).apply { setText(existing?.name ?: ""); hint = "名称" }
+        val proto = Spinner(this).apply {
+            adapter = ArrayAdapter(this@MainActivity, android.R.layout.simple_spinner_dropdown_item, Protocol.values().map { it.label })
+            setSelection((existing?.protocol ?: Protocol.OPENAI_CHAT).ordinal)
+        }
+        val base = EditText(this).apply { setText(existing?.baseUrl ?: ""); hint = "https://…"; inputType = InputType.TYPE_TEXT_VARIATION_URI }
+        val key = EditText(this).apply {
+            setText(existing?.apiKey ?: ""); hint = "API Key"
+            inputType = InputType.TYPE_CLASS_TEXT or InputType.TYPE_TEXT_VARIATION_PASSWORD
+        }
+        val models = EditText(this).apply {
+            setText(existing?.models?.joinToString("\n") ?: ""); hint = "每行一个模型 id"; minLines = 3
+            inputType = InputType.TYPE_CLASS_TEXT or InputType.TYPE_TEXT_FLAG_MULTI_LINE
+        }
+        form.addView(label("名称")); form.addView(name)
+        form.addView(label("协议")); form.addView(proto)
+        form.addView(label("Base URL")); form.addView(base)
+        form.addView(label("API Key")); form.addView(key)
+        form.addView(label("模型列表")); form.addView(models)
+        form.addView(Button(this).apply {
+            text = "从服务商获取模型列表"; isAllCaps = false
+            setOnClickListener {
+                val p = build(existing, name, proto, base, key, models)
+                Thread {
+                    try {
+                        val list = Llm.listModels(p)
+                        ui.post { models.setText(list.joinToString("\n")); toast("获取到 ${list.size} 个模型") }
+                    } catch (e: Exception) { ui.post { toast("获取失败：${e.message}") } }
+                }.start()
+            }
+        })
+        val b = AlertDialog.Builder(this).setTitle(if (existing == null) "添加服务商" else "编辑服务商")
+            .setView(ScrollView(this).apply { addView(form) })
+            .setPositiveButton("保存") { _, _ ->
+                val p = build(existing, name, proto, base, key, models)
+                val list = settings.providers.toMutableList()
+                val i = list.indexOfFirst { it.id == p.id }
+                if (i >= 0) list[i] = p else list.add(p)
+                settings.providers = list
+                if (settings.provider()?.id == p.id && settings.model.isBlank()) settings.model = p.models.firstOrNull() ?: ""
+                updateHeader()
+            }
+            .setNegativeButton("取消", null)
+        if (existing != null) b.setNeutralButton("删除") { _, _ ->
+            settings.providers = settings.providers.filter { it.id != existing.id }
+            updateHeader()
+        }
+        b.show()
+    }
+
+    private fun build(existing: Provider?, name: EditText, proto: Spinner, base: EditText, key: EditText, models: EditText) = Provider(
+        existing?.id ?: ("p" + System.currentTimeMillis().toString(36)),
+        name.text.toString().trim().ifEmpty { "未命名" },
+        Protocol.values()[proto.selectedItemPosition],
+        base.text.toString().trim(), key.text.toString().trim(),
+        models.text.toString().split('\n', ',').map { it.trim() }.filter { it.isNotEmpty() },
+    )
+
+    private fun toast(s: String) = Toast.makeText(this, s, Toast.LENGTH_SHORT).show()
 }

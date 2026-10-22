@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html><head><meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<link rel="stylesheet" href="lib/katex/katex.min.css">
+<script src="lib/katex/katex.min.js"></script>
+<style>
+html,body{margin:0;padding:0;background:transparent;}
+#box{display:inline-block;padding:6px 10px;color:#1a4fd0;font-size:40px;line-height:1.35;}
+#box svg{display:block;}
+.katex-display{margin:0 !important;}
+.err{color:#c62828;font-family:monospace;font-size:28px;white-space:pre-wrap;}
+</style></head>
+<body><div id="box"></div>
+<script>
+function texToHtml(src){
+  try { return katex.renderToString(src,{displayMode:true,throwOnError:true}); }
+  catch(e){
+    try { return katex.renderToString(src,{displayMode:true,strict:'ignore',throwOnError:false}); }
+    catch(e2){ var d=document.createElement('span'); d.className='err'; d.textContent=src; return d.outerHTML; }
+  }
+}
+function render(kind, src, widthPx){
+  var box=document.getElementById('box');
+  box.style.width='';
+  if(kind==='latex'){
+    // allow multi-line input: each non-empty line rendered as its own display block
+    var lines=src.split(/\n\s*\n/);
+    box.innerHTML=lines.map(function(l){return '<div>'+texToHtml(l.trim())+'</div>';}).join('');
+  } else {
+    box.innerHTML=src;
+    var svg=box.querySelector('svg');
+    if(svg){
+      if(widthPx>0){ svg.setAttribute('width', widthPx); svg.removeAttribute('height'); svg.style.height='auto'; }
+      else if(!svg.getAttribute('width')){ svg.setAttribute('width', 600); }
+    }
+  }
+  var finish=function(){
+    requestAnimationFrame(function(){requestAnimationFrame(function(){
+      var r=box.getBoundingClientRect();
+      Raster.done(Math.ceil(r.width), Math.ceil(r.height), window.devicePixelRatio||1);
+    });});
+  };
+  if(document.fonts && document.fonts.ready){ document.fonts.ready.then(finish); } else { setTimeout(finish,100); }
+}
+</script></body></html>
