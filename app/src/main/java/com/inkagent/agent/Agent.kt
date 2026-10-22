@@ -122,7 +122,7 @@ class Agent(
                 synchronized(lock) { while (nextStep.isNotEmpty()) claimed.add(nextStep.removeFirst()) }
                 emit("step/start", JSONObject().put("turn", turn).put("step", step))
                 listener.onStepStart(turn, step)
-                for (m in claimed) emit("user/message", JSONObject().put("id", m.id).put("content", Block.listToJson(m.content)))
+                for (m in claimed) emit("user/message", JSONObject().put("id", m.id).put("steer", step > 1).put("content", Block.listToJson(m.content)))
                 claimed = mutableListOf()
 
                 val cfg = callConfig() ?: throw LlmException("还没有配置模型：请在设置里添加服务商并选择模型")

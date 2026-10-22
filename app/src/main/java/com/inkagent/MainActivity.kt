@@ -18,7 +18,7 @@ import com.inkagent.agent.*
 import com.inkagent.llm.*
 import com.inkagent.note.Notebook
 import com.inkagent.note.PageView
-import com.inkagent.ui.ChatView
+import com.inkagent.ui.AgentPanel
 import com.inkagent.ui.Rasterizer
 import java.io.File
 
@@ -28,24 +28,16 @@ class MainActivity : Activity() {
     private lateinit var notebook: Notebook
     private lateinit var pageView: PageView
     private lateinit var raster: Rasterizer
-    private lateinit var chat: ChatView
+    private lateinit var panel: AgentPanel
     private lateinit var store: SessionStore
     private lateinit var agent: Agent
     private val tools = ToolRegistry()
 
-    private lateinit var input: EditText
-    private lateinit var sendBtn: Button
-    private lateinit var stopBtn: Button
-    private lateinit var modelBtn: Button
-    private lateinit var sessionBtn: Button
-    private lateinit var tray: LinearLayout
-    private lateinit var trayScroll: HorizontalScrollView
     private lateinit var aiToggle: Button
     private val toolButtons = HashMap<PageView.Tool, Button>()
 
     private val attachments = ArrayList<Block.Image>()
     private val ui = Handler(Looper.getMainLooper())
-    private var currentMsgId = ""
     private val attachDir by lazy { File(filesDir, "attachments") }
 
     private fun dp(v: Int) = (v * resources.displayMetrics.density).toInt()
@@ -98,40 +90,9 @@ class MainActivity : Activity() {
         canvasFrame.addView(pageView, FrameLayout.LayoutParams(-1, -1))
         left.addView(canvasFrame, LinearLayout.LayoutParams(-1, 0, 1f))
 
-        // ================= right: agent =================
-        val right = LinearLayout(this).apply {
-            orientation = LinearLayout.VERTICAL; setBackgroundColor(Color.rgb(250, 251, 252))
-            setPadding(dp(6), dp(4), dp(6), dp(6))
-        }
-        val header = LinearLayout(this).apply { orientation = LinearLayout.HORIZONTAL; gravity = Gravity.CENTER_VERTICAL }
-        sessionBtn = btn("会话") { sessionsDialog() }
-        header.addView(sessionBtn, LinearLayout.LayoutParams(0, -2, 1f))
-        header.addView(btn("＋新对话") { newSession() })
-        header.addView(btn("⚙") { settingsDialog() })
-        right.addView(header)
-        modelBtn = btn("") { modelDialog() }.apply { textSize = 12f; setTextColor(Color.rgb(30, 100, 220)) }
-        right.addView(modelBtn, LinearLayout.LayoutParams(-1, -2))
-
-        chat = ChatView(this)
-        right.addView(chat.view, LinearLayout.LayoutParams(-1, 0, 1f))
-
-        tray = LinearLayout(this).apply { orientation = LinearLayout.HORIZONTAL; setPadding(0, dp(4), 0, dp(4)) }
-        trayScroll = HorizontalScrollView(this).apply { addView(tray); visibility = View.GONE }
-        right.addView(trayScroll, LinearLayout.LayoutParams(-1, -2))
-
-        val row = LinearLayout(this).apply { orientation = LinearLayout.HORIZONTAL; gravity = Gravity.BOTTOM }
-        input = EditText(this).apply {
-            hint = "输入问题；圈选内容会进附件栏；@页码 引用某页"; maxLines = 6; textSize = 15f
-            inputType = InputType.TYPE_CLASS_TEXT or InputType.TYPE_TEXT_FLAG_MULTI_LINE
-        }
-        row.addView(input, LinearLayout.LayoutParams(0, -2, 1f))
-        row.addView(btn("@页") { input.text.insert(input.selectionStart.coerceAtLeast(0), "@${pageView.pageIndex + 1} ") })
-        stopBtn = btn("■") { agent.cancel() }.apply { visibility = View.GONE; setTextColor(Color.rgb(200, 40, 40)) }
-        row.addView(stopBtn)
-        sendBtn = btn("发送") { send() }
-        row.addView(sendBtn)
-        right.addView(row)
-
+        // ================= right: agent panel (dsh-style WebView) =================
+        panel = AgentPanel(this, panelHost)
+        val right = panel.view
         root.addView(left, LinearLayout.LayoutParams(0, -1, 3f))
         root.addView(View(this).apply { setBackgroundColor(Color.rgb(220, 222, 228)) }, LinearLayout.LayoutParams(dp(1), -1))
         root.addView(right, LinearLayout.LayoutParams(0, -1, 2f))
@@ -141,58 +102,43 @@ class MainActivity : Activity() {
         CanvasTools(pageView, notebook, raster, attachDir).register(tools) { settings.tavilyKey }
         val session = settings.sessionId?.let { store.open(it) } ?: store.create().also { settings.sessionId = it.id }
         agent = Agent(session, tools, { settings.callConfig() }, { settings.systemPrompt }, listener)
-        chat.replay(session)
+        panel.setPolicy(settings.transcriptMode, settings.collapseTiming)
+        panel.replay(session)
 
         selectTool(PageView.Tool.PEN)
         updateAiToggle(); updateHeader()
         pageView.post { pageView.goTo(0) }
+        applyTestExtras()
         if (settings.provider()?.apiKey.isNullOrBlank()) {
-            chat.notice("先点 ⚙ 设置，给服务商填 API Key（默认 DeepSeek）。")
+            panel.notice("先点右上角设置，给服务商填 API Key（默认 DeepSeek）。")
         }
     }
 
     // ---------------- agent events → UI ----------------
     private val listener = object : AgentListener {
-        override fun onStatus(running: Boolean) = ui.post {
-            stopBtn.visibility = if (running) View.VISIBLE else View.GONE
-            sendBtn.text = if (running) "插话" else "发送"
-            updateHeader()
-        }.let { }
-        override fun onStepStart(turn: Int, step: Int) = ui.post { currentMsgId = "live-${System.nanoTime()}" }.let { }
-        override fun onChunk(chunk: Chunk) = ui.post {
-            when (chunk) {
-                is Chunk.TextDelta -> chat.appendText(currentMsgId, chunk.text)
-                is Chunk.ReasoningDelta -> chat.appendReasoning(currentMsgId, chunk.text)
-                is Chunk.ToolCallStart -> chat.toolStart(currentMsgId, chunk.id, chunk.name)
-                is Chunk.ToolArgsDelta -> chat.toolArgs(chunk.id, chunk.delta)
-            }
-        }.let { }
-        override fun onEvent(ev: SessionEvent) = ui.post {
-            when (ev.type) {
-                "user/message" -> chat.addUser(Block.listFromJson(ev.data.getJSONArray("content")))
-                "assistant/message" -> {
-                    // tool calls that arrived without stream deltas (non-streaming providers)
-                    chat.settle(currentMsgId)
-                }
-                "tool/result" -> {
-                    val blocks = Block.listFromJson(ev.data.getJSONArray("content"))
-                    chat.toolResult(ev.data.getString("callId"), blocks.filterIsInstance<Block.Text>().joinToString("\n") { it.text },
-                        ev.data.optBoolean("isError"), blocks.filterIsInstance<Block.Image>().firstOrNull()?.path)
-                }
-                "turn/end" -> when (ev.data.optString("reason")) {
-                    "aborted" -> chat.notice("已停止")
-                    "max-steps" -> chat.notice("达到单轮步数上限")
-                    "max-tokens" -> chat.notice("达到输出长度上限")
-                }
-            }
-            if (ev.type == "user/message") updateHeader()
-        }.let { }
-        override fun onError(message: String) = ui.post { chat.notice("出错：$message", true) }.let { }
+        override fun onStatus(running: Boolean) { ui.post { panel.setRunning(running); updateHeader() } }
+        override fun onChunk(chunk: Chunk) { ui.post { panel.chunk(chunk) } }
+        override fun onEvent(ev: SessionEvent) {
+            ui.post { panel.event(ev, true); if (ev.type == "user/message") updateHeader() }
+        }
+    }
+
+    private val panelHost = object : AgentPanel.Host {
+        override fun onSend(text: String) = send(text)
+        override fun onRemoveAttachment(index: Int) {
+            if (index in attachments.indices) { attachments.removeAt(index); renderTray() }
+        }
+        override fun onOpenModel() = modelDialog()
+        override fun onOpenSessions() = sessionsDialog()
+        override fun onNewSession() = newSession()
+        override fun onOpenSettings() = settingsDialog()
+        override fun onStop() = agent.cancel()
+        override fun currentPage() = pageView.pageIndex + 1
     }
 
     // ---------------- sending ----------------
-    private fun send() {
-        val text = input.text.toString().trim()
+    private fun send(raw: String): Boolean {
+        val text = raw.trim()
         val content = ArrayList<Block>()
         content.addAll(attachments)
         // @N page references → attach a render of that page (dsh-style reference)
@@ -203,11 +149,11 @@ class MainActivity : Activity() {
             content.add(savePng(attachDir, bmp, "ref"))
         }
         if (text.isNotEmpty()) content.add(Block.Text(text))
-        if (content.isEmpty()) return
-        input.setText("")
+        if (content.isEmpty()) return false
         attachments.clear(); renderTray()
         val msg = UserInput(content)
         if (agent.running) agent.steer(msg) else agent.followup(msg)
+        return true
     }
 
     private fun addAttachment(bmp: Bitmap) {
@@ -215,25 +161,7 @@ class MainActivity : Activity() {
         renderTray()
     }
 
-    private fun renderTray() {
-        tray.removeAllViews()
-        attachments.forEachIndexed { i, a ->
-            val cell = FrameLayout(this).apply { setPadding(dp(2), dp(2), dp(2), dp(2)) }
-            cell.addView(ImageView(this).apply {
-                setImageBitmap(android.graphics.BitmapFactory.decodeFile(a.path))
-                adjustViewBounds = true; maxHeight = dp(80); maxWidth = dp(160)
-                scaleType = ImageView.ScaleType.FIT_CENTER
-                background = GradientDrawable().apply { setStroke(dp(1), Color.rgb(30, 120, 255)); cornerRadius = dp(6).toFloat(); setColor(Color.WHITE) }
-            }, FrameLayout.LayoutParams(-2, dp(80)))
-            cell.addView(TextView(this).apply {
-                text = "✕"; setTextColor(Color.WHITE); textSize = 12f; gravity = Gravity.CENTER
-                background = GradientDrawable().apply { shape = GradientDrawable.OVAL; setColor(Color.argb(180, 0, 0, 0)) }
-                setOnClickListener { attachments.removeAt(i); renderTray() }
-            }, FrameLayout.LayoutParams(dp(22), dp(22), Gravity.TOP or Gravity.END))
-            tray.addView(cell)
-        }
-        trayScroll.visibility = if (attachments.isEmpty()) View.GONE else View.VISIBLE
-    }
+    private fun renderTray() { panel.setAttachments(attachments.map { it.path }) }
 
     // ---------------- canvas helpers ----------------
     private fun selectTool(t: PageView.Tool) {
@@ -319,14 +247,14 @@ class MainActivity : Activity() {
 
     // ---------------- sessions ----------------
     private fun updateHeader() {
-        sessionBtn.text = "💬 " + agent.session.title
-        modelBtn.text = "模型：" + settings.label()
+        panel.setTitle(agent.session.title)
+        panel.setModel(settings.label())
     }
 
     private fun switchTo(s: Session) {
         if (agent.running) { toast("先停止当前回答"); return }
         agent.session = s; settings.sessionId = s.id
-        chat.replay(s); updateHeader()
+        panel.replay(s); updateHeader()
     }
 
     private fun newSession() = switchTo(store.create())
@@ -409,12 +337,28 @@ class MainActivity : Activity() {
         }
         form.addView(Button(this).apply { text = "管理服务商与 API Key"; isAllCaps = false; setOnClickListener { providersDialog() } })
         form.addView(Button(this).apply { text = "选择模型：" + settings.label(); isAllCaps = false; setOnClickListener { modelDialog() } })
+        val modes = listOf("compact" to "简洁", "standard" to "标准", "detailed" to "详细", "verbose" to "完全展开")
+        val modeSpin = Spinner(this).apply {
+            adapter = ArrayAdapter(this@MainActivity, android.R.layout.simple_spinner_dropdown_item, modes.map { it.second })
+            setSelection(modes.indexOfFirst { it.first == settings.transcriptMode }.coerceAtLeast(0))
+        }
+        val timings = listOf("completion" to "回答结束后", "next-input" to "下次有新消息时")
+        val timingSpin = Spinner(this).apply {
+            adapter = ArrayAdapter(this@MainActivity, android.R.layout.simple_spinner_dropdown_item, timings.map { it.second })
+            setSelection(timings.indexOfFirst { it.first == settings.collapseTiming }.coerceAtLeast(0))
+        }
+        form.addView(label("工作步骤展示 · 选择希望看到多少工具调用细节")); form.addView(modeSpin)
+        form.addView(label("工作步骤收起时机")); form.addView(timingSpin)
         form.addView(label("System Prompt")); form.addView(sys)
         form.addView(label("Tavily API Key（联网搜索，免费 1000 次/月）")); form.addView(tav)
         AlertDialog.Builder(this).setTitle("设置").setView(ScrollView(this).apply { addView(form) })
             .setPositiveButton("保存") { _, _ ->
                 settings.systemPrompt = sys.text.toString()
                 settings.tavilyKey = tav.text.toString().trim()
+                settings.transcriptMode = modes[modeSpin.selectedItemPosition].first
+                settings.collapseTiming = timings[timingSpin.selectedItemPosition].first
+                panel.setPolicy(settings.transcriptMode, settings.collapseTiming)
+                panel.replay(agent.session)
                 updateHeader()
             }
             .setNegativeButton("取消", null).show()
@@ -488,6 +432,26 @@ class MainActivity : Activity() {
         base.text.toString().trim(), key.text.toString().trim(),
         models.text.toString().split('\n', ',').map { it.trim() }.filter { it.isNotEmpty() },
     )
+
+    /** Debug-build hooks used by the emulator end-to-end test (tests/e2e.py). */
+    private fun applyTestExtras() {
+        if (applicationInfo.flags and android.content.pm.ApplicationInfo.FLAG_DEBUGGABLE == 0) return
+        val i = intent ?: return
+        i.getStringExtra("test_key")?.let { key ->
+            settings.providers = settings.providers.map { if (it.id == "deepseek") it.copy(apiKey = key) else it }
+            settings.providerId = "deepseek"
+        }
+        i.getStringExtra("test_model")?.let { settings.model = it }
+        i.getStringExtra("test_effort")?.let { settings.effort = it }
+        i.getStringExtra("test_mode")?.let { settings.transcriptMode = it; panel.setPolicy(it, settings.collapseTiming) }
+        if (i.hasExtra("test_finger")) { settings.fingerDraw = i.getBooleanExtra("test_finger", false); pageView.fingerCanDraw = settings.fingerDraw }
+        i.getStringExtra("test_tool")?.let { selectTool(PageView.Tool.valueOf(it)) }
+        updateHeader()
+    }
+
+    override fun onNewIntent(intent: android.content.Intent?) {
+        super.onNewIntent(intent); setIntent(intent); applyTestExtras()
+    }
 
     private fun toast(s: String) = Toast.makeText(this, s, Toast.LENGTH_SHORT).show()
 }

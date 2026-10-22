@@ -42,6 +42,14 @@ class Settings(context: Context) {
     var fingerDraw: Boolean
         get() = prefs.getBoolean("finger", false)
         set(v) = prefs.edit().putBoolean("finger", v).apply()
+    /** dsh 工作步骤展示: compact | standard | detailed | verbose */
+    var transcriptMode: String
+        get() = prefs.getString("transcriptMode", "compact") ?: "compact"
+        set(v) = prefs.edit().putString("transcriptMode", v).apply()
+    /** dsh 工作步骤收起时机: completion | next-input */
+    var collapseTiming: String
+        get() = prefs.getString("collapseTiming", "completion") ?: "completion"
+        set(v) = prefs.edit().putString("collapseTiming", v).apply()
     var sessionId: String?
         get() = prefs.getString("sessionId", null)
         set(v) = prefs.edit().putString("sessionId", v).apply()
@@ -57,10 +65,12 @@ class Settings(context: Context) {
 
     fun label(): String {
         val p = provider() ?: return "未配置模型"
-        return "${p.name} · ${model.ifBlank { "?" }} · $effort"
+        val e = effort.takeIf { it in p.efforts() } ?: p.efforts().first()
+        return "${model.ifBlank { "未选模型" }} · ${EFFORT_LABEL[e] ?: e}"
     }
 
     companion object {
+        val EFFORT_LABEL = mapOf("off" to "不思考", "low" to "低", "medium" to "中", "high" to "高", "max" to "最高", "default" to "默认")
         /** dsh llm-deepseek defaults: Anthropic Messages at api.deepseek.com/anthropic. */
         fun defaults() = listOf(
             Provider("deepseek", "DeepSeek", Protocol.ANTHROPIC_MESSAGES, "https://api.deepseek.com/anthropic", "",
