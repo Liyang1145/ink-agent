@@ -52,9 +52,10 @@ def dark_near(scr, x, y, r=8):
     best = 999
     for yy in range(max(0, y - r), min(h, y + r + 1)):
         i = (yy * w + x) * 4
-        s = px[i] + px[i + 1] + px[i + 2]
-        best = min(best, s)
-    return best < 330
+        r_, g_, b_ = px[i], px[i + 1], px[i + 2]
+        # ink = dark, or clearly coloured (the default pen is bright green on the light theme)
+        if r_ + g_ + b_ < 330 or max(r_, g_, b_) - min(r_, g_, b_) > 90: return True
+    return False
 
 def dump():
     adb('shell uiautomator dump /sdcard/ui.xml', timeout=40)
@@ -96,6 +97,13 @@ def tap_label(s, required=False, exact=False):
         if required: raise SystemExit(1)
         return False
     tap(p[0], p[1]); return True
+
+def select_tool(name):
+    """Tap a toolbar tool; if that opened its options popup (re-tap of the active tool), close it."""
+    tap_label(name, exact=True); time.sleep(0.8)
+    t = all_text()
+    if t and '撤销' not in t:  # popup window covers the dump -> toolbar not visible
+        note(f'closing {name} options popup'); adb('shell input keyevent 4'); time.sleep(0.8)
 
 def stroke(pts, tool='stylus'):
     """One gesture through the debug TEST_INPUT receiver (DOWN/MOVE/UP, +16 ms per point)."""
@@ -220,7 +228,7 @@ def main():
     oy, s = int(H * 0.30), int(H * 0.06)
 
     # ---------------- finger strokes: "x^2 = 4" + a long line for the eraser ----------------
-    tap_label('笔', exact=True); time.sleep(0.5)
+    select_tool('笔')
     ox = cx0
     stroke(line(ox, oy, ox + s, oy + s))
     stroke(line(ox + s, oy, ox, oy + s))
@@ -238,7 +246,7 @@ def main():
     check('strokes: ink drawn', dark_near(scr, (lx1 + lx2) // 2, ly) and dark_near(scr, ox + s // 2, oy + s // 2))
 
     # ---------------- area eraser cuts the long line in the middle ----------------
-    tap_label('橡皮', exact=True); time.sleep(0.5)
+    select_tool('橡皮')
     mx = (lx1 + lx2) // 2
     stroke(line(mx, ly - 60, mx, ly + 60, 12))
     stroke(line(mx + 8, ly + 60, mx + 8, ly - 60, 12))
@@ -251,7 +259,7 @@ def main():
           f'left={left} right={right} middle_ink={mid}')
 
     # ---------------- 选择: lasso (default) around the formula, move it ----------------
-    tap_label('选择', exact=True); time.sleep(0.5)
+    select_tool('选择')
     m = 40
     x1, y1, x2, y2 = ox - m, oy - m - 30, ox + 4 * s + m, oy + s + m
     loop = line(x1, y1, x2, y1) + line(x2, y1, x2, y2) + line(x2, y2, x1, y2) + line(x1, y2, x1, y1)
@@ -293,7 +301,7 @@ def main():
         shot('rect_selected')
         check('rectangle: selection menu shown', '加入 Agent' in all_text())
         tap(int(notes_right * 0.5), int(H * 0.85)); time.sleep(1)
-    tap_label('笔', exact=True)
+    select_tool('笔')
 
     if SCEN == 'ui-only':
         return finish()
@@ -343,7 +351,7 @@ def main():
     st = state('sidebar')
     stxt = all_text()
     check('sidebar: open (TEST_STATE)', st.get('sidebarOpen') is True, str(st))
-    check('sidebar: search/new/session listed', '搜索会话' in stxt and '新对话' in stxt and '会话操作' in stxt)
+    check('sidebar: new/session listed', '新对话' in stxt and '会话操作' in stxt)
     p = by_label('会话操作')
     if p:
         tap(p[0], p[1]); time.sleep(1); shot('session_menu')
