@@ -100,10 +100,13 @@ def tap_label(s, required=False, exact=False):
 
 def select_tool(name):
     """Tap a toolbar tool; if that opened its options popup (re-tap of the active tool), close it."""
-    tap_label(name, exact=True); time.sleep(0.8)
-    t = all_text()
-    if t and '撤销' not in t:  # popup window covers the dump -> toolbar not visible
-        note(f'closing {name} options popup'); adb('shell input keyevent 4'); time.sleep(0.8)
+    tap_label(name, exact=True); time.sleep(1.0)
+    for _ in range(2):
+        t = all_text()
+        popup = any(k in t for k in ['压感', '笔画宽度', '发光效果', '橡皮大小', '缩放比例'])
+        if t and ('撤销' not in t or popup):  # tool options popup open (re-tap of the active tool)
+            note(f'closing {name} options popup'); adb('shell input keyevent 4'); time.sleep(1.0)
+        else: break
 
 def stroke(pts, tool='stylus'):
     """One gesture through the debug TEST_INPUT receiver (DOWN/MOVE/UP, +16 ms per point)."""
