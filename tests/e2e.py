@@ -191,6 +191,24 @@ def ensure_front(extra=''):
         launch(extra); time.sleep(8)
     note('!! app never reached the foreground'); return False
 
+def wait_ready(extra='', limit=180):
+    """Wait until the note editor toolbar is up; ride out slow-emulator ANR dialogs (Wait) and relaunch if killed."""
+    t0 = time.time()
+    while time.time() - t0 < limit:
+        f = focus()
+        if 'Not Responding' in f or 'Application Error' in f or 'ImmersiveModeConfirmation' in f:
+            note('ready-wait: dialog ' + f)
+            if not (tap_label('Wait') or tap_label('等待') or tap_label('Got it') or tap_label('知道了')): adb('shell input keyevent 4')
+            time.sleep(3); continue
+        if not adb(f'shell pidof {PKG}').strip():
+            note('ready-wait: app not running, relaunching'); launch(extra); time.sleep(10); continue
+        if PKG not in f:
+            note('ready-wait: not in front: ' + f); launch(extra); time.sleep(8); continue
+        if '撤销' in all_text():
+            note(f'ready after {int(time.time() - t0)}s'); return True
+        time.sleep(5)
+    note('!! editor never became ready'); return False
+
 def composer():
     return find(lambda n: n.get('class') == 'android.widget.EditText' and ('消息' in lab(n) or 'input' in (n.get('resource-id') or '')))\
         or find(lambda n: n.get('class') == 'android.widget.EditText')
@@ -290,6 +308,7 @@ def main():
     launch(ex)
     time.sleep(12)
     if not ensure_front(ex): raise SystemExit(1)
+    wait_ready(ex)
     time.sleep(3)
     shot('launch')
     W, H, _ = raw_screen()  # actual orientation as shown (the app requests landscape in test mode)
