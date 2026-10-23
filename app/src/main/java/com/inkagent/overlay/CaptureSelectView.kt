@@ -23,7 +23,6 @@ import android.widget.FrameLayout
 import android.widget.LinearLayout
 import android.widget.TextView
 import android.widget.Toast
-import kotlin.math.abs
 import kotlin.math.hypot
 import kotlin.math.max
 import kotlin.math.min
@@ -201,6 +200,10 @@ class CaptureSelectView(ctx: Context, private val shot: Bitmap, private val onRe
                 }
                 MotionEvent.ACTION_UP, MotionEvent.ACTION_CANCEL -> {
                     removeCallbacks(longPress)
+                    if (ev.actionMasked == MotionEvent.ACTION_UP && moved) {
+                        if (gestureRect) rect = RectF(min(downX, x), min(downY, y), max(downX, x), max(downY, y))
+                        else { pts.add(x); pts.add(y) }
+                    }
                     val min = dp(12f)
                     hasSelection = if (gestureRect) rect?.let { it.width() > min && it.height() > min } == true
                     else lassoPath()?.let { val b = RectF(); it.computeBounds(b, true); b.width() > min && b.height() > min && pts.size >= 6 } == true
@@ -211,7 +214,4 @@ class CaptureSelectView(ctx: Context, private val shot: Bitmap, private val onRe
             return true
         }
     }
-
-    @Suppress("unused")
-    private fun near(a: Float, b: Float) = abs(a - b) < 1f
 }

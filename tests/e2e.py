@@ -542,9 +542,23 @@ def run_overlay(W, H):
     check('overlay: service running, no overlay ball while InkAgent is in front',
           ov.get('running') is True and ov.get('appForeground') is True and not (ov.get('ball') or {}).get('shown'), str(ov)[:300])
     msgs0 = count_events(session_text(), 'user/message')
-    # leave the app: HOME, then open the system Settings app
+    # leave the app: HOME, then open another app. (The system Settings app hides all third-party overlays by
+    # design — HIDE_NON_SYSTEM_OVERLAY_WINDOWS — so it is checked separately; the main checks run over Files/launcher.)
     adb('shell input keyevent 3'); time.sleep(3)
     adb('shell am start -a android.settings.SETTINGS'); time.sleep(5)
+    st = ostate('over_settings')
+    shot('overlay_over_system_settings')
+    note('over system Settings: ball shown flag=' + str(((st.get('overlay') or {}).get('ball') or {}).get('shown')) + ' (Settings hides non-system overlays)')
+    adb('shell input keyevent 3'); time.sleep(2)
+    other = None
+    for cmd in ['am start -n com.google.android.documentsui/com.android.documentsui.files.FilesActivity',
+                'am start -n com.android.documentsui/com.android.documentsui.files.FilesActivity',
+                'am start -a android.intent.action.VIEW -d content://com.android.contacts/contacts']:
+        adb('shell ' + cmd); time.sleep(5)
+        f = focus()
+        if PKG not in f and 'settings' not in f.lower() and 'launcher' not in f.lower() and 'null' not in f:
+            other = f; break
+        adb('shell input keyevent 3'); time.sleep(2)
     f = focus(); note('focus (other app): ' + f)
     st = ostate('ball_over_settings')
     ov = st.get('overlay') or {}
@@ -554,7 +568,7 @@ def run_overlay(W, H):
     bx, by = b.get('x', -1), b.get('y', -1)
     blue = bx > 0 and any(is_blue(scr, bx + dx, by + dy) for dx, dy in [(-34, 0), (34, 0), (0, -34), (0, 34), (-24, -24), (24, 24)])
     wins = adb('shell dumpsys window windows', timeout=60)
-    check('overlay: ball visible over the Settings app', 'com.android.settings' in f and b.get('shown') is True and blue
+    check('overlay: ball visible over another app', PKG not in f and b.get('shown') is True and blue
           and 'InkAgentOverlayBall' in wins, f"ball={b} blue={blue} focus={f}")
     check('overlay: ball snapped to a screen edge', bx > 0 and (bx < W * 0.1 or bx > W * 0.9), f'x={bx} W={W}')
     # drag the ball to the left: it should snap to the left edge
