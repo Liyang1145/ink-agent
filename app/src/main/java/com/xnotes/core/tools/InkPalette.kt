@@ -4,7 +4,7 @@ import com.xnotes.core.model.Rgba
 
 /** The preset ink colours (spec 04 §4). Ink colour is global across stroke tools. */
 object InkPalette {
-    val GREEN = Rgba(0, 230, 118, 255) // default "hacker green"
+    val GREEN = Rgba(0, 230, 118, 255)
     val NEAR_WHITE = Rgba(236, 236, 236, 255)
     val RED = Rgba(255, 92, 92, 255)
     val AMBER = Rgba(255, 199, 64, 255)
@@ -20,12 +20,12 @@ object InkPalette {
     val NAVY = Rgba(40, 60, 140, 255)
     val BLACK = Rgba(20, 20, 20, 255)
 
-    val DEFAULT = GREEN
+    val DEFAULT = BLACK // InkAgent: dark ink on white paper
 
     /** Full preset palette offered by the colour controls; also the default toolbar swatches. */
     val presets = listOf(
-        GREEN, NEAR_WHITE, RED, AMBER, CYAN, VIOLET, GREY,
-        ORANGE, PINK, BLUE, LIME, TEAL, BROWN, NAVY, BLACK,
+        BLACK, BLUE, RED, GREEN, AMBER, NAVY, GREY,
+        ORANGE, PINK, CYAN, VIOLET, TEAL, BROWN, LIME, NEAR_WHITE,
     )
 
     /** Most swatches the toolbar can show; one per preset. */

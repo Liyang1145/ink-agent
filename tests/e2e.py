@@ -53,7 +53,7 @@ def dark_near(scr, x, y, r=8):
     for yy in range(max(0, y - r), min(h, y + r + 1)):
         i = (yy * w + x) * 4
         r_, g_, b_ = px[i], px[i + 1], px[i + 2]
-        # ink = dark, or clearly coloured (the default pen is bright green on the light theme)
+        # ink = dark (default pen is black), or clearly coloured
         if r_ + g_ + b_ < 330 or max(r_, g_, b_) - min(r_, g_, b_) > 90: return True
     return False
 
@@ -196,7 +196,7 @@ def main():
     note('wm size: ' + adb('shell wm size').strip().replace('\n', ' | '))
     adb(f'install -r -g {APK}', check=True, timeout=240)
     adb('shell settings put system accelerometer_rotation 0')
-    adb('shell settings put system user_rotation 1')
+    adb('shell settings put system user_rotation 0')
     adb('logcat -c')
     adb('shell settings put global hide_error_dialogs 1')
     adb('shell settings put global anr_show_background 0')
