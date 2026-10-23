@@ -275,7 +275,7 @@ fun AgentShell(ctrl: AgentController, content: @Composable () -> Unit) {
                     ctrl.panelRectPx = intArrayOf(p.x.roundToInt(), p.y.roundToInt(), c.size.width, c.size.height)
                 },
         ) {
-            AndroidView(factory = { detach(ctrl.panel.view) }, modifier = Modifier.fillMaxSize())
+            AndroidView(factory = { detach(ctrl.panelSlot) }, modifier = Modifier.fillMaxSize())
         }
 
         // ---- resize handles (on top of the panel edges) ----

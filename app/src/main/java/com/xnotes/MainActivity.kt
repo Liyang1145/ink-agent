@@ -243,7 +243,28 @@ class MainActivity : ComponentActivity() {
 
     override fun onDestroy() {
         testHooks.unregister()
+        // InkAgent: the agent controller dies with this activity; the cross-app overlay hands its panel back.
+        if (!isChangingConfigurations) {
+            com.inkagent.overlay.OverlayService.instance?.onControllerGone()
+            if (com.inkagent.AgentBridge.controller === agent) com.inkagent.AgentBridge.controller = null
+        }
         super.onDestroy()
+    }
+
+    // InkAgent cross-app overlay: shown only while this app is in the background.
+    override fun onStart() {
+        super.onStart()
+        com.inkagent.overlay.OverlayService.setAppForeground(true)
+    }
+
+    override fun onResume() {
+        super.onResume()
+        agent?.onActivityResumed()
+    }
+
+    override fun onStop() {
+        super.onStop()
+        if (!isChangingConfigurations) com.inkagent.overlay.OverlayService.setAppForeground(false)
     }
 
     /** Debug hook (tests/e2e.py): a test launch (test_mode / test_finger extra) runs in landscape. */

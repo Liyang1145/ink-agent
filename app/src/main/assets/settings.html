@@ -43,6 +43,14 @@ section.on{display:flex;}
 .row{display:flex;gap:8px;flex-wrap:wrap;align-items:center;}
 .foot{display:flex;justify-content:flex-end;gap:8px;}
 .msg{font-size:12.5px;color:var(--label-3);} .msg.err{color:var(--danger);} .msg.ok{color:var(--ok);}
+.switch{display:flex;align-items:center;gap:12px;cursor:pointer;}
+.switch .stext{flex:1;display:flex;flex-direction:column;gap:2px;}
+.switch .stext b{font-weight:500;}
+.switch .hint{font-size:12px;color:var(--label-3);}
+.switch input{appearance:none;-webkit-appearance:none;flex:none;width:44px;height:26px;border-radius:13px;background:#d5d8de;position:relative;transition:background .15s;margin:0;}
+.switch input::after{content:"";position:absolute;top:3px;left:3px;width:20px;height:20px;border-radius:50%;background:#fff;box-shadow:0 1px 3px rgba(0,0,0,.2);transition:left .15s;}
+.switch input:checked{background:var(--accent);}
+.switch input:checked::after{left:21px;}
 .add{height:40px;border:.5px dashed #c9cdd4;border-radius:12px;color:var(--label-2);background:#fff;}
 #pick{position:fixed;inset:0;background:rgba(0,0,0,.25);display:none;align-items:center;justify-content:center;z-index:9;}
 #pick .box{background:#fff;border-radius:14px;width:min(420px,92%);max-height:80%;display:flex;flex-direction:column;padding:14px;gap:8px;}
@@ -78,6 +86,11 @@ section.on{display:flex;}
 </section>
 <section id="agent">
   <p class="title">Agent</p>
+  <div class="card">
+    <label class="switch"><span class="stext"><b>在其他应用上显示悬浮球</b><span class="hint">切到其他应用时显示 AI 悬浮球：点开即可继续同一个对话，或「框选截屏」把屏幕上的内容加入附件。需要允许「显示在其他应用的上层」，截屏时系统会请求一次录屏授权。</span></span>
+      <input type="checkbox" id="aOverlay" onchange="setOverlay(this.checked)"></label>
+    <span class="msg" id="oMsg"></span>
+  </div>
   <div class="card">
     <div class="field"><label>工作步骤展示</label><select id="aMode">
       <option value="compact">简洁</option><option value="standard">标准</option><option value="detailed">详细</option><option value="verbose">完全展开</option></select>
@@ -122,6 +135,7 @@ function render(){
   // default model
   var dp=$('dProv'); dp.innerHTML=''; S.providers.forEach(function(p){ var o=document.createElement('option'); o.value=p.id; o.textContent=p.name; dp.appendChild(o); });
   dp.value=S.providerId; fillModels(); $('dModel').value=S.model; $('dMax').value=S.maxTokens||'';
+  syncOverlay();
   $('aMode').value=S.transcriptMode; $('aTiming').value=S.collapseTiming; $('aSys').value=S.systemPrompt;
   $('sKey').value=''; $('sKey').placeholder=S.tavilySet?'留空使用已保存凭据（'+S.tavilyMasked+'）':'输入 API 密钥';
   $('pJson').value=S.pricing;
@@ -195,6 +209,13 @@ function closePick(){ $('pick').style.display='none'; }
 function adoptPick(){ var sel=[]; $('pickList').querySelectorAll('input').forEach(function(i){ if(i.checked) sel.push(i.value); }); closePick(); if(pickCb) pickCb(sel); }
 function confirmBox(t){ return window.confirm(t); }
 function saveDefault(){ var r=Settings.saveDefault(JSON.stringify({providerId:$('dProv').value,model:$('dModel').value,effort:$('dEffort').value,maxTokens:$('dMax').value})); $('dMsg').textContent=r==='ok'?'已保存':r; $('dMsg').className='msg '+(r==='ok'?'ok':'err'); load(); }
+function syncOverlay(){ var on=!!(S.overlayEnabled&&S.overlayPermission); $('aOverlay').checked=on;
+  $('oMsg').textContent=(S.overlayEnabled&&!S.overlayPermission)?'等待授予「显示在其他应用的上层」权限…':''; $('oMsg').className='msg'; }
+function setOverlay(on){ var r=Settings.setOverlay(on); var m=$('oMsg');
+  if(r==='need_permission'){ m.textContent='请在系统设置里允许 InkAgent「显示在其他应用的上层」，返回后自动生效'; m.className='msg'; }
+  else if(r==='ok'){ m.textContent=on?'已开启：切到其他应用时会显示悬浮球':'已关闭'; m.className='msg ok'; }
+  else { m.textContent=r; m.className='msg err'; } }
+document.addEventListener('visibilitychange',function(){ if(document.visibilityState==='visible'&&S){ try{ var n=JSON.parse(Settings.getState()); S.overlayEnabled=n.overlayEnabled; S.overlayPermission=n.overlayPermission; syncOverlay(); }catch(e){} } });
 function saveGeneral(w){
   var o={}; if(w==='a'){ o.transcriptMode=$('aMode').value; o.collapseTiming=$('aTiming').value; o.systemPrompt=$('aSys').value; }
   if(w==='s'){ if($('sKey').value) o.tavilyKey=$('sKey').value; }

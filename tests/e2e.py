@@ -490,9 +490,184 @@ def main():
         etxt = all_text()
         check('settings: editor fields', all(k in etxt for k in ['显示名称', 'API 地址', 'API 协议', 'API 密钥', '模型目录', '获取可用模型', '恢复默认模型']))
     tap_label('用量与价格'); time.sleep(1); shot('settings_pricing')
+    tap_label('Agent', exact=True); time.sleep(1)
+    shot('settings_agent_overlay_toggle')
+    check('settings: overlay toggle 「在其他应用上显示悬浮球」 present', '在其他应用上显示悬浮球' in all_text())
     tap_label('完成', exact=True); time.sleep(1.5)
     shot('final')
+    safe(run_overlay, W, H)
     return finish()
+
+def ostate(tag=''):
+    """Overlay + panel state via the overlay service's debug receiver (logcat tag InkAgentOverlay)."""
+    def grab(): return [l for l in adb('logcat -d -s InkAgentOverlay:I', timeout=30).splitlines() if '{' in l]
+    n0 = len(grab())
+    adb(f'shell am broadcast -a com.inkagent.TEST_OVERLAY -p {PKG} --es op state')
+    for _ in range(8):
+        time.sleep(1)
+        lines = grab()
+        if len(lines) > n0:
+            try:
+                st = json.loads(lines[-1][lines[-1].index('{'):])
+                note(f'ostate[{tag}]: {st}'); return st
+            except Exception as e: note(f'ostate parse failed {e}: {lines[-1][:300]}')
+    note(f'!! no InkAgentOverlay line [{tag}]'); return {}
+
+def overlay_op(op, extra=''):
+    adb(f"shell \"am broadcast -a com.inkagent.TEST_OVERLAY -p {PKG} --es op {op} {extra}\"")
+
+def is_blue(scr, x, y):
+    w, h, px = scr
+    if not (0 <= x < w and 0 <= y < h): return False
+    i = (y * w + x) * 4
+    r, g, b = px[i], px[i + 1], px[i + 2]
+    return b > 200 and r < 140 and g < 160
+
+def web_pt(st, key):
+    """Screen point (centre) of an agent.html element from its CSS rect + the WebView's screen origin."""
+    r = (st.get('rects') or {}).get(key)
+    if not r: return None
+    d = st.get('density') or 1
+    return (int(st.get('viewScreenX', 0) + (r[0] + r[2] / 2) * d), int(st.get('viewScreenY', 0) + (r[1] + r[3] / 2) * d))
+
+def run_overlay(W, H):
+    """Cross-app overlay: ball over another app → overlay agent window (same session) → 框选截屏 → attachment."""
+    note('---- cross-app overlay ----')
+    adb(f'shell appops set {PKG} SYSTEM_ALERT_WINDOW allow')
+    adb(f'shell appops set {PKG} PROJECT_MEDIA allow')
+    note('appops: ' + adb(f'shell appops get {PKG}').replace('\n', ' | ')[:400])
+    launch('--ez test_overlay true'); time.sleep(4)
+    st = ostate('enabled_in_app')
+    ov = st.get('overlay') or {}
+    check('overlay: service running, no overlay ball while InkAgent is in front',
+          ov.get('running') is True and ov.get('appForeground') is True and not (ov.get('ball') or {}).get('shown'), str(ov)[:300])
+    msgs0 = count_events(session_text(), 'user/message')
+    # leave the app: HOME, then open the system Settings app
+    adb('shell input keyevent 3'); time.sleep(3)
+    adb('shell am start -a android.settings.SETTINGS'); time.sleep(5)
+    f = focus(); note('focus (other app): ' + f)
+    st = ostate('ball_over_settings')
+    ov = st.get('overlay') or {}
+    b = ov.get('ball') or {}
+    shot('overlay_ball_over_settings')
+    scr = raw_screen()
+    bx, by = b.get('x', -1), b.get('y', -1)
+    blue = bx > 0 and any(is_blue(scr, bx + dx, by + dy) for dx, dy in [(-34, 0), (34, 0), (0, -34), (0, 34), (-24, -24), (24, 24)])
+    wins = adb('shell dumpsys window windows', timeout=60)
+    check('overlay: ball visible over the Settings app', 'com.android.settings' in f and b.get('shown') is True and blue
+          and 'InkAgentOverlayBall' in wins, f"ball={b} blue={blue} focus={f}")
+    check('overlay: ball snapped to a screen edge', bx > 0 and (bx < W * 0.1 or bx > W * 0.9), f'x={bx} W={W}')
+    # drag the ball to the left: it should snap to the left edge
+    if bx > 0:
+        adb(f'shell input swipe {bx} {by} {int(W * 0.3)} {int(H * 0.45)} 900'); time.sleep(1.5)
+        b2 = (ostate('ball_dragged').get('overlay') or {}).get('ball') or {}
+        shot('overlay_ball_dragged')
+        check('overlay: dragged ball snaps to the left edge', 0 < b2.get('x', -1) < W * 0.1, str(b2))
+        bx, by = b2.get('x', bx), b2.get('y', by)
+    # tap the ball → overlay agent window
+    tap(bx, by); time.sleep(3)
+    st = ostate('window')
+    ov = st.get('overlay') or {}
+    w = ov.get('window') or {}
+    shot('overlay_window')
+    f = focus(); note('focus with overlay window: ' + f)
+    check('overlay window: opens over the other app with the agent panel (same WebView)',
+          w.get('open') is True and w.get('shown') is True and st.get('overlayActive') is True and st.get('panelVisible') is True
+          and st.get('dataMode') == 'overlay' and (st.get('viewWidth') or 0) > 200 and not (ov.get('ball') or {}).get('shown'),
+          f"window={w} panelVisible={st.get('panelVisible')} dataMode={st.get('dataMode')} view={st.get('viewWidth')}x{st.get('viewHeight')}")
+    check('overlay window: same session (transcript present)', st.get('userCount', 0) >= 2, f"userCount={st.get('userCount')}")
+    cap = (st.get('rects') or {}).get('capBtn')
+    check('overlay window: 框选截屏 + 打开应用 buttons', cap and cap[4] and ((st.get('rects') or {}).get('modeBtn') or [0] * 5)[4], str(st.get('rects')))
+    att0 = st.get('attachments', 0); user0 = st.get('userCount', 0)
+    # composer focus → window becomes focusable (IME)
+    ip = web_pt(st, 'input')
+    if ip:
+        tap(ip[0], ip[1]); time.sleep(2.5)
+        st2 = ostate('composer_focus')
+        w2 = (st2.get('overlay') or {}).get('window') or {}
+        ims = adb('shell dumpsys input_method', timeout=40)
+        m = re.search(r'mInputShown=(\w+)', ims)
+        note(f"IME after composer tap: mInputShown={m.group(1) if m else '?'}")
+        shot('overlay_composer_focused')
+        check('overlay window: becomes focusable when the composer is tapped', w2.get('focusable') is True and w2.get('inputFocused') is True, str(w2))
+        adb('shell input keyevent 4'); time.sleep(1)   # hide IME
+        tap(int(W * 0.5), int(H * 0.012)); time.sleep(1.5)  # outside (status bar) → release focus
+        w3 = (ostate('outside_tap').get('overlay') or {}).get('window') or {}
+        check('overlay window: outside tap releases focus (back to the other app)', w3.get('focusable') is False and w3.get('open') is True, str(w3))
+    # 框选截屏 (real tap on the header button); consent auto-granted via appops PROJECT_MEDIA
+    st = ostate('before_capture')
+    cp = web_pt(st, 'capBtn')
+    if cp: tap(cp[0], cp[1])
+    else: overlay_op('capture')
+    time.sleep(4)
+    st = ostate('capture')
+    c = (st.get('overlay') or {}).get('capture') or {}
+    if not c.get('shown'):
+        note('capture selector not up after tap; retrying via debug broadcast'); overlay_op('capture'); time.sleep(4)
+        st = ostate('capture_retry'); c = (st.get('overlay') or {}).get('capture') or {}
+    shot('capture_selector')
+    check('capture: grant obtained, fullscreen selector shown with lasso by default',
+          c.get('shown') is True and c.get('projection') is True and c.get('mode') == 'lasso', str(c)[:400] + ' err=' + str((st.get('overlay') or {}).get('error')))
+    check('capture: overlay hidden while capturing', not ((st.get('overlay') or {}).get('window') or {}).get('shown'), '')
+    # long-press then drag → rectangle (debug broadcast drives the selector's touch path)
+    x1, y1, x2, y2 = int(W * 0.12), int(H * 0.2), int(W * 0.48), int(H * 0.55)
+    pts = ';'.join(f'{x},{y}' for x, y in line(x1, y1, x2, y2, 20))
+    overlay_op('drag', f"--es pts '{x1},{y1};{pts}' --ei hold 800"); time.sleep(3)
+    st = ostate('capture_rect')
+    c = (st.get('overlay') or {}).get('capture') or {}
+    shot('capture_rect_selected')
+    sel = c.get('sel') or [0, 0, 0, 0]
+    check('capture: long-press switches to rectangle, drag selects it', c.get('mode') == 'rect' and c.get('hasSelection') is True
+          and abs(sel[0] - x1) < 25 and abs(sel[3] - y2) < 25, str(c)[:400])
+    ok = c.get('okBtn')
+    if ok: tap(ok[0], ok[1])
+    else: overlay_op('confirm')
+    time.sleep(3)
+    st = ostate('after_confirm')
+    ov = st.get('overlay') or {}
+    c = ov.get('capture') or {}
+    shot('overlay_attachment_added')
+    lc = c.get('lastCrop') or [0, 0]
+    check('capture: 确定 → crop added as attachment, window restored', not c.get('shown') and (ov.get('window') or {}).get('shown') is True
+          and st.get('attachments', 0) == att0 + 1 and st.get('trayCount', 0) == att0 + 1, f"att {att0}->{st.get('attachments')} tray={st.get('trayCount')} crop={lc}")
+    check('capture: crop matches the rectangle', abs(lc[0] - (x2 - x1)) < 30 and abs(lc[1] - (y2 - y1)) < 30, f'crop={lc} rect={x2 - x1}x{y2 - y1}')
+    check('capture: not auto-sent', st.get('userCount', 0) == user0 and count_events(session_text(), 'user/message') == msgs0,
+          f"userCount {user0}->{st.get('userCount')}")
+    # second capture: grant reused (no new consent), default lasso again, 取消 adds nothing
+    st = ostate('before_capture2')
+    cp = web_pt(st, 'capBtn')
+    if cp: tap(cp[0], cp[1])
+    else: overlay_op('capture')
+    time.sleep(3.5)
+    lx, ly, r = int(W * 0.55), int(H * 0.45), int(H * 0.15)
+    import math
+    loop = [(int(lx + r * math.cos(t / 20 * 2 * math.pi)), int(ly + r * math.sin(t / 20 * 2 * math.pi))) for t in range(21)]
+    overlay_op('drag', "--es pts '" + ';'.join(f'{x},{y}' for x, y in loop) + "'"); time.sleep(2.5)
+    st = ostate('capture2_lasso')
+    c = (st.get('overlay') or {}).get('capture') or {}
+    shot('capture_lasso_selected')
+    check('capture: grant cached (one consent), lasso selection by default', c.get('shown') is True and c.get('consentRequests') == 1
+          and c.get('mode') == 'lasso' and c.get('hasSelection') is True, str(c)[:400])
+    cb = c.get('cancelBtn')
+    if cb: tap(cb[0], cb[1])
+    else: overlay_op('cancel')
+    time.sleep(2.5)
+    st = ostate('after_cancel')
+    ov = st.get('overlay') or {}
+    check('capture: 取消 restores the window, nothing added', not (ov.get('capture') or {}).get('shown') and (ov.get('window') or {}).get('shown') is True
+          and st.get('attachments', 0) == att0 + 1, f"attachments={st.get('attachments')}")
+    # 打开应用: back in InkAgent with the same panel (attachment still in the tray)
+    mp = web_pt(st, 'modeBtn')
+    if mp: tap(mp[0], mp[1])
+    time.sleep(4)
+    f = focus(); note('focus after 打开应用: ' + f)
+    st = ostate('back_in_app')
+    ov = st.get('overlay') or {}
+    shot('back_in_app_after_overlay')
+    check('打开应用: InkAgent in front, overlay gone, panel back in app with the attachment', PKG in f and ov.get('appForeground') is True
+          and not (ov.get('ball') or {}).get('shown') and not (ov.get('window') or {}).get('open') and st.get('overlayActive') is False
+          and st.get('panelVisible') is True and st.get('trayCount', 0) == att0 + 1 and st.get('userCount', 0) == user0,
+          f"focus={f} mode={st.get('mode')} tray={st.get('trayCount')} panelVisible={st.get('panelVisible')}")
 
 def safe(f, *a):
     try: return f(*a)

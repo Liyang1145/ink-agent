@@ -96,6 +96,16 @@ class Settings(context: Context) {
     var splitLand: Float get() = prefs.getFloat("splitLand", 0.36f); set(v) = prefs.edit().putFloat("splitLand", v).apply()
     var splitPort: Float get() = prefs.getFloat("splitPort", 0.42f); set(v) = prefs.edit().putFloat("splitPort", v).apply()
 
+    /** 「在其他应用上显示悬浮球」: cross-app overlay ball + window (OverlayService). */
+    var overlayEnabled: Boolean get() = prefs.getBoolean("overlayEnabled", false); set(v) = prefs.edit().putBoolean("overlayEnabled", v).apply()
+    /** Cross-app overlay geometry in screen px (-1 = unset). */
+    var ovBallRight: Boolean get() = prefs.getBoolean("ovBallRight", true); set(v) = prefs.edit().putBoolean("ovBallRight", v).apply()
+    var ovBallY: Int get() = prefs.getInt("ovBallY", -1); set(v) = prefs.edit().putInt("ovBallY", v).apply()
+    var ovWinX: Int get() = prefs.getInt("ovWinX", -1); set(v) = prefs.edit().putInt("ovWinX", v).apply()
+    var ovWinY: Int get() = prefs.getInt("ovWinY", -1); set(v) = prefs.edit().putInt("ovWinY", v).apply()
+    var ovWinW: Int get() = prefs.getInt("ovWinW", -1); set(v) = prefs.edit().putInt("ovWinW", v).apply()
+    var ovWinH: Int get() = prefs.getInt("ovWinH", -1); set(v) = prefs.edit().putInt("ovWinH", v).apply()
+
     fun provider(): Provider? = providers.firstOrNull { it.id == providerId } ?: providers.firstOrNull()
 
     fun callConfig(): CallConfig? {

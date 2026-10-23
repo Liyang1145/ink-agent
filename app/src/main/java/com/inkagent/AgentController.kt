@@ -48,6 +48,11 @@ class AgentController(private val activity: Activity, private val editorRef: () 
     private val ui = Handler(Looper.getMainLooper())
     val raster = Rasterizer(activity) // before any other WebView: it enables whole-document drawing
     val panel: AgentPanel
+    /** The in-app home of the panel WebView (AgentShell composes this); the overlay window borrows the WebView. */
+    val panelSlot = FrameLayout(activity)
+    /** True while the panel WebView lives in the cross-app overlay window (OverlayService). */
+    var overlayActive = false
+        private set
     private val tools = ToolRegistry()
     private val registry = AiRegistry(File(activity.filesDir, "ai_items.json"))
     lateinit var agent: Agent
@@ -94,6 +99,55 @@ class AgentController(private val activity: Activity, private val editorRef: () 
     fun commitBall() { settings.ballRight = ballRight; settings.ballY = ballY }
     fun commitSplit() { settings.splitLand = splitLand; settings.splitPort = splitPort }
 
+    // ---------------- cross-app overlay (OverlayService) ----------------
+    /** Move the one panel WebView (same page, same session) into the overlay window. */
+    fun attachPanelToOverlay(parent: ViewGroup) {
+        val v = panel.view
+        (v.parent as? ViewGroup)?.removeView(v)
+        parent.addView(v, ViewGroup.LayoutParams(-1, -1))
+        overlayActive = true
+        panel.setWindowMode("overlay")
+    }
+
+    /** Give the panel WebView back to the app (its slot in AgentShell). */
+    fun returnPanelFromOverlay() {
+        if (!overlayActive) return
+        val v = panel.view
+        (v.parent as? ViewGroup)?.removeView(v)
+        panelSlot.addView(v, ViewGroup.LayoutParams(-1, -1))
+        overlayActive = false
+        panel.setWindowMode(mode)
+    }
+
+    /** Settings toggle 「在其他应用上显示悬浮球」. Returns "ok", or "need_permission" when the system screen was opened. */
+    fun setOverlayEnabled(on: Boolean): String {
+        settings.overlayEnabled = on
+        if (!on) { com.inkagent.overlay.OverlayService.stop(activity); return "ok" }
+        if (android.os.Build.VERSION.SDK_INT >= 33 &&
+            activity.checkSelfPermission(android.Manifest.permission.POST_NOTIFICATIONS) != android.content.pm.PackageManager.PERMISSION_GRANTED)
+            activity.requestPermissions(arrayOf(android.Manifest.permission.POST_NOTIFICATIONS), 7301)
+        if (!com.inkagent.overlay.OverlayService.canDraw(activity)) {
+            runCatching {
+                activity.startActivity(android.content.Intent(android.provider.Settings.ACTION_MANAGE_OVERLAY_PERMISSION,
+                    android.net.Uri.parse("package:" + activity.packageName)))
+            }
+            return "need_permission"
+        }
+        com.inkagent.overlay.OverlayService.start(activity)
+        return "ok"
+    }
+
+    /** MainActivity.onResume: (re)start the overlay service when enabled and permitted (e.g. back from the permission screen). */
+    fun onActivityResumed() {
+        if (settings.overlayEnabled && com.inkagent.overlay.OverlayService.canDraw(activity)) com.inkagent.overlay.OverlayService.start(activity)
+        settingsWeb?.evaluateJavascript("(function(){try{var n=JSON.parse(Settings.getState());if(S){S.overlayEnabled=n.overlayEnabled;S.overlayPermission=n.overlayPermission;syncOverlay();}}catch(e){}})()", null)
+    }
+
+    private fun openAppThen(action: (() -> Unit)?) {
+        com.inkagent.overlay.OverlayService.instance?.openApp()
+        if (action != null) ui.postDelayed({ action() }, 800)
+    }
+
     // ---------------- agent events → UI ----------------
     private val listener = object : AgentListener {
         override fun onStatus(running: Boolean) { ui.post { panel.setRunning(running); updateHeader(); pushStats() } }
@@ -124,14 +178,20 @@ class AgentController(private val activity: Activity, private val editorRef: () 
     private val host = object : AgentPanel.Host {
         override fun onSend(text: String) = send(text)
         override fun onRemoveAttachment(index: Int) { if (index in attachments.indices) { attachments.removeAt(index); renderTray() } }
-        override fun onOpenModel() = modelDialog()
+        override fun onOpenModel() { if (overlayActive) openAppThen { modelDialog() } else modelDialog() }
         override fun onOpenSessions() { panel.refreshSessions() }
         override fun onNewSession() = switchTo(store.create())
-        override fun onOpenSettings() = openSettings()
+        override fun onOpenSettings() { if (overlayActive) openAppThen { openSettings() } else openSettings() }
         override fun onStop() = agent.cancel()
         override fun currentPage() = (editorRef()?.agentCurrentPage() ?: 0) + 1
-        override fun onCollapse() = updateCollapsed(true)
-        override fun onToggleMode() = changeMode(if (mode == "split") "window" else "split")
+        override fun onCollapse() {
+            if (overlayActive) com.inkagent.overlay.OverlayService.instance?.collapseWindow() else updateCollapsed(true)
+        }
+        override fun onToggleMode() {
+            if (overlayActive) openAppThen(null) else changeMode(if (mode == "split") "window" else "split")
+        }
+        override fun onCapture() { com.inkagent.overlay.OverlayService.instance?.startCapture() ?: toast("请先在设置里开启「在其他应用上显示悬浮球」") }
+        override fun onInputFocus(focused: Boolean) { com.inkagent.overlay.OverlayService.instance?.onInputFocus(focused) }
         override fun listSessions(): String {
             val a = JSONArray()
             store.list().filter { it.hasContent || it.id == agent.session.id }.forEach {
@@ -163,7 +223,7 @@ class AgentController(private val activity: Activity, private val editorRef: () 
         val id = "c" + System.nanoTime().toString(36)
         val p = PendingConfirm(CountDownLatch(1))
         synchronized(confirms) { confirms[id] = p }
-        ui.post { if (collapsed) updateCollapsed(false); panel.showConfirm(id, title, lines) }
+        ui.post { if (collapsed && !overlayActive) updateCollapsed(false); panel.showConfirm(id, title, lines) }
         val answered = p.latch.await(10, TimeUnit.MINUTES)
         if (!answered) { synchronized(confirms) { confirms.remove(id) }; ui.post { panel.resolveConfirm(id, false) } }
         return answered && p.ok
@@ -192,7 +252,7 @@ class AgentController(private val activity: Activity, private val editorRef: () 
         ui.post {
             attachments.add(savePngBytes(attachDir, bytes, "sel"))
             renderTray()
-            if (collapsed) updateCollapsed(false)
+            if (collapsed && !overlayActive) updateCollapsed(false)
         }
     }
 
@@ -258,6 +318,7 @@ class AgentController(private val activity: Activity, private val editorRef: () 
 
     // ---------------- settings screen (dsh ui-settings-models port, WebView) ----------------
     private var settingsDialog: Dialog? = null
+    private var settingsWeb: WebView? = null
 
     private fun stateJson(): String {
         val ps = JSONArray()
@@ -271,7 +332,8 @@ class AgentController(private val activity: Activity, private val editorRef: () 
             .put("effort", settings.effort).put("maxTokens", settings.maxTokens ?: JSONObject.NULL).put("effortLabels", labels)
             .put("transcriptMode", settings.transcriptMode).put("collapseTiming", settings.collapseTiming)
             .put("systemPrompt", settings.systemPrompt).put("tavilySet", settings.tavilyKey.isNotBlank()).put("tavilyMasked", maskKey(settings.tavilyKey))
-            .put("pricing", settings.pricingJson).put("defaultPricing", Settings.DEFAULT_PRICING).toString()
+            .put("pricing", settings.pricingJson).put("defaultPricing", Settings.DEFAULT_PRICING)
+            .put("overlayEnabled", settings.overlayEnabled).put("overlayPermission", com.inkagent.overlay.OverlayService.canDraw(activity)).toString()
     }
 
     private fun providerFrom(o: JSONObject): Provider {
@@ -347,13 +409,15 @@ class AgentController(private val activity: Activity, private val editorRef: () 
                 }
                 pushStats(); "ok"
             }
+            @JavascriptInterface fun setOverlay(on: Boolean): String = onMain { setOverlayEnabled(on) }
             @JavascriptInterface fun close() { ui.post { settingsDialog?.dismiss() } }
         }, "Settings")
         web.loadUrl("file:///android_asset/settings.html")
         val d = Dialog(activity, android.R.style.Theme_Material_Light_NoActionBar)
         d.setContentView(web, ViewGroup.LayoutParams(-1, -1))
         d.window?.setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_ADJUST_RESIZE)
-        d.setOnDismissListener { settingsDialog = null; updateHeader(); web.destroy() }
+        d.setOnDismissListener { settingsDialog = null; settingsWeb = null; updateHeader(); web.destroy() }
+        settingsWeb = web
         settingsDialog = d
         d.show()
     }
@@ -361,6 +425,7 @@ class AgentController(private val activity: Activity, private val editorRef: () 
     // Runs last: every property above (host, listener, …) is initialised by now.
     init {
         panel = AgentPanel(activity, host)
+        panelSlot.addView(panel.view, ViewGroup.LayoutParams(-1, -1))
         CanvasTools(editorRef, raster, attachDir, registry).register(tools) { settings.tavilyKey }
         ProviderTools(settings, ::confirmBlocking) { ui.post { updateHeader() } }.register(tools)
         val session = settings.sessionId?.let { store.open(it) } ?: store.create().also { settings.sessionId = it.id }
@@ -371,6 +436,7 @@ class AgentController(private val activity: Activity, private val editorRef: () 
         updateHeader(); pushStats()
         if (settings.provider()?.apiKey.isNullOrBlank()) panel.notice("先点右上角设置，给服务商填 API 密钥（默认 DeepSeek）。也可以把密钥和 API 地址直接发给我，我来帮你配置。")
         AgentBridge.controller = this
+        onActivityResumed()
     }
 
     // ---------------- debug hooks for tests/e2e.py ----------------
@@ -386,27 +452,34 @@ class AgentController(private val activity: Activity, private val editorRef: () 
         i.getStringExtra("test_mode")?.let { settings.transcriptMode = it; panel.setPolicy(it, settings.collapseTiming); panel.replay(agent.session) }
         if (i.hasExtra("test_collapsed")) updateCollapsed(i.getBooleanExtra("test_collapsed", false))
         i.getStringExtra("test_agent_mode")?.let { changeMode(it) }
+        if (i.hasExtra("test_overlay")) setOverlayEnabled(i.getBooleanExtra("test_overlay", false))
         if (i.getBooleanExtra("test_settings", false)) ui.postDelayed({ openSettings() }, 500)
         if (i.getBooleanExtra("test_sessions", false)) ui.postDelayed({ panel.openSessions() }, 500)
         updateHeader(); pushStats()
     }
 
     /** Debug (TEST_STATE): ask agent.html for its state and log it as one JSON line under [tag]. */
-    fun logTestState(tag: String) {
+    fun logTestState(tag: String, slim: Boolean = false) {
         val js = "(function(){var s=document.getElementById('side');var l=document.getElementById('log');" +
             "return JSON.stringify({jsVisible:window.innerWidth>0&&window.innerHeight>0&&document.visibilityState==='visible'," +
             "sidebarOpen:!!(s&&s.classList.contains('open')),messageCount:l?l.querySelectorAll('.user,.md').length:0," +
             "userCount:l?l.querySelectorAll('.user').length:0,turnCount:l?l.querySelectorAll('.turn').length:0,innerWidth:window.innerWidth," +
-            "layout:(typeof layoutState==='function'?layoutState():null)});})()"
+            "layout:(typeof layoutState==='function'?layoutState():null),trayCount:document.querySelectorAll('#tray .att').length," +
+            "dataMode:document.body.getAttribute('data-mode'),rects:(function(){var o={};['input','modeBtn','capBtn','send'].forEach(function(id){var e=document.getElementById(id);" +
+            "if(e){var r=e.getBoundingClientRect();o[id]=[r.left,r.top,r.width,r.height,getComputedStyle(e).display!=='none'&&r.width>0];}});return o;})()});})()"
         panel.evalForTest(js) { raw ->
             val o = runCatching { JSONObject(JSONArray("[$raw]").getString(0)) }.getOrElse { JSONObject().put("raw", raw) }
             val v = panel.view
-            val visible = !collapsed && v.isShown && v.width > 0 && v.height > 0 && o.optBoolean("jsVisible", false)
+            val visible = (overlayActive || !collapsed) && v.isShown && v.width > 0 && v.height > 0 && o.optBoolean("jsVisible", false)
             o.put("panelVisible", visible).put("collapsed", collapsed).put("viewWidth", v.width).put("viewHeight", v.height)
             o.put("mode", mode).put("notesWidth", notesSizePx[0]).put("notesHeight", notesSizePx[1])
                 .put("panelX", panelRectPx[0]).put("panelY", panelRectPx[1]).put("panelW", panelRectPx[2]).put("panelH", panelRectPx[3])
                 .put("splitLand", splitLand.toDouble()).put("splitPort", splitPort.toDouble()).put("anim", debugAnim)
-            runCatching {
+            val loc = IntArray(2); v.getLocationOnScreen(loc)
+            o.put("overlayActive", overlayActive).put("attachments", attachments.size).put("viewScreenX", loc[0]).put("viewScreenY", loc[1])
+                .put("density", activity.resources.displayMetrics.density.toDouble())
+            com.inkagent.overlay.OverlayService.instance?.let { o.put("overlay", it.debugJson()) }
+            if (!slim) runCatching {
                 val ed = editorRef()
                 if (ed != null && ed.noteOpen) {
                     val idx = ed.agentCurrentPage()
