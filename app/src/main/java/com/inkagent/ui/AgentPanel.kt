@@ -95,9 +95,22 @@ class AgentPanel(context: Context, private val host: Host) {
                 loaded = true
                 queue.forEach { view.evaluateJavascript(it, null) }
                 queue.clear()
+                pushHeight(view.height)
             }
         }
+        // Push the real view height into the page on every size change (see setViewH in agent.html).
+        view.addOnLayoutChangeListener { v, _, top, _, bottom, _, oldTop, _, oldBottom ->
+            if (bottom - top != oldBottom - oldTop) pushHeight(v.height)
+        }
         view.loadUrl("file:///android_asset/agent.html")
+    }
+
+    private var lastPushedH = -1
+    private fun pushHeight(px: Int) {
+        if (px <= 2) return
+        val css = px / view.resources.displayMetrics.density
+        lastPushedH = px
+        js("setViewH(${"%.1f".format(java.util.Locale.US, css)})")
     }
 
     private fun q(s: String?) = if (s == null) "null" else JSONObject.quote(s)

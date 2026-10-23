@@ -341,6 +341,10 @@ def main():
     check('turns: two turns completed', count_events(txt, 'turn/end') >= 2 and '"reason":"error"' not in txt, f'tool errors={len(errs)}')
     st = state('after_turns')
     check('turns: messages rendered in panel (TEST_STATE)', st.get('userCount', 0) >= 2 and st.get('messageCount', 0) >= 3, str(st))
+    lay = st.get('layout') or {}
+    shot('transcript_visible')
+    check('transcript: #scroll height > 200px', (lay.get('scrollClientHeight') or 0) > 200, str(lay))
+    check('transcript: last message visible', lay.get('lastVisible') is True, str(lay))
     ftxt = all_text()
     check('footer: tokens + 缓存命中 + ¥', ('输入' in ftxt and '输出' in ftxt and '缓存命中' in ftxt and '¥' in ftxt))
     check('usage recorded in session', '"usage"' in txt and '"cacheHit"' in txt)

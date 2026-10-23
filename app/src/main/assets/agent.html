@@ -12,9 +12,11 @@
   --mono:ui-monospace,"JetBrains Mono",Menlo,Consolas,monospace;
 }
 *{box-sizing:border-box;}
-html,body{margin:0;height:100%;background:var(--bg);color:var(--label-1);
+html,body{margin:0;height:100%;overflow:hidden;background:var(--bg);color:var(--label-1);
   font:15px/1.65 -apple-system,"PingFang SC","Noto Sans SC","Microsoft YaHei",sans-serif;-webkit-tap-highlight-color:transparent;}
-body{display:flex;flex-direction:column;}
+/* the WebView's viewport height can go stale (laid out while tiny / re-parented); the host pushes its real
+   height into --vh on every size change, so the column never collapses to header+composer */
+body{display:flex;flex-direction:column;height:var(--vh,100%);min-height:0;}
 button{font:inherit;color:inherit;background:none;border:none;padding:0;cursor:pointer;}
 /* ---------- header ---------- */
 #hdr{flex:none;display:flex;align-items:center;gap:4px;height:44px;padding:0 8px 0 12px;border-bottom:.5px solid var(--border);}
@@ -24,7 +26,7 @@ button{font:inherit;color:inherit;background:none;border:none;padding:0;cursor:p
 .icon-btn:active{background:var(--fill-2);}
 svg.i{width:18px;height:18px;stroke:currentColor;fill:none;stroke-width:1.7;stroke-linecap:round;stroke-linejoin:round;}
 /* ---------- transcript ---------- */
-#scroll{flex:1;overflow-y:auto;overflow-x:hidden;}
+#scroll{flex:1 1 0;min-height:0;overflow-y:auto;overflow-x:hidden;-webkit-overflow-scrolling:touch;}
 #log{padding:12px 14px 24px;max-width:860px;margin:0 auto;}
 .empty{color:var(--label-3);text-align:center;margin-top:30%;font-size:14px;}
 .turn{margin:0 0 18px;}
@@ -298,6 +300,20 @@ var turn=null, step=null, timer=null, stick=true;
 var CHEV='<svg class="i chev" viewBox="0 0 24 24"><path d="M6 9l6 6 6-6"/></svg>';
 scroller.addEventListener('scroll',function(){ stick = scroller.scrollHeight-scroller.scrollTop-scroller.clientHeight<60; });
 function end(){ if(stick) scroller.scrollTop=scroller.scrollHeight; }
+// ---- viewport height sync (host calls setViewH(cssPx) whenever the WebView's size changes) ----
+var hostH=0;
+function applyVH(){ var h=hostH>0?hostH:window.innerHeight; if(h>0) document.documentElement.style.setProperty('--vh',h+'px'); }
+function setViewH(h){ hostH=h; applyVH(); requestAnimationFrame(function(){ end(); }); }
+window.addEventListener('resize',function(){ applyVH(); end(); });
+if(window.ResizeObserver) new ResizeObserver(function(){ end(); }).observe(scroller);
+applyVH();
+function layoutState(){
+  var r=scroller.getBoundingClientRect(), last=log.lastElementChild, vis=false, lb=null;
+  if(last){ var b=last.getBoundingClientRect(); lb=Math.round(b.bottom); vis=b.bottom>r.top+4&&b.top<r.bottom-4&&b.height>0; }
+  return {innerHeight:window.innerHeight, hostH:hostH, scrollClientHeight:scroller.clientHeight, scrollTop:Math.round(scroller.scrollTop),
+    scrollHeight:scroller.scrollHeight, scrollTopPx:Math.round(r.top), scrollBottomPx:Math.round(r.bottom), lastBottom:lb, lastVisible:vis,
+    bodyHeight:document.body.clientHeight};
+}
 function el(tag,cls,parent,html){ var e=document.createElement(tag); if(cls) e.className=cls; if(html!==undefined) e.innerHTML=html; if(parent) parent.appendChild(e); return e; }
 function toggle(btn, body){ btn.onclick=function(){ body.hidden=!body.hidden; if(body.hidden) btn.removeAttribute('data-open'); else btn.setAttribute('data-open',''); }; }
 function setOpen(btn, body, open){ body.hidden=!open; if(open) btn.setAttribute('data-open',''); else btn.removeAttribute('data-open'); }
