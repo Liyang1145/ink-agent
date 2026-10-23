@@ -480,12 +480,15 @@ class OverlayService : Service() {
             } else if (Build.VERSION.SDK_INT >= 28) layoutInDisplayCutoutMode = WindowManager.LayoutParams.LAYOUT_IN_DISPLAY_CUTOUT_MODE_SHORT_EDGES
         }
         editorWin = v
-        runCatching { wm.addView(v, lp) }.onFailure { lastError = "editor: ${it.message}"; editorWin = null; Log.w(TAG, "editor add failed", it) }
+        // only one of our overlay windows on screen at a time (the agent window comes back on close)
+        win?.visibility = View.INVISIBLE
+        runCatching { wm.addView(v, lp) }.onFailure { lastError = "editor: ${it.message}"; editorWin = null; win?.visibility = View.VISIBLE; Log.w(TAG, "editor add failed", it) }
     }
 
     fun removeEditor(v: View) {
         if (editorWin === v) editorWin = null
         if (v.parent != null) runCatching { wm.removeViewImmediate(v) }
+        if (windowOpen && !appForeground && !capturing) win?.visibility = View.VISIBLE
     }
 
     // ---------------- 框选截屏 ----------------

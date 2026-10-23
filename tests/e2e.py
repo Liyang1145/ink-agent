@@ -59,10 +59,17 @@ def dark_near(scr, x, y, r=8):
     return False
 
 def dump():
-    adb('shell uiautomator dump /sdcard/ui.xml', timeout=40)
-    adb(f'pull /sdcard/ui.xml {OUT}/ui.xml')
-    try: return ET.parse(f'{OUT}/ui.xml').getroot()
-    except Exception as e: note(f'ui dump failed {e}'); return None
+    """uiautomator dump; a slow emulator sometimes produces no file ("could not get idle state"), so retry."""
+    for k in range(4):
+        try:
+            if os.path.exists(f'{OUT}/ui.xml'): os.remove(f'{OUT}/ui.xml')
+            adb('shell rm -f /sdcard/ui.xml')
+            adb('shell uiautomator dump /sdcard/ui.xml', timeout=40)
+            adb(f'pull /sdcard/ui.xml {OUT}/ui.xml')
+            return ET.parse(f'{OUT}/ui.xml').getroot()
+        except Exception as e:
+            note(f'ui dump failed (try {k + 1}) {e}'); time.sleep(2)
+    return None
 
 def nodes(pred):
     root = dump()
