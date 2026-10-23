@@ -192,6 +192,84 @@ def composer():
     return find(lambda n: n.get('class') == 'android.widget.EditText' and ('消息' in lab(n) or 'input' in (n.get('resource-id') or '')))\
         or find(lambda n: n.get('class') == 'android.widget.EditText')
 
+def swipe(x1, y1, x2, y2, ms=700):
+    adb(f'shell input swipe {int(x1)} {int(y1)} {int(x2)} {int(y2)} {ms}')
+    time.sleep(1.5)
+
+def run_modes(W, H):
+    st = state('split')
+    shot('split_landscape')
+    nw0, pw0 = st.get('notesWidth', 0), st.get('panelW', 0)
+    check('split: notes area shrinks, agent docked right (not covering)',
+          st.get('mode') == 'split' and 0 < nw0 < W * 0.85 and st.get('panelX', 0) >= nw0 - 2 and st.get('panelX', 0) + pw0 <= W + 2,
+          f"notesWidth={nw0} panelX={st.get('panelX')} panelW={pw0} W={W}")
+    dv = by_label('拖动调整分屏比例')
+    check('split: divider present', dv is not None)
+    if dv:
+        swipe(dv[0], dv[1], dv[0] - 300, dv[1], 900)
+        st2 = state('split_dragged')
+        shot('split_divider_dragged')
+        check('split: divider drag changes ratio (notes narrower, agent wider)',
+              st2.get('notesWidth', 0) < nw0 - 120 and st2.get('splitLand', 0) > st.get('splitLand', 0) + 0.04,
+              f"notesWidth {nw0}->{st2.get('notesWidth')} splitLand {st.get('splitLand')}->{st2.get('splitLand')}")
+    # minimise to the ball
+    ok = tap_label('最小化', exact=True); time.sleep(2)
+    st = state('ball')
+    shot('ball')
+    check('ball: 最小化 → floating ball, notes full width', ok and '展开 Agent' in all_text() and st.get('panelVisible') is False
+          and st.get('notesWidth', 0) >= W - 2, f"mode={st.get('mode')} notesWidth={st.get('notesWidth')}")
+    p = by_label('展开 Agent')
+    if p:
+        swipe(p[0], p[1], int(W * 0.3), int(H * 0.45), 900); time.sleep(1)
+        p2 = by_label('展开 Agent')
+        shot('ball_dragged_snapped')
+        check('ball: drag snaps to the left edge', p2 is not None and p2[0] < W * 0.1, f'ball at {p2[:2] if p2 else None}')
+        p = p2 or p
+    # ball → floating window
+    if p: tap(p[0], p[1])
+    time.sleep(2)
+    st = state('window')
+    shot('floating_window')
+    check('window: ball tap opens floating window over full-width notes',
+          st.get('mode') == 'window' and st.get('panelVisible') is True and 0 < st.get('panelW', 0) < W * 0.6 and st.get('notesWidth', 0) >= W - 2,
+          f"mode={st.get('mode')} panel={st.get('panelX')},{st.get('panelY')} {st.get('panelW')}x{st.get('panelH')}")
+    lay = st.get('layout') or {}
+    check('window: transcript visible inside window', (lay.get('scrollClientHeight') or 0) > 200 and lay.get('lastVisible') is True, str(lay))
+    w0, h0, x0 = st.get('panelW', 0), st.get('panelH', 0), st.get('panelX', 0)
+    c = by_label('调整浮窗左下角')
+    check('window: resize corner present', c is not None)
+    if c:
+        swipe(c[0], c[1], c[0] - 260, c[1] + 160, 900)
+        st2 = state('window_resized')
+        shot('window_resized')
+        check('window: resize by corner changes size', st2.get('panelW', 0) > w0 + 150 and st2.get('panelH', 0) > h0 + 60,
+              f"{w0}x{h0} -> {st2.get('panelW')}x{st2.get('panelH')}")
+        st = st2
+    g = by_label('拖动浮窗')
+    if g:
+        x1 = st.get('panelX', 0)
+        swipe(g[0], g[1], g[0] - 500, g[1] + 40, 900)
+        st3 = state('window_moved')
+        shot('window_moved')
+        check('window: drag by header moves it', st3.get('panelX', 0) < x1 - 300, f"panelX {x1} -> {st3.get('panelX')}")
+    # 划分领土
+    ok = tap_label('划分领土', exact=True); time.sleep(2.5)
+    st = state('split_again')
+    shot('split_from_window')
+    check('split: 划分领土 docks right and shrinks notes', ok and st.get('mode') == 'split' and st.get('notesWidth', 0) < W * 0.85
+          and st.get('panelX', 0) >= st.get('notesWidth', 0) - 2, f"notesWidth={st.get('notesWidth')} panelX={st.get('panelX')}")
+    ok = tap_label('浮窗模式', exact=True); time.sleep(2.5)
+    st = state('window_again')
+    check('window: 浮窗模式 returns to the floating window (size remembered)', ok and st.get('mode') == 'window'
+          and abs(st.get('panelW', 0) - (st2.get('panelW', 0) if c else w0)) < 30, f"panelW={st.get('panelW')}")
+    ok = tap_label('最小化', exact=True); time.sleep(2)
+    st = state('ball_again')
+    check('ball: back to ball', ok and st.get('mode') == 'ball' and '展开 Agent' in all_text())
+    shot('back_to_ball')
+    tap_label('展开 Agent'); time.sleep(2)
+    st = state('expanded')
+    check('expand: panel visible again (TEST_STATE)', st.get('panelVisible') is True, str(st))
+
 def main():
     note('wm size: ' + adb('shell wm size').strip().replace('\n', ' | '))
     adb(f'install -r -g {APK}', check=True, timeout=240)
@@ -205,7 +283,7 @@ def main():
     dismiss_dialogs()
     adb('shell input keyevent 82'); adb('shell input keyevent 3')
     time.sleep(5)
-    ex = f'--es test_key {KEY} --ez test_finger true --es test_mode compact --es test_effort high --ez test_collapsed false'
+    ex = f'--es test_key {KEY} --ez test_finger true --es test_mode compact --es test_effort high --es test_agent_mode split'
     launch(ex)
     time.sleep(12)
     if not ensure_front(ex): raise SystemExit(1)
@@ -221,7 +299,7 @@ def main():
     check('launch: agent panel visible', st.get('panelVisible') is True, str(st))
 
     # notes area = left of the agent pane; find the drag handle to know where it ends
-    h = by_label('拖动调整 Agent 宽度')
+    h = by_label('拖动调整分屏比例')
     notes_right = h[2][0] if h else int(W * 0.62)
     note(f'notes area right edge x={notes_right}')
     cx0 = int(notes_right * 0.12)
@@ -377,16 +455,8 @@ def main():
         shot('session_pinned')
     tap_label('关闭会话列表'); time.sleep(1)
 
-    # ---------------- collapse → floating ball, notes fullscreen ----------------
-    tap_label('收起 Agent'); time.sleep(2)
-    shot('collapsed_fullscreen')
-    ctxt = all_text()
-    st = state('collapsed')
-    check('collapse: floating ball shown', '展开 Agent' in ctxt)
-    check('collapse: panel hidden (TEST_STATE)', st.get('panelVisible') is False, str(st))
-    tap_label('展开 Agent'); time.sleep(2)
-    st = state('expanded')
-    check('expand: panel visible again (TEST_STATE)', st.get('panelVisible') is True, str(st))
+    # ---------------- agent window modes: split ⇄ window ⇄ ball ----------------
+    run_modes(W, H)
 
     # ---------------- provider settings ----------------
     tap_label('设置', exact=True); time.sleep(3)

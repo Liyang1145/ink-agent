@@ -16,6 +16,7 @@ import android.webkit.WebChromeClient
 import android.webkit.WebView
 import android.widget.*
 import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableFloatStateOf
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.setValue
 import com.inkagent.agent.*
@@ -53,10 +54,22 @@ class AgentController(private val activity: Activity, private val editorRef: () 
         private set
     private val attachments = ArrayList<Block.Image>()
 
-    /** Compose-observed panel state. */
-    var collapsed by mutableStateOf(settings.panelCollapsed)
+    /** Compose-observed agent window state (see AgentShell): mode = ball | window | split. */
+    var mode by mutableStateOf(settings.agentMode.takeIf { it in MODES } ?: "window")
         private set
-    var widthDp by mutableStateOf(settings.panelWidthDp)
+    val collapsed: Boolean get() = mode == "ball"
+    /** Floating window geometry in dp (-1 = not placed yet; AgentShell picks a default). */
+    var winX by mutableFloatStateOf(settings.winX)
+    var winY by mutableFloatStateOf(settings.winY)
+    var winW by mutableFloatStateOf(settings.winW)
+    var winH by mutableFloatStateOf(settings.winH)
+    var ballRight by mutableStateOf(settings.ballRight)
+    var ballY by mutableFloatStateOf(settings.ballY)
+    var splitLand by mutableFloatStateOf(settings.splitLand)
+    var splitPort by mutableFloatStateOf(settings.splitPort)
+    /** Debug/test: last laid-out sizes (px) reported by AgentShell. */
+    var notesSizePx = intArrayOf(0, 0)
+    var panelRectPx = intArrayOf(0, 0, 0, 0)
 
     private class PendingConfirm(val latch: CountDownLatch) { @Volatile var ok = false }
     private val confirms = HashMap<String, PendingConfirm>()
@@ -69,8 +82,16 @@ class AgentController(private val activity: Activity, private val editorRef: () 
     }
 
     // ---------------- panel placement (read by AgentShell) ----------------
-    fun updateCollapsed(b: Boolean) { collapsed = b; settings.panelCollapsed = b }
-    fun commitWidth() { settings.panelWidthDp = widthDp }
+    fun changeMode(m: String) {
+        if (m !in MODES || m == mode) return
+        mode = m; settings.agentMode = m
+        panel.setWindowMode(m)
+    }
+    /** Minimise to the ball, or reopen as the floating window. */
+    fun updateCollapsed(b: Boolean) = changeMode(if (b) "ball" else if (mode == "ball") "window" else mode)
+    fun commitWindow() { settings.winX = winX; settings.winY = winY; settings.winW = winW; settings.winH = winH }
+    fun commitBall() { settings.ballRight = ballRight; settings.ballY = ballY }
+    fun commitSplit() { settings.splitLand = splitLand; settings.splitPort = splitPort }
 
     // ---------------- agent events → UI ----------------
     private val listener = object : AgentListener {
@@ -109,6 +130,7 @@ class AgentController(private val activity: Activity, private val editorRef: () 
         override fun onStop() = agent.cancel()
         override fun currentPage() = (editorRef()?.agentCurrentPage() ?: 0) + 1
         override fun onCollapse() = updateCollapsed(true)
+        override fun onToggleMode() = changeMode(if (mode == "split") "window" else "split")
         override fun listSessions(): String {
             val a = JSONArray()
             store.list().filter { it.hasContent || it.id == agent.session.id }.forEach {
@@ -343,6 +365,7 @@ class AgentController(private val activity: Activity, private val editorRef: () 
         val session = settings.sessionId?.let { store.open(it) } ?: store.create().also { settings.sessionId = it.id }
         agent = Agent(session, tools, { settings.callConfig() }, { systemPrompt() }, listener) { m, u -> settings.cost(m, u) }
         panel.setPolicy(settings.transcriptMode, settings.collapseTiming)
+        panel.setWindowMode(mode)
         panel.replay(session)
         updateHeader(); pushStats()
         if (settings.provider()?.apiKey.isNullOrBlank()) panel.notice("先点右上角设置，给服务商填 API 密钥（默认 DeepSeek）。也可以把密钥和 API 地址直接发给我，我来帮你配置。")
@@ -361,6 +384,7 @@ class AgentController(private val activity: Activity, private val editorRef: () 
         i.getStringExtra("test_effort")?.let { settings.effort = it }
         i.getStringExtra("test_mode")?.let { settings.transcriptMode = it; panel.setPolicy(it, settings.collapseTiming); panel.replay(agent.session) }
         if (i.hasExtra("test_collapsed")) updateCollapsed(i.getBooleanExtra("test_collapsed", false))
+        i.getStringExtra("test_agent_mode")?.let { changeMode(it) }
         if (i.getBooleanExtra("test_settings", false)) ui.postDelayed({ openSettings() }, 500)
         if (i.getBooleanExtra("test_sessions", false)) ui.postDelayed({ panel.openSessions() }, 500)
         updateHeader(); pushStats()
@@ -378,6 +402,9 @@ class AgentController(private val activity: Activity, private val editorRef: () 
             val v = panel.view
             val visible = !collapsed && v.isShown && v.width > 0 && v.height > 0 && o.optBoolean("jsVisible", false)
             o.put("panelVisible", visible).put("collapsed", collapsed).put("viewWidth", v.width).put("viewHeight", v.height)
+            o.put("mode", mode).put("notesWidth", notesSizePx[0]).put("notesHeight", notesSizePx[1])
+                .put("panelX", panelRectPx[0]).put("panelY", panelRectPx[1]).put("panelW", panelRectPx[2]).put("panelH", panelRectPx[3])
+                .put("splitLand", splitLand.toDouble()).put("splitPort", splitPort.toDouble())
             runCatching {
                 val ed = editorRef()
                 if (ed != null && ed.noteOpen) {
@@ -396,6 +423,8 @@ class AgentController(private val activity: Activity, private val editorRef: () 
             android.util.Log.i(tag, o.toString())
         }
     }
+
+    companion object { val MODES = setOf("ball", "window", "split") }
 
     private fun toast(s: String) = Toast.makeText(activity, s, Toast.LENGTH_SHORT).show()
 }

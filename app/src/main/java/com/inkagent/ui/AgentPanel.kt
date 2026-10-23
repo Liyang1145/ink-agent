@@ -33,6 +33,7 @@ class AgentPanel(context: Context, private val host: Host) {
         fun onStop()
         fun currentPage(): Int
         fun onCollapse()
+        fun onToggleMode()
         fun listSessions(): String
         fun onOpenSession(id: String)
         fun onPinSession(id: String, pinned: Boolean)
@@ -71,6 +72,7 @@ class AgentPanel(context: Context, private val host: Host) {
             @JavascriptInterface fun stop() { main.post { host.onStop() } }
             @JavascriptInterface fun currentPage(): Int = host.currentPage()
             @JavascriptInterface fun collapse() { main.post { host.onCollapse() } }
+            @JavascriptInterface fun toggleMode() { main.post { host.onToggleMode() } }
             @JavascriptInterface fun listSessions(): String {
                 var out = "[]"
                 val latch = java.util.concurrent.CountDownLatch(1)
@@ -143,6 +145,7 @@ class AgentPanel(context: Context, private val host: Host) {
     fun setRunning(b: Boolean) = js("setRunning($b)")
     fun setModel(t: String) = js("setModel(${q(t)})")
     fun setTitle(t: String) = js("setTitle(${q(t)})")
+    fun setWindowMode(m: String) = js("setWindowMode(${q(m)})")
     fun setAttachments(paths: List<String>) {
         val a = JSONArray(); paths.forEach { a.put("file://$it") }
         js("setAttachments($a)")

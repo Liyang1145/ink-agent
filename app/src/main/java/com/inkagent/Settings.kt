@@ -78,13 +78,23 @@ class Settings(context: Context) {
     fun providerStatus(id: String): String = prefs.getString("status_$id", "unknown") ?: "unknown"
     fun setProviderStatus(id: String, st: String) = prefs.edit().putString("status_$id", st).apply()
 
-    /** Agent panel width in dp (landscape side pane) and whether it is collapsed to the floating ball. */
-    var panelWidthDp: Int
-        get() = prefs.getInt("panelWidthDp", 420)
-        set(v) = prefs.edit().putInt("panelWidthDp", v).apply()
-    var panelCollapsed: Boolean
-        get() = prefs.getBoolean("panelCollapsed", false)
-        set(v) = prefs.edit().putBoolean("panelCollapsed", v).apply()
+    /**
+     * Agent window placement. mode: ball (minimised to the floating ball) | window (floating window over the
+     * notes) | split (「划分领土」: docked right in landscape, bottom in portrait). Geometry is in dp; -1 = unset.
+     */
+    var agentMode: String
+        get() = prefs.getString("agentMode", null) ?: if (prefs.getBoolean("panelCollapsed", false)) "ball" else "window"
+        set(v) = prefs.edit().putString("agentMode", v).apply()
+    var winX: Float get() = prefs.getFloat("winX", -1f); set(v) = prefs.edit().putFloat("winX", v).apply()
+    var winY: Float get() = prefs.getFloat("winY", -1f); set(v) = prefs.edit().putFloat("winY", v).apply()
+    var winW: Float get() = prefs.getFloat("winW", -1f); set(v) = prefs.edit().putFloat("winW", v).apply()
+    var winH: Float get() = prefs.getFloat("winH", -1f); set(v) = prefs.edit().putFloat("winH", v).apply()
+    /** Floating ball: which edge it is snapped to and its vertical position (dp from top). */
+    var ballRight: Boolean get() = prefs.getBoolean("ballRight", true); set(v) = prefs.edit().putBoolean("ballRight", v).apply()
+    var ballY: Float get() = prefs.getFloat("ballY", -1f); set(v) = prefs.edit().putFloat("ballY", v).apply()
+    /** Split mode: the agent's share of the screen (width in landscape, height in portrait). */
+    var splitLand: Float get() = prefs.getFloat("splitLand", 0.36f); set(v) = prefs.edit().putFloat("splitLand", v).apply()
+    var splitPort: Float get() = prefs.getFloat("splitPort", 0.42f); set(v) = prefs.edit().putFloat("splitPort", v).apply()
 
     fun provider(): Provider? = providers.firstOrNull { it.id == providerId } ?: providers.firstOrNull()
 
