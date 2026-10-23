@@ -183,7 +183,9 @@ fun AgentShell(ctrl: AgentController, content: @Composable () -> Unit) {
                 }
             }
         }
-        val t = if (anim.pending) 0f else prog.value
+        // read prog.value unconditionally: this composition must observe the animation even while pending
+        val pv = prog.value
+        val t = if (anim.pending) 0f else pv
         val from = anim.from
         val host = if (from != null && t < 1f) from.lerp(target, t) else target
         anim.last = host

@@ -402,7 +402,8 @@ def main():
         time.sleep(1.2)
         shot('rect_mode_toast')
         txt = all_text()
-        check('long-press: switched to rectangle', '矩形' in txt)
+        sr = state('rect_mode').get('selectRect')
+        check('long-press: switched to rectangle', '矩形' in txt or sr is True, f'toast_seen={"矩形" in txt} selectRect={sr}')
         # rectangle around the right half of the cut line
         stroke(line(mx + 30, ly - 70, lx2 + 40, ly + 70, 40))
         time.sleep(2)

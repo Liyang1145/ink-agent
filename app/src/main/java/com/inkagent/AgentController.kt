@@ -598,6 +598,7 @@ class AgentController(private val activity: Activity, private val editorRef: () 
             }
             if (!slim) runCatching {
                 val ed = editorRef()
+                if (ed != null) o.put("selectRect", ed.selectRect).put("tool", ed.tool.name)
                 if (ed != null && ed.noteOpen) {
                     val idx = ed.agentCurrentPage()
                     val page = ed.pageAt(idx)
