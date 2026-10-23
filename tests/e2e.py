@@ -101,8 +101,8 @@ def tap_label(s, required=False, exact=False):
 def select_tool(name):
     """Tap a toolbar tool; if that opened its options popup (re-tap of the active tool), close it."""
     tap_label(name, exact=True); time.sleep(1.0)
-    for _ in range(2):
-        t = all_text()
+    for _ in range(3):
+        t = all_text() or all_text()  # a slow emulator sometimes fails one ui dump
         popup = any(k in t for k in ['压感', '笔画宽度', '发光效果', '橡皮大小', '缩放比例'])
         if t and ('撤销' not in t or popup):  # tool options popup open (re-tap of the active tool)
             note(f'closing {name} options popup'); adb('shell input keyevent 4'); time.sleep(1.0)
@@ -530,6 +530,11 @@ def web_pt(st, key):
     d = st.get('density') or 1
     return (int(st.get('viewScreenX', 0) + (r[0] + r[2] / 2) * d), int(st.get('viewScreenY', 0) + (r[1] + r[3] / 2) * d))
 
+def top_activity():
+    out = adb('shell dumpsys activity activities', timeout=60)
+    m = re.search(r'topResumedActivity=.*', out) or re.search(r'mResumedActivity: .*', out)
+    return m.group(0) if m else '?'
+
 def run_overlay(W, H):
     """Cross-app overlay: ball over another app → overlay agent window (same session) → 框选截屏 → attachment."""
     note('---- cross-app overlay ----')
@@ -555,11 +560,11 @@ def run_overlay(W, H):
                 'am start -n com.android.documentsui/com.android.documentsui.files.FilesActivity',
                 'am start -a android.intent.action.VIEW -d content://com.android.contacts/contacts']:
         adb('shell ' + cmd); time.sleep(5)
-        f = focus()
-        if PKG not in f and 'settings' not in f.lower() and 'launcher' not in f.lower() and 'null' not in f:
+        f = top_activity(); note('candidate: ' + f)
+        if PKG not in f and 'settings' not in f.lower() and 'launcher' not in f.lower() and f != '?':
             other = f; break
         adb('shell input keyevent 3'); time.sleep(2)
-    f = focus(); note('focus (other app): ' + f)
+    f = top_activity(); note('top (other app): ' + f)
     st = ostate('ball_over_settings')
     ov = st.get('overlay') or {}
     b = ov.get('ball') or {}
@@ -584,7 +589,7 @@ def run_overlay(W, H):
     ov = st.get('overlay') or {}
     w = ov.get('window') or {}
     shot('overlay_window')
-    f = focus(); note('focus with overlay window: ' + f)
+    f = top_activity(); note('top with overlay window: ' + f)
     check('overlay window: opens over the other app with the agent panel (same WebView)',
           w.get('open') is True and w.get('shown') is True and st.get('overlayActive') is True and st.get('panelVisible') is True
           and st.get('dataMode') == 'overlay' and (st.get('viewWidth') or 0) > 200 and not (ov.get('ball') or {}).get('shown'),
@@ -605,7 +610,7 @@ def run_overlay(W, H):
         shot('overlay_composer_focused')
         check('overlay window: becomes focusable when the composer is tapped', w2.get('focusable') is True and w2.get('inputFocused') is True, str(w2))
         adb('shell input keyevent 4'); time.sleep(1)   # hide IME
-        tap(int(W * 0.5), int(H * 0.012)); time.sleep(1.5)  # outside (status bar) → release focus
+        tap(int(W * 0.3), int(H * 0.3)); time.sleep(1.5)  # outside the window, on the other app → release focus
         w3 = (ostate('outside_tap').get('overlay') or {}).get('window') or {}
         check('overlay window: outside tap releases focus (back to the other app)', w3.get('focusable') is False and w3.get('open') is True, str(w3))
     # 框选截屏 (real tap on the header button); consent auto-granted via appops PROJECT_MEDIA
@@ -674,7 +679,7 @@ def run_overlay(W, H):
     mp = web_pt(st, 'modeBtn')
     if mp: tap(mp[0], mp[1])
     time.sleep(4)
-    f = focus(); note('focus after 打开应用: ' + f)
+    f = top_activity(); note('top after 打开应用: ' + f)
     st = ostate('back_in_app')
     ov = st.get('overlay') or {}
     shot('back_in_app_after_overlay')
