@@ -287,11 +287,19 @@ class OverlayService : Service() {
     /** Root of the overlay window: focusable only while the user works in it (IME), released on outside touch / back. */
     inner class OverlayRoot(c: Context) : FrameLayout(c) {
         override fun dispatchTouchEvent(ev: MotionEvent): Boolean {
-            if (ev.actionMasked == MotionEvent.ACTION_OUTSIDE) { setWinFocusable(false, blur = true); return false }
+            if (ev.actionMasked == MotionEvent.ACTION_OUTSIDE) { if (editorWin == null) setWinFocusable(false, blur = true); return false }
             if (ev.actionMasked == MotionEvent.ACTION_DOWN) setWinFocusable(true)
             return super.dispatchTouchEvent(ev)
         }
         override fun dispatchKeyEvent(event: KeyEvent): Boolean {
+            val ed = editorWin
+            if (ed != null && editorEmbedded && ed.parent === this) {
+                if (event.keyCode == KeyEvent.KEYCODE_BACK) {
+                    if (event.action == KeyEvent.ACTION_UP) (ed as? com.inkagent.ui.ImageEditorView)?.handleBack()
+                    return true
+                }
+                return super.dispatchKeyEvent(event)
+            }
             if (event.keyCode == KeyEvent.KEYCODE_BACK) {
                 if (event.action == KeyEvent.ACTION_UP) setWinFocusable(false, blur = true)
                 return true
@@ -459,36 +467,74 @@ class OverlayService : Service() {
 
     // ---------------- attachment image editor over other apps ----------------
     private var editorWin: View? = null
+    private var editorEmbedded = false
+    private var savedLp: WindowManager.LayoutParams? = null
+    private var savedPad = IntArray(4)
+    private val hiddenForEditor = ArrayList<View>()
     fun uiContext(): Context = ui
 
-    /** Fullscreen, focusable (text tool IME, back key) overlay window for the attachment editor. */
+    /**
+     * The editor takes over the overlay agent window itself (expanded to the whole display, focusable for the
+     * text tool's IME and the back key) rather than stacking a second overlay window on top of it — a second
+     * fullscreen overlay window was composited dimmed. The window's geometry comes back on close.
+     */
     fun showEditor(v: View) {
-        removeEditor(editorWin ?: v)
-        setWinFocusable(false, blur = true)
-        val lp = WindowManager.LayoutParams(WindowManager.LayoutParams.MATCH_PARENT, WindowManager.LayoutParams.MATCH_PARENT, overlayType(),
+        editorWin?.let { removeEditor(it) }
+        val root = win; val lp = winLp
+        editorWin = v
+        if (root != null && lp != null && windowOpen && root.parent != null) {
+            editorEmbedded = true
+            savedLp = WindowManager.LayoutParams().also { it.copyFrom(lp) }
+            savedPad = intArrayOf(root.paddingLeft, root.paddingTop, root.paddingRight, root.paddingBottom)
+            hiddenForEditor.clear()
+            for (k in 0 until root.childCount) root.getChildAt(k).let { c -> if (c.visibility == View.VISIBLE) { hiddenForEditor.add(c); c.visibility = View.GONE } }
+            root.setPadding(0, 0, 0, 0)
+            root.addView(v, FrameLayout.LayoutParams(FrameLayout.LayoutParams.MATCH_PARENT, FrameLayout.LayoutParams.MATCH_PARENT))
+            lp.x = 0; lp.y = 0
+            lp.width = WindowManager.LayoutParams.MATCH_PARENT; lp.height = WindowManager.LayoutParams.MATCH_PARENT
+            lp.flags = (lp.flags and WindowManager.LayoutParams.FLAG_NOT_FOCUSABLE.inv()) or WindowManager.LayoutParams.FLAG_LAYOUT_NO_LIMITS
+            if (Build.VERSION.SDK_INT >= 30) {
+                lp.layoutInDisplayCutoutMode = WindowManager.LayoutParams.LAYOUT_IN_DISPLAY_CUTOUT_MODE_ALWAYS
+                lp.fitInsetsTypes = 0; lp.fitInsetsSides = 0
+            } else if (Build.VERSION.SDK_INT >= 28) lp.layoutInDisplayCutoutMode = WindowManager.LayoutParams.LAYOUT_IN_DISPLAY_CUTOUT_MODE_SHORT_EDGES
+            winFocusable = true
+            inputFocused = false
+            runCatching { wm.updateViewLayout(root, lp) }.onFailure { lastError = "editor: ${it.message}"; Log.w(TAG, "editor layout failed", it) }
+            v.requestFocus()
+            return
+        }
+        // no agent window to take over (should not happen): a window of its own
+        editorEmbedded = false
+        val elp = WindowManager.LayoutParams(WindowManager.LayoutParams.MATCH_PARENT, WindowManager.LayoutParams.MATCH_PARENT, overlayType(),
             WindowManager.LayoutParams.FLAG_LAYOUT_IN_SCREEN or WindowManager.LayoutParams.FLAG_LAYOUT_NO_LIMITS or
                 WindowManager.LayoutParams.FLAG_HARDWARE_ACCELERATED,
             PixelFormat.TRANSLUCENT).apply {
             gravity = Gravity.TOP or Gravity.START
             title = "InkAgentImageEditor"
             windowAnimations = 0
-            softInputMode = WindowManager.LayoutParams.SOFT_INPUT_ADJUST_PAN
-            // cover the whole display like the capture selector; the editor pads itself for the system bars
-            if (Build.VERSION.SDK_INT >= 30) {
-                layoutInDisplayCutoutMode = WindowManager.LayoutParams.LAYOUT_IN_DISPLAY_CUTOUT_MODE_ALWAYS
-                fitInsetsTypes = 0; fitInsetsSides = 0
-            } else if (Build.VERSION.SDK_INT >= 28) layoutInDisplayCutoutMode = WindowManager.LayoutParams.LAYOUT_IN_DISPLAY_CUTOUT_MODE_SHORT_EDGES
+            if (Build.VERSION.SDK_INT >= 30) { fitInsetsTypes = 0; fitInsetsSides = 0 }
         }
-        editorWin = v
-        // only one of our overlay windows on screen at a time (the agent window comes back on close)
-        win?.visibility = View.INVISIBLE
-        runCatching { wm.addView(v, lp) }.onFailure { lastError = "editor: ${it.message}"; editorWin = null; win?.visibility = View.VISIBLE; Log.w(TAG, "editor add failed", it) }
+        runCatching { wm.addView(v, elp) }.onFailure { lastError = "editor: ${it.message}"; editorWin = null; Log.w(TAG, "editor add failed", it) }
     }
 
     fun removeEditor(v: View) {
-        if (editorWin === v) editorWin = null
-        if (v.parent != null) runCatching { wm.removeViewImmediate(v) }
-        if (windowOpen && !appForeground && !capturing) win?.visibility = View.VISIBLE
+        if (editorWin !== v) { if (v.parent != null && v.parent !== win) runCatching { wm.removeViewImmediate(v) }; return }
+        editorWin = null
+        val root = win; val lp = winLp; val old = savedLp
+        if (editorEmbedded && root != null) {
+            root.removeView(v)
+            hiddenForEditor.forEach { it.visibility = View.VISIBLE }; hiddenForEditor.clear()
+            root.setPadding(savedPad[0], savedPad[1], savedPad[2], savedPad[3])
+            if (lp != null && old != null) {
+                lp.x = old.x; lp.y = old.y; lp.width = old.width; lp.height = old.height
+                lp.flags = old.flags or WindowManager.LayoutParams.FLAG_NOT_FOCUSABLE
+                if (Build.VERSION.SDK_INT >= 30) { lp.fitInsetsTypes = old.fitInsetsTypes; lp.fitInsetsSides = old.fitInsetsSides }
+                if (Build.VERSION.SDK_INT >= 28) lp.layoutInDisplayCutoutMode = old.layoutInDisplayCutoutMode
+                winFocusable = false
+                if (root.parent != null) runCatching { wm.updateViewLayout(root, lp) }
+            }
+        } else if (v.parent != null) runCatching { wm.removeViewImmediate(v) }
+        editorEmbedded = false; savedLp = null
     }
 
     // ---------------- 框选截屏 ----------------

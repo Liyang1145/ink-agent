@@ -744,6 +744,7 @@ def run_overlay_editor(W, H):
     """Overlay window: single tap on the tray thumbnail opens the editor over the other app; 取消 changes nothing."""
     st = ostate('ov_editor_before')
     att = st.get('attachments', 0)
+    w0 = (st.get('overlay') or {}).get('window') or {}
     p = thumb_pt(st, -1)
     check('overlay editor: tray thumbnail present in the overlay window', p is not None and st.get('trayCount', 0) >= 1, str(st.get('trayRects')))
     if not p: return
@@ -769,8 +770,10 @@ def run_overlay_editor(W, H):
     else:
         check('overlay editor: opens fullscreen over the other app, drawing works', False, str(st)[:300])
     st = ostate('ov_editor_closed')
+    w1 = (st.get('overlay') or {}).get('window') or {}
     check('overlay editor: 取消 closes it, attachment unchanged, window back', not (st.get('editor') or {}).get('open')
-          and st.get('attachments', 0) == att and ((st.get('overlay') or {}).get('window') or {}).get('shown') is True, f"attachments={st.get('attachments')}")
+          and st.get('attachments', 0) == att and w1.get('shown') is True and abs(w1.get('w', 0) - w0.get('w', 0)) < 4 and abs(w1.get('h', 0) - w0.get('h', 0)) < 4,
+          f"attachments={st.get('attachments')} window {w0.get('w')}x{w0.get('h')} -> {w1.get('w')}x{w1.get('h')}")
 
 def run_editor(W, H):
     """In-app attachment editor: tap thumbnail → draw (TEST_INPUT) → 替换原附件 / 添加为新附件 / 复制到剪贴板 / 保存到相册."""
