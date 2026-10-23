@@ -164,7 +164,7 @@ class CanvasTools(
         }
         if (prefX == null && prefY == null) {
             val lowest = obstacles.maxOfOrNull { it.bottom }
-            val belowY = if (lowest == null) minY else maxOf(minY, lowest + gap)
+            val belowY = if (lowest == null) minY else maxOf(minY, lowest + gap * 1.5)
             if (belowY <= maxY && free(minX, belowY)) return Rect(minX, belowY, w, h)
             return scan(minY, maxY, xs.sorted())
         }

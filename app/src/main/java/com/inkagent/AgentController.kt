@@ -70,6 +70,7 @@ class AgentController(private val activity: Activity, private val editorRef: () 
     /** Debug/test: last laid-out sizes (px) reported by AgentShell. */
     var notesSizePx = intArrayOf(0, 0)
     var panelRectPx = intArrayOf(0, 0, 0, 0)
+    var debugAnim = ""
 
     private class PendingConfirm(val latch: CountDownLatch) { @Volatile var ok = false }
     private val confirms = HashMap<String, PendingConfirm>()
@@ -404,7 +405,7 @@ class AgentController(private val activity: Activity, private val editorRef: () 
             o.put("panelVisible", visible).put("collapsed", collapsed).put("viewWidth", v.width).put("viewHeight", v.height)
             o.put("mode", mode).put("notesWidth", notesSizePx[0]).put("notesHeight", notesSizePx[1])
                 .put("panelX", panelRectPx[0]).put("panelY", panelRectPx[1]).put("panelW", panelRectPx[2]).put("panelH", panelRectPx[3])
-                .put("splitLand", splitLand.toDouble()).put("splitPort", splitPort.toDouble())
+                .put("splitLand", splitLand.toDouble()).put("splitPort", splitPort.toDouble()).put("anim", debugAnim)
             runCatching {
                 val ed = editorRef()
                 if (ed != null && ed.noteOpen) {

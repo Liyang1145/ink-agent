@@ -174,8 +174,13 @@ fun AgentShell(ctrl: AgentController, content: @Composable () -> Unit) {
         }
         LaunchedEffect(mode) {
             if (anim.pending) {
-                prog.snapTo(0f); anim.pending = false
-                prog.animateTo(1f, tween(240, easing = FastOutSlowInEasing))
+                try {
+                    prog.snapTo(0f); anim.pending = false
+                    prog.animateTo(1f, tween(240, easing = FastOutSlowInEasing))
+                } finally {
+                    anim.pending = false
+                    if (prog.value < 1f) runCatching { prog.snapTo(1f) }
+                }
             }
         }
         val t = if (anim.pending) 0f else prog.value
@@ -183,6 +188,7 @@ fun AgentShell(ctrl: AgentController, content: @Composable () -> Unit) {
         val host = if (from != null && t < 1f) from.lerp(target, t) else target
         anim.last = host
         val appear = if (anim.appear && t < 1f) t else 1f
+        ctrl.debugAnim = "t=$t pending=${anim.pending} prog=${prog.value} appear=$appear from=${from != null}"
 
         // Off-screen-ish formula/SVG rasterizer: kept attached (it must be laid out to draw) and covered by the notes.
         AndroidView(factory = { detach(ctrl.raster.view) }, modifier = Modifier.size(900.dp))
@@ -230,7 +236,7 @@ fun AgentShell(ctrl: AgentController, content: @Composable () -> Unit) {
             Box(
                 Modifier.offset { IntOffset(cardGeo.x.roundToInt(), cardGeo.y.roundToInt()) }
                     .size(with(density) { cardGeo.w.toDp() }, with(density) { cardGeo.h.toDp() })
-                    .graphicsLayer { alpha = appear; scaleX = 0.9f + 0.1f * appear; scaleY = 0.9f + 0.1f * appear; transformOrigin = origin }
+                    .graphicsLayer { scaleX = 0.94f + 0.06f * appear; scaleY = 0.94f + 0.06f * appear; transformOrigin = origin }
                     .shadow(14.dp, RoundedCornerShape(14.dp))
                     .clip(RoundedCornerShape(14.dp))
                     .background(Color.White)
@@ -259,8 +265,7 @@ fun AgentShell(ctrl: AgentController, content: @Composable () -> Unit) {
             Modifier.offset { IntOffset(host.x.roundToInt(), host.y.roundToInt()) }
                 .size(with(density) { host.w.coerceAtLeast(1f).toDp() }, with(density) { host.h.coerceAtLeast(1f).toDp() })
                 .graphicsLayer {
-                    alpha = if (ball) 0f else appear
-                    if (window) { scaleX = 0.9f + 0.1f * appear; scaleY = 0.9f + 0.1f * appear; transformOrigin = origin }
+                    if (window) { scaleX = 0.94f + 0.06f * appear; scaleY = 0.94f + 0.06f * appear; transformOrigin = origin }
                 }
                 .clip(hostShape)
                 .background(Color.White)
@@ -274,7 +279,7 @@ fun AgentShell(ctrl: AgentController, content: @Composable () -> Unit) {
         }
 
         // ---- resize handles (on top of the panel edges) ----
-        if (window && appear >= 1f) {
+        if (window) {
             val e = 22f * d   // handle thickness (straddles the edge)
             val c = 34f * d   // corner square
             fun resize(left: Boolean, right: Boolean, bottom: Boolean, dx: Float, dy: Float) {
