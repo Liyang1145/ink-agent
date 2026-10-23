@@ -26,6 +26,8 @@ class AgentPanel(context: Context, private val host: Host) {
     interface Host {
         fun onSend(text: String): Boolean
         fun onRemoveAttachment(index: Int)
+        /** Single tap on a tray thumbnail → the image editor. */
+        fun onEditAttachment(index: Int) {}
         fun onOpenModel()
         fun onOpenSessions()
         fun onNewSession()
@@ -69,6 +71,7 @@ class AgentPanel(context: Context, private val host: Host) {
                 return ok
             }
             @JavascriptInterface fun removeAttachment(i: Int) { main.post { host.onRemoveAttachment(i) } }
+            @JavascriptInterface fun editAttachment(i: Int) { main.post { host.onEditAttachment(i) } }
             @JavascriptInterface fun openModel() { main.post { host.onOpenModel() } }
             @JavascriptInterface fun openSessions() { main.post { host.onOpenSessions() } }
             @JavascriptInterface fun newSession() { main.post { host.onNewSession() } }

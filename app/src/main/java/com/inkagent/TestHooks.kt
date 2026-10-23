@@ -55,6 +55,8 @@ class TestHooks(private val activity: Activity, private val agent: () -> AgentCo
             val t = runCatching { String(android.util.Base64.decode(b, android.util.Base64.DEFAULT), Charsets.UTF_8) }.getOrNull()
             if (t != null) { agent()?.panel?.setComposerForTest(t); Log.i(TAG, "TEST_INPUT text ${t.length} chars") }
         }
+        if (intent.getBooleanExtra("add_test_attachment", false)) agent()?.addTestAttachment()
+        intent.getStringExtra("editor_text")?.let { t -> com.inkagent.ui.ImageEditorView.current?.addTextForTest(t, 40f, 40f) }
         val raw = intent.getStringExtra("pts") ?: return
         val pts = raw.split(';').mapNotNull { p ->
             val xy = p.split(',')

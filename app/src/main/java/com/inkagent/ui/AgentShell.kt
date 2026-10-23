@@ -188,7 +188,6 @@ fun AgentShell(ctrl: AgentController, content: @Composable () -> Unit) {
         val host = if (from != null && t < 1f) from.lerp(target, t) else target
         anim.last = host
         val appear = if (anim.appear && t < 1f) t else 1f
-        ctrl.debugAnim = "t=$t pending=${anim.pending} prog=${prog.value} appear=$appear from=${from != null}"
 
         // Off-screen-ish formula/SVG rasterizer: kept attached (it must be laid out to draw) and covered by the notes.
         AndroidView(factory = { detach(ctrl.raster.view) }, modifier = Modifier.size(900.dp))

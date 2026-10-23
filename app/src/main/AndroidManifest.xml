@@ -8,6 +8,8 @@
     <uses-permission android:name="android.permission.FOREGROUND_SERVICE" />
     <uses-permission android:name="android.permission.FOREGROUND_SERVICE_SPECIAL_USE" />
     <uses-permission android:name="android.permission.FOREGROUND_SERVICE_MEDIA_PROJECTION" />
+    <!-- 附件编辑器「保存到相册」 on Android 8–9 (10+ uses MediaStore without a permission) -->
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" android:maxSdkVersion="28" />
 
     <!-- The infinite canvas renders on GLES 3.0. Not required: the paged notebook does not use
          it, so a device without it keeps the rest of the app. -->

@@ -172,6 +172,7 @@ class OverlayService : Service() {
     private fun onAppForegroundChanged(fg: Boolean) {
         if (fg) {
             if (selector != null) cancelSelector()
+            if (editorWin != null) { AgentBridge.controller?.closeImageEditor(); editorWin?.let { removeEditor(it) } }
             if (windowOpen) {
                 closeWindow(back = true)
                 // keep the conversation in view in the app (in-app ball → in-app window)
@@ -184,6 +185,7 @@ class OverlayService : Service() {
     /** The activity (and its controller) went away: give the panel back and show only the ball. */
     fun onControllerGone() {
         if (selector != null) cancelSelector()
+        editorWin?.let { removeEditor(it) }
         if (windowOpen) closeWindow(back = true)
         refresh()
     }
@@ -453,6 +455,31 @@ class OverlayService : Service() {
         if (back) AgentBridge.controller?.returnPanelFromOverlay()
         if (root != null && root.parent != null) runCatching { wm.removeViewImmediate(root) }
         windowOpen = false
+    }
+
+    // ---------------- attachment image editor over other apps ----------------
+    private var editorWin: View? = null
+    fun uiContext(): Context = ui
+
+    /** Fullscreen, focusable (text tool IME, back key) overlay window for the attachment editor. */
+    fun showEditor(v: View) {
+        removeEditor(editorWin ?: v)
+        setWinFocusable(false, blur = true)
+        val lp = WindowManager.LayoutParams(WindowManager.LayoutParams.MATCH_PARENT, WindowManager.LayoutParams.MATCH_PARENT, overlayType(),
+            WindowManager.LayoutParams.FLAG_LAYOUT_IN_SCREEN or WindowManager.LayoutParams.FLAG_HARDWARE_ACCELERATED,
+            PixelFormat.OPAQUE).apply {
+            gravity = Gravity.TOP or Gravity.START
+            title = "InkAgentImageEditor"
+            windowAnimations = 0
+            softInputMode = WindowManager.LayoutParams.SOFT_INPUT_ADJUST_PAN
+        }
+        editorWin = v
+        runCatching { wm.addView(v, lp) }.onFailure { lastError = "editor: ${it.message}"; editorWin = null; Log.w(TAG, "editor add failed", it) }
+    }
+
+    fun removeEditor(v: View) {
+        if (editorWin === v) editorWin = null
+        if (v.parent != null) runCatching { wm.removeViewImmediate(v) }
     }
 
     // ---------------- 框选截屏 ----------------

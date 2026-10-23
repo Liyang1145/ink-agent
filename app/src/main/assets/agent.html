@@ -361,7 +361,7 @@ function userMessage(text, imgs, steer){
   if (steer&&step){ turn.answer.parentNode.insertBefore(row, turn.answer); }
   var b=el('div','user'+(steer&&step?' steer':''),row);
   if (steer&&step) el('span','tag',b,'插话');
-  if (imgs&&imgs.length){ var g=el('div','imgs',b); imgs.forEach(function(u){ var im=el('img','',g); im.src=u; im.onclick=function(){preview(u);}; }); }
+  if (imgs&&imgs.length){ var g=el('div','imgs',b); imgs.forEach(function(u){ var im=el('img','',g); im.src=u; im.title='点按编辑'; im.setAttribute('aria-label','编辑附件 '+(i+1)); im.onclick=function(){ try{ Native.editAttachment(i); }catch(e){ preview(u); } }; }); }
   if (text) b.appendChild(document.createTextNode(text));
   end();
 }
@@ -511,7 +511,7 @@ function insertRef(){ var n=Native.currentPage(); var s=input.selectionStart||in
   input.value=input.value.slice(0,s)+'@'+n+' '+input.value.slice(s); input.focus(); autosize(); }
 function setAttachments(urls){
   var tray=document.getElementById('tray'); tray.innerHTML=''; nAtt=urls.length;
-  urls.forEach(function(u,i){ var a=el('div','att',tray); var im=el('img','',a); im.src=u; im.onclick=function(){preview(u);};
+  urls.forEach(function(u,i){ var a=el('div','att',tray); var im=el('img','',a); im.src=u; im.title='点按编辑'; im.setAttribute('aria-label','编辑附件 '+(i+1)); im.onclick=function(){ try{ Native.editAttachment(i); }catch(e){ preview(u); } };
     var x=el('button','x',a,'✕'); x.onclick=function(){ Native.removeAttachment(i); }; });
   autosize();
 }

@@ -496,6 +496,7 @@ def main():
     tap_label('完成', exact=True); time.sleep(1.5)
     shot('final')
     safe(run_overlay, W, H)
+    safe(run_editor, W, H)
     return finish()
 
 def ostate(tag=''):
@@ -653,6 +654,7 @@ def run_overlay(W, H):
     check('capture: crop matches the rectangle', abs(lc[0] - (x2 - x1)) < 30 and abs(lc[1] - (y2 - y1)) < 30, f'crop={lc} rect={x2 - x1}x{y2 - y1}')
     check('capture: not auto-sent', st.get('userCount', 0) == user0 and count_events(session_text(), 'user/message') == msgs0,
           f"userCount {user0}->{st.get('userCount')}")
+    safe(run_overlay_editor, W, H)
     # second capture: grant reused (no new consent), default lasso again, 取消 adds nothing
     st = ostate('before_capture2')
     cp = web_pt(st, 'capBtn')
@@ -688,6 +690,189 @@ def run_overlay(W, H):
           and not (ov.get('ball') or {}).get('shown') and not (ov.get('window') or {}).get('open') and st.get('overlayActive') is False
           and st.get('panelVisible') is True and st.get('trayCount', 0) == att0 + 1 and st.get('userCount', 0) == user0,
           f"focus={f} mode={st.get('mode')} tray={st.get('trayCount')} panelVisible={st.get('panelVisible')}")
+
+def fresh_state(tag=''):
+    """TEST_STATE, waiting for a line newer than the ones already in logcat."""
+    def grab(): return [l for l in adb('logcat -d -s InkAgentState:I', timeout=30).splitlines() if '{' in l]
+    n0 = len(grab())
+    adb(f'shell am broadcast -a com.inkagent.TEST_STATE -p {PKG}')
+    for _ in range(8):
+        time.sleep(1)
+        lines = grab()
+        if len(lines) > n0:
+            try:
+                st = json.loads(lines[-1][lines[-1].index('{'):])
+                short = {k: st.get(k) for k in ['attachments', 'trayCount', 'userCount', 'editor', 'attachInfo', 'clip', 'lastClipUri', 'lastSavedUri']}
+                note(f'estate[{tag}]: {short}'); return st
+            except Exception as e: note(f'estate parse failed {e}')
+    note(f'!! no fresh InkAgentState line [{tag}]'); return {}
+
+def thumb_pt(st, i):
+    r = (st.get('trayRects') or [])
+    if i < 0: i = len(r) + i
+    if not (0 <= i < len(r)): return None
+    d = st.get('density') or 1
+    x, y, w, h = r[i]
+    return (int(st.get('viewScreenX', 0) + (x + w / 2) * d), int(st.get('viewScreenY', 0) + (y + h / 2) * d))
+
+def ebtn(st, name):
+    b = ((st.get('editor') or {}).get('buttons') or {}).get(name)
+    return (b[0], b[1]) if b else None
+
+def tap_ebtn(st, name):
+    p = ebtn(st, name)
+    if not p: note(f'!! editor button not found: {name}'); return False
+    tap(p[0], p[1]); return True
+
+def is_red(scr, x, y, r=6):
+    w, h, px = scr
+    for yy in range(max(0, y - r), min(h, y + r + 1)):
+        for xx in range(max(0, x - r), min(w, x + r + 1), 2):
+            i = (yy * w + xx) * 4
+            if px[i] > 190 and px[i + 1] < 110 and px[i + 2] < 110: return True
+    return False
+
+def run_overlay_editor(W, H):
+    """Overlay window: single tap on the tray thumbnail opens the editor over the other app; 取消 changes nothing."""
+    st = ostate('ov_editor_before')
+    att = st.get('attachments', 0)
+    p = thumb_pt(st, -1)
+    check('overlay editor: tray thumbnail present in the overlay window', p is not None and st.get('trayCount', 0) >= 1, str(st.get('trayRects')))
+    if not p: return
+    tap(p[0], p[1]); time.sleep(3)
+    st = ostate('ov_editor_open')
+    e = st.get('editor') or {}
+    shot('overlay_image_editor')
+    r = e.get('imgRect') or [0, 0, 0, 0]
+    if e.get('open'):
+        x1, x2, y = r[0] + (r[2] - r[0]) // 5, r[0] + (r[2] - r[0]) * 4 // 5, (r[1] + r[3]) // 2
+        swipe(x1, y, x2, y + 10, 500)
+        st = ostate('ov_editor_drawn')
+        e2 = st.get('editor') or {}
+        shot('overlay_image_editor_drawn')
+        check('overlay editor: opens fullscreen over the other app, drawing works',
+              e.get('host') == 'overlay' and e2.get('ops', 0) >= 1 and (e.get('root') or [0, 0, 0, 0])[2] >= W * 0.9, f"editor={str(e)[:300]} ops={e2.get('ops')}")
+        tap_ebtn(st, '取消'); time.sleep(2)
+    else:
+        check('overlay editor: opens fullscreen over the other app, drawing works', False, str(st)[:300])
+    st = ostate('ov_editor_closed')
+    check('overlay editor: 取消 closes it, attachment unchanged, window back', not (st.get('editor') or {}).get('open')
+          and st.get('attachments', 0) == att and ((st.get('overlay') or {}).get('window') or {}).get('shown') is True, f"attachments={st.get('attachments')}")
+
+def run_editor(W, H):
+    """In-app attachment editor: tap thumbnail → draw (TEST_INPUT) → 替换原附件 / 添加为新附件 / 复制到剪贴板 / 保存到相册."""
+    note('---- attachment image editor ----')
+    ensure_front(); time.sleep(2)
+    st = fresh_state('editor_start')
+    if st.get('trayCount', 0) < 1:
+        adb(f'shell am broadcast -a com.inkagent.TEST_INPUT -p {PKG} --ez add_test_attachment true'); time.sleep(2)
+        st = fresh_state('editor_start2')
+    users0 = st.get('userCount', 0); msgs0 = count_events(session_text(), 'user/message')
+    n = st.get('attachments', 0)
+    info0 = (st.get('attachInfo') or [{}])[0]
+
+    def open_editor(tag):
+        s = fresh_state(tag + '_pre')
+        p = thumb_pt(s, 0)
+        if not p: note('!! no thumbnail'); return {}
+        tap(p[0], p[1]); time.sleep(2.5)
+        return fresh_state(tag)
+
+    def draw_line_in(e, fy, tool='finger'):
+        r = e.get('imgRect') or [0, 0, 0, 0]
+        x1, x2 = r[0] + (r[2] - r[0]) // 6, r[0] + (r[2] - r[0]) * 5 // 6
+        y = int(r[1] + (r[3] - r[1]) * fy)
+        stroke(line(x1, y, x2, y - 20, 16), tool)
+        return (x1 + x2) // 2, y - 10
+
+    st = open_editor('editor_open')
+    e = st.get('editor') or {}
+    shot('editor_open')
+    names = ['画笔', '荧光笔', '矩形框', '圈', '箭头', '文字', '马赛克', '撤销', '重做', '替换原附件', '添加为新附件', '复制到剪贴板', '更多操作', '取消', '红色', '黄色', '蓝色', '黑色', '细', '中', '粗']
+    btns = e.get('buttons') or {}
+    check('editor: single tap on thumbnail opens fullscreen editor (in app)', e.get('open') is True and e.get('host') == 'app'
+          and (e.get('root') or [0, 0, 0, 0])[2] >= W * 0.95, str(e)[:300])
+    check('editor: all tools / colours / widths / actions present', all(k in btns for k in names), 'missing=' + str([k for k in names if k not in btns]))
+    # overflow / overlap of the bottom controls
+    boxes = [(k, b[0] - b[2] / 2, b[1] - b[3] / 2, b[0] + b[2] / 2, b[1] + b[3] / 2) for k, b in btns.items() if k != '保存到相册']
+    ovl = [(a[0], b[0]) for i, a in enumerate(boxes) for b in boxes[i + 1:] if a[1] < b[3] - 1 and b[1] < a[3] - 1 and a[2] < b[4] - 1 and b[2] < a[4] - 1]
+    outside = [k for k, x1, y1, x2, y2 in boxes if x1 < 0 or x2 > W or y2 > H]
+    check('editor: controls inside the screen, no overlaps', not ovl and not outside, f'overlaps={ovl} outside={outside}')
+    # 画笔 (default, red) stroke + 矩形框 via TEST_INPUT
+    mx, my = draw_line_in(e, 0.35)
+    tap_ebtn(st, '矩形框'); time.sleep(1)
+    r = e.get('imgRect') or [0, 0, 0, 0]
+    rx1, ry1, rx2, ry2 = r[0] + (r[2] - r[0]) // 4, r[1] + (r[3] - r[1]) // 2, r[0] + (r[2] - r[0]) * 3 // 4, r[1] + (r[3] - r[1]) * 5 // 6
+    stroke(line(rx1, ry1, rx2, ry2, 16), 'finger')
+    time.sleep(1)
+    st = fresh_state('editor_drawn')
+    e = st.get('editor') or {}
+    shot('editor_stroke_rect')
+    scr = raw_screen()
+    check('editor: stroke + rectangle drawn (2 ops, red ink on screen)', e.get('ops') == 2 and e.get('tool') == 'rect'
+          and is_red(scr, mx, my, 10) and is_red(scr, rx1, (ry1 + ry2) // 2, 8), f"ops={e.get('ops')} tool={e.get('tool')}")
+    tap_ebtn(st, '撤销'); time.sleep(0.8)
+    s1 = fresh_state('editor_undo')
+    tap_ebtn(st, '重做'); time.sleep(0.8)
+    s2 = fresh_state('editor_redo')
+    check('editor: 撤销 / 重做', (s1.get('editor') or {}).get('ops') == 1 and (s1.get('editor') or {}).get('redo') == 1
+          and (s2.get('editor') or {}).get('ops') == 2, f"undo→{(s1.get('editor') or {}).get('ops')} redo→{(s2.get('editor') or {}).get('ops')}")
+    # 替换原附件
+    tap_ebtn(s2, '替换原附件'); time.sleep(2.5)
+    st = fresh_state('after_replace')
+    info1 = (st.get('attachInfo') or [{}])[0]
+    shot('after_replace_tray')
+    check('editor: 替换原附件 → attachment changed, count unchanged, editor closed', not (st.get('editor') or {}).get('open')
+          and st.get('attachments') == n and info1.get('md5') and info1.get('md5') != info0.get('md5'),
+          f"n {n}->{st.get('attachments')} md5 {info0.get('md5')}->{info1.get('md5')} size {info0.get('size')}->{info1.get('size')}")
+    # 添加为新附件 (箭头 + 马赛克)
+    st = open_editor('editor_open2')
+    e = st.get('editor') or {}
+    tap_ebtn(st, '箭头'); time.sleep(0.8)
+    r = e.get('imgRect') or [0, 0, 0, 0]
+    stroke(line(r[0] + (r[2] - r[0]) // 5, r[1] + (r[3] - r[1]) * 4 // 5, r[0] + (r[2] - r[0]) // 2, r[1] + (r[3] - r[1]) // 3, 12), 'finger')
+    tap_ebtn(st, '马赛克'); time.sleep(0.8)
+    stroke(line(r[0] + (r[2] - r[0]) * 3 // 5, r[1] + (r[3] - r[1]) // 4, r[0] + (r[2] - r[0]) * 9 // 10, r[1] + (r[3] - r[1]) // 4, 14), 'finger')
+    time.sleep(1)
+    st = fresh_state('editor_arrow_mosaic')
+    shot('editor_arrow_mosaic')
+    tap_ebtn(st, '添加为新附件'); time.sleep(2.5)
+    st = fresh_state('after_add')
+    shot('after_add_tray')
+    check('editor: 添加为新附件 → count +1', not (st.get('editor') or {}).get('open') and st.get('attachments') == n + 1
+          and st.get('trayCount') == n + 1, f"attachments={st.get('attachments')} tray={st.get('trayCount')}")
+    # 复制到剪贴板 (荧光笔 stroke)
+    st = open_editor('editor_open3')
+    e = st.get('editor') or {}
+    tap_ebtn(st, '荧光笔'); time.sleep(0.8)
+    draw_line_in(e, 0.6)
+    time.sleep(0.8)
+    tap_ebtn(st, '复制到剪贴板'); time.sleep(2)
+    st = fresh_state('after_copy')
+    clip = st.get('clip') or {}
+    check('editor: 复制到剪贴板 → image content URI on the clipboard', (st.get('editor') or {}).get('open') is True
+          and str(clip.get('uri', '')).startswith('content://com.inkagent.fileprovider/') and clip.get('mime') == 'image/png'
+          and clip.get('uri') == st.get('lastClipUri'), f"clip={clip} last={st.get('lastClipUri')}")
+    note('dumpsys clipboard: ' + adb('shell dumpsys clipboard', timeout=30).replace('\n', ' | ')[:300])
+    # ⋯ → 保存到相册
+    tap_ebtn(st, '更多操作'); time.sleep(1)
+    st = fresh_state('more_menu')
+    shot('editor_more_menu')
+    check('editor: ⋯ menu shows 保存到相册', (st.get('editor') or {}).get('moreMenu') is True and ebtn(st, '保存到相册') is not None)
+    tap_ebtn(st, '保存到相册'); time.sleep(2.5)
+    st = fresh_state('after_save')
+    q = adb('shell content query --uri content://media/external/images/media --projection _display_name:relative_path:_size', timeout=40)
+    rows = [l for l in q.splitlines() if 'InkAgent_' in l]
+    note('MediaStore rows: ' + ' | '.join(rows)[:400])
+    check('editor: 保存到相册 → file in MediaStore Pictures/InkAgent', st.get('lastSavedUri', '').startswith('content://media/')
+          and any('Pictures/InkAgent' in l for l in rows), f"uri={st.get('lastSavedUri')} rows={len(rows)}")
+    shot('editor_after_save')
+    tap_ebtn(st, '取消'); time.sleep(2)
+    st = fresh_state('editor_cancel')
+    shot('editor_closed')
+    check('editor: 取消 closes, nothing changed, never auto-sent', not (st.get('editor') or {}).get('open') and st.get('attachments') == n + 1
+          and st.get('userCount', 0) == users0 and count_events(session_text(), 'user/message') == msgs0,
+          f"attachments={st.get('attachments')} userCount {users0}->{st.get('userCount')}")
 
 def safe(f, *a):
     try: return f(*a)

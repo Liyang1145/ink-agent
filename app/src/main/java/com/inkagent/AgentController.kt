@@ -75,7 +75,6 @@ class AgentController(private val activity: Activity, private val editorRef: () 
     /** Debug/test: last laid-out sizes (px) reported by AgentShell. */
     var notesSizePx = intArrayOf(0, 0)
     var panelRectPx = intArrayOf(0, 0, 0, 0)
-    var debugAnim = ""
 
     private class PendingConfirm(val latch: CountDownLatch) { @Volatile var ok = false }
     private val confirms = HashMap<String, PendingConfirm>()
@@ -178,6 +177,7 @@ class AgentController(private val activity: Activity, private val editorRef: () 
     private val host = object : AgentPanel.Host {
         override fun onSend(text: String) = send(text)
         override fun onRemoveAttachment(index: Int) { if (index in attachments.indices) { attachments.removeAt(index); renderTray() } }
+        override fun onEditAttachment(index: Int) = openImageEditor(index)
         override fun onOpenModel() { if (overlayActive) openAppThen { modelDialog() } else modelDialog() }
         override fun onOpenSessions() { panel.refreshSessions() }
         override fun onNewSession() = switchTo(store.create())
@@ -257,6 +257,109 @@ class AgentController(private val activity: Activity, private val editorRef: () 
     }
 
     private fun renderTray() { panel.setAttachments(attachments.map { it.path }) }
+
+    // ---------------- attachment image editor (QQ-style) ----------------
+    private var editorView: com.inkagent.ui.ImageEditorView? = null
+    private var editorInOverlay = false
+    private var editorBack: androidx.activity.OnBackPressedCallback? = null
+    var lastClipUri = ""; private set
+    var lastSavedUri = ""; private set
+
+    /** Single tap on a tray thumbnail: open that image fullscreen in the editor (in the app, or over other apps). */
+    fun openImageEditor(index: Int) {
+        if (editorView != null) return
+        val target = attachments.getOrNull(index) ?: return
+        val bmp = runCatching { android.graphics.BitmapFactory.decodeFile(target.path) }.getOrNull()
+        if (bmp == null) { toast("无法打开这张图片"); return }
+        val inOverlay = overlayActive && com.inkagent.overlay.OverlayService.instance != null
+        val ctx: android.content.Context = if (inOverlay) com.inkagent.overlay.OverlayService.instance!!.uiContext() else activity
+        lateinit var ev: com.inkagent.ui.ImageEditorView
+        ev = com.inkagent.ui.ImageEditorView(ctx, bmp, object : com.inkagent.ui.ImageEditorView.Host {
+            override fun onReplace(png: ByteArray) {
+                val img = savePngBytes(attachDir, png, "edit")
+                val i = attachments.indexOf(target)
+                if (i >= 0) attachments[i] = img else attachments.add(img)
+                renderTray(); closeImageEditor(); toast("已替换原附件")
+            }
+            override fun onAddNew(png: ByteArray) {
+                attachments.add(savePngBytes(attachDir, png, "edit"))
+                renderTray(); closeImageEditor(); toast("已添加为新附件")
+            }
+            override fun onCopy(png: ByteArray): String = copyImageToClipboard(png)
+            override fun onSaveToGallery(png: ByteArray): String = saveImageToGallery(png)
+            override fun onClose() = closeImageEditor()
+            override fun toast(s: String) = this@AgentController.toast(s)
+        })
+        editorView = ev; editorInOverlay = inOverlay
+        if (inOverlay) {
+            com.inkagent.overlay.OverlayService.instance!!.showEditor(ev)
+        } else {
+            val decor = activity.window.decorView as ViewGroup
+            decor.addView(ev, ViewGroup.LayoutParams(-1, -1))
+            (activity as? androidx.activity.ComponentActivity)?.let { ca ->
+                val cb = object : androidx.activity.OnBackPressedCallback(true) { override fun handleOnBackPressed() { editorView?.handleBack() } }
+                ca.onBackPressedDispatcher.addCallback(cb); editorBack = cb
+            }
+        }
+    }
+
+    fun closeImageEditor() {
+        val ev = editorView ?: return
+        editorView = null
+        editorBack?.remove(); editorBack = null
+        if (editorInOverlay) com.inkagent.overlay.OverlayService.instance?.removeEditor(ev)
+        (ev.parent as? ViewGroup)?.removeView(ev)
+    }
+
+    private fun copyImageToClipboard(png: ByteArray): String {
+        val dir = File(activity.cacheDir, "clipboard").apply { mkdirs() }
+        dir.listFiles()?.filter { it.name.startsWith("edit-") }?.forEach { it.delete() }
+        val f = File(dir, "edit-${System.currentTimeMillis()}.png").apply { writeBytes(png) }
+        val uri = androidx.core.content.FileProvider.getUriForFile(activity, activity.packageName + ".fileprovider", f)
+        val cm = activity.getSystemService(android.content.ClipboardManager::class.java)
+        cm.setPrimaryClip(android.content.ClipData.newUri(activity.contentResolver, "InkAgent 图片", uri))
+        lastClipUri = uri.toString()
+        return "已复制到剪贴板"
+    }
+
+    private fun saveImageToGallery(png: ByteArray): String {
+        val name = "InkAgent_" + java.text.SimpleDateFormat("yyyyMMdd_HHmmss", java.util.Locale.US).format(java.util.Date()) + ".png"
+        val cr = activity.contentResolver
+        if (android.os.Build.VERSION.SDK_INT >= 29) {
+            val cv = android.content.ContentValues().apply {
+                put(android.provider.MediaStore.Images.Media.DISPLAY_NAME, name)
+                put(android.provider.MediaStore.Images.Media.MIME_TYPE, "image/png")
+                put(android.provider.MediaStore.Images.Media.RELATIVE_PATH, "Pictures/InkAgent")
+                put(android.provider.MediaStore.Images.Media.IS_PENDING, 1)
+            }
+            val uri = cr.insert(android.provider.MediaStore.Images.Media.EXTERNAL_CONTENT_URI, cv) ?: return "保存失败"
+            cr.openOutputStream(uri)?.use { it.write(png) } ?: return "保存失败"
+            cv.clear(); cv.put(android.provider.MediaStore.Images.Media.IS_PENDING, 0)
+            cr.update(uri, cv, null, null)
+            lastSavedUri = uri.toString()
+        } else {
+            if (activity.checkSelfPermission(android.Manifest.permission.WRITE_EXTERNAL_STORAGE) != android.content.pm.PackageManager.PERMISSION_GRANTED) {
+                if (!overlayActive) activity.requestPermissions(arrayOf(android.Manifest.permission.WRITE_EXTERNAL_STORAGE), 7302)
+                return "需要存储权限，授权后再点一次「保存到相册」"
+            }
+            @Suppress("DEPRECATION")
+            val dir = File(android.os.Environment.getExternalStoragePublicDirectory(android.os.Environment.DIRECTORY_PICTURES), "InkAgent").apply { mkdirs() }
+            val f = File(dir, name).apply { writeBytes(png) }
+            android.media.MediaScannerConnection.scanFile(activity, arrayOf(f.path), arrayOf("image/png"), null)
+            lastSavedUri = f.path
+        }
+        return "已保存到相册（Pictures/InkAgent）"
+    }
+
+    /** Debug (TEST_INPUT add_test_attachment): a small synthetic image in the tray. */
+    fun addTestAttachment() {
+        val b = android.graphics.Bitmap.createBitmap(640, 400, android.graphics.Bitmap.Config.ARGB_8888)
+        val c = android.graphics.Canvas(b); c.drawColor(Color.WHITE)
+        val p = android.graphics.Paint(android.graphics.Paint.ANTI_ALIAS_FLAG).apply { color = 0xFF333333.toInt(); textSize = 48f }
+        c.drawText("x² − 4 = 0", 60f, 140f, p)
+        p.style = android.graphics.Paint.Style.STROKE; p.strokeWidth = 4f; c.drawLine(60f, 200f, 560f, 200f, p)
+        attachments.add(savePng(attachDir, b, "test")); b.recycle(); renderTray()
+    }
 
     // ---------------- sessions ----------------
     private fun updateHeader() {
@@ -466,7 +569,8 @@ class AgentController(private val activity: Activity, private val editorRef: () 
             "userCount:l?l.querySelectorAll('.user').length:0,turnCount:l?l.querySelectorAll('.turn').length:0,innerWidth:window.innerWidth," +
             "layout:(typeof layoutState==='function'?layoutState():null),trayCount:document.querySelectorAll('#tray .att').length," +
             "dataMode:document.body.getAttribute('data-mode'),rects:(function(){var o={};['input','modeBtn','capBtn','send'].forEach(function(id){var e=document.getElementById(id);" +
-            "if(e){var r=e.getBoundingClientRect();o[id]=[r.left,r.top,r.width,r.height,getComputedStyle(e).display!=='none'&&r.width>0];}});return o;})()});})()"
+            "if(e){var r=e.getBoundingClientRect();o[id]=[r.left,r.top,r.width,r.height,getComputedStyle(e).display!=='none'&&r.width>0];}});return o;})()," +
+            "trayRects:Array.prototype.map.call(document.querySelectorAll('#tray .att img'),function(e){var r=e.getBoundingClientRect();return [r.left,r.top,r.width,r.height];})});})()"
         panel.evalForTest(js) { raw ->
             val o = runCatching { JSONObject(JSONArray("[$raw]").getString(0)) }.getOrElse { JSONObject().put("raw", raw) }
             val v = panel.view
@@ -474,11 +578,24 @@ class AgentController(private val activity: Activity, private val editorRef: () 
             o.put("panelVisible", visible).put("collapsed", collapsed).put("viewWidth", v.width).put("viewHeight", v.height)
             o.put("mode", mode).put("notesWidth", notesSizePx[0]).put("notesHeight", notesSizePx[1])
                 .put("panelX", panelRectPx[0]).put("panelY", panelRectPx[1]).put("panelW", panelRectPx[2]).put("panelH", panelRectPx[3])
-                .put("splitLand", splitLand.toDouble()).put("splitPort", splitPort.toDouble()).put("anim", debugAnim)
+                .put("splitLand", splitLand.toDouble()).put("splitPort", splitPort.toDouble())
             val loc = IntArray(2); v.getLocationOnScreen(loc)
             o.put("overlayActive", overlayActive).put("attachments", attachments.size).put("viewScreenX", loc[0]).put("viewScreenY", loc[1])
                 .put("density", activity.resources.displayMetrics.density.toDouble())
             com.inkagent.overlay.OverlayService.instance?.let { o.put("overlay", it.debugJson()) }
+            val ai = JSONArray()
+            attachments.forEach { a ->
+                val f = File(a.path)
+                val md5 = runCatching { java.security.MessageDigest.getInstance("MD5").digest(f.readBytes()).joinToString("") { "%02x".format(it) } }.getOrDefault("")
+                ai.put(JSONObject().put("name", f.name).put("size", f.length()).put("w", a.width).put("h", a.height).put("md5", md5))
+            }
+            o.put("attachInfo", ai)
+            o.put("editor", editorView?.debugJson()?.put("host", if (editorInOverlay) "overlay" else "app") ?: JSONObject().put("open", false))
+            o.put("lastClipUri", lastClipUri).put("lastSavedUri", lastSavedUri)
+            runCatching {
+                val clip = activity.getSystemService(android.content.ClipboardManager::class.java).primaryClip
+                if (clip != null && clip.itemCount > 0) o.put("clip", JSONObject().put("mime", clip.description.getMimeType(0)).put("uri", clip.getItemAt(0).uri?.toString() ?: ""))
+            }
             if (!slim) runCatching {
                 val ed = editorRef()
                 if (ed != null && ed.noteOpen) {
