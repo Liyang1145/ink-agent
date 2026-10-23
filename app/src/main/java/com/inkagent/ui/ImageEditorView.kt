@@ -111,10 +111,8 @@ class ImageEditorView(ctx: Context, private val src: Bitmap, private val host: H
         val col = LinearLayout(ctx).apply { orientation = LinearLayout.VERTICAL }
         addView(col, LayoutParams(-1, -1))
 
-        // top bar: 取消 · 编辑图片
+        // top bar: 编辑图片 (取消 lives bottom-left, QQ-style)
         val top = FrameLayout(ctx).apply { setBackgroundColor(0xFF17181B.toInt()) }
-        val cancelTop = textButton("取消", 0xFFE6E6E6.toInt(), 15f).apply { setOnClickListener { close() } }
-        top.addView(cancelTop, FrameLayout.LayoutParams(-2, -1, Gravity.START or Gravity.CENTER_VERTICAL))
         top.addView(TextView(ctx).apply { text = "编辑图片"; setTextColor(Color.WHITE); textSize = 16f; typeface = Typeface.DEFAULT_BOLD },
             FrameLayout.LayoutParams(-2, -2, Gravity.CENTER))
         col.addView(top, LinearLayout.LayoutParams(-1, dp(50f)))

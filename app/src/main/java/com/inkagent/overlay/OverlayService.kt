@@ -466,12 +466,18 @@ class OverlayService : Service() {
         removeEditor(editorWin ?: v)
         setWinFocusable(false, blur = true)
         val lp = WindowManager.LayoutParams(WindowManager.LayoutParams.MATCH_PARENT, WindowManager.LayoutParams.MATCH_PARENT, overlayType(),
-            WindowManager.LayoutParams.FLAG_LAYOUT_IN_SCREEN or WindowManager.LayoutParams.FLAG_HARDWARE_ACCELERATED,
-            PixelFormat.OPAQUE).apply {
+            WindowManager.LayoutParams.FLAG_LAYOUT_IN_SCREEN or WindowManager.LayoutParams.FLAG_LAYOUT_NO_LIMITS or
+                WindowManager.LayoutParams.FLAG_HARDWARE_ACCELERATED,
+            PixelFormat.TRANSLUCENT).apply {
             gravity = Gravity.TOP or Gravity.START
             title = "InkAgentImageEditor"
             windowAnimations = 0
             softInputMode = WindowManager.LayoutParams.SOFT_INPUT_ADJUST_PAN
+            // cover the whole display like the capture selector; the editor pads itself for the system bars
+            if (Build.VERSION.SDK_INT >= 30) {
+                layoutInDisplayCutoutMode = WindowManager.LayoutParams.LAYOUT_IN_DISPLAY_CUTOUT_MODE_ALWAYS
+                fitInsetsTypes = 0; fitInsetsSides = 0
+            } else if (Build.VERSION.SDK_INT >= 28) layoutInDisplayCutoutMode = WindowManager.LayoutParams.LAYOUT_IN_DISPLAY_CUTOUT_MODE_SHORT_EDGES
         }
         editorWin = v
         runCatching { wm.addView(v, lp) }.onFailure { lastError = "editor: ${it.message}"; editorWin = null; Log.w(TAG, "editor add failed", it) }

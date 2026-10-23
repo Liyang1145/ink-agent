@@ -36,13 +36,14 @@ def shot(name):
     global shots
     shots += 1
     fn = f'{OUT}/{shots:02d}_{name}.png'
-    subprocess.run(f'adb exec-out screencap -p > {fn}', shell=True)
+    try: subprocess.run(f'adb exec-out screencap -p > {fn}', shell=True, timeout=60)
+    except Exception as e: note(f'!! screencap failed {e}')
     note(f'screenshot {fn}')
     return fn
 
 def raw_screen():
     """(w, h, bytes RGBA) from `screencap` raw output."""
-    data = subprocess.run('adb exec-out screencap', shell=True, capture_output=True).stdout
+    data = subprocess.run('adb exec-out screencap', shell=True, capture_output=True, timeout=60).stdout
     w = int.from_bytes(data[0:4], 'little'); h = int.from_bytes(data[4:8], 'little')
     hdr = len(data) - w * h * 4
     return w, h, data[hdr:]
@@ -743,6 +744,11 @@ def run_overlay_editor(W, H):
     st = ostate('ov_editor_open')
     e = st.get('editor') or {}
     shot('overlay_image_editor')
+    rb = ebtn(st, '替换原附件')
+    if rb:
+        w_, h_, px = raw_screen(); i = ((rb[1] - 30) * w_ + rb[0]) * 4
+        rgb = (px[i], px[i + 1], px[i + 2])
+        check('overlay editor: rendered at full brightness (primary button colour exact)', abs(rgb[0] - 47) < 8 and abs(rgb[1] - 123) < 8 and rgb[2] > 238, str(rgb))
     r = e.get('imgRect') or [0, 0, 0, 0]
     if e.get('open'):
         x1, x2, y = r[0] + (r[2] - r[0]) // 5, r[0] + (r[2] - r[0]) * 4 // 5, (r[1] + r[3]) // 2
@@ -762,7 +768,7 @@ def run_overlay_editor(W, H):
 def run_editor(W, H):
     """In-app attachment editor: tap thumbnail → draw (TEST_INPUT) → 替换原附件 / 添加为新附件 / 复制到剪贴板 / 保存到相册."""
     note('---- attachment image editor ----')
-    ensure_front(); time.sleep(2)
+    if PKG not in top_activity(): launch(); time.sleep(5)
     st = fresh_state('editor_start')
     if st.get('trayCount', 0) < 1:
         adb(f'shell am broadcast -a com.inkagent.TEST_INPUT -p {PKG} --ez add_test_attachment true'); time.sleep(2)
