@@ -95,6 +95,10 @@ class AiRegistry(private val file: File) {
     }
 }
 
+private const val MARGIN_FRAC = 0.05 // side/bottom margin, fraction of page width
+private const val TOP_FRAC = 0.04    // top margin, fraction of page height
+private const val GAP_FRAC = 0.015   // clearance kept around existing content, fraction of page width
+
 class CanvasTools(
     private val editor: () -> Editor?,
     private val raster: Rasterizer,
@@ -133,12 +137,41 @@ class CanvasTools(
         return sb.toString()
     }
 
-    /** Free spot below everything on the page. */
-    private fun nextFreeY(e: Editor, idx: Int): Double {
-        val p = e.pageAt(idx) ?: return 60.0
-        var bottom = p.height * 0.04
-        p.items.forEach { bottom = max(bottom, it.bounds().bottom) }
-        return bottom + p.height * 0.02
+    /**
+     * Where to put a [w]x[h] object on [page] so it stays inside the page margins and overlaps nothing
+     * already there. With a preferred (x, y) the nearest free spot at or below it wins (then above it);
+     * without one, the spot just below the lowest existing content, else the first free region from the top.
+     * Returns null when no free spot exists at this size.
+     */
+    internal fun findSpot(pageW: Double, pageH: Double, obstacles: List<Rect>, w: Double, h: Double, prefX: Double?, prefY: Double?): Rect? {
+        val m = pageW * MARGIN_FRAC
+        val gap = pageW * GAP_FRAC
+        val minX = m; val maxX = pageW - m - w
+        val minY = pageH * TOP_FRAC; val maxY = pageH - m - h
+        if (maxX < minX - 0.5 || maxY < minY - 0.5) return null
+        val obs = obstacles.map { it.outset(gap) }
+        fun free(x: Double, y: Double): Boolean { val r = Rect(x, y, w, h); return obs.none { it.intersects(r) } }
+        val xs = (listOf(minX, maxX) + obs.map { it.right } + obs.map { it.left - w })
+            .filter { it >= minX - 0.5 && it <= maxX + 0.5 }.map { it.coerceIn(minX, maxOf(minX, maxX)) }.distinct()
+        val step = maxOf(6.0, pageH / 300.0)
+        fun scan(y0: Double, y1: Double, order: List<Double>): Rect? {
+            var y = y0
+            while (y <= y1 + 0.01) {
+                for (x in order) if (free(x, y)) return Rect(x, y, w, h)
+                y += step
+            }
+            return null
+        }
+        if (prefX == null && prefY == null) {
+            val lowest = obstacles.maxOfOrNull { it.bottom }
+            val belowY = if (lowest == null) minY else maxOf(minY, lowest + gap)
+            if (belowY <= maxY && free(minX, belowY)) return Rect(minX, belowY, w, h)
+            return scan(minY, maxY, xs.sorted())
+        }
+        val px = (prefX ?: minX).coerceIn(minX, maxOf(minX, maxX))
+        val py = (prefY ?: minY).coerceIn(minY, maxOf(minY, maxY))
+        val order = (listOf(px) + xs).distinct().sortedBy { kotlin.math.abs(it - px) }
+        return scan(py, maxY, order) ?: scan(minY, py, order)
     }
 
     private fun place(idx: Int, kind: String, source: String, args: JSONObject, r: Rasterizer.Result, widthPage: Double?): String {
@@ -148,13 +181,37 @@ class CanvasTools(
         val msg = onMain {
             val page = e.pageAt(idx) ?: throw IllegalStateException("页面不存在")
             val unit = page.width / 1000.0 // the model sees A4-width-1000 units only as a hint; real coords are page px
-            val w = (widthPage ?: (r.cssWidth * 0.75 * unit * args.optDouble("scale", 1.0))).coerceAtMost(page.width * 0.95)
-            val h = w * r.bitmap.height / r.bitmap.width.coerceAtLeast(1)
-            val x = if (args.has("x")) args.getDouble("x") else page.width * 0.06
-            val y = if (args.has("y")) args.getDouble("y") else nextFreeY(e, idx)
-            e.agentInsertImage(idx, bytes, Rect(x, y.coerceAtMost(page.height - h).coerceAtLeast(0.0), w, h))
+            val aspect = r.bitmap.height.toDouble() / r.bitmap.width.coerceAtLeast(1)
+            val maxW = page.width * (1 - 2 * MARGIN_FRAC)
+            val asked = if (args.has("width")) args.optDouble("width").takeIf { it > 1 } else null
+            var w = (asked ?: widthPage ?: (r.cssWidth * 0.75 * unit * args.optDouble("scale", 1.0))).coerceIn(page.width * 0.04, maxW)
+            // keep it on the page vertically too
+            val maxH = page.height * (1 - TOP_FRAC - MARGIN_FRAC)
+            if (w * aspect > maxH) w = maxH / aspect
+            val obstacles = page.items.map { it.bounds() }
+            val prefX = if (args.has("x")) args.optDouble("x") else null
+            val prefY = if (args.has("y")) args.optDouble("y") else null
+            var spot: Rect? = null
+            var shrink = 1.0
+            while (spot == null && shrink > 0.39) {
+                spot = findSpot(page.width, page.height, obstacles, w * shrink, w * shrink * aspect, prefX, prefY)
+                if (spot == null) shrink -= 0.1
+            }
+            val note = StringBuilder()
+            val rect = spot ?: run {
+                // page full: put it below everything at the left margin, clamped to the page (may overlap)
+                val ww = w * 0.6; val hh = ww * aspect
+                val y = ((obstacles.maxOfOrNull { it.bottom } ?: 0.0) + page.width * GAP_FRAC).coerceAtMost(page.height - hh).coerceAtLeast(0.0)
+                note.append("（页面已没有足够空白，可能与已有内容重叠，建议换一页或先删除旧对象）")
+                Rect(page.width * MARGIN_FRAC, y, ww, hh)
+            }
+            if (spot != null && shrink < 0.999) note.append("（空白不足，已缩小到 ${(shrink * 100).toInt()}%）")
+            if (spot != null && (prefX != null || prefY != null) &&
+                (kotlin.math.abs(rect.x - (prefX ?: rect.x)) > 1 || kotlin.math.abs(rect.y - (prefY ?: rect.y)) > 1))
+                note.append("（指定位置会与已有内容重叠或超出页面，已自动挪到最近的空白处）")
+            e.agentInsertImage(idx, bytes, rect)
             if (e.agentCurrentPage() != idx) e.goToPage(idx)
-            "已放到第 ${idx + 1} 页：id=$id，位置 (${x.toInt()}, ${y.toInt()})，尺寸 ${w.toInt()}x${h.toInt()}（页面像素，页面宽 ${page.width.toInt()}）。它是普通图片对象，用户可以移动、缩放或撤销。"
+            "已放到第 ${idx + 1} 页：id=$id，位置 (${rect.x.toInt()}, ${rect.y.toInt()})，尺寸 ${rect.w.toInt()}x${rect.h.toInt()}（页面像素，页面 ${page.width.toInt()}x${page.height.toInt()}）$note。它是普通图片对象，用户可以移动、缩放或撤销。"
         }
         registry.add(id, bytes, kind, source)
         return msg
@@ -198,12 +255,13 @@ class CanvasTools(
         })
         reg.register(object : Tool {
             override val name = "canvas_write_latex"
-            override val description = "在笔记页面上写一段排版好的 LaTeX 公式（KaTeX 渲染，蓝色），作为一个图片对象放到页面上。用空行分隔可写多行公式。不传坐标时自动放在该页已有内容的下方。"
+            override val description = "在笔记页面上写一段排版好的 LaTeX 公式（KaTeX 渲染，蓝色），作为一个图片对象放到页面上。用空行分隔可写多行公式。通常不要传坐标：系统自动放在已有内容下方的空白处，不会遮挡笔迹，并缩放到页宽以内。传了 x/y/width 也会被限制在页面内、避开已有内容。"
             override val parameters = obj(
                 "latex" to t("string", "LaTeX 源码，不要带 $ 或 \\[ \\] 定界符"),
                 "page" to t("integer", "页码，从 1 开始；省略表示当前页"),
-                "x" to t("number", "左上角 x（页面像素）"),
-                "y" to t("number", "左上角 y（页面像素）"),
+                "x" to t("number", "可选：期望的左上角 x（页面像素）"),
+                "y" to t("number", "可选：期望的左上角 y（页面像素）"),
+                "width" to t("number", "可选：页面上的宽度（页面像素），不超过页宽减页边距"),
                 "scale" to t("number", "缩放，默认 1（约等于正常手写大小）"),
                 required = listOf("latex"),
             )
@@ -217,22 +275,21 @@ class CanvasTools(
         })
         reg.register(object : Tool {
             override val name = "canvas_draw_svg"
-            override val description = "在笔记页面上画一张 SVG 图（函数图像、几何图形、示意图等），作为图片对象放到页面上。传完整的 <svg> 元素，建议带 viewBox；用 width 指定在页面上的宽度（页面像素）。"
+            override val description = "在笔记页面上画一张 SVG 图（函数图像、几何图形、示意图等），作为图片对象放到页面上。传完整的 <svg> 元素，建议带 viewBox。通常不要传坐标：系统自动放在已有内容下方的空白处、不遮挡笔迹；width 可选（页面像素），会被限制在页宽以内。"
             override val parameters = obj(
                 "svg" to t("string", "完整 SVG 源码"),
                 "page" to t("integer", "页码，从 1 开始；省略表示当前页"),
-                "x" to t("number", "左上角 x（页面像素）"),
-                "y" to t("number", "左上角 y（页面像素）"),
-                "width" to t("number", "页面上的宽度（页面像素），默认约为页宽的 45%"),
+                "x" to t("number", "可选：期望的左上角 x（页面像素）"),
+                "y" to t("number", "可选：期望的左上角 y（页面像素）"),
+                "width" to t("number", "可选：页面上的宽度（页面像素），默认约为页宽的 45%"),
                 required = listOf("svg"),
             )
             override fun execute(args: JSONObject, signal: CancelSignal): ToolResult {
                 val idx = pageIndex(args)
                 val src = args.getString("svg")
                 val pageW = onMain { ed().pageAt(idx)?.width ?: 1240.0 }
-                val widthPage = args.optDouble("width", pageW * 0.45)
                 val r = raster.render("svg", src, 600)
-                val msg = place(idx, "svg", src, args, r, widthPage)
+                val msg = place(idx, "svg", src, args, r, pageW * 0.45)
                 return ToolResult(listOf(Block.Text(msg + "\n渲染结果如图："), savePng(attachDir, r.bitmap, "svg")))
             }
         })

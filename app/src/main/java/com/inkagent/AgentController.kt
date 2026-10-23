@@ -378,6 +378,21 @@ class AgentController(private val activity: Activity, private val editorRef: () 
             val v = panel.view
             val visible = !collapsed && v.isShown && v.width > 0 && v.height > 0 && o.optBoolean("jsVisible", false)
             o.put("panelVisible", visible).put("collapsed", collapsed).put("viewWidth", v.width).put("viewHeight", v.height)
+            runCatching {
+                val ed = editorRef()
+                if (ed != null && ed.noteOpen) {
+                    val idx = ed.agentCurrentPage()
+                    val page = ed.pageAt(idx)
+                    if (page != null) {
+                        val items = JSONArray()
+                        page.items.forEach { it2 ->
+                            val b = it2.bounds()
+                            items.put(JSONObject().put("kind", it2.kind).put("x", b.x).put("y", b.y).put("w", b.w).put("h", b.h))
+                        }
+                        o.put("page", JSONObject().put("index", idx).put("width", page.width).put("height", page.height).put("items", items))
+                    }
+                }
+            }
             android.util.Log.i(tag, o.toString())
         }
     }

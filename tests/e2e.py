@@ -342,6 +342,19 @@ def main():
     st = state('after_turns')
     check('turns: messages rendered in panel (TEST_STATE)', st.get('userCount', 0) >= 2 and st.get('messageCount', 0) >= 3, str(st))
     lay = st.get('layout') or {}
+    pg = st.get('page') or {}
+    items = pg.get('items') or []
+    imgs = [i for i in items if i.get('kind') == 'image']
+    others = [i for i in items if i.get('kind') != 'image']
+    pw, ph = pg.get('width') or 0, pg.get('height') or 0
+    def inter(a, b, pad=0):
+        return a['x'] < b['x'] + b['w'] - pad and b['x'] < a['x'] + a['w'] - pad and a['y'] < b['y'] + b['h'] - pad and b['y'] < a['y'] + a['h'] - pad
+    inside = all(i['x'] >= 0 and i['x'] + i['w'] <= pw + 0.5 and i['y'] >= 0 and i['y'] + i['h'] <= ph + 0.5 for i in imgs)
+    overl = [(round(a['y']), round(b['y'])) for a in imgs for b in others if inter(a, b, 1)]
+    overl += [(round(a['y']), round(b['y'])) for ia, a in enumerate(imgs) for b in imgs[ia + 1:] if inter(a, b, 1)]
+    note(f'page {pw}x{ph}: {len(imgs)} AI images ' + ', '.join(f"({int(i['x'])},{int(i['y'])} {int(i['w'])}x{int(i['h'])})" for i in imgs))
+    check('placement: AI images inside page width/height', len(imgs) >= 2 and inside, f'{len(imgs)} images')
+    check('placement: AI images overlap no existing content', len(imgs) >= 2 and not overl, f'overlaps={overl[:5]}')
     shot('transcript_visible')
     check('transcript: #scroll height > 200px', (lay.get('scrollClientHeight') or 0) > 200, str(lay))
     check('transcript: last message visible', lay.get('lastVisible') is True, str(lay))
