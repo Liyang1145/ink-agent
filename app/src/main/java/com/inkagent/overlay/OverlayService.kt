@@ -316,14 +316,19 @@ class OverlayService : Service() {
     fun onInputFocus(f: Boolean) {
         if (!windowOpen) return
         inputFocused = f
-        if (f) { setWinFocusable(true); main.postDelayed({ if (inputFocused) showIme() }, 200) }
+        if (f) {
+            setWinFocusable(true)
+            // the tap that focused the composer may have landed before the window took focus: (re)ask for the IME
+            for (t in longArrayOf(150, 450, 900)) main.postDelayed({ if (inputFocused && windowOpen) showIme() }, t)
+        }
     }
 
     private fun showIme() {
         val pv = AgentBridge.controller?.panel?.view ?: return
-        if (pv.parent == null || !winFocusable) return
+        if (pv.parent == null || !winFocusable || !pv.hasWindowFocus()) return
+        if (Build.VERSION.SDK_INT >= 30 && pv.rootWindowInsets?.isVisible(android.view.WindowInsets.Type.ime()) == true) return
         pv.requestFocus()
-        ui.getSystemService(InputMethodManager::class.java)?.showSoftInput(pv, InputMethodManager.SHOW_IMPLICIT)
+        ui.getSystemService(InputMethodManager::class.java)?.showSoftInput(pv, 0)
     }
 
     private class Grip(c: Context, val left: Boolean) : View(c) {
@@ -562,7 +567,10 @@ class OverlayService : Service() {
             gravity = Gravity.TOP or Gravity.START
             title = "InkAgentCapture"
             windowAnimations = 0
-            if (Build.VERSION.SDK_INT >= 30) layoutInDisplayCutoutMode = WindowManager.LayoutParams.LAYOUT_IN_DISPLAY_CUTOUT_MODE_ALWAYS
+            if (Build.VERSION.SDK_INT >= 30) {
+                layoutInDisplayCutoutMode = WindowManager.LayoutParams.LAYOUT_IN_DISPLAY_CUTOUT_MODE_ALWAYS
+                fitInsetsTypes = 0; fitInsetsSides = 0 // cover the whole display, under the system bars
+            }
             else if (Build.VERSION.SDK_INT >= 28) layoutInDisplayCutoutMode = WindowManager.LayoutParams.LAYOUT_IN_DISPLAY_CUTOUT_MODE_SHORT_EDGES
         }
         v.isFocusableInTouchMode = true

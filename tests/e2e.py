@@ -607,6 +607,7 @@ def run_overlay(W, H):
         ims = adb('shell dumpsys input_method', timeout=40)
         m = re.search(r'mInputShown=(\w+)', ims)
         note(f"IME after composer tap: mInputShown={m.group(1) if m else '?'}")
+        check('overlay window: IME shown for the composer', m is not None and m.group(1) == 'true', m.group(0) if m else '?')
         shot('overlay_composer_focused')
         check('overlay window: becomes focusable when the composer is tapped', w2.get('focusable') is True and w2.get('inputFocused') is True, str(w2))
         adb('shell input keyevent 4'); time.sleep(1)   # hide IME
