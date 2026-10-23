@@ -107,6 +107,17 @@ class AgentPanel(context: Context, private val host: Host) {
         if (!loaded) queue.add(code) else view.evaluateJavascript(code, null)
     }
 
+    /** Debug only: evaluate [code] in agent.html and hand its (JSON-encoded) result to [cb] on the main thread. */
+    fun evalForTest(code: String, cb: (String) -> Unit) {
+        if (Looper.myLooper() != Looper.getMainLooper()) { main.post { evalForTest(code, cb) }; return }
+        if (!loaded) { cb("\"{\\\"loaded\\\":false}\""); return }
+        view.evaluateJavascript(code) { r -> cb(r ?: "null") }
+    }
+
+    /** Debug only: put [text] in the composer as if typed (adb `input text` cannot type Chinese). */
+    fun setComposerForTest(text: String) =
+        js("(function(t){var i=document.getElementById('input');i.value=t;i.dispatchEvent(new Event('input',{bubbles:true}));})(${q(text)})")
+
     private fun flush() {
         flushScheduled = false
         if (pendingReason.isNotEmpty()) { js("reasoning(${q(pendingReason.toString())})"); pendingReason.setLength(0) }

@@ -6,7 +6,7 @@ long-press → rectangle); moving a selection; 加入 Agent → attachment tray 
 DeepSeek turns with canvas tools; footer stats; session sidebar; collapsed agent (notes fullscreen);
 provider settings. Writes screenshots + report + session log into e2e-out/.
 """
-import os, re, subprocess, sys, time, json
+import os, re, subprocess, sys, time, json, base64
 import xml.etree.ElementTree as ET
 
 OUT = 'e2e-out'; os.makedirs(OUT, exist_ok=True)
@@ -97,11 +97,29 @@ def tap_label(s, required=False, exact=False):
         return False
     tap(p[0], p[1]); return True
 
-def stroke(pts):
-    x, y = pts[0]
-    adb(f'shell input motionevent DOWN {x} {y}')
-    for (x, y) in pts[1:]: adb(f'shell input motionevent MOVE {x} {y}')
-    adb(f'shell input motionevent UP {x} {y}')
+def stroke(pts, tool='stylus'):
+    """One gesture through the debug TEST_INPUT receiver (DOWN/MOVE/UP, +16 ms per point)."""
+    p = ';'.join(f'{int(x)},{int(y)}' for (x, y) in pts)
+    adb(f"shell \"am broadcast -a com.inkagent.TEST_INPUT -p {PKG} --es pts '{p}' --es tool {tool}\"")
+    time.sleep(len(pts) * 0.016 + 0.3)
+
+def set_composer(t):
+    b = base64.b64encode(t.encode('utf-8')).decode()
+    adb(f"shell am broadcast -a com.inkagent.TEST_INPUT -p {PKG} --es text_b64 {b}")
+    time.sleep(1)
+
+def state(tag=''):
+    """Panel state from agent.html via the debug TEST_STATE receiver (logcat tag InkAgentState)."""
+    adb(f'shell am broadcast -a com.inkagent.TEST_STATE -p {PKG}')
+    for _ in range(6):
+        time.sleep(1)
+        lines = [l for l in adb('logcat -d -s InkAgentState:I', timeout=30).splitlines() if '{' in l]
+        if lines:
+            try:
+                st = json.loads(lines[-1][lines[-1].index('{'):])
+                note(f'state[{tag}]: {st}'); return st
+            except Exception as e: note(f'state parse failed {e}: {lines[-1]}')
+    note(f'!! no InkAgentState line [{tag}]'); return {}
 
 def line(x1, y1, x2, y2, n=10):
     return [(int(x1 + (x2 - x1) * i / n), int(y1 + (y2 - y1) * i / n)) for i in range(n + 1)]
@@ -167,13 +185,10 @@ def composer():
         or find(lambda n: n.get('class') == 'android.widget.EditText')
 
 def main():
-    size = adb('shell wm size')
-    W, H = [int(v) for v in re.findall(r'(\d+)x(\d+)', size)[-1]]
-    if H > W: W, H = H, W
-    note(f'screen {W}x{H}')
+    note('wm size: ' + adb('shell wm size').strip().replace('\n', ' | '))
     adb(f'install -r -g {APK}', check=True, timeout=240)
     adb('shell settings put system accelerometer_rotation 0')
-    adb('shell cmd window user-rotation lock 1')
+    adb('shell settings put system user_rotation 1')
     adb('logcat -c')
     adb('shell settings put global hide_error_dialogs 1')
     adb('shell settings put global anr_show_background 0')
@@ -188,10 +203,14 @@ def main():
     if not ensure_front(ex): raise SystemExit(1)
     time.sleep(3)
     shot('launch')
+    W, H, _ = raw_screen()  # actual orientation as shown (the app requests landscape in test mode)
+    note(f'screen {W}x{H} (from screenshot)')
+    check('launch: landscape', W > H, f'{W}x{H}')
     txt = all_text()
     check('launch: toolbar shows 笔/荧光笔/橡皮/选择/撤销/重做/更多',
           all(k in txt for k in ['笔', '荧光笔', '橡皮', '选择', '撤销', '重做', '更多']))
-    check('launch: agent panel visible', '发消息' in txt or '新对话' in txt)
+    st = state('launch')
+    check('launch: agent panel visible', st.get('panelVisible') is True, str(st))
 
     # notes area = left of the agent pane; find the drag handle to know where it ends
     h = by_label('拖动调整 Agent 宽度')
@@ -244,7 +263,7 @@ def main():
           all(k in txt for k in ['复制', '剪切', '删除', '改颜色', '加入 Agent']))
     # move: drag from inside the selection
     sx, sy = ox + s // 2, oy + s // 2
-    adb(f'shell input swipe {sx} {sy} {sx + 120} {sy + 140} 900')
+    stroke([(sx, sy)] * 3 + line(sx, sy, sx + 120, sy + 140, 40) + [(sx + 120, sy + 140)] * 3)
     time.sleep(2)
     shot('selection_moved')
     scr = raw_screen()
@@ -269,7 +288,7 @@ def main():
         txt = all_text()
         check('long-press: switched to rectangle', '矩形' in txt)
         # rectangle around the right half of the cut line
-        adb(f'shell input swipe {mx + 30} {ly - 70} {lx2 + 40} {ly + 70} 900')
+        stroke(line(mx + 30, ly - 70, lx2 + 40, ly + 70, 40))
         time.sleep(2)
         shot('rect_selected')
         check('rectangle: selection menu shown', '加入 Agent' in all_text())
@@ -284,7 +303,7 @@ def main():
     if c: tap(c[0], c[1])
     else: note('!! no composer EditText'); tap(W - 400, H - 160)
     time.sleep(1)
-    type_text('The attached image is a handwritten equation. Call view_page to look at the page, then write the full solution on the page with canvas_write_latex, then reply briefly.')
+    set_composer('附图是一道手写方程。请先调用 view_page 查看页面，再用 canvas_write_latex 把完整解答写在页面上，最后简短回复。')
     time.sleep(1)
     adb('shell input keyevent 111'); time.sleep(1)
     shot('typed')
@@ -299,7 +318,7 @@ def main():
     c = composer()
     if c:
         tap(c[0], c[1]); time.sleep(1)
-        type_text('Now draw the graph of y=x^2-4 with axes using canvas_draw_svg below the solution, then call list_pages and tell me how many strokes page 1 has.')
+        set_composer('现在用 canvas_draw_svg 在解答下方画出 y=x^2-4 的函数图像（带坐标轴），然后调用 list_pages，告诉我第 1 页有多少笔画。')
         adb('shell input keyevent 111'); time.sleep(1)
         tap_label('发送消息')
         time.sleep(3)
@@ -312,6 +331,8 @@ def main():
         check(f'turns: tool {t} used', t in tools)
     errs = re.findall(r'"isError":true', txt)
     check('turns: two turns completed', count_events(txt, 'turn/end') >= 2 and '"reason":"error"' not in txt, f'tool errors={len(errs)}')
+    st = state('after_turns')
+    check('turns: messages rendered in panel (TEST_STATE)', st.get('userCount', 0) >= 2 and st.get('messageCount', 0) >= 3, str(st))
     ftxt = all_text()
     check('footer: tokens + 缓存命中 + ¥', ('输入' in ftxt and '输出' in ftxt and '缓存命中' in ftxt and '¥' in ftxt))
     check('usage recorded in session', '"usage"' in txt and '"cacheHit"' in txt)
@@ -319,8 +340,10 @@ def main():
     # ---------------- session sidebar ----------------
     tap_label('会话列表'); time.sleep(2)
     shot('session_sidebar')
+    st = state('sidebar')
     stxt = all_text()
-    check('sidebar: open with search/new/session listed', '搜索会话' in stxt and '新对话' in stxt and '会话操作' in stxt)
+    check('sidebar: open (TEST_STATE)', st.get('sidebarOpen') is True, str(st))
+    check('sidebar: search/new/session listed', '搜索会话' in stxt and '新对话' in stxt and '会话操作' in stxt)
     p = by_label('会话操作')
     if p:
         tap(p[0], p[1]); time.sleep(1); shot('session_menu')
@@ -333,8 +356,12 @@ def main():
     tap_label('收起 Agent'); time.sleep(2)
     shot('collapsed_fullscreen')
     ctxt = all_text()
+    st = state('collapsed')
     check('collapse: floating ball shown', '展开 Agent' in ctxt)
+    check('collapse: panel hidden (TEST_STATE)', st.get('panelVisible') is False, str(st))
     tap_label('展开 Agent'); time.sleep(2)
+    st = state('expanded')
+    check('expand: panel visible again (TEST_STATE)', st.get('panelVisible') is True, str(st))
 
     # ---------------- provider settings ----------------
     tap_label('设置', exact=True); time.sleep(3)

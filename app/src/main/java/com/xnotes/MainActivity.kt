@@ -147,6 +147,8 @@ class MainActivity : ComponentActivity() {
     private var pendingPdfImport by mutableStateOf<Uri?>(null)
     // InkAgent: the agent side (panel WebView, sessions, tools), created once the editor exists.
     private var agent: com.inkagent.AgentController? = null
+    // InkAgent debug hooks (TEST_INPUT / TEST_STATE broadcasts); registers only in debuggable builds.
+    private val testHooks = com.inkagent.TestHooks(this) { agent }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -158,6 +160,8 @@ class MainActivity : ComponentActivity() {
         // or from Recents after the process died or the app was updated; it was handled the first time.
         val rebuilt = savedInstanceState != null || (intent.flags and Intent.FLAG_ACTIVITY_LAUNCHED_FROM_HISTORY) != 0
         if (!rebuilt) pendingPdfImport = pdfImportUri(intent)
+        applyTestOrientation(intent)
+        testHooks.register()
         setContent {
             val context = LocalContext.current
             val ed = remember { Editor(context).also { editor = it } }
@@ -232,8 +236,22 @@ class MainActivity : ComponentActivity() {
         super.onNewIntent(intent)
         setIntent(intent)
         pdfImportUri(intent)?.let { pendingPdfImport = it }
+        applyTestOrientation(intent)
         agent?.applyTestExtras(intent)
         applyFingerExtra(intent)
+    }
+
+    override fun onDestroy() {
+        testHooks.unregister()
+        super.onDestroy()
+    }
+
+    /** Debug hook (tests/e2e.py): a test launch (test_mode / test_finger extra) runs in landscape. */
+    private fun applyTestOrientation(i: Intent?) {
+        if (applicationInfo.flags and android.content.pm.ApplicationInfo.FLAG_DEBUGGABLE == 0) return
+        if (i?.hasExtra("test_mode") == true || i?.hasExtra("test_finger") == true) {
+            requestedOrientation = android.content.pm.ActivityInfo.SCREEN_ORIENTATION_SENSOR_LANDSCAPE
+        }
     }
 
     // The PDF uri carried by an inbound VIEW ("Open with") or SEND ("Share") intent, else null.

@@ -366,5 +366,20 @@ class AgentController(private val activity: Activity, private val editorRef: () 
         updateHeader(); pushStats()
     }
 
+    /** Debug (TEST_STATE): ask agent.html for its state and log it as one JSON line under [tag]. */
+    fun logTestState(tag: String) {
+        val js = "(function(){var s=document.getElementById('side');var l=document.getElementById('log');" +
+            "return JSON.stringify({jsVisible:window.innerWidth>0&&window.innerHeight>0&&document.visibilityState==='visible'," +
+            "sidebarOpen:!!(s&&s.classList.contains('open')),messageCount:l?l.querySelectorAll('.user,.md').length:0," +
+            "userCount:l?l.querySelectorAll('.user').length:0,turnCount:l?l.querySelectorAll('.turn').length:0,innerWidth:window.innerWidth});})()"
+        panel.evalForTest(js) { raw ->
+            val o = runCatching { JSONObject(JSONArray("[$raw]").getString(0)) }.getOrElse { JSONObject().put("raw", raw) }
+            val v = panel.view
+            val visible = !collapsed && v.isShown && v.width > 0 && v.height > 0 && o.optBoolean("jsVisible", false)
+            o.put("panelVisible", visible).put("collapsed", collapsed).put("viewWidth", v.width).put("viewHeight", v.height)
+            android.util.Log.i(tag, o.toString())
+        }
+    }
+
     private fun toast(s: String) = Toast.makeText(activity, s, Toast.LENGTH_SHORT).show()
 }

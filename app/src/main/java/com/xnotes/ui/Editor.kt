@@ -6187,10 +6187,35 @@ class Editor(context: Context, val pane: Pane = Pane.PRIMARY) : ToolPopupHost, S
     }
 
     /** Add an image item (e.g. an agent-rendered formula) at [rect] on page [index], as one undoable edit. Returns the item. */
-    fun agentInsertImage(index: Int, bytes: ByteArray, rect: Rect): ImageItem? {
-        val page = pageAt(index) ?: return null
-        val file = runCatching { java.io.File.createTempFile("ai", null, imageDir).apply { writeBytes(bytes) } }.getOrNull() ?: return null
-        val size = imageCodec.probeFile(file.path) ?: return null
+    fun agentInsertImage(index: Int, bytes: ByteArray, rect: Rect): ImageItem {
+        val page = pageAt(index) ?: throw IllegalStateException("页面 ${index + 1} 不存在（共 ${state.document.pages.size} 页）")
+        if (bytes.isEmpty()) throw IllegalStateException("渲染得到的图片为空")
+        // imageDir can vanish under us (purged by another pane / OS); recreate it, and fall back to cacheDir.
+        val file = run {
+            var last: Throwable? = null
+            for (dir in listOf(imageDir, java.io.File(appContext.cacheDir, "agentimg"))) {
+                try {
+                    if (!dir.exists() && !dir.mkdirs() && !dir.exists()) throw java.io.IOException("无法创建目录 ${dir.path}")
+                    val f = java.io.File(dir, "ai" + System.nanoTime().toString(36) + ".png")
+                    f.writeBytes(bytes)
+                    return@run f
+                } catch (t: Throwable) {
+                    android.util.Log.e("InkAgent", "agentInsertImage write failed in ${dir.path}", t)
+                    last = t
+                }
+            }
+            throw IllegalStateException("写入图片文件失败：${last?.javaClass?.simpleName}: ${last?.message}")
+        }
+        val size = imageCodec.probeFile(file.path)
+            ?: run {
+                val o = android.graphics.BitmapFactory.Options().apply { inJustDecodeBounds = true }
+                android.graphics.BitmapFactory.decodeFile(file.path, o)
+                if (o.outWidth > 0 && o.outHeight > 0) com.xnotes.core.pal.ImageSize(o.outWidth, o.outHeight) else null
+            }
+            ?: run {
+                android.util.Log.e("InkAgent", "agentInsertImage: cannot probe ${file.path} (${file.length()} bytes)")
+                throw IllegalStateException("无法读取刚写入的图片（${file.length()} 字节）")
+            }
         val item = ImageItem(ImageData(file, size.width, size.height), rect)
         page.items.add(item)
         state.appendToCache(page, item)
@@ -6198,6 +6223,7 @@ class Editor(context: Context, val pane: Pane = Pane.PRIMARY) : ToolPopupHost, S
         state.document.dirty = true
         refreshContent()
         view.requestRender()
+        android.util.Log.i("InkAgent", "agentInsertImage ok page=$index ${size.width}x${size.height} at $rect")
         return item
     }
 

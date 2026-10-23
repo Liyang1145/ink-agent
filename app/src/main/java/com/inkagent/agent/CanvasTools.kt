@@ -153,7 +153,6 @@ class CanvasTools(
             val x = if (args.has("x")) args.getDouble("x") else page.width * 0.06
             val y = if (args.has("y")) args.getDouble("y") else nextFreeY(e, idx)
             e.agentInsertImage(idx, bytes, Rect(x, y.coerceAtMost(page.height - h).coerceAtLeast(0.0), w, h))
-                ?: throw IllegalStateException("插入图片失败")
             if (e.agentCurrentPage() != idx) e.goToPage(idx)
             "已放到第 ${idx + 1} 页：id=$id，位置 (${x.toInt()}, ${y.toInt()})，尺寸 ${w.toInt()}x${h.toInt()}（页面像素，页面宽 ${page.width.toInt()}）。它是普通图片对象，用户可以移动、缩放或撤销。"
         }
