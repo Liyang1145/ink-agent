@@ -80,9 +80,11 @@ class AgentController(private val activity: Activity, private val editorRef: () 
     private val confirms = HashMap<String, PendingConfirm>()
 
 
+    private var canvasTools: CanvasTools? = null
+
     private fun systemPrompt(): String {
         val user = settings.systemPrompt
-        val env = "你运行在平板笔记应用 InkAgent 里，可以用工具查看和修改用户当前打开的笔记页面（view_page、list_pages、canvas_write_latex、canvas_draw_svg、canvas_remove），以及管理模型服务商（manage_provider）。用户消息里的 @N 表示引用第 N 页。"
+        val env = canvasTools?.envPrompt() ?: "你运行在平板笔记应用 InkAgent 里，可以用工具查看和修改用户当前打开的笔记页面（view_page、list_pages、canvas_plot、canvas_write_latex、canvas_draw_svg、canvas_remove），以及管理模型服务商（manage_provider）。用户消息里的 @N 表示引用第 N 页。"
         return if (user.isBlank()) env else "$user\n\n$env"
     }
 
@@ -529,7 +531,7 @@ class AgentController(private val activity: Activity, private val editorRef: () 
     init {
         panel = AgentPanel(activity, host)
         panelSlot.addView(panel.view, ViewGroup.LayoutParams(-1, -1))
-        CanvasTools(editorRef, raster, attachDir, registry).register(tools) { settings.tavilyKey }
+        canvasTools = CanvasTools(editorRef, raster, attachDir, registry).also { it.register(tools) { settings.tavilyKey } }
         ProviderTools(settings, ::confirmBlocking) { ui.post { updateHeader() } }.register(tools)
         val session = settings.sessionId?.let { store.open(it) } ?: store.create().also { settings.sessionId = it.id }
         agent = Agent(session, tools, { settings.callConfig() }, { systemPrompt() }, listener) { m, u -> settings.cost(m, u) }
@@ -546,9 +548,18 @@ class AgentController(private val activity: Activity, private val editorRef: () 
     fun applyTestExtras(i: android.content.Intent?) {
         if (activity.applicationInfo.flags and android.content.pm.ApplicationInfo.FLAG_DEBUGGABLE == 0) return
         i ?: return
+        val testBase = i.getStringExtra("test_base")
         i.getStringExtra("test_key")?.let { key ->
-            settings.providers = settings.providers.map { if (it.id == "deepseek") it.copy(apiKey = key) else it }
-            settings.providerId = "deepseek"
+            if (testBase != null) {
+                // e2e: an OpenAI-compatible gateway (e.g. ClinePass) as its own provider
+                val p = com.inkagent.llm.Provider("test", i.getStringExtra("test_provider") ?: "Test", com.inkagent.llm.Protocol.OPENAI_CHAT,
+                    testBase, key, listOfNotNull(i.getStringExtra("test_model")))
+                settings.providers = settings.providers.filter { it.id != "test" } + p
+                settings.providerId = "test"
+            } else {
+                settings.providers = settings.providers.map { if (it.id == "deepseek") it.copy(apiKey = key) else it }
+                settings.providerId = "deepseek"
+            }
         }
         i.getStringExtra("test_model")?.let { settings.model = it }
         i.getStringExtra("test_effort")?.let { settings.effort = it }

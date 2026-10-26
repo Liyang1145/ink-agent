@@ -25,7 +25,7 @@ class Rasterizer(context: Context) {
     val view: WebView
     private val main = Handler(Looper.getMainLooper())
     private var ready = CountDownLatch(1)
-    private var pending: ((Int, Int, Float) -> Unit)? = null
+    private var pending: ((Int, Int, Float, String) -> Unit)? = null
     private val lock = Object()
 
     init {
@@ -37,7 +37,7 @@ class Rasterizer(context: Context) {
         view.settings.allowFileAccess = true
         view.isVerticalScrollBarEnabled = false
         view.addJavascriptInterface(object {
-            @JavascriptInterface fun done(w: Int, h: Int, dpr: Float) { main.post { pending?.invoke(w, h, dpr) } }
+            @JavascriptInterface fun done(w: Int, h: Int, dpr: Float, diag: String) { main.post { pending?.invoke(w, h, dpr, diag) } }
         }, "Raster")
         view.webViewClient = object : WebViewClient() {
             override fun onPageFinished(v: WebView?, url: String?) { ready.countDown() }
@@ -65,8 +65,14 @@ class Rasterizer(context: Context) {
         return Bitmap.createBitmap(b, l, t, r - l + 1, bt - t + 1)
     }
 
-    /** Result in CSS px (pre-dpr) so callers can map to page units. */
-    class Result(val bitmap: Bitmap, val cssWidth: Int, val cssHeight: Int)
+    /**
+     * Result in CSS px (pre-dpr) so callers can map to page units. [notes]: automatic fixes the renderer made
+     * (e.g. viewBox widened so nothing is clipped); [warnings]: problems worth a fix (overlapping labels…);
+     * [contentFrac]: drawn width ÷ the SVG's own viewBox width (≈1 when the drawing fills its viewBox).
+     */
+    class Result(val bitmap: Bitmap, val cssWidth: Int, val cssHeight: Int,
+                 val notes: List<String> = emptyList(), val warnings: List<String> = emptyList(), val contentFrac: Double = 1.0,
+                 /** smallest text height ÷ drawn width (0 = no text) */ val minTextFrac: Double = 0.0)
 
     /** Blocking; must be called off the main thread. */
     fun render(kind: String, source: String, widthCssPx: Int = 0): Result {
@@ -76,9 +82,12 @@ class Rasterizer(context: Context) {
             var out: Result? = null
             var err: Throwable? = null
             main.post {
-                pending = { w, h, _ ->
+                pending = { w, h, _, diagRaw ->
                     pending = null
                     try {
+                        val diag = runCatching { JSONObject(diagRaw) }.getOrElse { JSONObject() }
+                        if (diag.has("error")) throw IllegalArgumentException(diag.getString("error"))
+                        fun list(k: String) = diag.optJSONArray(k)?.let { a -> (0 until a.length()).map { a.getString(it) } } ?: emptyList()
                         val vw = view.width.coerceAtLeast(1); val vh = view.height.coerceAtLeast(1)
                         val full = Bitmap.createBitmap(vw, vh, Bitmap.Config.ARGB_8888)
                         val c = Canvas(full)
@@ -86,7 +95,7 @@ class Rasterizer(context: Context) {
                         view.draw(c)
                         val cropped = cropToContent(full)
                         Log.i("InkRaster", "kind=$kind css=${w}x$h view=${vw}x$vh crop=${cropped.width}x${cropped.height}")
-                        out = Result(cropped, w, h)
+                        out = Result(cropped, w, h, list("notes"), list("warnings"), diag.optDouble("contentFrac", 1.0), diag.optDouble("minTextFrac", 0.0))
                     } catch (t: Throwable) { Log.e("InkRaster", "capture failed", t); err = t }
                     latch.countDown()
                 }

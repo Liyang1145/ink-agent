@@ -6,45 +6,336 @@
 <style>
 html,body{margin:0;padding:0;background:transparent;}
 #box{display:inline-block;padding:6px 10px;color:#1a4fd0;font-size:40px;line-height:1.35;}
-#box svg{display:block;}
+#box svg{display:block;overflow:visible;}
 .katex-display{margin:0 !important;}
 .err{color:#c62828;font-family:monospace;font-size:28px;white-space:pre-wrap;}
 </style></head>
 <body><div id="box"></div>
 <script>
+/* InkAgent off-screen renderer: latex | svg | plot.
+   Raster.done(cssW, cssH, fit, diagJson) once the box is laid out. diag = {notes:[], warnings:[]} */
+var SVGNS='http://www.w3.org/2000/svg';
+var diag;
+function note(s){diag.notes.push(s);}
+function warn(s){diag.warnings.push(s);}
+
 function texToHtml(src){
   try { return katex.renderToString(src,{displayMode:true,throwOnError:true}); }
   catch(e){
-    try { return katex.renderToString(src,{displayMode:true,strict:'ignore',throwOnError:false}); }
+    try { warn('LaTeX 有语法问题，已尽量渲染：'+String(e.message||e).slice(0,120));
+          return katex.renderToString(src,{displayMode:true,strict:'ignore',throwOnError:false}); }
     catch(e2){ var d=document.createElement('span'); d.className='err'; d.textContent=src; return d.outerHTML; }
   }
 }
-function render(kind, src, widthPx){
-  var box=document.getElementById('box');
-  box.style.width='';
-  if(kind==='latex'){
-    // allow multi-line input: each non-empty line rendered as its own display block
-    var lines=src.split(/\n\s*\n/);
-    box.innerHTML=lines.map(function(l){return '<div>'+texToHtml(l.trim())+'</div>';}).join('');
-  } else {
-    box.innerHTML=src;
-    var svg=box.querySelector('svg');
-    if(svg){
-      if(widthPx>0){ svg.setAttribute('width', widthPx); svg.removeAttribute('height'); svg.style.height='auto'; }
-      else if(!svg.getAttribute('width')){ svg.setAttribute('width', 600); }
-    }
+
+/* ---------- math expressions for plot ---------- */
+var M={sin:Math.sin,cos:Math.cos,tan:Math.tan,asin:Math.asin,acos:Math.acos,atan:Math.atan,arcsin:Math.asin,arccos:Math.acos,arctan:Math.atan,
+  sinh:Math.sinh,cosh:Math.cosh,tanh:Math.tanh,sqrt:Math.sqrt,cbrt:Math.cbrt,abs:Math.abs,exp:Math.exp,ln:Math.log,log:Math.log,lg:Math.log10,log2:Math.log2,
+  floor:Math.floor,ceil:Math.ceil,round:Math.round,sign:Math.sign,min:Math.min,max:Math.max,pow:Math.pow,
+  sec:function(x){return 1/Math.cos(x)},csc:function(x){return 1/Math.sin(x)},cot:function(x){return 1/Math.tan(x)},
+  pi:Math.PI,e:Math.E};
+function compile(expr, vars){
+  var s=String(expr).trim();
+  s=s.replace(/^\s*[a-zA-Z]\s*(\(\s*[a-z]\s*\))?\s*=\s*/,''); // "y = ...", "f(x) = ..."
+  s=s.replace(/π/g,'pi').replace(/√/g,'sqrt').replace(/×|·/g,'*').replace(/÷/g,'/').replace(/−/g,'-').replace(/\*\*/g,'^');
+  // "sin x", "cos 2x", "ln x" → sin(x), cos(2x), ln(x)
+  s=s.replace(/\b(a?sin|a?cos|a?tan|arcsin|arccos|arctan|sinh|cosh|tanh|sec|csc|cot|ln|lg|log2?|sqrt|exp|abs)\s+([0-9.]*[a-zA-Z_][a-zA-Z_0-9]*|[0-9.]+)/g,'$1($2)');
+  if(/[^0-9a-zA-Z_+\-*\/^().,\s]/.test(s)) throw new Error('表达式里有不支持的字符：'+expr);
+  var ids=s.match(/[a-zA-Z_][a-zA-Z_0-9]*/g)||[];
+  ids.forEach(function(id){ if(!(id in M) && vars.indexOf(id)<0) throw new Error('不认识的名字「'+id+'」：'+expr); });
+  // implicit multiplication: 2x, 2(x+1), )(, )x, x(… but not function calls like sin(
+  s=s.replace(/(^|[^a-zA-Z_0-9.])(\d+(?:\.\d+)?)\s*(?=[a-zA-Z_(])/g,'$1$2*').replace(/\)\s*([a-zA-Z_0-9(])/g,')*$1');
+  vars.forEach(function(v){ s=s.replace(new RegExp('\\b'+v+'\\s*\\(','g'),v+'*('); });
+  s=s.replace(/\^/g,'**');
+  var f=new Function(vars.join(','),'with(this){return ('+s+');}');
+  return function(){ try{ var y=f.apply(M,arguments); return typeof y==='number'?y:NaN; }catch(e){ return NaN; } };
+}
+function num(v, dflt){
+  if(v===undefined||v===null||v==='') return dflt;
+  if(typeof v==='number') return v;
+  return compile(String(v).replace(/["']/g,''),[])();
+}
+function niceStep(span, target){
+  var raw=span/target, p=Math.pow(10,Math.floor(Math.log10(raw))), m=raw/p;
+  return (m<1.5?1:m<3?2:m<7?5:10)*p;
+}
+function fmtNum(v){
+  if(Math.abs(v)<1e-9) return '0';
+  var s=(Math.abs(v)>=1000||Math.abs(v)<0.01)?v.toPrecision(3):String(+v.toFixed(4));
+  return s.replace('-','−');
+}
+function gcd(a,b){ a=Math.abs(a); b=Math.abs(b); while(b){ var t=b; b=a%b; a=t; } return a||1; }
+function fmtPi(v, den){
+  var n=Math.round(v/(Math.PI/den)); if(n===0) return '0';
+  var g=gcd(n,den), a=n/g, b=den/g, sgn=a<0?'−':''; a=Math.abs(a);
+  return sgn+(a===1?'':a)+'π'+(b===1?'':'/'+b);
+}
+/* step spec: number, "pi/2", "π", or "auto" */
+function parseStep(spec, span, target){
+  if(spec===undefined||spec===null||spec==='auto'||spec==='') return {v:niceStep(span,target),pi:0};
+  var s=String(spec).replace(/π/g,'pi').replace(/["']/g,'');
+  var m=s.match(/^\s*(\d*)\s*\*?\s*pi\s*(?:\/\s*(\d+))?\s*$/);
+  if(m){ var k=+(m[1]||1), d=+(m[2]||1); return {v:k*Math.PI/d, pi:d}; }
+  var v=num(spec, NaN); if(!(v>0)) v=niceStep(span,target); return {v:v,pi:0};
+}
+
+/* ---------- svg helpers ---------- */
+function el(tag, attrs, parent){
+  var e=document.createElementNS(SVGNS,tag);
+  for(var k in attrs) if(attrs[k]!==undefined&&attrs[k]!==null) e.setAttribute(k,attrs[k]);
+  if(parent) parent.appendChild(e); return e;
+}
+function rectOf(e){ var b=e.getBBox(); return {x:b.x,y:b.y,w:b.width,h:b.height}; }
+function overlap(a,b){
+  var w=Math.min(a.x+a.w,b.x+b.w)-Math.max(a.x,b.x), h=Math.min(a.y+a.h,b.y+b.h)-Math.max(a.y,b.y);
+  return (w>0&&h>0)?w*h:0;
+}
+var PALETTE=['#1a4fd0','#d32f2f','#2e7d32','#7b1fa2','#ef6c00','#00838f'];
+
+/* ---------- plot: declarative coordinate-plane graph ---------- */
+function buildPlot(spec, box){
+  if(typeof spec==='string') spec=JSON.parse(spec);
+  var fns=(spec.functions||[]).map(function(f,i){ if(typeof f==='string') f={expr:f}; f.color=f.color||PALETTE[i%PALETTE.length]; return f; });
+  var xr=spec.x_range||spec.xRange||[-5,5];
+  var x0=num(xr[0],-5), x1=num(xr[1],5); if(!(x1>x0)){ var t=x0; x0=Math.min(t,x1); x1=Math.max(t,x1)+1; }
+  var N=900, samples=[];
+  fns.forEach(function(f){
+    var g=compile(f.expr,['x']); var d=f.domain?[num(f.domain[0],x0),num(f.domain[1],x1)]:[x0,x1];
+    var pts=[]; for(var i=0;i<=N;i++){ var x=d[0]+(d[1]-d[0])*i/N; pts.push([x,g(x)]); }
+    f._pts=pts; var bad=pts.filter(function(p){return !isFinite(p[1]);}).length;
+    if(bad===pts.length) warn('函数 '+f.expr+' 在给定范围内没有可画的值');
+    samples=samples.concat(pts);
+  });
+  var ys=[];
+  samples.forEach(function(p){ if(isFinite(p[1])) ys.push(p[1]); });
+  (spec.points||[]).forEach(function(p){ ys.push(num(p.y,0)); });
+  (spec.circles||[]).forEach(function(c){ ys.push(num(c.cy,0)+num(c.r,1)); ys.push(num(c.cy,0)-num(c.r,1)); });
+  var y0,y1;
+  if(spec.y_range||spec.yRange){ var yr=spec.y_range||spec.yRange; y0=num(yr[0],-5); y1=num(yr[1],5); }
+  else if(ys.length){
+    ys.sort(function(a,b){return a-b;});
+    var lo=ys[Math.floor(ys.length*0.02)], hi=ys[Math.min(ys.length-1,Math.ceil(ys.length*0.98))];
+    (spec.points||[]).forEach(function(p){ var v=num(p.y,0); lo=Math.min(lo,v); hi=Math.max(hi,v); });
+    if(hi-lo<1e-6){ lo-=1; hi+=1; }
+    var pad=(hi-lo)*0.12; lo-=pad; hi+=pad;
+    if(lo>0&&lo<(hi-lo)*0.6) lo=-(hi-lo)*0.08; if(hi<0&&-hi<(hi-lo)*0.6) hi=(hi-lo)*0.08;
+    y0=lo; y1=hi;
+  } else { y0=-5; y1=5; }
+  var NL=spec.number_line===true;
+  if(NL){ y0=-1; y1=1.6; }
+  var equal=!NL&&(spec.equal_aspect===true||(spec.equal_aspect!==false&&(spec.circles||[]).length>0));
+  var W=520, H, sx, sy;
+  if(equal){ var u=Math.min(W/(x1-x0), 560/(y1-y0)); sx=sy=u; W=u*(x1-x0); H=u*(y1-y0); }
+  else if(NL){ H=110; sx=W/(x1-x0); sy=H/(y1-y0); }
+  else { H=Math.max(240,Math.min(560,W*0.72)); sx=W/(x1-x0); sy=H/(y1-y0); }
+  var X=function(x){return (x-x0)*sx;}, Y=function(y){return (y1-y)*sy;};
+  var fs=+spec.font_size||16;
+  var svg=el('svg',{xmlns:SVGNS,width:W,height:H,viewBox:'0 0 '+W+' '+H,'font-family':"'Times New Roman',Georgia,serif",'font-size':fs});
+  box.appendChild(svg);
+  el('defs',{},svg).innerHTML='<marker id="ax" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0,0 L10,5 L0,10 z" fill="#333"/></marker>'+
+    '<marker id="ar" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse"><path d="M0,0 L10,5 L0,10 z" fill="context-stroke"/></marker>';
+  var gGrid=el('g',{},svg), gAx=el('g',{},svg), gCurve=el('g',{},svg), gGeo=el('g',{},svg), gLab=el('g',{stroke:'#fff','stroke-width':4,'stroke-linejoin':'round','paint-order':'stroke'},svg);
+  var obstacles=[], labelRects=[], pointRects=[];
+  var ax=(0>=x0&&0<=x1)?X(0):(x0>0?0:W), ay=(0>=y0&&0<=y1)?Y(0):(y0>0?H:0);
+  var xs=parseStep(spec.x_step, x1-x0, 8), ysz=parseStep(spec.y_step, y1-y0, 7);
+  var grid=spec.grid===true;
+  // axes
+  el('line',{x1:-6,y1:ay,x2:W+14,y2:ay,stroke:'#333','stroke-width':1.4,'marker-end':'url(#ax)'},gAx);
+  if(!NL){ el('line',{x1:ax,y1:H+6,x2:ax,y2:-14,stroke:'#333','stroke-width':1.4,'marker-end':'url(#ax)'},gAx); obstacles.push({x:ax-3,y:-14,w:6,h:H+20}); }
+  obstacles.push({x:-6,y:ay-3,w:W+20,h:6});
+  var t;
+  t=el('text',{x:W+16,y:ay+fs*0.35,'font-style':'italic',fill:'#333'},gLab); t.textContent=spec.x_label||'x'; labelRects.push(rectOf(t));
+  if(!NL){ t=el('text',{x:ax+6,y:-10,'font-style':'italic',fill:'#333'},gLab); t.textContent=spec.y_label||'y'; labelRects.push(rectOf(t)); }
+  if(NL&&0>=x0&&0<=x1){ /* 0 is an ordinary tick on a number line */ }
+  else if(0>=x0&&0<=x1&&0>=y0&&0<=y1){ t=el('text',{x:ax-5,y:ay+fs+2,'text-anchor':'end','font-style':'italic',fill:'#333'},gLab); t.textContent='O'; labelRects.push(rectOf(t)); }
+  // ticks
+  var skipTicks=spec.ticks===false;
+  function ticks(lo,hi,st,isX){
+    var k0=Math.ceil(lo/st.v-1e-9), k1=Math.floor(hi/st.v+1e-9), n=0;
+    for(var k=k0;k<=k1&&n<60;k++,n++){ var v=k*st.v; if(Math.abs(v)<1e-9&&!(NL&&isX)) continue;
+      if(isX){ var px=X(v); if(grid) el('line',{x1:px,y1:0,x2:px,y2:H,stroke:'#ddd','stroke-width':1},gGrid);
+        el('line',{x1:px,y1:ay-4,x2:px,y2:ay+4,stroke:'#333','stroke-width':1.2},gAx);
+        t=el('text',{x:px,y:ay+fs+3,'text-anchor':'middle',fill:'#333','font-size':fs*0.85},gLab);
+        t.textContent=st.pi?fmtPi(v,st.pi):fmtNum(v); var r=rectOf(t);
+        if(labelRects.concat(pointRects).some(function(q){return overlap(q,r)>0;})) t.remove(); else labelRects.push(r);
+      } else { var py=Y(v); if(grid) el('line',{x1:0,y1:py,x2:W,y2:py,stroke:'#ddd','stroke-width':1},gGrid);
+        el('line',{x1:ax-4,y1:py,x2:ax+4,y2:py,stroke:'#333','stroke-width':1.2},gAx);
+        t=el('text',{x:ax-7,y:py+fs*0.3,'text-anchor':'end',fill:'#333','font-size':fs*0.85},gLab);
+        t.textContent=st.pi?fmtPi(v,st.pi):fmtNum(v); var r2=rectOf(t);
+        if(labelRects.concat(pointRects).some(function(q){return overlap(q,r2)>0;})) t.remove(); else labelRects.push(r2);
+      } }
   }
-  box.style.transform='';
+  // curves
+  var curvePts=[];
+  fns.forEach(function(f){
+    var d='', prev=null, span=y1-y0, lo=y0-span*0.03, hi=y1+span*0.03;
+    var inR=function(p){return isFinite(p[1])&&p[1]>=lo&&p[1]<=hi;};
+    var edge=function(a,b){ // point where segment a→b crosses the lo/hi band edge
+      var lim=(b[1]>hi||a[1]>hi)?hi:lo; var t=(lim-a[1])/(b[1]-a[1]); return [a[0]+(b[0]-a[0])*t,lim]; };
+    var put=function(p,move){ d+=(move?'M':'L')+X(p[0]).toFixed(2)+','+Y(p[1]).toFixed(2); };
+    f._pts.forEach(function(p){
+      var cur=inR(p), was=prev&&inR(prev);
+      if(cur){
+        if(!prev||!isFinite(prev[1])) put(p,true);
+        else if(!was){ if(Math.abs(p[1]-prev[1])<span*3) put(edge(prev,p),true), put(p,false); else put(p,true); }
+        else put(p,false);
+        curvePts.push([X(p[0]),Y(p[1])]);
+      } else if(was&&isFinite(p[1])&&Math.abs(p[1]-prev[1])<span*3) put(edge(prev,p),false);
+      prev=p;
+    });
+    el('path',{d:d,fill:'none',stroke:f.color,'stroke-width':f.width||2.4,'stroke-dasharray':f.dashed?'7 5':null,'stroke-linejoin':'round'},gCurve);
+  });
+  // clip curves to the plot box so out-of-range parts never leave the axes area
+  var cp=el('clipPath',{id:'pc'},svg.querySelector('defs')); el('rect',{x:-2,y:-2,width:W+4,height:H+4},cp); gCurve.setAttribute('clip-path','url(#pc)');
+  for(var i=0;i<curvePts.length;i+=3) obstacles.push({x:curvePts[i][0]-2,y:curvePts[i][1]-2,w:4,h:4});
+  // geometry
+  (spec.vlines||[]).forEach(function(v){ var px=X(num(v.x,0)); el('line',{x1:px,y1:0,x2:px,y2:H,stroke:v.color||'#888','stroke-width':1.4,'stroke-dasharray':v.dashed===false?null:'6 5'},gGeo);
+    obstacles.push({x:px-2,y:0,w:4,h:H}); if(v.label) placeLabel(v.label,px,fs*1.2,v.color||'#555',[[6,0,'start'],[-6,0,'end']]); });
+  (spec.hlines||[]).forEach(function(v){ var py=Y(num(v.y,0)); el('line',{x1:0,y1:py,x2:W,y2:py,stroke:v.color||'#888','stroke-width':1.4,'stroke-dasharray':v.dashed===false?null:'6 5'},gGeo);
+    obstacles.push({x:0,y:py-2,w:W,h:4}); if(v.label) placeLabel(v.label,W-4,py,v.color||'#555',[[0,-6,'end'],[0,fs+4,'end']]); });
+  (spec.circles||[]).forEach(function(c,i){ el('circle',{cx:X(num(c.cx,0)),cy:Y(num(c.cy,0)),r:num(c.r,1)*sx,fill:c.fill||'none','fill-opacity':c.fill?0.15:null,stroke:c.color||'#333','stroke-width':c.width||2,'stroke-dasharray':c.dashed?'6 5':null},gGeo); });
+  (spec.polygons||[]).forEach(function(pg){ var pts=(pg.points||[]).map(function(p){return X(num(p[0],0))+','+Y(num(p[1],0));}).join(' ');
+    el('polygon',{points:pts,fill:pg.fill||'none','fill-opacity':pg.fill?0.15:null,stroke:pg.color||'#333','stroke-width':pg.width||2},gGeo); });
+  (spec.segments||[]).forEach(function(s){ var a=s.from||[0,0], b=s.to||[0,0];
+    var A=[X(num(a[0],0)),Y(num(a[1],0))], B=[X(num(b[0],0)),Y(num(b[1],0))];
+    el('line',{x1:A[0],y1:A[1],x2:B[0],y2:B[1],stroke:s.color||'#333','stroke-width':s.width||2,'stroke-dasharray':s.dashed?'6 5':null,'marker-end':s.arrow?'url(#ar)':null},gGeo);
+    for(var k=0;k<=10;k++) obstacles.push({x:A[0]+(B[0]-A[0])*k/10-2,y:A[1]+(B[1]-A[1])*k/10-2,w:4,h:4});
+    if(s.label) placeLabel(s.label,(A[0]+B[0])/2,(A[1]+B[1])/2,s.color||'#333'); });
+  (spec.points||[]).forEach(function(p){ var px=X(num(p.x,0)), py=Y(num(p.y,0)), c=p.color||'#d32f2f';
+    if(p.guides){ el('line',{x1:px,y1:py,x2:px,y2:ay,stroke:'#999','stroke-width':1.2,'stroke-dasharray':'4 4'},gGeo); el('line',{x1:px,y1:py,x2:ax,y2:py,stroke:'#999','stroke-width':1.2,'stroke-dasharray':'4 4'},gGeo); }
+    el('circle',{cx:px,cy:py,r:p.hollow?4:4.2,fill:p.hollow?'#fff':c,stroke:c,'stroke-width':1.8},gGeo);
+    obstacles.push({x:px-5,y:py-5,w:10,h:10}); pointRects.push({x:px-5,y:py-5,w:10,h:10});
+    var lab=p.label||''; if(p.show_coords) lab=(lab?lab:'')+'('+fmtNum(num(p.x,0))+', '+fmtNum(num(p.y,0))+')';
+    if(lab) placeLabel(lab,px,py,c); });
+  // intervals: textbook solution-set brackets above the axis
+  (spec.intervals||[]).forEach(function(iv,i){
+    var c=iv.color||PALETTE[i%PALETTE.length], lvl=(NL?24:18)+i*14;
+    var inf=function(v){ var s=String(v).replace(/\s/g,''); return /^[-−]?(inf|infinity|∞)$/i.test(s)?(/^[-−]/.test(s)?-1:1):0; };
+    var fa=inf(iv.from), fb=inf(iv.to);
+    var a=fa?(fa<0?-8:W+8):X(num(iv.from,0)), b=fb?(fb>0?W+8:-8):X(num(iv.to,0)), top=ay-lvl;
+    el('polyline',{points:(fa?'':a+','+ay+' ')+a+','+top+' '+b+','+top+(fb?'':' '+b+','+ay),fill:'none',stroke:c,'stroke-width':2,'marker-start':fa?'url(#ar)':null,'marker-end':fb?'url(#ar)':null},gGeo);
+    obstacles.push({x:Math.min(a,b),y:top-2,w:Math.abs(b-a),h:4});
+    [[fa,a,iv.from,iv.left_open],[fb,b,iv.to,iv.right_open]].forEach(function(q){ if(q[0]) return;
+      el('circle',{cx:q[1],cy:ay,r:4.4,fill:q[3]?'#fff':c,stroke:c,'stroke-width':1.8},gGeo); pointRects.push({x:q[1]-5,y:ay-5,w:10,h:10}); });
+    if(iv.label) placeLabel(iv.label,(Math.max(-8,a)+Math.min(W+8,b))/2,top,c,[[0,-6,'middle']]);
+  });
+  // marks computed from the function itself, so coordinates are always right
+  var nice=function(v){ var r=Math.round(v); if(Math.abs(v-r)<1e-6) return fmtNum(r); var r2=Math.round(v*2)/2; if(Math.abs(v-r2)<1e-6) return fmtNum(r2); return fmtNum(+v.toFixed(2)); };
+  fns.forEach(function(f){
+    var marks=f.mark||f.marks; if(!marks) return; if(typeof marks==='string') marks=[marks];
+    var g=compile(f.expr,['x']), P=f._pts, found=[];
+    var bis=function(a,b,h){ for(var k=0;k<60;k++){ var m=(a+b)/2; if(h(a)*h(m)<=0) b=m; else a=m; } return (a+b)/2; };
+    if(marks.indexOf('zeros')>=0) for(var i=1;i<P.length;i++){ var p=P[i-1], q=P[i];
+      if(!isFinite(p[1])||!isFinite(q[1])) continue;
+      if(p[1]===0) found.push([p[0],0]); else if(p[1]*q[1]<0&&Math.abs(p[1]-q[1])<(y1-y0)) found.push([bis(p[0],q[0],g),0]); }
+    if(marks.indexOf('extrema')>=0){ var dg=function(x){ var h=1e-5*(1+Math.abs(x)); return (g(x+h)-g(x-h))/(2*h); };
+      for(var j=2;j<P.length-1;j++){ var a1=P[j-1], b1=P[j], c1=P[j+1]; if(!isFinite(a1[1])||!isFinite(b1[1])||!isFinite(c1[1])) continue;
+        if((b1[1]-a1[1])*(c1[1]-b1[1])<0){ var xe=bis(a1[0],c1[0],dg); found.push([xe,g(xe)]); } } }
+    if(marks.indexOf('y_intercept')>=0&&0>=x0&&0<=x1&&isFinite(g(0))) found.push([0,g(0)]);
+    var seen=[]; found.forEach(function(p){
+      if(p[1]<y0||p[1]>y1||seen.some(function(s){return Math.abs(s[0]-p[0])<1e-6&&Math.abs(s[1]-p[1])<1e-6;})) return; seen.push(p);
+      if(seen.length>12) return;
+      var px=X(p[0]), py=Y(p[1]);
+      el('circle',{cx:px,cy:py,r:4.2,fill:f.color,stroke:f.color,'stroke-width':1.8},gGeo);
+      obstacles.push({x:px-5,y:py-5,w:10,h:10}); pointRects.push({x:px-5,y:py-5,w:10,h:10});
+      placeLabel('('+nice(p[0])+', '+nice(Math.abs(p[1])<1e-9?0:p[1])+')',px,py,f.color);
+    });
+    if(seen.length) note((f.label||f.expr)+' 标出的点：'+seen.map(function(p){return '('+nice(p[0])+', '+nice(Math.abs(p[1])<1e-9?0:p[1])+')';}).join('、'));
+  });
+  // curve labels last, where they collide with the least
+  fns.forEach(function(f){ if(!f.label) return;
+    var best=null;
+    [0.88,0.75,0.62,0.95,0.5,0.35,0.2,0.08].forEach(function(fr){
+      var p=f._pts[Math.round(fr*N)]; if(!p||!isFinite(p[1])||p[1]<y0||p[1]>y1) return;
+      var r=tryLabel(f.label,X(p[0]),Y(p[1]),f.color); if(r&&(!best||r.score<best.score)) { if(best) best.el.remove(); best=r; } else if(r) r.el.remove();
+    });
+    if(best){ labelRects.push(best.rect); } else warn('函数 '+(f.label||f.expr)+' 的标签没地方放');
+  });
+  function cands(){ var g=7; return [[g,-g,'start'],[-g,-g,'end'],[g,fs+g-2,'start'],[-g,fs+g-2,'end'],[g+2,fs*0.35,'start'],[-g-2,fs*0.35,'end'],[0,-g-2,'middle'],[0,fs+g+1,'middle'],
+    [2*g,-2*g,'start'],[-2*g,-2*g,'end'],[2*g,fs+2*g,'start'],[-2*g,fs+2*g,'end']]; }
+  function tryLabel(text,x,y,color,cs){
+    var best=null; (cs||cands()).forEach(function(c){
+      var e=el('text',{x:x+c[0],y:y+c[1],'text-anchor':c[2],fill:color||'#333'},gLab); e.textContent=text;
+      var r=rectOf(e), s=0, lo=0;
+      labelRects.forEach(function(q){ lo+=overlap(q,r); }); s+=lo*10; obstacles.forEach(function(q){ s+=overlap(q,r); });
+      if(r.x<-4||r.x+r.w>W+30||r.y<-20||r.y+r.h>H+24) s+=r.w*r.h*0.3;
+      if(!best||s<best.score){ if(best) best.el.remove(); best={el:e,rect:r,score:s,lab:lo}; } else e.remove();
+    }); return best;
+  }
+  function placeLabel(text,x,y,color,cs){ var b=tryLabel(text,x,y,color,cs); if(b){ labelRects.push(b.rect); if(b.lab>0.2*b.rect.w*b.rect.h) warn('标签「'+text+'」和别的标签重叠'); } }
+  if(!skipTicks){ ticks(x0,x1,xs,true); if(!NL) ticks(y0,y1,ysz,false); }
+  note('坐标范围 x∈['+fmtNum(x0)+', '+fmtNum(x1)+']，y∈['+fmtNum(y0)+', '+fmtNum(y1)+']'+(equal?'（等比例）':''));
+  return svg;
+}
+
+/* ---------- svg post-processing: never clip, report overlaps ---------- */
+function fitSvg(svg, widthPx, quiet){
+  if(!svg.getAttribute('xmlns')) svg.setAttribute('xmlns',SVGNS);
+  var vbA=svg.getAttribute('viewBox'), vb=null;
+  if(vbA){ var a=vbA.trim().split(/[\s,]+/).map(Number); if(a.length===4&&a.every(isFinite)&&a[2]>0&&a[3]>0) vb={x:a[0],y:a[1],w:a[2],h:a[3]}; }
+  var aw=parseFloat(svg.getAttribute('width')), ah=parseFloat(svg.getAttribute('height'));
+  if(!vb&&aw>0&&ah>0&&!/%/.test(svg.getAttribute('width')||'')) vb={x:0,y:0,w:aw,h:ah};
+  svg.removeAttribute('width'); svg.removeAttribute('height'); svg.style.width='600px'; svg.style.height='auto';
+  if(!vb){ svg.setAttribute('viewBox','0 0 600 600'); vb={x:0,y:0,w:600,h:600}; }
+  var bb; try{ var b=svg.getBBox(); bb={x:b.x,y:b.y,w:b.width,h:b.height}; }catch(e){ bb=null; }
+  if(!bb||!(bb.w>0||bb.h>0)) throw new Error('SVG 里没有可见内容');
+  // outward stroke/marker allowance
+  var sw=0; svg.querySelectorAll('[stroke-width]').forEach(function(e){ sw=Math.max(sw,parseFloat(e.getAttribute('stroke-width'))||0); });
+  var m=Math.max(sw*2, Math.max(vb.w,vb.h)*0.015, 3);
+  var L=Math.min(vb.x,bb.x-m), T=Math.min(vb.y,bb.y-m), R=Math.max(vb.x+vb.w,bb.x+bb.w+m), B=Math.max(vb.y+vb.h,bb.y+bb.h+m);
+  var out=[]; if(bb.x<vb.x-1) out.push('左'); if(bb.y<vb.y-1) out.push('上'); if(bb.x+bb.w>vb.x+vb.w+1) out.push('右'); if(bb.y+bb.h>vb.y+vb.h+1) out.push('下');
+  if(out.length&&!quiet) note('有内容超出了 viewBox（'+out.join('、')+'侧），已自动扩大画布，没有截断');
+  // generous margin all round: the capture is cropped to the drawn pixels afterwards, so this only prevents clipping
+  var pad=Math.max(R-L,B-T)*0.06; L-=pad; T-=pad; R+=pad; B+=pad;
+  svg.setAttribute('viewBox',[L,T,R-L,B-T].map(function(v){return +v.toFixed(2);}).join(' '));
+  var base=widthPx>0?widthPx:Math.min(900,Math.max(300,vb.w)); // css px for the original viewBox width
+  svg.style.width=Math.round(base*(R-L)/vb.w)+'px';
+  diag.scale=(R-L)/vb.w; diag.contentFrac=(bb.w+2*m)/vb.w;
+  // overlapping text labels (screen space)
+  var texts=[].slice.call(svg.querySelectorAll('text')).map(function(t){ var r=t.getBoundingClientRect(); return {t:(t.textContent||'').trim(),r:{x:r.left,y:r.top,w:r.width,h:r.height}}; }).filter(function(o){return o.t&&o.r.w>0;});
+  // smallest label height as a fraction of the drawing's width: the app widens the object so labels stay legible
+  var px=svg.getBoundingClientRect().width/(R-L), cw=(bb.w+2*m)*px;
+  var mh=texts.reduce(function(a,o){return Math.min(a,o.r.h);},1e9);
+  if(texts.length&&cw>0) diag.minTextFrac=mh/cw;
+  var hits=0;
+  for(var i=0;i<texts.length&&hits<4;i++) for(var j=i+1;j<texts.length&&hits<4;j++){
+    var a=texts[i].r, b2=texts[j].r, ov=overlap(a,b2);
+    if(ov>0.12*Math.min(a.w*a.h,b2.w*b2.h)){ warn('文字「'+texts[i].t.slice(0,16)+'」和「'+texts[j].t.slice(0,16)+'」重叠'); hits++; }
+  }
+}
+
+function render(kind, src, widthPx){
+  diag={notes:[],warnings:[]};
+  var box=document.getElementById('box');
+  box.style.width=''; box.style.transform='';
+  try{
+    if(kind==='latex'){
+      var lines=src.split(/\n\s*\n/);
+      box.innerHTML=lines.map(function(l){return '<div>'+texToHtml(l.trim())+'</div>';}).join('');
+    } else if(kind==='plot'){
+      box.innerHTML='';
+      var svg=buildPlot(src, box);
+      fitSvg(svg, 0, true);
+    } else {
+      box.innerHTML=src;
+      var svg2=box.querySelector('svg');
+      if(!svg2) throw new Error('没有找到 <svg> 元素');
+      svg2.querySelectorAll('script,foreignObject').forEach(function(e){e.remove();});
+      fitSvg(svg2, widthPx);
+    }
+  }catch(e){
+    diag.error=String(e.message||e);
+    box.innerHTML='<span class="err">'+diag.error.replace(/</g,'&lt;')+'</span>';
+  }
   var finish=function(){
     requestAnimationFrame(function(){
       var r=box.getBoundingClientRect();
       var w=Math.ceil(r.width), h=Math.ceil(r.height);
-      // shrink to fit the viewport so the capture never clips; Kotlin crops by content bounds
       var fit=Math.min(1,(window.innerWidth-8)/Math.max(w,1),(window.innerHeight-8)/Math.max(h,1));
       box.style.transformOrigin='0 0';
       box.style.transform=fit<1?('scale('+fit+')'):'';
       requestAnimationFrame(function(){requestAnimationFrame(function(){
-        Raster.done(w, h, fit);
+        Raster.done(w, h, fit, JSON.stringify(diag));
       });});
     });
   };

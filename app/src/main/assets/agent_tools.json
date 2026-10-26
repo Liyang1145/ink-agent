@@ -1,0 +1,434 @@
+{
+ "env": "你运行在平板笔记应用 InkAgent 里，可以用工具查看和修改用户当前打开的笔记页面，以及管理模型服务商（manage_provider）。用户消息里的 @N 表示引用第 N 页。\n\n在页面上作图/写公式的规则：\n- 函数图像、坐标系里的点线圆、数轴类图形一律用 canvas_plot：只给表达式和要标注的对象，坐标换算、刻度、标签避让都由系统完成，不要自己算点坐标拼 SVG。\n- 几何示意图、流程图等非坐标图形才用 canvas_draw_svg。\n- 公式和推导用 canvas_write_latex，多行一次写完。\n- 先想清楚再一次调用画好。放置位置、缩放、防截断都会自动处理，结果说明里会告诉你位置和是否有问题；没有 ⚠ 警告就说明画好了，不要再 view_page 检查、不要删了重画。有警告时用 replace 参数原位修正一次即可。\n- view_page 只在需要读取用户手写内容时使用（用户的问题本身已经说清楚时不必看）；list_pages 能告诉你空白位置和已有 AI 对象。放置位置是自动的，通常不用先调它们。",
+ "tools": {
+  "list_pages": {
+   "description": "列出当前笔记的所有页面：尺寸（页面像素，原点左上角）、手写笔画数量和范围、其他对象，以及你放上去的 AI 对象（id）。也告诉你用户当前在第几页。",
+   "parameters": {
+    "type": "object",
+    "properties": {},
+    "required": []
+   }
+  },
+  "view_page": {
+   "description": "把某一页（默认用户当前页）渲染成图片返回，用来读用户手写的内容。可用 region 只看局部以获得更清晰的细节（页面像素坐标）。你放上去的 AI 对象不需要用它检查，放置结果已经在工具返回里说明。",
+   "parameters": {
+    "type": "object",
+    "properties": {
+     "page": {
+      "type": "integer",
+      "description": "页码，从 1 开始；省略表示当前页"
+     },
+     "region": {
+      "type": "object",
+      "description": "可选局部区域（页面像素）",
+      "properties": {
+       "x": {
+        "type": "number"
+       },
+       "y": {
+        "type": "number"
+       },
+       "width": {
+        "type": "number"
+       },
+       "height": {
+        "type": "number"
+       }
+      }
+     }
+    },
+    "required": []
+   }
+  },
+  "canvas_plot": {
+   "description": "在页面上画坐标系图像或数轴（函数图像、点、线段、圆、多边形、渐近线/对称轴、不等式解集），系统自动计算坐标、刻度、箭头，并自动给标签找不重叠的位置，结果不会截断。零点、顶点/极值点、与 y 轴交点用 functions[].mark 自动求出标注（数值计算，比自己算可靠）。表达式写法：x^2-2x-3、sin(x)、2sin(2x+pi/3)、sqrt(x)、abs(x)、ln(x)、lg(x)、log2(x)、e^x、1/x，支持 pi、e 和隐式乘法（2x）。坐标值也可以写成表达式字符串，如 \"pi/2\"、\"sqrt(3)/2\"。只传需要的字段。",
+   "parameters": {
+    "type": "object",
+    "properties": {
+     "functions": {
+      "type": "array",
+      "description": "要画的函数 y=f(x)",
+      "items": {
+       "type": "object",
+       "properties": {
+        "expr": {
+         "type": "string",
+         "description": "关于 x 的表达式，如 x^2-2x-3"
+        },
+        "label": {
+         "type": "string",
+         "description": "曲线旁的标签，如 y=x²-2x-3（用 Unicode 上标，不要 LaTeX）"
+        },
+        "domain": {
+         "type": "array",
+         "items": {},
+         "description": "可选：只在 [a,b] 上画，如 [0, \"pi\"]"
+        },
+        "color": {
+         "type": "string"
+        },
+        "dashed": {
+         "type": "boolean"
+        },
+        "mark": {
+         "type": "array",
+         "items": {
+          "type": "string",
+          "enum": [
+           "zeros",
+           "extrema",
+           "y_intercept"
+          ]
+         },
+         "description": "自动求出并标注：zeros 零点、extrema 极值点/顶点、y_intercept 与 y 轴交点（坐标由系统数值计算，保证准确，优先用它而不是自己算点）"
+        }
+       },
+       "required": [
+        "expr"
+       ]
+      }
+     },
+     "x_range": {
+      "type": "array",
+      "items": {},
+      "description": "x 显示范围 [min,max]，可用 \"-2pi\" 这样的表达式字符串。默认 [-5,5]"
+     },
+     "y_range": {
+      "type": "array",
+      "items": {},
+      "description": "可选：y 显示范围；省略则按函数值和点自动确定（有渐近线的函数如 tan、1/x 建议给出）"
+     },
+     "x_step": {
+      "type": "string",
+      "description": "x 刻度间隔：如 \"1\"、\"0.5\"，或以 π 为单位的 \"pi/2\"、\"pi\"（刻度显示为 π/2、π…）。默认自动"
+     },
+     "y_step": {
+      "type": "string",
+      "description": "y 刻度间隔，写法同 x_step"
+     },
+     "points": {
+      "type": "array",
+      "description": "要标出的点",
+      "items": {
+       "type": "object",
+       "properties": {
+        "x": {},
+        "y": {},
+        "label": {
+         "type": "string",
+         "description": "如 A、顶点"
+        },
+        "show_coords": {
+         "type": "boolean",
+         "description": "在标签后显示坐标，如 A(1, -4)"
+        },
+        "guides": {
+         "type": "boolean",
+         "description": "画到两坐标轴的虚线"
+        },
+        "hollow": {
+         "type": "boolean",
+         "description": "空心点（取不到的端点）"
+        },
+        "color": {
+         "type": "string"
+        }
+       },
+       "required": [
+        "x",
+        "y"
+       ]
+      }
+     },
+     "segments": {
+      "type": "array",
+      "description": "线段/向量",
+      "items": {
+       "type": "object",
+       "properties": {
+        "from": {
+         "type": "array",
+         "items": {}
+        },
+        "to": {
+         "type": "array",
+         "items": {}
+        },
+        "label": {
+         "type": "string"
+        },
+        "dashed": {
+         "type": "boolean"
+        },
+        "arrow": {
+         "type": "boolean"
+        },
+        "color": {
+         "type": "string"
+        }
+       },
+       "required": [
+        "from",
+        "to"
+       ]
+      }
+     },
+     "vlines": {
+      "type": "array",
+      "description": "竖直线 x=a（对称轴、渐近线），默认虚线",
+      "items": {
+       "type": "object",
+       "properties": {
+        "x": {},
+        "label": {
+         "type": "string"
+        },
+        "dashed": {
+         "type": "boolean"
+        },
+        "color": {
+         "type": "string"
+        }
+       },
+       "required": [
+        "x"
+       ]
+      }
+     },
+     "hlines": {
+      "type": "array",
+      "description": "水平线 y=b，默认虚线",
+      "items": {
+       "type": "object",
+       "properties": {
+        "y": {},
+        "label": {
+         "type": "string"
+        },
+        "dashed": {
+         "type": "boolean"
+        },
+        "color": {
+         "type": "string"
+        }
+       },
+       "required": [
+        "y"
+       ]
+      }
+     },
+     "circles": {
+      "type": "array",
+      "description": "圆（有圆时自动等比例坐标）",
+      "items": {
+       "type": "object",
+       "properties": {
+        "cx": {},
+        "cy": {},
+        "r": {},
+        "color": {
+         "type": "string"
+        },
+        "fill": {
+         "type": "string"
+        },
+        "dashed": {
+         "type": "boolean"
+        }
+       },
+       "required": [
+        "cx",
+        "cy",
+        "r"
+       ]
+      }
+     },
+     "polygons": {
+      "type": "array",
+      "description": "多边形（顶点坐标列表）",
+      "items": {
+       "type": "object",
+       "properties": {
+        "points": {
+         "type": "array",
+         "items": {
+          "type": "array",
+          "items": {}
+         }
+        },
+        "color": {
+         "type": "string"
+        },
+        "fill": {
+         "type": "string"
+        }
+       },
+       "required": [
+        "points"
+       ]
+      }
+     },
+     "equal_aspect": {
+      "type": "boolean",
+      "description": "x、y 单位长度相同（画圆、几何时用）"
+     },
+     "grid": {
+      "type": "boolean",
+      "description": "画网格线"
+     },
+     "x_label": {
+      "type": "string"
+     },
+     "y_label": {
+      "type": "string"
+     },
+     "page": {
+      "type": "integer",
+      "description": "页码，从 1 开始；省略表示当前页"
+     },
+     "width": {
+      "type": "number",
+      "description": "可选：页面上的宽度（页面像素），默认约半个页宽"
+     },
+     "replace": {
+      "type": "string",
+      "description": "可选：要原位替换的 AI 对象 id（修正已画的图时用）"
+     },
+     "number_line": {
+      "type": "boolean",
+      "description": "数轴模式：只画 x 轴（不等式解集等），配合 intervals 使用"
+     },
+     "intervals": {
+      "type": "array",
+      "description": "解集区间（课本画法：在轴上方画折线，端点实心/空心）",
+      "items": {
+       "type": "object",
+       "properties": {
+        "from": {
+         "description": "左端点，数字/表达式，或 \"-inf\""
+        },
+        "to": {
+         "description": "右端点，或 \"inf\""
+        },
+        "left_open": {
+         "type": "boolean",
+         "description": "左端点取不到（空心）"
+        },
+        "right_open": {
+         "type": "boolean",
+         "description": "右端点取不到（空心）"
+        },
+        "label": {
+         "type": "string"
+        },
+        "color": {
+         "type": "string"
+        }
+       },
+       "required": [
+        "from",
+        "to"
+       ]
+      }
+     }
+    },
+    "required": []
+   }
+  },
+  "canvas_draw_svg": {
+   "description": "在页面上画一张 SVG 图（几何示意图、流程图等不需要坐标轴的图形；函数图像请用 canvas_plot）。传完整 <svg>，用 viewBox 设定你的坐标系（如 0 0 400 300），文字 font-size 建议 14–20。超出 viewBox 的内容会自动扩大画布，不会被截断；文字标签重叠会在结果里警告。通常不要传坐标，系统自动放在空白处、不遮挡笔迹。",
+   "parameters": {
+    "type": "object",
+    "properties": {
+     "svg": {
+      "type": "string",
+      "description": "完整 SVG 源码"
+     },
+     "page": {
+      "type": "integer",
+      "description": "页码，从 1 开始；省略表示当前页"
+     },
+     "x": {
+      "type": "number",
+      "description": "可选：期望的左上角 x（页面像素）"
+     },
+     "y": {
+      "type": "number",
+      "description": "可选：期望的左上角 y（页面像素）"
+     },
+     "width": {
+      "type": "number",
+      "description": "可选：页面上的宽度（页面像素），默认约为页宽的 45%"
+     },
+     "replace": {
+      "type": "string",
+      "description": "可选：要原位替换的 AI 对象 id（修正已画的图时用）"
+     }
+    },
+    "required": [
+     "svg"
+    ]
+   }
+  },
+  "canvas_write_latex": {
+   "description": "在页面上写排版好的 LaTeX 公式（KaTeX 渲染，蓝色），作为一个图片对象。多行推导用空行分隔各行，一次写完。通常不要传坐标：系统自动放在已有内容下方的空白处，不遮挡笔迹，并缩放到页宽以内。",
+   "parameters": {
+    "type": "object",
+    "properties": {
+     "latex": {
+      "type": "string",
+      "description": "LaTeX 源码，不要带 $ 或 \\[ \\] 定界符；中文用 \\text{}"
+     },
+     "page": {
+      "type": "integer",
+      "description": "页码，从 1 开始；省略表示当前页"
+     },
+     "x": {
+      "type": "number",
+      "description": "可选：期望的左上角 x（页面像素）"
+     },
+     "y": {
+      "type": "number",
+      "description": "可选：期望的左上角 y（页面像素）"
+     },
+     "width": {
+      "type": "number",
+      "description": "可选：页面上的宽度（页面像素）"
+     },
+     "scale": {
+      "type": "number",
+      "description": "缩放，默认 1（约等于正常手写大小）"
+     },
+     "replace": {
+      "type": "string",
+      "description": "可选：要原位替换的 AI 对象 id"
+     }
+    },
+    "required": [
+     "latex"
+    ]
+   }
+  },
+  "canvas_remove": {
+   "description": "删除你放到页面上的 AI 对象：传 id 删除一个，或 all=true 删除该页所有 AI 对象。不会动用户的手写笔迹和用户自己的对象。可撤销。修正图形请用绘图工具的 replace 参数，不要删了重画。",
+   "parameters": {
+    "type": "object",
+    "properties": {
+     "id": {
+      "type": "string",
+      "description": "对象 id"
+     },
+     "all": {
+      "type": "boolean",
+      "description": "删除该页所有 AI 对象"
+     },
+     "page": {
+      "type": "integer",
+      "description": "页码，从 1 开始；省略表示当前页"
+     }
+    },
+    "required": []
+   }
+  }
+ }
+}

@@ -174,23 +174,37 @@ class CanvasTools(
         return scan(py, maxY, order) ?: scan(minY, py, order)
     }
 
+    /**
+     * Put a rendered object on page [idx]. With args.replace = an AI object id on that page, the old object is
+     * removed and the new one takes its place (same top-left, same width unless given) and keeps its id.
+     * Returns the model-facing report: where it went, what the renderer fixed by itself, and any warnings.
+     */
     private fun place(idx: Int, kind: String, source: String, args: JSONObject, r: Rasterizer.Result, widthPage: Double?): String {
         val e = ed()
         val bytes = ByteArrayOutputStream().use { r.bitmap.compress(Bitmap.CompressFormat.PNG, 100, it); it.toByteArray() }
-        val id = "ai" + System.currentTimeMillis().toString(36)
-        val msg = onMain {
+        val replaceId = args.optString("replace", "").trim()
+        var id = "ai" + System.currentTimeMillis().toString(36)
+        val (msg, replacedOld) = onMain {
             val page = e.pageAt(idx) ?: throw IllegalStateException("页面不存在")
-            val unit = page.width / 1000.0 // the model sees A4-width-1000 units only as a hint; real coords are page px
+            val old = if (replaceId.isEmpty()) null else registry.match(page.items).firstOrNull { it.first.id == replaceId }
+                ?: throw IllegalArgumentException("第 ${idx + 1} 页上没有 id=$replaceId 的 AI 对象（用 list_pages 查看现有 id）")
+            val oldRect = old?.second?.bounds()
+            if (old != null) id = old.first.id
+            val unit = page.width / 1000.0
             val aspect = r.bitmap.height.toDouble() / r.bitmap.width.coerceAtLeast(1)
             val maxW = page.width * (1 - 2 * MARGIN_FRAC)
             val asked = if (args.has("width")) args.optDouble("width").takeIf { it > 1 } else null
-            var w = (asked ?: widthPage ?: (r.cssWidth * 0.75 * unit * args.optDouble("scale", 1.0))).coerceIn(page.width * 0.04, maxW)
-            // keep it on the page vertically too
+            val base = asked ?: (if (oldRect != null && kind != "latex") oldRect.w else null) ?: widthPage
+                ?: (r.cssWidth * 0.75 * unit * args.optDouble("scale", 1.0))
+            var w = base.coerceIn(page.width * 0.04, maxW)
+            // keep SVG labels legible: smallest text at least ~1.6% of the page width (≈ small handwriting)
+            val minText = page.width * 0.016
+            if (asked == null && r.minTextFrac > 0 && w * r.minTextFrac < minText) w = minOf(maxW, minText / r.minTextFrac)
             val maxH = page.height * (1 - TOP_FRAC - MARGIN_FRAC)
             if (w * aspect > maxH) w = maxH / aspect
-            val obstacles = page.items.map { it.bounds() }
-            val prefX = if (args.has("x")) args.optDouble("x") else null
-            val prefY = if (args.has("y")) args.optDouble("y") else null
+            val obstacles = page.items.filter { old == null || it !== old.second }.map { it.bounds() }
+            val prefX = if (args.has("x")) args.optDouble("x") else oldRect?.x
+            val prefY = if (args.has("y")) args.optDouble("y") else oldRect?.y
             var spot: Rect? = null
             var shrink = 1.0
             while (spot == null && shrink > 0.39) {
@@ -199,25 +213,54 @@ class CanvasTools(
             }
             val note = StringBuilder()
             val rect = spot ?: run {
-                // page full: put it below everything at the left margin, clamped to the page (may overlap)
                 val ww = w * 0.6; val hh = ww * aspect
                 val y = ((obstacles.maxOfOrNull { it.bottom } ?: 0.0) + page.width * GAP_FRAC).coerceAtMost(page.height - hh).coerceAtLeast(0.0)
-                note.append("（页面已没有足够空白，可能与已有内容重叠，建议换一页或先删除旧对象）")
+                note.append("页面已没有足够空白，可能与已有内容重叠，建议换一页（page 参数）或先删除旧对象。")
                 Rect(page.width * MARGIN_FRAC, y, ww, hh)
             }
-            if (spot != null && shrink < 0.999) note.append("（空白不足，已缩小到 ${(shrink * 100).toInt()}%）")
-            if (spot != null && (prefX != null || prefY != null) &&
+            if (spot != null && shrink < 0.999) note.append("空白不足，已缩小到 ${(shrink * 100).toInt()}%。")
+            if (spot != null && (prefX != null || prefY != null) && old == null &&
                 (kotlin.math.abs(rect.x - (prefX ?: rect.x)) > 1 || kotlin.math.abs(rect.y - (prefY ?: rect.y)) > 1))
-                note.append("（指定位置会与已有内容重叠或超出页面，已自动挪到最近的空白处）")
+                note.append("指定位置会与已有内容重叠或超出页面，已挪到最近的空白处。")
+            if (old != null) e.agentRemoveItems(idx, listOf(old.second))
             e.agentInsertImage(idx, bytes, rect)
             if (e.agentCurrentPage() != idx) e.goToPage(idx)
-            "已放到第 ${idx + 1} 页：id=$id，位置 (${rect.x.toInt()}, ${rect.y.toInt()})，尺寸 ${rect.w.toInt()}x${rect.h.toInt()}（页面像素，页面 ${page.width.toInt()}x${page.height.toInt()}）$note。它是普通图片对象，用户可以移动、缩放或撤销。"
+            val verb = if (old != null) "已原位替换" else "已放到"
+            "$verb 第 ${idx + 1} 页：id=$id，位置 (${rect.x.toInt()}, ${rect.y.toInt()})，尺寸 ${rect.w.toInt()}x${rect.h.toInt()}（页面 ${page.width.toInt()}x${page.height.toInt()}）。$note" to (old != null)
         }
+        if (replacedOld) registry.remove(listOf(id))
         registry.add(id, bytes, kind, source)
-        return msg
+        val sb = StringBuilder(msg)
+        r.notes.forEach { sb.append("\n· ").append(it) }
+        if (r.warnings.isEmpty()) sb.append("\n渲染正常：尺寸、位置和防截断都已自动处理，不需要再用 view_page 检查。")
+        else {
+            r.warnings.forEach { sb.append("\n⚠ ").append(it) }
+            sb.append("\n如需修正，调用同一工具并传 replace=\"$id\" 原位替换（不要先删再画）。")
+        }
+        return sb.toString()
     }
 
-    fun register(reg: ToolRegistry, tavilyKey: () -> String) {
+    /** Model-facing tool texts (assets/agent_tools.json), shared with the offline tool-UX harness. */
+    private val specs: JSONObject = runCatching {
+        JSONObject(raster.view.context.assets.open("agent_tools.json").bufferedReader().use { it.readText() })
+    }.getOrElse { JSONObject() }
+
+    /** The system-prompt paragraph describing the canvas tools and drawing rules. */
+    fun envPrompt(): String? = specs.optString("env").takeIf { it.isNotBlank() }
+
+    fun register(outer: ToolRegistry, tavilyKey: () -> String) {
+        // tools named in agent_tools.json take their description and schema from there
+        val reg = object {
+            fun register(t: Tool) {
+                val sp = specs.optJSONObject("tools")?.optJSONObject(t.name)
+                outer.register(if (sp == null) t else object : Tool {
+                    override val name = t.name
+                    override val description = sp.optString("description", t.description)
+                    override val parameters = sp.optJSONObject("parameters") ?: t.parameters
+                    override fun execute(args: JSONObject, signal: CancelSignal) = t.execute(args, signal)
+                })
+            }
+        }
         reg.register(object : Tool {
             override val name = "list_pages"
             override val description = "列出当前笔记的所有页面：尺寸（页面像素，原点左上角）、手写笔画数量和范围、其他对象，以及你放上去的 AI 对象（id）。也告诉你用户当前在第几页。"
@@ -269,8 +312,20 @@ class CanvasTools(
                 val idx = pageIndex(args)
                 val src = args.getString("latex")
                 val r = raster.render("latex", src)
-                val msg = place(idx, "latex", src, args, r, null)
-                return ToolResult(listOf(Block.Text(msg + "\n渲染结果如图："), savePng(attachDir, r.bitmap, "latex")))
+                return ToolResult.text(place(idx, "latex", src, args, r, null))
+            }
+        })
+        reg.register(object : Tool {
+            override val name = "canvas_plot"
+            override val description = "在页面上画坐标系图像或数轴（函数、点、线段、圆、区间）。"
+            override val parameters = obj("functions" to t("array", "函数列表"), "x_range" to t("array", "x 范围"))
+            override fun execute(args: JSONObject, signal: CancelSignal): ToolResult {
+                val idx = pageIndex(args)
+                val spec = JSONObject(args.toString())
+                listOf("page", "width", "replace", "x", "y", "scale").forEach { spec.remove(it) }
+                val pageW = onMain { ed().pageAt(idx)?.width ?: 1240.0 }
+                val r = raster.render("plot", spec.toString(), 0)
+                return ToolResult.text(place(idx, "plot", spec.toString(), args, r, pageW * 0.5 * args.optDouble("scale", 1.0)))
             }
         })
         reg.register(object : Tool {
@@ -289,8 +344,8 @@ class CanvasTools(
                 val src = args.getString("svg")
                 val pageW = onMain { ed().pageAt(idx)?.width ?: 1240.0 }
                 val r = raster.render("svg", src, 600)
-                val msg = place(idx, "svg", src, args, r, pageW * 0.45)
-                return ToolResult(listOf(Block.Text(msg + "\n渲染结果如图："), savePng(attachDir, r.bitmap, "svg")))
+                // ~45% of the page for a drawing that fills its own viewBox; wider when content spilled past it
+                return ToolResult.text(place(idx, "svg", src, args, r, pageW * 0.45 * r.contentFrac.coerceIn(0.6, 1.6)))
             }
         })
         reg.register(object : Tool {

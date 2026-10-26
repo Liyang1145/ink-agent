@@ -2,7 +2,7 @@ name: e2e-emulator
 on:
   workflow_dispatch:
     inputs:
-      scenario: { description: 'full | ui-only', default: 'full' }
+      scenario: { description: 'full | ui-only | agent', default: 'full' }
       build_run: { description: 'build-apk run id whose APK to test (empty = build here)', default: '' }
 permissions:
   actions: read
@@ -46,6 +46,7 @@ jobs:
         uses: reactivecircus/android-emulator-runner@v2
         env:
           DS_KEY: ${{ secrets.DS_KEY }}
+          CLINE_KEY: ${{ secrets.CLINE_KEY }}
           SCENARIO: ${{ github.event.inputs.scenario }}
         with:
           api-level: 34

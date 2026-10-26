@@ -12,6 +12,7 @@ import xml.etree.ElementTree as ET
 OUT = 'e2e-out'; os.makedirs(OUT, exist_ok=True)
 PKG = 'com.inkagent'
 KEY = os.environ.get('DS_KEY', '')
+CLINE = os.environ.get('CLINE_KEY', '')
 SCEN = os.environ.get('SCENARIO', 'full')
 APK = os.environ.get('APK', 'app/build/outputs/apk/debug/app-debug.apk')
 shots = 0
@@ -313,6 +314,9 @@ def main():
     adb('shell input keyevent 82'); adb('shell input keyevent 3')
     time.sleep(5)
     ex = f'--es test_key {KEY} --ez test_finger true --es test_mode compact --es test_effort high --es test_agent_mode split'
+    if SCEN == 'agent':  # ClinePass gateway (OpenAI-compatible) driving DeepSeek V4.1 Flash
+        ex = (f'--es test_key {CLINE} --es test_base https://api.cline.bot/api/v1 --es test_provider ClinePass '
+              f'--es test_model deepseek/deepseek-v4.1-flash --es test_effort default --ez test_finger true --es test_mode compact --es test_agent_mode split')
     launch(ex)
     time.sleep(12)
     if not ensure_front(ex): raise SystemExit(1)
@@ -352,6 +356,9 @@ def main():
     shot('strokes')
     scr = raw_screen()
     check('strokes: ink drawn', dark_near(scr, (lx1 + lx2) // 2, ly) and dark_near(scr, ox + s // 2, oy + s // 2))
+    if SCEN == 'agent':
+        run_agent(W, H)
+        return finish()
 
     # ---------------- area eraser cuts the long line in the middle ----------------
     select_tool('橡皮')
@@ -890,6 +897,51 @@ def run_editor(W, H):
     check('editor: 取消 closes, nothing changed, never auto-sent', not (st.get('editor') or {}).get('open') and st.get('attachments') == n + 1
           and st.get('userCount', 0) == users0 and count_events(session_text(), 'user/message') == msgs0,
           f"attachments={st.get('attachments')} userCount {users0}->{st.get('userCount')}")
+
+AGENT_PROMPTS = [
+    ('para', '画出抛物线 y=x^2-2x-3 的图像，标出顶点和与坐标轴的交点，再用公式写出求最小值的过程'),
+    ('cube', '在下面画一个正方体 ABCD-A1B1C1D1 的直观图，看不见的棱用虚线，并连出对角线 A1C'),
+    ('ineq', '在数轴上表示不等式组 -1<x≤3 的解集'),
+]
+
+def run_agent(W, H):
+    """Drawing-tool UX with a real model: each prompt is one turn; record tools used, steps, and images."""
+    for i, (tag, prompt) in enumerate(AGENT_PROMPTS, 1):
+        c = composer()
+        if c: tap(c[0], c[1])
+        time.sleep(1)
+        set_composer(prompt); time.sleep(1)
+        adb('shell input keyevent 111'); time.sleep(1)
+        if not tap_label('发送消息'): note('!! send button not found')
+        t0 = time.time()
+        txt = wait_turn_end(i, limit=420, every=60, tag=f'agent_{tag}')
+        note(f'agent {tag}: turn took {int(time.time() - t0)}s')
+        time.sleep(3)
+        shot(f'agent_{tag}_done')
+    txt = session_text()
+    turns = {}; cur = 0
+    for line in txt.splitlines():
+        try: e = json.loads(line)
+        except Exception: continue
+        if e['type'] == 'turn/start': cur = e['data']['turn']; turns[cur] = {'steps': 0, 'tools': [], 'errors': 0}
+        elif e['type'] == 'step/start' and cur: turns[cur]['steps'] += 1
+        elif e['type'] == 'tool/result' and cur:
+            turns[cur]['tools'].append(e['data']['name']); turns[cur]['errors'] += 1 if e['data'].get('isError') else 0
+    for k, v in turns.items(): note(f'agent turn {k}: steps={v["steps"]} tools={v["tools"]} errors={v["errors"]}')
+    check('agent: all turns finished without error', count_events(txt, 'turn/end') >= len(AGENT_PROMPTS) and '"reason":"error"' not in txt)
+    allt = [t for v in turns.values() for t in v['tools']]
+    check('agent: canvas_plot used for graphs', 'canvas_plot' in allt, str(allt))
+    check('agent: no view_page re-checks after drawing', all(
+        'view_page' not in v['tools'][next((j for j, t in enumerate(v['tools']) if t.startswith('canvas_')), len(v['tools'])):] for v in turns.values()), str(turns))
+    check('agent: no remove-and-redraw', 'canvas_remove' not in allt, str(allt))
+    st = state('agent_end')
+    pg = st.get('page') or {}
+    imgs = [i for i in (pg.get('items') or []) if i.get('kind') == 'image']
+    pw, ph = pg.get('width') or 0, pg.get('height') or 0
+    note(f'page {pw}x{ph}: ' + ', '.join(f"({int(i['x'])},{int(i['y'])} {int(i['w'])}x{int(i['h'])})" for i in imgs))
+    check('agent: AI objects inside the page', imgs and all(i['x'] >= 0 and i['y'] >= 0 and i['x'] + i['w'] <= pw + .5 and i['y'] + i['h'] <= ph + .5 for i in imgs))
+    # pull the rendered AI images for review
+    adb(f"shell \"run-as {PKG} sh -c 'ls -t files/*/*.png files/*.png 2>/dev/null | head -40'\"")
 
 def safe(f, *a):
     try: return f(*a)
