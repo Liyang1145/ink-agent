@@ -177,7 +177,15 @@ def launch(extra=''):
 def focus():
     out = adb('shell dumpsys window', timeout=60)
     m = re.search(r'mCurrentFocus=.*', out)
-    return m.group(0) if m else '?'
+    f = m.group(0) if m else '?'
+    if PKG not in f:
+        # newer emulator images sometimes leave mCurrentFocus stale; trust the resumed activity too
+        a = adb('shell dumpsys activity activities', timeout=60)
+        r = re.search(r'(topResumedActivity|mResumedActivity|ResumedActivity)[:=].*', a)
+        if r and PKG in r.group(0): f = f + ' | ' + r.group(0)
+        elif 'Keyguard' in adb('shell dumpsys window | grep -i -m3 keyguard', timeout=60) and 'mShowing=true' in adb('shell dumpsys window policy', timeout=60):
+            adb('shell wm dismiss-keyguard'); f = f + ' | keyguard'
+    return f
 
 def dismiss_dialogs():
     for _ in range(3):
@@ -311,6 +319,8 @@ def main():
     adb('shell settings put secure immersive_mode_confirmations confirmed')
     time.sleep(40)
     dismiss_dialogs()
+    adb('shell svc power stayon true'); adb('shell input keyevent KEYCODE_WAKEUP')
+    adb('shell wm dismiss-keyguard'); adb('shell locksettings set-disabled true')
     adb('shell input keyevent 82'); adb('shell input keyevent 3')
     time.sleep(5)
     ex = f'--es test_key {KEY} --ez test_finger true --es test_mode compact --es test_effort high --es test_agent_mode split'
