@@ -28,6 +28,10 @@ class Rasterizer(context: Context) {
     private var pending: ((Int, Int, Float, String) -> Unit)? = null
     private val lock = Object()
 
+    private val appCtx = context.applicationContext
+    private val debuggable = context.applicationInfo.flags and android.content.pm.ApplicationInfo.FLAG_DEBUGGABLE != 0
+    private var dumpN = 0
+
     init {
         WebView.enableSlowWholeDocumentDraw()
         view = WebView(context)
@@ -88,7 +92,7 @@ class Rasterizer(context: Context) {
             var out: Result? = null
             var err: Throwable? = null
             main.post {
-                pending = { w, h, _, diagRaw ->
+                pending = { w, h, dpr, diagRaw ->
                     pending = null
                     try {
                         val diag = runCatching { JSONObject(diagRaw) }.getOrElse { JSONObject() }
@@ -101,6 +105,11 @@ class Rasterizer(context: Context) {
                         view.draw(c)
                         val cropped = cropToContent(full)
                         Log.i("InkRaster", "kind=$kind css=${w}x$h view=${vw}x$vh crop=${cropped.width}x${cropped.height}")
+                        if (debuggable) runCatching {
+                            val dir = java.io.File(appCtx.getExternalFilesDir(null), "raster").apply { mkdirs() }
+                            java.io.File(dir, "%03d_%s.png".format(++dumpN, kind)).outputStream().use { cropped.compress(Bitmap.CompressFormat.PNG, 100, it) }
+                            java.io.File(dir, "%03d_%s.txt".format(dumpN, kind)).writeText("css=${w}x$h fit=$dpr view=${vw}x$vh crop=${cropped.width}x${cropped.height}\n$source")
+                        }
                         out = Result(cropped, w, h, list("notes"), list("warnings"), diag.optDouble("contentFrac", 1.0), diag.optDouble("minTextFrac", 0.0),
                             diag.optJSONArray("box")?.let { a -> DoubleArray(4) { a.getDouble(it) } })
                     } catch (t: Throwable) { Log.e("InkRaster", "capture failed", t); err = t }

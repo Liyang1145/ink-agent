@@ -312,7 +312,7 @@ function fitSvg(svg, widthPx, quiet){
 function render(kind, src, widthPx){
   diag={notes:[],warnings:[]};
   var box=document.getElementById('box');
-  box.style.width=''; box.style.height=''; box.style.transform=''; box.style.paddingLeft='';
+  box.style.width=''; box.style.height=''; box.style.transform=''; box.style.paddingLeft=''; box.style.marginLeft='';
   try{
     if(kind==='latex'){
       var lines=src.split(/\n\s*\n/);
@@ -354,6 +354,20 @@ function render(kind, src, widthPx){
       var fit=Math.min(1,(window.innerWidth-8)/Math.max(w,1),(window.innerHeight-8)/Math.max(h,1));
       box.style.transformOrigin='0 0';
       box.style.transform=fit<1?('scale('+fit+')'):'';
+      // verify what is really painted after scaling (some WebViews paint CJK text larger than measured):
+      // shrink again until every glyph and the box sit inside the capture viewport
+      function painted(){ var b=box.getBoundingClientRect(), x0=b.left, y0=b.top, x1=b.right, y1=b.bottom;
+        var tw2=document.createTreeWalker(box,NodeFilter.SHOW_TEXT,null,false), rg2=document.createRange(), t2;
+        while((t2=tw2.nextNode())){ if(!t2.nodeValue.trim()||(t2.parentElement&&t2.parentElement.closest('.katex-mathml'))) continue;
+          rg2.selectNodeContents(t2); var q2=rg2.getBoundingClientRect(); if(q2.width>0){ x0=Math.min(x0,q2.left); y0=Math.min(y0,q2.top); x1=Math.max(x1,q2.right); y1=Math.max(y1,q2.bottom); } }
+        return [x0,y0,x1,y1]; }
+      for(var k=0;k<4;k++){ var pb=painted(), W=window.innerWidth-4, H=window.innerHeight-4;
+        if(pb[0]>=-0.5&&pb[2]<=W&&pb[3]<=H) break;
+        if(pb[0]<0){ box.style.marginLeft=(parseFloat(box.style.marginLeft||'0')-pb[0]+2)+'px'; continue; }
+        var f2=Math.min(W/Math.max(pb[2]-pb[0],1),H/Math.max(pb[3]-pb[1],1));
+        fit*=Math.min(f2,0.98); box.style.transform='scale('+fit+')';
+        diag.notes&&k===0&&console.log('raster refit '+fit); }
+      var pf=painted(); w=Math.ceil((pf[2]-Math.min(pf[0],0))/fit); h=Math.ceil(pf[3]/fit);
       requestAnimationFrame(function(){requestAnimationFrame(function(){
         Raster.done(w, h, fit, JSON.stringify(diag));
       });});

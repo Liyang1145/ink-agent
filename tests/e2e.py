@@ -962,6 +962,8 @@ def safe(f, *a):
 
 def finish():
     open(f'{OUT}/logcat.txt', 'w').write(safe(adb, 'logcat -d -v time') or '')
+    os.makedirs(f'{OUT}/raster', exist_ok=True)
+    safe(adb, f'pull /sdcard/Android/data/com.inkagent/files/raster/. {OUT}/raster/')
     txt = safe(session_text)
     open(f'{OUT}/session.jsonl', 'w').write(txt)
     for line in txt.splitlines():
