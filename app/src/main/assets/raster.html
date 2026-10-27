@@ -308,11 +308,11 @@ function fitSvg(svg, widthPx, quiet){
 function render(kind, src, widthPx){
   diag={notes:[],warnings:[]};
   var box=document.getElementById('box');
-  box.style.width=''; box.style.transform='';
+  box.style.width=''; box.style.height=''; box.style.transform='';
   try{
     if(kind==='latex'){
       var lines=src.split(/\n\s*\n/);
-      box.innerHTML=lines.map(function(l){return '<div>'+texToHtml(l.trim())+'</div>';}).join('');
+      box.style.width='';box.style.height='';box.innerHTML=lines.map(function(l){return '<div>'+texToHtml(l.trim())+'</div>';}).join('');
     } else if(kind==='geometry'||kind==='solid'){
       box.innerHTML='';
       var gs=kind==='geometry'?buildGeometry(src, box):buildSolid(src, box);
@@ -338,6 +338,13 @@ function render(kind, src, widthPx){
   var finish=function(){
     requestAnimationFrame(function(){
       var r=box.getBoundingClientRect();
+      // measure what is really painted: KaTeX lines can overflow the box's own width
+      var R=r.right, B=r.bottom;
+      // text glyphs only (KaTeX draws radicals with very wide, clipped SVGs; .katex-mathml is invisible)
+      var tw=document.createTreeWalker(box,NodeFilter.SHOW_TEXT,null,false), rg=document.createRange(), tn;
+      while((tn=tw.nextNode())){ if(!tn.nodeValue.trim()||(tn.parentElement&&tn.parentElement.closest('.katex-mathml,svg'))) continue;
+        rg.selectNodeContents(tn); var q=rg.getBoundingClientRect(); if(q.width>0){ R=Math.max(R,q.right); B=Math.max(B,q.bottom); } }
+      if(R>r.right+0.5||B>r.bottom+0.5){ box.style.width=Math.ceil(R-r.left+10)+'px'; box.style.height=Math.ceil(B-r.top+6)+'px'; r=box.getBoundingClientRect(); }
       var w=Math.ceil(r.width), h=Math.ceil(r.height);
       var fit=Math.min(1,(window.innerWidth-8)/Math.max(w,1),(window.innerHeight-8)/Math.max(h,1));
       box.style.transformOrigin='0 0';
