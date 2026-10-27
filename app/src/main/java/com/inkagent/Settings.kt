@@ -118,7 +118,7 @@ class Settings(context: Context) {
     fun label(): String {
         val p = provider() ?: return "未配置模型"
         val e = effort.takeIf { it in p.efforts() } ?: p.efforts().first()
-        return "${model.ifBlank { "未选模型" }} · ${EFFORT_LABEL[e] ?: e}"
+        return "${model.ifBlank { "未选模型" }} (${p.name}) · ${EFFORT_LABEL[e] ?: e}"
     }
 
     companion object {

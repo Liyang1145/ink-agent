@@ -173,6 +173,13 @@ class AgentController(private val activity: Activity, private val editorRef: () 
         val o = JSONObject().put("calls", all.calls).put("session", u(all)).put("context", all.lastInput)
             .put("window", settings.contextWindow(settings.model))
         if (turn != null && turn.calls > 0) o.put("turn", u(turn))
+        o.put("turns", all.turns).put("steps", turn?.calls ?: 0)
+        // output speed of the latest turn: output tokens ÷ (last assistant message − turn start)
+        if (turn != null && turn.calls > 0 && lastTurn >= 0) {
+            val t0 = s.events[lastTurn].time
+            val t1 = s.events.lastOrNull { it.type == "assistant/message" }?.time ?: t0
+            if (t1 > t0) o.put("tps", turn.usage.output * 1000.0 / (t1 - t0))
+        }
         panel.setStats(o.toString())
     }
 
@@ -192,6 +199,7 @@ class AgentController(private val activity: Activity, private val editorRef: () 
         override fun onToggleMode() {
             if (overlayActive) openAppThen(null) else changeMode(if (mode == "split") "window" else "split")
         }
+        override fun onPickImage() { activity.startActivity(android.content.Intent(activity, com.inkagent.ui.PickImageActivity::class.java).addFlags(android.content.Intent.FLAG_ACTIVITY_NEW_TASK)) }
         override fun onCapture() { com.inkagent.overlay.OverlayService.instance?.startCapture() ?: toast("请先在设置里开启「在其他应用上显示悬浮球」") }
         override fun onInputFocus(focused: Boolean) { com.inkagent.overlay.OverlayService.instance?.onInputFocus(focused) }
         override fun listSessions(): String {
