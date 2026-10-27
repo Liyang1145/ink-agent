@@ -293,8 +293,9 @@ class CanvasTools(
                 } ?: return ToolResult.error("渲染失败")
                 val img = savePng(attachDir, bmp, "page")
                 val size = onMain { e.pageAt(idx)?.let { "${it.width.toInt()}x${it.height.toInt()}" } }
+                val layout = onMain { describePage(e, idx) }
                 val gridNote = if (args.optBoolean("grid", false)) "；图上的浅蓝网格线每 100 个页面单位一条，边上标着页面坐标，用来确定批改标记的位置" else ""
-                return ToolResult(listOf(Block.Text("第 ${idx + 1} 页的画面（图片 ${bmp.width}x${bmp.height}px；页面坐标系 $size$gridNote）"), img))
+                return ToolResult(listOf(Block.Text("第 ${idx + 1} 页的画面（图片 ${bmp.width}x${bmp.height}px；页面坐标系 $size$gridNote）\n$layout\n（上面列出的 AI 对象是你之前画/写的，不是用户的手写；批改只针对手写笔画。）"), img))
             }
         })
         reg.register(object : Tool {
