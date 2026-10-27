@@ -108,14 +108,15 @@ class Rasterizer(context: Context) {
                         if (debuggable) runCatching {
                             val dir = java.io.File(appCtx.getExternalFilesDir(null), "raster").apply { mkdirs() }
                             java.io.File(dir, "%03d_%s.png".format(++dumpN, kind)).outputStream().use { cropped.compress(Bitmap.CompressFormat.PNG, 100, it) }
-                            java.io.File(dir, "%03d_%s.txt".format(dumpN, kind)).writeText("css=${w}x$h fit=$dpr view=${vw}x$vh crop=${cropped.width}x${cropped.height}\n$source")
+                            java.io.File(dir, "%03d_%s.txt".format(dumpN, kind)).writeText("css=${w}x$h fit=$dpr density=${appCtx.resources.displayMetrics.density} view=${vw}x$vh crop=${cropped.width}x${cropped.height}\n$source")
                         }
                         out = Result(cropped, w, h, list("notes"), list("warnings"), diag.optDouble("contentFrac", 1.0), diag.optDouble("minTextFrac", 0.0),
                             diag.optJSONArray("box")?.let { a -> DoubleArray(4) { a.getDouble(it) } })
                     } catch (t: Throwable) { Log.e("InkRaster", "capture failed", t); err = t }
                     latch.countDown()
                 }
-                val js = "render(${JSONObject.quote(kind)}, ${JSONObject.quote(source)}, $widthCssPx)"
+                val dens = appCtx.resources.displayMetrics.density.coerceAtLeast(1f)
+                val js = "render(${JSONObject.quote(kind)}, ${JSONObject.quote(source)}, $widthCssPx, ${(view.width / dens).toInt()}, ${(view.height / dens).toInt()})"
                 view.evaluateJavascript(js, null)
             }
             if (!latch.await(20, TimeUnit.SECONDS)) { main.post { pending = null }; throw IllegalStateException("渲染超时") }

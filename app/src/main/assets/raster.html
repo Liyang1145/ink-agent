@@ -309,7 +309,13 @@ function fitSvg(svg, widthPx, quiet){
   }
 }
 
-function render(kind, src, widthPx){
+// VW/VH: the capture viewport in CSS px as the host measures it (off-screen WebViews can report a
+// window.innerWidth that ignores device density, then paint everything density× larger)
+var VW=0, VH=0;
+function vpW(){ return VW>0?Math.min(VW,window.innerWidth):window.innerWidth; }
+function vpH(){ return VH>0?Math.min(VH,window.innerHeight):window.innerHeight; }
+function render(kind, src, widthPx, vw, vh){
+  VW=vw||0; VH=vh||0;
   diag={notes:[],warnings:[]};
   var box=document.getElementById('box');
   box.style.width=''; box.style.height=''; box.style.transform=''; box.style.paddingLeft=''; box.style.marginLeft='';
@@ -351,7 +357,7 @@ function render(kind, src, widthPx){
       if(L<r.left-0.5){ box.style.paddingLeft=(10+Math.ceil(r.left-L))+'px'; R+=Math.ceil(r.left-L); }
       if(R>r.right+0.5||B>r.bottom+0.5){ box.style.width=Math.ceil(R-r.left+10)+'px'; box.style.height=Math.ceil(B-r.top+6)+'px'; r=box.getBoundingClientRect(); }
       var w=Math.ceil(r.width), h=Math.ceil(r.height);
-      var fit=Math.min(1,(window.innerWidth-8)/Math.max(w,1),(window.innerHeight-8)/Math.max(h,1));
+      var fit=Math.min(1,(vpW()-8)/Math.max(w,1),(vpH()-8)/Math.max(h,1));
       box.style.transformOrigin='0 0';
       box.style.transform=fit<1?('scale('+fit+')'):'';
       // verify what is really painted after scaling (some WebViews paint CJK text larger than measured):
@@ -361,7 +367,7 @@ function render(kind, src, widthPx){
         while((t2=tw2.nextNode())){ if(!t2.nodeValue.trim()||(t2.parentElement&&t2.parentElement.closest('.katex-mathml'))) continue;
           rg2.selectNodeContents(t2); var q2=rg2.getBoundingClientRect(); if(q2.width>0){ x0=Math.min(x0,q2.left); y0=Math.min(y0,q2.top); x1=Math.max(x1,q2.right); y1=Math.max(y1,q2.bottom); } }
         return [x0,y0,x1,y1]; }
-      for(var k=0;k<4;k++){ var pb=painted(), W=window.innerWidth-4, H=window.innerHeight-4;
+      for(var k=0;k<4;k++){ var pb=painted(), W=vpW()-4, H=vpH()-4;
         if(pb[0]>=-0.5&&pb[2]<=W&&pb[3]<=H) break;
         if(pb[0]<0){ box.style.marginLeft=(parseFloat(box.style.marginLeft||'0')-pb[0]+2)+'px'; continue; }
         var f2=Math.min(W/Math.max(pb[2]-pb[0],1),H/Math.max(pb[3]-pb[1],1));
