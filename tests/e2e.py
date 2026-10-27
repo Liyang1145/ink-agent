@@ -13,6 +13,7 @@ OUT = 'e2e-out'; os.makedirs(OUT, exist_ok=True)
 PKG = 'com.inkagent'
 KEY = os.environ.get('DS_KEY', '')
 CLINE = os.environ.get('CLINE_KEY', '')
+CC = os.environ.get('CC_KEY', '')
 SCEN = os.environ.get('SCENARIO', 'full')
 APK = os.environ.get('APK', 'app/build/outputs/apk/debug/app-debug.apk')
 shots = 0
@@ -324,8 +325,8 @@ def main():
     adb('shell input keyevent 82'); adb('shell input keyevent 3')
     time.sleep(5)
     ex = f'--es test_key {KEY} --ez test_finger true --es test_mode compact --es test_effort high --es test_agent_mode split'
-    if SCEN == 'agent':  # ClinePass gateway (OpenAI-compatible) driving DeepSeek V4.1 Flash
-        ex = (f'--es test_key {CLINE} --es test_base https://api.cline.bot/api/v1 --es test_provider ClinePass '
+    if SCEN == 'agent':  # Command Code provider API (OpenAI-compatible) driving DeepSeek V4.1 Flash
+        ex = (f'--es test_key {CC} --es test_base https://api.commandcode.ai/provider/v1 --es test_provider CommandCode '
               f'--es test_model deepseek/deepseek-v4.1-flash --es test_effort default --ez test_finger true --es test_mode compact --es test_agent_mode split')
     launch(ex)
     time.sleep(12)

@@ -5,6 +5,10 @@
 <script src="lib/katex/katex.min.js"></script>
 <style>
 html,body{margin:0;padding:0;background:transparent;}
+html{-webkit-text-size-adjust:none;text-size-adjust:none;}
+/* left-aligned: a centered line wider than the box would spill off both edges */
+.katex-display,.katex-display>.katex{text-align:left !important;}
+#box>div{text-align:left;}
 #box{display:inline-block;width:max-content;padding:6px 10px;color:#1a4fd0;font-size:40px;line-height:1.35;}
 #box svg{display:block;overflow:visible;}
 .katex-display{margin:0 !important;}
@@ -308,7 +312,7 @@ function fitSvg(svg, widthPx, quiet){
 function render(kind, src, widthPx){
   diag={notes:[],warnings:[]};
   var box=document.getElementById('box');
-  box.style.width=''; box.style.height=''; box.style.transform='';
+  box.style.width=''; box.style.height=''; box.style.transform=''; box.style.paddingLeft='';
   try{
     if(kind==='latex'){
       var lines=src.split(/\n\s*\n/);
@@ -339,11 +343,12 @@ function render(kind, src, widthPx){
     requestAnimationFrame(function(){
       var r=box.getBoundingClientRect();
       // measure what is really painted: KaTeX lines can overflow the box's own width
-      var R=r.right, B=r.bottom;
+      var L=r.left, R=r.right, B=r.bottom;
       // text glyphs only (KaTeX draws radicals with very wide, clipped SVGs; .katex-mathml is invisible)
       var tw=document.createTreeWalker(box,NodeFilter.SHOW_TEXT,null,false), rg=document.createRange(), tn;
       while((tn=tw.nextNode())){ if(!tn.nodeValue.trim()||(tn.parentElement&&tn.parentElement.closest('.katex-mathml,svg'))) continue;
-        rg.selectNodeContents(tn); var q=rg.getBoundingClientRect(); if(q.width>0){ R=Math.max(R,q.right); B=Math.max(B,q.bottom); } }
+        rg.selectNodeContents(tn); var q=rg.getBoundingClientRect(); if(q.width>0){ L=Math.min(L,q.left); R=Math.max(R,q.right); B=Math.max(B,q.bottom); } }
+      if(L<r.left-0.5){ box.style.paddingLeft=(10+Math.ceil(r.left-L))+'px'; R+=Math.ceil(r.left-L); }
       if(R>r.right+0.5||B>r.bottom+0.5){ box.style.width=Math.ceil(R-r.left+10)+'px'; box.style.height=Math.ceil(B-r.top+6)+'px'; r=box.getBoundingClientRect(); }
       var w=Math.ceil(r.width), h=Math.ceil(r.height);
       var fit=Math.min(1,(window.innerWidth-8)/Math.max(w,1),(window.innerHeight-8)/Math.max(h,1));

@@ -35,6 +35,11 @@ class Rasterizer(context: Context) {
         view.setBackgroundColor(Color.TRANSPARENT)
         view.settings.javaScriptEnabled = true
         view.settings.allowFileAccess = true
+        // no font boosting / text zoom: CJK text must paint at the size the layout measured
+        view.settings.textZoom = 100
+        @Suppress("DEPRECATION") run { view.settings.layoutAlgorithm = android.webkit.WebSettings.LayoutAlgorithm.NORMAL }
+        view.settings.useWideViewPort = false
+        view.settings.loadWithOverviewMode = false
         view.isVerticalScrollBarEnabled = false
         view.addJavascriptInterface(object {
             @JavascriptInterface fun done(w: Int, h: Int, dpr: Float, diag: String) { main.post { pending?.invoke(w, h, dpr, diag) } }

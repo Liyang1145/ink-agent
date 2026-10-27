@@ -47,6 +47,7 @@ jobs:
         env:
           DS_KEY: ${{ secrets.DS_KEY }}
           CLINE_KEY: ${{ secrets.CLINE_KEY }}
+          CC_KEY: ${{ secrets.CC_KEY }}
           SCENARIO: ${{ github.event.inputs.scenario }}
         with:
           api-level: 34
