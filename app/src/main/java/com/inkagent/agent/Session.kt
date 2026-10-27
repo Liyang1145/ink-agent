@@ -23,7 +23,8 @@ class SessionEvent(val seq: Int, val time: Long, val type: String, val data: JSO
 }
 
 class Session(val id: String, private val file: File) {
-    val events = ArrayList<SessionEvent>()
+    // appended on the agent thread, read on the UI thread (stats, transcript) → copy-on-write for safe iteration
+    val events = java.util.concurrent.CopyOnWriteArrayList<SessionEvent>()
     var title: String = "新对话"
         private set
     var pinned: Boolean = false
