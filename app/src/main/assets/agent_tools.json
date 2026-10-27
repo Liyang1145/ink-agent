@@ -1,5 +1,5 @@
 {
- "env": "你运行在平板笔记应用 InkAgent 里，可以用工具查看和修改用户当前打开的笔记页面，以及管理模型服务商（manage_provider）。用户消息里的 @N 表示引用第 N 页。\n\n在页面上作图/写公式的规则：\n- 函数图像、坐标系里的点线圆、数轴类图形一律用 canvas_plot：只给表达式和要标注的对象，坐标换算、刻度、标签避让都由系统完成，不要自己算点坐标拼 SVG。\n- 几何示意图、流程图等非坐标图形才用 canvas_draw_svg。\n- 公式和推导用 canvas_write_latex，多行一次写完。\n- 先想清楚再一次调用画好。放置位置、缩放、防截断都会自动处理，结果说明里会告诉你位置和是否有问题；没有 ⚠ 警告就说明画好了，不要再 view_page 检查、不要删了重画。有警告时用 replace 参数原位修正一次即可。\n- view_page 只在需要读取用户手写内容时使用（用户的问题本身已经说清楚时不必看）；list_pages 能告诉你空白位置和已有 AI 对象。放置位置是自动的，通常不用先调它们。",
+ "env": "你运行在平板笔记应用 InkAgent 里，用户主要用它学数学。你可以用工具查看和修改用户当前打开的笔记页面，以及管理模型服务商（manage_provider）。用户消息里的 @N 表示引用第 N 页。\n\n在页面上作图/写公式/批改的规则：\n- 函数图像、坐标系、数轴 → canvas_plot；平面几何图（三角形、圆、垂足、内外心等）→ canvas_geometry；立体几何直观图 → canvas_solid；公式和推导 → canvas_write_latex（多行一次写完）；其他示意图、流程图才用 canvas_draw_svg。\n- 这些工具会精确计算坐标、自动排版标签、防截断、自动找空白处放置。不要自己算点坐标拼 SVG。\n- 先想清楚再一次调用画好。结果说明里没有 ⚠ 警告就说明画好了，不要再 view_page 检查、不要删了重画；有警告时用 replace 参数原位修正一次即可。\n- 批改用户的手写解答：先 view_page(grid=true) 读内容和位置，再用一次 canvas_annotate 在对的步骤打勾、错的地方圈出/打叉并写一句短批注，然后在回复里说明错在哪、怎么改。\n- view_page 只在需要读取用户手写内容时使用；用户的问题本身已经说清楚时不必看。\n\n辅导数学学习者的习惯：\n- 用户要\"提示\"时，只点出下一步该往哪想（一两句），不给答案、不写完整过程，等用户自己再试。\n- 讲解时分步骤说清每一步为什么这样做，关键式子写到页面上。\n- 出练习题时只写题目不写答案，等用户做完再批改。\n- 批改时先肯定做对的部分，再指出第一个出错的地方和原因。",
  "tools": {
   "list_pages": {
    "description": "列出当前笔记的所有页面：尺寸（页面像素，原点左上角）、手写笔画数量和范围、其他对象，以及你放上去的 AI 对象（id）。也告诉你用户当前在第几页。",
@@ -35,6 +35,10 @@
         "type": "number"
        }
       }
+     },
+     "grid": {
+      "type": "boolean",
+      "description": "叠加页面坐标网格（每 100 单位一条，带坐标），批改前用它确定手写内容的位置"
      }
     },
     "required": []
@@ -428,6 +432,391 @@
      }
     },
     "required": []
+   }
+  },
+  "canvas_geometry": {
+   "description": "画平面几何图（三角形、四边形、圆及其作图）。你只给关键点的坐标（数学坐标，y 向上，取方便的数即可，比如 A(0,0) B(6,0) C(1.5,4)），其余由系统精确计算：中点、垂足、交点、外心/内心/重心/垂心、对称点、旋转点、外接圆/内切圆，并自动画直角标记、角弧、等长记号，点名自动放在图形外侧不重叠。点名可带下标数字（A1 显示为 A₁）。只传需要的字段。",
+   "parameters": {
+    "type": "object",
+    "properties": {
+     "points": {
+      "type": "object",
+      "description": "基本点坐标，如 {\"A\":[0,0],\"B\":[6,0],\"C\":[1.5,4]}；坐标可写表达式字符串如 \"sqrt(3)\"",
+      "additionalProperties": {
+       "type": "array",
+       "items": {}
+      }
+     },
+     "derived": {
+      "type": "array",
+      "description": "按顺序计算的派生点",
+      "items": {
+       "type": "object",
+       "properties": {
+        "name": {
+         "type": "string"
+        },
+        "type": {
+         "type": "string",
+         "enum": [
+          "midpoint",
+          "foot",
+          "on",
+          "intersection",
+          "circumcenter",
+          "incenter",
+          "centroid",
+          "orthocenter",
+          "reflect",
+          "rotate"
+         ]
+        },
+        "of": {
+         "type": "string",
+         "description": "midpoint/on: 线段如 \"BC\"；circumcenter 等: 三角形如 \"ABC\""
+        },
+        "from": {
+         "type": "string",
+         "description": "foot: 从哪个点作垂线；reflect/rotate: 被变换的点"
+        },
+        "to": {
+         "type": "string",
+         "description": "foot: 垂足所在直线，如 \"BC\""
+        },
+        "t": {
+         "description": "on: 比例，0 在起点 1 在终点"
+        },
+        "lines": {
+         "type": "array",
+         "items": {
+          "type": "string"
+         },
+         "description": "intersection: 两条直线，如 [\"AD\",\"BE\"]"
+        },
+        "over": {
+         "type": "string",
+         "description": "reflect: 关于直线 \"AB\" 或关于点 \"O\" 对称"
+        },
+        "center": {
+         "type": "string"
+        },
+        "angle": {
+         "description": "rotate: 逆时针角度（度）"
+        }
+       },
+       "required": [
+        "name",
+        "type"
+       ]
+      }
+     },
+     "polygons": {
+      "type": "array",
+      "items": {},
+      "description": "多边形，如 [\"ABC\"]，或 {\"of\":\"ABCD\",\"fill\":\"#90caf9\"}"
+     },
+     "segments": {
+      "type": "array",
+      "items": {},
+      "description": "线段，如 [\"AD\",\"BE\"]，或 {\"of\":\"AD\",\"dashed\":true,\"color\":\"#d32f2f\"}"
+     },
+     "dashed": {
+      "type": "array",
+      "items": {
+       "type": "string"
+      },
+      "description": "辅助虚线，如 [\"CH\"]"
+     },
+     "lines": {
+      "type": "array",
+      "items": {},
+      "description": "向两端延长的直线，如 [\"AB\"]"
+     },
+     "circles": {
+      "type": "array",
+      "items": {
+       "type": "object",
+       "properties": {
+        "type": {
+         "type": "string",
+         "enum": [
+          "circumcircle",
+          "incircle",
+          "center"
+         ]
+        },
+        "of": {
+         "type": "string"
+        },
+        "center": {
+         "type": "string"
+        },
+        "through": {
+         "type": "string"
+        },
+        "r": {},
+        "color": {
+         "type": "string"
+        },
+        "dashed": {
+         "type": "boolean"
+        }
+       }
+      },
+      "description": "圆：{\"type\":\"circumcircle\",\"of\":\"ABC\"}、{\"type\":\"incircle\",\"of\":\"ABC\"}、{\"center\":\"O\",\"through\":\"A\"} 或 {\"center\":\"O\",\"r\":2}"
+     },
+     "right_angles": {
+      "type": "array",
+      "items": {
+       "type": "string"
+      },
+      "description": "直角标记，顶点写中间，如 [\"AHB\"]"
+     },
+     "angles": {
+      "type": "array",
+      "items": {
+       "type": "object",
+       "properties": {
+        "of": {
+         "type": "string",
+         "description": "如 \"BAC\"（顶点在中间）"
+        },
+        "label": {
+         "type": "string"
+        },
+        "arcs": {
+         "type": "integer"
+        },
+        "color": {
+         "type": "string"
+        }
+       }
+      },
+      "description": "角弧标记，可带标签如 α、60°"
+     },
+     "equal_marks": {
+      "type": "array",
+      "items": {
+       "type": "array",
+       "items": {
+        "type": "string"
+       }
+      },
+      "description": "等长记号分组，如 [[\"AB\",\"AC\"],[\"BD\",\"DC\"]]，第 k 组画 k 道"
+     },
+     "lengths": {
+      "type": "object",
+      "description": "线段旁的长度标注，如 {\"AB\":\"6\",\"BC\":\"a\"}"
+     },
+     "hide_points": {
+      "type": "array",
+      "items": {
+       "type": "string"
+      },
+      "description": "不显示的点"
+     },
+     "page": {
+      "type": "integer",
+      "description": "页码，从 1 开始；省略表示当前页"
+     },
+     "width": {
+      "type": "number",
+      "description": "可选：页面上的宽度（页面像素），默认约 0.4 个页宽"
+     },
+     "replace": {
+      "type": "string",
+      "description": "可选：要原位替换的 AI 对象 id（修正已画的图时用）"
+     }
+    },
+    "required": [
+     "points"
+    ]
+   }
+  },
+  "canvas_solid": {
+   "description": "画立体几何直观图（斜二测画法）：正方体/长方体/棱柱/棱锥/棱台/圆柱/圆锥/球。按课本习惯自动命名（正方体 ABCD-A1B1C1D1，四棱锥 P-ABCD，三棱柱 ABC-A1B1C1），看不见的棱自动画成虚线；你加的连线按是否在可见面上自动选实线/虚线。可加中点、棱上的点、面的中心，可给截面涂色。只传需要的字段。圆柱/圆锥/球自动标出顶点 P、底面圆心 O（圆柱上底 O1），可用 apex_name/center_name 改名；旋转体不支持 points/segments。",
+   "parameters": {
+    "type": "object",
+    "properties": {
+     "type": {
+      "type": "string",
+      "enum": [
+       "cube",
+       "cuboid",
+       "prism",
+       "pyramid",
+       "frustum",
+       "cylinder",
+       "cone",
+       "sphere"
+      ]
+     },
+     "n": {
+      "type": "integer",
+      "description": "棱柱/棱锥/棱台的底面边数（棱锥默认 4，棱柱默认 3）"
+     },
+     "size": {
+      "type": "object",
+      "description": "长方体棱长 {\"a\":4,\"b\":3,\"c\":2}（长、宽、高）"
+     },
+     "edge": {
+      "description": "正方体棱长（只影响比例，通常不用给）"
+     },
+     "h": {
+      "description": "棱柱/棱锥/圆柱/圆锥的高（相对底面外接圆半径 r，默认 r=2,h=4）"
+     },
+     "r": {},
+     "ratio": {
+      "description": "棱台上下底比例，默认 0.5"
+     },
+     "apex_over": {
+      "type": "string",
+      "description": "棱锥顶点在哪个底面顶点正上方（如 \"A\"，表示 PA⊥底面）；默认在底面中心上方"
+     },
+     "apex_name": {
+      "type": "string"
+     },
+     "names": {
+      "description": "自定义全部顶点名（按默认顺序：底面逆时针、再顶面/顶点），如 \"A B C D A1 B1 C1 D1\""
+     },
+     "points": {
+      "type": "array",
+      "items": {
+       "type": "object",
+       "properties": {
+        "name": {
+         "type": "string"
+        },
+        "mid": {
+         "type": "string",
+         "description": "棱或线段的中点，如 \"BB1\""
+        },
+        "on": {
+         "type": "string"
+        },
+        "t": {},
+        "center": {
+         "type": "string",
+         "description": "面的中心，如 \"ABCD\""
+        }
+       },
+       "required": [
+        "name"
+       ]
+      },
+      "description": "附加点"
+     },
+     "segments": {
+      "type": "array",
+      "items": {},
+      "description": "连线，如 [\"A1C\",\"BD\"]；可写 {\"of\":\"AC1\",\"dashed\":false} 强制实线"
+     },
+     "faces": {
+      "type": "array",
+      "items": {},
+      "description": "涂色的面/截面，如 [\"ACC1A1\"]"
+     },
+     "labels": {
+      "type": "boolean",
+      "description": "是否标顶点名，默认 true"
+     },
+     "page": {
+      "type": "integer",
+      "description": "页码，从 1 开始；省略表示当前页"
+     },
+     "width": {
+      "type": "number",
+      "description": "可选：页面上的宽度（页面像素），默认约 0.4 个页宽"
+     },
+     "replace": {
+      "type": "string",
+      "description": "可选：要原位替换的 AI 对象 id（修正已画的图时用）"
+     },
+     "center_name": {
+      "type": "string",
+      "description": "旋转体底面圆心/球心的名字，默认 O"
+     }
+    },
+    "required": [
+     "type"
+    ]
+   }
+  },
+  "canvas_annotate": {
+   "description": "批改：在用户手写内容上直接叠加红色批改标记（打勾、打叉、圈出、框出、下划线、波浪线、箭头、批注文字）。坐标都是页面坐标：先用 view_page(grid=true) 看清手写内容在哪里，再一次性传所有标记。批注文字要短（一句话），详细讲解写在回复里或用 canvas_write_latex。",
+   "parameters": {
+    "type": "object",
+    "properties": {
+     "marks": {
+      "type": "array",
+      "items": {
+       "type": "object",
+       "properties": {
+        "type": {
+         "type": "string",
+         "enum": [
+          "check",
+          "cross",
+          "circle",
+          "box",
+          "underline",
+          "wavy",
+          "arrow",
+          "text"
+         ]
+        },
+        "x": {
+         "type": "number",
+         "description": "check/cross: 中心；circle/box/underline/wavy: 区域左上角（underline/wavy 的 y 是该行底部）；text: 文字左下角"
+        },
+        "y": {
+         "type": "number"
+        },
+        "w": {
+         "type": "number",
+         "description": "区域宽"
+        },
+        "h": {
+         "type": "number",
+         "description": "区域高"
+        },
+        "size": {
+         "type": "number",
+         "description": "勾叉大小或文字字号（页面像素），默认 40 / 30"
+        },
+        "text": {
+         "type": "string"
+        },
+        "from": {
+         "type": "array",
+         "items": {
+          "type": "number"
+         }
+        },
+        "to": {
+         "type": "array",
+         "items": {
+          "type": "number"
+         }
+        },
+        "color": {
+         "type": "string",
+         "description": "默认红色"
+        }
+       },
+       "required": [
+        "type"
+       ]
+      }
+     },
+     "page": {
+      "type": "integer",
+      "description": "页码，从 1 开始；省略表示当前页"
+     }
+    },
+    "required": [
+     "marks"
+    ]
    }
   }
  }

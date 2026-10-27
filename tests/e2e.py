@@ -910,8 +910,9 @@ def run_editor(W, H):
 
 AGENT_PROMPTS = [
     ('para', '画出抛物线 y=x^2-2x-3 的图像，标出顶点和与坐标轴的交点，再用公式写出求最小值的过程'),
-    ('cube', '在下面画一个正方体 ABCD-A1B1C1D1 的直观图，看不见的棱用虚线，并连出对角线 A1C'),
-    ('ineq', '在数轴上表示不等式组 -1<x≤3 的解集'),
+    ('iso', '画等腰三角形 ABC，AB=AC，AD 是 BC 边上的高，标出直角和相等的边'),
+    ('pyr', '四棱锥 P-ABCD 中，PA⊥底面 ABCD，底面是正方形，画出直观图，连接 AC、BD 交于 O'),
+    ('grade', '批改我这一页左上角手写的式子：在页面上标出对错，再告诉我错在哪、怎么改'),
 ]
 
 def run_agent(W, H):
@@ -940,9 +941,10 @@ def run_agent(W, H):
     for k, v in turns.items(): note(f'agent turn {k}: steps={v["steps"]} tools={v["tools"]} errors={v["errors"]}')
     check('agent: all turns finished without error', count_events(txt, 'turn/end') >= len(AGENT_PROMPTS) and '"reason":"error"' not in txt)
     allt = [t for v in turns.values() for t in v['tools']]
-    check('agent: canvas_plot used for graphs', 'canvas_plot' in allt, str(allt))
+    for t in ['canvas_plot', 'canvas_geometry', 'canvas_solid', 'canvas_annotate']:
+        check(f'agent: {t} used', t in allt, str(allt))
     check('agent: no view_page re-checks after drawing', all(
-        'view_page' not in v['tools'][next((j for j, t in enumerate(v['tools']) if t.startswith('canvas_')), len(v['tools'])):] for v in turns.values()), str(turns))
+        'view_page' not in v['tools'][next((j for j, t in enumerate(v['tools']) if t.startswith('canvas_') and t != 'canvas_annotate'), len(v['tools'])):] for v in turns.values()), str(turns))
     check('agent: no remove-and-redraw', 'canvas_remove' not in allt, str(allt))
     st = state('agent_end')
     pg = st.get('page') or {}

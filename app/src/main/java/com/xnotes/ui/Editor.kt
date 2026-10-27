@@ -6171,19 +6171,35 @@ class Editor(context: Context, val pane: Pane = Pane.PRIMARY) : ToolPopupHost, S
     }
 
     /** Render page [index] (paper + items) so its longest side is about [maxSide] px; optional [region] in page units. */
-    fun agentRenderPage(index: Int, maxSide: Int = 1600, region: Rect? = null): android.graphics.Bitmap? {
+    fun agentRenderPage(index: Int, maxSide: Int = 1600, region: Rect? = null, grid: Boolean = false): android.graphics.Bitmap? {
         val page = pageAt(index) ?: return null
         val cover = state.footprint(page)
         val full = renderThumbnail(page, (maxSide * cover.w / maxOf(cover.w, cover.h)).toInt().coerceAtLeast(64)) ?: return null
-        if (region == null) return full
         val sc = full.width / cover.w
+        if (region == null) return if (grid) drawAgentGrid(full, cover.left, cover.top, sc) else full
         val l = ((region.left - cover.left) * sc).toInt().coerceIn(0, full.width - 1)
         val t = ((region.top - cover.top) * sc).toInt().coerceIn(0, full.height - 1)
         val rr = ((region.right - cover.left) * sc).toInt().coerceIn(l + 1, full.width)
         val bb = ((region.bottom - cover.top) * sc).toInt().coerceIn(t + 1, full.height)
         val crop = android.graphics.Bitmap.createBitmap(full, l, t, rr - l, bb - t)
         val up = maxSide.toDouble() / maxOf(crop.width, crop.height)
-        return if (up > 1.2) android.graphics.Bitmap.createScaledBitmap(crop, (crop.width * minOf(up, 3.0)).toInt(), (crop.height * minOf(up, 3.0)).toInt(), true) else crop
+        val k = if (up > 1.2) minOf(up, 3.0) else 1.0
+        val out = if (k > 1.0) android.graphics.Bitmap.createScaledBitmap(crop, (crop.width * k).toInt(), (crop.height * k).toInt(), true) else crop
+        return if (grid) drawAgentGrid(out, cover.left + l / sc, cover.top + t / sc, sc * k) else out
+    }
+
+    /** Light page-coordinate grid (every 100 units, labelled) so the agent can point at handwriting precisely. */
+    private fun drawAgentGrid(src: android.graphics.Bitmap, ox: Double, oy: Double, s: Double): android.graphics.Bitmap {
+        val b = if (src.isMutable) src else src.copy(android.graphics.Bitmap.Config.ARGB_8888, true)
+        val c = android.graphics.Canvas(b)
+        val line = android.graphics.Paint().apply { color = 0x5539A0F0; strokeWidth = 1.5f }
+        val txt = android.graphics.Paint(android.graphics.Paint.ANTI_ALIAS_FLAG).apply { color = 0xFF1E6FD0.toInt(); textSize = 18f }
+        val step = 100.0
+        var gx = Math.ceil(ox / step) * step
+        while ((gx - ox) * s < b.width) { val x = ((gx - ox) * s).toFloat(); c.drawLine(x, 0f, x, b.height.toFloat(), line); c.drawText(gx.toInt().toString(), x + 3, 18f, txt); gx += step }
+        var gy = Math.ceil(oy / step) * step
+        while ((gy - oy) * s < b.height) { val y = ((gy - oy) * s).toFloat(); c.drawLine(0f, y, b.width.toFloat(), y, line); c.drawText(gy.toInt().toString(), 3f, y - 3, txt); gy += step }
+        return b
     }
 
     /** Add an image item (e.g. an agent-rendered formula) at [rect] on page [index], as one undoable edit. Returns the item. */

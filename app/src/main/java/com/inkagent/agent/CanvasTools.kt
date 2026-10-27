@@ -289,11 +289,12 @@ class CanvasTools(
                 val bmp = onMain {
                     val reg = args.optJSONObject("region")
                     val rect = reg?.let { Rect(it.optDouble("x", 0.0), it.optDouble("y", 0.0), it.optDouble("width", 400.0), it.optDouble("height", 400.0)) }
-                    e.agentRenderPage(idx, 1600, rect)
+                    e.agentRenderPage(idx, 1600, rect, args.optBoolean("grid", false))
                 } ?: return ToolResult.error("渲染失败")
                 val img = savePng(attachDir, bmp, "page")
                 val size = onMain { e.pageAt(idx)?.let { "${it.width.toInt()}x${it.height.toInt()}" } }
-                return ToolResult(listOf(Block.Text("第 ${idx + 1} 页的画面（图片 ${bmp.width}x${bmp.height}px；页面坐标系 $size）"), img))
+                val gridNote = if (args.optBoolean("grid", false)) "；图上的浅蓝网格线每 100 个页面单位一条，边上标着页面坐标，用来确定批改标记的位置" else ""
+                return ToolResult(listOf(Block.Text("第 ${idx + 1} 页的画面（图片 ${bmp.width}x${bmp.height}px；页面坐标系 $size$gridNote）"), img))
             }
         })
         reg.register(object : Tool {
@@ -326,6 +327,51 @@ class CanvasTools(
                 val pageW = onMain { ed().pageAt(idx)?.width ?: 1240.0 }
                 val r = raster.render("plot", spec.toString(), 0)
                 return ToolResult.text(place(idx, "plot", spec.toString(), args, r, pageW * 0.5 * args.optDouble("scale", 1.0)))
+            }
+        })
+        // declarative figures rendered by raster.html (plane geometry / solids)
+        fun figureTool(toolName: String, kind: String, frac: Double) = reg.register(object : Tool {
+            override val name = toolName
+            override val description = toolName
+            override val parameters = obj()
+            override fun execute(args: JSONObject, signal: CancelSignal): ToolResult {
+                val idx = pageIndex(args)
+                val spec = JSONObject(args.toString())
+                listOf("page", "width", "replace", "x", "y", "scale").forEach { spec.remove(it) }
+                val pageW = onMain { ed().pageAt(idx)?.width ?: 1240.0 }
+                val r = raster.render(kind, spec.toString(), 0)
+                return ToolResult.text(place(idx, kind, spec.toString(), args, r, pageW * frac * args.optDouble("scale", 1.0)))
+            }
+        })
+        figureTool("canvas_geometry", "geometry", 0.42)
+        figureTool("canvas_solid", "solid", 0.40)
+        reg.register(object : Tool {
+            override val name = "canvas_annotate"
+            override val description = "canvas_annotate"
+            override val parameters = obj()
+            override fun execute(args: JSONObject, signal: CancelSignal): ToolResult {
+                val idx = pageIndex(args)
+                val spec = JSONObject(args.toString()); spec.remove("page")
+                val r = raster.render("marks", spec.toString(), 0)
+                val box = r.box ?: return ToolResult.error("批改标记渲染失败")
+                val e = ed()
+                val bytes = ByteArrayOutputStream().use { r.bitmap.compress(Bitmap.CompressFormat.PNG, 100, it); it.toByteArray() }
+                // the bitmap is the marks' box plus the crop padding (6 device px each side, see Rasterizer.cropToContent)
+                val s = (r.bitmap.width - 12).coerceAtLeast(1) / box[2]
+                val rect = Rect(box[0] - 6 / s, box[1] - 6 / s, r.bitmap.width / s, r.bitmap.height / s)
+                val id = "ai" + System.currentTimeMillis().toString(36)
+                val msg = onMain {
+                    val page = e.pageAt(idx) ?: throw IllegalStateException("页面不存在")
+                    e.agentInsertImage(idx, bytes, rect)
+                    if (e.agentCurrentPage() != idx) e.goToPage(idx)
+                    val off = rect.x < 0 || rect.y < 0 || rect.right > page.width || rect.bottom > page.height
+                    "已在第 ${idx + 1} 页加上批改标记：id=$id，覆盖区域 (${rect.x.toInt()}, ${rect.y.toInt()}) ${rect.w.toInt()}x${rect.h.toInt()}。" +
+                        (if (off) "⚠ 有标记超出页面范围，检查坐标是否用的是页面坐标。" else "") +
+                        "标记直接叠在笔迹上，用户可以移动或撤销；canvas_remove 可删除。"
+                }
+                registry.add(id, bytes, "annotate", spec.toString())
+                val sb = StringBuilder(msg); r.warnings.forEach { sb.append("\n⚠ ").append(it) }
+                return ToolResult.text(sb.toString())
             }
         })
         reg.register(object : Tool {

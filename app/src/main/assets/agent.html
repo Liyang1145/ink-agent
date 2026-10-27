@@ -96,6 +96,10 @@ svg.i{width:18px;height:18px;stroke:currentColor;fill:none;stroke-width:1.7;stro
 #composer{flex:none;padding:6px 10px 10px;}
 #box{border:.5px solid #d9dce1;border-radius:16px;background:#fff;box-shadow:0 1px 6px rgba(0,0,0,.05);padding:8px 10px 6px;}
 #box:focus-within{border-color:#b9c3f8;}
+#quick{display:flex;gap:6px;overflow-x:auto;padding:0 2px 6px;scrollbar-width:none;}
+#quick::-webkit-scrollbar{display:none;}
+.qk{flex:none;height:28px;padding:0 11px;border-radius:14px;border:.5px solid #d9dce1;background:#fff;font-size:12.5px;color:var(--label-2);}
+.qk:active{background:var(--fill-2);}
 #tray{display:flex;gap:8px;overflow-x:auto;padding:2px 0 8px;}
 #tray:empty{display:none;}
 .att{position:relative;flex:none;}
@@ -176,6 +180,13 @@ body.busy #hint{display:block;}
 </div>
 <div id="scroll"><div id="log"></div></div>
 <div id="composer">
+  <div id="quick">
+    <button class="qk" data-t="批改我这一页的解题过程：在页面上标出对错，再告诉我错在哪、怎么改">✓ 批改</button>
+    <button class="qk" data-t="给我一点提示，先别告诉我答案">💡 提示</button>
+    <button class="qk" data-t="一步一步讲解这道题的思路，关键步骤写在页面上">📖 讲解</button>
+    <button class="qk" data-t="把这道题的图画在页面上">📐 画图</button>
+    <button class="qk" data-t="照这道题出 3 道类似的练习题写在页面上，先不给答案">✏️ 出类似题</button>
+  </div>
   <div id="box">
     <div id="tray"></div>
     <textarea id="input" aria-label="消息输入框" rows="1" placeholder="发消息，@ 引用页面"></textarea>
@@ -506,6 +517,8 @@ input.addEventListener('input',autosize);
 input.addEventListener('focus',function(){ try{Native.inputFocus(true);}catch(e){} });
 input.addEventListener('blur',function(){ try{Native.inputFocus(false);}catch(e){} });
 input.addEventListener('keydown',function(e){ if(e.key==='Enter'&&!e.shiftKey&&!e.isComposing&&e.keyCode!==229&&document.body.dataset.hw==='1'){ e.preventDefault(); send(); } });
+document.getElementById('quick').addEventListener('click',function(e){ var b=e.target.closest('.qk'); if(!b) return;
+  var t=b.getAttribute('data-t'); input.value=input.value.trim()?input.value.trim()+'\n'+t:t; autosize(); input.focus(); });
 function send(){ var t=input.value; if(!t.trim()&&!nAtt) return; if(Native.send(t)){ input.value=''; autosize(); } }
 function insertRef(){ var n=Native.currentPage(); var s=input.selectionStart||input.value.length;
   input.value=input.value.slice(0,s)+'@'+n+' '+input.value.slice(s); input.focus(); autosize(); }

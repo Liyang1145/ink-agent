@@ -9,7 +9,8 @@ html,body{margin:0;padding:0;background:transparent;}
 #box svg{display:block;overflow:visible;}
 .katex-display{margin:0 !important;}
 .err{color:#c62828;font-family:monospace;font-size:28px;white-space:pre-wrap;}
-</style></head>
+</style>
+<script src="geo.js"></script></head>
 <body><div id="box"></div>
 <script>
 /* InkAgent off-screen renderer: latex | svg | plot.
@@ -312,6 +313,13 @@ function render(kind, src, widthPx){
     if(kind==='latex'){
       var lines=src.split(/\n\s*\n/);
       box.innerHTML=lines.map(function(l){return '<div>'+texToHtml(l.trim())+'</div>';}).join('');
+    } else if(kind==='geometry'||kind==='solid'){
+      box.innerHTML='';
+      var gs=kind==='geometry'?buildGeometry(src, box):buildSolid(src, box);
+      fitSvg(gs, 0, true);
+    } else if(kind==='marks'){
+      box.innerHTML='';
+      buildMarks(src, box);
     } else if(kind==='plot'){
       box.innerHTML='';
       var svg=buildPlot(src, box);

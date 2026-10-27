@@ -72,7 +72,8 @@ class Rasterizer(context: Context) {
      */
     class Result(val bitmap: Bitmap, val cssWidth: Int, val cssHeight: Int,
                  val notes: List<String> = emptyList(), val warnings: List<String> = emptyList(), val contentFrac: Double = 1.0,
-                 /** smallest text height ÷ drawn width (0 = no text) */ val minTextFrac: Double = 0.0)
+                 /** smallest text height ÷ drawn width (0 = no text) */ val minTextFrac: Double = 0.0,
+                 /** marks: [x, y, w, h] of the drawn box in page units */ val box: DoubleArray? = null)
 
     /** Blocking; must be called off the main thread. */
     fun render(kind: String, source: String, widthCssPx: Int = 0): Result {
@@ -95,7 +96,8 @@ class Rasterizer(context: Context) {
                         view.draw(c)
                         val cropped = cropToContent(full)
                         Log.i("InkRaster", "kind=$kind css=${w}x$h view=${vw}x$vh crop=${cropped.width}x${cropped.height}")
-                        out = Result(cropped, w, h, list("notes"), list("warnings"), diag.optDouble("contentFrac", 1.0), diag.optDouble("minTextFrac", 0.0))
+                        out = Result(cropped, w, h, list("notes"), list("warnings"), diag.optDouble("contentFrac", 1.0), diag.optDouble("minTextFrac", 0.0),
+                            diag.optJSONArray("box")?.let { a -> DoubleArray(4) { a.getDouble(it) } })
                     } catch (t: Throwable) { Log.e("InkRaster", "capture failed", t); err = t }
                     latch.countDown()
                 }
