@@ -2981,8 +2981,8 @@ class Editor(context: Context, val pane: Pane = Pane.PRIMARY) : ToolPopupHost, S
      * polled before the costly steps (PDF background, each item) so a render abandoned mid-flight —
      * the side-panel row scrolled out of view — bails out instead of burning CPU the scroll needs.
      */
-    fun renderThumbnail(page: Page, widthPx: Int, active: () -> Boolean = { true }): android.graphics.Bitmap? {
-        val cover = state.footprint(page)
+    fun renderThumbnail(page: Page, widthPx: Int, active: () -> Boolean = { true }, coverOverride: Rect? = null): android.graphics.Bitmap? {
+        val cover = coverOverride ?: state.footprint(page)
         val scale = widthPx / cover.w
         val w = widthPx.coerceAtLeast(1)
         val h = (cover.h * scale).toInt().coerceAtLeast(1)
@@ -6173,8 +6173,11 @@ class Editor(context: Context, val pane: Pane = Pane.PRIMARY) : ToolPopupHost, S
     /** Render page [index] (paper + items) so its longest side is about [maxSide] px; optional [region] in page units. */
     fun agentRenderPage(index: Int, maxSide: Int = 1600, region: Rect? = null, grid: Boolean = false): android.graphics.Bitmap? {
         val page = pageAt(index) ?: return null
-        val cover = state.footprint(page)
-        val full = renderThumbnail(page, (maxSide * cover.w / maxOf(cover.w, cover.h)).toInt().coerceAtLeast(64)) ?: return null
+        // Strokes may run past the paper edge (a stroke started on the page keeps its off-page points);
+        // grow the render to cover them so the agent sees everything the user wrote.
+        var cover = state.footprint(page)
+        for (it in itemsSnapshot(page)) cover = cover.union(it.paintBounds())
+        val full = renderThumbnail(page, (maxSide * cover.w / maxOf(cover.w, cover.h)).toInt().coerceAtLeast(64), coverOverride = cover) ?: return null
         val sc = full.width / cover.w
         if (region == null) return if (grid) drawAgentGrid(full, cover.left, cover.top, sc) else full
         val l = ((region.left - cover.left) * sc).toInt().coerceIn(0, full.width - 1)
@@ -6266,6 +6269,18 @@ class Editor(context: Context, val pane: Pane = Pane.PRIMARY) : ToolPopupHost, S
 
     /** The paged note's current page index (0-based) and page count. */
     fun agentCurrentPage(): Int = state.currentPageIndex()
+
+    /** Pages (0-based) with any part on screen, largest visible area first. Two-up / landscape layouts show several. */
+    fun agentVisiblePages(): List<Int> {
+        val v = state.visibleContentRect()
+        val drawable = state.drawablePageRange()
+        return state.pageRects.indices.filter { it in drawable && it < state.document.pages.size }.mapNotNull { i ->
+            val r = state.pageRects[i]
+            val ix = minOf(r.right, v.right) - maxOf(r.left, v.left)
+            val iy = minOf(r.bottom, v.bottom) - maxOf(r.top, v.top)
+            if (ix > 1 && iy > 1) i to ix * iy else null
+        }.sortedByDescending { it.second }.map { it.first }
+    }
 
     // --- selection edits ---
 

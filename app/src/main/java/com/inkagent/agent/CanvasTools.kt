@@ -124,6 +124,8 @@ class CanvasTools(
         if (strokes.isNotEmpty()) {
             var b = strokes.first().bounds(); strokes.forEach { b = b.union(it.bounds()) }
             sb.append("（范围 x ${b.left.toInt()}–${b.right.toInt()}，y ${b.top.toInt()}–${b.bottom.toInt()}）")
+            val off = strokes.count { val r = it.bounds(); r.left < -1 || r.top < -1 || r.right > p.width + 1 || r.bottom > p.height + 1 }
+            if (off > 0) sb.append("，其中 $off 条有部分超出页面边界（view_page 会把超出的部分一起画出来）")
         }
         kinds.filterKeys { it != "stroke" }.forEach { (k, v) -> sb.append("，$k $v 个") }
         val ai = registry.match(p.items)
@@ -268,7 +270,10 @@ class CanvasTools(
             override fun execute(args: JSONObject, signal: CancelSignal): ToolResult {
                 val e = ed()
                 return onMain {
-                    val sb = StringBuilder("笔记「${e.title}」共 ${e.pageCount} 页，用户当前在第 ${e.agentCurrentPage() + 1} 页。\n")
+                    val vis = e.agentVisiblePages()
+                    val sb = StringBuilder("笔记「${e.title}」共 ${e.pageCount} 页，用户当前在第 ${e.agentCurrentPage() + 1} 页")
+                    if (vis.size > 1) sb.append("；屏幕上同时能看到第 ${vis.joinToString("、") { (it + 1).toString() }} 页")
+                    sb.append("。\n")
                     for (i in 0 until e.pageCount) sb.append(describePage(e, i)).append('\n')
                     ToolResult.text(sb.toString())
                 }
@@ -284,6 +289,21 @@ class CanvasTools(
                         .put("width", t("number", "")).put("height", t("number", ""))),
             )
             override fun execute(args: JSONObject, signal: CancelSignal): ToolResult {
+                // No page given and several pages on screen (two-up / landscape): show them all,
+                // the user may be writing on any of them.
+                if (!args.has("page") && args.optJSONObject("region") == null) {
+                    val e0 = ed()
+                    val vis = onMain { e0.agentVisiblePages() }.take(3)
+                    if (vis.size > 1) {
+                        val blocks = ArrayList<Block>()
+                        blocks.add(Block.Text("屏幕上同时显示着 ${vis.size} 页（第 ${vis.joinToString("、") { (it + 1).toString() }} 页），逐页给出："))
+                        for (i in vis) {
+                            val one = execute(JSONObject(args.toString()).put("page", i + 1), signal)
+                            blocks.addAll(one.content)
+                        }
+                        return ToolResult(blocks)
+                    }
+                }
                 val idx = pageIndex(args)
                 val e = ed()
                 val bmp = onMain {
