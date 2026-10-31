@@ -9,6 +9,10 @@ jobs:
     timeout-minutes: 60
     steps:
       - uses: actions/checkout@v4
+      - name: Fixed debug signing key (so every build installs over the last and keeps data)
+        env: { DEBUG_KEYSTORE: ${{ secrets.DEBUG_KEYSTORE }} }
+        run: |
+          if [ -n "$DEBUG_KEYSTORE" ]; then mkdir -p ~/.android && echo "$DEBUG_KEYSTORE" | base64 -d > ~/.android/debug.keystore; fi
       - uses: actions/setup-java@v4
         with: { distribution: temurin, java-version: '17' }
       - name: Android SDK packages (NDK 27.0.12077973, CMake 3.22.1, API 36)
