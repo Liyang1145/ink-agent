@@ -25,8 +25,8 @@ android {
         applicationId = "com.inkagent"
         minSdk = 26
         targetSdk = 36
-        versionCode = 12
-        versionName = "0.5.5"
+        versionCode = 13
+        versionName = "0.5.6"
         ndk {
             abiFilters += listOf("arm64-v8a", "x86_64")
         }
@@ -59,6 +59,14 @@ android {
     }
 
     signingConfigs {
+        // CI writes a fixed debug key here (secret DEBUG_KEYSTORE) so every build upgrades in place.
+        val ciDebugKey = rootProject.file("ci-debug.keystore")
+        if (ciDebugKey.exists()) getByName("debug") {
+            storeFile = ciDebugKey
+            storePassword = "android"
+            keyAlias = "androiddebugkey"
+            keyPassword = "android"
+        }
         if (hasReleaseSigning) {
             create("release") {
                 storeFile = file(keystoreProperties.getProperty("storeFile"))

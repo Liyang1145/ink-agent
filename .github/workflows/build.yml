@@ -13,7 +13,7 @@ jobs:
         env:
           DEBUG_KEYSTORE: ${{ secrets.DEBUG_KEYSTORE }}
         run: |
-          if [ -n "$DEBUG_KEYSTORE" ]; then mkdir -p ~/.android && echo "$DEBUG_KEYSTORE" | base64 -d > ~/.android/debug.keystore; fi
+          if [ -n "$DEBUG_KEYSTORE" ]; then echo "$DEBUG_KEYSTORE" | base64 -d > ci-debug.keystore; fi
       - uses: actions/setup-java@v4
         with: { distribution: temurin, java-version: '17' }
       - name: Android SDK packages (NDK 27.0.12077973, CMake 3.22.1, API 36)
