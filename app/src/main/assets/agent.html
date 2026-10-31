@@ -197,8 +197,9 @@ body.busy #hint{display:block;}
   <div class="pop" id="plusMenu">
     <button class="mi" onclick="closePops();insertRef()"><span class="k">@</span>引用当前页<small>@N</small></button>
     <button class="mi" onclick="closePops();Native.pickImage()"><span class="k">🖼</span>从相册添加图片</button>
-    <button class="mi" id="miCap" onclick="closePops();Native.capture()" style="display:none"><span class="k">⛶</span>框选截屏</button>
+    <button class="mi" id="miCap" onclick="closePops();Native.capture()"><span class="k">⛶</span>框选截屏</button>
     <button class="mi" onclick="closePops();startSlash()"><span class="k">/</span>指令<small>批改 · 提示 · 讲解…</small></button>
+    <button class="mi" onclick="closePops();Native.exportSession('')"><span class="k">⇪</span>导出会话日志<small>发给开发者分析</small></button>
   </div>
   <div class="pop" id="slashMenu"></div>
   <div id="box">
@@ -341,7 +342,7 @@ var ICO_FLOAT='<rect x="3" y="4" width="18" height="16" rx="2"/><rect x="11" y="
 var ICO_APP='<rect x="3" y="4" width="18" height="16" rx="2"/><path d="M10 14l7-7M12 7h5v5"/>';
 // overlay = the cross-app window (OverlayService): 打开应用 instead of 划分领土, plus 框选截屏
 function setWindowMode(m){
-  var b=document.getElementById('modeBtn'), i=document.getElementById('modeIco'), c=document.getElementById('capBtn'); if(!b) return; setTimeout(function(){ var mc=document.getElementById('miCap'); if(mc&&c) mc.style.display=c.style.display==='none'?'none':''; },0);
+  var b=document.getElementById('modeBtn'), i=document.getElementById('modeIco'), c=document.getElementById('capBtn'); if(!b) return; 
   var split=m==='split', ov=m==='overlay', lbl=ov?'打开应用':(split?'浮窗模式':'划分领土');
   b.title=lbl; b.setAttribute('aria-label',lbl); i.innerHTML=ov?ICO_APP:(split?ICO_FLOAT:ICO_SPLIT);
   if(c) c.style.display=ov?'':'none';
@@ -606,6 +607,7 @@ function sessionMenu(s, anchor){
   menuEl=el('div','smenu',document.body); menuEl.style.left=Math.min(r.left, window.innerWidth-140)+'px'; menuEl.style.top=(r.bottom+2)+'px';
   var a=el('button','',menuEl); a.textContent=s.pinned?'取消置顶':'置顶'; a.onclick=function(){ closeMenu(); Native.pinSession(s.id,!s.pinned); };
   var b=el('button','',menuEl); b.textContent='重命名'; b.onclick=function(){ closeMenu(); modal('重命名会话', s.title, false, function(v){ Native.renameSession(s.id, v); }); };
+  var ex=el('button','',menuEl); ex.textContent='导出日志'; ex.onclick=function(){ closeMenu(); Native.exportSession(s.id); };
   var c=el('button','danger',menuEl); c.textContent='删除'; c.onclick=function(){ closeMenu(); modal('删除会话「'+s.title+'」？', null, true, function(){ Native.deleteSession(s.id); }); };
 }
 document.addEventListener('click', function(e){ if(menuEl && !menuEl.contains(e.target)) closeMenu(); });

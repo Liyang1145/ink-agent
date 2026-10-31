@@ -200,7 +200,11 @@ class AgentController(private val activity: Activity, private val editorRef: () 
             if (overlayActive) openAppThen(null) else changeMode(if (mode == "split") "window" else "split")
         }
         override fun onPickImage() { activity.startActivity(android.content.Intent(activity, com.inkagent.ui.PickImageActivity::class.java).addFlags(android.content.Intent.FLAG_ACTIVITY_NEW_TASK)) }
-        override fun onCapture() { com.inkagent.overlay.OverlayService.instance?.startCapture() ?: toast("请先在设置里开启「在其他应用上显示悬浮球」") }
+        override fun onCapture() {
+            if (overlayActive) com.inkagent.overlay.OverlayService.instance?.startCapture() ?: toast("请先在设置里开启「在其他应用上显示悬浮球」")
+            else captureInApp()
+        }
+        override fun onExportSession(id: String) = exportSession(id.ifEmpty { agent.session.id })
         override fun onInputFocus(focused: Boolean) { com.inkagent.overlay.OverlayService.instance?.onInputFocus(focused) }
         override fun listSessions(): String {
             val a = JSONArray()
@@ -237,6 +241,122 @@ class AgentController(private val activity: Activity, private val editorRef: () 
         val answered = p.latch.await(10, TimeUnit.MINUTES)
         if (!answered) { synchronized(confirms) { confirms.remove(id) }; ui.post { panel.resolveConfirm(id, false) } }
         return answered && p.ok
+    }
+
+    // ---------------- in-app 框选截屏 (no MediaProjection: copy our own window) ----------------
+    private var inAppSelector: com.inkagent.overlay.CaptureSelectView? = null
+    private fun captureInApp() {
+        if (inAppSelector != null) return
+        val win = activity.window ?: return
+        val decor = win.decorView as? ViewGroup ?: return
+        val w = decor.width; val h = decor.height
+        if (w <= 0 || h <= 0) return
+        // a floating agent window would cover the note: hide it for the shot (split mode keeps its pane)
+        val hide = mode == "window"
+        if (hide) panelSlot.visibility = View.INVISIBLE
+        ui.postDelayed({
+            val bmp = android.graphics.Bitmap.createBitmap(w, h, android.graphics.Bitmap.Config.ARGB_8888)
+            fun restore() { if (hide) panelSlot.visibility = View.VISIBLE }
+            val onShot: (Boolean) -> Unit = { ok ->
+                restore()
+                if (!ok) { bmp.recycle(); toast("截屏失败") }
+                else {
+                    val v = com.inkagent.overlay.CaptureSelectView(activity, bmp) { crop ->
+                        inAppSelector?.let { (it.parent as? ViewGroup)?.removeView(it) }
+                        inAppSelector = null
+                        if (crop != null) {
+                            val bos = java.io.ByteArrayOutputStream()
+                            crop.compress(android.graphics.Bitmap.CompressFormat.PNG, 100, bos); crop.recycle()
+                            addAttachmentPng(bos.toByteArray())
+                            if (collapsed) updateCollapsed(false)
+                        }
+                        bmp.recycle()
+                    }
+                    v.isFocusableInTouchMode = true
+                    v.setOnKeyListener { _, code, ev -> if (code == android.view.KeyEvent.KEYCODE_BACK && ev.action == android.view.KeyEvent.ACTION_UP) { v.finish(false); true } else code == android.view.KeyEvent.KEYCODE_BACK }
+                    inAppSelector = v
+                    decor.addView(v, ViewGroup.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.MATCH_PARENT))
+                    v.elevation = 1000f
+                    v.requestFocus()
+                }
+            }
+            try {
+                android.view.PixelCopy.request(win, bmp, { r -> onShot(r == android.view.PixelCopy.SUCCESS) }, ui)
+            } catch (e: Exception) {
+                android.util.Log.w("InkAgent", "PixelCopy failed, falling back to draw", e)
+                runCatching { decor.draw(android.graphics.Canvas(bmp)) }.fold({ onShot(true) }, { onShot(false) })
+            }
+        }, 120)
+    }
+
+    // ---------------- 导出会话日志 ----------------
+    /** Zip of one session (jsonl + the images it references) + app logcat + device/app info; no API keys. */
+    private fun exportSession(id: String) {
+        val s = if (id == agent.session.id) agent.session else store.open(id)
+        toast("正在打包日志…")
+        Thread {
+            try {
+                val dir = File(activity.cacheDir, "export").apply { mkdirs(); listFiles()?.forEach { it.delete() } }
+                val stamp = java.text.SimpleDateFormat("yyyyMMdd-HHmmss", java.util.Locale.US).format(java.util.Date())
+                val zipF = File(dir, "inkagent-log-$stamp.zip")
+                val sessFile = File(File(activity.filesDir, "sessions"), "$id.jsonl")
+                val text = if (sessFile.exists()) sessFile.readText() else ""
+                java.util.zip.ZipOutputStream(zipF.outputStream().buffered()).use { z ->
+                    fun put(name: String, bytes: ByteArray) { z.putNextEntry(java.util.zip.ZipEntry(name)); z.write(bytes); z.closeEntry() }
+                    put("session.jsonl", text.toByteArray())
+                    // images referenced by path in the log
+                    Regex("[\\w./-]*?/(?:attachments|files)/[\\w./-]+?\\.(?:png|jpg|jpeg|webp)").findAll(text.replace("\\/", "/")).map { it.value }.distinct().forEach { path ->
+                        val f = File(path).takeIf { it.isFile } ?: File(attachDir, File(path).name).takeIf { it.isFile } ?: return@forEach
+                        if (f.length() < 8_000_000) put("images/" + f.name, f.readBytes())
+                    }
+                    val pi = activity.packageManager.getPackageInfo(activity.packageName, 0)
+                    val info = JSONObject()
+                        .put("app", pi.versionName).put("versionCode", if (android.os.Build.VERSION.SDK_INT >= 28) pi.longVersionCode else pi.versionCode.toLong())
+                        .put("device", android.os.Build.MANUFACTURER + " " + android.os.Build.MODEL).put("android", android.os.Build.VERSION.RELEASE).put("sdk", android.os.Build.VERSION.SDK_INT)
+                        .put("display", activity.resources.displayMetrics.let { "${it.widthPixels}x${it.heightPixels} density=${it.density}" })
+                        .put("mode", mode).put("overlay", overlayActive).put("session", id).put("title", s.title)
+                        .put("exportedAt", stamp)
+                    put("info.json", info.toString(2).toByteArray())
+                    val log = runCatching {
+                        val p = ProcessBuilder("logcat", "-d", "-v", "time", "-t", "6000").redirectErrorStream(true).start()
+                        p.inputStream.readBytes().also { p.waitFor() }
+                    }.getOrElse { ("logcat failed: " + it).toByteArray() }
+                    put("logcat.txt", redact(String(log)).toByteArray())
+                    val crash = File(activity.filesDir, "crash.txt"); if (crash.isFile) put("crash.txt", crash.readBytes())
+                }
+                saveToDownloads(zipF)
+                val uri = androidx.core.content.FileProvider.getUriForFile(activity, activity.packageName + ".fileprovider", zipF)
+                ui.post {
+                    val send = android.content.Intent(android.content.Intent.ACTION_SEND).setType("application/zip")
+                        .putExtra(android.content.Intent.EXTRA_STREAM, uri).putExtra(android.content.Intent.EXTRA_SUBJECT, zipF.name)
+                        .addFlags(android.content.Intent.FLAG_GRANT_READ_URI_PERMISSION)
+                    runCatching { activity.startActivity(android.content.Intent.createChooser(send, "导出会话日志").addFlags(android.content.Intent.FLAG_ACTIVITY_NEW_TASK)) }
+                }
+            } catch (e: Exception) {
+                android.util.Log.w("InkAgent", "export failed", e); ui.post { toast("导出失败：${e.message}") }
+            }
+        }.start()
+    }
+
+    /** Strip anything key-shaped from text leaving the device. */
+    private fun redact(t: String) = t
+        .replace(Regex("(?i)(bearer\\s+)[A-Za-z0-9._\\-]{12,}"), "$1***")
+        .replace(Regex("\\b(sk|tvly|ak|key)[-_][A-Za-z0-9_\\-]{12,}"), "$1-***")
+
+    /** Also keep a copy in 下载/InkAgent so it survives even if the share sheet is dismissed. */
+    private fun saveToDownloads(f: File) {
+        if (android.os.Build.VERSION.SDK_INT < 29) return
+        runCatching {
+            val cv = android.content.ContentValues().apply {
+                put(android.provider.MediaStore.MediaColumns.DISPLAY_NAME, f.name)
+                put(android.provider.MediaStore.MediaColumns.MIME_TYPE, "application/zip")
+                put(android.provider.MediaStore.MediaColumns.RELATIVE_PATH, android.os.Environment.DIRECTORY_DOWNLOADS + "/InkAgent")
+            }
+            val r = activity.contentResolver
+            val u = r.insert(android.provider.MediaStore.Downloads.EXTERNAL_CONTENT_URI, cv) ?: return
+            r.openOutputStream(u)?.use { o -> f.inputStream().use { it.copyTo(o) } }
+            ui.post { toast("已保存到 下载/InkAgent/${f.name}") }
+        }.onFailure { android.util.Log.w("InkAgent", "downloads copy failed", it) }
     }
 
     // ---------------- sending ----------------

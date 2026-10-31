@@ -45,6 +45,7 @@ class AgentPanel(context: Context, private val host: Host) {
         /** 「框选截屏」 (overlay window only). */
         fun onCapture() {}
         fun onPickImage() {}
+        fun onExportSession(id: String) {}
         /** Composer focus changed (the overlay window becomes focusable for the IME). */
         fun onInputFocus(focused: Boolean) {}
     }
@@ -95,6 +96,7 @@ class AgentPanel(context: Context, private val host: Host) {
             @JavascriptInterface fun confirmResult(id: String, ok: Boolean) { main.post { host.onConfirmResult(id, ok) } }
             @JavascriptInterface fun capture() { main.post { host.onCapture() } }
             @JavascriptInterface fun pickImage() { main.post { host.onPickImage() } }
+            @JavascriptInterface fun exportSession(id: String) { main.post { host.onExportSession(id) } }
             @JavascriptInterface fun inputFocus(f: Boolean) { main.post { host.onInputFocus(f) } }
         }, "Native")
         view.webChromeClient = object : WebChromeClient() {
