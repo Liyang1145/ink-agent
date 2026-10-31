@@ -10,7 +10,8 @@ jobs:
     steps:
       - uses: actions/checkout@v4
       - name: Fixed debug signing key (so every build installs over the last and keeps data)
-        env: { DEBUG_KEYSTORE: ${{ secrets.DEBUG_KEYSTORE }} }
+        env:
+          DEBUG_KEYSTORE: ${{ secrets.DEBUG_KEYSTORE }}
         run: |
           if [ -n "$DEBUG_KEYSTORE" ]; then mkdir -p ~/.android && echo "$DEBUG_KEYSTORE" | base64 -d > ~/.android/debug.keystore; fi
       - uses: actions/setup-java@v4
