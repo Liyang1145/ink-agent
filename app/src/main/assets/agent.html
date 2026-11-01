@@ -545,11 +545,11 @@ document.addEventListener('keyup',function(e){ if(e.key==='Shift') window.__shif
 var SLASH=[
   ['批改','✓','批改我这一页的解题过程：在页面上标出对错，再告诉我错在哪、怎么改'],
   ['提示','💡','给我一点提示，先别告诉我答案'],
-  ['讲解','📖','一步一步讲解这道题的思路，关键步骤写在页面上'],
+  ['讲解','📖','一步一步讲解这道题的思路'],
   ['画图','📐','把这道题的图画在页面上'],
   ['出题','✏️','照这道题出 3 道类似的练习题写在页面上，先不给答案'],
   ['验算','🔍','帮我验算这一页的答案对不对，只说哪里有问题'],
-  ['总结','🗂','总结这道题用到的方法和易错点，写在页面上']];
+  ['总结','🗂','总结这道题用到的方法和易错点']];
 var slashSel=0, slashItems=[];
 function closePops(){ document.querySelectorAll('.pop').forEach(function(p){p.classList.remove('open');}); document.getElementById('plus').classList.remove('on'); }
 function togglePlus(){ var m=document.getElementById('plusMenu'), o=!m.classList.contains('open'); closePops(); if(o){ m.classList.add('open'); document.getElementById('plus').classList.add('on'); } }

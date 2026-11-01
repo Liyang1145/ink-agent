@@ -84,9 +84,33 @@ class Rasterizer(context: Context) {
                  /** smallest text height ÷ drawn width (0 = no text) */ val minTextFrac: Double = 0.0,
                  /** marks: [x, y, w, h] of the drawn box in page units */ val box: DoubleArray? = null)
 
+    /** Vertical correction for this device's capture (1.0 = square pixels), measured once with a square. */
+    @Volatile private var yScale: Double? = null
+
+    /**
+     * Some WebViews (seen on a HONOR tablet, density 2.25) capture with non-square scaling, which squashed
+     * every formula vertically. Render a 300×300 css square once and measure what really lands in the bitmap.
+     */
+    private fun calibrate() {
+        if (yScale != null) return
+        val r = runCatching { renderOnce("calib", "", 0) }.getOrNull() ?: return
+        val w = r.bitmap.width - 12; val h = r.bitmap.height - 12
+        if (w < 20 || h < 20) { yScale = 1.0; return }
+        val ratio = h.toDouble() / w
+        yScale = if (kotlin.math.abs(ratio - 1.0) > 0.02) 1.0 / ratio else 1.0
+        com.inkagent.AppLog.i("InkRaster", "calibration square ${w}x$h → yScale=${"%.3f".format(yScale)} view=${view.width}x${view.height} density=${appCtx.resources.displayMetrics.density}")
+    }
+
     /** Blocking; must be called off the main thread. */
     fun render(kind: String, source: String, widthCssPx: Int = 0): Result {
         synchronized(lock) {
+            calibrate()
+            return renderOnce(kind, source, widthCssPx)
+        }
+    }
+
+    private fun renderOnce(kind: String, source: String, widthCssPx: Int): Result {
+        run<Unit> {
             if (!ready.await(15, TimeUnit.SECONDS)) throw IllegalStateException("渲染器未就绪")
             val latch = CountDownLatch(1)
             var out: Result? = null
@@ -103,7 +127,11 @@ class Rasterizer(context: Context) {
                         val c = Canvas(full)
                         c.translate(-view.scrollX.toFloat(), -view.scrollY.toFloat())
                         view.draw(c)
-                        val cropped = cropToContent(full)
+                        var cropped = cropToContent(full)
+                        // undo this device's non-square capture (see calibrate)
+                        val sy = yScale
+                        if (sy != null && kotlin.math.abs(sy - 1.0) > 0.02 && kind != "calib")
+                            cropped = Bitmap.createScaledBitmap(cropped, cropped.width, (cropped.height * sy).toInt().coerceAtLeast(1), true)
                         Log.i("InkRaster", "kind=$kind css=${w}x$h view=${vw}x$vh crop=${cropped.width}x${cropped.height}")
                         if (debuggable) runCatching {
                             val dir = java.io.File(appCtx.getExternalFilesDir(null), "raster").apply { mkdirs() }
@@ -123,5 +151,6 @@ class Rasterizer(context: Context) {
             err?.let { throw it }
             return out!!
         }
+        throw IllegalStateException("unreachable")
     }
 }

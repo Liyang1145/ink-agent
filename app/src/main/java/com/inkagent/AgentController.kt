@@ -326,6 +326,10 @@ class AgentController(private val activity: Activity, private val editorRef: () 
                     }.getOrElse { ("logcat failed: " + it).toByteArray() }
                     put("logcat.txt", redact(String(log)).toByteArray())
                     put("applog.txt", redact(String(AppLog.bytes())).toByteArray())
+                    runCatching {
+                        java.io.File(activity.getExternalFilesDir(null), "raster").listFiles()?.sortedByDescending { it.lastModified() }?.take(16)
+                            ?.forEach { f -> if (f.length() < 3_000_000) put("raster/" + f.name, f.readBytes()) }
+                    }
                     val crash = File(activity.filesDir, "crash.txt"); if (crash.isFile) put("crash.txt", crash.readBytes())
                 }
                 saveToDownloads(zipF)

@@ -23,6 +23,7 @@ import androidx.compose.foundation.layout.imePadding
 import androidx.compose.foundation.layout.offset
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
+import androidx.compose.foundation.layout.requiredSize
 import androidx.compose.foundation.layout.systemBars
 import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.layout.windowInsetsPadding
@@ -192,7 +193,9 @@ fun AgentShell(ctrl: AgentController, content: @Composable () -> Unit) {
         val appear = if (anim.appear && t < 1f) t else 1f
 
         // Off-screen-ish formula/SVG rasterizer: kept attached (it must be laid out to draw) and covered by the notes.
-        AndroidView(factory = { detach(ctrl.raster.view) }, modifier = Modifier.size(900.dp))
+        // requiredSize: a fixed square no matter how small the window is — a constrained, non-square raster view
+        // was squashing formulas vertically on some tablets (HONOR, density 2.25).
+        AndroidView(factory = { detach(ctrl.raster.view) }, modifier = Modifier.requiredSize(900.dp))
 
         // ---- the notes: shrink in split mode, full screen otherwise ----
         val notesEnd = if (split && landscape) with(density) { (panePx + divPx).toDp() } else 0.dp
