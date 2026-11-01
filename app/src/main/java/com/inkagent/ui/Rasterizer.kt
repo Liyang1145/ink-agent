@@ -82,7 +82,8 @@ class Rasterizer(context: Context) {
     class Result(val bitmap: Bitmap, val cssWidth: Int, val cssHeight: Int,
                  val notes: List<String> = emptyList(), val warnings: List<String> = emptyList(), val contentFrac: Double = 1.0,
                  /** smallest text height ÷ drawn width (0 = no text) */ val minTextFrac: Double = 0.0,
-                 /** marks: [x, y, w, h] of the drawn box in page units */ val box: DoubleArray? = null)
+                 /** marks: [x, y, w, h] of the drawn box in page units */ val box: DoubleArray? = null,
+                 /** bitmap pixels per CSS px of the source layout (density × fit) */ val pxPerCss: Double = 0.0)
 
     /** Vertical correction for this device's capture (1.0 = square pixels), measured once with a square. */
     @Volatile private var yScale: Double? = null
@@ -139,7 +140,8 @@ class Rasterizer(context: Context) {
                             java.io.File(dir, "%03d_%s.txt".format(dumpN, kind)).writeText("css=${w}x$h fit=$dpr density=${appCtx.resources.displayMetrics.density} view=${vw}x$vh crop=${cropped.width}x${cropped.height}\n$source")
                         }
                         out = Result(cropped, w, h, list("notes"), list("warnings"), diag.optDouble("contentFrac", 1.0), diag.optDouble("minTextFrac", 0.0),
-                            diag.optJSONArray("box")?.let { a -> DoubleArray(4) { a.getDouble(it) } })
+                            diag.optJSONArray("box")?.let { a -> DoubleArray(4) { a.getDouble(it) } },
+                            appCtx.resources.displayMetrics.density.toDouble() * dpr)
                     } catch (t: Throwable) { Log.e("InkRaster", "capture failed", t); err = t }
                     latch.countDown()
                 }

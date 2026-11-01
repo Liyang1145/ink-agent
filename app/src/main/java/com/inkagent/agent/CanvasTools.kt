@@ -242,7 +242,7 @@ class CanvasTools(
         return sb.toString()
     }
 
-    class Block2(val md: String, val spaceAfter: Double)
+    class Block2(val md: String, val spaceAfter: Double, val center: Boolean = false)
 
     /**
      * Lay out markdown blocks (problems, a title…) top to bottom as an exam sheet: full text width, each block
@@ -273,7 +273,9 @@ class CanvasTools(
                 var page = e.pageAt(idx) ?: throw IllegalStateException("页面不存在")
                 val m = page.width * MARGIN_FRAC
                 val maxW = page.width - 2 * m
-                var w = minOf(maxW, r.cssWidth * maxW / cssW)
+                // one fixed scale for every block (css px → page units), so text size is the same across blocks
+                val cssPainted = if (r.pxPerCss > 0) r.bitmap.width / r.pxPerCss else r.cssWidth.toDouble()
+                var w = minOf(maxW, cssPainted * maxW / cssW)
                 var h = w * aspect
                 val maxH = page.height * (1 - TOP_FRAC) - m
                 if (h > maxH) { w *= maxH / h; h = maxH }
@@ -284,7 +286,7 @@ class CanvasTools(
                     val low = page.items.maxOfOrNull { it.bounds().bottom }
                     y = if (low == null) page.height * TOP_FRAC else low + page.width * GAP_FRAC * 2
                 }
-                e.agentInsertImage(idx, bytes, Rect(m, y, w, h))
+                e.agentInsertImage(idx, bytes, Rect(if (b.center) m + (maxW - w) / 2 else m, y, w, h))
                 y += h + b.spaceAfter
             }
             registry.add(id, bytes, "md", b.md.take(400))

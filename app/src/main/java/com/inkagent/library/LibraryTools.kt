@@ -36,7 +36,8 @@ class LibraryTools(private val lib: Library, private val canvas: () -> CanvasToo
                 set.meta.optInt("durationMin").takeIf { it > 0 }?.let { add("考试时间 $it 分钟") }
                 set.meta.optInt("totalScore").takeIf { it > 0 }?.let { add("满分 $it 分") }
             }.joinToString("　")
-            blocks.add(CanvasTools.Block2("## ${set.title}" + (if (sub.isNotEmpty()) "\n\n$sub" else ""), 1753.0 * 0.02))
+            blocks.add(CanvasTools.Block2("## ${set.title}", 1753.0 * 0.005, center = true))
+            if (sub.isNotEmpty()) blocks.add(CanvasTools.Block2(sub, 1753.0 * 0.02, center = true))
             set.problems.forEach { blocks.add(CanvasTools.Block2(problemMd(it), space ?: spaceFor(it))) }
         } else {
             val p = lib.problem(id) ?: throw IllegalArgumentException("资料库里没有 id=$id（用 library 的 search 查）")
@@ -125,7 +126,7 @@ class LibraryTools(private val lib: Library, private val canvas: () -> CanvasToo
                 val ct = canvas() ?: return ToolResult.error("当前没有打开的笔记")
                 val arr = args.optJSONArray("problems") ?: return ToolResult.error("problems 不能为空")
                 val blocks = ArrayList<CanvasTools.Block2>()
-                args.optString("title").takeIf { it.isNotBlank() }?.let { blocks.add(CanvasTools.Block2("## $it", 1753.0 * 0.02)) }
+                args.optString("title").takeIf { it.isNotBlank() }?.let { blocks.add(CanvasTools.Block2("## $it", 1753.0 * 0.02, center = true)) }
                 for (i in 0 until arr.length()) {
                     val o = arr.optJSONObject(i) ?: JSONObject().put("text", arr.optString(i))
                     blocks.add(CanvasTools.Block2(o.optString("text"), if (o.has("space")) o.optDouble("space") else 1753.0 * 0.12))
