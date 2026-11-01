@@ -101,7 +101,9 @@ class AgentPanel(context: Context, private val host: Host) {
         }, "Native")
         view.webChromeClient = object : WebChromeClient() {
             override fun onConsoleMessage(m: ConsoleMessage): Boolean {
-                Log.i("InkPanel", "${m.messageLevel()} ${m.message()} @${m.lineNumber()}")
+                val line = "${m.messageLevel()} ${m.message()} @${m.lineNumber()}"
+                if (m.messageLevel() == ConsoleMessage.MessageLevel.ERROR || m.messageLevel() == ConsoleMessage.MessageLevel.WARNING) com.inkagent.AppLog.w("InkPanel", line)
+                else Log.i("InkPanel", line)
                 return true
             }
         }
@@ -156,6 +158,8 @@ class AgentPanel(context: Context, private val host: Host) {
     // ---------------- composer state ----------------
     fun setPolicy(mode: String, timing: String) = js("setPolicy(${q(mode)}, ${q(timing)})")
     fun setRunning(b: Boolean) = js("setRunning($b)")
+    /** A retried request: start a fresh step group so the aborted partial output stays separate. */
+    fun restartStep() { flush(); js("stepStart()") }
     fun setModel(t: String) = js("setModel(${q(t)})")
     fun setTitle(t: String) = js("setTitle(${q(t)})")
     fun setWindowMode(m: String) = js("setWindowMode(${q(m)})")

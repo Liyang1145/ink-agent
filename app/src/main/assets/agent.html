@@ -388,7 +388,7 @@ function userMessage(text, imgs, steer){
   if (steer&&step){ turn.answer.parentNode.insertBefore(row, turn.answer); }
   var b=el('div','user'+(steer&&step?' steer':''),row);
   if (steer&&step) el('span','tag',b,'插话');
-  if (imgs&&imgs.length){ var g=el('div','imgs',b); imgs.forEach(function(u){ var im=el('img','',g); im.src=u; im.title='点按编辑'; im.setAttribute('aria-label','编辑附件 '+(i+1)); im.onclick=function(){ try{ Native.editAttachment(i); }catch(e){ preview(u); } }; }); }
+  if (imgs&&imgs.length){ var g=el('div','imgs',b); imgs.forEach(function(u){ var im=el('img','',g); im.src=u; im.title='点按查看'; im.onclick=function(){ preview(u); }; }); }
   if (text) b.appendChild(document.createTextNode(text));
   end();
 }
@@ -532,7 +532,16 @@ function autosize(){ input.style.height='auto'; input.style.height=Math.min(inpu
 input.addEventListener('input',autosize);
 input.addEventListener('focus',function(){ try{Native.inputFocus(true);}catch(e){} });
 input.addEventListener('blur',function(){ try{Native.inputFocus(false);}catch(e){} });
-input.addEventListener('keydown',function(e){ if(e.key==='Enter'&&!e.shiftKey&&!e.isComposing&&e.keyCode!==229&&document.body.dataset.hw==='1'){ e.preventDefault(); send(); } });
+// Enter sends (hardware and on-screen keyboards); Shift+Enter inserts a newline. While an IME is composing
+// (pinyin candidates), Enter belongs to the IME. Some soft keyboards report keyCode 229 for Enter, so also
+// catch the line-break input itself.
+input.setAttribute('enterkeyhint','send');
+input.addEventListener('keydown',function(e){
+  if((e.key==='Enter'||e.keyCode===13)&&!e.shiftKey&&!e.isComposing){ var m=document.getElementById('slashMenu'); if(m&&m.classList.contains('open')) return; e.preventDefault(); send(); } });
+input.addEventListener('beforeinput',function(e){
+  if((e.inputType==='insertLineBreak'||e.inputType==='insertParagraph')&&!e.isComposing&&!window.__shiftDown){ var m=document.getElementById('slashMenu'); e.preventDefault(); if(m&&m.classList.contains('open')) pickSlash(slashSel); else send(); } });
+document.addEventListener('keydown',function(e){ if(e.key==='Shift') window.__shiftDown=true; });
+document.addEventListener('keyup',function(e){ if(e.key==='Shift') window.__shiftDown=false; });
 var SLASH=[
   ['批改','✓','批改我这一页的解题过程：在页面上标出对错，再告诉我错在哪、怎么改'],
   ['提示','💡','给我一点提示，先别告诉我答案'],

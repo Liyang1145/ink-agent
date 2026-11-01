@@ -153,6 +153,9 @@ class AgentController(private val activity: Activity, private val editorRef: () 
     private val listener = object : AgentListener {
         override fun onStatus(running: Boolean) { ui.post { panel.setRunning(running); updateHeader(); pushStats() } }
         override fun onChunk(chunk: Chunk) { ui.post { panel.chunk(chunk) } }
+        override fun onRetry(attempt: Int, max: Int, message: String) {
+            ui.post { panel.notice("网络中断（${message.take(60)}），自动重试 $attempt/$max…"); panel.restartStep() }
+        }
         override fun onEvent(ev: SessionEvent) {
             ui.post {
                 panel.event(ev, true)
@@ -283,7 +286,7 @@ class AgentController(private val activity: Activity, private val editorRef: () 
             try {
                 android.view.PixelCopy.request(win, bmp, { r -> onShot(r == android.view.PixelCopy.SUCCESS) }, ui)
             } catch (e: Exception) {
-                android.util.Log.w("InkAgent", "PixelCopy failed, falling back to draw", e)
+                com.inkagent.AppLog.w("InkAgent", "PixelCopy failed, falling back to draw", e)
                 runCatching { decor.draw(android.graphics.Canvas(bmp)) }.fold({ onShot(true) }, { onShot(false) })
             }
         }, 120)
@@ -322,6 +325,7 @@ class AgentController(private val activity: Activity, private val editorRef: () 
                         p.inputStream.readBytes().also { p.waitFor() }
                     }.getOrElse { ("logcat failed: " + it).toByteArray() }
                     put("logcat.txt", redact(String(log)).toByteArray())
+                    put("applog.txt", redact(String(AppLog.bytes())).toByteArray())
                     val crash = File(activity.filesDir, "crash.txt"); if (crash.isFile) put("crash.txt", crash.readBytes())
                 }
                 saveToDownloads(zipF)
@@ -333,9 +337,23 @@ class AgentController(private val activity: Activity, private val editorRef: () 
                     runCatching { activity.startActivity(android.content.Intent.createChooser(send, "导出会话日志").addFlags(android.content.Intent.FLAG_ACTIVITY_NEW_TASK)) }
                 }
             } catch (e: Exception) {
-                android.util.Log.w("InkAgent", "export failed", e); ui.post { toast("导出失败：${e.message}") }
+                com.inkagent.AppLog.w("InkAgent", "export failed", e); ui.post { toast("导出失败：${e.message}") }
             }
         }.start()
+    }
+
+    /** App/device/layout state for app_debug (no keys). */
+    private fun debugInfo(): JSONObject {
+        val pi = activity.packageManager.getPackageInfo(activity.packageName, 0)
+        val o = JSONObject().put("app", pi.versionName)
+            .put("device", android.os.Build.MANUFACTURER + " " + android.os.Build.MODEL).put("android", android.os.Build.VERSION.RELEASE)
+            .put("display", activity.resources.displayMetrics.let { "${it.widthPixels}x${it.heightPixels} density=${it.density}" })
+            .put("orientation", if (activity.resources.configuration.orientation == android.content.res.Configuration.ORIENTATION_LANDSCAPE) "landscape" else "portrait")
+            .put("panelMode", mode).put("panelCollapsed", collapsed).put("overlay", overlayActive)
+            .put("provider", settings.provider()?.name ?: "").put("model", settings.model).put("hasKey", !settings.provider()?.apiKey.isNullOrBlank())
+            .put("attachmentsInTray", attachments.size).put("agentRunning", agent.running)
+        runCatching { editorRef()?.let { o.put("editor", it.agentDebugState()) } }
+        return o
     }
 
     /** Strip anything key-shaped from text leaving the device. */
@@ -356,7 +374,7 @@ class AgentController(private val activity: Activity, private val editorRef: () 
             val u = r.insert(android.provider.MediaStore.Downloads.EXTERNAL_CONTENT_URI, cv) ?: return
             r.openOutputStream(u)?.use { o -> f.inputStream().use { it.copyTo(o) } }
             ui.post { toast("已保存到 下载/InkAgent/${f.name}") }
-        }.onFailure { android.util.Log.w("InkAgent", "downloads copy failed", it) }
+        }.onFailure { com.inkagent.AppLog.w("InkAgent", "downloads copy failed", it) }
     }
 
     // ---------------- sending ----------------
@@ -657,10 +675,12 @@ class AgentController(private val activity: Activity, private val editorRef: () 
 
     // Runs last: every property above (host, listener, …) is initialised by now.
     init {
+        AppLog.init(activity.applicationContext)
         panel = AgentPanel(activity, host)
         panelSlot.addView(panel.view, ViewGroup.LayoutParams(-1, -1))
         canvasTools = CanvasTools(editorRef, raster, attachDir, registry).also { it.register(tools) { settings.tavilyKey } }
         ProviderTools(settings, ::confirmBlocking) { ui.post { updateHeader() } }.register(tools)
+        DebugTools(activity, editorRef, attachDir, { agent.session }, { debugInfo() }).register(tools)
         val session = settings.sessionId?.let { store.open(it) } ?: store.create().also { settings.sessionId = it.id }
         agent = Agent(session, tools, { settings.callConfig() }, { systemPrompt() }, listener) { m, u -> settings.cost(m, u) }
         panel.setPolicy(settings.transcriptMode, settings.collapseTiming)

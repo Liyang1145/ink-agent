@@ -6219,7 +6219,7 @@ class Editor(context: Context, val pane: Pane = Pane.PRIMARY) : ToolPopupHost, S
                     f.writeBytes(bytes)
                     return@run f
                 } catch (t: Throwable) {
-                    android.util.Log.e("InkAgent", "agentInsertImage write failed in ${dir.path}", t)
+                    com.inkagent.AppLog.e("InkAgent", "agentInsertImage write failed in ${dir.path}", t)
                     last = t
                 }
             }
@@ -6232,7 +6232,7 @@ class Editor(context: Context, val pane: Pane = Pane.PRIMARY) : ToolPopupHost, S
                 if (o.outWidth > 0 && o.outHeight > 0) com.xnotes.core.pal.ImageSize(o.outWidth, o.outHeight) else null
             }
             ?: run {
-                android.util.Log.e("InkAgent", "agentInsertImage: cannot probe ${file.path} (${file.length()} bytes)")
+                com.inkagent.AppLog.e("InkAgent", "agentInsertImage: cannot probe ${file.path} (${file.length()} bytes)")
                 throw IllegalStateException("无法读取刚写入的图片（${file.length()} 字节）")
             }
         val item = ImageItem(ImageData(file, size.width, size.height), rect)
@@ -6242,7 +6242,7 @@ class Editor(context: Context, val pane: Pane = Pane.PRIMARY) : ToolPopupHost, S
         state.document.dirty = true
         refreshContent()
         view.requestRender()
-        android.util.Log.i("InkAgent", "agentInsertImage ok page=$index ${size.width}x${size.height} at $rect")
+        com.inkagent.AppLog.i("InkAgent", "agentInsertImage ok page=$index ${size.width}x${size.height} at $rect")
         return item
     }
 
@@ -6269,6 +6269,13 @@ class Editor(context: Context, val pane: Pane = Pane.PRIMARY) : ToolPopupHost, S
 
     /** The paged note's current page index (0-based) and page count. */
     fun agentCurrentPage(): Int = state.currentPageIndex()
+
+    /** Canvas layout facts for the agent's app_debug tool. */
+    fun agentDebugState(): org.json.JSONObject = org.json.JSONObject()
+        .put("noteOpen", noteOpen).put("title", title).put("pages", pageCount)
+        .put("currentPage", agentCurrentPage() + 1).put("visiblePages", org.json.JSONArray(agentVisiblePages().map { it + 1 }))
+        .put("verticalScroll", state.verticalScroll).put("zoom", state.zoom).put("rotation", state.rotationDeg)
+        .put("viewport", "${state.viewportW}x${state.viewportH}").put("tool", tool.name).put("inSplit", inSplit)
 
     /** Pages (0-based) with any part on screen, largest visible area first. Two-up / landscape layouts show several. */
     fun agentVisiblePages(): List<Int> {

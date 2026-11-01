@@ -51,6 +51,8 @@ interface AgentListener {
     fun onStepStart(turn: Int, step: Int) {}
     fun onChunk(chunk: Chunk) {}
     fun onError(message: String) {}
+    /** A transient network failure; the step is being retried ([attempt] of [max]). */
+    fun onRetry(attempt: Int, max: Int, message: String) {}
 }
 
 class Agent(
@@ -109,6 +111,39 @@ class Agent(
         }
     }
 
+    /** Network hiccups (Wi-Fi handover, screen off, the ROM cutting a background socket) are common on
+     *  tablets; retry the request a few times with backoff instead of failing the whole turn. */
+    private fun generateWithRetry(cfg: CallConfig, sig: CancelSignal): Generated {
+        val max = 4
+        var attempt = 1
+        while (true) {
+            try {
+                return Llm.adapter(cfg.provider).generate(cfg, systemPrompt(), session.deriveMessages(),
+                    tools.schemas(), sig) { listener.onChunk(it) }
+            } catch (e: Exception) {
+                if (sig.cancelled || attempt >= max || !isTransient(e)) throw e
+                val wait = longArrayOf(2_000, 5_000, 12_000)[attempt - 1]
+                com.inkagent.AppLog.w("InkAgent", "request failed (attempt $attempt/$max), retry in ${wait}ms: ${e.message}", e)
+                attempt++
+                listener.onRetry(attempt, max, e.message ?: e.javaClass.simpleName)
+                var waited = 0L
+                while (waited < wait) { sig.throwIfCancelled(); Thread.sleep(200); waited += 200 }
+            }
+        }
+    }
+
+    private fun isTransient(e: Throwable): Boolean {
+        var c: Throwable? = e
+        while (c != null) {
+            if (c is java.io.IOException) return true
+            val m = (c.message ?: "").lowercase()
+            if (listOf("timeout", "timed out", "connection abort", "broken pipe", "connection reset", "failed to connect",
+                    "unexpected end of stream", "http 429", "http 500", "http 502", "http 503", "http 504", "overloaded").any { it in m }) return true
+            c = c.cause
+        }
+        return false
+    }
+
     private fun runTurn(first: UserInput) {
         val sig = CancelSignal(); signal = sig
         val turn = session.nextTurn()
@@ -130,8 +165,7 @@ class Agent(
                 val cfg = callConfig() ?: throw LlmException("还没有配置模型：请在设置里添加服务商并选择模型")
                 emit("request/header", JSONObject().put("provider", cfg.provider.name).put("model", cfg.model)
                     .put("effort", cfg.reasoningEffort ?: ""))
-                val gen = Llm.adapter(cfg.provider).generate(cfg, systemPrompt(), session.deriveMessages(),
-                    tools.schemas(), sig) { listener.onChunk(it) }
+                val gen = generateWithRetry(cfg, sig)
                 sig.throwIfCancelled()
                 val am = JSONObject().put("turn", turn).put("step", step)
                     .put("content", Block.listToJson(gen.content)).put("finish", gen.finish.name).put("model", cfg.model)
@@ -156,7 +190,7 @@ class Agent(
             reason = "aborted"
         } catch (e: Exception) {
             if (sig.cancelled) reason = "aborted"
-            else { reason = "error"; android.util.Log.e("InkAgent", "turn failed", e); errorText = e.message; listener.onError(e.message ?: e.javaClass.simpleName) }
+            else { reason = "error"; com.inkagent.AppLog.e("InkAgent", "turn failed", e); errorText = e.message; listener.onError(e.message ?: e.javaClass.simpleName) }
         } finally {
             val endData = JSONObject().put("turn", turn).put("reason", reason)
             if (errorText != null) endData.put("error", errorText)
