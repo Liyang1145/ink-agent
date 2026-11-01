@@ -370,6 +370,9 @@ def main():
     if SCEN == 'agent':
         run_agent(W, H)
         return finish()
+    if SCEN == 'library':
+        run_library(ex)
+        return finish()
 
     # ---------------- area eraser cuts the long line in the middle ----------------
     select_tool('橡皮')
@@ -959,6 +962,42 @@ def run_agent(W, H):
 def safe(f, *a):
     try: return f(*a)
     except Exception as e: note(f'!! finish step failed: {e}'); return ''
+
+def exec_tool(ex, tool, args, wait=40):
+    import base64
+    b = base64.b64encode(json.dumps({'tool': tool, 'args': args}, ensure_ascii=False).encode()).decode()
+    adb('logcat -c')
+    launch(ex + f' --es test_exec {b}')
+    for _ in range(wait // 2):
+        time.sleep(2)
+        out = [l for l in adb('logcat -d -s InkAgentTest:I', timeout=30).splitlines() if 'exec:' in l]
+        if out: return out[-1].split('exec:', 1)[1].strip()
+    return 'TIMEOUT'
+
+
+def run_library(ex):
+    r = exec_tool(ex, 'canvas_write_exam', {'title': '极限练习', 'problems': [
+        {'text': '1. 求极限 $\\displaystyle\\lim_{x\\to0}\\frac{x-\\sin x}{x^3}$，并说明用到了哪条展开式。'},
+        {'text': '2. 设 $f$ 在 $[a,b]$ 上连续，在 $(a,b)$ 内可导，且 $f(a)=f(b)=0$。证明：存在 $\\xi\\in(a,b)$，使得 $f^{\\prime}(\\xi)+f(\\xi)=0$。', 'space': 400},
+        {'text': '3. 计算 $$\\int_0^1 \\frac{\\ln(1+x)}{1+x^2}\\,dx.$$'}]})
+    note('canvas_write_exam -> ' + r)
+    check('library: canvas_write_exam ok', r.startswith('OK'), r)
+    time.sleep(3); shot('exam_written')
+    r = exec_tool(ex, 'library', {'action': 'catalog'})
+    note('library catalog -> ' + r[:300])
+    check('library: catalog ok', r.startswith('OK'), r[:200])
+    r = exec_tool(ex, 'library', {'action': 'insert', 'id': 'cmc-sample'})
+    note('library insert -> ' + r)
+    check('library: insert paper ok', r.startswith('OK'), r)
+    time.sleep(3); shot('paper_inserted')
+    r = exec_tool(ex, 'list_pages', {})
+    note('pages -> ' + r[:400])
+    launch(ex + ' --ez test_library true'); time.sleep(6); shot('library_home')
+    log = adb('shell run-as com.inkagent cat files/applog.txt', timeout=30)
+    open(f'{OUT}/applog.txt', 'w').write(log or '')
+    cal = [l for l in (log or '').splitlines() if 'calibration' in l]
+    note('calibration: ' + (cal[-1] if cal else 'none'))
+
 
 def finish():
     open(f'{OUT}/logcat.txt', 'w').write(safe(adb, 'logcat -d -v time') or '')

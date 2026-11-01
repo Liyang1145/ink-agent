@@ -1,0 +1,132 @@
+<!doctype html>
+<html lang="zh-CN"><head><meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<link rel="stylesheet" href="lib/katex/katex.min.css">
+<script src="lib/katex/katex.min.js"></script>
+<script src="lib/markdown-it.min.js"></script>
+<script src="mdmath.js"></script>
+<style>
+:root{--bg:#f6f6f3;--card:#fff;--ink:#1d1d1f;--mute:#77777c;--line:#e6e6e1;--acc:#2f5fd0;--acc2:#e8eefb;}
+*{box-sizing:border-box}
+html,body{margin:0;background:var(--bg);color:var(--ink);font:16px/1.65 -apple-system,"PingFang SC","Noto Sans CJK SC",sans-serif;}
+header{position:sticky;top:0;z-index:5;background:rgba(246,246,243,.94);backdrop-filter:blur(8px);border-bottom:1px solid var(--line);display:flex;align-items:center;gap:10px;padding:10px 16px;}
+header h1{font-size:18px;margin:0;flex:1;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;}
+button{font:inherit;border:0;background:none;color:var(--acc);cursor:pointer;padding:6px 10px;border-radius:10px;}
+button.pri{background:var(--acc);color:#fff;}
+button.sec{background:var(--acc2);}
+#q{flex:0 1 280px;border:1px solid var(--line);border-radius:12px;padding:7px 12px;font:inherit;background:#fff;outline:none;}
+main{max-width:980px;margin:0 auto;padding:14px 16px 80px;}
+.tabs{display:flex;gap:8px;margin:4px 0 14px;flex-wrap:wrap;}
+.tabs button{background:#fff;border:1px solid var(--line);color:var(--ink);}
+.tabs button.on{background:var(--ink);color:#fff;border-color:var(--ink);}
+.grp{margin:18px 0 6px;color:var(--mute);font-size:13px;letter-spacing:.05em;}
+.list{display:grid;grid-template-columns:repeat(auto-fill,minmax(260px,1fr));gap:10px;}
+.item{background:var(--card);border:1px solid var(--line);border-radius:14px;padding:12px 14px;cursor:pointer;}
+.item:active{background:#f0f0ec}
+.item .t{font-weight:600;}
+.item .m{color:var(--mute);font-size:13px;}
+.card{background:var(--card);border:1px solid var(--line);border-radius:16px;padding:14px 18px;margin:12px 0;}
+.card .h{display:flex;align-items:center;gap:8px;flex-wrap:wrap;color:var(--mute);font-size:13px;margin-bottom:6px;}
+.card .no{font-weight:700;color:var(--ink);font-size:16px;}
+.tag{background:#f1f1ed;border-radius:8px;padding:0 7px;}
+.acts{display:flex;gap:6px;flex-wrap:wrap;margin-top:8px;}
+.sol{display:none;border-top:1px dashed var(--line);margin-top:10px;padding-top:8px;}
+.sol.open{display:block;}
+.sol .lbl{color:var(--mute);font-size:13px;}
+.note{background:var(--card);border:1px solid var(--line);border-radius:16px;padding:18px 26px;}
+.katex-display{overflow-x:auto;overflow-y:hidden;padding:2px 0;}
+.empty{color:var(--mute);text-align:center;margin:60px 0;}
+.bar{display:flex;gap:8px;flex-wrap:wrap;margin:6px 0 4px;}
+</style></head><body>
+<header>
+  <button id="bk" onclick="back()||Lib.close()">‹ 返回</button>
+  <h1 id="ttl">资料库</h1>
+  <input id="q" placeholder="搜索题目 / 知识点" oninput="onSearch()">
+</header>
+<main id="main"></main>
+<script>
+var CAT=JSON.parse(Lib.catalog()), stack=[], tab='cmc', track='数学类', subj='analysis', cache={};
+var SUBJ={analysis:'数学分析',algebra:'高等代数'};
+function $(t,c,p,h){var e=document.createElement(t); if(c) e.className=c; if(h!=null) e.innerHTML=h; if(p) p.appendChild(e); return e;}
+function esc(s){return String(s==null?'':s).replace(/[&<>"]/g,function(c){return {'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c];});}
+function getSet(id){ if(!cache[id]) cache[id]=JSON.parse(Lib.set(id)); return cache[id]; }
+function show(view){ stack.push(view); render(); window.scrollTo(0,0); }
+function back(){ if(stack.length>1){ stack.pop(); render(); return true; } if(document.getElementById('q').value){ document.getElementById('q').value=''; render(); return true; } return false; }
+function render(){ var v=stack[stack.length-1]; var m=document.getElementById('main'); m.innerHTML='';
+  document.getElementById('q').style.display=v.k==='home'?'':'none';
+  if(v.k==='home') home(m); else if(v.k==='set') setView(m,v.id); else if(v.k==='note') noteView(m,v.id); }
+
+function home(m){
+  document.getElementById('ttl').textContent='资料库';
+  var q=document.getElementById('q').value.trim(); if(q){ searchView(m,q); return; }
+  var tabs=$('div','tabs',m);
+  [['cmc','CMC 真题'],['notes','讲义'],['ex','分章习题']].forEach(function(t){ var b=$('button',tab===t[0]?'on':'',tabs,t[1]); b.onclick=function(){tab=t[0];render();}; });
+  if(tab==='cmc'){
+    var tb=$('div','tabs',m); ['数学类','非数学类'].forEach(function(t){ var b=$('button',track===t?'on':'',tb,t); b.onclick=function(){track=t;render();}; });
+    var ps=CAT.papers.filter(function(p){return String(p.track||'').indexOf(track)===0;});
+    if(!ps.length){ $('div','empty',m,'这一类的真题还在整理中'); return; }
+    ps.sort(function(a,b){return (b.year||0)-(a.year||0) || String(a.id).localeCompare(String(b.id));});
+    var last=null, list;
+    ps.forEach(function(p){ if(p.year!==last){ last=p.year; $('div','grp',m,(p.year||'')+' 年'); list=$('div','list',m);} 
+      var it=$('div','item',list,'<div class="t">'+esc(p.title)+'</div><div class="m">'+esc(p.round||'')+(p.paper?' · '+esc(p.paper):'')+' · '+p.count+' 题</div>');
+      it.onclick=function(){show({k:'set',id:p.id});}; });
+  } else {
+    var tb2=$('div','tabs',m); ['analysis','algebra'].forEach(function(s){ var b=$('button',subj===s?'on':'',tb2,SUBJ[s]); b.onclick=function(){subj=s;render();}; });
+    var list2=$('div','list',m);
+    if(tab==='notes'){
+      var ns=CAT.notes.filter(function(n){return n.subject===subj;});
+      if(!ns.length) $('div','empty',m,'讲义还在整理中');
+      ns.forEach(function(n){ var it=$('div','item',list2,'<div class="t">'+esc(n.title)+'</div><div class="m">第 '+n.chapter+' 章</div>'); it.onclick=function(){show({k:'note',id:n.id});}; });
+    } else {
+      var es=CAT.exercises.filter(function(e){return e.subjectKey===subj;});
+      if(!es.length) $('div','empty',m,'习题还在整理中');
+      es.forEach(function(e){ var it=$('div','item',list2,'<div class="t">'+esc(e.title)+'</div><div class="m">'+e.count+' 题</div>'); it.onclick=function(){show({k:'set',id:e.id});}; });
+    }
+  }
+}
+
+function stars(d){ d=+d||0; return d? '难度 '+'★★★★★'.slice(0,d)+'☆☆☆☆☆'.slice(0,5-d) : ''; }
+function problemCard(m, setId, setTitle, p){
+  var c=$('div','card',m);
+  var h=$('div','h',c);
+  $('span','no',h,esc(p.no)+(/^\d+$/.test(p.no)?'.':'、'));
+  if(p.score) $('span','',h,p.score+' 分');
+  (p.subjects||[]).concat(p.topics||[]).slice(0,5).forEach(function(t){ $('span','tag',h,esc(t)); });
+  if(p.difficulty) $('span','',h,stars(p.difficulty));
+  if(setTitle) $('span','',h,esc(setTitle));
+  $('div','st',c,renderWithMath(p.statement||''));
+  var sol=$('div','sol',c);
+  if(p.answer) sol.appendChild($('div','',null,'<div class="lbl">答案</div>'+renderWithMath(String(p.answer))));
+  if(p.solution) sol.appendChild($('div','',null,'<div class="lbl">解答'+(p.solutionSource==='编写'?'（非官方）':'')+'</div>'+renderWithMath(String(p.solution))));
+  var a=$('div','acts',c);
+  if(p.answer||p.solution){ var b1=$('button','sec',a,'看答案'); b1.onclick=function(){ sol.classList.toggle('open'); b1.textContent=sol.classList.contains('open')?'收起答案':'看答案'; }; }
+  var b2=$('button','sec',a,'放到页面'); b2.onclick=function(){ Lib.insert(setId+'#'+p.no); };
+  var b3=$('button','sec',a,'问 Agent'); b3.onclick=function(){ Lib.ask('这是资料库里的题（id '+setId+'#'+p.no+'）：\n'+(p.statement||'')+'\n\n给我一点提示，先别告诉我答案。'); };
+}
+function setView(m,id){
+  var s=getSet(id); document.getElementById('ttl').textContent=s.title||id;
+  var bar=$('div','bar',m);
+  var info=[]; if(s.durationMin) info.push('考试时间 '+s.durationMin+' 分钟'); if(s.totalScore) info.push('满分 '+s.totalScore);
+  if(info.length) $('span','',bar,'<span style="color:var(--mute)">'+info.join(' · ')+'</span>');
+  var b=$('button','pri',bar,'整套放到页面（当试卷写）'); b.onclick=function(){ Lib.insert(id); };
+  (s.problems||[]).forEach(function(p){ problemCard(m,id,null,p); });
+}
+function noteView(m,id){
+  var n=CAT.notes.filter(function(x){return x.id===id;})[0]||{}; document.getElementById('ttl').textContent=n.title||'讲义';
+  var bar=$('div','bar',m);
+  var b=$('button','sec',bar,'问 Agent 这一章'); b.onclick=function(){ Lib.ask('我在看讲义《'+(n.title||'')+'》（'+id+'），'); };
+  var d=$('div','note',m); d.innerHTML=renderWithMath(Lib.note(id));
+}
+var stimer=null; function onSearch(){ clearTimeout(stimer); stimer=setTimeout(render,250); }
+function searchView(m,q){
+  var terms=q.toLowerCase().split(/\s+/).filter(Boolean), n=0;
+  var all=CAT.papers.concat(CAT.exercises);
+  for(var i=0;i<all.length&&n<60;i++){ var s=getSet(all[i].id);
+    (s.problems||[]).forEach(function(p){ if(n>=60) return;
+      var hay=((s.title||'')+' '+(p.subjects||[]).join(' ')+' '+(p.topics||[]).join(' ')+' '+(p.statement||'')).toLowerCase();
+      if(terms.every(function(t){return hay.indexOf(t)>=0;})){ n++; problemCard(m,s.id||all[i].id,s.title,p); } }); }
+  CAT.notes.forEach(function(no){ if(terms.every(function(t){return no.title.toLowerCase().indexOf(t)>=0;})){ var it=$('div','item',m,'<div class="t">讲义：'+esc(no.title)+'</div>'); it.onclick=function(){show({k:'note',id:no.id});}; n++; } });
+  if(!n) $('div','empty',m,'没有找到「'+esc(q)+'」');
+}
+stack=[{k:'home'}]; render();
+</script></body></html>

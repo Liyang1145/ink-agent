@@ -36,6 +36,16 @@ object AgentBridge {
     fun attachPng(bytes: ByteArray) { controller?.addAttachmentPng(bytes) }
 }
 
+/** The built-in library and its canvas actions, reachable from LibraryActivity. */
+object LibraryBridge {
+    @Volatile var library: com.inkagent.library.Library? = null
+    @Volatile var tools: com.inkagent.library.LibraryTools? = null
+    /** Put [text] in the agent composer (not sent). */
+    @Volatile var compose: ((String) -> Unit)? = null
+    /** Lay out a paper / problem on the open note (called after the library screen closes). */
+    @Volatile var insert: ((String) -> Unit)? = null
+}
+
 /**
  * Owns the agent side of InkAgent: settings, global sessions, the agent loop and its tools, the
  * dsh-style panel WebView, the settings screen, and the debug hooks the emulator test drives.
@@ -202,6 +212,7 @@ class AgentController(private val activity: Activity, private val editorRef: () 
         override fun onToggleMode() {
             if (overlayActive) openAppThen(null) else changeMode(if (mode == "split") "window" else "split")
         }
+        override fun onOpenLibrary() { if (overlayActive) openAppThen { openLibrary() } else openLibrary() }
         override fun onPickImage() { activity.startActivity(android.content.Intent(activity, com.inkagent.ui.PickImageActivity::class.java).addFlags(android.content.Intent.FLAG_ACTIVITY_NEW_TASK)) }
         override fun onCapture() {
             if (overlayActive) com.inkagent.overlay.OverlayService.instance?.startCapture() ?: toast("请先在设置里开启「在其他应用上显示悬浮球」")
@@ -685,6 +696,21 @@ class AgentController(private val activity: Activity, private val editorRef: () 
         canvasTools = CanvasTools(editorRef, raster, attachDir, registry).also { it.register(tools) { settings.tavilyKey } }
         ProviderTools(settings, ::confirmBlocking) { ui.post { updateHeader() } }.register(tools)
         DebugTools(activity, editorRef, attachDir, { agent.session }, { debugInfo() }).register(tools)
+        val lib = com.inkagent.library.Library(activity.applicationContext)
+        val libTools = com.inkagent.library.LibraryTools(lib) { canvasTools?.takeIf { editorRef()?.noteOpen == true } }
+        libTools.register(tools)
+        LibraryBridge.library = lib; LibraryBridge.tools = libTools
+        LibraryBridge.compose = { t -> ui.post { if (collapsed) updateCollapsed(false); panel.setComposerForTest(t) } }
+        LibraryBridge.insert = { id ->
+            ui.postDelayed({
+                if (editorRef()?.noteOpen != true) { toast("先打开一个笔记，再从资料库放题"); return@postDelayed }
+                toast("正在排版…")
+                Thread {
+                    val msg = runCatching { libTools.insert(id) }.getOrElse { AppLog.w("Library", "insert failed", it); "排版失败：${it.message}" }
+                    ui.post { toast(msg) }
+                }.start()
+            }, 700)
+        }
         val session = settings.sessionId?.let { store.open(it) } ?: store.create().also { settings.sessionId = it.id }
         agent = Agent(session, tools, { settings.callConfig() }, { systemPrompt() }, listener) { m, u -> settings.cost(m, u) }
         panel.setPolicy(settings.transcriptMode, settings.collapseTiming)
@@ -721,6 +747,18 @@ class AgentController(private val activity: Activity, private val editorRef: () 
         if (i.hasExtra("test_overlay")) setOverlayEnabled(i.getBooleanExtra("test_overlay", false))
         if (i.getBooleanExtra("test_settings", false)) ui.postDelayed({ openSettings() }, 500)
         if (i.getBooleanExtra("test_sessions", false)) ui.postDelayed({ panel.openSessions() }, 500)
+        if (i.getBooleanExtra("test_library", false)) ui.postDelayed({ openLibrary() }, 500)
+        // test_exec: base64 JSON {"tool": name, "args": {...}} — run one tool directly (no model) and log the result
+        i.getStringExtra("test_exec")?.let { b64 ->
+            Thread {
+                val res = runCatching {
+                    val o = JSONObject(String(android.util.Base64.decode(b64, android.util.Base64.DEFAULT)))
+                    val r = tools.execute(o.getString("tool"), o.optJSONObject("args")?.toString() ?: "{}", CancelSignal())
+                    (if (r.isError) "ERROR " else "OK ") + r.content.filterIsInstance<Block.Text>().joinToString(" | ") { it.text }
+                }.getOrElse { "EXC $it" }
+                AppLog.i("InkAgentTest", "exec: " + res.replace('\n', ' '))
+            }.start()
+        }
         updateHeader(); pushStats()
     }
 
@@ -780,6 +818,10 @@ class AgentController(private val activity: Activity, private val editorRef: () 
     }
 
     companion object { val MODES = setOf("ball", "window", "split") }
+
+    private fun openLibrary() {
+        activity.startActivity(android.content.Intent(activity, com.inkagent.library.LibraryActivity::class.java))
+    }
 
     private fun toast(s: String) = Toast.makeText(activity, s, Toast.LENGTH_SHORT).show()
 }

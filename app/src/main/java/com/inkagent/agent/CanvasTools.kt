@@ -242,6 +242,59 @@ class CanvasTools(
         return sb.toString()
     }
 
+    class Block2(val md: String, val spaceAfter: Double)
+
+    /**
+     * Lay out markdown blocks (problems, a title…) top to bottom as an exam sheet: full text width, each block
+     * followed by [Block2.spaceAfter] page units of blank answer space, flowing onto new pages as needed.
+     * Starts on a fresh page at the end of the note when [newPage], else below the content of [startPage].
+     * Must run off the main thread. Returns a short report.
+     */
+    fun layoutBlocks(blocks: List<Block2>, newPage: Boolean, startPage: Int?): String {
+        val e = ed()
+        val cssW = 860
+        var idx = onMain {
+            if (newPage) { e.addPageAtEnd(); e.pageCount - 1 } else (startPage ?: e.agentCurrentPage())
+        }
+        val first = idx
+        var y = onMain {
+            val page = e.pageAt(idx) ?: throw IllegalStateException("页面不存在")
+            val low = page.items.maxOfOrNull { it.bounds().bottom }
+            if (low == null) page.height * TOP_FRAC else low + page.width * GAP_FRAC * 2
+        }
+        var placed = 0
+        for (b in blocks) {
+            if (b.md.isBlank()) continue
+            val r = raster.render("md", b.md, cssW)
+            val bytes = ByteArrayOutputStream().use { r.bitmap.compress(Bitmap.CompressFormat.PNG, 100, it); it.toByteArray() }
+            val aspect = r.bitmap.height.toDouble() / r.bitmap.width.coerceAtLeast(1)
+            val id = "ai" + System.currentTimeMillis().toString(36) + placed
+            onMain {
+                var page = e.pageAt(idx) ?: throw IllegalStateException("页面不存在")
+                val m = page.width * MARGIN_FRAC
+                val maxW = page.width - 2 * m
+                var w = minOf(maxW, r.cssWidth * maxW / cssW)
+                var h = w * aspect
+                val maxH = page.height * (1 - TOP_FRAC) - m
+                if (h > maxH) { w *= maxH / h; h = maxH }
+                if (y + h > page.height - m) {
+                    if (idx >= e.pageCount - 1) e.addPageAtEnd()
+                    idx += 1
+                    page = e.pageAt(idx) ?: throw IllegalStateException("页面不存在")
+                    val low = page.items.maxOfOrNull { it.bounds().bottom }
+                    y = if (low == null) page.height * TOP_FRAC else low + page.width * GAP_FRAC * 2
+                }
+                e.agentInsertImage(idx, bytes, Rect(m, y, w, h))
+                y += h + b.spaceAfter
+            }
+            registry.add(id, bytes, "md", b.md.take(400))
+            placed++
+        }
+        onMain { if (e.agentCurrentPage() != first) e.goToPage(first) }
+        val pages = if (idx == first) "第 ${first + 1} 页" else "第 ${first + 1}–${idx + 1} 页"
+        return "已排版 $placed 块内容到$pages（每题下方留了作答空白）。"
+    }
+
     /** Model-facing tool texts (assets/agent_tools.json), shared with the offline tool-UX harness. */
     private val specs: JSONObject = runCatching {
         JSONObject(raster.view.context.assets.open("agent_tools.json").bufferedReader().use { it.readText() })
