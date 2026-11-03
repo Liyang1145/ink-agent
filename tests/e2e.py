@@ -21,7 +21,7 @@ report = []
 checks = []
 
 def sh(cmd, check=False, timeout=60):
-    r = subprocess.run(cmd, shell=True, capture_output=True, text=True, timeout=timeout)
+    r = subprocess.run(cmd, shell=True, capture_output=True, text=True, errors='replace', timeout=timeout)
     if check and r.returncode != 0: raise RuntimeError(cmd + '\n' + r.stderr)
     return r.stdout
 
