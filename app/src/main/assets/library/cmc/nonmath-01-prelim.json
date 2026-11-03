@@ -1,0 +1,212 @@
+{
+ "id": "cmc-nonmath-01-prelim",
+ "title": "第一届全国大学生数学竞赛初赛（非数学类）",
+ "year": 2009,
+ "track": "非数学类",
+ "round": "初赛",
+ "paper": "",
+ "durationMin": 150,
+ "totalScore": 100,
+ "source": {
+  "question": "2009年第一届全国初赛-非数学类试卷.pdf",
+  "solution": "01-第一届全国初赛-非数学类试题参考解答.pdf"
+ },
+ "problems": [
+  {
+   "no": "一(1)",
+   "score": 5,
+   "type": "填空",
+   "subjects": [
+    "高等数学"
+   ],
+   "topics": [
+    "二重积分",
+    "变量替换",
+    "Beta函数"
+   ],
+   "difficulty": 3,
+   "statement": "计算 $\\displaystyle\\iint_D\\dfrac{(x+y)\\ln\\left(1+\\dfrac{y}{x}\\right)}{\\sqrt{1-x-y}}\\,\\mathrm{d}x\\,\\mathrm{d}y=$______，其中区域 $D$ 由直线 $x+y=1$ 与两坐标轴所围三角形区域。",
+   "answer": "$\\dfrac{16}{15}$",
+   "solution": "令 $u=x+y,\\ y=us$，即 $x=u(1-s),\\ y=us$，则 $D$ 变为 $0<u\\leqslant1,\\ 0\\leqslant s<1$，且 $\\left|\\dfrac{\\partial(x,y)}{\\partial(u,s)}\\right|=u$。又 $1+\\dfrac yx=\\dfrac{1}{1-s}$，于是\n$$I=\\int_0^1\\frac{u^2}{\\sqrt{1-u}}\\,\\mathrm{d}u\\int_0^1\\big(-\\ln(1-s)\\big)\\,\\mathrm{d}s.$$\n其中 $\\displaystyle\\int_0^1-\\ln(1-s)\\,\\mathrm{d}s=1$，而令 $t=\\sqrt{1-u}$ 得 $\\displaystyle\\int_0^1\\frac{u^2}{\\sqrt{1-u}}\\mathrm{d}u=2\\int_0^1(1-t^2)^2\\mathrm{d}t=2\\left(1-\\frac23+\\frac15\\right)=\\frac{16}{15}$。故 $I=\\dfrac{16}{15}$。",
+   "solutionSource": "编写"
+  },
+  {
+   "no": "一(2)",
+   "score": 5,
+   "type": "填空",
+   "subjects": [
+    "高等数学"
+   ],
+   "topics": [
+    "积分方程",
+    "定积分"
+   ],
+   "difficulty": 1,
+   "statement": "设 $f(x)$ 是连续函数，满足 $f(x)=3x^2-\\displaystyle\\int_0^2f(x)\\,\\mathrm{d}x-2$，则 $f(x)=$______。",
+   "answer": "$3x^2-\\dfrac{10}{3}$",
+   "solution": "记 $A=\\displaystyle\\int_0^2f(x)\\,\\mathrm{d}x$，则 $f(x)=3x^2-2-A$。两边在 $[0,2]$ 上积分：$A=8-4-2A$，得 $A=\\dfrac43$，所以 $f(x)=3x^2-\\dfrac{10}{3}$。",
+   "solutionSource": "编写"
+  },
+  {
+   "no": "一(3)",
+   "score": 5,
+   "type": "填空",
+   "subjects": [
+    "高等数学"
+   ],
+   "topics": [
+    "切平面",
+    "法向量"
+   ],
+   "difficulty": 1,
+   "statement": "曲面 $z=\\dfrac{x^2}{2}+y^2-2$ 平行平面 $2x+2y-z=0$ 的切平面方程是______。",
+   "answer": "$2x+2y-z-5=0$",
+   "solution": "曲面在 $(x,y,z)$ 处的法向量为 $(x,2y,-1)$，令其与 $(2,2,-1)$ 平行得 $x=2,\\ y=1$，此时 $z=2+1-2=1$。切平面为 $2(x-2)+2(y-1)-(z-1)=0$，即 $2x+2y-z-5=0$。",
+   "solutionSource": "编写"
+  },
+  {
+   "no": "一(4)",
+   "score": 5,
+   "type": "填空",
+   "subjects": [
+    "高等数学"
+   ],
+   "topics": [
+    "隐函数求导",
+    "二阶导数"
+   ],
+   "difficulty": 2,
+   "statement": "设 $y=y(x)$ 由方程 $xe^{f(y)}=e^y\\ln29$ 确定，其中 $f$ 具有二阶导数，且 $f'\\neq1$，则 $\\dfrac{\\mathrm{d}^2y}{\\mathrm{d}x^2}=$______。",
+   "answer": "$-\\dfrac{\\left[1-f'(y)\\right]^2-f''(y)}{x^2\\left[1-f'(y)\\right]^3}$",
+   "solution": "对方程两边取对数：$\\ln x+f(y)=y+\\ln\\ln29$，对 $x$ 求导得 $\\dfrac1x+f'(y)y'=y'$，故\n$$y'=\\frac{1}{x\\,[1-f'(y)]}.$$\n再求导：\n$$y''=-\\frac{[1-f'(y)]-xf''(y)y'}{x^2[1-f'(y)]^2}=-\\frac{[1-f'(y)]^2-f''(y)}{x^2[1-f'(y)]^3}.$$\n（由 $x=e^{y-f(y)}\\ln29$，也可写成 $\\dfrac{e^{2f(y)}\\left[f''(y)-(1-f'(y))^2\\right]}{e^{2y}[1-f'(y)]^3\\ln^229}$。）",
+   "solutionSource": "编写"
+  },
+  {
+   "no": "二",
+   "score": 5,
+   "type": "计算",
+   "subjects": [
+    "高等数学"
+   ],
+   "topics": [
+    "数列与函数极限",
+    "1^∞型极限",
+    "等价无穷小"
+   ],
+   "difficulty": 2,
+   "statement": "求极限 $\\displaystyle\\lim_{x\\to0}\\left(\\frac{e^x+e^{2x}+\\cdots+e^{nx}}{n}\\right)^{\\frac ex}$，其中 $n$ 是给定的正整数。",
+   "answer": "$e^{\\frac{(n+1)e}{2}}$",
+   "solution": "这是 $1^\\infty$ 型。由 $e^{kx}=1+kx+o(x)$，\n$$\\frac{e^x+\\cdots+e^{nx}}{n}=1+\\frac{1+2+\\cdots+n}{n}x+o(x)=1+\\frac{n+1}{2}x+o(x).$$\n于是 $\\displaystyle\\frac ex\\ln\\frac{e^x+\\cdots+e^{nx}}{n}\\to\\frac{(n+1)e}{2}$，原极限 $=e^{\\frac{(n+1)e}{2}}$。",
+   "solutionSource": "编写"
+  },
+  {
+   "no": "三",
+   "score": 15,
+   "type": "计算",
+   "subjects": [
+    "高等数学"
+   ],
+   "topics": [
+    "变限积分",
+    "导数定义",
+    "导函数连续性"
+   ],
+   "difficulty": 3,
+   "statement": "设函数 $f(x)$ 连续，$g(x)=\\displaystyle\\int_0^1f(xt)\\,\\mathrm{d}t$，且 $\\displaystyle\\lim_{x\\to0}\\frac{f(x)}{x}=A$，$A$ 为常数，求 $g'(x)$ 并讨论 $g'(x)$ 在 $x=0$ 处的连续性。",
+   "answer": "$g'(x)=\\dfrac{xf(x)-\\int_0^xf(u)\\,\\mathrm{d}u}{x^2}\\ (x\\neq0)$，$g'(0)=\\dfrac A2$；$g'(x)$ 在 $x=0$ 处连续。",
+   "solution": "由 $\\lim\\limits_{x\\to0}\\dfrac{f(x)}x=A$ 及 $f$ 连续得 $f(0)=0$，从而 $g(0)=0$。当 $x\\neq0$ 时令 $u=xt$，$g(x)=\\dfrac1x\\displaystyle\\int_0^xf(u)\\,\\mathrm{d}u$，\n$$g'(x)=\\frac{f(x)}{x}-\\frac{1}{x^2}\\int_0^xf(u)\\,\\mathrm{d}u\\quad(x\\neq0).$$\n在 $x=0$ 处，由洛必达法则\n$$g'(0)=\\lim_{x\\to0}\\frac{g(x)}{x}=\\lim_{x\\to0}\\frac{\\int_0^xf(u)\\mathrm{d}u}{x^2}=\\lim_{x\\to0}\\frac{f(x)}{2x}=\\frac A2.$$\n又 $\\displaystyle\\lim_{x\\to0}g'(x)=A-\\lim_{x\\to0}\\frac{\\int_0^xf(u)\\mathrm{d}u}{x^2}=A-\\frac A2=\\frac A2=g'(0)$，故 $g'(x)$ 在 $x=0$ 处连续。",
+   "solutionSource": "编写"
+  },
+  {
+   "no": "四",
+   "score": 15,
+   "type": "证明",
+   "subjects": [
+    "高等数学"
+   ],
+   "topics": [
+    "格林公式",
+    "曲线积分",
+    "对称性",
+    "不等式"
+   ],
+   "difficulty": 3,
+   "statement": "已知平面区域 $D=\\{(x,y)\\mid0\\leqslant x\\leqslant\\pi,\\ 0\\leqslant y\\leqslant\\pi\\}$，$L$ 为 $D$ 的正向边界，试证：\n\n(1) $\\displaystyle\\oint_Lxe^{\\sin y}\\,\\mathrm{d}y-ye^{-\\sin x}\\,\\mathrm{d}x=\\oint_Lxe^{-\\sin y}\\,\\mathrm{d}y-ye^{\\sin x}\\,\\mathrm{d}x$；\n\n(2) $\\displaystyle\\oint_Lxe^{\\sin y}\\,\\mathrm{d}y-ye^{-\\sin x}\\,\\mathrm{d}x\\geqslant\\frac52\\pi^2$。",
+   "answer": "",
+   "solution": "**(1)** 由格林公式，\n$$\\oint_Lxe^{\\sin y}\\mathrm{d}y-ye^{-\\sin x}\\mathrm{d}x=\\iint_D\\left(e^{\\sin y}+e^{-\\sin x}\\right)\\mathrm{d}\\sigma,\\qquad\\oint_Lxe^{-\\sin y}\\mathrm{d}y-ye^{\\sin x}\\mathrm{d}x=\\iint_D\\left(e^{-\\sin y}+e^{\\sin x}\\right)\\mathrm{d}\\sigma.$$\n$D$ 关于直线 $y=x$ 对称，故 $\\displaystyle\\iint_De^{\\sin y}\\mathrm{d}\\sigma=\\iint_De^{\\sin x}\\mathrm{d}\\sigma$，$\\displaystyle\\iint_De^{-\\sin y}\\mathrm{d}\\sigma=\\iint_De^{-\\sin x}\\mathrm{d}\\sigma$，两式右端相等。\n\n**(2)** 由 (1) 的计算及对称性，左端 $=\\displaystyle\\iint_D\\left(e^{\\sin x}+e^{-\\sin x}\\right)\\mathrm{d}\\sigma$。由 $e^t+e^{-t}=2\\sum\\limits_{n=0}^\\infty\\dfrac{t^{2n}}{(2n)!}\\geqslant2+t^2$，\n$$\\iint_D\\left(e^{\\sin x}+e^{-\\sin x}\\right)\\mathrm{d}\\sigma\\geqslant\\pi\\int_0^\\pi(2+\\sin^2x)\\,\\mathrm{d}x=2\\pi^2+\\frac{\\pi^2}{2}=\\frac52\\pi^2.$$\n（也可直接按四条边计算：左端 $=\\pi\\displaystyle\\int_0^\\pi\\left(e^{\\sin x}+e^{-\\sin x}\\right)\\mathrm{d}x$。）",
+   "solutionSource": "编写"
+  },
+  {
+   "no": "五",
+   "score": 10,
+   "type": "计算",
+   "subjects": [
+    "高等数学",
+    "常微分方程"
+   ],
+   "topics": [
+    "二阶线性微分方程",
+    "解的结构"
+   ],
+   "difficulty": 2,
+   "statement": "已知 $y_1=xe^x+e^{2x}$，$y_2=xe^x+e^{-x}$，$y_3=xe^x+e^{2x}-e^{-x}$ 是某二阶常系数线性非齐次微分方程的三个解，试求此微分方程。",
+   "answer": "$y''-y'-2y=e^x-2xe^x$",
+   "solution": "非齐次方程两解之差是对应齐次方程的解：$y_1-y_3=e^{-x}$，$y_1-y_2=e^{2x}-e^{-x}$，从而 $e^{2x},\\,e^{-x}$ 是齐次方程两个线性无关的解，特征根为 $2,-1$，齐次方程为 $y''-y'-2y=0$。又 $y_1-e^{2x}=xe^x$ 是非齐次方程的特解，代入\n$$(xe^x)''-(xe^x)'-2xe^x=(x+2)e^x-(x+1)e^x-2xe^x=e^x-2xe^x,$$\n所求方程为 $y''-y'-2y=e^x-2xe^x$。",
+   "solutionSource": "编写"
+  },
+  {
+   "no": "六",
+   "score": 10,
+   "type": "计算",
+   "subjects": [
+    "高等数学"
+   ],
+   "topics": [
+    "定积分应用",
+    "旋转体体积",
+    "条件极值"
+   ],
+   "difficulty": 2,
+   "statement": "设抛物线 $y=ax^2+bx+2\\ln c$ 过原点，当 $0\\leqslant x\\leqslant1$ 时，$y\\geqslant0$，又已知该抛物线与 $x$ 轴及直线 $x=1$ 所围图形的面积为 $\\dfrac13$。试确定 $a,b,c$ 使此图形绕 $x$ 轴旋转一周而成的旋转体的体积 $V$ 最小。",
+   "answer": "$a=-\\dfrac54,\\ b=\\dfrac32,\\ c=1$（此时 $V=\\dfrac{\\pi}{8}$）",
+   "solution": "过原点得 $2\\ln c=0$，$c=1$。面积条件 $\\displaystyle\\int_0^1(ax^2+bx)\\mathrm{d}x=\\frac a3+\\frac b2=\\frac13$，即 $b=\\dfrac{2(1-a)}{3}$。体积\n$$V=\\pi\\int_0^1(ax^2+bx)^2\\mathrm{d}x=\\pi\\left(\\frac{a^2}{5}+\\frac{ab}{2}+\\frac{b^2}{3}\\right).$$\n代入 $b$，对 $a$ 求导（$b'(a)=-\\frac23$）：\n$$\\frac{V'(a)}{\\pi}=\\frac{2a}5+\\frac b2-\\frac23\\left(\\frac a2+\\frac{2b}3\\right)=\\frac{a}{15}+\\frac{b}{18}=0\\Rightarrow b=-\\frac65a.$$\n与 $b=\\frac{2(1-a)}3$ 联立得 $a=-\\dfrac54,\\ b=\\dfrac32$。$V$ 是 $a$ 的开口向上的二次函数，故此为最小值点，且 $y=x\\left(\\frac32-\\frac54x\\right)\\geqslant0$ 在 $[0,1]$ 上成立。此时 $V=\\pi\\left(\\frac5{16}-\\frac{15}{16}+\\frac34\\right)=\\dfrac\\pi8$。",
+   "solutionSource": "编写"
+  },
+  {
+   "no": "七",
+   "score": 15,
+   "type": "计算",
+   "subjects": [
+    "高等数学"
+   ],
+   "topics": [
+    "函数项级数求和",
+    "一阶线性微分方程",
+    "幂级数"
+   ],
+   "difficulty": 3,
+   "statement": "已知 $u_n(x)$ 满足 $u_n'(x)=u_n(x)+x^{n-1}e^x$（$n$ 为正整数），且 $u_n(1)=\\dfrac en$，求函数项级数 $\\displaystyle\\sum_{n=1}^\\infty u_n(x)$ 之和。",
+   "answer": "$\\displaystyle\\sum_{n=1}^\\infty u_n(x)=-e^x\\ln(1-x),\\ -1\\leqslant x<1$",
+   "solution": "方程可写成 $\\left(e^{-x}u_n(x)\\right)'=x^{n-1}$，故 $u_n(x)=e^x\\left(\\dfrac{x^n}{n}+C\\right)$；由 $u_n(1)=\\dfrac en$ 得 $C=0$，即 $u_n(x)=\\dfrac{x^ne^x}{n}$。\n$\\displaystyle\\sum_{n=1}^\\infty\\frac{x^n}{n}$ 的收敛域为 $[-1,1)$，和为 $-\\ln(1-x)$（逐项求导得 $\\dfrac1{1-x}$ 再积分）。所以\n$$\\sum_{n=1}^\\infty u_n(x)=-e^x\\ln(1-x),\\quad-1\\leqslant x<1.$$",
+   "solutionSource": "编写"
+  },
+  {
+   "no": "八",
+   "score": 10,
+   "type": "计算",
+   "subjects": [
+    "高等数学"
+   ],
+   "topics": [
+    "等价无穷大",
+    "级数与积分比较",
+    "Gauss积分"
+   ],
+   "difficulty": 4,
+   "statement": "求 $x\\to1^-$ 时，与 $\\displaystyle\\sum_{n=0}^\\infty x^{n^2}$ 等价的无穷大量。",
+   "answer": "$\\dfrac12\\sqrt{\\dfrac{\\pi}{1-x}}$",
+   "solution": "固定 $0<x<1$，$t\\mapsto x^{t^2}$ 在 $[0,+\\infty)$ 上单调减少，所以\n$$\\int_0^{+\\infty}x^{t^2}\\mathrm{d}t\\leqslant\\sum_{n=0}^\\infty x^{n^2}\\leqslant1+\\int_0^{+\\infty}x^{t^2}\\mathrm{d}t.$$\n而 $x^{t^2}=e^{-t^2\\ln\\frac1x}$，令 $s=t\\sqrt{\\ln\\frac1x}$ 得\n$$\\int_0^{+\\infty}x^{t^2}\\mathrm{d}t=\\frac{1}{\\sqrt{\\ln\\frac1x}}\\int_0^{+\\infty}e^{-s^2}\\mathrm{d}s=\\frac12\\sqrt{\\frac{\\pi}{\\ln\\frac1x}}\\to+\\infty.$$\n又 $x\\to1^-$ 时 $\\ln\\dfrac1x\\sim1-x$，故 $\\displaystyle\\sum_{n=0}^\\infty x^{n^2}\\sim\\frac12\\sqrt{\\frac{\\pi}{1-x}}$。",
+   "solutionSource": "编写"
+  }
+ ]
+}

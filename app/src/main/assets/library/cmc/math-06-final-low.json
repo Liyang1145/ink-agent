@@ -1,0 +1,181 @@
+{
+ "id": "cmc-math-06-final-low",
+ "title": "第六届全国大学生数学竞赛决赛（数学类低年级组（一、二年级））",
+ "year": 2015,
+ "track": "数学类",
+ "round": "决赛",
+ "paper": "low",
+ "durationMin": 180,
+ "totalScore": 100,
+ "source": {
+  "question": "2015年03月-数学类一、二年级-第六届全国决赛试卷.pdf",
+  "solution": "2015年03月-数学类一、二年级参考解答-第六届全国决赛试卷.pdf"
+ },
+ "problems": [
+  {
+   "no": "一(1)",
+   "score": 5,
+   "type": "填空",
+   "subjects": [
+    "高等代数"
+   ],
+   "topics": [
+    "二次型",
+    "规范形",
+    "惯性指数"
+   ],
+   "difficulty": 2,
+   "statement": "实二次型 $2x_1x_2-x_1x_3+5x_2x_3$ 的规范型为\\_\\_\\_\\_\\_\\_\\_\\_。",
+   "answer": "$z_1^2+z_2^2-z_3^2$",
+   "solution": "二次型矩阵 $A=\\begin{pmatrix}0&1&-\\frac12\\\\1&0&\\frac52\\\\-\\frac12&\\frac52&0\\end{pmatrix}$，$\\operatorname{tr}A=0$，$\\det A=-\\dfrac52<0$。特征值之积为负、之和为零，故两正一负，正惯性指数 2、负惯性指数 1，规范形为 $z_1^2+z_2^2-z_3^2$。",
+   "solutionSource": "编写"
+  },
+  {
+   "no": "一(2)",
+   "score": 5,
+   "type": "填空",
+   "subjects": [
+    "数学分析"
+   ],
+   "topics": [
+    "级数求和",
+    "幂级数"
+   ],
+   "difficulty": 1,
+   "statement": "级数 $\\displaystyle\\sum_{n=1}^\\infty\\frac{n}{3^n}$ 的和为\\_\\_\\_\\_\\_\\_\\_\\_。",
+   "answer": "$\\dfrac34$",
+   "solution": "由 $\\displaystyle\\sum_{n=1}^\\infty nx^n=\\frac{x}{(1-x)^2}\\ (|x|<1)$，取 $x=\\dfrac13$ 得 $\\dfrac{1/3}{4/9}=\\dfrac34$。",
+   "solutionSource": "编写"
+  },
+  {
+   "no": "一(3)",
+   "score": 5,
+   "type": "填空",
+   "subjects": [
+    "数学分析"
+   ],
+   "topics": [
+    "第一型曲面积分",
+    "轮换对称性"
+   ],
+   "difficulty": 1,
+   "statement": "计算 $I=\\displaystyle\\iint_{x^2+y^2+z^2=1}(x^2+2y^2+3z^2)\\,\\mathrm{d}S=$\\_\\_\\_\\_\\_\\_\\_\\_。",
+   "answer": "$8\\pi$",
+   "solution": "由对称性 $\\displaystyle\\iint x^2\\,\\mathrm{d}S=\\iint y^2\\,\\mathrm{d}S=\\iint z^2\\,\\mathrm{d}S=\\frac13\\iint1\\,\\mathrm{d}S=\\frac{4\\pi}{3}$，故 $I=6\\cdot\\dfrac{4\\pi}3=8\\pi$。",
+   "solutionSource": "编写"
+  },
+  {
+   "no": "一(4)",
+   "score": 5,
+   "type": "填空",
+   "subjects": [
+    "高等代数"
+   ],
+   "topics": [
+    "伴随矩阵",
+    "代数余子式",
+    "特征多项式",
+    "实对称矩阵"
+   ],
+   "difficulty": 3,
+   "statement": "$A=(a_{ij})$ 为 $n$ 阶实对称矩阵 $(n>1)$，$\\operatorname{rank}(A)=n-1$，$A$ 的每行元素之和均为 0。设 $2,3,\\cdots,n$ 为 $A$ 的全部非零特征值。用 $A_{11}$ 表示 $A$ 的元素 $a_{11}$ 所对应的代数余子式，则有 $A_{11}=$\\_\\_\\_\\_\\_\\_\\_\\_。",
+   "answer": "$(n-1)!$",
+   "solution": "$\\operatorname{rank}A=n-1$，故 $\\operatorname{rank}A^*=1$，$Ax=0$ 的解空间是一维的。行和为 0 说明 $(1,\\cdots,1)^T$ 是其基础解系。由 $AA^*=0$，$A^*$ 的每一列都是 $(1,\\cdots,1)^T$ 的倍数；又 $A^*$ 实对称，故 $A^*$ 的所有元素都等于同一个数 $a$。\n\n另一方面 $f(\\lambda)=|\\lambda I-A|=\\lambda(\\lambda-2)\\cdots(\\lambda-n)$，其一次项系数为 $(-1)^{n-1}n!$；而一般地该系数为 $(-1)^{n-1}(A_{11}+\\cdots+A_{nn})=(-1)^{n-1}na$。所以 $a=(n-1)!$，即 $A_{11}=(n-1)!$。",
+   "solutionSource": "官方"
+  },
+  {
+   "no": "二",
+   "score": 15,
+   "type": "解答",
+   "subjects": [
+    "解析几何"
+   ],
+   "topics": [
+    "球面",
+    "轨迹",
+    "弦长",
+    "抛物柱面"
+   ],
+   "difficulty": 2,
+   "statement": "设空间中定点 $P$ 到一定直线 $l$ 的距离为 $p$。一族球面中的每个球面都过点 $P$，且截直线 $l$ 得到的弦长都是定值 $a$。求该球面族的球心的轨迹。",
+   "answer": "取 $l$ 为 $z$ 轴、$P=(p,0,0)$ 时，轨迹为抛物柱面 $z^2-2px+p^2-\\dfrac{a^2}{4}=0$。",
+   "solution": "以 $l$ 为 $z$ 轴、过 $P$ 垂直于 $z$ 轴的直线为 $x$ 轴建立直角坐标系，$P=(p,0,0)$，$l:x=0,y=0,z=t$。\n\n设球面 $C$ 的球心为 $(x_0,y_0,z_0)$，因过 $P$，\n$$C:(x-x_0)^2+(y-y_0)^2+(z-z_0)^2=(p-x_0)^2+y_0^2+z_0^2.$$\n把 $l$ 的参数方程代入得\n$$t^2-2z_0t+(2px_0-p^2)=0.\\qquad(1)$$\n两根 $t_{1,2}=z_0\\pm\\sqrt{z_0^2-(2px_0-p^2)}$，弦长 $a=|t_1-t_2|=2\\sqrt{z_0^2-(2px_0-p^2)}$，从而\n$$z_0^2-2px_0+p^2-\\frac{a^2}{4}=0.\\qquad(2)$$\n反之，若过 $P$ 的球面球心满足 (2)，则 (1) 的判别式 $\\Delta=4z_0^2-4(2px_0-p^2)=a^2\\geqslant0$，两根 $t_{1,2}=z_0\\pm\\dfrac a2$，即 $C$ 与 $l$ 相交且截得弦长为 $a$。所以所求轨迹为\n$$z^2-2px+p^2-\\frac{a^2}{4}=0.$$",
+   "solutionSource": "官方"
+  },
+  {
+   "no": "三",
+   "score": 15,
+   "type": "证明",
+   "subjects": [
+    "高等代数"
+   ],
+   "topics": [
+    "Jordan标准形",
+    "特征值",
+    "特征向量",
+    "复矩阵"
+   ],
+   "difficulty": 3,
+   "statement": "设 $\\Gamma=\\left\\{\\begin{pmatrix}z_1&z_2\\\\-\\overline{z_2}&\\overline{z_1}\\end{pmatrix}\\,\\middle|\\,z_1,z_2\\in\\mathbb{C}\\right\\}$，其中 $\\mathbb{C}$ 表示复数域。试证明：$\\forall A\\in\\Gamma$，$A$ 的 Jordan 标准型 $J_A$ 仍属于 $\\Gamma$；进一步还存在可逆的矩阵 $P\\in\\Gamma$ 使得 $P^{-1}AP=J_A$。",
+   "answer": "",
+   "solution": "对 $A=\\begin{pmatrix}z_1&z_2\\\\-\\overline{z_2}&\\overline{z_1}\\end{pmatrix}$，特征方程为\n$$0=|\\lambda I-A|=\\lambda^2-2\\operatorname{Re}z_1\\,\\lambda+|z_1|^2+|z_2|^2,$$\n判别式 $\\Delta=4(\\operatorname{Re}z_1)^2-4(|z_1|^2+|z_2|^2)\\leqslant0$。\n\n**情形 1：$\\Delta=0$。** 此时 $z_2=0$，$z_1=\\operatorname{Re}z_1$，$A=\\begin{pmatrix}\\operatorname{Re}z_1&0\\\\0&\\operatorname{Re}z_1\\end{pmatrix}=J_A\\in\\Gamma$，取 $P=I$ 即可。\n\n**情形 2：$\\Delta<0$。** 特征值\n$$\\lambda_{1,2}=\\operatorname{Re}z_1\\pm i\\sqrt{|z_1|^2+|z_2|^2-(\\operatorname{Re}z_1)^2},$$\n$\\lambda_2=\\overline{\\lambda_1}\\neq\\lambda_1$，故 $A$ 可对角化，$J_A=\\begin{pmatrix}\\lambda_1&0\\\\0&\\overline{\\lambda_1}\\end{pmatrix}\\in\\Gamma$。\n\n取 $A$ 关于 $\\lambda_1$ 的非零特征向量 $(x,y)^T$，即 $z_1x+z_2y=\\lambda_1x$，$-\\overline{z_2}x+\\overline{z_1}y=\\lambda_1y$。取共轭可直接验证\n$$A\\begin{pmatrix}-\\overline y\\\\ \\overline x\\end{pmatrix}=\\overline{\\lambda_1}\\begin{pmatrix}-\\overline y\\\\ \\overline x\\end{pmatrix},$$\n故 $(-\\overline y,\\overline x)^T$ 是属于 $\\overline{\\lambda_1}$ 的特征向量。令 $P=\\begin{pmatrix}x&-\\overline y\\\\y&\\overline x\\end{pmatrix}$，则 $P\\in\\Gamma$，$\\det P=|x|^2+|y|^2\\neq0$，且 $P^{-1}AP=J_A$。",
+   "solutionSource": "官方"
+  },
+  {
+   "no": "四",
+   "score": 20,
+   "type": "解答",
+   "subjects": [
+    "数学分析"
+   ],
+   "topics": [
+    "Hölder连续",
+    "柯西-施瓦茨不等式",
+    "变量代换"
+   ],
+   "difficulty": 4,
+   "statement": "设 $f(x)=\\begin{cases}x\\sin\\dfrac1x,&x\\neq0,\\\\0,&x=0.\\end{cases}$ 求最大常数 $\\alpha$ 满足\n$$\\sup_{x\\neq y}\\frac{|f(x)-f(y)|}{|x-y|^\\alpha}<+\\infty.$$",
+   "answer": "$\\alpha=\\dfrac12$",
+   "solution": "**$\\alpha>\\frac12$ 不成立。** 取 $x_n=\\dfrac{1}{n\\pi}$，$y_n=\\dfrac{1}{(n+\\frac12)\\pi}$，则 $f(x_n)=0$，$|f(y_n)|=y_n$，计算得\n$$\\frac{|f(x_n)-f(y_n)|}{|x_n-y_n|^\\alpha}=2^\\alpha\\pi^{\\alpha-1}n^{2\\alpha-1}\\left(1+\\frac1{2n}\\right)^{\\alpha-1}\\to\\infty.$$\n\n**$\\alpha=\\frac12$ 成立。** $f$ 为偶函数，不妨设 $0\\leqslant x<y$。令 $z=\\sup\\{u\\leqslant y\\mid f(u)=f(x)\\}$，则 $x\\leqslant z\\leqslant y$，$f(z)=f(x)$，且由 $\\sin\\frac1t$ 的周期性有 $z^{-1}\\leqslant y^{-1}+2\\pi$。由柯西-施瓦茨不等式\n$$|f(x)-f(y)|=|f(z)-f(y)|\\leqslant\\int_z^y|f'(t)|\\,\\mathrm{d}t\\leqslant|y-z|^{\\frac12}\\left(\\int_z^yf'(t)^2\\,\\mathrm{d}t\\right)^{\\frac12}\\leqslant|x-y|^{\\frac12}\\left(\\int_z^y\\left(\\sin\\frac1t-\\frac1t\\cos\\frac1t\\right)^2\\mathrm{d}t\\right)^{\\frac12}.$$\n令 $s=\\dfrac1t$，\n$$\\int_z^y\\left(\\sin\\frac1t-\\frac1t\\cos\\frac1t\\right)^2\\mathrm{d}t=\\int_{y^{-1}}^{z^{-1}}\\left(\\frac{\\sin s}{s}-\\cos s\\right)^2\\mathrm{d}s\\leqslant\\int_{y^{-1}}^{y^{-1}+2\\pi}4\\,\\mathrm{d}s=8\\pi,$$\n所以 $|f(x)-f(y)|\\leqslant\\sqrt{8\\pi}\\,|x-y|^{\\frac12}$。故最大的 $\\alpha=\\dfrac12$。",
+   "solutionSource": "官方"
+  },
+  {
+   "no": "五",
+   "score": 15,
+   "type": "证明",
+   "subjects": [
+    "数学分析"
+   ],
+   "topics": [
+    "凸函数",
+    "微分不等式",
+    "反常积分",
+    "有界性"
+   ],
+   "difficulty": 4,
+   "statement": "$a(t),f(t)$ 为实连续函数，$\\forall t\\in\\mathbb{R}$，有\n$$f(t)>0,\\quad a(t)\\geqslant1,\\quad\\int_0^\\infty f(t)\\,\\mathrm{d}t=+\\infty.$$\n已知 $x(t)$ 满足 $x''(t)+a(t)f(x(t))\\leqslant0,\\ \\forall t\\in\\mathbb{R}$。求证：$x(t)$ 在 $[0,+\\infty)$ 有上界。",
+   "answer": "",
+   "solution": "由 $x''(t)\\leqslant-a(t)f(x(t))<0$，$x$ 是上凸（凹）函数，$x'$ 单调递减，故 $\\displaystyle\\lim_{t\\to\\infty}x'(t)$ 存在或为 $-\\infty$。若某时刻 $x'(t_0)\\leqslant0$，则此后 $x$ 不增，有上界。\n\n反证：若 $\\displaystyle\\varlimsup_{t\\to\\infty}x(t)=+\\infty$，则必有 $x'(t)>0$ 对一切 $t\\geqslant0$，从而 $x$ 递增且 $\\displaystyle\\lim_{t\\to\\infty}x(t)=+\\infty$。由 $a\\geqslant1$，$x'>0$，\n$$x'(t)f(x(t))\\leqslant a(t)x'(t)f(x(t))\\leqslant-x'(t)x''(t),$$\n在 $[0,t]$ 上积分：\n$$\\int_{x(0)}^{x(t)}f(u)\\,\\mathrm{d}u=\\int_0^tf(x(s))x'(s)\\,\\mathrm{d}s\\leqslant\\frac{x'(0)^2-x'(t)^2}{2}\\leqslant\\frac{x'(0)^2}{2}.$$\n令 $t\\to\\infty$ 得 $\\displaystyle\\int_{x(0)}^{+\\infty}f(u)\\,\\mathrm{d}u\\leqslant\\frac{x'(0)^2}{2}$，与 $\\displaystyle\\int_0^\\infty f=+\\infty$（$f$ 连续，有限区间上积分有限）矛盾。故 $x(t)$ 在 $[0,+\\infty)$ 上有上界。",
+   "solutionSource": "官方"
+  },
+  {
+   "no": "六",
+   "score": 15,
+   "type": "证明",
+   "subjects": [
+    "数学分析"
+   ],
+   "topics": [
+    "积分不等式",
+    "分部积分",
+    "柯西-施瓦茨不等式",
+    "等号成立条件"
+   ],
+   "difficulty": 3,
+   "statement": "设 $f(x)$ 在区间 $[0,1]$ 上连续可导，且 $f(0)=f(1)=0$。求证：\n$$\\left[\\int_0^1xf(x)\\,\\mathrm{d}x\\right]^2\\leqslant\\frac{1}{45}\\int_0^1\\left(f'(x)\\right)^2\\mathrm{d}x,$$\n等号当且仅当 $f(x)=A(x-x^3)$ 时成立，其中 $A$ 是常数。",
+   "answer": "",
+   "solution": "分部积分，由 $f(1)=0$：\n$$\\int_0^1xf(x)\\,\\mathrm{d}x=\\frac12x^2f(x)\\Big|_0^1-\\int_0^1\\frac{x^2}{2}f'(x)\\,\\mathrm{d}x=-\\frac12\\int_0^1x^2f'(x)\\,\\mathrm{d}x.$$\n又由 $f(0)=f(1)=0$，$\\displaystyle\\int_0^1f'(x)\\,\\mathrm{d}x=0$，于是\n$$6\\int_0^1xf(x)\\,\\mathrm{d}x=\\int_0^1(1-3x^2)f'(x)\\,\\mathrm{d}x.$$\n由 Cauchy 积分不等式\n$$36\\left(\\int_0^1xf(x)\\,\\mathrm{d}x\\right)^2\\leqslant\\int_0^1(1-3x^2)^2\\,\\mathrm{d}x\\int_0^1(f'(x))^2\\,\\mathrm{d}x=\\frac45\\int_0^1(f'(x))^2\\,\\mathrm{d}x,$$\n即得所证不等式。等号成立当且仅当 $f'(x)=A(1-3x^2)$，积分并由 $f(0)=f(1)=0$ 得 $f(x)=A(x-x^3)$。",
+   "solutionSource": "官方"
+  }
+ ]
+}

@@ -1,0 +1,130 @@
+{
+ "id": "cmc-math-13-prelim-bu-A",
+ "title": "第十三届全国大学生数学竞赛初赛补赛（数学A类）",
+ "year": 2021,
+ "track": "数学类",
+ "round": "初赛补赛",
+ "paper": "A",
+ "durationMin": 150,
+ "totalScore": 100,
+ "source": {
+  "question": "13-bu-math-A.pdf",
+  "solution": "13-bu-math-A.pdf"
+ },
+ "problems": [
+  {
+   "no": "一",
+   "score": 15,
+   "type": "计算",
+   "subjects": [
+    "解析几何"
+   ],
+   "topics": [
+    "椭球面",
+    "轨迹",
+    "位似变换"
+   ],
+   "difficulty": 1,
+   "statement": "设 $S$ 为三维欧氏空间中的一个椭球面，$P$ 为空间中的一个固定点，$P$ 不在 $S$ 上。对任意的 $X\\in S$，记 $X^*$ 是线段 $\\overline{PX}$ 的中点。问：所有这样的点 $X^*$ 构成的轨迹是什么？证明你的结论。",
+   "answer": "一个椭球面：若 $S:\\dfrac{x^2}{a^2}+\\dfrac{y^2}{b^2}+\\dfrac{z^2}{c^2}=1$，$P=(\\alpha,\\beta,\\gamma)$，则轨迹为以 $\\left(\\dfrac\\alpha2,\\dfrac\\beta2,\\dfrac\\gamma2\\right)$ 为中心的椭球面 $\\dfrac{4(x-\\frac\\alpha2)^2}{a^2}+\\dfrac{4(y-\\frac\\beta2)^2}{b^2}+\\dfrac{4(z-\\frac\\gamma2)^2}{c^2}=1$。",
+   "solution": "设椭球面在 $O\\text{-}xyz$ 直角坐标系的方程为\n$$\\frac{x^2}{a^2}+\\frac{y^2}{b^2}+\\frac{z^2}{c^2}=1.$$\n设定点 $P=(\\alpha,\\beta,\\gamma)$，则对任意 $X=(x,y,z)\\in S$，由题意有 $X^*=\\dfrac12(X+P)$。记 $X^*=(x^*,y^*,z^*)$，则\n$$x^*=\\frac{x+\\alpha}2,\\ y^*=\\frac{y+\\beta}2,\\ z^*=\\frac{z+\\gamma}2\\ \\Rightarrow\\ x=2x^*-\\alpha,\\ y=2y^*-\\beta,\\ z=2z^*-\\gamma.$$\n由于 $(x,y,z)$ 在椭球面上，故满足椭球面方程，即\n$$\\frac{(2x^*-\\alpha)^2}{a^2}+\\frac{(2y^*-\\beta)^2}{b^2}+\\frac{(2z^*-\\gamma)^2}{c^2}=1\\ \\Rightarrow\\ \\frac{4\\left(x^*-\\frac\\alpha2\\right)^2}{a^2}+\\frac{4\\left(y^*-\\frac\\beta2\\right)^2}{b^2}+\\frac{4\\left(z^*-\\frac\\gamma2\\right)^2}{c^2}=1.$$\n由此可知 $X^*$ 构成的曲面图形是一个中心点为 $\\left(\\dfrac\\alpha2,\\dfrac\\beta2,\\dfrac\\gamma2\\right)$ 的椭球面。",
+   "solutionSource": "官方"
+  },
+  {
+   "no": "二",
+   "score": 15,
+   "type": "计算",
+   "subjects": [
+    "数学分析"
+   ],
+   "topics": [
+    "反常积分",
+    "倒代换",
+    "对称性"
+   ],
+   "difficulty": 2,
+   "statement": "计算积分 $\\displaystyle\\int_0^{+\\infty}\\frac{x-x^2+x^3-x^4+\\cdots-x^{2018}}{(1+x)^{2021}}\\,\\mathrm dx$。",
+   "answer": "$0$",
+   "solution": "容易知道，当 $1\\leqslant k\\leqslant2018$ 时，$I_k=\\displaystyle\\int_0^{+\\infty}\\frac{x^k}{(1+x)^{2021}}\\,\\mathrm dx$ 收敛。令 $x=\\dfrac1t$，则\n$$I_k=\\int_0^{+\\infty}\\frac{t^{-k}}{\\left(1+t^{-1}\\right)^{2021}}\\cdot\\frac1{t^2}\\,\\mathrm dt=\\int_0^{+\\infty}\\frac{t^{2019-k}}{(1+t)^{2021}}\\,\\mathrm dt,$$\n即 $\\displaystyle\\int_0^{+\\infty}\\frac{x^k}{(1+x)^{2021}}\\,\\mathrm dx=\\int_0^{+\\infty}\\frac{x^{2019-k}}{(1+x)^{2021}}\\,\\mathrm dx$，从而有\n$$\\int_0^{+\\infty}\\frac{x^{2k+1}}{(1+x)^{2021}}\\,\\mathrm dx=\\int_0^{+\\infty}\\frac{x^{2018-2k}}{(1+x)^{2021}}\\,\\mathrm dx.$$\n故由积分的线性运算性质，得\n$$\\text{原积分}=\\sum_{k=0}^{1008}\\int_0^{+\\infty}\\frac{x^{2k+1}-x^{2018-2k}}{(1+x)^{2021}}\\,\\mathrm dx=0.$$",
+   "solutionSource": "官方"
+  },
+  {
+   "no": "三",
+   "score": 15,
+   "type": "证明",
+   "subjects": [
+    "高等代数"
+   ],
+   "topics": [
+    "矩阵可交换",
+    "抽屉原理",
+    "计数"
+   ],
+   "difficulty": 4,
+   "statement": "设 $R=\\{0,1,4,9,16\\}$，$U$ 为 $R$ 上的 $3$ 阶方阵全体：$U=\\left\\{(a_{ij})_{3\\times3}\\mid a_{ij}\\in R\\right\\}$。例如，$\\begin{pmatrix}1&1&0\\\\0&1&0\\\\0&0&0\\end{pmatrix}$，$\\begin{pmatrix}1&4&0\\\\0&1&0\\\\0&0&0\\end{pmatrix}$ 便为 $U$ 中的两元。现设 $S$ 为 $U$ 的一个子集。证明：若 $S$ 的元素个数多于 $5^9-5^3-18$，则必存在不同的 $A,B\\in S$ 使得 $AB=BA$。",
+   "answer": "",
+   "solution": "设 $|E|$ 表示集合 $E\\subseteq\\mathbb R^{n\\times n}$ 的元素个数。显然有 $|U|=5^9$。又记 $D=\\{M\\mid M\\in U,\\ M\\text{ 为对角阵}\\}$，则 $|D|=5^3$。再记\n$$J=\\left\\{\\begin{pmatrix}1&1&1\\\\1&1&1\\\\1&1&1\\end{pmatrix},\\begin{pmatrix}1&1&1\\\\1&1&1\\\\1&1&1\\end{pmatrix}^3\\right\\}=\\left\\{\\begin{pmatrix}1&1&1\\\\1&1&1\\\\1&1&1\\end{pmatrix},\\begin{pmatrix}9&9&9\\\\9&9&9\\\\9&9&9\\end{pmatrix}\\right\\},$$\n则 $|J|=2$。对 $d\\in\\{0,1,4,9,16\\}$，记\n$$L_d=\\left\\{\\begin{pmatrix}1&1&0\\\\0&1&0\\\\0&0&d\\end{pmatrix},\\begin{pmatrix}1&4&0\\\\0&1&0\\\\0&0&d\\end{pmatrix}\\right\\},\\qquad S_d=\\left\\{\\begin{pmatrix}d&0&0\\\\0&1&0\\\\0&1&1\\end{pmatrix},\\begin{pmatrix}d&0&0\\\\0&1&0\\\\0&4&1\\end{pmatrix}\\right\\}$$\n（原解答记为 $L_0,\\dots,L_4$ 与 $S_0,\\dots,S_4$，分别对应 $d=0,1,4,9,16$）。令 $L=\\bigcup_dL_d$，$H=\\bigcup_dS_d$，则 $L$ 中的元素乘法可换，$H$ 中的元素乘法也可换。注意到 $D,J,L,H$ 两两互不相交。\n\n令 $T=D\\cup J\\cup L\\cup H$，则 $|T|=5^3+2+10+10$，\n$$|U\\setminus T|=5^9-5^3-22.$$\n现倘若 $S$ 中任意两不同元素皆不可换。考察 $S=(S\\cap T)\\cup\\left(S\\cap(U\\setminus T)\\right)$。结果\n$$|S|=|S\\cap T|+|S\\cap(U\\setminus T)|\\leqslant|S\\cap T|+|U\\setminus T|.$$\n由于 $D,J,L,H$ 这 $4$ 个集合中每个集合都是乘法可换集，故有 $|S\\cap T|\\leqslant4$。因为，否则的话导致 $|S\\cap T|\\geqslant5$，从而 $D,J,L,H$ 这 $4$ 个集合中必有一个集合包含 $S$ 中的两个不同元素，从而该两元素可换，不可能。故\n$$|S|\\leqslant4+5^9-5^3-22=5^9-5^3-18,$$\n矛盾。证毕。",
+   "solutionSource": "官方"
+  },
+  {
+   "no": "四",
+   "score": 20,
+   "type": "证明",
+   "subjects": [
+    "高等代数"
+   ],
+   "topics": [
+    "迹",
+    "秩",
+    "Jordan标准形",
+    "Schur不等式",
+    "特征值",
+    "柯西不等式"
+   ],
+   "difficulty": 4,
+   "statement": "设 $a_1,a_2,a_3$ 为满足 $a_1^2+a_2^2+a_3^2=1$ 的一组实数，$b_1,b_2$ 为满足 $b_1^2+b_2^2=1$ 的一组实数。又设 $M_1$ 为 $5\\times3$ 矩阵，其每一行都为 $a_1,a_2,a_3$ 的一个排列；$M_2$ 是 $5\\times2$ 矩阵，其每一行都为 $b_1,b_2$ 的一个排列。令 $M=(M_1,M_2)$，它为 $5\\times5$ 矩阵。证明：\n\n(1) $(\\operatorname{tr}M)^2\\leqslant\\left(5+2\\sqrt6\\right)\\operatorname{rank}M$；\n\n(2) $M$ 必有绝对值小于或等于 $\\sqrt2+\\sqrt3$ 的实特征值 $\\lambda$。",
+   "answer": "",
+   "solution": "(1) 将 $M$ 分块为 $\\begin{pmatrix}A_{3\\times3}&B\\\\C&D_{2\\times2}\\end{pmatrix}$。显然 $M\\neq0$。取 $M$ 的 Jordan 分解 $PMP^{-1}=\\operatorname{diag}(J_1,\\cdots,J_t)$。不失一般性，令 $\\lambda_1,\\cdots,\\lambda_s$ 为 $M$ 的非零特征值，$\\lambda_{s+1}=\\cdots=\\lambda_5=0$。于是由 $M$ 的 Jordan 分解可看出 $s\\leqslant\\operatorname{rank}M$，且\n$$(\\operatorname{tr}M)^2=\\left|\\sum_{i=1}^s\\lambda_i\\right|^2\\leqslant s\\sum_{i=1}^s|\\lambda_i|^2\\leqslant\\operatorname{rank}M\\sum_{i=1}^s|\\lambda_i|^2.$$\n上式中第一个不等式来自施瓦茨不等式。注意到\n$$\\operatorname{tr}(BB')=3,\\quad\\operatorname{tr}(CC')=2,\\quad\\operatorname{tr}(AA')=3,\\quad\\operatorname{tr}(DD')=2.$$\n构造方阵 $K=\\begin{pmatrix}A&\\sqrt[4]{\\frac23}B\\\\\\sqrt[4]{\\frac32}C&D\\end{pmatrix}$，则\n$$KK'=\\begin{pmatrix}AA'+\\sqrt{\\frac23}BB'&*\\\\ *&\\sqrt{\\frac32}CC'+DD'\\end{pmatrix},$$\n从而有\n$$\\operatorname{tr}(KK')=\\operatorname{tr}(AA')+\\operatorname{tr}(DD')+\\sqrt{\\frac23}\\operatorname{tr}(BB')+\\sqrt{\\frac32}\\operatorname{tr}(CC')=5+2\\sqrt6.$$\n又因为\n$$K=\\begin{pmatrix}\\sqrt[4]{\\frac23}I_3&0\\\\0&I_2\\end{pmatrix}\\begin{pmatrix}A&B\\\\C&D\\end{pmatrix}\\begin{pmatrix}\\sqrt[4]{\\frac32}I_3&0\\\\0&I_2\\end{pmatrix},$$\n从而 $K$ 与 $M$ 相似，所以 $M$ 与 $K$ 有相同的特征值。由 Schur 不等式，得\n$$\\sum_{i=1}^s|\\lambda_i|^2=\\sum_{i=1}^5|\\lambda_i|^2\\leqslant\\operatorname{tr}(KK')=5+2\\sqrt6.$$\n所以 $|\\operatorname{tr}(M)|^2\\leqslant(\\operatorname{rank}M)\\left(5+2\\sqrt6\\right)$。\n\n(2) 考虑 $M$ 的极端情形：$M_1$ 的每一行均取 $a_1,a_2,a_3$；$M_2$ 的每一行均取 $b_1,b_2$，从而 $\\operatorname{rank}M=1$。由 (1) 得\n$$|\\operatorname{tr}M|^2=|\\operatorname{tr}A+\\operatorname{tr}D|^2=|a_1+a_2+a_3+b_1+b_2|^2\\leqslant5+2\\sqrt6.$$\n一般情形下，注意到：$M$ 的每行元素之和都等于 $a_1+a_2+a_3+b_1+b_2$，故 $M$ 有 $\\lambda=a_1+a_2+a_3+b_1+b_2$ 为其特征值（对应特征向量 $(1,1,1,1,1)'$），此 $\\lambda$ 满足\n$$|\\lambda|\\leqslant\\sqrt{5+2\\sqrt6}=\\sqrt2+\\sqrt3.$$\n即所证结论成立。\n\n【注】(2) 也可使用如下方法证明。由施瓦茨不等式，\n$$\\left(\\sum_{i=1}^3a_i\\right)^2\\leqslant3\\cdot1,\\qquad\\left(\\sum_{i=1}^2b_i\\right)^2\\leqslant2\\cdot1,$$\n从而\n$$|a_1+a_2+a_3+b_1+b_2|\\leqslant|a_1+a_2+a_3|+|b_1+b_2|\\leqslant\\sqrt3+\\sqrt2.$$\n注意到 $M$ 有 $\\lambda=a_1+a_2+a_3+b_1+b_2$ 为其特征值，此 $\\lambda$ 满足 $|\\lambda|\\leqslant\\sqrt2+\\sqrt3$。即所证结论成立。",
+   "solutionSource": "官方"
+  },
+  {
+   "no": "五",
+   "score": 15,
+   "type": "证明",
+   "subjects": [
+    "数学分析"
+   ],
+   "topics": [
+    "递推数列",
+    "单调有界原理",
+    "上下极限",
+    "夹逼准则"
+   ],
+   "difficulty": 3,
+   "statement": "设 $a_k\\in(0,1),\\ 1\\leqslant k\\leqslant2021$，且\n$$\\left(a_{n+2021}\\right)^{2022}=a_n+a_{n+1}+a_{n+2}+\\cdots+a_{n+2020},$$\n其中 $n=1,2,\\cdots$。证明：$\\displaystyle\\lim_{n\\to+\\infty}a_n$ 存在。",
+   "answer": "$\\displaystyle\\lim_{n\\to+\\infty}a_n=2021^{1/2021}$",
+   "solution": "记 $X=2021^{1/2021}$。若 $\\{a_n\\}$ 收敛到 $A$，则 $A^{2022}=2021A$，从而可得 $A=0$ 或 $A=X$。令 $x_n=\\dfrac{a_n}X$，则\n$$x_{n+2021}=\\left(\\frac{x_n+x_{n+1}+\\cdots+x_{n+2020}}{2021}\\right)^{\\frac1{2022}},\\quad n=1,2,\\cdots.$$\n下面证明 $\\{x_n\\}$ 收敛到 $1$。令 $s=\\min\\{x_1,x_2,\\dots,x_{2021}\\}$，则 $0<s<1$ 且归纳可证\n$$s\\leqslant x_n<1,\\quad\\forall n\\geqslant1.$$\n\n**【法 1】** 令 $y_1=y_2=\\cdots=y_{2021}=s$，\n$$y_{n+2021}=\\left(\\frac{y_n+y_{n+1}+\\cdots+y_{n+2020}}{2021}\\right)^{\\frac1{2022}},\\quad n=1,2,\\cdots,$$\n则利用数学归纳法易证 $\\{y_n\\}$ 为小于 $1$ 且单调增加的正数列。所以由单调有界收敛定理，$\\{y_n\\}$ 收敛且极限为 $1$。利用夹逼准则以及 $y_n\\leqslant x_n<1,\\ \\forall n\\geqslant1$ 得 $\\displaystyle\\lim_{n\\to\\infty}x_n=1$。即\n$$\\lim_{n\\to+\\infty}a_n=2021^{1/2021}.$$\n\n**【法 2】** 设 $L,\\ell$ 为 $\\{x_n\\}$ 的上极限与下极限，则 $s\\leqslant\\ell\\leqslant L\\leqslant1$。另一方面，由递推公式可得 $\\ell^{2022}\\geqslant\\ell$，从而 $\\ell\\geqslant1$。因此 $L=\\ell=1$，得 $\\displaystyle\\lim_{n\\to\\infty}x_n=1$，即 $\\displaystyle\\lim_{n\\to+\\infty}a_n=2021^{1/2021}$。",
+   "solutionSource": "官方"
+  },
+  {
+   "no": "六",
+   "score": 20,
+   "type": "计算",
+   "subjects": [
+    "数学分析"
+   ],
+   "topics": [
+    "函数项级数",
+    "一致收敛",
+    "Dirichlet判别法",
+    "Abel变换",
+    "极限交换"
+   ],
+   "difficulty": 4,
+   "statement": "(1) 证明：$\\displaystyle\\lim_{\\alpha\\to0^+}\\sum_{n=1}^\\infty\\frac{\\cos\\left(n+\\frac12\\right)}{n^{1+\\alpha}}=\\sum_{n=1}^\\infty\\frac{\\cos\\left(n+\\frac12\\right)}n$；\n\n(2) 计算 $\\displaystyle\\lim_{\\alpha\\to0^+}\\sum_{n=1}^\\infty\\frac{\\sin n}{n^\\alpha}$，并说明理由。",
+   "answer": "(2) $\\dfrac{\\cos\\frac12}{2\\sin\\frac12}$",
+   "solution": "(1) 由于\n$$\\sum_{k=1}^n\\cos\\left(k+\\frac12\\right)=\\sum_{k=1}^n\\frac{\\sin(k+1)-\\sin k}{2\\sin\\frac12}=\\frac{\\sin(n+1)-\\sin1}{2\\sin\\frac12}$$\n关于 $\\alpha\\geqslant0$ 一致有界。而数列 $\\left\\{\\dfrac1{n^{1+\\alpha}}\\right\\}$ 单调且当 $n\\to\\infty$ 时关于 $\\alpha\\geqslant0$ 一致趋于零，故由 Dirichlet 判别法知级数 $\\displaystyle\\sum_{n=1}^\\infty\\frac{\\cos\\left(n+\\frac12\\right)}{n^{1+\\alpha}}$ 关于 $\\alpha\\geqslant0$ 一致收敛，所以\n$$\\lim_{\\alpha\\to0^+}\\sum_{n=1}^\\infty\\frac{\\cos\\left(n+\\frac12\\right)}{n^{1+\\alpha}}=\\sum_{n=1}^\\infty\\frac{\\cos\\left(n+\\frac12\\right)}n.$$\n\n(2) 由 Dirichlet 判别法，对任何 $\\alpha>0$ 以及 $\\beta\\in\\mathbb R$，级数 $\\displaystyle\\sum_{n=1}^\\infty\\frac{\\sin(n+\\beta)}{n^\\alpha}$ 收敛。因此\n$$\\begin{aligned}\\sum_{n=1}^\\infty\\frac{\\sin n}{n^\\alpha}&=\\sum_{n=1}^\\infty\\frac{\\cos\\left(n-\\frac12\\right)-\\cos\\left(n+\\frac12\\right)}{2n^\\alpha\\sin\\frac12}=\\sum_{n=1}^\\infty\\frac{\\cos\\left(n-\\frac12\\right)}{2n^\\alpha\\sin\\frac12}-\\sum_{n=1}^\\infty\\frac{\\cos\\left(n+\\frac12\\right)}{2n^\\alpha\\sin\\frac12}\\\\&=\\frac{\\cos\\frac12}{2\\sin\\frac12}-\\frac1{2\\sin\\frac12}\\sum_{n=1}^\\infty\\left(\\frac1{n^\\alpha}-\\frac1{(n+1)^\\alpha}\\right)\\cos\\left(n+\\frac12\\right).\\end{aligned}$$\n\n**【法 1】** $\\forall n\\geqslant1,\\ \\alpha\\in(0,1)$，由 Taylor 展式，存在 $\\xi=\\xi_{n,\\alpha}\\in\\left(0,\\frac1n\\right)$ 使得\n$$\\left|\\left(\\frac1{n^\\alpha}-\\frac1{(n+1)^\\alpha}\\right)-\\frac\\alpha{n^{1+\\alpha}}\\right|=\\left|\\frac1{n^\\alpha}\\left(1-\\frac\\alpha n-\\left(1+\\frac1n\\right)^{-\\alpha}\\right)\\right|=\\left|\\frac{\\alpha(\\alpha+1)}{2n^{2+\\alpha}}(1+\\xi)^{-\\alpha-2}\\right|\\leqslant\\frac\\alpha{n^2}.$$\n由此可得\n$$\\lim_{\\alpha\\to0^+}\\left|\\sum_{n=1}^\\infty\\left(\\frac1{n^\\alpha}-\\frac1{(n+1)^\\alpha}\\right)\\cos\\left(n+\\frac12\\right)-\\sum_{n=1}^\\infty\\frac\\alpha{n^{1+\\alpha}}\\cos\\left(n+\\frac12\\right)\\right|=0.$$\n结合 (1)（$\\displaystyle\\sum_{n=1}^\\infty\\frac{\\alpha\\cos(n+\\frac12)}{n^{1+\\alpha}}\\to0\\cdot\\sum_{n=1}^\\infty\\frac{\\cos(n+\\frac12)}n=0$）即得\n$$\\lim_{\\alpha\\to0^+}\\sum_{n=1}^\\infty\\frac{\\sin n}{n^\\alpha}=\\frac{\\cos\\frac12}{2\\sin\\frac12}.$$\n\n**【法 2】** $\\forall\\alpha\\geqslant0$，$x^{-\\alpha}$ 是 $(0,+\\infty)$ 内的凸函数，由此可得\n$$\\frac1{n^\\alpha}-\\frac1{(n+1)^\\alpha}\\geqslant\\frac1{(n+1)^\\alpha}-\\frac1{(n+2)^\\alpha},\\quad\\forall n\\geqslant1.$$\n另一方面，对于 $\\alpha\\in[0,1]$，\n$$0\\leqslant\\frac1{n^\\alpha}-\\frac1{(n+1)^\\alpha}=\\frac1{(n+1)^\\alpha}\\left(\\left(1+\\frac1n\\right)^\\alpha-1\\right)\\leqslant\\frac1n,\\quad\\forall n\\geqslant1.$$\n因此，当 $n\\to\\infty$ 时，$\\left\\{\\dfrac1{n^\\alpha}-\\dfrac1{(n+1)^\\alpha}\\right\\}$ 单调下降且关于 $\\alpha\\in[0,1]$ 一致地趋于零。从而类似于 (1) 得 $\\displaystyle\\sum_{n=1}^\\infty\\left(\\frac1{n^\\alpha}-\\frac1{(n+1)^\\alpha}\\right)\\cos\\left(n+\\frac12\\right)$ 关于 $\\alpha\\in[0,1]$ 一致收敛。因此，\n$$\\lim_{\\alpha\\to0^+}\\sum_{n=1}^\\infty\\left(\\frac1{n^\\alpha}-\\frac1{(n+1)^\\alpha}\\right)\\cos\\left(n+\\frac12\\right)=\\sum_{n=1}^\\infty\\lim_{\\alpha\\to0^+}\\left(\\frac1{n^\\alpha}-\\frac1{(n+1)^\\alpha}\\right)\\cos\\left(n+\\frac12\\right)=0.$$\n从而可得 $\\displaystyle\\lim_{\\alpha\\to0^+}\\sum_{n=1}^\\infty\\frac{\\sin n}{n^\\alpha}=\\frac{\\cos\\frac12}{2\\sin\\frac12}$。\n\n**【法 3】** 类似地（Abel 变换），有\n$$\\begin{aligned}&\\left|\\sum_{n=1}^\\infty\\left(\\frac1{n^\\alpha}-\\frac1{(n+1)^\\alpha}\\right)\\cos\\left(n+\\frac12\\right)\\right|\\\\={}&\\frac1{2\\sin\\frac12}\\left|\\sum_{n=1}^\\infty\\left(\\frac1{n^\\alpha}-\\frac2{(n+1)^\\alpha}+\\frac1{(n+2)^\\alpha}\\right)\\cos(n+1)-\\left(1-\\frac1{2^\\alpha}\\right)\\cos1\\right|\\\\\\leqslant{}&\\frac1{2\\sin\\frac12}\\sum_{n=1}^\\infty\\left(\\frac1{n^\\alpha}-\\frac2{(n+1)^\\alpha}+\\frac1{(n+2)^\\alpha}\\right)+\\frac1{2\\sin\\frac12}\\left(1-\\frac1{2^\\alpha}\\right)=\\frac1{\\sin\\frac12}\\left(1-\\frac1{2^\\alpha}\\right)\\to0.\\end{aligned}$$\n因此 $\\displaystyle\\lim_{\\alpha\\to0^+}\\sum_{n=1}^\\infty\\frac{\\sin n}{n^\\alpha}=\\frac{\\cos\\frac12}{2\\sin\\frac12}$。",
+   "solutionSource": "官方"
+  }
+ ]
+}

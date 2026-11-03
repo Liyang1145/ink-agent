@@ -1,0 +1,246 @@
+{
+ "id": "ex-analysis-09",
+ "title": "数学分析 · 反常积分",
+ "subject": "数学分析",
+ "chapter": 9,
+ "problems": [
+  {
+   "no": "1",
+   "type": "计算",
+   "subjects": [
+    "数学分析"
+   ],
+   "topics": [
+    "p积分",
+    "反常积分收敛性"
+   ],
+   "difficulty": 1,
+   "statement": "讨论 $\\displaystyle\\int_1^{+\\infty}\\dfrac{\\mathrm{d}x}{x^p}$ 与 $\\displaystyle\\int_0^1\\dfrac{\\mathrm{d}x}{x^p}$ 的敛散性。",
+   "answer": "前者 $p>1$ 收敛；后者 $p<1$ 收敛",
+   "solution": "$p\\ne1$ 时 $\\int_1^A x^{-p}\\,\\mathrm{d}x=\\dfrac{A^{1-p}-1}{1-p}$，$A\\to+\\infty$ 时当且仅当 $p>1$ 有有限极限 $\\dfrac1{p-1}$；$p=1$ 时为 $\\ln A\\to+\\infty$。故第一个积分当且仅当 $p>1$ 收敛。\n\n$\\int_\\varepsilon^1x^{-p}\\,\\mathrm{d}x=\\dfrac{1-\\varepsilon^{1-p}}{1-p}$（$p\\ne1$），$\\varepsilon\\to0^+$ 时当且仅当 $p<1$ 收敛（值为 $\\dfrac1{1-p}$）；$p=1$ 时为 $-\\ln\\varepsilon\\to+\\infty$。故第二个积分当且仅当 $p<1$ 收敛。",
+   "solutionSource": "编写",
+   "source": "经典题"
+  },
+  {
+   "no": "2",
+   "type": "计算",
+   "subjects": [
+    "数学分析"
+   ],
+   "topics": [
+    "分部积分",
+    "反常积分计算"
+   ],
+   "difficulty": 2,
+   "statement": "设 $m,n$ 为非负整数，计算 $\\displaystyle\\int_0^1x^m(\\ln x)^n\\,\\mathrm{d}x$。",
+   "answer": "$\\dfrac{(-1)^nn!}{(m+1)^{n+1}}$",
+   "solution": "令 $x=e^{-t}$，$t\\in(0,+\\infty)$：\n$$\\int_0^1x^m(\\ln x)^n\\,\\mathrm{d}x=\\int_0^{+\\infty}e^{-mt}(-t)^ne^{-t}\\,\\mathrm{d}t=(-1)^n\\int_0^{+\\infty}t^ne^{-(m+1)t}\\,\\mathrm{d}t.$$\n再令 $s=(m+1)t$，得 $(-1)^n\\dfrac{1}{(m+1)^{n+1}}\\int_0^{+\\infty}s^ne^{-s}\\,\\mathrm{d}s=\\dfrac{(-1)^nn!}{(m+1)^{n+1}}$（$\\int_0^\\infty s^ne^{-s}\\,\\mathrm{d}s=n!$ 由分部积分归纳得到）。",
+   "solutionSource": "编写",
+   "source": "经典题"
+  },
+  {
+   "no": "3",
+   "type": "计算",
+   "subjects": [
+    "数学分析"
+   ],
+   "topics": [
+    "Gamma函数",
+    "比较判别法"
+   ],
+   "difficulty": 2,
+   "statement": "讨论 $\\Gamma(s)=\\displaystyle\\int_0^{+\\infty}x^{s-1}e^{-x}\\,\\mathrm{d}x$ 的敛散性。",
+   "answer": "当且仅当 $s>0$ 时收敛",
+   "solution": "拆为 $\\int_0^1$ 与 $\\int_1^{+\\infty}$。\n\n$\\int_1^{+\\infty}$：对任意 $s$，$x^{s-1}e^{-x}\\cdot x^2=x^{s+1}e^{-x}\\to0$，故当 $x$ 充分大时 $x^{s-1}e^{-x}\\le\\dfrac1{x^2}$，收敛。\n\n$\\int_0^1$：$x\\to0^+$ 时 $x^{s-1}e^{-x}\\sim x^{s-1}=\\dfrac{1}{x^{1-s}}$，由比较判别法的极限形式，当且仅当 $1-s<1$ 即 $s>0$ 时收敛。\n\n故 $\\Gamma(s)$ 当且仅当 $s>0$ 时收敛。",
+   "solutionSource": "编写",
+   "source": "经典题"
+  },
+  {
+   "no": "4",
+   "type": "计算",
+   "subjects": [
+    "数学分析"
+   ],
+   "topics": [
+    "比较判别法",
+    "反常积分收敛性"
+   ],
+   "difficulty": 2,
+   "statement": "设 $b>0$，讨论 $\\displaystyle\\int_0^{+\\infty}\\dfrac{x^a}{1+x^b}\\,\\mathrm{d}x$ 的敛散性。",
+   "answer": "当且仅当 $-1<a<b-1$ 时收敛",
+   "solution": "被积函数正。$x\\to0^+$ 时 $\\dfrac{x^a}{1+x^b}\\sim x^a$，$\\int_0^1$ 收敛 $\\iff -a<1\\iff a>-1$。\n\n$x\\to+\\infty$ 时 $\\dfrac{x^a}{1+x^b}\\sim x^{a-b}$，$\\int_1^{+\\infty}$ 收敛 $\\iff b-a>1\\iff a<b-1$。\n\n两者同时成立：$-1<a<b-1$。",
+   "solutionSource": "编写",
+   "source": "经典题"
+  },
+  {
+   "no": "5",
+   "type": "计算",
+   "subjects": [
+    "数学分析"
+   ],
+   "topics": [
+    "对称换元",
+    "反常积分计算"
+   ],
+   "difficulty": 3,
+   "statement": "计算 $\\displaystyle\\int_0^{+\\infty}\\dfrac{\\mathrm{d}x}{1+x^4}$。",
+   "answer": "$\\dfrac{\\pi}{2\\sqrt2}$",
+   "solution": "令 $x=\\dfrac1t$，$I=\\int_0^{+\\infty}\\dfrac{\\mathrm{d}x}{1+x^4}=\\int_0^{+\\infty}\\dfrac{t^2}{1+t^4}\\,\\mathrm{d}t$。相加取平均：\n$$I=\\dfrac12\\int_0^{+\\infty}\\dfrac{1+x^2}{1+x^4}\\,\\mathrm{d}x=\\dfrac12\\int_0^{+\\infty}\\dfrac{\\mathrm{d}\\left(x-\\frac1x\\right)}{\\left(x-\\frac1x\\right)^2+2}.$$\n当 $x$ 从 $0^+$ 到 $+\\infty$ 时 $u=x-\\dfrac1x$ 从 $-\\infty$ 单调增到 $+\\infty$，故\n$$I=\\dfrac12\\int_{-\\infty}^{+\\infty}\\dfrac{\\mathrm{d}u}{u^2+2}=\\dfrac12\\cdot\\dfrac{\\pi}{\\sqrt2}=\\dfrac{\\pi}{2\\sqrt2}.$$",
+   "solutionSource": "编写",
+   "source": "经典题"
+  },
+  {
+   "no": "6",
+   "type": "计算",
+   "subjects": [
+    "数学分析"
+   ],
+   "topics": [
+    "瑕积分",
+    "对称性"
+   ],
+   "difficulty": 3,
+   "statement": "计算 $\\displaystyle\\int_0^{\\frac\\pi2}\\ln\\sin x\\,\\mathrm{d}x$。",
+   "answer": "$-\\dfrac\\pi2\\ln2$",
+   "solution": "收敛性：$x\\to0^+$ 时 $|\\ln\\sin x|\\sqrt x\\to0$，与 $\\int_0^1\\dfrac{\\mathrm{d}x}{\\sqrt x}$ 比较知收敛。\n\n记 $I=\\int_0^{\\pi/2}\\ln\\sin x\\,\\mathrm{d}x=\\int_0^{\\pi/2}\\ln\\cos x\\,\\mathrm{d}x$（令 $x=\\frac\\pi2-t$）。则\n$$2I=\\int_0^{\\pi/2}\\ln\\dfrac{\\sin2x}{2}\\,\\mathrm{d}x=-\\dfrac\\pi2\\ln2+\\int_0^{\\pi/2}\\ln\\sin2x\\,\\mathrm{d}x.$$\n令 $u=2x$：$\\int_0^{\\pi/2}\\ln\\sin2x\\,\\mathrm{d}x=\\dfrac12\\int_0^\\pi\\ln\\sin u\\,\\mathrm{d}u=\\dfrac12\\cdot2I=I$（由 $\\sin u$ 关于 $u=\\frac\\pi2$ 对称）。故 $2I=-\\dfrac\\pi2\\ln2+I$，$I=-\\dfrac\\pi2\\ln2$。",
+   "solutionSource": "编写",
+   "source": "经典题"
+  },
+  {
+   "no": "7",
+   "type": "计算",
+   "subjects": [
+    "数学分析"
+   ],
+   "topics": [
+    "分部积分",
+    "瑕积分"
+   ],
+   "difficulty": 3,
+   "statement": "计算 $\\displaystyle\\int_0^{\\frac\\pi2}\\dfrac{x}{\\tan x}\\,\\mathrm{d}x$。",
+   "answer": "$\\dfrac\\pi2\\ln2$",
+   "solution": "被积函数在 $x\\to0^+$ 时 $\\to1$，实际上是常义积分。分部积分：\n$$\\int_0^{\\pi/2}x\\cot x\\,\\mathrm{d}x=\\big[x\\ln\\sin x\\big]_{0^+}^{\\pi/2}-\\int_0^{\\pi/2}\\ln\\sin x\\,\\mathrm{d}x.$$\n端点项：$x=\\frac\\pi2$ 处为 $0$；$x\\to0^+$ 时 $x\\ln\\sin x=x\\ln x+x\\ln\\dfrac{\\sin x}{x}\\to0$。由上题 $\\int_0^{\\pi/2}\\ln\\sin x\\,\\mathrm{d}x=-\\dfrac\\pi2\\ln2$，故结果为 $\\dfrac\\pi2\\ln2$。",
+   "solutionSource": "编写",
+   "source": "经典题"
+  },
+  {
+   "no": "8",
+   "type": "证明",
+   "subjects": [
+    "数学分析"
+   ],
+   "topics": [
+    "Dirichlet判别法",
+    "条件收敛"
+   ],
+   "difficulty": 3,
+   "statement": "讨论 $\\displaystyle\\int_1^{+\\infty}\\dfrac{\\sin x}{x^p}\\,\\mathrm{d}x$ 的敛散性（绝对收敛、条件收敛或发散）。",
+   "answer": "$p>1$ 绝对收敛；$0<p\\le1$ 条件收敛；$p\\le0$ 发散",
+   "solution": "（1）$p>1$：$\\left|\\dfrac{\\sin x}{x^p}\\right|\\le\\dfrac1{x^p}$，绝对收敛。\n\n（2）$0<p\\le1$：$\\left|\\int_1^A\\sin x\\,\\mathrm{d}x\\right|\\le2$，$\\dfrac1{x^p}$ 单调递减趋于 $0$，由 Dirichlet 判别法收敛。但\n$$\\dfrac{|\\sin x|}{x^p}\\ge\\dfrac{\\sin^2x}{x^p}=\\dfrac{1}{2x^p}-\\dfrac{\\cos2x}{2x^p},$$\n其中 $\\int_1^{+\\infty}\\dfrac{\\cos2x}{2x^p}$ 收敛（Dirichlet），$\\int_1^{+\\infty}\\dfrac{1}{2x^p}$ 发散，故 $\\int\\dfrac{|\\sin x|}{x^p}$ 发散，为条件收敛。\n\n（3）$p\\le0$：在 $[2k\\pi+\\frac\\pi6,2k\\pi+\\frac{5\\pi}6]$ 上 $\\dfrac{\\sin x}{x^p}\\ge\\dfrac12x^{-p}\\ge\\dfrac12$（$x\\ge1$），该段积分 $\\ge\\dfrac\\pi3$，不满足 Cauchy 准则，发散。",
+   "solutionSource": "编写",
+   "source": "经典题"
+  },
+  {
+   "no": "9",
+   "type": "证明",
+   "subjects": [
+    "数学分析"
+   ],
+   "topics": [
+    "Dirichlet判别法",
+    "换元"
+   ],
+   "difficulty": 3,
+   "statement": "证明 $\\displaystyle\\int_0^{+\\infty}\\sin(x^2)\\,\\mathrm{d}x$ 收敛，并说明：反常积分 $\\int_a^{+\\infty}f$ 收敛并不能推出 $\\displaystyle\\lim_{x\\to+\\infty}f(x)=0$。",
+   "answer": "",
+   "solution": "$\\int_0^1\\sin x^2\\,\\mathrm{d}x$ 是常义积分。在 $[1,+\\infty)$ 上令 $t=x^2$：\n$$\\int_1^{+\\infty}\\sin x^2\\,\\mathrm{d}x=\\int_1^{+\\infty}\\dfrac{\\sin t}{2\\sqrt t}\\,\\mathrm{d}t,$$\n由 Dirichlet 判别法（$\\int_1^A\\sin t$ 有界，$\\dfrac1{2\\sqrt t}$ 单调趋于 $0$）收敛。故原积分收敛。\n\n但 $\\sin x^2$ 在 $x=\\sqrt{2k\\pi+\\frac\\pi2}$ 处取 $1$，在 $x=\\sqrt{k\\pi}$ 处取 $0$，$x\\to+\\infty$ 时无极限，更不趋于 $0$。",
+   "solutionSource": "编写",
+   "source": "经典题"
+  },
+  {
+   "no": "10",
+   "type": "证明",
+   "subjects": [
+    "数学分析"
+   ],
+   "topics": [
+    "单调函数",
+    "Cauchy收敛准则"
+   ],
+   "difficulty": 3,
+   "statement": "设 $f$ 在 $[a,+\\infty)$ 上单调，且 $\\displaystyle\\int_a^{+\\infty}f(x)\\,\\mathrm{d}x$ 收敛。证明 $\\displaystyle\\lim_{x\\to+\\infty}xf(x)=0$。",
+   "answer": "",
+   "solution": "先证 $f(x)\\to0$：$f$ 单调，$\\lim_{x\\to+\\infty}f(x)=L$ 存在（可能为 $\\pm\\infty$）。若 $L\\ne0$，则 $x$ 充分大时 $|f|\\ge c>0$ 且不变号，积分发散。故 $L=0$。\n\n不妨 $f$ 单调递减（递增时考虑 $-f$），则 $f\\ge0$。由 Cauchy 准则，任给 $\\varepsilon>0$，存在 $X$，$x>2X$ 时\n$$\\varepsilon>\\int_{x/2}^xf(t)\\,\\mathrm{d}t\\ge\\dfrac x2f(x)\\ge0.$$\n故 $xf(x)\\to0$。",
+   "solutionSource": "编写",
+   "source": "经典题"
+  },
+  {
+   "no": "11",
+   "type": "计算",
+   "subjects": [
+    "数学分析"
+   ],
+   "topics": [
+    "对称换元",
+    "反常积分计算"
+   ],
+   "difficulty": 4,
+   "statement": "设 $\\alpha$ 为实数，计算 $\\displaystyle\\int_0^{+\\infty}\\dfrac{\\mathrm{d}x}{(1+x^2)(1+x^\\alpha)}$。",
+   "answer": "$\\dfrac\\pi4$（与 $\\alpha$ 无关）",
+   "solution": "被积函数在 $[0,+\\infty)$ 上（$\\alpha<0$ 时于 $x=0$ 处取极限值 $0$）有界且 $\\le\\dfrac{1}{1+x^2}$，积分收敛。令 $x=\\dfrac1t$：\n$$I=\\int_0^{+\\infty}\\dfrac{1}{\\left(1+\\frac1{t^2}\\right)\\left(1+t^{-\\alpha}\\right)}\\cdot\\dfrac{\\mathrm{d}t}{t^2}=\\int_0^{+\\infty}\\dfrac{t^\\alpha}{(1+t^2)(1+t^\\alpha)}\\,\\mathrm{d}t.$$\n两式相加：$2I=\\int_0^{+\\infty}\\dfrac{\\mathrm{d}x}{1+x^2}=\\dfrac\\pi2$，故 $I=\\dfrac\\pi4$。",
+   "solutionSource": "编写",
+   "source": "经典题"
+  },
+  {
+   "no": "12",
+   "type": "计算",
+   "subjects": [
+    "数学分析"
+   ],
+   "topics": [
+    "Frullani积分",
+    "积分中值定理"
+   ],
+   "difficulty": 4,
+   "statement": "(Frullani 积分) 设 $0<a<b$，计算 $\\displaystyle\\int_0^{+\\infty}\\dfrac{e^{-ax}-e^{-bx}}{x}\\,\\mathrm{d}x$。",
+   "answer": "$\\ln\\dfrac ba$",
+   "solution": "对 $0<\\varepsilon<A$，\n$$\\int_\\varepsilon^A\\dfrac{e^{-ax}-e^{-bx}}x\\,\\mathrm{d}x=\\int_{a\\varepsilon}^{aA}\\dfrac{e^{-t}}t\\,\\mathrm{d}t-\\int_{b\\varepsilon}^{bA}\\dfrac{e^{-t}}t\\,\\mathrm{d}t=\\int_{a\\varepsilon}^{b\\varepsilon}\\dfrac{e^{-t}}t\\,\\mathrm{d}t-\\int_{aA}^{bA}\\dfrac{e^{-t}}t\\,\\mathrm{d}t.$$\n由积分第一中值定理，存在 $\\xi\\in[a\\varepsilon,b\\varepsilon]$，$\\eta\\in[aA,bA]$，\n$$\\int_{a\\varepsilon}^{b\\varepsilon}\\dfrac{e^{-t}}{t}\\,\\mathrm{d}t=e^{-\\xi}\\ln\\dfrac ba\\to\\ln\\dfrac ba\\ (\\varepsilon\\to0^+),\\qquad\\int_{aA}^{bA}\\dfrac{e^{-t}}t\\,\\mathrm{d}t=e^{-\\eta}\\ln\\dfrac ba\\to0\\ (A\\to+\\infty).$$\n故积分值为 $\\ln\\dfrac ba$。",
+   "solutionSource": "编写",
+   "source": "经典题"
+  },
+  {
+   "no": "13",
+   "type": "证明",
+   "subjects": [
+    "数学分析"
+   ],
+   "topics": [
+    "一致连续",
+    "Cauchy收敛准则"
+   ],
+   "difficulty": 4,
+   "statement": "设 $f$ 在 $[a,+\\infty)$ 上一致连续，且 $\\displaystyle\\int_a^{+\\infty}f(x)\\,\\mathrm{d}x$ 收敛。证明 $\\displaystyle\\lim_{x\\to+\\infty}f(x)=0$。",
+   "answer": "",
+   "solution": "反设不然，则存在 $\\varepsilon_0>0$ 及 $x_n\\to+\\infty$ 使 $|f(x_n)|\\ge\\varepsilon_0$。由一致连续，存在 $\\delta>0$ 使 $|x-y|\\le\\delta$ 时 $|f(x)-f(y)|<\\dfrac{\\varepsilon_0}2$。于是在 $[x_n,x_n+\\delta]$ 上 $|f(x)|>\\dfrac{\\varepsilon_0}2$，且 $f$ 不变号（连续且不取零值），所以\n$$\\left|\\int_{x_n}^{x_n+\\delta}f(x)\\,\\mathrm{d}x\\right|\\ge\\dfrac{\\varepsilon_0\\delta}{2}.$$\n而 $x_n\\to+\\infty$，这与 Cauchy 收敛准则矛盾。",
+   "solutionSource": "编写",
+   "source": "经典题"
+  },
+  {
+   "no": "14",
+   "type": "计算",
+   "subjects": [
+    "数学分析"
+   ],
+   "topics": [
+    "Dirichlet积分",
+    "Riemann-Lebesgue引理"
+   ],
+   "difficulty": 5,
+   "statement": "证明 $\\displaystyle\\int_0^{+\\infty}\\dfrac{\\sin x}{x}\\,\\mathrm{d}x=\\dfrac\\pi2$。",
+   "answer": "$\\dfrac\\pi2$",
+   "solution": "收敛性由 Dirichlet 判别法得到（$x=0$ 处被积函数极限为 $1$）。\n\n由恒等式 $\\dfrac12+\\sum_{k=1}^n\\cos kt=\\dfrac{\\sin\\left(n+\\frac12\\right)t}{2\\sin\\frac t2}$（$0<t\\le\\pi$）积分得\n$$\\int_0^\\pi\\dfrac{\\sin\\left(n+\\frac12\\right)t}{2\\sin\\frac t2}\\,\\mathrm{d}t=\\dfrac\\pi2.$$\n令 $g(t)=\\dfrac1t-\\dfrac{1}{2\\sin\\frac t2}$，$g(0)=0$。由 $\\dfrac{2\\sin\\frac t2-t}{2t\\sin\\frac t2}\\sim\\dfrac{-t^3/24}{t^2}\\to0$，$g$ 在 $[0,\\pi]$ 上连续。由 Riemann–Lebesgue 引理，\n$$\\int_0^\\pi g(t)\\sin\\left(n+\\dfrac12\\right)t\\,\\mathrm{d}t\\to0.$$\n因此\n$$\\int_0^\\pi\\dfrac{\\sin\\left(n+\\frac12\\right)t}{t}\\,\\mathrm{d}t\\to\\dfrac\\pi2.$$\n左边令 $x=\\left(n+\\dfrac12\\right)t$ 即为 $\\int_0^{(n+\\frac12)\\pi}\\dfrac{\\sin x}x\\,\\mathrm{d}x$。因 $\\int_0^{+\\infty}\\dfrac{\\sin x}{x}\\,\\mathrm{d}x$ 收敛，它等于这个子列的极限 $\\dfrac\\pi2$。",
+   "solutionSource": "编写",
+   "source": "经典题（Dirichlet 积分）"
+  }
+ ]
+}

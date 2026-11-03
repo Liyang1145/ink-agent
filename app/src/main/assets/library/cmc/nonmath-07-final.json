@@ -1,0 +1,212 @@
+{
+ "id": "cmc-nonmath-07-final",
+ "title": "第七届全国大学生数学竞赛决赛（非数学类）",
+ "year": 2016,
+ "track": "非数学类",
+ "round": "决赛",
+ "paper": "",
+ "durationMin": 180,
+ "totalScore": 100,
+ "source": {
+  "question": "2016年03月-非数学类-第七届全国决赛试卷.pdf",
+  "solution": "2016年03月-非数学类参考解答-第七届全国决赛试卷.pdf"
+ },
+ "problems": [
+  {
+   "no": "一(1)",
+   "score": 6,
+   "type": "填空",
+   "subjects": [
+    "高等数学",
+    "常微分方程"
+   ],
+   "topics": [
+    "可降阶微分方程",
+    "分离变量"
+   ],
+   "difficulty": 2,
+   "statement": "微分方程 $y''-(y')^3=0$ 的通解是______。",
+   "answer": "$y=C_2\\pm\\sqrt{2(C_1-x)}$（另有解 $y=C$）",
+   "solution": "令 $y'=p$，则 $y''=p'=p^3$，这是可分离变量的微分方程，有 $\\dfrac{\\mathrm{d}p}{p^3}=\\mathrm{d}x$，积分得 $-\\dfrac12p^{-2}=x-C_1$，即 $p=y'=\\dfrac{\\pm1}{\\sqrt{2(C_1-x)}}$，积分得\n$$y=C_2\\pm\\sqrt{2(C_1-x)}.$$\n（另外 $p=0$ 给出常数解 $y=C$。）",
+   "solutionSource": "官方"
+  },
+  {
+   "no": "一(2)",
+   "score": 6,
+   "type": "填空",
+   "subjects": [
+    "高等数学"
+   ],
+   "topics": [
+    "二重积分",
+    "极坐标",
+    "对称性"
+   ],
+   "difficulty": 2,
+   "statement": "设 $D:1\\le x^2+y^2\\le4$，则 $I=\\displaystyle\\iint_D(x+y^2)e^{-(x^2+y^2-4)}\\,\\mathrm{d}x\\,\\mathrm{d}y$ 的值是______。",
+   "answer": "$\\dfrac{\\pi}{2}(2e^3-5)$",
+   "solution": "利用对称性（$x$ 项积分为 $0$）和极坐标，有\n$$I=4e^4\\int_0^{\\frac\\pi2}\\mathrm{d}\\theta\\int_1^2r^2\\sin^2\\theta\\,e^{-r^2}r\\,\\mathrm{d}r=\\frac\\pi2e^4\\int_1^4ue^{-u}\\,\\mathrm{d}u=\\frac\\pi2(2e^3-5).$$",
+   "solutionSource": "官方"
+  },
+  {
+   "no": "一(3)",
+   "score": 6,
+   "type": "填空",
+   "subjects": [
+    "高等数学"
+   ],
+   "topics": [
+    "参数方程求导",
+    "二阶导数",
+    "变限积分"
+   ],
+   "difficulty": 1,
+   "statement": "设 $f(t)$ 二阶连续可导，且 $f(t)\\ne0$，若 $\\begin{cases}x=\\displaystyle\\int_0^tf(s)\\,\\mathrm{d}s,\\\\y=f(t),\\end{cases}$ 则 $\\dfrac{\\mathrm{d}^2y}{\\mathrm{d}x^2}=$______。",
+   "answer": "$\\dfrac{f(t)f''(t)-f'(t)^2}{f^3(t)}$",
+   "solution": "$\\mathrm{d}x=f(t)\\,\\mathrm{d}t$，$\\mathrm{d}y=f'(t)\\,\\mathrm{d}t$，所以\n$$\\frac{\\mathrm{d}y}{\\mathrm{d}x}=\\frac{f'(t)}{f(t)},\\qquad\\frac{\\mathrm{d}^2y}{\\mathrm{d}x^2}=\\frac{\\mathrm{d}}{\\mathrm{d}t}\\left(\\frac{f'(t)}{f(t)}\\right)\\frac{\\mathrm{d}t}{\\mathrm{d}x}=\\frac{f(t)f''(t)-f'(t)^2}{f^3(t)}.$$",
+   "solutionSource": "官方"
+  },
+  {
+   "no": "一(4)",
+   "score": 6,
+   "type": "填空",
+   "subjects": [
+    "线性代数"
+   ],
+   "topics": [
+    "特征值",
+    "矩阵多项式",
+    "行列式"
+   ],
+   "difficulty": 1,
+   "statement": "设 $\\lambda_1,\\lambda_2,\\cdots,\\lambda_n$ 是 $n$ 阶方阵 $A$ 的特征值，$f(x)$ 为多项式，则矩阵 $f(A)$ 的行列式的值为______。",
+   "answer": "$f(\\lambda_1)f(\\lambda_2)\\cdots f(\\lambda_n)$",
+   "solution": "$f(A)$ 的特征值为 $f(\\lambda_1),\\cdots,f(\\lambda_n)$，故 $|f(A)|=f(\\lambda_1)f(\\lambda_2)\\cdots f(\\lambda_n)$。",
+   "solutionSource": "官方"
+  },
+  {
+   "no": "一(5)",
+   "score": 6,
+   "type": "填空",
+   "subjects": [
+    "高等数学"
+   ],
+   "topics": [
+    "数列极限",
+    "泰勒展开",
+    "e的级数"
+   ],
+   "difficulty": 3,
+   "statement": "极限 $\\displaystyle\\lim_{n\\to\\infty}\\left[n\\sin(\\pi n!\\,e)\\right]$ 的值为______。",
+   "answer": "极限不存在（偶数项子列趋于 $-\\pi$，奇数项子列趋于 $\\pi$）；若加绝对值则极限为 $\\pi$。",
+   "solution": "$$\\pi n!\\,e=\\pi n!\\left[2+\\frac1{2!}+\\cdots+\\frac1{n!}+\\frac1{(n+1)!}+o\\left(\\frac1{(n+1)!}\\right)\\right]=\\pi a_n+\\frac{\\pi}{n+1}+o\\left(\\frac1{n+1}\\right),$$\n其中 $a_n=n!\\left(2+\\dfrac1{2!}+\\cdots+\\dfrac1{n!}\\right)$ 为整数。当 $n=2k$ 时\n$$a_{2k}=2\\cdot(2k)!+\\frac{(2k)!}{2!}+\\cdots+\\frac{(2k)!}{(2k)!}=2\\cdot(2k)!+(2k)(2k-1)\\cdots3+\\cdots+(2k)+1$$\n为奇数；同理 $a_{2k+1}=2\\cdot(2k+1)!+(2k+1)(2k)\\cdots3+\\cdots+(2k+1)+1$ 为偶数。所以\n$$n\\sin(\\pi n!\\,e)=(-1)^{a_n}\\,n\\sin\\left(\\frac{\\pi}{n+1}+o\\left(\\frac1{n+1}\\right)\\right)\\to\\pm\\pi,$$\n即极限不存在，如果加上绝对值则极限存在且等于 $\\pi$。",
+   "solutionSource": "官方"
+  },
+  {
+   "no": "二",
+   "score": 14,
+   "type": "证明",
+   "subjects": [
+    "高等数学"
+   ],
+   "topics": [
+    "曲面的切平面",
+    "多元复合函数求导"
+   ],
+   "difficulty": 2,
+   "statement": "设 $f(u,v)$ 在全平面上有连续的偏导数，证明：曲面 $f\\left(\\dfrac{x-a}{z-c},\\dfrac{y-b}{z-c}\\right)=0$ 的所有切平面都交于点 $(a,b,c)$。",
+   "answer": "",
+   "solution": "记 $F(x,y,z)=f\\left(\\dfrac{x-a}{z-c},\\dfrac{y-b}{z-c}\\right)$，则\n$$(F_x,F_y,F_z)=\\left(\\frac{f_1}{z-c},\\ \\frac{f_2}{z-c},\\ \\frac{-(x-a)f_1-(y-b)f_2}{(z-c)^2}\\right).$$\n取曲面的法向量 $\\vec n=\\left((z-c)f_1,\\ (z-c)f_2,\\ -(x-a)f_1-(y-b)f_2\\right)$。记 $(x,y,z)$ 为曲面上的点，$(X,Y,Z)$ 为切平面上的点，则曲面上过点 $(x,y,z)$ 的切平面方程为\n$$(z-c)f_1(X-x)+(z-c)f_2(Y-y)-\\left[(x-a)f_1+(y-b)f_2\\right](Z-z)=0.$$\n容易验证，对任意 $(x,y,z)\\ (z\\ne c)$，$(X,Y,Z)=(a,b,c)$ 都满足上述切平面方程：代入得 $f_1[(z-c)(a-x)+(x-a)(z-c)]+f_2[(z-c)(b-y)+(y-b)(z-c)]=0$。",
+   "solutionSource": "官方"
+  },
+  {
+   "no": "三",
+   "score": 14,
+   "type": "证明",
+   "subjects": [
+    "高等数学"
+   ],
+   "topics": [
+    "变限积分",
+    "定积分恒等式"
+   ],
+   "difficulty": 1,
+   "statement": "设 $f(x)$ 在 $[a,b]$ 上连续，证明：\n$$2\\int_a^bf(x)\\left(\\int_x^bf(t)\\,\\mathrm{d}t\\right)\\mathrm{d}x=\\left(\\int_a^bf(x)\\,\\mathrm{d}x\\right)^2.$$",
+   "answer": "",
+   "solution": "令 $F(x)=\\displaystyle\\int_x^bf(t)\\,\\mathrm{d}t$，则 $F'(x)=-f(x)$，$F(b)=0$。由此\n$$2\\int_a^bf(x)\\left(\\int_x^bf(t)\\,\\mathrm{d}t\\right)\\mathrm{d}x=-2\\int_a^bF(x)F'(x)\\,\\mathrm{d}x=-F^2(x)\\Big|_a^b=F^2(a)=\\left(\\int_a^bf(x)\\,\\mathrm{d}x\\right)^2.$$",
+   "solutionSource": "官方"
+  },
+  {
+   "no": "四",
+   "score": 14,
+   "type": "证明",
+   "subjects": [
+    "线性代数"
+   ],
+   "topics": [
+    "矩阵的秩",
+    "Frobenius不等式",
+    "分块矩阵初等变换"
+   ],
+   "difficulty": 3,
+   "statement": "设 $A$ 是 $m\\times n$ 矩阵，$B$ 是 $n\\times p$ 矩阵，$C$ 是 $p\\times q$ 矩阵。证明：$R(AB)+R(BC)-R(B)\\le R(ABC)$，其中 $R(X)$ 表示矩阵 $X$ 的秩。",
+   "answer": "",
+   "solution": "即要证明 $R(AB)+R(BC)\\le R(B)+R(ABC)=R\\begin{pmatrix}ABC&O\\\\O&B\\end{pmatrix}$。由于\n$$\\begin{pmatrix}E_m&A\\\\O&E_n\\end{pmatrix}\\begin{pmatrix}ABC&O\\\\O&B\\end{pmatrix}\\begin{pmatrix}E_q&O\\\\-C&E_p\\end{pmatrix}=\\begin{pmatrix}O&AB\\\\-BC&B\\end{pmatrix},\\qquad\\begin{pmatrix}O&AB\\\\-BC&B\\end{pmatrix}\\begin{pmatrix}O&-E_q\\\\E_p&O\\end{pmatrix}=\\begin{pmatrix}AB&O\\\\B&BC\\end{pmatrix},$$\n且 $\\begin{pmatrix}E_m&A\\\\O&E_n\\end{pmatrix},\\begin{pmatrix}E_q&O\\\\-C&E_p\\end{pmatrix},\\begin{pmatrix}O&-E_q\\\\E_p&O\\end{pmatrix}$ 可逆，所以\n$$R\\begin{pmatrix}ABC&O\\\\O&B\\end{pmatrix}=R\\begin{pmatrix}AB&O\\\\B&BC\\end{pmatrix}\\ge R(AB)+R(BC).$$",
+   "solutionSource": "官方"
+  },
+  {
+   "no": "五(1)",
+   "score": 7,
+   "type": "计算",
+   "subjects": [
+    "高等数学"
+   ],
+   "topics": [
+    "定积分递推",
+    "三角函数积分"
+   ],
+   "difficulty": 1,
+   "statement": "设 $I_n=\\displaystyle\\int_0^{\\pi/4}\\tan^nx\\,\\mathrm{d}x$，其中 $n$ 为正整数。若 $n\\ge2$，计算 $I_n+I_{n-2}$。",
+   "answer": "$\\dfrac{1}{n-1}$",
+   "solution": "$$I_n+I_{n-2}=\\int_0^{\\pi/4}\\tan^{n-2}x(\\tan^2x+1)\\,\\mathrm{d}x=\\int_0^{\\pi/4}\\tan^{n-2}x\\,\\mathrm{d}(\\tan x)=\\frac{1}{n-1}\\tan^{n-1}x\\Big|_0^{\\pi/4}=\\frac1{n-1}.$$",
+   "solutionSource": "官方"
+  },
+  {
+   "no": "五(2)",
+   "score": 7,
+   "type": "解答",
+   "subjects": [
+    "高等数学"
+   ],
+   "topics": [
+    "交错级数",
+    "绝对收敛",
+    "条件收敛",
+    "莱布尼茨判别法"
+   ],
+   "difficulty": 3,
+   "statement": "设 $I_n=\\displaystyle\\int_0^{\\pi/4}\\tan^nx\\,\\mathrm{d}x$，其中 $n$ 为正整数。设 $p$ 为实数，讨论级数 $\\displaystyle\\sum_{n=1}^\\infty(-1)^nI_n^p$ 的绝对收敛性和条件收敛性。",
+   "answer": "$p>1$ 时绝对收敛；$0<p\\le1$ 时条件收敛；$p\\le0$ 时发散。",
+   "solution": "由于 $0<x<\\dfrac\\pi4$ 时 $0<\\tan x<1$，$\\tan^{n+2}x<\\tan^nx<\\tan^{n-2}x$，从而 $I_{n+2}<I_n<I_{n-2}$，于是 $I_{n+2}+I_n<2I_n<I_{n-2}+I_n$，由 (1)\n$$\\frac1{2(n+1)}<I_n<\\frac1{2(n-1)}\\ (n\\ge2).$$\n当 $p>1$ 时，$|(-1)^nI_n^p|=I_n^p<\\dfrac{1}{2^p(n-1)^p}\\ (n\\ge2)$，由 $\\displaystyle\\sum_{n=2}^\\infty\\frac1{(n-1)^p}$ 收敛，所以 $\\displaystyle\\sum(-1)^nI_n^p$ 绝对收敛。\n当 $0<p\\le1$ 时，由于 $\\{I_n^p\\}$ 单调减少并趋于 $0$，由莱布尼茨判别法知 $\\displaystyle\\sum(-1)^nI_n^p$ 收敛；而 $I_n^p>\\dfrac{1}{2^p(n+1)^p}\\ge\\dfrac1{2^p}\\cdot\\dfrac1{n+1}$，$\\dfrac1{2^p}\\displaystyle\\sum\\frac1{n+1}$ 发散，所以是条件收敛的。\n当 $p\\le0$ 时，$|I_n^p|\\ge1$，由级数收敛的必要条件知 $\\displaystyle\\sum(-1)^nI_n^p$ 发散。",
+   "solutionSource": "官方"
+  },
+  {
+   "no": "六",
+   "score": 14,
+   "type": "证明",
+   "subjects": [
+    "高等数学"
+   ],
+   "topics": [
+    "第二型曲面积分",
+    "高斯公式",
+    "无穷小阶的比较"
+   ],
+   "difficulty": 4,
+   "statement": "设 $P(x,y,z)$ 和 $R(x,y,z)$ 在空间上有连续偏导数，设上半球面\n$$S:\\ z=z_0+\\sqrt{r^2-(x-x_0)^2-(y-y_0)^2},$$\n方向向上。若对任何点 $(x_0,y_0,z_0)$ 和 $r>0$，第二型曲面积分 $\\displaystyle\\iint_SP\\,\\mathrm{d}y\\,\\mathrm{d}z+R\\,\\mathrm{d}x\\,\\mathrm{d}y=0$。证明：$\\dfrac{\\partial P}{\\partial x}\\equiv0$。",
+   "answer": "",
+   "solution": "记上半球面 $S$ 的底平面为 $D$，方向向下，$S$ 和 $D$ 围成的区域记为 $\\Omega$，由高斯公式得\n$$\\left(\\iint_S+\\iint_D\\right)P\\,\\mathrm{d}y\\,\\mathrm{d}z+R\\,\\mathrm{d}x\\,\\mathrm{d}y=\\iiint_\\Omega\\left(\\frac{\\partial P}{\\partial x}+\\frac{\\partial R}{\\partial z}\\right)\\mathrm{d}V.$$\n由于 $\\displaystyle\\iint_DP\\,\\mathrm{d}y\\,\\mathrm{d}z+R\\,\\mathrm{d}x\\,\\mathrm{d}y=-\\iint_DR\\,\\mathrm{d}\\sigma$（$\\mathrm{d}\\sigma$ 是 $xOy$ 平面上的面积微元）和题设条件，有\n$$-\\iint_DR\\,\\mathrm{d}\\sigma=\\iiint_\\Omega\\left(\\frac{\\partial P}{\\partial x}+\\frac{\\partial R}{\\partial z}\\right)\\mathrm{d}V.\\tag{*}$$\n上式对任何 $r>0$ 成立，由此证明 $R(x_0,y_0,z_0)=0$。若不然，设 $R(x_0,y_0,z_0)\\ne0$，注意到 $\\displaystyle\\iint_DR\\,\\mathrm{d}\\sigma=R(\\xi,\\zeta,z_0)\\pi r^2$，$(\\xi,\\zeta,z_0)\\in D$，而当 $r\\to0^+$ 时 $R(\\xi,\\zeta,z_0)\\to R(x_0,y_0,z_0)$，故 (*) 左端为一个二阶无穷小。而右端：当 $\\dfrac{\\partial P}{\\partial x}+\\dfrac{\\partial R}{\\partial z}$ 在 $(x_0,y_0,z_0)$ 处不为 $0$ 时，它是一个 $3$ 阶无穷小；为 $0$ 时，趋于 $0$ 的阶高于 $3$。因此 (*) 式右端阶高于左端，从而当 $r$ 很小时 $\\left|\\displaystyle\\iint_DR\\,\\mathrm{d}\\sigma\\right|>\\left|\\iiint_\\Omega\\left(\\frac{\\partial P}{\\partial x}+\\frac{\\partial R}{\\partial z}\\right)\\mathrm{d}V\\right|$，与 (*) 矛盾。\n由于在任何点 $R(x_0,y_0,z_0)=0$，故 $R(x,y,z)\\equiv0$。代入 (*) 式得到 $\\displaystyle\\iiint_\\Omega\\frac{\\partial P(x,y,z)}{\\partial x}\\,\\mathrm{d}V=0$。由积分中值定理，$\\dfrac{\\partial P}{\\partial x}(x^*,y^*,z^*)\\cdot\\dfrac{2}{3}\\pi r^3=0$，令 $r\\to0^+$ 可知 $\\dfrac{\\partial P(x_0,y_0,z_0)}{\\partial x}=0$。由 $(x_0,y_0,z_0)$ 的任意性得 $\\dfrac{\\partial P}{\\partial x}\\equiv0$。",
+   "solutionSource": "官方"
+  }
+ ]
+}

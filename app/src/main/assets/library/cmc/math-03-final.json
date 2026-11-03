@@ -1,0 +1,148 @@
+{
+ "id": "cmc-math-03-final",
+ "title": "第三届全国大学生数学竞赛决赛（数学类）",
+ "year": 2012,
+ "track": "数学类",
+ "round": "决赛",
+ "paper": "",
+ "durationMin": 180,
+ "totalScore": 100,
+ "source": {
+  "question": "2012年03月-数学类-第三届全国决赛试卷.pdf",
+  "solution": "2012年03月-数学类参考解答-第三届全国决赛试卷.pdf"
+ },
+ "problems": [
+  {
+   "no": "一",
+   "score": 15,
+   "type": "计算",
+   "subjects": [
+    "解析几何"
+   ],
+   "topics": [
+    "直线方程",
+    "平面法向量",
+    "向量积"
+   ],
+   "difficulty": 1,
+   "statement": "设有空间中五点\n$$A(1,0,1),\\ B(1,1,2),\\ C(1,-1,-2),\\ D(3,1,0),\\ E(3,1,2).$$\n试求过点 $E$ 且与 $A,B,C$ 所在平面 $\\Sigma$ 平行而与直线 $AD$ 垂直的直线方程。",
+   "answer": "$\\dfrac{x-3}{0}=\\dfrac{y-1}{1}=\\dfrac{z-2}{1}$",
+   "solution": "平面 $ABC$ 的法向量 $\\vec n=\\overrightarrow{AB}\\times\\overrightarrow{AC}=(0,1,1)\\times(0,-1,-3)=(-2,0,0)$。设所求直线方向 $\\vec l=(a,b,c)$，由 $\\vec l\\cdot\\vec n=0$，$\\vec l\\cdot\\overrightarrow{AD}=0$（$\\overrightarrow{AD}=(2,1,-1)$）得 $a=0,\\ b=c$，取 $\\vec l=(0,1,1)$。所求直线为\n$$\\frac{x-3}{0}=\\frac{y-1}{1}=\\frac{z-2}{1}.$$",
+   "solutionSource": "官方"
+  },
+  {
+   "no": "二",
+   "score": 15,
+   "type": "证明",
+   "subjects": [
+    "数学分析"
+   ],
+   "topics": [
+    "泰勒公式",
+    "积分型余项",
+    "分部积分"
+   ],
+   "difficulty": 1,
+   "statement": "设 $f(x)$ 在 $[a,b]$ 上有两阶导数，且 $f''(x)$ 在 $[a,b]$ 上黎曼可积。证明：\n$$f(x)=f(a)+f'(a)(x-a)+\\int_a^x(x-t)f''(t)\\,\\mathrm{d}t,\\quad\\forall x\\in[a,b].$$",
+   "answer": "",
+   "solution": "**思路一（交换积分次序）** 由牛顿–莱布尼茨公式（$f''$ 可积，$f'$ 是其变上限积分加常数），\n$$\\begin{aligned}f(x)&=f(a)+\\int_a^xf'(u)\\,\\mathrm{d}u=f(a)+\\int_a^x\\Big(f'(a)+\\int_a^uf''(t)\\,\\mathrm{d}t\\Big)\\mathrm{d}u\\\\&=f(a)+f'(a)(x-a)+\\int_a^x\\mathrm{d}t\\int_t^xf''(t)\\,\\mathrm{d}u=f(a)+f'(a)(x-a)+\\int_a^x(x-t)f''(t)\\,\\mathrm{d}t.\\end{aligned}$$\n\n**思路二（分部积分）**\n$$\\int_a^x(x-t)f''(t)\\,\\mathrm{d}t=\\Big[(x-t)f'(t)\\Big]_a^x+\\int_a^xf'(t)\\,\\mathrm{d}t=-f'(a)(x-a)+f(x)-f(a),$$\n移项即得。",
+   "solutionSource": "官方"
+  },
+  {
+   "no": "三",
+   "score": 10,
+   "type": "证明",
+   "subjects": [
+    "数学分析"
+   ],
+   "topics": [
+    "三角多项式",
+    "零点个数",
+    "罗尔定理",
+    "介值定理"
+   ],
+   "difficulty": 4,
+   "statement": "设 $k_0<k_1<\\cdots<k_n$ 为给定的正整数，$A_1,A_2,\\cdots,A_n$ 为实参数，指出函数 $f(x)=\\sin k_0x+A_1\\sin k_1x+\\cdots+A_n\\sin k_nx$ 在 $[0,2\\pi]$ 上零点的个数（当 $A_1,A_2,\\cdots,A_n$ 变化时）的最小可能值并加以证明。",
+   "answer": "最小可能值为 $2k_0$。",
+   "solution": "当 $A_1=\\cdots=A_n=0$ 时，$f$ 在 $[0,2\\pi]$ 上恰有 $2k_0$ 个零点。下证对任意 $A_i$，$f$ 在 $[0,2\\pi]$ 上至少有 $2k_0$ 个零点。\n\n令\n$$F_s(x)=\\frac{(-1)^s}{k_0^{2s}}\\Big(\\sin k_0x+\\sum_{i=1}^n\\frac{A_ik_0^{2s}}{k_i^{2s}}\\sin k_ix\\Big),\\quad s=0,1,2,\\cdots,$$\n则 $F_0=f$，$F_{s+1}''=F_s$，且 $F_{s+1}(0)=F_{s+1}(2\\pi)=0$。若 $F_{s+1}$ 在 $[0,2\\pi]$ 上有 $N$ 个零点，由罗尔定理 $F_{s+1}'$ 在 $(0,2\\pi)$ 内至少有 $N-1$ 个零点，$F_{s+1}''=F_s$ 在 $(0,2\\pi)$ 内至少有 $N-2$ 个零点；再加上 $F_s(0)=F_s(2\\pi)=0$，$F_s$ 在 $[0,2\\pi]$ 上至少有 $N$ 个零点。故只需证某个 $F_s$ 至少有 $2k_0$ 个零点。\n\n记 $g(x)=\\sin k_0x+\\displaystyle\\sum_{i=1}^n\\frac{A_ik_0^{2s}}{k_i^{2s}}\\sin k_ix$，$F_s=\\dfrac{(-1)^s}{k_0^{2s}}g$。因 $k_i>k_0$，可取 $s$ 充分大使 $\\displaystyle\\sum_{i=1}^n\\frac{|A_i|k_0^{2s}}{k_i^{2s}}<\\frac{\\sqrt2}{2}$。在点 $\\dfrac{m\\pi\\pm\\pi/4}{k_0}$ 处 $|\\sin k_0x|=\\dfrac{\\sqrt2}{2}$ 且两点处符号相反，故对 $m=1,2,\\cdots,2k_0-1$，$g$ 在这两点异号，由介值定理存在 $x_m\\in\\Big(\\dfrac{m\\pi-\\pi/4}{k_0},\\dfrac{m\\pi+\\pi/4}{k_0}\\Big)$ 使 $g(x_m)=0$。加上 $x=0,2\\pi$，$F_s$ 在 $[0,2\\pi]$ 上至少有 $2k_0+1\\geqslant2k_0$ 个零点，从而 $f$ 至少有 $2k_0$ 个零点。最小可能值为 $2k_0$。",
+   "solutionSource": "官方"
+  },
+  {
+   "no": "四",
+   "score": 10,
+   "type": "证明",
+   "subjects": [
+    "数学分析"
+   ],
+   "topics": [
+    "数列极限",
+    "上下极限",
+    "几何平均",
+    "算术平均",
+    "凸性不等式"
+   ],
+   "difficulty": 4,
+   "statement": "设正数列 $a_n$ 满足\n$$\\varliminf_{n\\to\\infty}a_n=1,\\quad\\varlimsup_{n\\to\\infty}a_n<+\\infty,\\quad\\lim_{n\\to\\infty}\\sqrt[n]{a_1a_2\\cdots a_n}=1.$$\n求证：$\\displaystyle\\lim_{n\\to\\infty}\\frac{a_1+a_2+\\cdots+a_n}{n}=1$。\n\n（注：原试卷图片中前两个极限的上下划线未能显示，按参考解答的用法应为下极限与上极限。）",
+   "answer": "",
+   "solution": "令 $x_n=\\ln a_n$，条件化为 $\\varliminf x_n=0$，$\\varlimsup x_n<+\\infty$，$\\dfrac1n\\displaystyle\\sum_{k=1}^nx_k\\to0$。要证 $\\dfrac1n\\displaystyle\\sum_{k=1}^ne^{x_k}\\to1$。\n\n**先设所有 $x_n\\geqslant0$。** 存在 $A>0$ 使 $x_n\\leqslant A$。当 $0\\leqslant x\\leqslant\\ln2$ 时 $e^x\\leqslant1+2x$。令 $S_n=\\{k\\leqslant n: x_k\\leqslant\\ln2\\}$，$T_n=\\{k\\leqslant n:x_k>\\ln2\\}$，则 $\\dfrac1n\\sum x_k\\geqslant\\dfrac{|T_n|}{n}\\ln2$，故 $\\dfrac{|T_n|}{n}\\to0$。于是\n$$\\frac1n\\sum_{k=1}^ne^{x_k}\\leqslant\\frac1n\\sum_{k\\in S_n}(1+2x_k)+\\frac{|T_n|}{n}e^A\\leqslant1+\\frac{|T_n|}{n}(e^A-1)+\\frac2n\\sum_{k=1}^nx_k\\to1.$$\n另一方面由凸性 $\\dfrac1n\\sum e^{x_k}\\geqslant e^{\\frac1n\\sum x_k}\\to1$。夹逼得结论。\n\n**一般情形。** 令 $z_n=\\max(-x_n,0)$，由 $\\varliminf x_n=0$ 知 $z_n\\to0$。令 $y_n=x_n+z_n\\geqslant0$，它满足同样三个条件，故 $\\dfrac1n\\sum e^{y_k}\\to1$。又 $x_k\\leqslant y_k$，\n$$e^{\\frac1n\\sum x_k}\\leqslant\\frac1n\\sum_{k=1}^ne^{x_k}\\leqslant\\frac1n\\sum_{k=1}^ne^{y_k},$$\n夹逼得 $\\dfrac1n\\displaystyle\\sum_{k=1}^na_k\\to1$。",
+   "solutionSource": "官方"
+  },
+  {
+   "no": "五",
+   "score": 15,
+   "type": "计算",
+   "subjects": [
+    "高等代数"
+   ],
+   "topics": [
+    "AB与BA",
+    "特征多项式",
+    "最小多项式"
+   ],
+   "difficulty": 3,
+   "statement": "设 $A,B$ 分别是 $3\\times2$，$2\\times3$ 实矩阵，若有\n$$AB=\\begin{pmatrix}8&0&-4\\\\-\\dfrac32&9&-6\\\\-2&0&1\\end{pmatrix},$$\n求 $BA$。",
+   "answer": "$BA=\\begin{pmatrix}9&0\\\\0&9\\end{pmatrix}$",
+   "solution": "$AB$ 的特征多项式为 $\\lambda(\\lambda-9)^2$。$AB$ 与 $BA$ 的非零特征值（含重数）相同，故 $BA$ 的特征值为 $9,9$，$BA$ 可逆，存在 $C$ 使 $CBA=BAC=I_2$。\n\n又可验证 $AB(AB-9I_3)=0$，即 $AB$ 的最小多项式为 $\\lambda(\\lambda-9)$。于是\n$$A(BA-9I_2)B=ABAB-9AB=AB(AB-9I_3)=0,$$\n从而\n$$BA-9I_2=CBA\\,(BA-9I_2)\\,BAC=CB\\cdot A(BA-9I_2)B\\cdot AC=0,$$\n即 $BA=9I_2$。",
+   "solutionSource": "官方"
+  },
+  {
+   "no": "六",
+   "score": 20,
+   "type": "证明",
+   "subjects": [
+    "高等代数"
+   ],
+   "topics": [
+    "矩阵相似",
+    "数域扩张",
+    "线性方程组",
+    "多项式非零"
+   ],
+   "difficulty": 4,
+   "statement": "设 $\\{A_i\\}_{i\\in I}$，$\\{B_i\\}_{i\\in I}$ 是数域 $F$ 上两个矩阵集合，称它们在 $F$ 上相似，如果存在 $F$ 上与 $i\\in I$ 无关的可逆矩阵 $P$，使得 $P^{-1}A_iP=B_i$，$\\forall i\\in I$。证明：有理数域 $Q$ 上两个矩阵集合 $\\{A_i\\}_{i\\in I}$，$\\{B_i\\}_{i\\in I}$，如果它们在实数域 $R$ 上相似，则它们在有理数域 $Q$ 上也相似。",
+   "answer": "",
+   "solution": "对 $i\\in I$，记\n$$U_{i,R}=\\{T\\in M_n(R)\\mid A_iT=TB_i\\},\\qquad U_{i,Q}=\\{T\\in M_n(Q)\\mid A_iT=TB_i\\},$$\n$U_R=\\bigcap_{i\\in I}U_{i,R}$，$U_Q=\\bigcap_{i\\in I}U_{i,Q}$。由题设 $U_R$ 中含可逆矩阵。\n\n因所涉空间维数不超过 $n^2$，$U_R,U_Q$ 都只是有限个 $U_{i,R}$（相应地 $U_{i,Q}$）的交，都是有理系数齐次线性方程组 $A_iT=TB_i$（有限个）的解空间。对有理系数方程组，在 $Q$ 上和在 $R$ 上用同样的消元步骤求基础解系，可取一组公共的基 $T_1,\\dots,T_l\\in M_n(Q)$：$U_R$ 是它们的实线性组合，$U_Q$ 是有理线性组合。\n\n令\n$$f(t_1,\\dots,t_l)=\\det\\Big(\\sum_{k=1}^lt_kT_k\\Big),$$\n这是有理系数多项式。由于 $U_R$ 含可逆阵，存在实数 $s_1,\\dots,s_l$ 使 $f(s_1,\\dots,s_l)\\neq0$，故 $f$ 不是零多项式，从而存在有理数 $r_1,\\dots,r_l$ 使 $f(r_1,\\dots,r_l)\\neq0$。则 $P=\\sum r_kT_k\\in U_Q$ 可逆，且 $P^{-1}A_iP=B_i$ 对一切 $i\\in I$ 成立。",
+   "solutionSource": "官方"
+  },
+  {
+   "no": "七",
+   "score": 15,
+   "type": "证明",
+   "subjects": [
+    "数学分析"
+   ],
+   "topics": [
+    "反常积分",
+    "Dirichlet 判别法",
+    "单调函数",
+    "交错级数",
+    "夹逼"
+   ],
+   "difficulty": 5,
+   "statement": "设 $F(x),G(x)$ 是 $[0,+\\infty)$ 上的两个非负单调递减函数，\n$$\\lim_{x\\to+\\infty}x\\big(F(x)+G(x)\\big)=0.$$\n\n(1) 证明：$\\forall\\varepsilon>0$，$\\displaystyle\\lim_{x\\to+\\infty}\\int_\\varepsilon^{+\\infty}xF(xt)\\cos t\\,\\mathrm{d}t=0$。\n\n(2) 若进一步有 $\\displaystyle\\lim_{n\\to\\infty}\\int_0^{+\\infty}\\big(F(t)-G(t)\\big)\\cos\\frac tn\\,\\mathrm{d}t=0$，证明\n$$\\lim_{x\\to0}\\int_0^{+\\infty}\\big(F(t)-G(t)\\big)\\cos(xt)\\,\\mathrm{d}t=0.$$",
+   "answer": "",
+   "solution": "**(1)** 由条件 $xF(x)\\to0$。取 $\\alpha=\\min\\{\\varepsilon,\\frac\\pi2\\}$，$\\beta=\\max\\{\\varepsilon,\\frac\\pi2\\}$，则\n$$\\Big|\\int_\\varepsilon^{\\pi/2}xF(xt)\\cos t\\,\\mathrm{d}t\\Big|\\leqslant xF(\\alpha x)\\int_\\alpha^\\beta|\\cos t|\\,\\mathrm{d}t\\to0,$$\n故只需证 $\\displaystyle\\int_{\\pi/2}^{+\\infty}xF(xt)\\cos t\\,\\mathrm{d}t\\to0$（由 Dirichlet 判别法收敛）。按长度 $\\pi$ 分段，\n$$\\int_{\\pi/2}^{+\\infty}xF(xt)\\cos t\\,\\mathrm{d}t=x\\sum_{k=0}^\\infty(-1)^k\\int_{\\pi/2}^{3\\pi/2}F\\big(x(t+k\\pi)\\big)\\cos t\\,\\mathrm{d}t,$$\n各项绝对值随 $k$ 单调递减，是收敛的交错级数，其和不超过首项，\n$$\\Big|\\int_{\\pi/2}^{+\\infty}xF(xt)\\cos t\\,\\mathrm{d}t\\Big|\\leqslant x\\Big|\\int_{\\pi/2}^{3\\pi/2}F(xt)\\cos t\\,\\mathrm{d}t\\Big|\\leqslant2xF\\Big(\\frac{\\pi x}{2}\\Big)\\to0.$$\n\n**(2)** 只需考虑 $x\\to0^+$。把 $x$ 换成 $\\dfrac1x$ 并作换元 $t\\mapsto xt$，等价于证明\n$$\\lim_{x\\to+\\infty}\\int_0^{+\\infty}x\\big(F(xt)-G(xt)\\big)\\cos t\\,\\mathrm{d}t=0,$$\n由 (1)（对 $F,G$ 分别用），只需证对某个 $0<\\varepsilon_0\\leqslant\\frac\\pi2$，\n$$\\lim_{x\\to+\\infty}x\\int_0^{\\varepsilon_0}\\big(F(xt)-G(xt)\\big)\\cos t\\,\\mathrm{d}t=0.$$\n\n**第一步：** 证明 $\\displaystyle\\lim_{n\\to\\infty}\\int_0^{\\varepsilon_0}n\\big(G(nt)-G((n+1)t)\\big)\\cos t\\,\\mathrm{d}t=0.\\quad(*)$\n\n换元后它等于 $I_1+I_2-I_3$，其中\n$$I_1=\\frac1{n+1}\\int_0^{n\\varepsilon_0}G(u)\\cos\\frac un\\,\\mathrm{d}u,\\quad I_2=\\frac{n}{n+1}\\int_0^{n\\varepsilon_0}G(u)\\Big(\\cos\\frac un-\\cos\\frac u{n+1}\\Big)\\mathrm{d}u,\\quad I_3=\\frac{n}{n+1}\\int_{n\\varepsilon_0}^{(n+1)\\varepsilon_0}G(u)\\cos\\frac u{n+1}\\,\\mathrm{d}u.$$\n由 $xG(x)\\to0$ 及单调性：\n- $|I_1|\\leqslant\\displaystyle\\int_0^{\\varepsilon_0}G(nu)\\cos u\\,\\mathrm{d}u\\leqslant\\frac{G(0)}{\\sqrt n}+G(\\sqrt n)\\varepsilon_0\\to0$（在 $[0,\\frac1{\\sqrt n}]$ 与 $[\\frac1{\\sqrt n},\\varepsilon_0]$ 上分别估计）；\n- 利用 $\\big|\\cos\\frac un-\\cos\\frac u{n+1}\\big|\\leqslant\\dfrac{u}{n(n+1)}$，把 $[0,n\\varepsilon_0]$ 分成 $n$ 段，得\n$$|I_2|\\leqslant\\frac{n\\varepsilon_0}{(n+1)^2}\\cdot\\frac1n\\sum_{k=1}^n(k-1)\\varepsilon_0G\\big((k-1)\\varepsilon_0\\big)+\\frac{n\\varepsilon_0^2G(0)}{2(n+1)^2}\\to0$$\n（因 $yG(y)\\to0$，其 Cesàro 平均也趋于 0）；\n- $|I_3|\\leqslant\\dfrac{n\\varepsilon_0G(n\\varepsilon_0)}{n+1}\\to0$。\n\n**第二步：** 记 $n=[x]$，由 $F,G$ 非负递减及 $n\\leqslant x\\leqslant n+1$，\n$$n\\int_0^{\\varepsilon_0}(F(xt)-G(xt))\\cos t\\,\\mathrm{d}t\\leqslant n\\int_0^{\\varepsilon_0}(F(nt)-G(nt))\\cos t\\,\\mathrm{d}t+n\\int_0^{\\varepsilon_0}\\big(G(nt)-G((n+1)t)\\big)\\cos t\\,\\mathrm{d}t,$$\n$$n\\int_0^{\\varepsilon_0}(F(xt)-G(xt))\\cos t\\,\\mathrm{d}t\\geqslant n\\int_0^{\\varepsilon_0}\\big(F((n+1)t)-G((n+1)t)\\big)\\cos t\\,\\mathrm{d}t-n\\int_0^{\\varepsilon_0}\\big(G(nt)-G((n+1)t)\\big)\\cos t\\,\\mathrm{d}t.$$\n由题设条件（换元 $t\\mapsto nt$）$\\displaystyle n\\int_0^{+\\infty}(F(nt)-G(nt))\\cos t\\,\\mathrm{d}t\\to0$，再由 (1) 得 $\\displaystyle n\\int_0^{\\varepsilon_0}(F(nt)-G(nt))\\cos t\\,\\mathrm{d}t\\to0$。结合 $(*)$，由夹逼准则得\n$$\\lim_{x\\to+\\infty}[x]\\int_0^{\\varepsilon_0}\\big(F(xt)-G(xt)\\big)\\cos t\\,\\mathrm{d}t=0,$$\n又用估计 $I_1$ 的方法知 $\\displaystyle\\int_0^{\\varepsilon_0}(F(xt)-G(xt))\\cos t\\,\\mathrm{d}t\\to0$，故把 $[x]$ 换成 $x$ 结论仍成立。证毕。",
+   "solutionSource": "官方"
+  }
+ ]
+}

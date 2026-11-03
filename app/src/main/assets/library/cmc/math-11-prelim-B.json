@@ -1,0 +1,150 @@
+{
+ "id": "cmc-math-11-prelim-B",
+ "title": "第十一届全国大学生数学竞赛初赛（数学B类）",
+ "year": 2019,
+ "track": "数学类",
+ "round": "初赛",
+ "paper": "B",
+ "durationMin": 150,
+ "totalScore": 100,
+ "source": {
+  "question": "11B-2019年第十一届全国大学生数学竞赛初赛数学专业(B类)试题.pdf",
+  "solution": "11B-2019年第十一届全国大学生数学竞赛初赛数学类（B卷）试题解答.pdf"
+ },
+ "problems": [
+  {
+   "no": "一",
+   "score": 15,
+   "type": "证明",
+   "subjects": [
+    "解析几何"
+   ],
+   "topics": [
+    "异面直线",
+    "轨迹",
+    "单叶双曲面",
+    "坐标系选取"
+   ],
+   "difficulty": 3,
+   "statement": "设 $L_1$ 和 $L_2$ 是空间中的两条不垂直的异面直线，点 $B$ 是它们公垂线段的中点。点 $A_1$ 和 $A_2$ 分别在 $L_1$ 和 $L_2$ 上滑动，使得 $A_1B\\perp A_2B$。证明直线 $A_1A_2$ 的轨迹是单叶双曲面。",
+   "answer": "取适当坐标系后轨迹为 $a^2(1-a^2)x^2-(1-a^2)y^2+a^2z^2=a^2c^2$（$a\\ne\\pm1$），是单叶双曲面。",
+   "solution": "取公垂线为 $z$ 轴，$B$ 为原点，取 $x$ 轴使得 $L_1$ 和 $L_2$ 与之夹角相同。此时\n$$L_1:\\begin{cases}ax+y=0,\\\\z=c,\\end{cases}\\qquad L_2:\\begin{cases}ax-y=0,\\\\z=-c,\\end{cases}$$\n其中 $c>0$。由于 $L_1$ 与 $L_2$ 不垂直，$a\\ne\\pm1$。\n设点 $A_1$ 的坐标为 $(x_1,y_1,c)$，$A_2$ 的坐标为 $(x_2,y_2,-c)$，则\n$$ax_1+y_1=0,\\qquad ax_2-y_2=0.\\tag{1}$$\n由 $A_1B\\perp A_2B$ 得\n$$x_1x_2+y_1y_2-c^2=0.\\tag{2}$$\n任取 $A_1A_2$ 上的点 $M(x,y,z)$，有\n$$\\frac{x-x_2}{x_1-x_2}=\\frac{y-y_2}{y_1-y_2}=\\frac{z+c}{2c}.\\tag{3}$$\n消去 $x_1,x_2,y_1,y_2$：令 $\\dfrac{z+c}{2c}=k$，由 (1)(3) 得\n$$x=kx_1-(k-1)x_2,\\qquad y=-akx_1-a(k-1)x_2.$$\n由 (1)(2)，$x_1x_2=\\dfrac{c^2}{1-a^2}$。又 $k(k-1)=\\dfrac{z^2-c^2}{4c^2}$，而 $ax-y=2akx_1$，$ax+y=-2a(k-1)x_2$，所以 $a^2x^2-y^2=-4a^2k(k-1)x_1x_2$，从而\n$$a^2(1-a^2)x^2-(1-a^2)y^2+a^2z^2=a^2c^2.$$\n无论 $|a|<1$ 还是 $|a|>1$，三个平方项系数恰有一个为负，所以轨迹是单叶双曲面。",
+   "solutionSource": "官方"
+  },
+  {
+   "no": "二",
+   "score": 10,
+   "type": "计算",
+   "subjects": [
+    "数学分析"
+   ],
+   "topics": [
+    "反常积分",
+    "倒代换",
+    "对称性"
+   ],
+   "difficulty": 2,
+   "statement": "计算 $\\displaystyle\\int_0^{+\\infty}\\frac{\\mathrm{d}x}{(1+x^2)(1+x^{2019})}$。",
+   "answer": "$\\dfrac\\pi4$",
+   "solution": "$$\\int_0^{+\\infty}\\frac{\\mathrm{d}x}{(1+x^2)(1+x^{2019})}=\\int_0^1\\frac{\\mathrm{d}x}{(1+x^2)(1+x^{2019})}+\\int_1^{+\\infty}\\frac{\\mathrm{d}x}{(1+x^2)(1+x^{2019})}.$$\n对右端第二个积分做变换 $x=\\dfrac1t$，得到\n$$\\int_1^{+\\infty}\\frac{\\mathrm{d}x}{(1+x^2)(1+x^{2019})}=\\int_0^1\\frac{t^{2019}}{(1+t^2)(1+t^{2019})}\\,\\mathrm{d}t.$$\n于是\n$$\\text{原式}=\\int_0^1\\frac{\\mathrm{d}x}{(1+x^2)(1+x^{2019})}+\\int_0^1\\frac{t^{2019}\\,\\mathrm{d}t}{(1+t^2)(1+t^{2019})}=\\int_0^1\\frac{\\mathrm{d}x}{1+x^2}=\\arctan x\\Big|_0^1=\\frac\\pi4.$$",
+   "solutionSource": "官方"
+  },
+  {
+   "no": "三",
+   "score": 15,
+   "type": "证明",
+   "subjects": [
+    "数学分析"
+   ],
+   "topics": [
+    "数列极限",
+    "单调有界定理",
+    "拉格朗日中值定理",
+    "递推数列"
+   ],
+   "difficulty": 1,
+   "statement": "设数列 $\\{x_n\\}$ 满足：$x_1>0$，$x_{n+1}=\\ln(1+x_n)$，$n=1,2,\\cdots$。证明：$\\{x_n\\}$ 收敛并求其极限值。",
+   "answer": "$\\displaystyle\\lim_{n\\to\\infty}x_n=0$",
+   "solution": "由于 $x_1>0$，所以 $x_2=\\ln(1+x_1)>0$。由数学归纳法，$x_n>0$，$n=1,2,\\cdots$。由拉格朗日中值定理，\n$$x_{n+1}-x_n=\\ln(1+x_n)-x_n=\\frac{1}{1+\\xi_n}x_n-x_n=-\\frac{\\xi_n}{1+\\xi_n}x_n<0,$$\n这里 $\\xi_n\\in(0,x_n)$。所以数列 $\\{x_n\\}$ 单调减少，又有下界 $0$，由单调有界定理，$\\{x_n\\}$ 收敛。\n设 $\\displaystyle\\lim_{n\\to\\infty}x_n=a\\ge0$。由 $x_{n+1}=\\ln(1+x_n)$ 知 $a=\\ln(1+a)$。令 $f(x)=x-\\ln(1+x)$，$f'(x)=1-\\dfrac1{1+x}>0$，$x\\in(0,+\\infty)$，$f(0)=0$，从而 $x=0$ 是 $f(x)$ 在 $[0,+\\infty)$ 上的唯一零点，所以 $\\displaystyle\\lim_{n\\to\\infty}x_n=0$。",
+   "solutionSource": "官方"
+  },
+  {
+   "no": "四",
+   "score": 15,
+   "type": "证明",
+   "subjects": [
+    "高等代数"
+   ],
+   "topics": [
+    "基",
+    "过渡矩阵",
+    "坐标",
+    "线性无关"
+   ],
+   "difficulty": 3,
+   "statement": "设 $\\{\\epsilon_1,\\cdots,\\epsilon_n\\}$ 是 $n$ 维实线性空间 $V$ 的一组基，令 $\\epsilon_1+\\epsilon_2+\\cdots+\\epsilon_n+\\epsilon_{n+1}=0$。证明：\n\n(1) 对 $i=1,2,\\cdots,n+1$，$\\{\\epsilon_1,\\cdots,\\epsilon_{i-1},\\epsilon_{i+1},\\cdots,\\epsilon_{n+1}\\}$ 都构成 $V$ 的基；\n\n(2) $\\forall\\alpha\\in V$，在 (1) 中的 $n+1$ 组基中，必存在一组基使 $\\alpha$ 在此基下的坐标分量均非负；\n\n(3) 若 $\\alpha=a_1\\epsilon_1+a_2\\epsilon_2+\\cdots+a_n\\epsilon_n$，且 $|a_i|\\ (i=1,2,\\cdots,n)$ 互不相同，则在 (1) 中的 $n+1$ 组基中，满足 (2) 中非负坐标表示的基是唯一的。",
+   "answer": "",
+   "solution": "(1) 若 $i=n+1$，显然 $\\epsilon_1,\\cdots,\\epsilon_n$ 是 $V$ 的一组基。若 $1\\le i\\le n$，令\n$$k_1\\epsilon_1+\\cdots+k_{i-1}\\epsilon_{i-1}+k_{i+1}\\epsilon_{i+1}+\\cdots+k_n\\epsilon_n+k_{n+1}\\epsilon_{n+1}=0.$$\n由于 $k_{n+1}(\\epsilon_1+\\cdots+\\epsilon_n+\\epsilon_{n+1})=0$，两式相减得\n$$(k_1-k_{n+1})\\epsilon_1+\\cdots+(k_{i-1}-k_{n+1})\\epsilon_{i-1}-k_{n+1}\\epsilon_i+(k_{i+1}-k_{n+1})\\epsilon_{i+1}+\\cdots+(k_n-k_{n+1})\\epsilon_n=0.$$\n由 $\\epsilon_1,\\cdots,\\epsilon_n$ 线性无关，各系数为 $0$，从而 $k_1=\\cdots=k_{i-1}=k_{i+1}=\\cdots=k_n=k_{n+1}=0$，故这 $n$ 个向量线性无关，构成基。\n\n(2) 由于 $\\epsilon_i=-\\left(\\sum_{j\\ne i,\\,j\\le n+1}\\epsilon_j\\right)$，有 $(\\epsilon_1,\\cdots,\\epsilon_n)=(\\epsilon_1,\\cdots,\\epsilon_{i-1},\\epsilon_{i+1},\\cdots,\\epsilon_{n+1})A$，其中过渡矩阵 $A$ 由单位矩阵把第 $i$ 列换成全为 $-1$ 的列（并相应调整位置）得到。$\\forall\\alpha\\in V$，设 $\\alpha=a_1\\epsilon_1+\\cdots+a_n\\epsilon_n$。若 $a_1,\\cdots,a_n\\ge0$，结论正确；否则令 $a_i$ 是负坐标中绝对值最大者，则\n$$\\alpha=(\\epsilon_1,\\cdots,\\epsilon_{i-1},\\epsilon_{i+1},\\cdots,\\epsilon_{n+1})\\begin{pmatrix}a_1-a_i\\\\\\vdots\\\\a_{i-1}-a_i\\\\a_{i+1}-a_i\\\\\\vdots\\\\a_n-a_i\\\\-a_i\\end{pmatrix},$$\n各分量均非负（对 $j\\ne i$，$a_j\\ge a_i$），于是 $\\epsilon_1,\\cdots,\\epsilon_{i-1},\\epsilon_{i+1},\\cdots,\\epsilon_{n+1}$ 即为所求的一组基。\n\n(3) 设 $a_i$ 是负坐标中绝对值最大者。除了基 $\\epsilon_1,\\cdots,\\epsilon_{i-1},\\epsilon_{i+1},\\cdots,\\epsilon_{n+1}$ 之外，$\\alpha$ 无论在哪一组基下的坐标都有负的分量。事实上，对任意的 $k\\ne i$ 都有\n$$\\alpha=(\\epsilon_1,\\cdots,\\epsilon_{k-1},\\epsilon_{k+1},\\cdots,\\epsilon_{n+1})\\left(a_1-a_k,\\cdots,a_i-a_k,\\cdots,a_n-a_k,-a_k\\right)^T,$$\n其中 $a_i-a_k<0$（由 $|a_j|$ 互不相同），而在原基 $\\epsilon_1,\\cdots,\\epsilon_n$ 下 $a_i<0$。于是满足 (2) 中非负坐标表示的基是唯一的。\n（注：官方解答只处理了存在负坐标的情形。若 $a_1,\\cdots,a_n$ 全非负，则在去掉 $\\epsilon_k$（$k\\le n$）的基下第 $n$ 个分量为 $-a_k$，当 $a_k>0$ 时为负；但若恰有某个 $a_k=0$，该基下坐标也全非负，此时唯一性不成立，题目隐含 $a_k\\ne0$。）",
+   "solutionSource": "官方"
+  },
+  {
+   "no": "五",
+   "score": 20,
+   "type": "证明",
+   "subjects": [
+    "高等代数"
+   ],
+   "topics": [
+    "对合矩阵",
+    "矩阵的秩",
+    "可对角化",
+    "最小多项式",
+    "同时对角化"
+   ],
+   "difficulty": 3,
+   "statement": "设 $A$ 是数域 $F$ 上的 $n$ 阶矩阵，若 $A^2=I_n$（$I_n$ 表示单位矩阵），则称 $A$ 为对合矩阵。试证：\n\n(1) 若 $A$ 是 $n$ 阶对合矩阵，则 $\\operatorname{rank}(I_n+A)+\\operatorname{rank}(I_n-A)=n$；\n\n(2) $n$ 阶对合矩阵 $A$ 一定可以对角化，其相似对角形为 $\\begin{pmatrix}I_r&0\\\\0&-I_{n-r}\\end{pmatrix}$，其中 $r=\\operatorname{rank}(I_n+A)$；\n\n(3) 若 $A,B$ 均是 $n$ 阶对合矩阵，且 $AB=BA$，则存在可逆矩阵 $P$，使得 $P^{-1}AP$ 和 $P^{-1}BP$ 同时为对角矩阵。",
+   "answer": "",
+   "solution": "(1) 因为 $A^2=I_n$，故 $(I_n+A)(I_n-A)=0$，于是 $\\operatorname{rank}(I_n+A)+\\operatorname{rank}(I_n-A)\\le n$。又因为 $(I_n+A)+(I_n-A)=2I_n$，所以 $\\operatorname{rank}(I_n+A)+\\operatorname{rank}(I_n-A)\\ge\\operatorname{rank}(2I_n)=n$。从而等式成立。\n\n(2) 先证 $A$ 的特征值为 $1$ 或 $-1$：设 $A\\alpha=\\lambda\\alpha$，$\\alpha\\ne0$，则 $\\alpha=A^2\\alpha=\\lambda^2\\alpha$，故 $\\lambda^2=1$。\n因为 $A^2=I_n$，$x^2-1=(x+1)(x-1)$ 是 $A$ 的零化多项式，所以 $A$ 的最小多项式是数域 $F$ 上互素的一次因式的乘积，从而 $A$ 可以对角化。由 (1)，特征值 $1$ 的几何重数为 $n-\\operatorname{rank}(I_n-A)=\\operatorname{rank}(I_n+A)=r$，特征值 $-1$ 的几何重数为 $n-r$，所以其相似对角形为 $\\begin{pmatrix}I_r&0\\\\0&-I_{n-r}\\end{pmatrix}$。\n（另一思路：对应特征值 $1$ 有 $n-\\operatorname{rank}(I_n-A)$ 个线性无关的特征向量，对应 $-1$ 有 $n-\\operatorname{rank}(-I_n-A)$ 个，由 (1) 共 $n$ 个线性无关的特征向量，故可对角化。）\n\n(3) 由 (2)，存在可逆矩阵 $G$，使得 $G^{-1}AG=\\begin{pmatrix}I_r&0\\\\0&-I_{n-r}\\end{pmatrix}$。由 $AB=BA$，有 $(G^{-1}AG)(G^{-1}BG)=(G^{-1}BG)(G^{-1}AG)$，所以 $G^{-1}BG=\\begin{pmatrix}B_{11}&0\\\\0&B_{22}\\end{pmatrix}$ 为准对角矩阵。由于 $B^2=I_n$，故 $B_{11}^2=I_r$，$B_{22}^2=I_{n-r}$ 也是对合矩阵。由 (2)，存在可逆矩阵 $G_1,G_2$，使得\n$$G_1^{-1}B_{11}G_1=\\begin{pmatrix}I_s&0\\\\0&-I_{r-s}\\end{pmatrix},\\qquad G_2^{-1}B_{22}G_2=\\begin{pmatrix}I_t&0\\\\0&-I_{n-r-t}\\end{pmatrix}.$$\n令 $P=G\\begin{pmatrix}G_1&0\\\\0&G_2\\end{pmatrix}$，则 $P$ 可逆，且 $P^{-1}AP$，$P^{-1}BP$ 同时为对角矩阵。",
+   "solutionSource": "官方"
+  },
+  {
+   "no": "六",
+   "score": 15,
+   "type": "解答",
+   "subjects": [
+    "数学分析"
+   ],
+   "topics": [
+    "凹函数",
+    "Jensen不等式",
+    "上下确界",
+    "反函数",
+    "单侧导数"
+   ],
+   "difficulty": 4,
+   "statement": "设函数 $f(x)$ 为闭区间 $[a,b]$ 上的连续凹函数，满足 $f(a)=0$，$f(b)>0$ 且 $f(x)$ 在 $x=a$ 处存在非零的右导数。对 $n\\ge2$，记\n$$S_n=\\left\\{\\sum_{k=1}^nkx_k:\\ \\sum_{k=1}^nkf(x_k)=f(b),\\ x_k\\in[a,b]\\right\\}.$$\n(1) 证明对 $\\forall\\alpha\\in(0,f(b))$，存在唯一 $x\\in(a,b)$ 使得 $f(x)=\\alpha$；\n\n(2) 求 $\\displaystyle\\lim_{n\\to\\infty}(\\sup S_n-\\inf S_n)$。",
+   "answer": "$b-a-\\dfrac{f(b)}{f'_+(a)}$",
+   "solution": "（本题\"凹函数\"指弦在曲线下方，即 $f\\left(\\sum\\lambda_ix_i\\right)\\ge\\sum\\lambda_if(x_i)$。）\n\n(1) 因为 $f$ 在 $[a,b]$ 上连续，对 $\\forall\\alpha\\in(0,f(b))$，由介值定理在 $(a,b)$ 内至少存在一点 $\\xi$ 使 $f(\\xi)=\\alpha$。唯一性：假设 $\\xi,\\eta\\in(a,b)$，$\\xi<\\eta$ 且 $f(\\xi)=f(\\eta)=\\alpha$，则点 $(\\eta,\\alpha)$ 落在端点为 $(\\xi,\\alpha)$，$(b,f(b))$ 的线段的下方，这与函数的凹性矛盾。\n\n(2) 记 $T_n=\\left\\{(x_1,\\cdots,x_n):\\ \\sum_{k=1}^nkf(x_k)=f(b),\\ x_k\\in[a,b]\\right\\}$。对 $\\forall(x_1,\\cdots,x_n)\\in T_n$，由凹性\n$$\\frac{2f(b)}{n(n+1)}=\\frac{\\sum_{k=1}^nkf(x_k)}{1+2+\\cdots+n}\\le f\\left(\\frac{x_1+2x_2+\\cdots+nx_n}{1+2+\\cdots+n}\\right),$$\n由 (1) 知 $f$ 在 $[a,b]$ 上严格增（可由凹性及 $f(a)=0<f(b)$ 得到），于是\n$$\\sum_{k=1}^nkx_k\\ge\\frac{n(n+1)}{2}f^{-1}\\left(\\frac{2f(b)}{n(n+1)}\\right),$$\n当 $x_1=\\cdots=x_n=f^{-1}\\left(\\dfrac{2f(b)}{n(n+1)}\\right)$ 时等号成立且该点属于 $T_n$，故 $\\inf S_n=\\dfrac{n(n+1)}{2}f^{-1}\\left(\\dfrac{2f(b)}{n(n+1)}\\right)$。\n另一方面，连接 $(a,f(a))$ 与 $(b,f(b))$ 的线段落在曲线下方，故对任意 $x\\in[a,b]$，$\\dfrac{f(b)}{b-a}(x-a)\\le f(x)$，即 $x\\le\\dfrac{b-a}{f(b)}f(x)+a$。于是\n$$\\sum_{k=1}^nkx_k\\le\\frac{b-a}{f(b)}\\sum_{k=1}^nkf(x_k)+\\frac{n(n+1)}{2}a=b-a+\\frac{n(n+1)}{2}a,$$\n等号当 $x_1=b,\\ x_2=\\cdots=x_n=a$ 时达到，而 $(b,a,\\cdots,a)\\in T_n$，故 $\\sup S_n=b-a+\\dfrac{n(n+1)}{2}a$。于是\n$$\\lim_{n\\to\\infty}(\\sup S_n-\\inf S_n)=b-a+\\lim_{n\\to\\infty}\\frac{n(n+1)}{2}\\left(a-f^{-1}\\left(\\frac{2f(b)}{n(n+1)}\\right)\\right)=b-a+f(b)\\lim_{x\\to0^+}\\frac{a-f^{-1}(x)}{x}$$\n$$=b-a+f(b)\\lim_{t\\to a^+}\\frac{a-t}{f(t)}=b-a-\\frac{f(b)}{f'_+(a)}.$$",
+   "solutionSource": "官方"
+  },
+  {
+   "no": "七",
+   "score": 10,
+   "type": "证明",
+   "subjects": [
+    "数学分析"
+   ],
+   "topics": [
+    "正项级数",
+    "柯西-施瓦茨不等式",
+    "Abel变换",
+    "级数估计"
+   ],
+   "difficulty": 4,
+   "statement": "设正项级数 $\\displaystyle\\sum_{n=1}^\\infty\\frac1{a_n}$ 收敛。证明级数 $\\displaystyle\\sum_{n=1}^\\infty\\frac{n^2a_n}{S_n^2}$ 收敛，其中 $S_n=\\displaystyle\\sum_{k=1}^na_k$。",
+   "answer": "",
+   "solution": "记 $S_0=0$，$\\sigma=\\displaystyle\\sum_{n=1}^\\infty\\frac1{a_n}$。则\n$$\\sum_{n=1}^N\\frac{n^2a_n}{S_n^2}=\\frac1{a_1}+\\sum_{n=2}^N\\frac{n^2}{S_n^2}(S_n-S_{n-1})\\le\\frac1{a_1}+\\sum_{n=2}^N\\frac{n^2}{S_nS_{n-1}}(S_n-S_{n-1})=\\frac1{a_1}+\\sum_{n=2}^N\\frac{n^2}{S_{n-1}}-\\sum_{n=2}^N\\frac{n^2}{S_n}$$\n$$=\\frac1{a_1}+\\sum_{n=1}^{N-1}\\frac{(n+1)^2}{S_n}-\\sum_{n=2}^N\\frac{n^2}{S_n}\\le\\frac5{a_1}+2\\sum_{n=2}^N\\frac{n}{S_n}+\\sum_{n=2}^N\\frac1{S_n}.\\tag{1}$$\n由 Cauchy 不等式，\n$$\\sum_{n=2}^N\\frac n{S_n}=\\sum_{n=2}^N\\frac{n}{S_n}\\sqrt{a_n}\\cdot\\frac{1}{\\sqrt{a_n}}\\le\\left(\\sum_{n=1}^N\\frac{n^2a_n}{S_n^2}\\right)^{1/2}\\left(\\sum_{n=1}^N\\frac1{a_n}\\right)^{1/2}.$$\n又 $\\dfrac1{S_n}\\le\\dfrac1{a_n}$，则由 (1)，记 $X_N=\\displaystyle\\sum_{n=1}^N\\frac{n^2a_n}{S_n^2}$，有 $X_N\\le\\dfrac5{a_1}+2\\sqrt{X_N}\\sqrt\\sigma+\\sigma$，从而\n$$\\left(\\sqrt{X_N}-\\sqrt\\sigma\\right)^2\\le\\frac5{a_1}+2\\sigma,\\qquad\\sqrt{X_N}\\le\\sqrt\\sigma+\\sqrt{2\\sigma+5/a_1}.$$\n部分和有界，于是级数 $\\displaystyle\\sum_{n=1}^\\infty\\frac{n^2a_n}{S_n^2}$ 收敛。",
+   "solutionSource": "官方"
+  }
+ ]
+}

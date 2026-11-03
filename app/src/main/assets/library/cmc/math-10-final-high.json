@@ -1,0 +1,261 @@
+{
+ "id": "cmc-math-10-final-high",
+ "title": "第十届全国大学生数学竞赛决赛（数学类高年级组（三、四年级））",
+ "year": 2019,
+ "track": "数学类",
+ "round": "决赛",
+ "paper": "high",
+ "durationMin": 180,
+ "totalScore": 100,
+ "source": {
+  "question": "2019年03月-数学类三、四年级-第十届全国决赛试卷.pdf",
+  "solution": "2019年03月-数学类三、四年级从参考解答-第十届全国决赛试卷.pdf"
+ },
+ "problems": [
+  {
+   "no": "一(1)",
+   "score": 5,
+   "type": "填空",
+   "subjects": [
+    "高等代数"
+   ],
+   "topics": [
+    "实对称矩阵",
+    "行向量组",
+    "极大无关组",
+    "秩"
+   ],
+   "difficulty": 2,
+   "statement": "设 $A$ 为实对称方阵，$(1,0,1)$ 和 $(1,2,0)$ 构成其行向量的一个极大无关组，则有 $A=$\\_\\_\\_\\_\\_\\_\\_\\_。",
+   "answer": "$\\begin{pmatrix}1&0&1\\\\0&-4&2\\\\1&2&0\\end{pmatrix}$ 或 $\\begin{pmatrix}3/2&1&1\\\\1&2&0\\\\1&0&1\\end{pmatrix}$",
+   "solution": "（官方仅给答案，以下为编写的验证思路。）$A$ 为 $3$ 阶实对称矩阵，秩为 $2$，两个给定向量是 $A$ 的两行，第三行是它们的线性组合 $\\lambda(1,0,1)+\\mu(1,2,0)$，再由对称性定出 $\\lambda,\\mu$。\n\n若 $(1,0,1)$、$(1,2,0)$ 分别为第 $1$、$3$ 行，第 $2$ 行 $(\\lambda+\\mu,2\\mu,\\lambda)$ 须满足 $a_{12}=a_{21}$，$a_{23}=a_{32}$，即 $\\lambda+\\mu=0$，$\\lambda=2$，得第 $2$ 行 $(0,-4,2)$，即第一个答案。若 $(1,2,0)$、$(1,0,1)$ 分别为第 $2$、$3$ 行，第 $1$ 行 $(\\lambda+\\mu,2\\mu,\\lambda)$ 须满足 $2\\mu=1$，$\\lambda=1$，得第 $1$ 行 $\\left(\\frac32,1,1\\right)$，即第二个答案。",
+   "solutionSource": "编写"
+  },
+  {
+   "no": "一(2)",
+   "score": 5,
+   "type": "填空",
+   "subjects": [
+    "数学分析"
+   ],
+   "topics": [
+    "隐函数",
+    "反函数求导"
+   ],
+   "difficulty": 2,
+   "statement": "设 $y(x)\\in C^1[0,1)$ 满足 $y(x)\\in[0,\\pi]$ 及 $x=\\begin{cases}\\dfrac{\\sin y(x)}{y(x)},&y\\in(0,\\pi],\\\\1,&y=0,\\end{cases}$ 则 $y'(0)=$\\_\\_\\_\\_\\_\\_\\_\\_。",
+   "answer": "$-\\pi$",
+   "solution": "（编写）$x=0$ 对应 $\\sin y/y=0$，即 $y(0)=\\pi$。由反函数求导，\n$$\\frac{\\mathrm dx}{\\mathrm dy}=\\frac{y\\cos y-\\sin y}{y^2}\\Big|_{y=\\pi}=\\frac{-\\pi}{\\pi^2}=-\\frac1\\pi,$$\n故 $y'(0)=-\\pi$。",
+   "solutionSource": "编写"
+  },
+  {
+   "no": "一(3)",
+   "score": 5,
+   "type": "填空",
+   "subjects": [
+    "数学分析"
+   ],
+   "topics": [
+    "变限积分",
+    "分部积分",
+    "Gauss积分"
+   ],
+   "difficulty": 1,
+   "statement": "设 $f(x)=\\displaystyle\\int_x^{+\\infty}e^{-t^2}\\,\\mathrm dt$，则 $\\displaystyle\\int_0^{+\\infty}xf(x)\\,\\mathrm dx=$\\_\\_\\_\\_\\_\\_\\_\\_。",
+   "answer": "$\\dfrac{\\sqrt\\pi}8$",
+   "solution": "（编写）分部积分，$f'(x)=-e^{-x^2}$，且 $x^2f(x)\\to0\\ (x\\to+\\infty)$：\n$$\\int_0^{+\\infty}xf(x)\\,\\mathrm dx=\\left[\\frac{x^2}2f(x)\\right]_0^{+\\infty}+\\int_0^{+\\infty}\\frac{x^2}2e^{-x^2}\\,\\mathrm dx=\\frac12\\cdot\\frac{\\sqrt\\pi}4=\\frac{\\sqrt\\pi}8.$$",
+   "solutionSource": "编写"
+  },
+  {
+   "no": "一(4)",
+   "score": 5,
+   "type": "填空",
+   "subjects": [
+    "高等代数"
+   ],
+   "topics": [
+    "正交矩阵",
+    "子矩阵",
+    "Gram矩阵",
+    "半正定"
+   ],
+   "difficulty": 3,
+   "statement": "设 $U$ 为 $8$ 阶实正交方阵，$U$ 中元素皆为 $\\dfrac1{2\\sqrt2}$ 的 $3\\times3$ 子矩阵的个数记为 $t$，则 $t$ 最多为\\_\\_\\_\\_\\_\\_\\_\\_。",
+   "answer": "$0$",
+   "solution": "（编写）记 $c=\\frac1{2\\sqrt2}$，$c^2=\\frac18$。若某 $3\\times3$ 子矩阵（第 $i_1,i_2,i_3$ 行、第 $a,b,d$ 列）元素全为 $c$，把这三列在其余 $5$ 行上的部分记为 $v_a,v_b,v_d\\in\\mathbb R^5$。由列向量单位正交，\n$$|v_a|^2=1-3c^2=\\frac58,\\qquad v_a\\cdot v_b=0-3c^2=-\\frac38,$$\n等等。于是 $v_a,v_b,v_d$ 的 Gram 矩阵为 $\\frac58I_3-\\frac38(J-I_3)$（$J$ 为全 $1$ 矩阵），其特征值为 $1,1,-\\frac18$，不是半正定的，矛盾。故这样的子矩阵不存在，$t$ 最多为 $0$。",
+   "solutionSource": "编写"
+  },
+  {
+   "no": "二",
+   "score": 15,
+   "type": "计算",
+   "subjects": [
+    "解析几何"
+   ],
+   "topics": [
+    "直纹面",
+    "共面直线",
+    "二次曲面分类",
+    "马鞍面"
+   ],
+   "difficulty": 2,
+   "statement": "给定空间直角坐标系中的两条直线：$l_1$ 为 $z$ 轴，$l_2$ 过 $(-1,0,0)$ 及 $(0,1,1)$ 两点。动直线 $l$ 分别与 $l_1,l_2$ 共面，且与平面 $z=0$ 平行。\n\n(1) 求动直线 $l$ 全体构成的曲面 $S$ 的方程；\n\n(2) 确定 $S$ 是什么曲面。",
+   "answer": "(1) $xz-yz+y=0$；(2) 双曲抛物面（马鞍面）。",
+   "solution": "(1) **思路一.** $l_1$ 的参数方程为 $x=0,y=0,z=s$；$l_2$ 的参数方程为 $x=-1+t,\\ y=t,\\ z=t$。设 $l$ 与 $l_1,l_2$ 分别交于 $(0,0,s)$ 与 $(-1+t,t,t)$，则 $l$ 的方向为 $(-1+t,t,t-s)$。由 $l$ 与平面 $z=0$ 平行，$t=s$，故 $l$ 的方程为\n$$x=(t-1)u,\\quad y=tu,\\quad z=t.$$\n消去 $t,u$ 得 $S:\\ xz-yz+y=0$。\n\n**思路二.** 过 $l_1$ 的平面族 $\\pi_1:\\ (1-\\lambda)x+\\lambda y=0$；过 $l_2$ 的平面族 $\\pi_2:\\ (1-\\mu)(x-y+1)+\\mu(y-z)=0$。$l$ 是 $\\pi_1$ 与 $\\pi_2$ 的交线，方向为\n$$(1-\\lambda,\\lambda,0)\\times(1-\\mu,2\\mu-1,-\\mu)=\\big(-\\lambda\\mu,\\ \\mu(1-\\lambda),\\ -1+2\\mu-\\lambda\\mu\\big).$$\n与 $z=0$ 平行得 $-1+2\\mu-\\lambda\\mu=0$。由 $\\pi_1,\\pi_2$ 解出 $\\lambda=\\dfrac{x}{x-y}$，$\\mu=\\dfrac{x-y+1}{x-2y+z+1}$，代入即得 $xz-yz+y=0$。\n\n(2) 作可逆线性变换 $x=x'-y'-z'$，$y=-z'$，$z=x'+y'$，曲面 $S$ 的方程化为 $z'=x'^2-y'^2$，因此 $S$ 为马鞍面（双曲抛物面）。",
+   "solutionSource": "官方"
+  },
+  {
+   "no": "三",
+   "score": 15,
+   "type": "证明",
+   "subjects": [
+    "高等代数"
+   ],
+   "topics": [
+    "幂零矩阵",
+    "迹",
+    "相似变换",
+    "数学归纳法"
+   ],
+   "difficulty": 4,
+   "statement": "证明：任意 $n$ 阶实方阵 $A$ 可以分解成 $A=A_0+A_1+A_2$，其中 $A_0=aI_n$，$a$ 是实数，$A_1$ 与 $A_2$ 都是幂零方阵。",
+   "answer": "",
+   "solution": "**引理.** 设 $A$ 是 $n$ 阶实方阵且 $\\operatorname{tr}(A)=0$，则存在可逆实方阵 $P$，使 $P^{-1}AP$ 的对角元素都是 $0$。\n\n对 $n$ 归纳。$n=1$ 时 $A=(0)$。设 $n\\geqslant2$。\n\n情形一：$\\mathbb R^n$ 中所有非零向量都是 $A$ 的特征向量。由各 $e_i$ 是特征向量，$A=\\operatorname{diag}(\\lambda_1,\\ldots,\\lambda_n)$；再由 $e_i+e_j$ 是特征向量，$A(e_i+e_j)=\\lambda_ie_i+\\lambda_je_j=\\mu_{ij}(e_i+e_j)$，得 $\\lambda_i=\\lambda_j$，$A$ 为纯量阵，再由 $\\operatorname{tr}A=0$ 得 $A=0$。\n\n情形二：存在非零向量 $\\alpha$ 不是 $A$ 的特征向量，则 $\\alpha,A\\alpha$ 线性无关，可扩充为可逆阵 $Q=(\\alpha,A\\alpha,*,\\cdots,*)$，使\n$$Q^{-1}AQ=\\begin{pmatrix}0&*\\\\ *&B\\end{pmatrix},$$\n$B$ 为 $n-1$ 阶实方阵且 $\\operatorname{tr}B=0$。由归纳假设存在可逆 $R$ 使 $R^{-1}BR$ 对角元全为 $0$，令 $P=Q\\operatorname{diag}(1,R)$ 即可。\n\n**原题.** 令 $A_0=\\dfrac{\\operatorname{tr}(A)}nI$，则 $\\operatorname{tr}(A-A_0)=0$。由引理，存在可逆实方阵 $P$ 使 $B=P^{-1}(A-A_0)P$ 的对角元素都是 $0$。设 $B=L+U$，$L,U$ 分别为严格下、上三角方阵，均为幂零阵。于是\n$$A=A_0+PBP^{-1}=A_0+A_1+A_2,$$\n其中 $A_0$ 为纯量阵，$A_1=PLP^{-1}$ 与 $A_2=PUP^{-1}$ 都是幂零方阵。",
+   "solutionSource": "官方"
+  },
+  {
+   "no": "四",
+   "score": 20,
+   "type": "证明",
+   "subjects": [
+    "数学分析"
+   ],
+   "topics": [
+    "Taylor展开",
+    "微分不等式",
+    "单调性",
+    "光滑函数反例"
+   ],
+   "difficulty": 3,
+   "statement": "设 $\\alpha>0$，$f(x)\\in C^1[0,1]$，且对任何非负整数 $n$，$f^{(n)}(0)$ 均存在且为零。进一步存在常数 $C>0$ 使得 $\\left|x^\\alpha f'(x)\\right|\\leqslant C|f(x)|\\ (\\forall x\\in[0,1])$。证明：\n\n(1) 若 $\\alpha=1$，则在 $[0,1]$ 上 $f(x)\\equiv0$；\n\n(2) 若 $\\alpha>1$，举例说明在 $[0,1]$ 上 $f(x)\\equiv0$ 可以不成立。",
+   "answer": "(2) 例如 $f(x)=e^{-x^{1-\\alpha}}\\ (0<x\\leqslant1)$，$f(0)=0$。",
+   "solution": "(1) 由 $f^{(n)}(0)=0\\ (\\forall n\\geqslant0)$ 及 Taylor 展式，对任何固定的 $k$，$f(x)=o(x^k)\\ (x\\to0^+)$。特别 $\\lim\\limits_{x\\to0^+}\\dfrac{f(x)}{x^{2C}}=0$。\n\n另一方面，由假设，$\\forall x\\in(0,1]$，\n$$\\left(x^{-2C}f^2(x)\\right)'=2x^{-2C-1}\\left(xf(x)f'(x)-Cf^2(x)\\right)\\leqslant0,$$\n从而 $x^{-2C}f^2(x)$ 在 $(0,1]$ 上单调减少。因此\n$$x^{-2C}f^2(x)\\leqslant\\lim_{t\\to0^+}t^{-2C}f^2(t)=0,\\quad\\forall x\\in(0,1],$$\n故在 $[0,1]$ 上 $f(x)\\equiv0$。\n\n(2) 取 $f(x)=\\begin{cases}e^{-x^{1-\\alpha}},&x\\in(0,1],\\\\0,&x=0.\\end{cases}$ 由 $\\alpha>1$，$x^{1-\\alpha}\\to+\\infty\\ (x\\to0^+)$，$f$ 在 $0$ 处各阶导数为 $0$；且 $x^\\alpha f'(x)=(\\alpha-1)f(x)$，满足条件（$C=\\alpha-1$），但 $f\\not\\equiv0$。",
+   "solutionSource": "官方"
+  },
+  {
+   "no": "五",
+   "score": 10,
+   "type": "证明",
+   "subjects": [
+    "抽象代数"
+   ],
+   "topics": [
+    "结合环",
+    "可逆元",
+    "交换性"
+   ],
+   "difficulty": 3,
+   "statement": "（抽象代数）设 $(R,+,\\cdot)$ 为含 $1\\neq0$ 的结合环，$a,b\\in R$。若 $a+b=ba$，且关于 $x$ 的方程\n$$\\begin{cases}x^2-(ax^2+x^2a)+ax^2a=1\\\\x+a-(ax+xa)+axa=1\\end{cases}$$\n在 $R$ 中有解。证明：$ab=ba$。",
+   "answer": "",
+   "solution": "1) 方程组等价于\n$$\\begin{cases}(1-a)x^2(1-a)=1,\\\\(1-a)x(1-a)=1-a.\\end{cases}$$\n于是\n$$(1-a)x=(1-a)x\\left\\{(1-a)x^2(1-a)\\right\\}=\\big[(1-a)x(1-a)\\big]x^2(1-a)=(1-a)x^2(1-a)=1,$$\n$$x(1-a)=\\left\\{(1-a)x^2(1-a)\\right\\}x(1-a)=(1-a)x^2\\big[(1-a)x(1-a)\\big]=(1-a)x^2(1-a)=1.$$\n因此 $1-a$ 可逆，且 $(1-a)^{-1}=x$。\n\n2) 由 $a+b=ba$，$(1-b)(1-a)=1-a-b+ba=1$，结合 $1-a$ 可逆，得 $(1-a)^{-1}=1-b$。进而\n$$1=(1-a)(1-b)=1-a-b+ab=1-ba+ab,$$\n即 $ab=ba$。",
+   "solutionSource": "官方"
+  },
+  {
+   "no": "六",
+   "score": 10,
+   "type": "证明",
+   "subjects": [
+    "实变函数"
+   ],
+   "topics": [
+    "函数图像",
+    "Lebesgue外测度",
+    "零测集",
+    "可测函数"
+   ],
+   "difficulty": 3,
+   "statement": "（实变函数）设 $f:\\mathbb R\\to\\mathbb R$ 可测，则 $G=\\{(x,f(x));\\ x\\in\\mathbb R\\}$ 是 $2$-维 Lebesgue 零测集。",
+   "answer": "",
+   "solution": "固定 $k\\geqslant1$，记 $A_k=[-k,k]$，$G_k=\\{(x,f(x));\\ x\\in A_k,\\ f(x)\\in A_k\\}$。令\n$$E_{n,k,i}=\\left\\{x\\in[-k,k];\\ f(x)\\in\\left[\\frac in,\\frac{i+1}n\\right)\\right\\},\\quad i=-nk,\\ldots,nk-1.$$\n因 $f$ 可测，$E_{n,k,i}$ 可测且两两不交，$\\sum\\limits_{i=-nk}^{nk-1}m(E_{n,k,i})\\leqslant2k$。又 $\\{(x,f(x));x\\in E_{n,k,i}\\}\\subset E_{n,k,i}\\times\\left[\\frac in,\\frac{i+1}n\\right]$，故其（二维 Lebesgue 外测度）$\\leqslant\\frac1nm(E_{n,k,i})$。而\n$$\\bigcup_{i=-nk}^{nk-1}\\{(x,f(x));\\ x\\in E_{n,k,i}\\}=G_k,$$\n所以\n$$m^*(G_k)\\leqslant\\sum_{i=-nk}^{nk-1}\\frac1nm(E_{n,k,i})\\leqslant\\frac{2k}n.$$\n令 $n\\to\\infty$ 得 $m^*(G_k)=0$。又 $G=\\bigcup\\limits_{k\\geqslant1}G_k$，故 $m(G)=0$，$G$ 可测且 $L_2(G)=0$。",
+   "solutionSource": "官方"
+  },
+  {
+   "no": "七",
+   "score": 10,
+   "type": "证明",
+   "subjects": [
+    "微分几何"
+   ],
+   "topics": [
+    "脐点",
+    "第一基本型",
+    "第二基本型",
+    "椭圆抛物面",
+    "平面截线"
+   ],
+   "difficulty": 3,
+   "statement": "（微分几何）在空间直角坐标系中设椭圆抛物面 $S$ 的方程为\n$$\\gamma(u,v)=\\left(u,v,u^2+\\frac12v^2\\right),\\quad(u,v)\\in\\mathbb R^2.$$\n(1) 求 $S$ 的所有脐点；\n\n(2) 设 $\\sigma$ 为与脐点处切平面平行的平面，它截 $S$ 于曲线 $C$，证明 $C$ 是一个圆周。",
+   "answer": "(1) 脐点为 $p_\\pm=\\left(\\pm\\dfrac12,0,\\dfrac14\\right)$。",
+   "solution": "$\\gamma_u=(1,0,2u)$，$\\gamma_v=(0,1,v)$，\n$$n=\\frac{\\gamma_u\\times\\gamma_v}{|\\gamma_u\\times\\gamma_v|}=\\frac1{\\sqrt{1+4u^2+v^2}}(-2u,-v,1),\\quad\\gamma_{uu}=(0,0,2),\\ \\gamma_{uv}=0,\\ \\gamma_{vv}=(0,0,1).$$\n第一、第二基本型系数为\n$$E=1+4u^2,\\ F=2uv,\\ G=1+v^2;\\qquad L=\\frac2{\\sqrt{1+4u^2+v^2}},\\ M=0,\\ N=\\frac1{\\sqrt{1+4u^2+v^2}}.$$\n\n(1) $\\gamma(u,v)$ 为脐点当且仅当存在 $\\lambda$ 使 $\\begin{pmatrix}L&M\\\\M&N\\end{pmatrix}=\\lambda\\begin{pmatrix}E&F\\\\F&G\\end{pmatrix}$。因 $\\lambda\\neq0$，得 $F=0$，即 $u=0$ 或 $v=0$。再由 $\\dfrac LE=\\dfrac NG$，即 $\\dfrac2{1+4u^2}=\\dfrac1{1+v^2}$：$u=0$ 时无解，$v=0$ 时 $u=\\pm\\frac12$。故脐点为 $p_\\pm=\\left(\\pm\\frac12,0,\\frac14\\right)$。\n\n(2) 在 $p_+$ 处切平面单位法向量 $n=\\frac1{\\sqrt2}(-1,0,1)$，与之平行的平面 $\\sigma:\\ -x+z=a$。设截线 $C$ 为 $\\gamma(t)=(x(t),y(t),z(t))$，则 $z=x+a$，$z=x^2+\\frac12y^2$。令 $q=\\left(\\frac12,0,\\frac12+a\\right)\\in\\sigma$，则\n$$|\\gamma(t)-q|^2=\\left(x-\\frac12\\right)^2+y^2+\\left(z-\\frac12-a\\right)^2=2\\left(x-\\frac12\\right)^2+y^2=2x^2+y^2-2x+\\frac12=2a+\\frac12,$$\n（最后用到 $2x^2+y^2=2z=2x+2a$）为常数，故 $C$ 是平面 $\\sigma$ 上以 $q$ 为圆心的圆周。对 $p_-$ 同理。",
+   "solutionSource": "官方"
+  },
+  {
+   "no": "八",
+   "score": 10,
+   "type": "证明",
+   "subjects": [
+    "数值分析"
+   ],
+   "topics": [
+    "三次样条插值",
+    "自然边界条件",
+    "三弯矩方程",
+    "最小模性质",
+    "对角占优"
+   ],
+   "difficulty": 4,
+   "statement": "（数值分析）设 $\\delta:\\ a=x_0<x_1<\\cdots<x_n=b$ 是 $[a,b]$ 区间的一个剖分。用 $S[a,b]$ 表示满足下列条件的分片实系数多项式全体构成的集合：对任意 $s(x)\\in S[a,b]$，\n\n(1) $s(x)\\big|_{[x_i,x_{i+1}]}$ 是三次多项式，$i=0,1,\\cdots,n-1$；\n\n(2) $s(x)$ 在区间 $[a,b]$ 上二阶连续可导。\n\n证明：\n\n1) 对区间 $[a,b]$ 上的任意实函数 $f(x)$，存在唯一的 $s(x)\\in S[a,b]$ 满足 $s(x_i)=f(x_i),\\ i=0,1,\\ldots,n$，$s''(a)=s''(b)=0$；\n\n2) 设 $f(x)\\in C^2[a,b]$，则对满足 1) 的函数 $s(x)$ 有 $\\displaystyle\\int_a^b\\big(s''(x)\\big)^2\\,\\mathrm dx\\leqslant\\int_a^b\\big(f''(x)\\big)^2\\,\\mathrm dx$，且等号成立当且仅当 $s(x)=f(x)$。\n\n（注：试卷上本题只给出了 $S[a,b]$ 的定义而未印出所问问题，1)、2) 两问依官方参考解答补全。）",
+   "answer": "",
+   "solution": "1) 记 $h_i=x_{i+1}-x_i$，$s_i=s|_{[x_i,x_{i+1}]}$，$M_i=s''(x_i)$。$s_i''$ 是线性函数：\n$$s_i''(x)=\\frac{x_{i+1}-x}{h_i}M_i+\\frac{x-x_i}{h_i}M_{i+1},$$\n积分两次并由 $s_i(x_i)=f(x_i)$，$s_i(x_{i+1})=f(x_{i+1})$ 定出积分常数，得\n$$s_i(x)=\\frac{(x_{i+1}-x)^3}{6h_i}M_i+\\frac{(x-x_i)^3}{6h_i}M_{i+1}+A_i(x-x_i)+B_i$$\n（$A_i,B_i$ 由 $f(x_i),f(x_{i+1}),M_i,M_{i+1}$ 唯一确定）。再由 $s_{i-1}'(x_i)=s_i'(x_i)$ 化简得\n$$\\lambda_iM_{i-1}+2M_i+\\mu_iM_{i+1}=d_i,\\quad i=1,\\ldots,n-1,$$\n其中 $\\lambda_i=\\dfrac{h_{i-1}}{h_{i-1}+h_i}$，$\\mu_i=1-\\lambda_i$，$d_i=\\dfrac6{h_{i-1}+h_i}\\left(\\dfrac{f(x_{i+1})-f(x_i)}{h_i}-\\dfrac{f(x_i)-f(x_{i-1})}{h_{i-1}}\\right)$。连同 $M_0=M_n=0$，得关于 $M_0,\\ldots,M_n$ 的线性方程组，其系数矩阵严格对角占优（对角元 $2$，同行其余元素绝对值之和 $\\leqslant1$），因而可逆，方程组有唯一解。反之，由 $M_i$ 构造的 $s$ 满足全部条件，故满足条件的 $s(x)$ 存在且唯一。（也可建立关于 $m_i=s'(x_i)$ 的方程组证明。）\n\n2) 令 $g=f-s$，则 $g(x_i)=0\\ (i=0,\\ldots,n)$，且\n$$\\int_a^bf''^2\\,\\mathrm dx=\\int_a^bg''^2\\,\\mathrm dx+2\\int_a^bg''s''\\,\\mathrm dx+\\int_a^bs''^2\\,\\mathrm dx.$$\n分段分部积分，记 $c_i=s_i'''$（每段上为常数），\n$$\\int_a^bg''s''\\,\\mathrm dx=\\sum_{i=0}^{n-1}\\left[s''g'\\right]_{x_i}^{x_{i+1}}-\\sum_{i=0}^{n-1}\\int_{x_i}^{x_{i+1}}g's'''\\,\\mathrm dx=\\left[s''g'\\right]_a^b-\\sum_{i=0}^{n-1}c_i\\big(g(x_{i+1})-g(x_i)\\big)=0,$$\n这里用到 $s''(a)=s''(b)=0$ 及 $g(x_i)=0$。故 $\\int_a^bf''^2\\geqslant\\int_a^bs''^2$，等号成立 $\\Leftrightarrow g''\\equiv0\\Leftrightarrow g\\equiv0$（$g$ 线性且在两端点为 $0$）$\\Leftrightarrow f=s$。",
+   "solutionSource": "官方"
+  },
+  {
+   "no": "九",
+   "score": 10,
+   "type": "证明",
+   "subjects": [
+    "复变函数"
+   ],
+   "topics": [
+    "极点",
+    "Rouché定理",
+    "零点个数"
+   ],
+   "difficulty": 3,
+   "statement": "（复变函数）设 $z_0$ 是复函数 $w=f(z)$ 的 $n$ 阶极点。试证明：一定存在 $\\rho>0$ 及 $R>0$，使得对任意 $w\\in\\{w\\in\\mathbb C:|w|>R\\}$，函数 $f(z)-w$ 在 $|z-z_0|<\\rho$ 中必有 $n$ 个零点。",
+   "answer": "",
+   "solution": "由条件可设 $f(z)=\\dfrac{\\varphi(z)}{(z-z_0)^n}$，其中 $\\varphi$ 在 $z_0$ 的邻域内解析且 $\\varphi(z_0)\\neq0$。取 $\\rho>0$ 使 $\\varphi$ 在 $|z-z_0|\\leqslant\\rho$ 上解析且（缩小 $\\rho$）$f$ 在 $0<|z-z_0|\\leqslant\\rho$ 内解析。令\n$$R=\\max_{|z-z_0|=\\rho}\\left|\\frac{\\varphi(z)}{(z-z_0)^n}\\right|>0.$$\n对任意 $|w|>R$，在 $|z-z_0|=\\rho$ 上 $|\\varphi(z)|\\leqslant R\\rho^n<\\left|w(z-z_0)^n\\right|$。由 Rouché 定理，$F(z)=\\varphi(z)-w(z-z_0)^n$ 与 $w(z-z_0)^n$ 在 $|z-z_0|<\\rho$ 内零点个数相同，均为 $n$。设其零点为 $z_k\\ (k=1,\\ldots,n)$，则 $z_k\\neq z_0$（否则 $\\varphi(z_0)=F(z_0)=0$，矛盾），于是 $\\dfrac{\\varphi(z_k)}{(z_k-z_0)^n}-w=0$，即 $f(z)-w$ 在 $|z-z_0|<\\rho$ 中有 $n$ 个零点 $z_k$（计重数）。",
+   "solutionSource": "官方"
+  },
+  {
+   "no": "十",
+   "score": 10,
+   "type": "证明",
+   "subjects": [
+    "概率论"
+   ],
+   "topics": [
+    "弱大数定律",
+    "Chebyshev不等式",
+    "中心极限定理",
+    "Lindeberg条件",
+    "Lyapunov条件"
+   ],
+   "difficulty": 3,
+   "statement": "（概率统计）设独立随机变量序列 $\\{X_n,n\\geqslant1\\}$ 满足 $P\\left(X_n=\\pm n^\\theta\\right)=\\dfrac12$，其中 $\\theta>0$ 是常数。记 $S_n=\\displaystyle\\sum_{i=1}^nX_i$。\n\n(1) 当 $\\theta<\\dfrac12$ 时，证明 $\\dfrac{S_n}n$ 依概率收敛于 $0$，即对任意 $\\epsilon>0$，$\\lim\\limits_{n\\to\\infty}P\\left(\\dfrac{|S_n|}n\\geqslant\\epsilon\\right)=0$；\n\n(2) 证明：$\\dfrac{S_n}{\\sqrt{\\operatorname{Var}(S_n)}}\\xrightarrow{D}N(0,1)$，其中 $\\operatorname{Var}(S_n)$ 表示 $S_n$ 的方差，$\\xrightarrow{D}$ 表示依分布收敛。",
+   "answer": "",
+   "solution": "$EX_i=0$，$EX_i^2=i^{2\\theta}$，故 $ES_n=0$，$\\operatorname{Var}(S_n)=\\sum\\limits_{i=1}^ni^{2\\theta}$。由\n$$\\sum_{i=1}^ni^{2\\theta}-n^{2\\theta}=\\sum_{i=0}^{n-1}i^{2\\theta}\\leqslant\\int_0^nx^{2\\theta}\\,\\mathrm dx\\leqslant\\sum_{i=1}^ni^{2\\theta}$$\n得\n$$\\frac1{2\\theta+1}n^{2\\theta+1}\\leqslant\\operatorname{Var}(S_n)\\leqslant\\frac1{2\\theta+1}n^{2\\theta+1}+n^{2\\theta}.$$\n\n(1) 由 Chebyshev 不等式\n$$P\\left(\\frac{|S_n|}n\\geqslant\\epsilon\\right)\\leqslant\\frac{ES_n^2}{n^2\\epsilon^2}\\leqslant\\frac1{\\epsilon^2}\\left[\\frac1{2\\theta+1}n^{-(1-2\\theta)}+n^{-2(1-\\theta)}\\right],$$\n当 $\\theta<\\frac12$ 时右端 $\\to0$，即 $\\frac{S_n}n$ 依概率收敛于 $0$。\n\n(2) **思路一（Lindeberg 条件）.** 对 $1\\leqslant i\\leqslant n$，$|X_i|\\leqslant n^\\theta$，且 $\\dfrac{n^\\theta}{\\sqrt{\\operatorname{Var}(S_n)}}\\leqslant\\sqrt{\\dfrac{2\\theta+1}n}\\to0$。于是对任意 $\\tau>0$，$n$ 较大时 $I\\left(|X_i|\\geqslant\\tau\\sqrt{\\operatorname{Var}(S_n)}\\right)=0\\ (1\\leqslant i\\leqslant n)$，从而\n$$\\frac1{\\operatorname{Var}(S_n)}\\sum_{i=1}^nEX_i^2I\\left(|X_i|\\geqslant\\tau\\sqrt{\\operatorname{Var}(S_n)}\\right)\\to0,$$\nLindeberg 条件成立，故 $\\dfrac{S_n}{\\sqrt{\\operatorname{Var}(S_n)}}\\xrightarrow{D}N(0,1)$。\n\n**思路二（Lyapunov 条件）.** $\\sum\\limits_{i=1}^nEX_i^4=\\sum\\limits_{i=1}^ni^{4\\theta}\\leqslant\\dfrac1{4\\theta+1}n^{4\\theta+1}+n^{4\\theta}$，于是\n$$\\frac1{\\left(\\operatorname{Var}(S_n)\\right)^2}\\sum_{i=1}^nEX_i^4\\leqslant(2\\theta+1)^2\\left[\\frac1{4\\theta+1}n^{-1}+n^{-2}\\right]\\to0,$$\nLyapunov 条件成立，结论得证。",
+   "solutionSource": "官方"
+  }
+ ]
+}

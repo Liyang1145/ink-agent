@@ -1,0 +1,216 @@
+{
+ "id": "cmc-nonmath-11-final",
+ "title": "第十一届全国大学生数学竞赛决赛（非数学类）",
+ "year": 2020,
+ "track": "非数学类",
+ "round": "决赛",
+ "paper": "",
+ "durationMin": 180,
+ "totalScore": 100,
+ "source": {
+  "question": "11-final-nonmath.pdf",
+  "solution": "11-final-nonmath.pdf"
+ },
+ "problems": [
+  {
+   "no": "一(1)",
+   "score": 6,
+   "type": "填空",
+   "subjects": [
+    "高等数学"
+   ],
+   "topics": [
+    "极限",
+    "等价无穷小"
+   ],
+   "difficulty": 1,
+   "statement": "极限 $\\displaystyle\\lim_{x\\to\\frac\\pi2}\\frac{(1-\\sqrt{\\sin x})(1-\\sqrt[3]{\\sin x})\\cdots(1-\\sqrt[n]{\\sin x})}{(1-\\sin x)^{n-1}}=$ ______。",
+   "answer": "$\\dfrac1{n!}$",
+   "solution": "拆成 $n-1$ 个因子 $\\dfrac{1-\\sqrt[k]{\\sin x}}{1-\\sin x}$ 之积。记 $t=\\sin x-1\\to0$，$1-\\sqrt[k]{1+t}\\sim-\\dfrac tk$，故每个因子趋于 $\\dfrac1k$，极限为 $\\dfrac12\\cdot\\dfrac13\\cdots\\dfrac1n=\\dfrac1{n!}$。",
+   "solutionSource": "官方"
+  },
+  {
+   "no": "一(2)",
+   "score": 6,
+   "type": "填空",
+   "subjects": [
+    "高等数学"
+   ],
+   "topics": [
+    "隐函数求导",
+    "切线方程"
+   ],
+   "difficulty": 1,
+   "statement": "设函数 $y=f(x)$ 由方程 $3x-y=2\\arctan(y-2x)$ 所确定，则曲线 $y=f(x)$ 在点 $P\\left(1+\\dfrac\\pi2,3+\\pi\\right)$ 处的切线方程为 ______。",
+   "answer": "$y=\\dfrac52x+\\dfrac12-\\dfrac\\pi4$",
+   "solution": "两边对 $x$ 求导：$3-y'=2\\dfrac{y'-2}{1+(y-2x)^2}$。在 $P$ 点 $y-2x=1$，得 $3-y'=y'-2$，$y'=\\dfrac52$。切线 $y-(3+\\pi)=\\dfrac52\\left(x-1-\\dfrac\\pi2\\right)$，即 $y=\\dfrac52x+\\dfrac12-\\dfrac\\pi4$。",
+   "solutionSource": "官方"
+  },
+  {
+   "no": "一(3)",
+   "score": 6,
+   "type": "填空",
+   "subjects": [
+    "高等数学"
+   ],
+   "topics": [
+    "二次曲线",
+    "椭圆",
+    "待定系数"
+   ],
+   "difficulty": 1,
+   "statement": "设平面曲线 $L$ 的方程为 $Ax^2+By^2+Cxy+Dx+Ey+F=0$，且通过五个点 $P_1(-1,0)$、$P_2(0,-1)$、$P_3(0,1)$、$P_4(2,-1)$ 和 $P_5(2,1)$，则 $L$ 上任意两点之间的直线距离最大值为 ______。",
+   "answer": "$4$",
+   "solution": "代入五点得\n$$A-D+F=0,\\ B-E+F=0,\\ B+E+F=0,\\ 4A+B-2C+2D-E+F=0,\\ 4A+B+2C+2D+E+F=0,$$\n解得 $L:x^2+3y^2-2x-3=0$，即 $\\dfrac{(x-1)^2}{4}+\\dfrac{y^2}{4/3}=1$。椭圆上两点最大距离为长轴长 $4$。",
+   "solutionSource": "官方"
+  },
+  {
+   "no": "一(4)",
+   "score": 6,
+   "type": "填空",
+   "subjects": [
+    "高等数学"
+   ],
+   "topics": [
+    "高阶导数",
+    "莱布尼茨公式"
+   ],
+   "difficulty": 2,
+   "statement": "设 $f(x)=(x^2+2x-3)^n\\arctan^2\\dfrac x3$，其中 $n$ 为正整数，则 $f^{(n)}(-3)=$ ______。",
+   "answer": "$(-1)^n4^{n-2}n!\\pi^2$",
+   "solution": "记 $g(x)=(x-1)^n\\arctan^2\\dfrac x3$，则 $f(x)=(x+3)^ng(x)$。由莱布尼茨公式，$[(x+3)^n]^{(k)}$ 在 $x=-3$ 处仅 $k=n$ 时非零（等于 $n!$），故\n$$f^{(n)}(-3)=n!\\,g(-3)=n!(-4)^n\\cdot\\frac{\\pi^2}{16}=(-1)^n4^{n-2}n!\\pi^2.$$",
+   "solutionSource": "官方"
+  },
+  {
+   "no": "一(5)",
+   "score": 6,
+   "type": "填空",
+   "subjects": [
+    "高等数学"
+   ],
+   "topics": [
+    "积分等式",
+    "配方",
+    "分部积分"
+   ],
+   "difficulty": 2,
+   "statement": "设函数 $f(x)$ 的导数 $f'(x)$ 在 $[0,1]$ 上连续，$f(0)=f(1)=0$，且满足\n$$\\int_0^1[f'(x)]^2\\,\\mathrm{d}x-8\\int_0^1f(x)\\,\\mathrm{d}x+\\frac43=0,$$\n则 $f(x)=$ ______。",
+   "answer": "$2x-2x^2$",
+   "solution": "由 $\\int_0^1f\\,\\mathrm{d}x=-\\int_0^1xf'(x)\\,\\mathrm{d}x$，$\\int_0^1f'\\,\\mathrm{d}x=0$，$\\int_0^1(4x^2-4x+1)\\,\\mathrm{d}x=\\frac13$，得\n$$0=\\int_0^1\\left[f'^2+8xf'-4f'+(16x^2-16x+4)\\right]\\mathrm{d}x=\\int_0^1\\left[f'(x)+4x-2\\right]^2\\mathrm{d}x,$$\n故 $f'(x)=2-4x$，结合 $f(0)=0$ 得 $f(x)=2x-2x^2$。",
+   "solutionSource": "官方"
+  },
+  {
+   "no": "二",
+   "score": 12,
+   "type": "计算",
+   "subjects": [
+    "高等数学"
+   ],
+   "topics": [
+    "数列极限",
+    "夹逼准则",
+    "积分估计"
+   ],
+   "difficulty": 2,
+   "statement": "求极限：$\\displaystyle\\lim_{n\\to\\infty}\\sqrt n\\left(1-\\sum_{k=1}^n\\frac1{n+\\sqrt k}\\right)$。",
+   "answer": "$\\dfrac23$",
+   "solution": "记 $a_n$ 为所求表达式，则\n$$a_n=\\sqrt n\\sum_{k=1}^n\\left(\\frac1n-\\frac1{n+\\sqrt k}\\right)=\\sum_{k=1}^n\\frac{\\sqrt k}{\\sqrt n(n+\\sqrt k)}.$$\n由 $\\frac23n\\sqrt n=\\int_0^n\\sqrt x\\,\\mathrm{d}x\\leqslant\\sum_{k=1}^n\\sqrt k\\leqslant\\int_1^{n+1}\\sqrt x\\,\\mathrm{d}x<\\frac23(n+1)\\sqrt{n+1}$，得\n$$\\frac23\\cdot\\frac{n}{n+\\sqrt n}\\leqslant\\frac{1}{\\sqrt n(n+\\sqrt n)}\\sum_{k=1}^n\\sqrt k\\leqslant a_n\\leqslant\\frac1{n\\sqrt n}\\sum_{k=1}^n\\sqrt k<\\frac23\\left(1+\\frac1n\\right)\\sqrt{1+\\frac1n}.$$\n由夹逼准则，极限为 $\\dfrac23$。",
+   "solutionSource": "官方"
+  },
+  {
+   "no": "三",
+   "score": 12,
+   "type": "计算",
+   "subjects": [
+    "高等数学"
+   ],
+   "topics": [
+    "含参积分",
+    "复合函数求偏导",
+    "分部积分"
+   ],
+   "difficulty": 3,
+   "statement": "设 $F(x_1,x_2,x_3)=\\displaystyle\\int_0^{2\\pi}f(x_1+x_3\\cos\\varphi,x_2+x_3\\sin\\varphi)\\,\\mathrm{d}\\varphi$，其中 $f(u,v)$ 具有二阶连续偏导数。已知\n$$\\frac{\\partial F}{\\partial x_i}=\\int_0^{2\\pi}\\frac{\\partial}{\\partial x_i}\\left[f(x_1+x_3\\cos\\varphi,x_2+x_3\\sin\\varphi)\\right]\\mathrm{d}\\varphi,$$\n$$\\frac{\\partial^2F}{\\partial x_i^2}=\\int_0^{2\\pi}\\frac{\\partial^2}{\\partial x_i^2}\\left[f(x_1+x_3\\cos\\varphi,x_2+x_3\\sin\\varphi)\\right]\\mathrm{d}\\varphi,\\quad i=1,2,3,$$\n试求 $x_3\\left(\\dfrac{\\partial^2F}{\\partial x_1^2}+\\dfrac{\\partial^2F}{\\partial x_2^2}-\\dfrac{\\partial^2F}{\\partial x_3^2}\\right)-\\dfrac{\\partial F}{\\partial x_3}$ 并要求化简。",
+   "answer": "$0$",
+   "solution": "令 $u=x_1+x_3\\cos\\varphi$，$v=x_2+x_3\\sin\\varphi$。则\n$$f_{x_1x_1}=f_{uu},\\quad f_{x_2x_2}=f_{vv},\\quad f_{x_3x_3}=f_{uu}\\cos^2\\varphi+f_{uv}\\sin2\\varphi+f_{vv}\\sin^2\\varphi,$$\n于是\n$$x_3\\left(F_{x_1x_1}+F_{x_2x_2}-F_{x_3x_3}\\right)=x_3\\int_0^{2\\pi}\\left(f_{uu}\\sin^2\\varphi-f_{uv}\\sin2\\varphi+f_{vv}\\cos^2\\varphi\\right)\\mathrm{d}\\varphi.$$\n另一方面 $F_{x_3}=\\int_0^{2\\pi}(\\cos\\varphi\\,f_u+\\sin\\varphi\\,f_v)\\,\\mathrm{d}\\varphi$，对 $\\varphi$ 分部积分（$\\cos\\varphi=(\\sin\\varphi)'$，$\\sin\\varphi=(-\\cos\\varphi)'$，且 $\\frac{\\partial u}{\\partial\\varphi}=-x_3\\sin\\varphi$，$\\frac{\\partial v}{\\partial\\varphi}=x_3\\cos\\varphi$）得\n$$F_{x_3}=x_3\\int_0^{2\\pi}\\left(f_{uu}\\sin^2\\varphi-f_{uv}\\sin2\\varphi+f_{vv}\\cos^2\\varphi\\right)\\mathrm{d}\\varphi.$$\n所以\n$$x_3\\left(\\frac{\\partial^2F}{\\partial x_1^2}+\\frac{\\partial^2F}{\\partial x_2^2}-\\frac{\\partial^2F}{\\partial x_3^2}\\right)-\\frac{\\partial F}{\\partial x_3}=0.$$\n（注：原解答中间一步混合偏导写作 $\\frac{\\partial^2f}{\\partial u\\partial u}$，应为 $\\frac{\\partial^2f}{\\partial u\\partial v}$，原解答此处笔误，已改正。）",
+   "solutionSource": "官方"
+  },
+  {
+   "no": "四",
+   "score": 10,
+   "type": "证明",
+   "subjects": [
+    "高等数学"
+   ],
+   "topics": [
+    "中值定理",
+    "分部积分",
+    "积分中值定理"
+   ],
+   "difficulty": 2,
+   "statement": "设函数 $f(x)$ 在 $[0,1]$ 上具有连续导数，且 $\\displaystyle\\int_0^1f(x)\\,\\mathrm{d}x=\\frac52$，$\\displaystyle\\int_0^1xf(x)\\,\\mathrm{d}x=\\frac32$。证明：存在 $\\xi\\in(0,1)$，使得 $f'(\\xi)=3$。",
+   "answer": "",
+   "solution": "考虑 $\\int_0^1x(1-x)[3-f'(x)]\\,\\mathrm{d}x$。分部积分（边界项为 0）：\n$$\\int_0^1x(1-x)[3-f'(x)]\\,\\mathrm{d}x=-\\int_0^1(1-2x)[3x-f(x)]\\,\\mathrm{d}x=\\int_0^13x(2x-1)\\,\\mathrm{d}x+\\int_0^1f\\,\\mathrm{d}x-2\\int_0^1xf\\,\\mathrm{d}x=\\frac12+\\frac52-3=0.$$\n由积分中值定理（$x(1-x)>0$ 于 $(0,1)$），存在 $\\xi\\in(0,1)$ 使 $\\xi(1-\\xi)[3-f'(\\xi)]=0$，即 $f'(\\xi)=3$。",
+   "solutionSource": "官方"
+  },
+  {
+   "no": "五",
+   "score": 12,
+   "type": "证明",
+   "subjects": [
+    "高等数学",
+    "线性代数"
+   ],
+   "topics": [
+    "二次型",
+    "半正定",
+    "特征值",
+    "三重积分",
+    "行列式"
+   ],
+   "difficulty": 3,
+   "statement": "设 $B_1,B_2,\\cdots,B_{2021}$ 为空间 $\\mathbb R^3$ 中半径不为零的 2021 个球，$A=(a_{ij})$ 为 2021 阶方阵，其 $(i,j)$ 元 $a_{ij}$ 为球 $B_i$ 与 $B_j$ 相交部分的体积。证明：行列式 $|E+A|>1$，其中 $E$ 为单位矩阵。",
+   "answer": "",
+   "solution": "取以原点为心、包含所有 $B_i$ 的球 $\\Omega$，令 $\\chi_i$ 为 $B_i$ 的特征函数，则 $a_{ij}=\\iiint_\\Omega\\chi_i\\chi_j\\,\\mathrm{d}t\\,\\mathrm{d}u\\,\\mathrm{d}v$。对二次型 $f=\\sum_{i,j}a_{ij}z_iz_j$，\n$$f=\\iiint_\\Omega\\left[\\sum_{i=1}^{2021}\\chi_i(t,u,v)z_i\\right]^2\\mathrm{d}t\\,\\mathrm{d}u\\,\\mathrm{d}v\\geqslant0,$$\n故实对称阵 $A$ 半正定，特征值 $\\lambda_i\\geqslant0$。于是\n$$|E+A|=\\prod_{i=1}^{2021}(1+\\lambda_i)\\geqslant1.$$\n又 $a_{ii}$ 为球 $B_i$ 体积 $>0$，$A\\neq0$，至少有一个 $\\lambda_i>0$，故 $|E+A|>1$。",
+   "solutionSource": "官方"
+  },
+  {
+   "no": "六",
+   "score": 12,
+   "type": "证明",
+   "subjects": [
+    "高等数学"
+   ],
+   "topics": [
+    "Gauss公式",
+    "Cauchy-Schwarz不等式",
+    "均值不等式",
+    "拉普拉斯算子"
+   ],
+   "difficulty": 3,
+   "statement": "设 $\\Omega$ 是由光滑的简单封闭曲面 $\\Sigma$ 围成的有界闭区域，函数 $f(x,y,z)$ 在 $\\Omega$ 上具有连续二阶偏导数，且 $f(x,y,z)\\big|_{(x,y,z)\\in\\Sigma}=0$。记 $\\nabla f$ 为 $f(x,y,z)$ 的梯度，并令 $\\Delta f=\\dfrac{\\partial^2f}{\\partial x^2}+\\dfrac{\\partial^2f}{\\partial y^2}+\\dfrac{\\partial^2f}{\\partial z^2}$。证明：对任意常数 $C>0$，恒有\n$$C\\iiint_\\Omega f^2\\,\\mathrm{d}x\\mathrm{d}y\\mathrm{d}z+\\frac1C\\iiint_\\Omega(\\Delta f)^2\\,\\mathrm{d}x\\mathrm{d}y\\mathrm{d}z\\geqslant2\\iiint_\\Omega|\\nabla f|^2\\,\\mathrm{d}x\\mathrm{d}y\\mathrm{d}z.$$",
+   "answer": "",
+   "solution": "由 Gauss 公式（$\\Sigma$ 取外侧），\n$$\\iint_\\Sigma f\\frac{\\partial f}{\\partial x}\\mathrm{d}y\\mathrm{d}z+f\\frac{\\partial f}{\\partial y}\\mathrm{d}z\\mathrm{d}x+f\\frac{\\partial f}{\\partial z}\\mathrm{d}x\\mathrm{d}y=\\iiint_\\Omega\\left(f\\Delta f+|\\nabla f|^2\\right)\\mathrm{d}x\\mathrm{d}y\\mathrm{d}z,$$\n左端因 $f|_\\Sigma=0$ 为零。由 Cauchy 不等式\n$$\\iiint_\\Omega|\\nabla f|^2=-\\iiint_\\Omega f\\Delta f\\leqslant\\left(\\iiint_\\Omega f^2\\right)^{1/2}\\left(\\iiint_\\Omega(\\Delta f)^2\\right)^{1/2}.$$\n再由均值不等式，\n$$C\\iiint_\\Omega f^2+\\frac1C\\iiint_\\Omega(\\Delta f)^2\\geqslant2\\left(\\iiint_\\Omega f^2\\right)^{1/2}\\left(\\iiint_\\Omega(\\Delta f)^2\\right)^{1/2}\\geqslant2\\iiint_\\Omega|\\nabla f|^2.$$",
+   "solutionSource": "官方"
+  },
+  {
+   "no": "七",
+   "score": 12,
+   "type": "解答",
+   "subjects": [
+    "高等数学"
+   ],
+   "topics": [
+    "正项级数",
+    "比较判别法",
+    "Raabe型判别",
+    "渐近估计"
+   ],
+   "difficulty": 3,
+   "statement": "设 $\\{u_n\\}$ 是正数列，满足 $\\dfrac{u_{n+1}}{u_n}=1-\\dfrac\\alpha n+O\\left(\\dfrac1{n^\\beta}\\right)$，其中常数 $\\alpha>0$，$\\beta>1$。\n\n(1) 对于 $v_n=n^\\alpha u_n$，判断级数 $\\displaystyle\\sum_{n=1}^\\infty\\ln\\frac{v_{n+1}}{v_n}$ 的敛散性；\n\n(2) 讨论级数 $\\displaystyle\\sum_{n=1}^\\infty u_n$ 的敛散性。\n\n［注：设数列 $\\{a_n\\}$，$\\{b_n\\}$ 满足 $\\lim\\limits_{n\\to\\infty}a_n=0$，$\\lim\\limits_{n\\to\\infty}b_n=0$，则 $a_n=O(b_n)\\iff$ 存在常数 $M>0$ 及正整数 $N$，使得 $|a_n|\\leqslant M|b_n|$ 对任意 $n>N$ 成立。］",
+   "answer": "(1) 收敛（绝对收敛）；(2) $\\alpha>1$ 时收敛，$\\alpha\\leqslant1$ 时发散",
+   "solution": "**(1)**\n$$\\ln\\frac{v_{n+1}}{v_n}=\\alpha\\ln\\left(1+\\frac1n\\right)+\\ln\\frac{u_{n+1}}{u_n}=\\left(\\frac\\alpha n+O\\left(\\frac1{n^2}\\right)\\right)+\\left(-\\frac\\alpha n+O\\left(\\frac1{n^2}\\right)+O\\left(\\frac1{n^\\beta}\\right)\\right)=O\\left(\\frac1{n^\\gamma}\\right),$$\n其中 $\\gamma=\\min\\{2,\\beta\\}>1$。故存在 $C>0,N$ 使 $\\left|\\ln\\frac{v_{n+1}}{v_n}\\right|\\leqslant\\frac C{n^\\gamma}$（$n>N$），级数 $\\sum\\ln\\frac{v_{n+1}}{v_n}$ 收敛。\n\n**(2)** 由 $\\sum_{k=1}^n\\ln\\frac{v_{k+1}}{v_k}=\\ln v_{n+1}-\\ln v_1$ 及 (1)，$\\lim\\ln v_n=a$ 存在，故 $\\lim\\limits_{n\\to\\infty}\\dfrac{u_n}{1/n^\\alpha}=e^a>0$。由比较判别法，$\\sum u_n$ 当 $\\alpha>1$ 时收敛，$\\alpha\\leqslant1$ 时发散。",
+   "solutionSource": "官方"
+  }
+ ]
+}

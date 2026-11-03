@@ -1,0 +1,234 @@
+{
+ "id": "cmc-nonmath-01-final",
+ "title": "第一届全国大学生数学竞赛决赛（非数学类）",
+ "year": 2010,
+ "track": "非数学类",
+ "round": "决赛",
+ "paper": "",
+ "durationMin": 180,
+ "totalScore": 100,
+ "source": {
+  "question": "2010年03月-非数学类-第一届全国决赛试卷.pdf",
+  "solution": "2010年03月-非数学类参考解答-第一届全国决赛试卷.pdf"
+ },
+ "problems": [
+  {
+   "no": "一(1)",
+   "score": 5,
+   "type": "计算",
+   "subjects": [
+    "高等数学"
+   ],
+   "topics": [
+    "数列极限",
+    "等价无穷小",
+    "求和"
+   ],
+   "difficulty": 2,
+   "statement": "求极限 $\\displaystyle\\lim_{n\\to\\infty}\\sum_{k=1}^{n-1}\\left(1+\\frac kn\\right)\\sin\\frac{k\\pi}{n^2}$。",
+   "answer": "$\\dfrac{5\\pi}{6}$",
+   "solution": "记 $S_n=\\displaystyle\\sum_{k=1}^{n-1}\\left(1+\\frac kn\\right)\\sin\\frac{k\\pi}{n^2}$，则\n$$\\begin{aligned}S_n&=\\sum_{k=1}^{n-1}\\left(1+\\frac kn\\right)\\left(\\frac{k\\pi}{n^2}+o\\left(\\frac1{n^2}\\right)\\right)\\\\&=\\frac{\\pi}{n^2}\\sum_{k=1}^{n-1}k+\\frac{\\pi}{n^3}\\sum_{k=1}^{n-1}k^2+o\\left(\\frac1n\\right)\\to\\frac\\pi2+\\frac\\pi3=\\frac{5\\pi}6.\\end{aligned}$$",
+   "solutionSource": "官方"
+  },
+  {
+   "no": "一(2)",
+   "score": 5,
+   "type": "计算",
+   "subjects": [
+    "高等数学"
+   ],
+   "topics": [
+    "第二型曲面积分",
+    "投影法",
+    "极坐标"
+   ],
+   "difficulty": 2,
+   "statement": "计算 $\\displaystyle\\iint_\\Sigma\\frac{ax\\,\\mathrm dy\\,\\mathrm dz+(z+a)^2\\,\\mathrm dx\\,\\mathrm dy}{\\sqrt{x^2+y^2+z^2}}$，其中 $\\Sigma$ 为下半球面 $z=-\\sqrt{a^2-y^2-x^2}$ 的上侧，$a$ 为大于 $0$ 的常数。",
+   "answer": "$-\\dfrac{\\pi}{2}a^3$",
+   "solution": "在 $\\Sigma$ 上 $\\sqrt{x^2+y^2+z^2}=a$。将 $\\Sigma$（或分片后）投影到相应坐标平面上化为二重积分逐块计算。\n$$I_1=\\frac1a\\iint_\\Sigma ax\\,\\mathrm dy\\,\\mathrm dz=-2\\iint_{D_{yz}}\\sqrt{a^2-(y^2+z^2)}\\,\\mathrm dy\\,\\mathrm dz,$$\n其中 $D_{yz}$ 为 $yOz$ 面上的半圆 $y^2+z^2\\leqslant a^2,\\ z\\leqslant0$。用极坐标，得\n$$I_1=-2\\int_\\pi^{2\\pi}\\mathrm d\\theta\\int_0^a\\sqrt{a^2-r^2}\\,r\\,\\mathrm dr=-\\frac23\\pi a^3.$$\n$$I_2=\\frac1a\\iint_\\Sigma(z+a)^2\\,\\mathrm dx\\,\\mathrm dy=\\frac1a\\iint_{D_{xy}}\\left[a-\\sqrt{a^2-(x^2+y^2)}\\right]^2\\mathrm dx\\,\\mathrm dy,$$\n其中 $D_{xy}$ 为 $xOy$ 平面上的圆域 $x^2+y^2\\leqslant a^2$。由极坐标，得\n$$I_2=\\frac1a\\int_0^{2\\pi}\\mathrm d\\theta\\int_0^a\\left(2a^2-2a\\sqrt{a^2-r^2}-r^2\\right)r\\,\\mathrm dr=\\frac\\pi6a^3.$$\n因此 $I=I_1+I_2=-\\dfrac\\pi2a^3$。",
+   "solutionSource": "官方"
+  },
+  {
+   "no": "一(3)",
+   "score": 5,
+   "type": "计算",
+   "subjects": [
+    "高等数学"
+   ],
+   "topics": [
+    "最值应用题",
+    "一元函数极值"
+   ],
+   "difficulty": 1,
+   "statement": "现要设计一个容积为 $V$ 的一个圆柱体的容器。已知上下两底的材料费为单位面积 $a$ 元，而侧面的材料费为单位面积 $b$ 元。试给出最节省的设计方案：即高与上下底的直径之比为何值时所需费用最少？",
+   "answer": "高与底面直径之比为 $\\dfrac ab$。",
+   "solution": "设圆柱容器的高为 $h$，上下底的半径为 $r$，则 $\\pi r^2h=V$，即 $h=\\dfrac V{\\pi r^2}$。所需费用为\n$$F(r)=2a\\pi r^2+2b\\pi rh=2a\\pi r^2+\\frac{2bV}r.$$\n$F'(r)=4a\\pi r-\\dfrac{2bV}{r^2}$。令 $F'(r)=0$，即 $r^3=\\dfrac{bV}{2a\\pi}$；这时高与底的直径之比为\n$$\\frac h{2r}=\\frac V{2\\pi r^3}=\\frac ab.$$",
+   "solutionSource": "官方"
+  },
+  {
+   "no": "一(4)",
+   "score": 5,
+   "type": "计算",
+   "subjects": [
+    "高等数学"
+   ],
+   "topics": [
+    "不定积分",
+    "三角有理式",
+    "换元积分"
+   ],
+   "difficulty": 3,
+   "statement": "已知 $f(x)$ 在 $\\left(\\dfrac14,\\dfrac12\\right)$ 内满足 $f'(x)=\\dfrac1{\\sin^3x+\\cos^3x}$，求 $f(x)$。",
+   "answer": "$f(x)=-\\dfrac{\\sqrt2}6\\ln\\left|\\dfrac{1+\\sin(\\frac\\pi4-x)}{1-\\sin(\\frac\\pi4-x)}\\right|-\\dfrac23\\arctan\\left(\\sqrt2\\sin\\left(\\dfrac\\pi4-x\\right)\\right)+C$",
+   "solution": "由\n$$\\sin^3x+\\cos^3x=\\frac1{\\sqrt2}\\cos\\left(\\frac\\pi4-x\\right)\\left[1+2\\sin^2\\left(\\frac\\pi4-x\\right)\\right],$$\n得 $I=\\sqrt2\\displaystyle\\int\\frac{\\mathrm dx}{\\cos(\\frac\\pi4-x)[1+2\\sin^2(\\frac\\pi4-x)]}$。令 $u=\\dfrac\\pi4-x$，得\n$$I=-\\sqrt2\\int\\frac{\\mathrm du}{\\cos u(1+2\\sin^2u)}=-\\sqrt2\\int\\frac{\\mathrm d\\sin u}{\\cos^2u(1+2\\sin^2u)}.$$\n令 $t=\\sin u$：\n$$\\begin{aligned}I&=-\\sqrt2\\int\\frac{\\mathrm dt}{(1-t^2)(1+2t^2)}=-\\frac{\\sqrt2}3\\left[\\int\\frac{\\mathrm dt}{1-t^2}+\\int\\frac{2\\,\\mathrm dt}{1+2t^2}\\right]\\\\&=-\\frac{\\sqrt2}3\\left[\\frac12\\ln\\left|\\frac{1+t}{1-t}\\right|+\\sqrt2\\arctan\\sqrt2t\\right]+C\\\\&=-\\frac{\\sqrt2}6\\ln\\left|\\frac{1+\\sin(\\frac\\pi4-x)}{1-\\sin(\\frac\\pi4-x)}\\right|-\\frac23\\arctan\\left(\\sqrt2\\sin\\left(\\frac\\pi4-x\\right)\\right)+C.\\end{aligned}$$\n（注：原解答此处笔误，已改正：分母 $(1+1t^2)$ 应为 $(1+2t^2)$。）",
+   "solutionSource": "官方"
+  },
+  {
+   "no": "二(1)",
+   "score": 4,
+   "type": "计算",
+   "subjects": [
+    "高等数学"
+   ],
+   "topics": [
+    "数列极限",
+    "泰勒展开",
+    "重要极限"
+   ],
+   "difficulty": 2,
+   "statement": "求极限 $\\displaystyle\\lim_{n\\to\\infty}n\\left[\\left(1+\\frac1n\\right)^n-e\\right]$。",
+   "answer": "$-\\dfrac e2$",
+   "solution": "$$\\begin{aligned}\\left(1+\\frac1n\\right)^n-e&=e^{1-\\frac1{2n}+o(\\frac1n)}-e=e\\left[e^{-\\frac1{2n}+o(\\frac1n)}-1\\right]\\\\&=e\\left[-\\frac1{2n}+o\\left(\\frac1n\\right)\\right].\\end{aligned}$$\n因此 $\\displaystyle\\lim_{n\\to\\infty}n\\left[\\left(1+\\frac1n\\right)^n-e\\right]=-\\frac e2$。",
+   "solutionSource": "官方"
+  },
+  {
+   "no": "二(2)",
+   "score": 6,
+   "type": "计算",
+   "subjects": [
+    "高等数学"
+   ],
+   "topics": [
+    "数列极限",
+    "1的无穷次幂",
+    "泰勒展开"
+   ],
+   "difficulty": 2,
+   "statement": "求极限 $\\displaystyle\\lim_{n\\to\\infty}\\left(\\frac{a^{1/n}+b^{1/n}+c^{1/n}}3\\right)^n$，其中 $a>0,b>0,c>0$。",
+   "answer": "$\\sqrt[3]{abc}$",
+   "solution": "由泰勒公式，$n\\to+\\infty$ 时\n$$a^{1/n}=e^{\\frac{\\ln a}n}=1+\\frac1n\\ln a+o\\left(\\frac1n\\right),$$\n$b^{1/n},c^{1/n}$ 同理。因此\n$$\\frac13\\left(a^{1/n}+b^{1/n}+c^{1/n}\\right)=1+\\frac1n\\ln\\sqrt[3]{abc}+o\\left(\\frac1n\\right).$$\n令 $\\alpha_n=\\dfrac1n\\ln\\sqrt[3]{abc}+o\\left(\\dfrac1n\\right)$，则\n$$\\left(\\frac{a^{1/n}+b^{1/n}+c^{1/n}}3\\right)^n=\\left[(1+\\alpha_n)^{1/\\alpha_n}\\right]^{n\\alpha_n}.$$\n显然 $(1+\\alpha_n)^{1/\\alpha_n}\\to e$，$n\\alpha_n\\to\\ln\\sqrt[3]{abc}$，所以原极限 $=\\sqrt[3]{abc}$。",
+   "solutionSource": "官方"
+  },
+  {
+   "no": "三",
+   "score": 10,
+   "type": "计算",
+   "subjects": [
+    "高等数学"
+   ],
+   "topics": [
+    "导数定义",
+    "复合函数极限",
+    "等价无穷小"
+   ],
+   "difficulty": 2,
+   "statement": "设 $f(x)$ 在 $x=1$ 点附近有定义，且在 $x=1$ 点可导，并已知 $f(1)=0$，$f'(1)=2$。求 $\\displaystyle\\lim_{x\\to0}\\frac{f(\\sin^2x+\\cos x)}{x^2+x\\tan x}$。",
+   "answer": "$\\dfrac12$",
+   "solution": "由题设可知\n$$\\lim_{y\\to1}\\frac{f(y)-f(1)}{y-1}=\\lim_{y\\to1}\\frac{f(y)}{y-1}=f'(1)=2.$$\n令 $y=\\sin^2x+\\cos x$，当 $x\\to0$ 时 $y\\to1$（且 $x\\ne0$ 充分小时 $y\\neq1$），故 $\\displaystyle\\lim_{x\\to0}\\frac{f(\\sin^2x+\\cos x)}{\\sin^2x+\\cos x-1}=2$。于是\n$$\\begin{aligned}\\lim_{x\\to0}\\frac{f(\\sin^2x+\\cos x)}{x^2+x\\tan x}&=\\lim_{x\\to0}\\left(\\frac{f(\\sin^2x+\\cos x)}{\\sin^2x+\\cos x-1}\\cdot\\frac{\\sin^2x+\\cos x-1}{x^2+x\\tan x}\\right)\\\\&=2\\lim_{x\\to0}\\frac{\\sin^2x+\\cos x-1}{x^2+x\\tan x}=2\\cdot\\frac{1-\\frac12}{2}=\\frac12.\\end{aligned}$$\n【注】最后一步的极限可用常规的办法——洛必达法则或泰勒展开——求出。",
+   "solutionSource": "官方"
+  },
+  {
+   "no": "四",
+   "score": 10,
+   "type": "计算",
+   "subjects": [
+    "高等数学"
+   ],
+   "topics": [
+    "反常积分",
+    "变上限积分",
+    "分部积分",
+    "洛必达法则"
+   ],
+   "difficulty": 3,
+   "statement": "设 $f(x)$ 在 $[0,+\\infty)$ 上连续，并且无穷积分 $\\displaystyle\\int_0^\\infty f(x)\\,\\mathrm dx$ 收敛。求 $\\displaystyle\\lim_{y\\to+\\infty}\\frac1y\\int_0^yxf(x)\\,\\mathrm dx$。",
+   "answer": "$0$",
+   "solution": "设 $\\displaystyle\\int_0^{+\\infty}f(x)\\,\\mathrm dx=l$，并令 $F(x)=\\displaystyle\\int_0^xf(t)\\,\\mathrm dt$，则 $F'(x)=f(x)$，并有 $\\displaystyle\\lim_{x\\to+\\infty}F(x)=l$。对于任意的 $y>0$，有\n$$\\frac1y\\int_0^yxf(x)\\,\\mathrm dx=\\frac1y\\int_0^yx\\,\\mathrm dF(x)=\\frac1yxF(x)\\Big|_{x=0}^{x=y}-\\frac1y\\int_0^yF(x)\\,\\mathrm dx=F(y)-\\frac1y\\int_0^yF(x)\\,\\mathrm dx.$$\n根据洛必达法则和变上限积分的求导公式，不难看出\n$$\\lim_{y\\to+\\infty}\\frac1y\\int_0^yF(x)\\,\\mathrm dx=\\lim_{y\\to+\\infty}F(y)=l.$$\n因此 $\\displaystyle\\lim_{y\\to+\\infty}\\frac1y\\int_0^yxf(x)\\,\\mathrm dx=l-l=0$。",
+   "solutionSource": "官方"
+  },
+  {
+   "no": "五",
+   "score": 12,
+   "type": "证明",
+   "subjects": [
+    "高等数学"
+   ],
+   "topics": [
+    "零点定理",
+    "罗尔定理",
+    "构造辅助函数"
+   ],
+   "difficulty": 2,
+   "statement": "设函数 $f(x)$ 在 $[0,1]$ 上连续，在 $(0,1)$ 内可微，且 $f(0)=f(1)=0$，$f\\left(\\dfrac12\\right)=1$。证明：\n\n(1) 存在一个 $\\xi\\in\\left(\\dfrac12,1\\right)$ 使得 $f(\\xi)=\\xi$；\n\n(2) 存在一个 $\\eta\\in(0,\\xi)$ 使得 $f'(\\eta)=f(\\eta)-\\eta+1$。",
+   "answer": "",
+   "solution": "(1) 令 $F(x)=f(x)-x$，则 $F(x)$ 在 $[0,1]$ 上连续，且 $F\\left(\\frac12\\right)=\\frac12>0$，$F(1)=-1<0$，所以存在一个 $\\xi\\in\\left(\\frac12,1\\right)$，使得 $F(\\xi)=0$，即 $f(\\xi)=\\xi$。\n\n(2) 令 $G(x)=e^{-x}[f(x)-x]$，那么 $G(0)=G(\\xi)=0$。由罗尔定理，存在一个 $\\eta\\in(0,\\xi)$，使得 $G'(\\eta)=0$，即\n$$G'(\\eta)=e^{-\\eta}[f'(\\eta)-1]-e^{-\\eta}[f(\\eta)-\\eta]=0,$$\n也即 $f'(\\eta)=f(\\eta)-\\eta+1$。",
+   "solutionSource": "官方"
+  },
+  {
+   "no": "六",
+   "score": 14,
+   "type": "证明",
+   "subjects": [
+    "高等数学"
+   ],
+   "topics": [
+    "变上限积分",
+    "零点定理",
+    "分部积分",
+    "不等式估计"
+   ],
+   "difficulty": 4,
+   "statement": "设 $n>1$ 为整数，$F(x)=\\displaystyle\\int_0^xe^{-t}\\left(1+\\frac t{1!}+\\frac{t^2}{2!}+\\cdots+\\frac{t^n}{n!}\\right)\\mathrm dt$。证明：方程 $F(x)=\\dfrac n2$ 在 $\\left(\\dfrac n2,n\\right)$ 内至少有一个根。",
+   "answer": "",
+   "solution": "因为 $e^{-t}\\left(1+\\dfrac t{1!}+\\dfrac{t^2}{2!}+\\cdots+\\dfrac{t^n}{n!}\\right)<1,\\ \\forall t>0$，故有\n$$F\\left(\\frac n2\\right)=\\int_0^{\\frac n2}e^{-t}\\left(1+\\frac t{1!}+\\cdots+\\frac{t^n}{n!}\\right)\\mathrm dt<\\frac n2.$$\n由连续函数的介值定理，下面只需证明 $F(n)>\\dfrac n2$ 即可。由于\n$$\\begin{aligned}F(n)&=-\\int_0^n\\left(1+\\frac t{1!}+\\cdots+\\frac{t^n}{n!}\\right)\\mathrm de^{-t}\\\\&=1-e^{-n}\\left(1+\\frac n{1!}+\\cdots+\\frac{n^n}{n!}\\right)+\\int_0^ne^{-t}\\left(1+\\frac t{1!}+\\cdots+\\frac{t^{n-1}}{(n-1)!}\\right)\\mathrm dt,\\end{aligned}$$\n反复分部积分推出\n$$F(n)=\\left[1-e^{-n}\\sum_{i=0}^n\\frac{n^i}{i!}\\right]+\\left[1-e^{-n}\\sum_{i=0}^{n-1}\\frac{n^i}{i!}\\right]+\\cdots+\\left[1-e^{-n}\\left(1+\\frac n{1!}\\right)\\right]+\\left[1-e^{-n}\\right].\\qquad(*)$$\n记 $a_i=\\dfrac{n^i}{i!}$，那么 $a_0=1<a_1<a_2<\\cdots<a_n$（$i\\leqslant n$ 时 $a_i/a_{i-1}=n/i\\geqslant1$，严格处可不计）。观察方阵\n$$\\begin{pmatrix}a_0&0&\\cdots&0\\\\a_0&a_1&\\cdots&0\\\\\\vdots&\\vdots&\\ddots&\\vdots\\\\a_0&a_1&\\cdots&a_n\\end{pmatrix}+\\begin{pmatrix}a_0&a_1&\\cdots&a_n\\\\0&a_1&\\cdots&a_n\\\\\\vdots&\\vdots&\\ddots&\\vdots\\\\0&0&\\cdots&a_n\\end{pmatrix}=\\begin{pmatrix}2a_0&a_1&\\cdots&a_n\\\\a_0&2a_1&\\cdots&a_n\\\\\\vdots&\\vdots&\\ddots&\\vdots\\\\a_0&a_1&\\cdots&2a_n\\end{pmatrix},$$\n整个矩阵所有元素之和为 $(n+2)(a_0+a_1+\\cdots+a_n)$。而 $(*)$ 中减去的各和之总和恰为左边下三角矩阵的元素之和 $\\sum_i(n+1-i)a_i$，由 $a_i$ 单调递增，它不超过上三角矩阵的元素之和 $\\sum_i(i+1)a_i$，从而不超过总和的一半。基于上述观察，由 $(*)$ 式便得到\n$$F(n)\\geqslant n+1-\\frac{n+2}2e^{-n}\\left(1+\\frac n{1!}+\\frac{n^2}{2!}+\\cdots+\\frac{n^n}{n!}\\right)>n+1-\\frac{n+2}2=\\frac n2.$$\n故方程 $F(x)=\\dfrac n2$ 在 $\\left(\\dfrac n2,n\\right)$ 内至少有一个根。",
+   "solutionSource": "官方"
+  },
+  {
+   "no": "七",
+   "score": 12,
+   "type": "证明",
+   "subjects": [
+    "高等数学"
+   ],
+   "topics": [
+    "复合函数",
+    "不动点",
+    "导数",
+    "函数方程"
+   ],
+   "difficulty": 3,
+   "statement": "是否存在 $\\mathbb R^1$ 中的可微函数 $f(x)$ 使得 $f(f(x))=1+x^2+x^4-x^3-x^5$？若存在，请给出一个例子；若不存在，请给出证明。",
+   "answer": "不存在。",
+   "solution": "**思路一** 不存在。假设存在 $\\mathbb R^1$ 中的可微函数 $f(x)$ 使得 $f(f(x))=1+x^2+x^4-x^3-x^5$。考虑方程 $f(f(x))=x$，即\n$$1+x^2+x^4-x^3-x^5=x,\\quad\\text{或}\\quad(x-1)(x^4+x^2+1)=0.$$\n此方程有惟一实数根 $x=1$，即 $f(f(x))$ 有惟一不动点 $x=1$。\n\n下面说明 $x=1$ 也是 $f(x)$ 的不动点。事实上，令 $f(1)=t$，则 $f(t)=f(f(1))=1$，$f(f(t))=f(1)=t$，因此 $t$ 是 $f\\circ f$ 的不动点，$t=1$。\n\n记 $g(x)=f(f(x))$，则一方面 $g'(x)=f'(f(x))f'(x)\\Rightarrow g'(1)=(f'(1))^2\\geqslant0$；另一方面\n$$g'(x)=\\left(1+x^2+x^4-x^3-x^5\\right)'=2x+4x^3-3x^2-5x^4,$$\n从而 $g'(1)=-2$，矛盾。所以，不存在 $\\mathbb R^1$ 中的可微函数 $f(x)$ 使得 $f(f(x))=1+x^2+x^4-x^3-x^5$。\n\n**思路二** 满足条件的函数不存在（只用连续性）。首先，不存在 $x_k\\to+\\infty$ 使 $f(x_k)$ 有界，否则 $f(f(x_k))=1+x_k^2+x_k^4-x_k^3-x_k^5$ 有界，矛盾。因此 $\\displaystyle\\lim_{x\\to+\\infty}f(x)=\\infty$，从而由连续函数的介值性有 $\\displaystyle\\lim_{x\\to+\\infty}f(x)=+\\infty$ 或 $-\\infty$。\n\n若 $\\displaystyle\\lim_{x\\to+\\infty}f(x)=+\\infty$，则 $\\displaystyle\\lim_{x\\to+\\infty}f(f(x))=\\lim_{y\\to+\\infty}f(y)=+\\infty$，但右端 $\\to-\\infty$，矛盾。\n\n若 $\\displaystyle\\lim_{x\\to+\\infty}f(x)=-\\infty$：同理（右端在 $x\\to-\\infty$ 时也无界）可知 $\\displaystyle\\lim_{y\\to-\\infty}f(y)=+\\infty$ 或 $-\\infty$。若为 $+\\infty$，则 $\\displaystyle\\lim_{x\\to+\\infty}f(f(x))=\\lim_{y\\to-\\infty}f(y)=+\\infty$，矛盾；若为 $-\\infty$，则 $\\displaystyle\\lim_{x\\to-\\infty}f(f(x))=\\lim_{y\\to-\\infty}f(y)=-\\infty$，但右端在 $x\\to-\\infty$ 时 $\\to+\\infty$，矛盾。\n\n因此，无论哪种情况都不可能。（注：原解答思路二此处推导较简略，已补全。）",
+   "solutionSource": "官方"
+  },
+  {
+   "no": "八",
+   "score": 12,
+   "type": "证明",
+   "subjects": [
+    "高等数学"
+   ],
+   "topics": [
+    "一致连续",
+    "一致收敛",
+    "函数列"
+   ],
+   "difficulty": 3,
+   "statement": "设 $f(x)$ 在 $[0,\\infty)$ 上一致连续，且对于固定的 $x\\in[0,\\infty)$，当自然数 $n\\to\\infty$ 时 $f(x+n)\\to0$。证明函数序列 $\\{f(x+n):n=1,2,\\cdots\\}$ 在 $[0,1]$ 上一致收敛于 $0$。",
+   "answer": "",
+   "solution": "由于 $f(x)$ 在 $[0,\\infty)$ 上一致连续，故对于任意给定的 $\\varepsilon>0$，存在一个 $\\delta>0$ 使得\n$$|f(x_1)-f(x_2)|<\\frac\\varepsilon2,\\quad\\text{只要}\\ |x_1-x_2|<\\delta\\ (x_1\\geqslant0,x_2\\geqslant0).$$\n取一个充分大的自然数 $m$，使得 $m>\\delta^{-1}$，并在 $[0,1]$ 中取 $m+1$ 个点 $x_j=\\dfrac jm\\ (j=0,1,\\cdots,m)$。这样，对于每一个 $j$，$|x_{j+1}-x_j|=\\dfrac1m<\\delta$。\n\n又由于 $\\displaystyle\\lim_{n\\to\\infty}f(x_j+n)=0$，故对于每一个 $x_j$，存在一个 $N_j$ 使得 $|f(x_j+n)|<\\dfrac\\varepsilon2$，只要 $n>N_j$。令 $N=\\max\\{N_0,\\cdots,N_m\\}$，那么只要 $n>N$，则 $|f(x_j+n)|<\\dfrac\\varepsilon2$ 对所有 $j$ 成立。\n\n设 $x\\in[0,1]$ 是任意一点，这时总有一个 $x_j$ 使得 $x\\in[x_j,x_{j+1}]$，$|x-x_j|<\\delta$。由一致连续性可知\n$$|f(x_j+n)-f(x+n)|<\\frac\\varepsilon2\\quad(\\forall n=1,2,\\cdots).$$\n这样，只要 $n>N,\\ x\\in[0,1]$，就有 $|f(x+n)|<\\varepsilon$。注意到这里 $N$ 的选取与点 $x$ 无关，这就证实了函数序列 $\\{f(x+n)\\}$ 在 $[0,1]$ 上一致收敛于 $0$。",
+   "solutionSource": "官方"
+  }
+ ]
+}

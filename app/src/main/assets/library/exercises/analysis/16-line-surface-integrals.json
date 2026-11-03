@@ -1,0 +1,277 @@
+{
+ "id": "ex-analysis-16",
+ "title": "数学分析 · 曲线积分与曲面积分",
+ "subject": "数学分析",
+ "chapter": 16,
+ "problems": [
+  {
+   "no": "1",
+   "type": "计算",
+   "subjects": [
+    "数学分析"
+   ],
+   "topics": [
+    "第一型曲线积分"
+   ],
+   "difficulty": 1,
+   "statement": "计算 $\\displaystyle\\oint_L(x^2+y^2)\\,\\mathrm{d}s$，$L$ 为圆周 $x^2+y^2=a^2$。",
+   "answer": "$2\\pi a^3$",
+   "solution": "在 $L$ 上 $x^2+y^2=a^2$，故积分 $=a^2\\oint_L\\mathrm{d}s=a^2\\cdot2\\pi a=2\\pi a^3$。",
+   "solutionSource": "编写",
+   "source": "经典题"
+  },
+  {
+   "no": "2",
+   "type": "计算",
+   "subjects": [
+    "数学分析"
+   ],
+   "topics": [
+    "第二型曲线积分",
+    "与路径无关"
+   ],
+   "difficulty": 1,
+   "statement": "计算 $\\displaystyle\\int_L2xy\\,\\mathrm{d}x+x^2\\,\\mathrm{d}y$，其中 $L$ 分别为从 $(0,0)$ 到 $(1,1)$ 的：（1）直线 $y=x$；（2）抛物线 $y=x^2$；（3）抛物线 $x=y^2$。",
+   "answer": "三者均为 $1$",
+   "solution": "$P=2xy$，$Q=x^2$，$\\dfrac{\\partial Q}{\\partial x}=2x=\\dfrac{\\partial P}{\\partial y}$，在单连通区域 $\\mathbb{R}^2$ 上积分与路径无关，且 $2xy\\,\\mathrm{d}x+x^2\\,\\mathrm{d}y=\\mathrm{d}(x^2y)$。故三条路径上积分都等于 $x^2y\\big|_{(0,0)}^{(1,1)}=1$。\n\n（直接验证（2）：$\\int_0^1(2x\\cdot x^2+x^2\\cdot2x)\\,\\mathrm{d}x=\\int_0^14x^3\\,\\mathrm{d}x=1$。）",
+   "solutionSource": "编写",
+   "source": "经典题"
+  },
+  {
+   "no": "3",
+   "type": "计算",
+   "subjects": [
+    "数学分析"
+   ],
+   "topics": [
+    "Green公式"
+   ],
+   "difficulty": 1,
+   "statement": "计算 $\\displaystyle\\oint_L(x-y)\\,\\mathrm{d}x+(x+y)\\,\\mathrm{d}y$，$L$ 为圆周 $x^2+y^2=a^2$，取逆时针方向。",
+   "answer": "$2\\pi a^2$",
+   "solution": "由 Green 公式，$\\dfrac{\\partial Q}{\\partial x}-\\dfrac{\\partial P}{\\partial y}=1-(-1)=2$，\n$$\\oint_L=\\iint_{x^2+y^2\\le a^2}2\\,\\mathrm{d}\\sigma=2\\pi a^2.$$",
+   "solutionSource": "编写",
+   "source": "经典题"
+  },
+  {
+   "no": "4",
+   "type": "计算",
+   "subjects": [
+    "数学分析"
+   ],
+   "topics": [
+    "第一型曲面积分"
+   ],
+   "difficulty": 1,
+   "statement": "计算 $\\displaystyle\\iint_\\Sigma z\\,\\mathrm{d}S$，$\\Sigma$ 为上半球面 $z=\\sqrt{R^2-x^2-y^2}$。",
+   "answer": "$\\pi R^3$",
+   "solution": "$\\mathrm{d}S=\\sqrt{1+z_x^2+z_y^2}\\,\\mathrm{d}x\\,\\mathrm{d}y=\\dfrac{R}{z}\\,\\mathrm{d}x\\,\\mathrm{d}y$，投影区域 $D:x^2+y^2\\le R^2$。\n$$\\iint_\\Sigma z\\,\\mathrm{d}S=\\iint_Dz\\cdot\\dfrac Rz\\,\\mathrm{d}x\\,\\mathrm{d}y=R\\cdot\\pi R^2=\\pi R^3.$$\n（$z=0$ 的边界处为反常积分，但被积函数化简后有界，结论不变。）",
+   "solutionSource": "编写",
+   "source": "经典题"
+  },
+  {
+   "no": "5",
+   "type": "计算",
+   "subjects": [
+    "数学分析"
+   ],
+   "topics": [
+    "第一型曲线积分",
+    "对称性"
+   ],
+   "difficulty": 2,
+   "statement": "计算 $\\displaystyle\\oint_Lx^2\\,\\mathrm{d}s$，$L$ 为球面 $x^2+y^2+z^2=a^2$ 与平面 $x+y+z=0$ 的交线。",
+   "answer": "$\\dfrac23\\pi a^3$",
+   "solution": "$L$ 关于 $x,y,z$ 轮换对称，故 $\\oint x^2\\,\\mathrm{d}s=\\oint y^2\\,\\mathrm{d}s=\\oint z^2\\,\\mathrm{d}s$。于是\n$$\\oint_Lx^2\\,\\mathrm{d}s=\\dfrac13\\oint_L(x^2+y^2+z^2)\\,\\mathrm{d}s=\\dfrac{a^2}{3}\\oint_L\\mathrm{d}s.$$\n平面过球心，$L$ 是半径为 $a$ 的大圆，长 $2\\pi a$，故结果为 $\\dfrac23\\pi a^3$。",
+   "solutionSource": "编写",
+   "source": "经典题"
+  },
+  {
+   "no": "6",
+   "type": "计算",
+   "subjects": [
+    "数学分析"
+   ],
+   "topics": [
+    "Green公式",
+    "面积"
+   ],
+   "difficulty": 2,
+   "statement": "利用曲线积分求星形线 $x=a\\cos^3t$，$y=a\\sin^3t$（$0\\le t\\le2\\pi$）所围图形的面积。",
+   "answer": "$\\dfrac38\\pi a^2$",
+   "solution": "由 Green 公式，面积 $S=\\dfrac12\\oint_Lx\\,\\mathrm{d}y-y\\,\\mathrm{d}x$（逆时针）。\n$$x\\,\\mathrm{d}y-y\\,\\mathrm{d}x=\\big(a\\cos^3t\\cdot3a\\sin^2t\\cos t+a\\sin^3t\\cdot3a\\cos^2t\\sin t\\big)\\mathrm{d}t=3a^2\\sin^2t\\cos^2t\\,\\mathrm{d}t.$$\n$$S=\\dfrac{3a^2}2\\int_0^{2\\pi}\\sin^2t\\cos^2t\\,\\mathrm{d}t=\\dfrac{3a^2}{2}\\int_0^{2\\pi}\\dfrac{\\sin^22t}{4}\\,\\mathrm{d}t=\\dfrac{3a^2}2\\cdot\\dfrac\\pi4=\\dfrac38\\pi a^2.$$",
+   "solutionSource": "编写",
+   "source": "经典题"
+  },
+  {
+   "no": "7",
+   "type": "计算",
+   "subjects": [
+    "数学分析"
+   ],
+   "topics": [
+    "全微分",
+    "原函数"
+   ],
+   "difficulty": 2,
+   "statement": "验证 $(x^2+2xy-y^2)\\,\\mathrm{d}x+(x^2-2xy-y^2)\\,\\mathrm{d}y$ 是某函数的全微分，并求出一个原函数。",
+   "answer": "$u=\\dfrac{x^3}3+x^2y-xy^2-\\dfrac{y^3}3+C$",
+   "solution": "$P_y=2x-2y=Q_x$，在 $\\mathbb{R}^2$ 上为全微分。沿折线 $(0,0)\\to(x,0)\\to(x,y)$ 积分：\n$$u(x,y)=\\int_0^xt^2\\,\\mathrm{d}t+\\int_0^y(x^2-2xt-t^2)\\,\\mathrm{d}t=\\dfrac{x^3}3+x^2y-xy^2-\\dfrac{y^3}3.$$\n验证：$u_x=x^2+2xy-y^2$，$u_y=x^2-2xy-y^2$。",
+   "solutionSource": "编写",
+   "source": "经典题"
+  },
+  {
+   "no": "8",
+   "type": "计算",
+   "subjects": [
+    "数学分析"
+   ],
+   "topics": [
+    "Green公式",
+    "奇点处理"
+   ],
+   "difficulty": 3,
+   "statement": "计算 $\\displaystyle\\oint_L\\dfrac{x\\,\\mathrm{d}y-y\\,\\mathrm{d}x}{x^2+y^2}$，$L$ 为不经过原点的分段光滑简单闭曲线，取逆时针方向。",
+   "answer": "$L$ 不包围原点时为 $0$；包围原点时为 $2\\pi$",
+   "solution": "$P=\\dfrac{-y}{x^2+y^2}$，$Q=\\dfrac{x}{x^2+y^2}$，在原点外 $\\dfrac{\\partial Q}{\\partial x}=\\dfrac{y^2-x^2}{(x^2+y^2)^2}=\\dfrac{\\partial P}{\\partial y}$。\n\n（1）$L$ 不包围原点：$L$ 所围区域内 $P,Q$ 有连续偏导，由 Green 公式积分为 $0$。\n\n（2）$L$ 包围原点：取充分小的 $\\varepsilon$，使圆周 $C_\\varepsilon:x^2+y^2=\\varepsilon^2$ 位于 $L$ 内部。在 $L$ 与 $C_\\varepsilon$ 之间的环形区域上用 Green 公式，得 $\\oint_L=\\oint_{C_\\varepsilon}$（都取逆时针）。在 $C_\\varepsilon$ 上令 $x=\\varepsilon\\cos t$，$y=\\varepsilon\\sin t$：\n$$\\oint_{C_\\varepsilon}\\dfrac{x\\,\\mathrm{d}y-y\\,\\mathrm{d}x}{x^2+y^2}=\\int_0^{2\\pi}\\dfrac{\\varepsilon^2(\\cos^2t+\\sin^2t)}{\\varepsilon^2}\\,\\mathrm{d}t=2\\pi.$$",
+   "solutionSource": "编写",
+   "source": "经典题"
+  },
+  {
+   "no": "9",
+   "type": "计算",
+   "subjects": [
+    "数学分析"
+   ],
+   "topics": [
+    "Green公式",
+    "补线法"
+   ],
+   "difficulty": 3,
+   "statement": "计算 $\\displaystyle\\int_L(e^x\\sin y-my)\\,\\mathrm{d}x+(e^x\\cos y-m)\\,\\mathrm{d}y$，其中 $L$ 为从点 $A(a,0)$ 沿上半圆周 $x^2+y^2=ax$（$y\\ge0$，$a>0$）到点 $O(0,0)$ 的弧。",
+   "answer": "$\\dfrac{\\pi ma^2}8$",
+   "solution": "补线段 $\\overline{OA}$（从 $O$ 到 $A$），$L+\\overline{OA}$ 为逆时针方向的闭曲线，围成半圆盘 $D$（圆心 $\\left(\\frac a2,0\\right)$，半径 $\\frac a2$），面积 $\\dfrac{\\pi a^2}8$。\n$$\\dfrac{\\partial Q}{\\partial x}-\\dfrac{\\partial P}{\\partial y}=e^x\\cos y-(e^x\\cos y-m)=m,$$\n由 Green 公式 $\\oint_{L+\\overline{OA}}=m\\cdot\\dfrac{\\pi a^2}8$。在 $\\overline{OA}$ 上 $y=0$，$\\mathrm{d}y=0$，被积式 $=(e^x\\cdot0-0)\\,\\mathrm{d}x=0$。故 $\\int_L=\\dfrac{\\pi ma^2}8$。",
+   "solutionSource": "编写",
+   "source": "经典题"
+  },
+  {
+   "no": "10",
+   "type": "计算",
+   "subjects": [
+    "数学分析"
+   ],
+   "topics": [
+    "曲面面积",
+    "极坐标"
+   ],
+   "difficulty": 3,
+   "statement": "求球面 $x^2+y^2+z^2=a^2$ 含在圆柱面 $x^2+y^2=ax$ 内部的那部分面积（Viviani 问题）。",
+   "answer": "$2a^2(\\pi-2)$",
+   "solution": "由对称性，所求面积为上半球面部分的 $2$ 倍。上半球面 $\\mathrm{d}S=\\dfrac{a}{\\sqrt{a^2-x^2-y^2}}\\,\\mathrm{d}x\\,\\mathrm{d}y$，投影区域 $D:x^2+y^2\\le ax$，极坐标下 $-\\dfrac\\pi2\\le\\theta\\le\\dfrac\\pi2$，$0\\le r\\le a\\cos\\theta$。\n$$S_1=\\int_{-\\pi/2}^{\\pi/2}\\mathrm{d}\\theta\\int_0^{a\\cos\\theta}\\dfrac{ar}{\\sqrt{a^2-r^2}}\\,\\mathrm{d}r=\\int_{-\\pi/2}^{\\pi/2}a^2(1-|\\sin\\theta|)\\,\\mathrm{d}\\theta=a^2(\\pi-2).$$\n总面积为 $2a^2(\\pi-2)$。",
+   "solutionSource": "编写",
+   "source": "经典题"
+  },
+  {
+   "no": "11",
+   "type": "计算",
+   "subjects": [
+    "数学分析"
+   ],
+   "topics": [
+    "Gauss公式",
+    "第二型曲面积分"
+   ],
+   "difficulty": 2,
+   "statement": "计算 $\\displaystyle\\iint_\\Sigma x^2\\,\\mathrm{d}y\\,\\mathrm{d}z+y^2\\,\\mathrm{d}z\\,\\mathrm{d}x+z^2\\,\\mathrm{d}x\\,\\mathrm{d}y$，$\\Sigma$ 为球面 $(x-a)^2+(y-b)^2+(z-c)^2=R^2$ 的外侧。",
+   "answer": "$\\dfrac83\\pi R^3(a+b+c)$",
+   "solution": "由 Gauss 公式，\n$$\\iint_\\Sigma=\\iiint_\\Omega2(x+y+z)\\,\\mathrm{d}V=2(\\bar x+\\bar y+\\bar z)V=2(a+b+c)\\cdot\\dfrac43\\pi R^3,$$\n这里利用了球的质心为球心 $(a,b,c)$，即 $\\iiint_\\Omega x\\,\\mathrm{d}V=aV$ 等。结果为 $\\dfrac83\\pi R^3(a+b+c)$。",
+   "solutionSource": "编写",
+   "source": "经典题"
+  },
+  {
+   "no": "12",
+   "type": "计算",
+   "subjects": [
+    "数学分析"
+   ],
+   "topics": [
+    "Gauss公式",
+    "奇点处理"
+   ],
+   "difficulty": 3,
+   "statement": "计算 $\\displaystyle\\iint_\\Sigma\\dfrac{x\\,\\mathrm{d}y\\,\\mathrm{d}z+y\\,\\mathrm{d}z\\,\\mathrm{d}x+z\\,\\mathrm{d}x\\,\\mathrm{d}y}{(x^2+y^2+z^2)^{3/2}}$，$\\Sigma$ 为包围原点的光滑闭曲面的外侧。",
+   "answer": "$4\\pi$",
+   "solution": "记 $\\boldsymbol F=\\dfrac{(x,y,z)}{r^3}$，$r=\\sqrt{x^2+y^2+z^2}$。在原点外\n$$\\dfrac{\\partial}{\\partial x}\\dfrac{x}{r^3}=\\dfrac{1}{r^3}-\\dfrac{3x^2}{r^5},\\qquad\\nabla\\cdot\\boldsymbol F=\\dfrac{3}{r^3}-\\dfrac{3r^2}{r^5}=0.$$\n取小球面 $S_\\varepsilon:r=\\varepsilon$ 位于 $\\Sigma$ 内部。在 $\\Sigma$ 与 $S_\\varepsilon$ 之间的区域上用 Gauss 公式，得 $\\iint_\\Sigma=\\iint_{S_\\varepsilon}$（都取外侧）。在 $S_\\varepsilon$ 上 $\\boldsymbol F\\cdot\\boldsymbol n=\\dfrac{\\boldsymbol r}{\\varepsilon^3}\\cdot\\dfrac{\\boldsymbol r}{\\varepsilon}=\\dfrac{1}{\\varepsilon^2}$，故\n$$\\iint_{S_\\varepsilon}\\boldsymbol F\\cdot\\boldsymbol n\\,\\mathrm{d}S=\\dfrac1{\\varepsilon^2}\\cdot4\\pi\\varepsilon^2=4\\pi.$$",
+   "solutionSource": "编写",
+   "source": "经典题"
+  },
+  {
+   "no": "13",
+   "type": "计算",
+   "subjects": [
+    "数学分析"
+   ],
+   "topics": [
+    "Gauss公式",
+    "补面法"
+   ],
+   "difficulty": 3,
+   "statement": "计算 $\\displaystyle I=\\iint_\\Sigma(2x+z)\\,\\mathrm{d}y\\,\\mathrm{d}z+z\\,\\mathrm{d}x\\,\\mathrm{d}y$，其中 $\\Sigma$ 为曲面 $z=x^2+y^2$（$0\\le z\\le1$），取下侧。",
+   "answer": "$\\dfrac\\pi2$",
+   "solution": "补平面 $\\Sigma_1:z=1$（$x^2+y^2\\le1$），取上侧。$\\Sigma$（下侧）与 $\\Sigma_1$（上侧）合成区域 $\\Omega:x^2+y^2\\le z\\le1$ 的边界外侧。$\\nabla\\cdot(2x+z,0,z)=2+1=3$，\n$$\\iint_{\\Sigma+\\Sigma_1}=3\\iiint_\\Omega\\mathrm{d}V=3\\int_0^1\\pi z\\,\\mathrm{d}z=\\dfrac{3\\pi}2.$$\n在 $\\Sigma_1$ 上 $\\mathrm{d}y\\,\\mathrm{d}z=0$，$\\iint_{\\Sigma_1}z\\,\\mathrm{d}x\\,\\mathrm{d}y=\\iint_{x^2+y^2\\le1}1\\,\\mathrm{d}x\\,\\mathrm{d}y=\\pi$。故 $I=\\dfrac{3\\pi}2-\\pi=\\dfrac\\pi2$。\n\n直接验证：下侧法向量为 $(z_x,z_y,-1)=(2x,2y,-1)$，\n$$I=\\iint_{x^2+y^2\\le1}\\big[(2x+z)\\cdot2x-z\\big]\\mathrm{d}x\\,\\mathrm{d}y=\\iint(4x^2-r^2)\\,\\mathrm{d}x\\,\\mathrm{d}y=\\pi-\\dfrac\\pi2=\\dfrac\\pi2$$\n（其中 $2xz$ 项由奇性积分为零，$\\iint4x^2=\\pi$，$\\iint r^2=\\dfrac\\pi2$）。",
+   "solutionSource": "编写",
+   "source": "经典题"
+  },
+  {
+   "no": "14",
+   "type": "计算",
+   "subjects": [
+    "数学分析"
+   ],
+   "topics": [
+    "Stokes公式"
+   ],
+   "difficulty": 3,
+   "statement": "计算 $\\displaystyle\\oint_Ly\\,\\mathrm{d}x+z\\,\\mathrm{d}y+x\\,\\mathrm{d}z$，$L$ 为球面 $x^2+y^2+z^2=a^2$ 与平面 $x+y+z=0$ 的交线，从 $x$ 轴正向看去为逆时针方向。",
+   "answer": "$-\\sqrt3\\pi a^2$",
+   "solution": "取 $\\Sigma$ 为平面 $x+y+z=0$ 上被 $L$ 所围的圆盘，按右手法则取法向量 $\\boldsymbol n=\\dfrac1{\\sqrt3}(1,1,1)$（$x$ 分量为正，与\"从 $x$ 轴正向看逆时针\"相符）。\n$$\\nabla\\times(y,z,x)=\\left(\\dfrac{\\partial x}{\\partial y}-\\dfrac{\\partial z}{\\partial z},\\ \\dfrac{\\partial y}{\\partial z}-\\dfrac{\\partial x}{\\partial x},\\ \\dfrac{\\partial z}{\\partial x}-\\dfrac{\\partial y}{\\partial y}\\right)=(-1,-1,-1).$$\n由 Stokes 公式，\n$$\\oint_L=\\iint_\\Sigma(-1,-1,-1)\\cdot\\boldsymbol n\\,\\mathrm{d}S=-\\sqrt3\\cdot\\pi a^2,$$\n因为平面过球心，$\\Sigma$ 是半径为 $a$ 的圆盘。",
+   "solutionSource": "编写",
+   "source": "经典题"
+  },
+  {
+   "no": "15",
+   "type": "计算",
+   "subjects": [
+    "数学分析"
+   ],
+   "topics": [
+    "Stokes公式",
+    "投影法"
+   ],
+   "difficulty": 3,
+   "statement": "计算 $\\displaystyle\\oint_L(y-z)\\,\\mathrm{d}x+(z-x)\\,\\mathrm{d}y+(x-y)\\,\\mathrm{d}z$，$L$ 为柱面 $x^2+y^2=a^2$ 与平面 $\\dfrac xa+\\dfrac zh=1$（$a,h>0$）的交线，从 $x$ 轴正向看去为逆时针方向。",
+   "answer": "$-2\\pi a(a+h)$",
+   "solution": "$\\nabla\\times(y-z,z-x,x-y)=(-1-1,\\ -1-1,\\ -1-1)=(-2,-2,-2)$。\n\n取 $\\Sigma$ 为平面 $\\dfrac xa+\\dfrac zh=1$ 上被 $L$ 所围部分，法向量 $\\boldsymbol n\\parallel\\left(\\dfrac1a,0,\\dfrac1h\\right)$（$x$ 分量为正，与定向相符），其投影到 $xOy$ 面为圆盘 $D:x^2+y^2\\le a^2$，且 $\\mathrm{d}S=\\dfrac{\\mathrm{d}x\\,\\mathrm{d}y}{n_z}$。于是\n$$\\oint_L=\\iint_\\Sigma(-2,-2,-2)\\cdot\\boldsymbol n\\,\\mathrm{d}S=\\iint_D(-2,-2,-2)\\cdot\\left(\\dfrac ha,0,1\\right)\\mathrm{d}x\\,\\mathrm{d}y=-2\\left(\\dfrac ha+1\\right)\\pi a^2=-2\\pi a(a+h).$$",
+   "solutionSource": "编写",
+   "source": "经典题"
+  },
+  {
+   "no": "16",
+   "type": "证明",
+   "subjects": [
+    "数学分析"
+   ],
+   "topics": [
+    "Gauss公式",
+    "调和函数",
+    "平均值性质"
+   ],
+   "difficulty": 5,
+   "statement": "设 $u$ 在包含闭球 $\\overline{B}(P_0,R)\\subset\\mathbb{R}^3$ 的开集上有二阶连续偏导数，且 $\\Delta u=u_{xx}+u_{yy}+u_{zz}=0$（调和函数）。证明平均值性质：对 $0<r\\le R$，\n$$u(P_0)=\\dfrac{1}{4\\pi r^2}\\iint_{S_r}u\\,\\mathrm{d}S,$$\n其中 $S_r$ 是以 $P_0$ 为心、$r$ 为半径的球面。",
+   "answer": "",
+   "solution": "令\n$$\\varphi(r)=\\dfrac{1}{4\\pi r^2}\\iint_{S_r}u\\,\\mathrm{d}S=\\dfrac1{4\\pi}\\iint_{|\\boldsymbol\\omega|=1}u(P_0+r\\boldsymbol\\omega)\\,\\mathrm{d}S_{\\boldsymbol\\omega},$$\n后一式由变量代换 $P=P_0+r\\boldsymbol\\omega$（$\\mathrm{d}S=r^2\\mathrm{d}S_{\\boldsymbol\\omega}$）得到。$u$ 的一阶偏导连续，可在积分号下求导：\n$$\\varphi'(r)=\\dfrac1{4\\pi}\\iint_{|\\boldsymbol\\omega|=1}\\nabla u(P_0+r\\boldsymbol\\omega)\\cdot\\boldsymbol\\omega\\,\\mathrm{d}S_{\\boldsymbol\\omega}=\\dfrac{1}{4\\pi r^2}\\iint_{S_r}\\dfrac{\\partial u}{\\partial\\boldsymbol n}\\,\\mathrm{d}S,$$\n其中 $\\boldsymbol n$ 为 $S_r$ 的外法向（在点 $P_0+r\\boldsymbol\\omega$ 处正是 $\\boldsymbol\\omega$）。对向量场 $\\nabla u$ 用 Gauss 公式：\n$$\\iint_{S_r}\\dfrac{\\partial u}{\\partial\\boldsymbol n}\\,\\mathrm{d}S=\\iiint_{B(P_0,r)}\\Delta u\\,\\mathrm{d}V=0.$$\n所以 $\\varphi$ 在 $(0,R]$ 上为常数。又由 $u$ 的连续性，$|\\varphi(r)-u(P_0)|\\le\\max_{|\\boldsymbol\\omega|=1}|u(P_0+r\\boldsymbol\\omega)-u(P_0)|\\to0$（$r\\to0^+$），故 $\\varphi(r)\\equiv u(P_0)$。",
+   "solutionSource": "编写",
+   "source": "经典题"
+  }
+ ]
+}

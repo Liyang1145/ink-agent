@@ -1,0 +1,299 @@
+{
+ "id": "ex-algebra-01",
+ "title": "高等代数 · 多项式",
+ "subject": "高等代数",
+ "chapter": 1,
+ "problems": [
+  {
+   "no": "1",
+   "type": "计算",
+   "subjects": [
+    "高等代数"
+   ],
+   "topics": [
+    "带余除法"
+   ],
+   "difficulty": 1,
+   "statement": "求 $g(x)=x^2-3x+1$ 除 $f(x)=2x^4-3x^3+4x^2-5x+6$ 的商 $q(x)$ 与余式 $r(x)$。",
+   "answer": "$q(x)=2x^2+3x+11$，$r(x)=25x-5$",
+   "solution": "做长除法：\n\n第一步，$2x^4\\div x^2=2x^2$，$f-2x^2g=3x^3+2x^2-5x+6$；\n\n第二步，$3x^3\\div x^2=3x$，减去 $3x\\,g=3x^3-9x^2+3x$，得 $11x^2-8x+6$；\n\n第三步，$11x^2\\div x^2=11$，减去 $11g=11x^2-33x+11$，得 $25x-5$。\n\n此时余式次数 $1<\\deg g=2$，停止。所以\n$$q(x)=2x^2+3x+11,\\qquad r(x)=25x-5,$$\n即 $f(x)=(x^2-3x+1)(2x^2+3x+11)+25x-5$。",
+   "solutionSource": "编写",
+   "source": "经典题"
+  },
+  {
+   "no": "2",
+   "type": "计算",
+   "subjects": [
+    "高等代数"
+   ],
+   "topics": [
+    "综合除法",
+    "泰勒展开"
+   ],
+   "difficulty": 1,
+   "statement": "把 $f(x)=x^4-2x^3+3$ 表示成 $x-1$ 的方幂和，即求 $c_0,\\dots,c_4$ 使\n$$f(x)=c_0+c_1(x-1)+c_2(x-1)^2+c_3(x-1)^3+c_4(x-1)^4.$$",
+   "answer": "$f(x)=2-2(x-1)+2(x-1)^3+(x-1)^4$",
+   "solution": "反复用 $x-1$ 作综合除法，每次的余数依次就是 $c_0,c_1,\\dots$。\n\n系数 $1,-2,0,0,3$ 除以 $x-1$：商的系数 $1,-1,-1,-1$，余数 $c_0=2$；\n\n$1,-1,-1,-1$ 除以 $x-1$：商 $1,0,-1$，余数 $c_1=-2$；\n\n$1,0,-1$ 除以 $x-1$：商 $1,1$，余数 $c_2=0$；\n\n$1,1$ 除以 $x-1$：商 $1$，余数 $c_3=2$；最后 $c_4=1$。\n\n所以\n$$f(x)=2-2(x-1)+2(x-1)^3+(x-1)^4.$$\n（检验：$c_k=\\dfrac{f^{(k)}(1)}{k!}$，如 $f'(x)=4x^3-6x^2$，$f'(1)=-2$，一致。）",
+   "solutionSource": "编写",
+   "source": "经典题"
+  },
+  {
+   "no": "3",
+   "type": "计算",
+   "subjects": [
+    "高等代数"
+   ],
+   "topics": [
+    "根与系数的关系",
+    "韦达定理"
+   ],
+   "difficulty": 2,
+   "statement": "设 $\\alpha,\\beta,\\gamma$ 是 $x^3+px+q=0$ 的三个复根。求 $\\alpha^2+\\beta^2+\\gamma^2$ 与 $\\alpha^3+\\beta^3+\\gamma^3$。",
+   "answer": "$-2p$；$-3q$",
+   "solution": "由 Vieta 定理，$\\alpha+\\beta+\\gamma=0$，$\\alpha\\beta+\\beta\\gamma+\\gamma\\alpha=p$，$\\alpha\\beta\\gamma=-q$。于是\n$$\\alpha^2+\\beta^2+\\gamma^2=(\\alpha+\\beta+\\gamma)^2-2(\\alpha\\beta+\\beta\\gamma+\\gamma\\alpha)=-2p.$$\n又每个根满足 $\\alpha^3=-p\\alpha-q$，三式相加：\n$$\\alpha^3+\\beta^3+\\gamma^3=-p(\\alpha+\\beta+\\gamma)-3q=-3q.$$",
+   "solutionSource": "编写",
+   "source": "经典题"
+  },
+  {
+   "no": "4",
+   "type": "计算",
+   "subjects": [
+    "高等代数"
+   ],
+   "topics": [
+    "整除",
+    "带余除法"
+   ],
+   "difficulty": 2,
+   "statement": "问 $m,p,q$ 满足什么条件时，$x^2+mx-1\\mid x^3+px+q$？",
+   "answer": "$p=-1-m^2$，$q=m$",
+   "solution": "用 $x^2+mx-1$ 去除 $x^3+px+q$，商为 $x-m$：\n$$(x-m)(x^2+mx-1)=x^3-(1+m^2)x+m,$$\n所以余式为\n$$r(x)=(p+1+m^2)x+(q-m).$$\n整除当且仅当 $r(x)=0$，即\n$$p=-1-m^2,\\qquad q=m.$$",
+   "solutionSource": "编写",
+   "source": "经典题"
+  },
+  {
+   "no": "5",
+   "type": "计算",
+   "subjects": [
+    "高等代数"
+   ],
+   "topics": [
+    "最大公因式",
+    "辗转相除法"
+   ],
+   "difficulty": 2,
+   "statement": "设 $f(x)=x^4+x^3-x^2-2x-2$，$g(x)=x^3-3x^2-2x+6$。求 $(f,g)$，并求 $u(x),v(x)$ 使 $u f+v g=(f,g)$。",
+   "answer": "$(f,g)=x^2-2$；$u=\\dfrac1{13}$，$v=-\\dfrac{x+4}{13}$（不唯一）",
+   "solution": "辗转相除。第一步：\n$$f=(x+4)g+r_1,\\qquad r_1=13x^2-26=13(x^2-2).$$\n（验算：$(x+4)g=x^4+x^3-14x^2-2x+24$，$f-(x+4)g=13x^2-26$。）\n\n第二步：$g=x^3-3x^2-2x+6=(x-3)(x^2-2)$，被 $r_1$ 整除，余式为 $0$。\n\n所以 $(f,g)=x^2-2$（首一）。由第一步，$13(x^2-2)=f-(x+4)g$，即\n$$x^2-2=\\frac1{13}f-\\frac{x+4}{13}g,$$\n可取 $u(x)=\\dfrac1{13}$，$v(x)=-\\dfrac{x+4}{13}$。",
+   "solutionSource": "编写",
+   "source": "经典题"
+  },
+  {
+   "no": "6",
+   "type": "计算",
+   "subjects": [
+    "高等代数"
+   ],
+   "topics": [
+    "有理根",
+    "因式分解"
+   ],
+   "difficulty": 2,
+   "statement": "求 $f(x)=3x^4-x^3-6x^2+14x-4$ 的有理根，并分别在有理数域、实数域、复数域上把 $f(x)$ 分解为不可约因式的乘积。",
+   "answer": "有理根 $-2,\\dfrac13$；$f=(x+2)(3x-1)(x^2-2x+2)$",
+   "solution": "有理根 $\\dfrac{r}{s}$ 须满足 $r\\mid 4$，$s\\mid 3$，候选为 $\\pm1,\\pm2,\\pm4,\\pm\\dfrac13,\\pm\\dfrac23,\\pm\\dfrac43$。\n\n试根：$f(-2)=48+8-24-28-4=0$，用综合除法得\n$$f(x)=(x+2)(3x^3-7x^2+8x-2).$$\n再对 $h(x)=3x^3-7x^2+8x-2$ 试根：$h\\!\\left(\\dfrac13\\right)=\\dfrac19-\\dfrac79+\\dfrac83-2=0$，于是\n$$h(x)=(3x-1)(x^2-2x+2).$$\n$x^2-2x+2$ 的判别式 $4-8<0$，无实根，根为 $1\\pm\\mathrm{i}$。故有理根为 $-2,\\dfrac13$，且\n\n- $\\mathbb{Q}$ 上与 $\\mathbb{R}$ 上：$f(x)=(x+2)(3x-1)(x^2-2x+2)$；\n- $\\mathbb{C}$ 上：$f(x)=3(x+2)\\left(x-\\dfrac13\\right)(x-1-\\mathrm{i})(x-1+\\mathrm{i})$。",
+   "solutionSource": "编写",
+   "source": "经典题"
+  },
+  {
+   "no": "7",
+   "type": "证明",
+   "subjects": [
+    "高等代数"
+   ],
+   "topics": [
+    "整系数多项式",
+    "整数根"
+   ],
+   "difficulty": 2,
+   "statement": "设 $f(x)$ 是整系数多项式，且 $f(0)$ 与 $f(1)$ 都是奇数。证明 $f(x)$ 没有整数根。",
+   "answer": "",
+   "solution": "对整数 $a,b$，$a-b\\mid f(a)-f(b)$（因为 $a^k-b^k$ 被 $a-b$ 整除）。\n\n设 $k$ 为任一整数。若 $k$ 为偶数，则 $2\\mid k-0$，故 $f(k)\\equiv f(0)\\equiv1\\pmod 2$；若 $k$ 为奇数，则 $2\\mid k-1$，故 $f(k)\\equiv f(1)\\equiv1\\pmod2$。\n\n总之 $f(k)$ 是奇数，不可能为 $0$，所以 $f(x)$ 没有整数根。$\\blacksquare$",
+   "solutionSource": "编写",
+   "source": "经典题"
+  },
+  {
+   "no": "8",
+   "type": "计算",
+   "subjects": [
+    "高等代数"
+   ],
+   "topics": [
+    "重根",
+    "最大公因式"
+   ],
+   "difficulty": 3,
+   "statement": "$t$ 取何值时，$f(x)=x^3+3x^2+tx+1$ 有重根？并求出重根。",
+   "answer": "$t=3$ 时 $-1$ 为三重根；$t=-\\dfrac{15}{4}$ 时 $\\dfrac12$ 为二重根",
+   "solution": "$f$ 有重根 $\\Leftrightarrow$ $f$ 与 $f'=3x^2+6x+t$ 有公共根。消去高次项：\n$$3f-xf'=3x^2+2tx+3,$$\n$$(3f-xf')-f'=(2t-6)x+(3-t)=(t-3)(2x-1).$$\n公共根必是这个多项式的根。\n\n**情形 $t=3$**：$f=x^3+3x^2+3x+1=(x+1)^3$，$-1$ 是三重根。\n\n**情形 $t\\ne3$**：公共根只能是 $x=\\dfrac12$。由 $f'\\!\\left(\\dfrac12\\right)=\\dfrac34+3+t=0$ 得 $t=-\\dfrac{15}4$；此时 $f\\!\\left(\\dfrac12\\right)=\\dfrac18+\\dfrac34-\\dfrac{15}8+1=0$，确实是公共根。分解得\n$$f(x)=\\left(x-\\frac12\\right)^2(x+4),$$\n$\\dfrac12$ 是二重根。\n\n所以 $t=3$（重根 $-1$，三重）或 $t=-\\dfrac{15}4$（重根 $\\dfrac12$，二重）。",
+   "solutionSource": "编写",
+   "source": "经典题"
+  },
+  {
+   "no": "9",
+   "type": "证明",
+   "subjects": [
+    "高等代数"
+   ],
+   "topics": [
+    "单位根",
+    "整除"
+   ],
+   "difficulty": 3,
+   "statement": "设 $m,n,p$ 为非负整数。证明 $x^2+x+1\\mid x^{3m}+x^{3n+1}+x^{3p+2}$。",
+   "answer": "",
+   "solution": "$x^2+x+1$ 的两个根 $\\omega,\\bar\\omega$ 是三次本原单位根，互不相同，且 $\\omega^3=1$，$1+\\omega+\\omega^2=0$。\n\n记 $g(x)=x^{3m}+x^{3n+1}+x^{3p+2}$，则\n$$g(\\omega)=(\\omega^3)^m+(\\omega^3)^n\\omega+(\\omega^3)^p\\omega^2=1+\\omega+\\omega^2=0,$$\n同理 $g(\\bar\\omega)=0$。于是 $x-\\omega$ 与 $x-\\bar\\omega$ 都整除 $g$，它们互素，故 $(x-\\omega)(x-\\bar\\omega)=x^2+x+1$ 整除 $g(x)$。$\\blacksquare$",
+   "solutionSource": "编写",
+   "source": "经典题"
+  },
+  {
+   "no": "10",
+   "type": "计算",
+   "subjects": [
+    "高等代数"
+   ],
+   "topics": [
+    "重根",
+    "整除",
+    "插值"
+   ],
+   "difficulty": 3,
+   "statement": "求次数最低的多项式 $f(x)$，使 $(x-1)^2\\mid f(x)-1$ 且 $(x+1)^2\\mid f(x)+1$；并写出满足条件的全部多项式。",
+   "answer": "$f(x)=\\dfrac{3x-x^3}{2}$；一般解 $\\dfrac{3x-x^3}{2}+(x^2-1)^2h(x)$",
+   "solution": "由重根判别：$(x-1)^2\\mid f-1$ 当且仅当 $f(1)=1$ 且 $f'(1)=0$；$(x+1)^2\\mid f+1$ 当且仅当 $f(-1)=-1$ 且 $f'(-1)=0$。\n\n**次数 $\\le2$ 不可能**：此时 $\\deg f'\\le1$ 而 $f'$ 有两个根 $\\pm1$，故 $f'=0$，$f$ 为常数，与 $f(1)\\ne f(-1)$ 矛盾。\n\n**次数 $3$**：$f'$ 是以 $\\pm1$ 为根的二次式，$f'=c(x^2-1)$，于是 $f=c\\left(\\dfrac{x^3}{3}-x\\right)+d$。由\n$$f(1)=-\\frac{2c}{3}+d=1,\\qquad f(-1)=\\frac{2c}{3}+d=-1$$\n得 $d=0$，$c=-\\dfrac32$。故\n$$f_0(x)=\\frac{3x-x^3}{2}.$$\n（满足 4 个条件的 3 次多项式唯一。）\n\n**全部解**：若 $f$ 满足条件，则 $f-f_0$ 同时被 $(x-1)^2$ 与 $(x+1)^2$ 整除，二者互素，故 $(x^2-1)^2\\mid f-f_0$。反之亦然。所以全部解为\n$$f(x)=\\frac{3x-x^3}{2}+(x^2-1)^2h(x),\\quad h(x)\\ \\text{任意}.$$",
+   "solutionSource": "编写",
+   "source": "经典题"
+  },
+  {
+   "no": "11",
+   "type": "证明",
+   "subjects": [
+    "高等代数"
+   ],
+   "topics": [
+    "最大公因式",
+    "互素"
+   ],
+   "difficulty": 3,
+   "statement": "设 $f(x),g(x)$ 不全为零，$(f,g)=d(x)$。证明对任意正整数 $n$，$(f^n,g^n)=d^n$。",
+   "answer": "",
+   "solution": "写 $f=df_1$，$g=dg_1$，则 $(f_1,g_1)=1$（否则 $d$ 不是最大公因式）。\n\n先证 $(f_1^n,g_1^n)=1$：由 $(f_1,g_1)=1$ 及“$(a,c)=1,(b,c)=1\\Rightarrow(ab,c)=1$”，归纳得 $(f_1^n,g_1)=1$，再对 $g_1$ 的方幂用同样的结论得 $(f_1^n,g_1^n)=1$。于是存在 $u,v$ 使\n$$uf_1^n+vg_1^n=1.$$\n两边乘 $d^n$：$uf^n+vg^n=d^n$。另一方面 $d^n\\mid f^n$，$d^n\\mid g^n$，所以 $d^n$ 是 $f^n,g^n$ 的公因式，且 $f^n,g^n$ 的任一公因式都整除 $uf^n+vg^n=d^n$。又 $d^n$ 首一，故 $(f^n,g^n)=d^n$。$\\blacksquare$",
+   "solutionSource": "编写",
+   "source": "经典题"
+  },
+  {
+   "no": "12",
+   "type": "证明",
+   "subjects": [
+    "高等代数"
+   ],
+   "topics": [
+    "不可约多项式",
+    "Eisenstein判别法"
+   ],
+   "difficulty": 3,
+   "statement": "证明 $x^4+1$ 在有理数域上不可约，但在实数域上可约。",
+   "answer": "",
+   "solution": "**有理数域上**：$f(x)$ 不可约当且仅当 $f(y+1)$ 不可约。\n$$f(y+1)=(y+1)^4+1=y^4+4y^3+6y^2+4y+2.$$\n取 $p=2$：$2\\nmid1$（首项），$2$ 整除 $4,6,4,2$，$4\\nmid2$。由 Eisenstein 判别法，$f(y+1)$ 在 $\\mathbb{Q}$ 上不可约，所以 $x^4+1$ 不可约。\n\n**实数域上**：\n$$x^4+1=(x^2+1)^2-2x^2=(x^2+\\sqrt2x+1)(x^2-\\sqrt2x+1),$$\n是两个实系数二次因式之积（实数域上不可约多项式只有一次和判别式为负的二次）。$\\blacksquare$",
+   "solutionSource": "编写",
+   "source": "经典题"
+  },
+  {
+   "no": "13",
+   "type": "证明",
+   "subjects": [
+    "高等代数"
+   ],
+   "topics": [
+    "重根",
+    "导数"
+   ],
+   "difficulty": 3,
+   "statement": "证明：多项式 $f(x)=1+x+\\dfrac{x^2}{2!}+\\cdots+\\dfrac{x^n}{n!}$（$n\\ge1$）没有重根。",
+   "answer": "",
+   "solution": "求导得 $f'(x)=1+x+\\cdots+\\dfrac{x^{n-1}}{(n-1)!}$，所以\n$$f(x)=f'(x)+\\frac{x^n}{n!}.$$\n若 $c$ 是 $f$ 的重根，则 $f(c)=f'(c)=0$，代入上式得 $\\dfrac{c^n}{n!}=0$，即 $c=0$。但 $f(0)=1\\ne0$，矛盾。故 $f(x)$ 无重根。$\\blacksquare$",
+   "solutionSource": "编写",
+   "source": "经典题"
+  },
+  {
+   "no": "14",
+   "type": "证明",
+   "subjects": [
+    "高等代数"
+   ],
+   "topics": [
+    "重因式",
+    "导数"
+   ],
+   "difficulty": 4,
+   "statement": "设 $f(x)$ 是复系数多项式，$\\deg f=n\\ge1$，且 $f'(x)\\mid f(x)$。证明 $f(x)=a(x-c)^n$，其中 $a\\ne0$，$c\\in\\mathbb{C}$。",
+   "answer": "",
+   "solution": "设 $f$ 的首项系数为 $a$，则 $f'$ 的首项系数为 $na$，次数 $n-1$。由 $f'\\mid f$，$(f,f')$ 等于 $f'$ 的首一化，即 $(f,f')=\\dfrac{1}{na}f'$。\n\n回忆重因式理论：$\\dfrac{f}{(f,f')}$ 与 $f$ 有完全相同的不可约因式，且每个只出现一次。这里\n$$\\frac{f}{(f,f')}=\\frac{na\\,f}{f'}$$\n是一次多项式（次数 $n-(n-1)=1$）。所以 $f$ 在 $\\mathbb{C}$ 上只有一个不同的不可约因式 $x-c$，从而 $f(x)=a(x-c)^n$。$\\blacksquare$\n\n**另证** 设 $f=\\dfrac1n(x-c)f'$（比较次数与首项系数，商必为 $\\dfrac1n(x-c)$）。若 $f$ 还有根 $b\\ne c$，设其重数为 $k\\ge1$，则 $b$ 是 $f'$ 的 $k-1$ 重根，而右边 $(x-c)f'$ 中 $b$ 的重数为 $k-1$，与左边重数 $k$ 矛盾。故 $f$ 的根只有 $c$。",
+   "solutionSource": "编写",
+   "source": "经典题"
+  },
+  {
+   "no": "15",
+   "type": "证明",
+   "subjects": [
+    "高等代数"
+   ],
+   "topics": [
+    "不可约多项式",
+    "因式分解唯一性"
+   ],
+   "difficulty": 4,
+   "statement": "设 $f(x)$ 是数域 $P$ 上次数 $\\ge1$ 的多项式。证明：$f(x)$ 是某个不可约多项式的方幂（相差一个非零常数）的充要条件是：对任意 $g(x)\\in P[x]$，要么 $(f,g)=1$，要么存在正整数 $m$ 使 $f\\mid g^m$。",
+   "answer": "",
+   "solution": "**必要性** 设 $f=c\\,p^k$，$p$ 不可约。对任意 $g$：若 $p\\nmid g$，由 $p$ 不可约得 $(p,g)=1$，从而 $(f,g)=1$；若 $p\\mid g$，则 $p^k\\mid g^k$，即 $f\\mid g^k$。\n\n**充分性** 设 $f$ 的标准分解中含有不可约因式 $p$，写 $f=p^a h$，$a\\ge1$，$p\\nmid h$。取 $g=p$：$(f,p)=p\\ne1$，按条件存在 $m$ 使 $f\\mid p^m$，于是 $h\\mid p^m$。但 $p\\nmid h$ 且 $p$ 不可约，故 $(h,p)=1$，从而 $(h,p^m)=1$；又 $h\\mid p^m$，所以 $h$ 是非零常数。即 $f=c\\,p^a$。$\\blacksquare$",
+   "solutionSource": "编写",
+   "source": "经典题"
+  },
+  {
+   "no": "16",
+   "type": "证明",
+   "subjects": [
+    "高等代数"
+   ],
+   "topics": [
+    "不可约多项式",
+    "高斯引理",
+    "整系数多项式"
+   ],
+   "difficulty": 4,
+   "statement": "设 $a_1,a_2,\\dots,a_n$ 是两两不同的整数。证明 $f(x)=(x-a_1)(x-a_2)\\cdots(x-a_n)-1$ 在有理数域上不可约。",
+   "answer": "",
+   "solution": "反设 $f$ 在 $\\mathbb{Q}$ 上可约。由 Gauss 引理，$f$ 可分解为两个次数较低的整系数多项式之积 $f=gh$，$1\\le\\deg g,\\deg h<n$。由于 $f$ 首一，$g,h$ 的首项系数之积为 $1$，可取 $g,h$ 都首一。\n\n对每个 $i$，$g(a_i)h(a_i)=f(a_i)=-1$，而 $g(a_i),h(a_i)$ 是整数，所以 $\\{g(a_i),h(a_i)\\}=\\{1,-1\\}$，特别地 $g(a_i)+h(a_i)=0$。\n\n于是 $g+h$ 有 $n$ 个不同的根 $a_1,\\dots,a_n$，但 $\\deg(g+h)<n$，故 $g+h=0$，即 $h=-g$。这样 $f=-g^2$ 的首项系数为 $-1$，与 $f$ 首一矛盾。所以 $f$ 在 $\\mathbb{Q}$ 上不可约。$\\blacksquare$",
+   "solutionSource": "编写",
+   "source": "经典题"
+  },
+  {
+   "no": "17",
+   "type": "证明",
+   "subjects": [
+    "高等代数"
+   ],
+   "topics": [
+    "不可约多项式",
+    "高斯引理",
+    "整系数多项式"
+   ],
+   "difficulty": 5,
+   "statement": "设 $a_1,a_2,\\dots,a_n$ 是两两不同的整数。证明\n$$f(x)=(x-a_1)^2(x-a_2)^2\\cdots(x-a_n)^2+1$$\n在有理数域上不可约。",
+   "answer": "",
+   "solution": "记 $P(x)=\\prod_{i=1}^n(x-a_i)$，则 $f=P^2+1$ 首一、整系数，且对一切实数 $x$ 有 $f(x)\\ge1>0$。\n\n反设 $f=gh$，$g,h$ 是次数 $\\ge1$ 的有理系数多项式。由 Gauss 引理可取 $g,h$ 为首一整系数多项式。\n\n**$g,h$ 在实轴上恒正**：$f$ 无实根，所以 $g,h$ 也无实根；实系数多项式无实根则次数为偶数、函数值不变号，首项系数为正，故 $g(x)>0$，$h(x)>0$ 对一切实数 $x$ 成立。\n\n**取值**：$g(a_i)h(a_i)=f(a_i)=1$，两者是正整数，所以 $g(a_i)=h(a_i)=1$，$i=1,\\dots,n$。\n\n**次数**：$\\deg g+\\deg h=2n$。若 $\\deg g<n$，则 $g-1$ 有 $n$ 个不同的根而次数 $<n$，故 $g\\equiv1$，与 $\\deg g\\ge1$ 矛盾。同理 $\\deg h\\ge n$，所以 $\\deg g=\\deg h=n$。\n\n此时 $g-1$ 与 $h-1$ 都是首一 $n$ 次多项式，且都以 $a_1,\\dots,a_n$ 为根，所以 $g-1=h-1=P$，即 $g=h=P+1$。于是\n$$P^2+1=f=(P+1)^2=P^2+2P+1,$$\n得 $P=0$，矛盾。故 $f$ 在 $\\mathbb{Q}$ 上不可约。$\\blacksquare$",
+   "solutionSource": "编写",
+   "source": "经典题（竞赛）"
+  }
+ ]
+}

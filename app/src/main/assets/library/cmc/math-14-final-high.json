@@ -1,0 +1,264 @@
+{
+ "id": "cmc-math-14-final-high",
+ "title": "第十四届全国大学生数学竞赛决赛（数学类高年级组）",
+ "year": 2023,
+ "track": "数学类",
+ "round": "决赛",
+ "paper": "high",
+ "durationMin": 180,
+ "totalScore": 100,
+ "source": {
+  "question": "14-final-math-high.pdf",
+  "solution": "14-final-math-high.pdf"
+ },
+ "problems": [
+  {
+   "no": "一(1)",
+   "score": 5,
+   "type": "填空",
+   "subjects": [
+    "数学分析"
+   ],
+   "topics": [
+    "参数方程",
+    "切线方程"
+   ],
+   "difficulty": 1,
+   "statement": "由方程 $\\begin{cases}x+y=t,\\\\x^2-y^2=t\\end{cases}$ 确定的曲线 $\\begin{cases}x=x(t),\\\\y=y(t)\\end{cases}$ 在 $(1,0)$ 处的切线方程为 ______。",
+   "answer": "$y=x-1$",
+   "solution": "当 $t\\neq0$ 时，由 $x^2-y^2=(x-y)(x+y)=t$ 及 $x+y=t$ 得 $x-y=1$；点 $(1,0)$ 对应 $t=1$。曲线在该点附近就是直线 $x-y=1$，故切线为 $y=x-1$。（原参考答案仅给出答案，解答为整理时补写。）",
+   "solutionSource": "编写"
+  },
+  {
+   "no": "一(2)",
+   "score": 5,
+   "type": "填空",
+   "subjects": [
+    "数学分析"
+   ],
+   "topics": [
+    "第一型曲线积分",
+    "对称性",
+    "大圆"
+   ],
+   "difficulty": 2,
+   "statement": "记 $L$ 为曲线 $\\begin{cases}x^2+y^2+z^2=1,\\\\x+2y+z=0.\\end{cases}$ 则曲线积分 $\\displaystyle\\int_L(2x^2+x+y^2+y)\\,\\mathrm{d}s=$ ______。",
+   "answer": "$2\\pi$",
+   "solution": "$L$ 是单位球面上的大圆，长 $2\\pi$，圆心在原点，故 $\\int_Lx\\,\\mathrm{d}s=\\int_Ly\\,\\mathrm{d}s=0$。平面方程关于 $x,z$ 对称，故 $\\int_Lx^2\\,\\mathrm{d}s=\\int_Lz^2\\,\\mathrm{d}s$。于是\n$$\\int_L(2x^2+y^2)\\,\\mathrm{d}s=\\int_L(x^2+y^2+z^2)\\,\\mathrm{d}s=2\\pi.$$\n（原参考答案仅给出答案，解答为整理时补写。）",
+   "solutionSource": "编写"
+  },
+  {
+   "no": "一(3)",
+   "score": 5,
+   "type": "填空",
+   "subjects": [
+    "高等代数"
+   ],
+   "topics": [
+    "幂零矩阵",
+    "Jordan标准形",
+    "矩阵的秩"
+   ],
+   "difficulty": 1,
+   "statement": "设 $A$ 为 $n\\times n$ 实矩阵。若 $A^n=0$ 但 $A^{n-1}\\neq0$，则 $A$ 的秩为 ______。",
+   "answer": "$n-1$",
+   "solution": "$A$ 幂零且幂零指数为 $n$，其 Jordan 标准形只能是一个 $n$ 阶的特征值为 0 的 Jordan 块 $J_n(0)$，秩为 $n-1$。（原参考答案仅给出答案，解答为整理时补写。）",
+   "solutionSource": "编写"
+  },
+  {
+   "no": "一(4)",
+   "score": 5,
+   "type": "填空",
+   "subjects": [
+    "数学分析",
+    "常微分方程"
+   ],
+   "topics": [
+    "积分方程",
+    "一阶线性微分方程"
+   ],
+   "difficulty": 1,
+   "statement": "设 $\\mathbb R$ 上函数 $f$ 具有连续的一阶导数，且满足 $f(x)=\\displaystyle\\int_0^x(x-t)f'(t)\\,\\mathrm{d}t+x^2\\ (x\\in\\mathbb R)$。则 $f(x)=$ ______。",
+   "answer": "$2e^x-2x-2$",
+   "solution": "$f(0)=0$。求导得 $f'(x)=\\int_0^xf'(t)\\,\\mathrm{d}t+2x=f(x)+2x$，解得 $f(x)=Ce^x-2x-2$，由 $f(0)=0$ 得 $C=2$，故 $f(x)=2e^x-2x-2$。（原参考答案仅给出答案，解答为整理时补写。）",
+   "solutionSource": "编写"
+  },
+  {
+   "no": "二",
+   "score": 10,
+   "type": "证明",
+   "subjects": [
+    "解析几何"
+   ],
+   "topics": [
+    "二次曲线",
+    "正交变换",
+    "不变量",
+    "交叉项"
+   ],
+   "difficulty": 2,
+   "statement": "设二次曲线 $Ax^2+Bxy+Cy^2+Dx+Ey+F=0$，经过正交变换 $\\begin{pmatrix}x\\\\y\\end{pmatrix}=Q\\begin{pmatrix}x'\\\\y'\\end{pmatrix}$ 得此曲线的另一表达式。\n\n(i) 求证 $B^2-4AC$ 与 $F$ 为上述正交变换的不变量；\n\n(ii) 给出在上述正交变换下，交叉项 $x'y'$ 系数为零的充要条件。",
+   "answer": "(ii) $B'=0$，即 $(C-A)\\sin2\\theta+B\\cos2\\theta=0$（$Q=\\begin{pmatrix}\\cos\\theta&-\\varepsilon\\sin\\theta\\\\\\sin\\theta&\\varepsilon\\cos\\theta\\end{pmatrix}$，$\\varepsilon=\\pm1$）",
+   "solution": "**(i)** $Q$ 为正交矩阵，存在 $\\theta\\in[0,2\\pi]$，$\\varepsilon=\\pm1$ 使\n$$Q=\\begin{pmatrix}\\cos\\theta&-\\varepsilon\\sin\\theta\\\\\\sin\\theta&\\varepsilon\\cos\\theta\\end{pmatrix}.$$\n代入得 $A'x'^2+B'x'y'+C'y'^2+D'x'+E'y'+F'=0$，其中 $F'=F$，\n$$A'=A\\cos^2\\theta+B\\sin\\theta\\cos\\theta+C\\sin^2\\theta,\\quad\\varepsilon B'=(C-A)\\sin2\\theta+B\\cos2\\theta,\\quad C'=A\\sin^2\\theta-B\\sin\\theta\\cos\\theta+C\\cos^2\\theta.$$\n直接计算得 $B'^2-4A'C'=B^2-4AC$。\n\n更简洁地，方程可写为\n$$\\begin{pmatrix}x'\\\\y'\\end{pmatrix}^{\\mathrm T}Q^{\\mathrm T}\\begin{pmatrix}A&\\frac B2\\\\\\frac B2&C\\end{pmatrix}Q\\begin{pmatrix}x'\\\\y'\\end{pmatrix}+\\begin{pmatrix}D\\\\E\\end{pmatrix}^{\\mathrm T}Q\\begin{pmatrix}x'\\\\y'\\end{pmatrix}+F=0,$$\n故 $F'=F$，且\n$$A'C'-\\frac{B'^2}4=\\det\\begin{pmatrix}A'&\\frac{B'}2\\\\\\frac{B'}2&C'\\end{pmatrix}=\\det\\left[Q^{\\mathrm T}\\begin{pmatrix}A&\\frac B2\\\\\\frac B2&C\\end{pmatrix}Q\\right]=AC-\\frac{B^2}4.$$\n\n**(ii)** 交叉项 $x'y'$ 系数为零的充要条件为 $B'=0$，即\n$$(C-A)\\sin2\\theta+B\\cos2\\theta=0.$$",
+   "solutionSource": "官方"
+  },
+  {
+   "no": "三",
+   "score": 14,
+   "type": "证明",
+   "subjects": [
+    "高等代数"
+   ],
+   "topics": [
+    "矩阵多项式",
+    "Jordan标准形",
+    "几何重数",
+    "幂零矩阵"
+   ],
+   "difficulty": 3,
+   "statement": "设实系数多项式 $f(x)=a_0+a_1x+\\cdots+a_mx^m$，其中 $a_m\\neq0$，$m\\geqslant1$，$\\displaystyle\\sum_{k=0}^ma_k=a\\neq0$，$\\displaystyle\\sum_{k=1}^mka_k=b\\neq0$。证明：对任意大于等于 2 的自然数 $n$ 以及任意的 $\\varepsilon\\neq0$，必存在 $n$ 阶复方阵 $C$，使得\n$$f(C)=\\begin{pmatrix}a&\\varepsilon&&\\\\&\\ddots&\\ddots&\\\\&&a&\\varepsilon\\\\&&&a\\end{pmatrix}_{n\\times n}.$$",
+   "answer": "",
+   "solution": "记 $H$ 为 $n$ 阶幂零 Jordan 块（超对角线为 1，其余为 0），$H^n=0$，令 $J=I+H$。由二项式展开，$J^k=(I+H)^k$ 是对角元为 1、超对角元为 $C_k^1=k$ 的上三角阵。于是\n$$W:=f(J)=\\sum_{k=0}^ma_kJ^k=\\begin{pmatrix}a&b&\\cdots&*\\\\&\\ddots&\\ddots&\\vdots\\\\&&a&b\\\\&&&a\\end{pmatrix}.$$\n$W$ 的 $n$ 个特征值都是 $a$；$W-aI$ 删去第一列与最后一行得到的 $n-1$ 阶子式为 $b^{n-1}\\neq0$，故 $\\operatorname{rank}(W-aI)=n-1$，特征值 $a$ 的几何重数为 1，$W$ 的 Jordan 标准形为单个 Jordan 块 $J_n(a)$。同理由 $\\varepsilon\\neq0$，目标矩阵 $V$ 的 Jordan 标准形也是 $J_n(a)$。于是存在可逆阵 $P$ 使 $P^{-1}WP=V$，即 $P^{-1}f(J)P=V$。令 $C=P^{-1}JP$，则 $f(C)=P^{-1}f(J)P=V$。\n\n**注** 另一写法：存在多项式 $g$ 使 $bx^2g(x)=f(1+x)-a-bx$，问题化为找 $Q$ 使 $Q+Q^2g(Q)=S:=\\frac\\varepsilon bH$，此时 $f(I+Q)=aI+bQ+bQ^2g(Q)=aI+\\varepsilon H$。设 $Q=S+\\sum_{k=2}^{n-1}\\alpha_kS^k$，则 $Q^n=0$，展开 $(Q+Q^2g(Q))^k$（$1\\leqslant k\\leqslant n-1$）得到关于 $Q,Q^2,\\dots,Q^{n-1}$ 与 $S,S^2,\\dots,S^{n-1}$ 的上三角形线性关系（系数与 $Q$ 无关），可逐个解出 $\\alpha_2,\\dots,\\alpha_{n-1}$，其第一式即 $Q+Q^2g(Q)=S$。",
+   "solutionSource": "官方"
+  },
+  {
+   "no": "四",
+   "score": 20,
+   "type": "证明",
+   "subjects": [
+    "数学分析"
+   ],
+   "topics": [
+    "函数项级数",
+    "严格单调",
+    "反函数求导",
+    "Darboux定理",
+    "稠密集"
+   ],
+   "difficulty": 5,
+   "statement": "设 $q_1,q_2,\\dots,q_n,\\dots$ 为有理数集 $\\mathbb Q$ 的一个排列，满足 $|q_n|<n\\ (\\forall n\\geqslant1)$。又设 $r\\in(0,1)$，$g(x)=\\displaystyle\\sum_{n=1}^\\infty r^n(x-q_n)^{\\frac13}$。证明：\n\n(i) $g$ 在 $\\mathbb R$ 上连续且严格单增，集合 $E=\\{g(q)\\mid q\\in\\mathbb Q\\}$ 的闭包为 $\\mathbb R$；\n\n(ii) $\\displaystyle\\lim_{x\\to t}\\frac{g(x)-g(t)}{x-t}=\\sum_{n=1}^\\infty\\frac{r^n}{3(t-q_n)^{\\frac23}}$，这里我们规定 $\\dfrac10=+\\infty$；\n\n(iii) $g$ 的反函数 $f$ 处处可导，且 $f'$ 在 $E$ 上为零；\n\n(iv) 对任意 $a<b$，存在不同的 $\\xi,\\eta\\in(a,b)$ 使得 $f'(\\xi)=f'(\\eta)=\\dfrac{f(b)-f(a)}{b-a}$。",
+   "answer": "",
+   "solution": "**(i)** $\\left|r^n(x-q_n)^{\\frac13}\\right|\\leqslant(|x|+n)^{\\frac13}r^n$，故级数在 $\\mathbb R$ 上内闭一致收敛，$g$ 连续；每项严格单增，故 $g$ 严格单增。$x>0$ 时 $g(x)-g(0)>r\\left((x-q_1)^{\\frac13}+q_1^{\\frac13}\\right)$，故 $g(+\\infty)=+\\infty$，同理 $g(-\\infty)=-\\infty$。由介值性，对任意 $t_0\\in\\mathbb R$ 有 $x_0$ 使 $g(x_0)=t_0$；取有理点列 $x_n\\to x_0$，得 $t_0=\\lim g(x_n)\\in\\overline E$，故 $\\overline E=\\mathbb R$。\n\n**(ii)** 对 $x\\neq t$，各项差商为正，故对任意 $m$\n$$\\frac{g(x)-g(t)}{x-t}\\geqslant\\sum_{n=1}^m\\frac{(x-q_n)^{\\frac13}-(t-q_n)^{\\frac13}}{x-t}r^n,$$\n得 $\\varliminf\\limits_{x\\to t}\\dfrac{g(x)-g(t)}{x-t}\\geqslant\\sum_{n=1}^m\\dfrac{r^n}{3(t-q_n)^{2/3}}$，令 $m\\to\\infty$ 得下界为整个级数。另一方面，对 $x\\neq t$ 有\n$$\\frac{x^{\\frac13}-t^{\\frac13}}{x-t}=\\frac1{x^{\\frac23}+x^{\\frac13}t^{\\frac13}+t^{\\frac23}}\\leqslant\\frac4{t^{\\frac23}},$$\n从而\n$$\\frac{g(x)-g(t)}{x-t}\\leqslant\\sum_{n=1}^m\\frac{(x-q_n)^{\\frac13}-(t-q_n)^{\\frac13}}{x-t}r^n+\\sum_{n=m+1}^\\infty\\frac{4r^n}{(t-q_n)^{\\frac23}},$$\n取上极限后令 $m\\to\\infty$（无论右端是否有限）得 $\\varlimsup\\leqslant\\sum_{n=1}^\\infty\\frac{r^n}{3(t-q_n)^{2/3}}$。两者合并即得结论。\n\n**(iii)** 由 (ii)，$g$ 在每点的导数（允许为 $+\\infty$）满足 $0<\\sum\\frac{r^n}{3(t-q_n)^{2/3}}\\leqslant+\\infty$。结合 $g$ 的连续性与严格单调性（记 $\\frac1{+\\infty}=0$），\n$$\\lim_{x\\to t}\\frac{f(x)-f(t)}{x-t}=\\frac{1}{\\sum\\limits_{n=1}^\\infty\\frac{r^n}{3(f(t)-q_n)^{2/3}}}\\in[0,+\\infty).$$\n故 $f$ 处处可导；当 $t=g(q_k)\\in E$ 时，级数含项 $\\frac{r^k}{0}=+\\infty$，$f'(t)=0$。\n\n**(iv)** 任取 $a<b$，由中值定理有 $\\xi\\in(a,b)$ 使 $f'(\\xi)=k:=\\frac{f(b)-f(a)}{b-a}>0$。易见 $\\frac{f(b)-f(\\xi)}{b-\\xi}\\geqslant k$ 或 $\\frac{f(\\xi)-f(a)}{\\xi-a}\\geqslant k$，不妨设后者成立，则有 $\\zeta_1\\in(a,\\xi)$ 使 $f'(\\zeta_1)=\\frac{f(\\xi)-f(a)}{\\xi-a}\\geqslant k$。由 $E$ 的稠密性取 $\\zeta_2\\in(a,\\zeta_1)\\cap E$，则 $f'(\\zeta_2)=0$。由导函数的 Darboux 介值定理，存在 $\\eta\\in(\\zeta_2,\\zeta_1]\\subset(a,\\xi)$ 使 $f'(\\eta)=k$，且 $\\eta\\neq\\xi$。\n\n（注：原解答 (i) 中估计式左端写作 $|r^n(x-q_n)|$，应为 $\\left|r^n(x-q_n)^{\\frac13}\\right|$，原解答此处笔误，已改正。）",
+   "solutionSource": "官方"
+  },
+  {
+   "no": "五",
+   "score": 12,
+   "type": "证明",
+   "subjects": [
+    "实变函数",
+    "泛函分析"
+   ],
+   "topics": [
+    "Rademacher型函数",
+    "标准正交系",
+    "Bessel不等式",
+    "L1稠密性",
+    "Riemann-Lebesgue型引理"
+   ],
+   "difficulty": 3,
+   "statement": "（选做题：第五至十题任选三题）设 $x\\in\\mathbb R$，记 $x=\\displaystyle\\sum_{n=0}^\\infty\\frac{x_n}{10^n}$，其中，$x_n\\ (n\\geqslant0)$ 为整数，当 $n\\geqslant1$ 时，$0\\leqslant x_n\\leqslant9$。除一零测集外，各点的表示唯一。对于 $n\\geqslant1$，定义\n$$\\varphi_n(x)=\\begin{cases}1,&x_n\\text{ 为偶数},\\\\-1,&x_n\\text{ 为奇数}.\\end{cases}$$\n证明：若 $f\\in L^1(\\mathbb R)$，则 $\\displaystyle\\lim_{n\\to\\infty}\\int_{\\mathbb R}f(x)\\varphi_n(x)\\,\\mathrm{d}x=0$。",
+   "answer": "",
+   "solution": "**(i) 正交性。** 将 $[0,1]$ 十等分，$\\varphi_1$ 在各小区间上依次取 $1,-1,1,-1,\\dots$；$\\varphi_1$ 以 1 为周期，故 $|\\varphi_1|\\equiv1$ 且 $\\int_{-N}^N\\varphi_1\\,\\mathrm{d}x=0$（$N\\in\\mathbb N^+$）。一般地，$\\varphi_n$ 在 $[0,1]$ 的 $10^n$ 等分小区间上依次取 $\\pm1$ 交替，并以 1 为周期延拓。对 $m<n$，$\\varphi_m$ 在 $\\varphi_n$ 的每个 $10^{m}$ 级划分区间上为常数，而 $\\varphi_n$ 在其上积分为 0，故\n$$\\int_{-N}^N\\varphi_n\\varphi_m\\,\\mathrm{d}x=0,\\qquad\\|\\varphi_n\\|_{L^2[-N,N]}=\\sqrt{2N}.$$\n所以 $\\left\\{\\frac1{\\sqrt{2N}}\\varphi_n\\right\\}_{n\\geqslant1}$ 是 $L^2[-N,N]$ 中的标准正交系。\n\n**(ii) 有界紧支函数。** 设 $g$ 有界，$\\operatorname{supp}g\\subseteq[-N,N]$，由 Bessel 不等式\n$$\\frac1{2N}\\sum_{n=1}^\\infty\\left|\\int_{-N}^Ng\\varphi_n\\,\\mathrm{d}x\\right|^2\\leqslant\\int_{-N}^N|g|^2\\,\\mathrm{d}x<+\\infty,$$\n故 $\\lim\\limits_{n\\to\\infty}\\int_{-N}^Ng\\varphi_n\\,\\mathrm{d}x=0$。\n\n**(iii) 一般情形。** 有界紧支函数在 $L^1(\\mathbb R)$ 中稠密：任给 $\\varepsilon>0$，存在这样的 $g$ 使 $\\|f-g\\|_{L^1}<\\varepsilon$。于是\n$$\\left|\\int_{\\mathbb R}f\\varphi_n\\,\\mathrm{d}x\\right|\\leqslant\\|f-g\\|_{L^1(\\mathbb R)}+\\left|\\int_{-N}^Ng\\varphi_n\\,\\mathrm{d}x\\right|<2\\varepsilon$$\n对充分大的 $n$ 成立，故 $\\lim\\limits_{n\\to\\infty}\\int_{\\mathbb R}f\\varphi_n\\,\\mathrm{d}x=0$。",
+   "solutionSource": "官方"
+  },
+  {
+   "no": "六",
+   "score": 12,
+   "type": "证明",
+   "subjects": [
+    "复变函数"
+   ],
+   "topics": [
+    "单叶函数",
+    "Schwarz引理",
+    "正实部函数",
+    "幂级数"
+   ],
+   "difficulty": 3,
+   "statement": "（选做题：第五至十题任选三题）设 $a_0=1$，$a_1\\neq0$，函数 $f(z)=\\displaystyle\\sum_{n=0}^\\infty a_nz^n$ 在 $|z|<1$ 内解析。证明：\n\n(i) 若 $\\displaystyle\\sum_{n=2}^\\infty n|a_n|<|a_1|$，则 $f$ 在 $|z|<1$ 内单叶；\n\n(ii) 若在 $|z|<1$ 内，$\\operatorname{Re}f(z)\\geqslant0$，则 $|a_1|\\leqslant2$。",
+   "answer": "",
+   "solution": "**(i)** 对 $|z_1|,|z_2|<1$，$z_1\\neq z_2$：\n$$|f(z_2)-f(z_1)|=\\left|\\sum_{n=1}^\\infty a_n(z_2^n-z_1^n)\\right|=|z_2-z_1|\\left|a_1+\\sum_{n=2}^\\infty a_n\\left(z_2^{n-1}+z_2^{n-2}z_1+\\cdots+z_1^{n-1}\\right)\\right|$$\n$$\\geqslant|z_2-z_1|\\left(|a_1|-\\sum_{n=2}^\\infty n|a_n|\\right)>0,$$\n故 $f(z_2)\\neq f(z_1)$，$f$ 在 $|z|<1$ 内单叶。\n\n**(ii)** 由 $\\operatorname{Re}f\\geqslant0$ 得 $|1+f(z)|\\geqslant|1-f(z)|$ 且 $f\\neq-1$，故\n$$\\varphi(z)=\\frac{f(z)-1}{f(z)+1}=\\frac{a_1}2z+\\frac{2a_2-a_1^2}{4}z^2+\\cdots$$\n在 $|z|<1$ 内解析，$|\\varphi(z)|\\leqslant1$，$\\varphi(0)=0$。由 Schwarz 引理，$|\\varphi'(0)|\\leqslant1$，而 $\\varphi'(0)=\\frac{a_1}2$，所以 $|a_1|\\leqslant2$。",
+   "solutionSource": "官方"
+  },
+  {
+   "no": "七",
+   "score": 12,
+   "type": "证明",
+   "subjects": [
+    "抽象代数"
+   ],
+   "topics": [
+    "Noether环",
+    "理想升链",
+    "满同态",
+    "核"
+   ],
+   "difficulty": 2,
+   "statement": "（选做题：第五至十题任选三题）设环 $R$ 的任意理想都是有限生成的，证明：$R$ 到自身的满同态一定是同构。",
+   "answer": "",
+   "solution": "设 $\\varphi:R\\to R$ 是满同态，则 $\\varphi^n$ 也是满同态。令 $I_n=\\ker\\varphi^n$，得理想升链 $I_1\\subseteq I_2\\subseteq\\cdots$，其并 $I=\\bigcup_mI_m$ 仍是理想。\n\n$I$ 有限生成，设 $I=(a_1,\\dots,a_t)$，$a_i\\in I_{k_i}$，取 $k=\\max k_i$，则 $I\\subseteq I_k$，从而 $I_k=I_{k+1}=\\cdots$，升链终止。\n\n任取 $r\\in\\ker\\varphi$，由 $\\varphi^k$ 满，存在 $a$ 使 $\\varphi^k(a)=r$，于是 $\\varphi^{k+1}(a)=\\varphi(r)=0$，$a\\in I_{k+1}=I_k$，故 $r=\\varphi^k(a)=0$。所以 $\\ker\\varphi=\\{0\\}$，$\\varphi$ 是单射，从而为同构。",
+   "solutionSource": "官方"
+  },
+  {
+   "no": "八",
+   "score": 12,
+   "type": "解答",
+   "subjects": [
+    "微分几何"
+   ],
+   "topics": [
+    "测地线",
+    "Christoffel符号",
+    "庞加莱上半平面",
+    "球面几何",
+    "双曲几何"
+   ],
+   "difficulty": 3,
+   "statement": "（选做题：第五至十题任选三题）(i) 设庞加莱上半平面 $\\mathbb H^2=\\{(x,y)\\in\\mathbb R^2\\mid y>0\\}$ 带有黎曼度量 $\\mathrm{d}s^2=\\dfrac{\\mathrm{d}x^2+\\mathrm{d}y^2}{y^2}$，证明 $\\mathbb H^2$ 的测地线为圆心在 $x$ 轴上的上半圆或者为平行于 $y$ 轴的直线；\n\n(ii) 对于半径为 $r$ 的球面 $S^2=\\{(x,y,z)\\in\\mathbb R^3\\mid x^2+y^2+z^2=r^2\\}$，称经过球心的平面与球面的交线为大圆。求球面上的测地线方程，并说明球面上的大圆是测地线；\n\n(iii) 阐明 (i)，(ii) 的几何意义。",
+   "answer": "(i) $\\ddot x-\\frac2y\\dot x\\dot y=0$，$\\ddot y+\\frac1y(\\dot x^2-\\dot y^2)=0$，解为竖直直线或 $(x-a)^2+y^2=b^2$；(ii) $\\ddot\\theta-\\sin\\theta\\cos\\theta\\,\\dot\\varphi^2=0$，$\\ddot\\varphi+2\\cot\\theta\\,\\dot\\theta\\dot\\varphi=0$",
+   "solution": "**(i)** $g_{11}=g_{22}=\\frac1{y^2}$，$g_{12}=0$，$g^{11}=g^{22}=y^2$。计算得非零联络系数\n$$\\Gamma^1_{12}=\\Gamma^1_{21}=\\Gamma^2_{22}=-\\frac1y,\\qquad\\Gamma^2_{11}=\\frac1y.$$\n代入测地线方程 $\\ddot\\gamma^k+\\Gamma^k_{ij}\\dot\\gamma^i\\dot\\gamma^j=0$（$\\gamma_1=x,\\gamma_2=y$）得\n$$\\begin{cases}\\ddot x-\\dfrac2y\\dot x\\dot y=0,\\\\\\ddot y+\\dfrac1y\\left(\\dot x^2-\\dot y^2\\right)=0.\\end{cases}$$\n若 $\\dot x\\equiv0$，则 $x$ 为常数，测地线是平行于 $y$ 轴的直线。若 $\\dot x\\neq0$，由第一式 $\\frac{\\ddot x}{\\dot x}=\\frac{2\\dot y}{y}$，积分得 $\\dot x=Cy^2$。取弧长参数，$\\frac{\\dot x^2+\\dot y^2}{y^2}=1$，于是\n$$\\frac{\\mathrm{d}y}{\\mathrm{d}x}=\\frac{\\dot y}{\\dot x}=\\pm\\frac{\\sqrt{1-C^2y^2}}{Cy},$$\n积分得 $(x-a)^2+y^2=b^2$，即圆心 $(a,0)$、半径 $b$ 的上半圆周。\n\n**(ii)** 取球坐标 $r(\\theta,\\varphi)=(r\\sin\\theta\\cos\\varphi,r\\sin\\theta\\sin\\varphi,r\\cos\\theta)$，则\n$$g_{\\theta\\theta}=r^2,\\quad g_{\\theta\\varphi}=0,\\quad g_{\\varphi\\varphi}=r^2\\sin^2\\theta.$$\n度量为对角阵，$\\Gamma^k_{ij}=\\frac12g^{kk}\\left(\\frac{\\partial g_{ki}}{\\partial\\theta^j}+\\frac{\\partial g_{kj}}{\\partial\\theta^i}-\\frac{\\partial g_{ij}}{\\partial\\theta^k}\\right)$，非零联络系数为\n$$\\Gamma^\\theta_{\\varphi\\varphi}=-\\sin\\theta\\cos\\theta,\\qquad\\Gamma^\\varphi_{\\theta\\varphi}=\\Gamma^\\varphi_{\\varphi\\theta}=\\cot\\theta.$$\n测地线方程为\n$$\\begin{cases}\\ddot\\theta-\\sin\\theta\\cos\\theta\\,\\dot\\varphi^2=0,\\\\\\ddot\\varphi+2\\cot\\theta\\,\\dot\\theta\\dot\\varphi=0.\\end{cases}$$\n$\\theta(t)=\\frac\\pi2$，$\\varphi(t)=t$（赤道，一个大圆）满足上述方程。任一大圆都可由赤道经绕球心的旋转得到，而旋转是 $S^2$ 的等距变换，把测地线映为测地线，故所有大圆都是测地线。（最后一句为整理时补充说明。）\n\n**(iii)** (i) 说明双曲几何与欧氏几何的不同：在双曲几何中，无数条测地线（与 $x$ 轴垂直相交的上半圆）可以交于一点。(ii) 说明球面几何与欧氏几何的区别：所有垂直于赤道的经线（大圆）都经过南北两极，即垂直于同一条测地线的测地线可以交于一点。(i) 与 (ii) 的结论推广了欧氏几何中“两条不重合的平行线不能交于一点”的假设。",
+   "solutionSource": "官方"
+  },
+  {
+   "no": "九",
+   "score": 12,
+   "type": "解答",
+   "subjects": [
+    "概率论"
+   ],
+   "topics": [
+    "指数分布",
+    "Gamma分布",
+    "Poisson过程",
+    "Fubini定理",
+    "蒙特卡洛方法"
+   ],
+   "difficulty": 3,
+   "statement": "（选做题：第五至十题任选三题）设 $(T_n)_{n\\in\\mathbb N}$ 为一列独立同分布随机变量且其共同分布为参数为 1 的指数分布。定义\n$$S_0=0,\\quad S_n=T_1+\\cdots+T_n,\\ n\\geqslant1$$\n以及\n$$N_t:=\\max\\{n\\geqslant0:S_n\\leqslant t\\},\\quad t\\geqslant0.$$\n(i) 求 $S_n$ 的概率分布函数以及 $N_t$ 的概率分布列；\n\n(ii) 假定 $f\\in L^1([0,1])$ 为一可积函数，试证明\n$$\\mathbb E\\left(\\int_0^1f(s)\\,\\mathrm{d}N_s\\right)=\\mathbb E\\left(\\sum_{n=1}^\\infty f(S_n)\\mathbf 1_{\\{S_n\\leqslant1\\}}\\right)=\\int_0^1f(s)\\,\\mathrm{d}s;$$\n(iii) 基于上述等式构造计算积分 $\\displaystyle\\int_0^1f(s)\\,\\mathrm{d}s$ 的蒙特卡洛算法。",
+   "answer": "(i) $\\mathbb P(S_n\\leqslant t)=\\dfrac1{(n-1)!}\\displaystyle\\int_0^ts^{n-1}e^{-s}\\,\\mathrm{d}s$，$\\mathbb P(N_t=k)=\\dfrac{t^k}{k!}e^{-t}$，$k=0,1,2,\\dots$",
+   "solution": "**(i)** $T_n$ 的密度为 $p(t)=e^{-t}$（$t\\geqslant0$），$S_n$ 的密度为其 $n$ 重卷积，归纳可得\n$$p_n(t)=\\frac{t^{n-1}}{(n-1)!}e^{-t},\\quad t\\geqslant0,\\qquad\\mathbb P(S_n\\leqslant t)=\\frac1{(n-1)!}\\int_0^ts^{n-1}e^{-s}\\,\\mathrm{d}s.$$\n由定义，对 $k\\geqslant1$，\n$$\\mathbb P(N_t=k)=\\mathbb P(S_k\\leqslant t,\\ S_k+T_{k+1}>t)=\\int_0^t\\int_0^\\infty\\mathbf 1_{\\{x+y>t\\}}p_k(x)e^{-y}\\,\\mathrm{d}y\\,\\mathrm{d}x=\\frac{e^{-t}}{(k-1)!}\\int_0^tx^{k-1}\\,\\mathrm{d}x=\\frac{t^k}{k!}e^{-t};$$\n又 $\\mathbb P(N_t=0)=\\mathbb P(T_1>t)=e^{-t}$。即 $N_t$ 服从参数为 $t$ 的 Poisson 分布。\n\n**(ii)** $s\\mapsto N_s$ 是跳跃点为 $S_1,S_2,\\dots$、跳幅为 1 的阶梯函数，故\n$$\\int_0^1f(s)\\,\\mathrm{d}N_s=\\sum_{s\\leqslant1}f(s)(N_s-N_{s-})=\\sum_{n=1}^\\infty f(S_n)\\mathbf 1_{\\{S_n\\leqslant1\\}}.$$\n由 Fubini 定理及 (i)（先对 $|f|$ 验证可积性），\n$$\\mathbb E\\left(\\sum_{n=1}^\\infty f(S_n)\\mathbf 1_{\\{S_n\\leqslant1\\}}\\right)=\\sum_{n=1}^\\infty\\int_0^1f(s)\\frac{s^{n-1}}{(n-1)!}e^{-s}\\,\\mathrm{d}s=\\int_0^1f(s)\\,\\mathrm{d}s.$$\n\n**(iii)** 给定样本轨道数 $N$，独立地生成 $N$ 列等待时间 $\\{(S_n^{N,j})_{n\\geqslant1}\\}$，$j=1,\\dots,N$（逐个累加独立的参数 1 指数随机数，直到超过 1 为止）。由大数定律\n$$\\frac1N\\sum_{j=1}^N\\left(\\sum_{n=1}^\\infty f(S_n^{N,j})\\mathbf 1_{\\{S_n^{N,j}\\leqslant1\\}}\\right)\\to\\int_0^1f(s)\\,\\mathrm{d}s,$$\n以左端作为积分的估计值。",
+   "solutionSource": "官方"
+  },
+  {
+   "no": "十",
+   "score": 12,
+   "type": "解答",
+   "subjects": [
+    "数值分析",
+    "高等代数"
+   ],
+   "topics": [
+    "LU分解",
+    "Gauss消元",
+    "运算量",
+    "顺序主子式"
+   ],
+   "difficulty": 3,
+   "statement": "（选做题：第五至十题任选三题）设 $A$ 是 $n$ 阶实方阵。\n\n(i) 给出矩阵 $A$ 的 LU 分解的算法描述；\n\n(ii) 分析 LU 分解算法的运算量（复杂度）；\n\n(iii) 证明：$A$ 具有唯一的 LU 分解当且仅当 $A$ 的前 $n-1$ 阶顺序主子式均不为零。",
+   "answer": "(ii) 加减约 $\\frac13n^3$，乘除约 $\\frac13n^3$，总运算量 $\\frac23n^3+O(n^2)$",
+   "solution": "**(i)** LU 分解即 $A=LU$，$L$ 为对角元为 1 的单位下三角阵，$U$ 为上三角阵。算法（原地覆盖 $A$）：\n\n对 $k=1,2,\\dots,n-1$：\n- 对 $i=k+1,\\dots,n$：$a_{ik}\\leftarrow a_{ik}/a_{kk}$；\n- 对 $j=k+1,\\dots,n$，$i=k+1,\\dots,n$：$a_{ij}\\leftarrow a_{ij}-a_{ik}a_{kj}$。\n\n结束后 $U$ 取 $A$ 的对角元及上三角部分，$L$ 的对角元为 1、严格下三角部分取 $A$ 的严格下三角部分。\n\n**(ii)** 加减运算量 $\\displaystyle\\sum_{k=1}^{n-1}(n-k)^2=\\frac{n(n-1)(2n-1)}6=\\frac13n^3+O(n^2)$；乘除运算量 $\\displaystyle\\sum_{k=1}^{n-1}\\left[(n-k)+(n-k)^2\\right]=\\frac{n(n-1)}2+\\frac{n(n-1)(2n-1)}6=\\frac13n^3+O(n^2)$；总运算量 $\\displaystyle\\sum_{k=1}^{n-1}\\left[(n-k)+2(n-k)^2\\right]=\\frac23n^3+O(n^2)$。（评分说明：只分析乘除法运算量的，本部分给 2 分。）\n\n**(iii)** 记 $A_i$ 为 $A$ 的 $i$ 阶顺序主子阵。\n\n*充分性*（对 $n$ 归纳）。$n=1$ 显然；$n=2$ 且 $a_{11}\\neq0$ 时\n$$A=\\begin{pmatrix}1&0\\\\a_{21}/a_{11}&1\\end{pmatrix}\\begin{pmatrix}a_{11}&a_{12}\\\\0&\\det A/a_{11}\\end{pmatrix}$$\n是唯一的 LU 分解。设 $\\det A_i\\neq0$（$i\\leqslant n-1$），由归纳假设 $A_{n-1}=L_{n-1}U_{n-1}$ 唯一，且 $L_{n-1},U_{n-1}$ 可逆。写\n$$A=\\begin{pmatrix}A_{n-1}&\\mathbf c\\\\\\mathbf d^{\\mathrm T}&a_{nn}\\end{pmatrix}=\\begin{pmatrix}L_{n-1}&0\\\\\\mathbf l^{\\mathrm T}&1\\end{pmatrix}\\begin{pmatrix}U_{n-1}&\\mathbf u\\\\\\mathbf 0^{\\mathrm T}&u_{nn}\\end{pmatrix},$$\n比较得 $\\mathbf l^{\\mathrm T}U_{n-1}=\\mathbf d^{\\mathrm T}$，$L_{n-1}\\mathbf u=\\mathbf c$，$\\mathbf l^{\\mathrm T}\\mathbf u+u_{nn}=a_{nn}$，故\n$$\\mathbf l=(U_{n-1}^{\\mathrm T})^{-1}\\mathbf d,\\quad\\mathbf u=L_{n-1}^{-1}\\mathbf c,\\quad u_{nn}=a_{nn}-\\mathbf l^{\\mathrm T}\\mathbf u$$\n唯一确定，$A$ 的 LU 分解存在且唯一。\n\n*必要性*。设 $A=L_nU_n$ 是唯一的 LU 分解，则 $A_i=L_iU_i$，$\\det A_i=u_{11}u_{22}\\cdots u_{ii}$。若 $A$ 可逆，则所有 $u_{ii}\\neq0$，各阶顺序主子式非零。若 $A$ 奇异，设 $u_{kk}$ 是第一个为零的对角元；若 $k<n$，则从第 $k+1$ 步起因 $U_k$ 奇异，$A_{k+1}$ 的分解中相应未知量不能唯一确定，从而 $A$ 的 LU 分解不唯一，矛盾。故 $k=n$，$\\det A_i=u_{11}\\cdots u_{ii}\\neq0$，$i=1,\\dots,n-1$。\n\n（注：原解答必要性部分论证较简略，此处照原思路整理；原文末式漏写“$\\neq0$”，原解答此处笔误，已改正。）",
+   "solutionSource": "官方"
+  }
+ ]
+}

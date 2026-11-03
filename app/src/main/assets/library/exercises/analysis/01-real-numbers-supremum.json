@@ -1,0 +1,263 @@
+{
+ "id": "ex-analysis-01",
+ "title": "数学分析 · 实数与确界原理",
+ "subject": "数学分析",
+ "chapter": 1,
+ "problems": [
+  {
+   "no": "1",
+   "type": "计算",
+   "subjects": [
+    "数学分析"
+   ],
+   "topics": [
+    "上确界",
+    "下确界"
+   ],
+   "difficulty": 1,
+   "statement": "求数集 $S=\\left\\{(-1)^n+\\dfrac{1}{n}:n\\in\\mathbb{N}_+\\right\\}$ 的上确界与下确界，并判断它们是否属于 $S$。",
+   "answer": "$\\sup S=\\dfrac32\\in S$，$\\inf S=-1\\notin S$",
+   "solution": "记 $a_n=(-1)^n+\\dfrac1n$。\n\n$n$ 为偶数时 $a_n=1+\\dfrac1n\\le 1+\\dfrac12=\\dfrac32$，在 $n=2$ 时取等；$n$ 为奇数时 $a_n=-1+\\dfrac1n\\le 0$。故 $\\dfrac32$ 是 $S$ 的最大元，$\\sup S=\\dfrac32\\in S$。\n\n另一方面，对一切 $n$ 有 $a_n>-1$（偶数项大于 $1$，奇数项 $-1+\\dfrac1n>-1$），所以 $-1$ 是下界。任给 $\\varepsilon>0$，取奇数 $n>\\dfrac1\\varepsilon$，则 $a_n=-1+\\dfrac1n<-1+\\varepsilon$，故 $-1+\\varepsilon$ 不是下界。因此 $\\inf S=-1$，且由 $a_n>-1$ 知 $-1\\notin S$。",
+   "solutionSource": "编写",
+   "source": "经典题"
+  },
+  {
+   "no": "2",
+   "type": "证明",
+   "subjects": [
+    "数学分析"
+   ],
+   "topics": [
+    "无理数",
+    "反证法"
+   ],
+   "difficulty": 1,
+   "statement": "证明 $\\sqrt2+\\sqrt3$ 是无理数。",
+   "answer": "",
+   "solution": "反设 $r=\\sqrt2+\\sqrt3\\in\\mathbb{Q}$，则 $r>0$。由 $\\sqrt3=r-\\sqrt2$ 两边平方得 $3=r^2-2\\sqrt2\\,r+2$，即\n$$\\sqrt2=\\dfrac{r^2-1}{2r}\\in\\mathbb{Q}.$$\n但 $\\sqrt2$ 是无理数：若 $\\sqrt2=\\dfrac pq$（$p,q$ 互素正整数），则 $p^2=2q^2$，$p$ 为偶数，设 $p=2k$，得 $q^2=2k^2$，$q$ 也为偶数，与互素矛盾。故 $\\sqrt2+\\sqrt3$ 是无理数。",
+   "solutionSource": "编写",
+   "source": "经典题"
+  },
+  {
+   "no": "3",
+   "type": "证明",
+   "subjects": [
+    "数学分析"
+   ],
+   "topics": [
+    "Bernoulli不等式",
+    "数学归纳法"
+   ],
+   "difficulty": 1,
+   "statement": "(Bernoulli 不等式) 设 $x>-1$，$n\\in\\mathbb{N}_+$，证明 $(1+x)^n\\ge 1+nx$，并说明当 $n\\ge2$ 时等号成立当且仅当 $x=0$。",
+   "answer": "",
+   "solution": "对 $n$ 归纳。$n=1$ 时为等式。设 $(1+x)^n\\ge 1+nx$，因 $1+x>0$，两边乘以 $1+x$：\n$$(1+x)^{n+1}\\ge(1+nx)(1+x)=1+(n+1)x+nx^2\\ge 1+(n+1)x.$$\n等号条件：第二个不等号取等需 $nx^2=0$ 即 $x=0$。故 $n\\ge 2$ 时等号成立当且仅当 $x=0$（$x=0$ 时显然取等）。",
+   "solutionSource": "编写",
+   "source": "经典题"
+  },
+  {
+   "no": "4",
+   "type": "证明",
+   "subjects": [
+    "数学分析"
+   ],
+   "topics": [
+    "上确界",
+    "确界的运算"
+   ],
+   "difficulty": 2,
+   "statement": "设 $A,B$ 是非空有上界的数集，$A+B=\\{a+b:a\\in A,\\ b\\in B\\}$。证明 $\\sup(A+B)=\\sup A+\\sup B$。",
+   "answer": "",
+   "solution": "记 $\\alpha=\\sup A$，$\\beta=\\sup B$。\n\n（1）上界：对任意 $a\\in A,b\\in B$，$a+b\\le\\alpha+\\beta$，故 $A+B$ 有上界 $\\alpha+\\beta$，从而 $\\sup(A+B)$ 存在且 $\\le\\alpha+\\beta$。\n\n（2）最小性：任给 $\\varepsilon>0$，由确界定义存在 $a\\in A$ 使 $a>\\alpha-\\dfrac\\varepsilon2$，存在 $b\\in B$ 使 $b>\\beta-\\dfrac\\varepsilon2$，于是 $a+b>\\alpha+\\beta-\\varepsilon$，即 $\\alpha+\\beta-\\varepsilon$ 不是 $A+B$ 的上界。\n\n综上 $\\sup(A+B)=\\alpha+\\beta$。",
+   "solutionSource": "编写",
+   "source": "经典题"
+  },
+  {
+   "no": "5",
+   "type": "证明",
+   "subjects": [
+    "数学分析"
+   ],
+   "topics": [
+    "上确界",
+    "确界的运算"
+   ],
+   "difficulty": 2,
+   "statement": "设 $A,B$ 是由正数组成的非空有上界数集，$AB=\\{ab:a\\in A,\\ b\\in B\\}$。证明 $\\sup(AB)=\\sup A\\cdot\\sup B$。",
+   "answer": "",
+   "solution": "记 $\\alpha=\\sup A>0$，$\\beta=\\sup B>0$。对任意 $a\\in A,b\\in B$，由 $0<a\\le\\alpha$，$0<b\\le\\beta$ 得 $ab\\le\\alpha\\beta$，故 $\\sup(AB)\\le\\alpha\\beta$。\n\n任给 $0<\\varepsilon<\\min\\{\\alpha,\\beta\\}$，取 $a\\in A$，$b\\in B$ 使 $a>\\alpha-\\varepsilon>0$，$b>\\beta-\\varepsilon>0$，则\n$$ab>(\\alpha-\\varepsilon)(\\beta-\\varepsilon)=\\alpha\\beta-\\varepsilon(\\alpha+\\beta-\\varepsilon)>\\alpha\\beta-\\varepsilon(\\alpha+\\beta).$$\n由于 $\\varepsilon(\\alpha+\\beta)$ 可任意小，任何小于 $\\alpha\\beta$ 的数都不是 $AB$ 的上界，故 $\\sup(AB)=\\alpha\\beta$。\n\n注：若去掉\"正数\"条件结论不成立，例如 $A=B=\\{-1,-2\\}$ 时 $\\sup(AB)=4\\ne(-1)(-1)$。",
+   "solutionSource": "编写",
+   "source": "经典题"
+  },
+  {
+   "no": "6",
+   "type": "证明",
+   "subjects": [
+    "数学分析"
+   ],
+   "topics": [
+    "Archimedes性质",
+    "确界原理"
+   ],
+   "difficulty": 2,
+   "statement": "利用确界原理证明 Archimedes 性质：对任意 $a>0$，$b\\in\\mathbb{R}$，存在正整数 $n$ 使 $na>b$。",
+   "answer": "",
+   "solution": "反设对一切 $n\\in\\mathbb{N}_+$ 有 $na\\le b$，则数集 $E=\\{na:n\\in\\mathbb{N}_+\\}$ 非空且有上界 $b$。由确界原理，$s=\\sup E$ 存在。因 $a>0$，$s-a<s$ 不是 $E$ 的上界，故存在 $m$ 使 $ma>s-a$，即 $(m+1)a>s$，而 $(m+1)a\\in E$，与 $s$ 是上界矛盾。",
+   "solutionSource": "编写",
+   "source": "经典题"
+  },
+  {
+   "no": "7",
+   "type": "证明",
+   "subjects": [
+    "数学分析"
+   ],
+   "topics": [
+    "有理数的稠密性",
+    "Archimedes性质"
+   ],
+   "difficulty": 2,
+   "statement": "证明有理数在实数中稠密：对任意实数 $a<b$，存在有理数 $r$ 满足 $a<r<b$。并由此说明 $(a,b)$ 中含无穷多个有理数。",
+   "answer": "",
+   "solution": "由 Archimedes 性质，取正整数 $n$ 使 $n(b-a)>1$。再令 $m$ 为满足 $m>na$ 的最小整数（由 Archimedes 性质，满足 $m>na$ 的整数存在且其集合有下界，故有最小者），则 $m-1\\le na<m$。于是\n$$na<m\\le na+1<na+n(b-a)=nb,$$\n即 $a<\\dfrac mn<b$，取 $r=\\dfrac mn$ 即可。\n\n对区间 $(a,r)$ 再用此结论又得一个有理数，如此反复可得无穷多个互不相同的有理数，均在 $(a,b)$ 中。",
+   "solutionSource": "编写",
+   "source": "经典题"
+  },
+  {
+   "no": "8",
+   "type": "证明",
+   "subjects": [
+    "数学分析"
+   ],
+   "topics": [
+    "Cauchy-Schwarz不等式"
+   ],
+   "difficulty": 2,
+   "statement": "(Cauchy–Schwarz 不等式) 证明对任意实数 $a_1,\\dots,a_n,b_1,\\dots,b_n$，\n$$\\left(\\sum_{k=1}^n a_kb_k\\right)^2\\le\\sum_{k=1}^n a_k^2\\sum_{k=1}^n b_k^2,$$\n并给出等号成立的条件。",
+   "answer": "等号当且仅当两组数成比例",
+   "solution": "若 $a_1=\\cdots=a_n=0$，结论显然。否则 $A=\\sum a_k^2>0$。考虑关于 $t$ 的二次函数\n$$f(t)=\\sum_{k=1}^n(a_kt+b_k)^2=At^2+2Bt+C\\ge0,$$\n其中 $B=\\sum a_kb_k$，$C=\\sum b_k^2$。二次函数恒非负，故判别式 $4B^2-4AC\\le0$，即 $B^2\\le AC$。\n\n等号成立 $\\iff$ 判别式为 $0$ $\\iff$ 存在 $t_0$ 使 $f(t_0)=0$ $\\iff$ $b_k=-t_0a_k$ 对一切 $k$ 成立，即两组数成比例（含某组全为零的情形）。",
+   "solutionSource": "编写",
+   "source": "经典题"
+  },
+  {
+   "no": "9",
+   "type": "证明",
+   "subjects": [
+    "数学分析"
+   ],
+   "topics": [
+    "均值不等式",
+    "数学归纳法"
+   ],
+   "difficulty": 3,
+   "statement": "(算术–几何平均不等式) 设 $a_1,\\dots,a_n>0$，证明\n$$\\sqrt[n]{a_1a_2\\cdots a_n}\\le\\dfrac{a_1+a_2+\\cdots+a_n}{n},$$\n等号当且仅当 $a_1=\\cdots=a_n$。",
+   "answer": "",
+   "solution": "对 $n$ 归纳，$n=1$ 显然。设结论对 $n$ 成立，考虑 $n+1$ 个正数。由于结论关于各数对称，不妨设 $a_{n+1}=\\max_k a_k$。记 $A=\\dfrac{a_1+\\cdots+a_n}{n}$，则 $a_{n+1}\\ge A$。令 $x=\\dfrac{a_{n+1}-A}{(n+1)A}\\ge 0$，则\n$$\\dfrac{a_1+\\cdots+a_{n+1}}{n+1}=\\dfrac{nA+a_{n+1}}{n+1}=A(1+x).$$\n由 Bernoulli 不等式与归纳假设：\n$$\\left(\\dfrac{a_1+\\cdots+a_{n+1}}{n+1}\\right)^{n+1}=A^{n+1}(1+x)^{n+1}\\ge A^{n+1}\\big(1+(n+1)x\\big)=A^n\\cdot a_{n+1}\\ge a_1\\cdots a_n\\,a_{n+1}.$$\n这里用到 $A\\big(1+(n+1)x\\big)=A+(a_{n+1}-A)=a_{n+1}$。\n\n等号：需 $x=0$（即 $a_{n+1}=A$）且 $A^n=a_1\\cdots a_n$（由归纳假设即 $a_1=\\cdots=a_n$），合起来即全部相等；反之显然取等。",
+   "solutionSource": "编写",
+   "source": "经典题"
+  },
+  {
+   "no": "10",
+   "type": "证明",
+   "subjects": [
+    "数学分析"
+   ],
+   "topics": [
+    "确界原理",
+    "n次方根的存在性"
+   ],
+   "difficulty": 3,
+   "statement": "设 $a>0$，$n$ 为正整数。利用确界原理证明：存在唯一的正数 $x$ 使 $x^n=a$。",
+   "answer": "",
+   "solution": "唯一性：若 $0<x<y$，则 $x^n<y^n$，故至多一个正根。\n\n存在性：令 $E=\\{t>0:t^n<a\\}$。取 $t_0=\\dfrac{a}{1+a}$，则 $0<t_0<1$ 且 $t_0<a$，故 $t_0^n\\le t_0<a$，$E$ 非空；又若 $t\\ge 1+a$ 则 $t^n\\ge t>a$，故 $1+a$ 是 $E$ 的上界。由确界原理 $x=\\sup E>0$ 存在。\n\n利用：对 $0<u<v$，$v^n-u^n=(v-u)(v^{n-1}+\\cdots+u^{n-1})<(v-u)\\,n v^{n-1}$。\n\n（1）若 $x^n<a$：取 $0<h<1$ 且 $h<\\dfrac{a-x^n}{n(x+1)^{n-1}}$，则 $(x+h)^n-x^n<h\\,n(x+1)^{n-1}<a-x^n$，即 $x+h\\in E$，与 $x$ 为上界矛盾。\n\n（2）若 $x^n>a$：取 $0<k<x$ 且 $k<\\dfrac{x^n-a}{nx^{n-1}}$，则 $x^n-(x-k)^n<k\\,nx^{n-1}<x^n-a$，即 $(x-k)^n>a$。于是对任意 $t\\in E$，$t^n<a<(x-k)^n$，得 $t<x-k$，所以 $x-k$ 是更小的上界，矛盾。\n\n故 $x^n=a$。",
+   "solutionSource": "编写",
+   "source": "经典题"
+  },
+  {
+   "no": "11",
+   "type": "证明",
+   "subjects": [
+    "数学分析"
+   ],
+   "topics": [
+    "确界原理",
+    "有理数集的不完备性"
+   ],
+   "difficulty": 3,
+   "statement": "证明集合 $A=\\{x\\in\\mathbb{Q}:x>0,\\ x^2<2\\}$ 在有理数集 $\\mathbb{Q}$ 中有上界，但在 $\\mathbb{Q}$ 中没有最小上界（即 $\\mathbb{Q}$ 不满足确界原理）。",
+   "answer": "",
+   "solution": "$2$ 显然是 $A$ 在 $\\mathbb{Q}$ 中的上界。对正有理数 $p$，令\n$$q=p-\\dfrac{p^2-2}{p+2}=\\dfrac{2p+2}{p+2}\\in\\mathbb{Q},\\qquad q^2-2=\\dfrac{2(p^2-2)}{(p+2)^2}.$$\n（1）若 $p\\in A$ 即 $p^2<2$，则 $q>p$ 且 $q^2<2$，即 $q\\in A$ 而 $q>p$：$A$ 无最大元，因此 $A$ 中的元都不是上界。\n\n（2）若 $p$ 是 $A$ 的有理上界，因 $\\sqrt2\\notin\\mathbb{Q}$，$p^2\\ne2$；又若 $p^2<2$ 则 $p\\in A$ 不是上界，故 $p^2>2$。此时 $q<p$ 且 $q^2>2$，$q>0$。对任意 $x\\in A$ 有 $x^2<2<q^2$，故 $x<q$，即 $q$ 是更小的有理上界。\n\n所以 $A$ 在 $\\mathbb{Q}$ 中没有最小上界。",
+   "solutionSource": "编写",
+   "source": "经典题"
+  },
+  {
+   "no": "12",
+   "type": "证明",
+   "subjects": [
+    "数学分析"
+   ],
+   "topics": [
+    "单调有界定理",
+    "确界原理"
+   ],
+   "difficulty": 2,
+   "statement": "用确界原理证明单调有界定理：单调递增且有上界的数列 $\\{a_n\\}$ 收敛，且 $\\displaystyle\\lim_{n\\to\\infty}a_n=\\sup_n a_n$。",
+   "answer": "",
+   "solution": "由确界原理 $a=\\sup_n a_n$ 存在。任给 $\\varepsilon>0$，$a-\\varepsilon$ 不是上界，存在 $N$ 使 $a_N>a-\\varepsilon$。由单调性，当 $n>N$ 时\n$$a-\\varepsilon<a_N\\le a_n\\le a<a+\\varepsilon,$$\n即 $|a_n-a|<\\varepsilon$。故 $\\lim a_n=a$。",
+   "solutionSource": "编写",
+   "source": "经典题"
+  },
+  {
+   "no": "13",
+   "type": "证明",
+   "subjects": [
+    "数学分析"
+   ],
+   "topics": [
+    "确界原理",
+    "不动点"
+   ],
+   "difficulty": 4,
+   "statement": "设 $f:[a,b]\\to[a,b]$ 单调递增（不要求连续）。证明存在 $\\xi\\in[a,b]$ 使 $f(\\xi)=\\xi$。",
+   "answer": "",
+   "solution": "令 $E=\\{x\\in[a,b]:f(x)\\ge x\\}$。因 $f(a)\\in[a,b]$，$f(a)\\ge a$，故 $a\\in E$，$E$ 非空有上界 $b$。令 $\\xi=\\sup E\\in[a,b]$。\n\n（1）$f(\\xi)\\ge\\xi$：对任意 $x\\in E$，$x\\le\\xi$，由单调性 $f(\\xi)\\ge f(x)\\ge x$。于是 $f(\\xi)$ 是 $E$ 的上界，从而 $f(\\xi)\\ge\\sup E=\\xi$。\n\n（2）$f(\\xi)\\le\\xi$：由（1）及单调性，$f(f(\\xi))\\ge f(\\xi)$，又 $f(\\xi)\\in[a,b]$，故 $f(\\xi)\\in E$，所以 $f(\\xi)\\le\\sup E=\\xi$。\n\n因此 $f(\\xi)=\\xi$。",
+   "solutionSource": "编写",
+   "source": "经典题"
+  },
+  {
+   "no": "14",
+   "type": "证明",
+   "subjects": [
+    "数学分析"
+   ],
+   "topics": [
+    "区间套定理",
+    "不可数集"
+   ],
+   "difficulty": 4,
+   "statement": "利用闭区间套定理证明：区间 $[0,1]$ 是不可数集。",
+   "answer": "",
+   "solution": "反设 $[0,1]$ 可数，排成 $x_1,x_2,x_3,\\dots$。将 $[0,1]$ 三等分，三个闭子区间中至少有一个不含 $x_1$，记为 $I_1$。再将 $I_1$ 三等分，取其中不含 $x_2$ 的一个闭子区间 $I_2$。如此继续，得到闭区间套\n$$I_1\\supset I_2\\supset\\cdots,\\qquad |I_n|=3^{-n}\\to0,\\qquad x_n\\notin I_n.$$\n由闭区间套定理存在 $\\xi\\in\\bigcap_n I_n\\subset[0,1]$。于是 $\\xi=x_m$ 对某个 $m$ 成立，但 $x_m\\notin I_m$ 而 $\\xi\\in I_m$，矛盾。故 $[0,1]$ 不可数。",
+   "solutionSource": "编写",
+   "source": "经典题"
+  },
+  {
+   "no": "15",
+   "type": "证明",
+   "subjects": [
+    "数学分析"
+   ],
+   "topics": [
+    "Kronecker定理",
+    "抽屉原理",
+    "稠密性"
+   ],
+   "difficulty": 5,
+   "statement": "设 $\\alpha$ 是无理数。证明集合 $\\{m+n\\alpha:m,n\\in\\mathbb{Z}\\}$ 在 $\\mathbb{R}$ 中稠密，即任意开区间 $(c,d)$ 中都含有该集合的点。",
+   "answer": "",
+   "solution": "记 $G=\\{m+n\\alpha:m,n\\in\\mathbb{Z}\\}$，它对加减法封闭。\n\n第一步：对任意正整数 $N$，存在 $g\\in G$ 使 $0<|g|<\\dfrac1N$。考虑 $N+1$ 个数 $\\{k\\alpha\\}=k\\alpha-[k\\alpha]$，$k=0,1,\\dots,N$，它们都在 $[0,1)$ 中。把 $[0,1)$ 分成 $N$ 个长为 $\\dfrac1N$ 的左闭右开区间，由抽屉原理有两个数 $\\{k_1\\alpha\\},\\{k_2\\alpha\\}$（$k_1\\ne k_2$）落在同一小区间，于是\n$$g=(k_1-k_2)\\alpha-([k_1\\alpha]-[k_2\\alpha])\\in G,\\qquad |g|<\\dfrac1N.$$\n又 $\\alpha$ 无理且 $k_1\\ne k_2$，故 $g\\ne0$。\n\n第二步：任给 $(c,d)$，取 $N$ 使 $\\dfrac1N<d-c$，取第一步中的 $g$，记 $\\delta=|g|\\in\\left(0,\\dfrac1N\\right)$，$\\pm\\delta\\in G$。整数倍 $j\\delta$（$j\\in\\mathbb{Z}$）都属于 $G$，且相邻两点距离 $\\delta<d-c$。取 $j=\\left[\\dfrac c\\delta\\right]+1$，则 $c<j\\delta\\le c+\\delta<d$。故 $(c,d)\\cap G\\ne\\varnothing$。",
+   "solutionSource": "编写",
+   "source": "经典题（Kronecker 稠密性定理）"
+  }
+ ]
+}

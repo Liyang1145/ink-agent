@@ -1,0 +1,216 @@
+{
+ "id": "cmc-nonmath-12-prelim",
+ "title": "第十二届全国大学生数学竞赛初赛（非数学类）",
+ "year": 2020,
+ "track": "非数学类",
+ "round": "初赛",
+ "paper": "",
+ "durationMin": 150,
+ "totalScore": 100,
+ "source": {
+  "question": "12-初赛-2020年第十二届全国大学生数学竞赛初赛《非数学类》试题.pdf",
+  "solution": "12-初赛-2020年第十二届全国大学生数学竞赛初赛《非数学类》试题 参考解答.pdf"
+ },
+ "problems": [
+  {
+   "no": "一(1)",
+   "score": 6,
+   "type": "填空",
+   "subjects": [
+    "高等数学"
+   ],
+   "topics": [
+    "函数极限",
+    "等价无穷小",
+    "洛必达法则"
+   ],
+   "difficulty": 1,
+   "statement": "极限 $\\displaystyle\\lim_{x\\to0}\\frac{(x-\\sin x)e^{-x^2}}{\\sqrt{1-x^3}-1}=$\\_\\_\\_\\_\\_\\_\\_\\_。",
+   "answer": "$-\\dfrac13$",
+   "solution": "由等价无穷小（$\\sqrt{1-x^3}-1\\sim-\\frac12x^3$）和洛必达法则，得\n$$\\lim_{x\\to0}\\frac{(x-\\sin x)e^{-x^2}}{\\sqrt{1-x^3}-1}=-2\\lim_{x\\to0}\\frac{x-\\sin x}{x^3}=-2\\lim_{x\\to0}\\frac{1-\\cos x}{3x^2}=-\\frac13.$$",
+   "solutionSource": "官方"
+  },
+  {
+   "no": "一(2)",
+   "score": 6,
+   "type": "填空",
+   "subjects": [
+    "高等数学"
+   ],
+   "topics": [
+    "高阶导数",
+    "莱布尼茨公式",
+    "泰勒公式"
+   ],
+   "difficulty": 2,
+   "statement": "设函数 $f(x)=(x+1)^ne^{-x^2}$，则 $f^{(n)}(-1)=$\\_\\_\\_\\_\\_\\_\\_\\_。",
+   "answer": "$\\dfrac{n!}e$",
+   "solution": "**思路一** 由莱布尼茨公式，得\n$$f^{(n)}(-1)=\\sum_{k=0}^nC_n^k\\left[(x+1)^n\\right]^{(k)}\\left(e^{-x^2}\\right)^{(n-k)}\\Big|_{x=-1}=C_n^n\\left[(x+1)^n\\right]^{(n)}\\left(e^{-x^2}\\right)\\Big|_{x=-1}=n!e^{-1}.$$\n\n**思路二** 因为 $e^{-x^2}=e^{-1}+\\alpha$，其中 $\\alpha\\to0\\ (x\\to-1)$，故\n$$f(x)=(x+1)^ne^{-x^2}=e^{-1}(x+1)^n+o\\left((x+1)^n\\right).$$\n于是由 $f(x)$ 泰勒公式中泰勒系数的计算公式，得 $\\dfrac{f^{(n)}(-1)}{n!}=e^{-1}$，即 $f^{(n)}(-1)=n!e^{-1}$。",
+   "solutionSource": "官方"
+  },
+  {
+   "no": "一(3)",
+   "score": 6,
+   "type": "填空",
+   "subjects": [
+    "高等数学"
+   ],
+   "topics": [
+    "隐函数求导",
+    "切线方程"
+   ],
+   "difficulty": 1,
+   "statement": "设 $y=f(x)$ 是由方程 $\\arctan\\dfrac xy=\\ln\\sqrt{x^2+y^2}-\\dfrac12\\ln2+\\dfrac\\pi4$ 确定的隐函数，且满足 $f(1)=1$，则曲线 $y=f(x)$ 在点 $(1,1)$ 处的切线方程为\\_\\_\\_\\_\\_\\_\\_\\_。",
+   "answer": "$y=1$",
+   "solution": "等式两端关于 $x$ 求导，得\n$$\\frac{\\frac{y-xy'}{y^2}}{1+\\left(\\frac xy\\right)^2}=\\frac{x+yy'}{x^2+y^2},$$\n即 $(x+y)y'=y-x$，所以 $f'(1)=0$。故曲线 $y=f(x)$ 在点 $(1,1)$ 处的切线方程为 $y=1$。",
+   "solutionSource": "官方"
+  },
+  {
+   "no": "一(4)",
+   "score": 6,
+   "type": "填空",
+   "subjects": [
+    "高等数学"
+   ],
+   "topics": [
+    "反常二重积分",
+    "Dirichlet积分",
+    "变上限积分"
+   ],
+   "difficulty": 3,
+   "statement": "已知 $\\displaystyle\\int_0^{+\\infty}\\frac{\\sin x}x\\,\\mathrm dx=\\frac\\pi2$，则 $\\displaystyle\\int_0^{+\\infty}\\int_0^{+\\infty}\\frac{\\sin x\\sin(x+y)}{x(x+y)}\\,\\mathrm dx\\,\\mathrm dy=$\\_\\_\\_\\_\\_\\_\\_\\_。",
+   "answer": "$\\dfrac{\\pi^2}8$",
+   "solution": "令 $u=x+y$，则\n$$\\begin{aligned}I&=\\int_0^{+\\infty}\\frac{\\sin x}x\\,\\mathrm dx\\int_0^{+\\infty}\\frac{\\sin(x+y)}{x+y}\\,\\mathrm dy=\\int_0^{+\\infty}\\frac{\\sin x}x\\,\\mathrm dx\\int_x^{+\\infty}\\frac{\\sin u}u\\,\\mathrm du\\\\&=\\int_0^{+\\infty}\\frac{\\sin x}x\\left(\\int_0^{+\\infty}\\frac{\\sin u}u\\,\\mathrm du-\\int_0^x\\frac{\\sin u}u\\,\\mathrm du\\right)\\mathrm dx\\\\&=\\left(\\int_0^{+\\infty}\\frac{\\sin x}x\\,\\mathrm dx\\right)^2-\\int_0^{+\\infty}\\frac{\\sin x}x\\,\\mathrm dx\\int_0^x\\frac{\\sin u}u\\,\\mathrm du.\\end{aligned}$$\n令 $F(x)=\\displaystyle\\int_0^x\\frac{\\sin u}u\\,\\mathrm du$，则 $F'(x)=\\dfrac{\\sin x}x$，$\\displaystyle\\lim_{x\\to+\\infty}F(x)=\\frac\\pi2$，代入可得\n$$I=\\frac{\\pi^2}4-\\int_0^{+\\infty}F(x)F'(x)\\,\\mathrm dx=\\frac{\\pi^2}4-\\frac12\\left[F(x)\\right]^2\\Big|_0^{+\\infty}=\\frac{\\pi^2}4-\\frac12\\left(\\frac\\pi2\\right)^2=\\frac{\\pi^2}8.$$",
+   "solutionSource": "官方"
+  },
+  {
+   "no": "一(5)",
+   "score": 6,
+   "type": "填空",
+   "subjects": [
+    "高等数学"
+   ],
+   "topics": [
+    "幂指函数极限",
+    "等价无穷小"
+   ],
+   "difficulty": 2,
+   "statement": "设 $f(x),g(x)$ 在 $x=0$ 的某一邻域 $U$ 内有定义，对任意 $x\\in U$，$f(x)\\neq g(x)$，且 $\\displaystyle\\lim_{x\\to0}f(x)=\\lim_{x\\to0}g(x)=a>0$，则 $\\displaystyle\\lim_{x\\to0}\\frac{\\left[f(x)\\right]^{g(x)}-\\left[g(x)\\right]^{g(x)}}{f(x)-g(x)}=$\\_\\_\\_\\_\\_\\_\\_\\_。",
+   "answer": "$a^a$",
+   "solution": "由极限的保号性，存在一个去心邻域 $U_1(0)$，当 $x\\in U_1$ 时，$f(x)>0,\\ g(x)>0$。当 $x\\to0$ 时，$e^x-1\\sim x$，$\\ln(1+x)\\sim x$，故\n$$\\begin{aligned}\\text{原式}&=\\lim_{x\\to0}\\left[g(x)\\right]^{g(x)}\\frac{\\left[\\frac{f(x)}{g(x)}\\right]^{g(x)}-1}{f(x)-g(x)}=a^a\\lim_{x\\to0}\\frac{e^{g(x)\\ln\\frac{f(x)}{g(x)}}-1}{f(x)-g(x)}\\\\&=a^a\\lim_{x\\to0}\\frac{g(x)\\ln\\frac{f(x)}{g(x)}}{f(x)-g(x)}=a^a\\lim_{x\\to0}\\frac{g(x)\\ln\\left[1+\\left(\\frac{f(x)}{g(x)}-1\\right)\\right]}{f(x)-g(x)}\\\\&=a^a\\lim_{x\\to0}\\frac{g(x)\\left[\\frac{f(x)}{g(x)}-1\\right]}{f(x)-g(x)}=a^a.\\end{aligned}$$",
+   "solutionSource": "官方"
+  },
+  {
+   "no": "二",
+   "score": 10,
+   "type": "计算",
+   "subjects": [
+    "高等数学"
+   ],
+   "topics": [
+    "递推数列",
+    "数列极限",
+    "e的级数表示"
+   ],
+   "difficulty": 2,
+   "statement": "设数列 $\\{a_n\\}$ 满足：$a_1=1$，$a_{n+1}=\\dfrac{a_n}{(n+1)(a_n+1)},\\ n\\geqslant1$。求极限 $\\displaystyle\\lim_{n\\to\\infty}n!a_n$。",
+   "answer": "$\\dfrac1e$",
+   "solution": "由题设可知 $a_n>0\\ (n\\geqslant1)$。由于\n$$\\begin{aligned}\\frac1{a_{n+1}}&=(n+1)\\left(1+\\frac1{a_n}\\right)=(n+1)+(n+1)\\frac1{a_n}=(n+1)+(n+1)\\left(n+n\\frac1{a_{n-1}}\\right)\\\\&=(n+1)+(n+1)n+(n+1)n\\frac1{a_{n-1}},\\end{aligned}$$\n如此递推可得\n$$\\frac1{a_{n+1}}=(n+1)!\\left(\\sum_{k=1}^n\\frac1{k!}+\\frac1{a_1}\\right)=(n+1)!\\sum_{k=0}^n\\frac1{k!}.$$\n于是可得\n$$\\lim_{n\\to\\infty}n!a_n=\\frac1{\\displaystyle\\lim_{n\\to\\infty}\\sum_{k=0}^{n-1}\\frac1{k!}}=\\frac1e.$$",
+   "solutionSource": "官方"
+  },
+  {
+   "no": "三",
+   "score": 12,
+   "type": "证明",
+   "subjects": [
+    "高等数学"
+   ],
+   "topics": [
+    "介值定理",
+    "拉格朗日中值定理",
+    "双中值"
+   ],
+   "difficulty": 2,
+   "statement": "设 $f(x)$ 在 $[0,1]$ 上连续，$f(x)$ 在 $(0,1)$ 内可导，且 $f(0)=0$，$f(1)=1$。证明：\n\n(1) 存在 $x_0\\in(0,1)$ 使得 $f(x_0)=2-3x_0$；\n\n(2) 存在 $\\xi,\\eta\\in(0,1)$，且 $\\xi\\neq\\eta$，使得 $\\left[1+f'(\\xi)\\right]\\left[1+f'(\\eta)\\right]=4$。",
+   "answer": "",
+   "solution": "(1) 令 $F(x)=f(x)-2+3x$，则 $F(x)$ 在 $[0,1]$ 上连续，且 $F(0)=-2$，$F(1)=2$。于是由介值定理，存在 $x_0\\in(0,1)$，使得 $F(x_0)=0$，即 $f(x_0)=2-3x_0$。\n\n(2) 在区间 $[0,x_0],[x_0,1]$ 上利用拉格朗日中值定理，存在 $\\xi,\\eta\\in(0,1)$ 且 $\\xi\\neq\\eta$ 使得\n$$\\frac{f(x_0)-f(0)}{x_0-0}=f'(\\xi),\\qquad\\frac{f(x_0)-f(1)}{x_0-1}=f'(\\eta).$$\n由 $f(x_0)=2-3x_0$，得 $1+f'(\\xi)=\\dfrac{2(1-x_0)}{x_0}$，$1+f'(\\eta)=\\dfrac{2x_0}{1-x_0}$，整理即得 $\\left[1+f'(\\xi)\\right]\\left[1+f'(\\eta)\\right]=4$。",
+   "solutionSource": "官方"
+  },
+  {
+   "no": "四",
+   "score": 12,
+   "type": "计算",
+   "subjects": [
+    "高等数学"
+   ],
+   "topics": [
+    "多元复合函数求导",
+    "二阶偏导数",
+    "函数方程",
+    "二阶微分方程"
+   ],
+   "difficulty": 3,
+   "statement": "已知 $z=xf\\left(\\dfrac yx\\right)+2y\\varphi\\left(\\dfrac xy\\right)$，其中 $f,\\varphi$ 均为二阶可微函数。\n\n(1) 求 $\\dfrac{\\partial z}{\\partial x},\\dfrac{\\partial^2z}{\\partial x\\partial y}$；\n\n(2) 当 $f=\\varphi$，且 $\\left.\\dfrac{\\partial^2z}{\\partial x\\partial y}\\right|_{x=a}=-by^2$ 时，求 $f(y)$。",
+   "answer": "(1) $\\dfrac{\\partial z}{\\partial x}=f\\left(\\dfrac yx\\right)-\\dfrac yxf'\\left(\\dfrac yx\\right)+2\\varphi'\\left(\\dfrac xy\\right)$，$\\dfrac{\\partial^2z}{\\partial x\\partial y}=-\\dfrac y{x^2}f''\\left(\\dfrac yx\\right)-\\dfrac{2x}{y^2}\\varphi''\\left(\\dfrac xy\\right)$；(2) $f(y)=\\dfrac{a^3b}3\\left(\\dfrac1{3y^2}-\\dfrac{y^3}6\\right)+C_1y+C_2$。",
+   "solution": "(1) 由复合函数求导法则，得\n$$\\frac{\\partial z}{\\partial x}=f\\left(\\frac yx\\right)+xf'\\left(\\frac yx\\right)\\left(-\\frac y{x^2}\\right)+2y\\varphi'\\left(\\frac xy\\right)\\cdot\\frac1y=f\\left(\\frac yx\\right)-\\frac yxf'\\left(\\frac yx\\right)+2\\varphi'\\left(\\frac xy\\right),$$\n$$\\begin{aligned}\\frac{\\partial^2z}{\\partial x\\partial y}&=f'\\left(\\frac yx\\right)\\cdot\\frac1x-\\frac1xf'\\left(\\frac yx\\right)-\\frac yxf''\\left(\\frac yx\\right)\\cdot\\frac1x+2\\varphi''\\left(\\frac xy\\right)\\left(-\\frac x{y^2}\\right)\\\\&=-\\frac y{x^2}f''\\left(\\frac yx\\right)-\\frac{2x}{y^2}\\varphi''\\left(\\frac xy\\right).\\end{aligned}$$\n\n(2) 由 (1) 得 $\\dfrac y{a^2}f''\\left(\\dfrac ya\\right)+\\dfrac{2a}{y^2}f''\\left(\\dfrac ay\\right)=by^2$。令 $\\dfrac ya=u$，得\n$$\\frac uaf''(u)+\\frac2{au^2}f''\\left(\\frac1u\\right)=a^2bu^2,$$\n即 $u^3f''(u)+2f''\\left(\\dfrac1u\\right)=a^3bu^4$。令 $u=\\dfrac1u$，得 $2f''\\left(\\dfrac1u\\right)+4u^3f''(u)=2a^3b\\dfrac1u$。两式求解得\n$$f''(u)=\\frac{a^3b}3\\left(\\frac2{u^4}-u\\right).$$\n两次积分得\n$$f(u)=\\frac{a^3b}3\\left(\\frac1{3u^2}-\\frac{u^3}6\\right)+C_1u+C_2.$$\n由变量符号描述的无关性，即 $f(y)=\\dfrac{a^3b}3\\left(\\dfrac1{3y^2}-\\dfrac{y^3}6\\right)+C_1y+C_2$。",
+   "solutionSource": "官方"
+  },
+  {
+   "no": "五",
+   "score": 12,
+   "type": "计算",
+   "subjects": [
+    "高等数学"
+   ],
+   "topics": [
+    "第二型曲线积分",
+    "参数方程",
+    "对称性"
+   ],
+   "difficulty": 3,
+   "statement": "计算 $I=\\displaystyle\\oint_\\Gamma\\left|\\sqrt3y-x\\right|\\mathrm dx-5z\\,\\mathrm dz$，其中 $\\Gamma:\\begin{cases}x^2+y^2+z^2=8,\\\\x^2+y^2=2z\\end{cases}$ 从 $z$ 轴正向往坐标原点看去取逆时针方向。",
+   "answer": "$0$",
+   "solution": "**思路一** 改写曲线方程可得参数方程为\n$$\\begin{cases}z=2,\\\\x^2+y^2=4\\end{cases}\\Rightarrow\\begin{cases}x=2\\cos\\theta,\\\\y=2\\sin\\theta,\\\\z=2,\\end{cases}$$\n其中 $\\theta:0\\to2\\pi$。由于曲线上 $z=2$，积分定义在积分曲线上，故 $\\mathrm dz=0$。于是由曲线积分的直接参数方程计算方法，得\n$$\\begin{aligned}I&=\\oint_\\Gamma\\left|\\sqrt3y-x\\right|\\mathrm dx=-\\int_0^{2\\pi}\\left|2\\sqrt3\\sin\\theta-2\\cos\\theta\\right|2\\sin\\theta\\,\\mathrm d\\theta\\\\&=-8\\int_0^{2\\pi}\\left|\\frac{\\sqrt3}2\\sin\\theta-\\frac12\\cos\\theta\\right|\\sin\\theta\\,\\mathrm d\\theta=-8\\int_0^{2\\pi}\\left|\\cos\\left(\\theta+\\frac\\pi3\\right)\\right|\\sin\\theta\\,\\mathrm d\\theta.\\end{aligned}$$\n令 $\\theta+\\dfrac\\pi3=t$，根据周期函数的积分性质，得\n$$\\begin{aligned}I&=-8\\int_{\\frac\\pi3}^{2\\pi+\\frac\\pi3}|\\cos t|\\sin\\left(t-\\frac\\pi3\\right)\\mathrm dt=-8\\int_{-\\pi}^\\pi|\\cos t|\\sin\\left(t-\\frac\\pi3\\right)\\mathrm dt\\\\&=-4\\int_{-\\pi}^\\pi|\\cos t|\\left(\\sin t-\\sqrt3\\cos t\\right)\\mathrm dt=8\\sqrt3\\int_0^\\pi|\\cos t|\\cos t\\,\\mathrm dt\\quad\\left(u=t-\\frac\\pi2\\right)\\\\&=-8\\sqrt3\\int_{-\\frac\\pi2}^{\\frac\\pi2}|\\sin u|\\sin u\\,\\mathrm du=0.\\end{aligned}$$\n\n**思路二** 积分曲线方程可表示为 $\\begin{cases}z=2,\\\\x^2+y^2=4.\\end{cases}$ 由于曲线上 $z=2$，故 $\\mathrm dz=0$。于是\n$$I=\\oint_\\Gamma\\left|\\sqrt3y-x\\right|\\mathrm dx=\\oint_C\\left|\\sqrt3y-x\\right|\\mathrm dx,$$\n其中 $C$ 为 $xOy$ 面上的圆 $x^2+y^2=4$，方向取逆时针方向。$C$ 上 $(x,y)$ 处的法向量为 $\\vec n=\\{x,y\\}$，$\\vec t=\\{-y,x\\}$，且 $\\vec t^{\\,0}=\\left\\{-\\dfrac y2,\\dfrac x2\\right\\}$。于是由两类曲线积分之间的关系，得\n$$I=\\oint_C\\left|\\sqrt3y-x\\right|\\left(-\\frac y2\\right)\\mathrm ds.$$\n由于积分曲线关于原点对称，且被积函数 $f(x,y)=\\left|\\sqrt3y-x\\right|\\left(-\\dfrac y2\\right)$ 关于 $x,y$ 变量为奇函数，即 $f(-x,-y)=-f(x,y)$，故由对弧长的曲线积分偶倍奇零的计算性质，得 $I=0$。",
+   "solutionSource": "官方"
+  },
+  {
+   "no": "六",
+   "score": 12,
+   "type": "证明",
+   "subjects": [
+    "高等数学"
+   ],
+   "topics": [
+    "取整函数",
+    "定积分",
+    "三角求和",
+    "因子和"
+   ],
+   "difficulty": 3,
+   "statement": "证明 $f(n)=\\displaystyle\\sum_{m=1}^n\\int_0^m\\cos\\frac{2\\pi n[x+1]}m\\,\\mathrm dx$ 等于 $n$ 的所有因子（包 $1$ 和 $n$ 本身）之和，其中 $[x+1]$ 表示不超过 $x+1$ 的最大整数，并计算 $f(2021)$。",
+   "answer": "$f(2021)=1+43+47+2021=2112$",
+   "solution": "由积分对区间的可加性，有\n$$\\int_0^m\\cos\\frac{2\\pi n[x+1]}m\\,\\mathrm dx=\\sum_{k=1}^m\\int_{k-1}^k\\cos\\frac{2\\pi n[x+1]}m\\,\\mathrm dx=\\sum_{k=1}^m\\int_{k-1}^k\\cos\\frac{2\\pi nk}m\\,\\mathrm dx=\\sum_{k=1}^m\\cos k\\frac{2\\pi n}m.$$\n如果 $m$ 是 $n$ 的因子，则 $\\displaystyle\\int_0^m\\cos\\frac{2\\pi n[x+1]}m\\,\\mathrm dx=m$；否则，由三角恒等式，有\n$$\\sum_{k=1}^m\\cos kt=\\cos\\frac{m+1}2t\\cdot\\frac{\\sin\\frac{mt}2}{\\sin\\frac t2},$$\n于是得\n$$\\int_0^m\\cos\\frac{2\\pi n[x+1]}m\\,\\mathrm dx=\\cos\\left(\\frac{m+1}2\\cdot\\frac{2\\pi n}m\\right)\\cdot\\frac{\\sin\\left(\\frac m2\\cdot\\frac{2\\pi n}m\\right)}{\\sin\\frac{2\\pi n}{2m}}=0.$$\n因此 $f(n)$ 等于 $n$ 的所有因子之和。由 $2021=43\\times47$ 得 $f(2021)=1+43+47+2021=2112$。",
+   "solutionSource": "官方"
+  },
+  {
+   "no": "七",
+   "score": 14,
+   "type": "证明",
+   "subjects": [
+    "高等数学"
+   ],
+   "topics": [
+    "含参积分",
+    "数列极限",
+    "莱布尼茨判别法",
+    "条件收敛",
+    "级数求和"
+   ],
+   "difficulty": 4,
+   "statement": "设 $u_n=\\displaystyle\\int_0^1\\frac{\\mathrm dt}{(1+t^4)^n}\\ (n\\geqslant1)$。\n\n(1) 证明数列 $\\{u_n\\}$ 收敛，并求极限 $\\displaystyle\\lim_{n\\to\\infty}u_n$；\n\n(2) 证明级数 $\\displaystyle\\sum_{n=1}^\\infty(-1)^nu_n$ 条件收敛；\n\n(3) 证明当 $p\\geqslant1$ 时级数 $\\displaystyle\\sum_{n=1}^\\infty\\frac{u_n}{n^p}$ 收敛，并求级数 $\\displaystyle\\sum_{n=1}^\\infty\\frac{u_n}n$ 的和。",
+   "answer": "(1) $\\displaystyle\\lim_{n\\to\\infty}u_n=0$；(3) $\\displaystyle\\sum_{n=1}^\\infty\\frac{u_n}n=\\ln2+\\frac{\\sqrt2}2\\left[\\pi+2\\ln(1+\\sqrt2)\\right]$。",
+   "solution": "(1) 对任意 $\\varepsilon>0$，取 $0<a<\\dfrac\\varepsilon2$，将积分区间分成两段，得\n$$u_n=\\int_0^1\\frac{\\mathrm dt}{(1+t^4)^n}=\\int_0^a\\frac{\\mathrm dt}{(1+t^4)^n}+\\int_a^1\\frac{\\mathrm dt}{(1+t^4)^n}.$$\n由于\n$$\\int_a^1\\frac{\\mathrm dt}{(1+t^4)^n}\\leqslant\\frac{1-a}{(1+a^4)^n}<\\frac1{(1+a^4)^n}\\to0\\ (n\\to\\infty),$$\n所以存在正整数 $N$，当 $n>N$ 时，$\\displaystyle\\int_a^1\\frac{\\mathrm dt}{(1+t^4)^n}<\\frac\\varepsilon2$，从而\n$$0\\leqslant u_n<a+\\int_a^1\\frac{\\mathrm dt}{(1+t^4)^n}<\\frac\\varepsilon2+\\frac\\varepsilon2=\\varepsilon.$$\n所以 $\\displaystyle\\lim_{n\\to\\infty}u_n=0$。\n\n(2) 显然 $0<u_{n+1}=\\displaystyle\\int_0^1\\frac{\\mathrm dt}{(1+t^4)^{n+1}}\\leqslant\\int_0^1\\frac{\\mathrm dt}{(1+t^4)^n}=u_n$，即 $u_n$ 单调递减，又 $\\displaystyle\\lim_{n\\to\\infty}u_n=0$，故由莱布尼茨判别法知，$\\displaystyle\\sum_{n=1}^\\infty(-1)^nu_n$ 收敛。又当 $n\\geqslant2$ 时，有\n$$u_n=\\int_0^1\\frac{\\mathrm dt}{(1+t^4)^n}\\geqslant\\int_0^1\\frac{\\mathrm dt}{(1+t)^n}=\\frac1{n-1}\\left(1-2^{1-n}\\right).$$\n由于 $\\displaystyle\\sum_{n=2}^\\infty\\frac1{n-1}$ 发散，$\\displaystyle\\sum_{n=2}^\\infty\\frac1{n-1}\\cdot\\frac1{2^{n-1}}$ 收敛，所以 $\\displaystyle\\sum_{n=2}^\\infty\\frac1{n-1}\\left(1-\\frac1{2^{n-1}}\\right)$ 发散，从而 $\\displaystyle\\sum_{n=1}^\\infty u_n$ 发散。因此级数 $\\displaystyle\\sum_{n=1}^\\infty(-1)^nu_n$ 条件收敛。\n\n(3) 先求 $\\displaystyle\\sum_{n=1}^\\infty\\frac{u_n}n$ 的和。因为\n$$\\begin{aligned}u_n&=\\int_0^1\\frac{\\mathrm dt}{(1+t^4)^n}=\\frac t{(1+t^4)^n}\\Big|_0^1+n\\int_0^1\\frac{4t^4}{(1+t^4)^{n+1}}\\,\\mathrm dt\\\\&=\\frac1{2^n}+4n\\int_0^1\\frac{1+t^4-1}{(1+t^4)^{n+1}}\\,\\mathrm dt=\\frac1{2^n}+4n\\left(u_n-u_{n+1}\\right),\\end{aligned}$$\n所以\n$$\\sum_{n=1}^\\infty\\frac{u_n}n=\\sum_{n=1}^\\infty\\frac1{n2^n}+4\\sum_{n=1}^\\infty\\left(u_n-u_{n+1}\\right)=\\sum_{n=1}^\\infty\\frac1{n2^n}+4u_1.$$\n由 $\\ln(1+x)=\\displaystyle\\sum_{n=1}^\\infty(-1)^{n-1}\\frac{x^n}n$，取 $x=-\\dfrac12$，得 $\\displaystyle\\sum_{n=1}^\\infty\\frac1{n2^n}=\\ln2$，又\n$$u_1=\\int_0^1\\frac{\\mathrm dt}{1+t^4}=\\frac{\\sqrt2}8\\left[\\pi+2\\ln(1+\\sqrt2)\\right],$$\n故得\n$$\\sum_{n=1}^\\infty\\frac{u_n}n=\\ln2+\\frac{\\sqrt2}2\\left[\\pi+2\\ln(1+\\sqrt2)\\right].$$\n由于当 $p\\geqslant1$ 时，有 $\\dfrac{u_n}{n^p}\\leqslant\\dfrac{u_n}n$，又 $\\displaystyle\\sum_{n=1}^\\infty\\frac{u_n}n$ 收敛，所以级数 $\\displaystyle\\sum_{n=1}^\\infty\\frac{u_n}{n^p}$ 收敛。",
+   "solutionSource": "官方"
+  }
+ ]
+}

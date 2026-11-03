@@ -1,0 +1,316 @@
+{
+ "id": "ex-algebra-04",
+ "title": "高等代数 · 矩阵",
+ "subject": "高等代数",
+ "chapter": 4,
+ "problems": [
+  {
+   "no": "1",
+   "type": "计算",
+   "subjects": [
+    "高等代数"
+   ],
+   "topics": [
+    "矩阵的幂",
+    "二项式展开"
+   ],
+   "difficulty": 1,
+   "statement": "设 $A=\\begin{pmatrix}\\lambda&1&0\\\\0&\\lambda&1\\\\0&0&\\lambda\\end{pmatrix}$，求 $A^n$（$n\\ge2$）。",
+   "answer": "$\\begin{pmatrix}\\lambda^n&n\\lambda^{n-1}&\\frac{n(n-1)}{2}\\lambda^{n-2}\\\\0&\\lambda^n&n\\lambda^{n-1}\\\\0&0&\\lambda^n\\end{pmatrix}$",
+   "solution": "写 $A=\\lambda E+N$，$N=\\begin{pmatrix}0&1&0\\\\0&0&1\\\\0&0&0\\end{pmatrix}$，则 $N^2=\\begin{pmatrix}0&0&1\\\\0&0&0\\\\0&0&0\\end{pmatrix}$，$N^3=0$。由于 $\\lambda E$ 与 $N$ 可交换，可用二项式定理：\n$$A^n=\\lambda^nE+n\\lambda^{n-1}N+\\binom n2\\lambda^{n-2}N^2=\\begin{pmatrix}\\lambda^n&n\\lambda^{n-1}&\\dfrac{n(n-1)}{2}\\lambda^{n-2}\\\\0&\\lambda^n&n\\lambda^{n-1}\\\\0&0&\\lambda^n\\end{pmatrix}.$$\n（注意：二项式定理只对可交换的矩阵成立。）",
+   "solutionSource": "编写",
+   "source": "经典题"
+  },
+  {
+   "no": "2",
+   "type": "计算",
+   "subjects": [
+    "高等代数"
+   ],
+   "topics": [
+    "逆矩阵",
+    "初等变换"
+   ],
+   "difficulty": 1,
+   "statement": "用初等行变换求 $A=\\begin{pmatrix}2&1&0\\\\1&1&2\\\\0&1&3\\end{pmatrix}$ 的逆矩阵。",
+   "answer": "$\\begin{pmatrix}-1&3&-2\\\\3&-6&4\\\\-1&2&-1\\end{pmatrix}$",
+   "solution": "对 $(A\\mid E)$ 作初等行变换：\n$$\\left(\\begin{array}{ccc|ccc}2&1&0&1&0&0\\\\1&1&2&0&1&0\\\\0&1&3&0&0&1\\end{array}\\right)\\xrightarrow{r_1\\leftrightarrow r_2}\\left(\\begin{array}{ccc|ccc}1&1&2&0&1&0\\\\2&1&0&1&0&0\\\\0&1&3&0&0&1\\end{array}\\right)\\xrightarrow{r_2-2r_1}\\left(\\begin{array}{ccc|ccc}1&1&2&0&1&0\\\\0&-1&-4&1&-2&0\\\\0&1&3&0&0&1\\end{array}\\right)$$\n$$\\xrightarrow{r_3+r_2}\\left(\\begin{array}{ccc|ccc}1&1&2&0&1&0\\\\0&-1&-4&1&-2&0\\\\0&0&-1&1&-2&1\\end{array}\\right)\\to\\left(\\begin{array}{ccc|ccc}1&0&0&-1&3&-2\\\\0&1&0&3&-6&4\\\\0&0&1&-1&2&-1\\end{array}\\right).$$\n（最后一步：$r_3\\times(-1)$；$r_2+4r_3$ 后乘 $-1$；$r_1-2r_3-r_2$。）所以\n$$A^{-1}=\\begin{pmatrix}-1&3&-2\\\\3&-6&4\\\\-1&2&-1\\end{pmatrix}.$$\n（可验证 $AA^{-1}=E$，且 $|A|=-1$。）",
+   "solutionSource": "编写",
+   "source": "经典题"
+  },
+  {
+   "no": "3",
+   "type": "计算",
+   "subjects": [
+    "高等代数"
+   ],
+   "topics": [
+    "矩阵方程",
+    "逆矩阵"
+   ],
+   "difficulty": 1,
+   "statement": "设 $A=\\begin{pmatrix}3&0&1\\\\1&1&0\\\\0&1&4\\end{pmatrix}$，矩阵 $X$ 满足 $AX=A+2X$，求 $X$。",
+   "answer": "$X=\\begin{pmatrix}5&-2&-2\\\\4&-3&-2\\\\-2&2&3\\end{pmatrix}$",
+   "solution": "移项得 $(A-2E)X=A$。$A-2E=\\begin{pmatrix}1&0&1\\\\1&-1&0\\\\0&1&2\\end{pmatrix}$，$|A-2E|=1\\cdot(-2-0)-0+1\\cdot(1-0)=-1\\ne0$，可逆，且\n$$(A-2E)^{-1}=\\begin{pmatrix}2&-1&-1\\\\2&-2&-1\\\\-1&1&1\\end{pmatrix}.$$\n于是 $X=(A-2E)^{-1}A$。更快的写法：$A=(A-2E)+2E$，所以\n$$X=E+2(A-2E)^{-1}=\\begin{pmatrix}5&-2&-2\\\\4&-3&-2\\\\-2&2&3\\end{pmatrix}.$$",
+   "solutionSource": "编写",
+   "source": "经典题"
+  },
+  {
+   "no": "4",
+   "type": "证明",
+   "subjects": [
+    "高等代数"
+   ],
+   "topics": [
+    "逆矩阵",
+    "矩阵多项式"
+   ],
+   "difficulty": 2,
+   "statement": "设方阵 $A$ 满足 $A^2-A-2E=0$。证明 $A$ 与 $A+2E$ 都可逆，并求它们的逆矩阵。",
+   "answer": "",
+   "solution": "由 $A^2-A=2E$ 得 $A\\cdot\\dfrac{A-E}{2}=E$，所以 $A$ 可逆，$A^{-1}=\\dfrac12(A-E)$。\n\n再凑 $A+2E$ 的因式：$(A+2E)(A-3E)=A^2-A-6E=(A^2-A-2E)-4E=-4E$，所以 $A+2E$ 可逆，且\n$$(A+2E)^{-1}=-\\frac14(A-3E)=\\frac14(3E-A).$$",
+   "solutionSource": "编写",
+   "source": "经典题"
+  },
+  {
+   "no": "5",
+   "type": "计算",
+   "subjects": [
+    "高等代数"
+   ],
+   "topics": [
+    "伴随矩阵",
+    "行列式"
+   ],
+   "difficulty": 2,
+   "statement": "设 $A$ 为 3 阶方阵，$|A|=2$。求 $\\left|(2A)^{-1}-A^{*}\\right|$。",
+   "answer": "$-\\dfrac{27}{16}$",
+   "solution": "由 $AA^{*}=|A|E$ 得 $A^{*}=|A|A^{-1}=2A^{-1}$；又 $(2A)^{-1}=\\dfrac12A^{-1}$。所以\n$$(2A)^{-1}-A^{*}=\\frac12A^{-1}-2A^{-1}=-\\frac32A^{-1},$$\n$$\\left|-\\frac32A^{-1}\\right|=\\left(-\\frac32\\right)^3|A^{-1}|=-\\frac{27}{8}\\cdot\\frac12=-\\frac{27}{16}.$$",
+   "solutionSource": "编写",
+   "source": "经典题"
+  },
+  {
+   "no": "6",
+   "type": "计算",
+   "subjects": [
+    "高等代数"
+   ],
+   "topics": [
+    "分块矩阵",
+    "逆矩阵"
+   ],
+   "difficulty": 2,
+   "statement": "设 $A,B$ 分别为 $m$ 阶、$n$ 阶可逆矩阵，$C$ 为 $n\\times m$ 矩阵。求分块矩阵 $M=\\begin{pmatrix}A&0\\\\C&B\\end{pmatrix}$ 与 $N=\\begin{pmatrix}0&A\\\\B&0\\end{pmatrix}$ 的逆矩阵。",
+   "answer": "$M^{-1}=\\begin{pmatrix}A^{-1}&0\\\\-B^{-1}CA^{-1}&B^{-1}\\end{pmatrix}$，$N^{-1}=\\begin{pmatrix}0&B^{-1}\\\\A^{-1}&0\\end{pmatrix}$",
+   "solution": "**$M$** 设 $M^{-1}=\\begin{pmatrix}X_{11}&X_{12}\\\\X_{21}&X_{22}\\end{pmatrix}$，由 $MM^{-1}=E$：\n$$AX_{11}=E,\\quad AX_{12}=0,\\quad CX_{11}+BX_{21}=0,\\quad CX_{12}+BX_{22}=E.$$\n依次解得 $X_{11}=A^{-1}$，$X_{12}=0$，$X_{22}=B^{-1}$，$X_{21}=-B^{-1}CA^{-1}$。所以\n$$M^{-1}=\\begin{pmatrix}A^{-1}&0\\\\-B^{-1}CA^{-1}&B^{-1}\\end{pmatrix}.$$\n\n**$N$** 同理可得（或直接验证）\n$$N^{-1}=\\begin{pmatrix}0&B^{-1}\\\\A^{-1}&0\\end{pmatrix},$$\n因为 $\\begin{pmatrix}0&A\\\\B&0\\end{pmatrix}\\begin{pmatrix}0&B^{-1}\\\\A^{-1}&0\\end{pmatrix}=\\begin{pmatrix}AA^{-1}&0\\\\0&BB^{-1}\\end{pmatrix}=E$。",
+   "solutionSource": "编写",
+   "source": "经典题"
+  },
+  {
+   "no": "7",
+   "type": "证明",
+   "subjects": [
+    "高等代数"
+   ],
+   "topics": [
+    "迹",
+    "矩阵乘法"
+   ],
+   "difficulty": 2,
+   "statement": "设 $A,B$ 为数域 $P$ 上的 $n$ 阶矩阵。证明 $\\operatorname{tr}(AB)=\\operatorname{tr}(BA)$，并由此证明不存在 $A,B$ 使 $AB-BA=E$。",
+   "answer": "",
+   "solution": "$$\\operatorname{tr}(AB)=\\sum_{i=1}^n(AB)_{ii}=\\sum_{i=1}^n\\sum_{j=1}^na_{ij}b_{ji}=\\sum_{j=1}^n\\sum_{i=1}^nb_{ji}a_{ij}=\\sum_{j=1}^n(BA)_{jj}=\\operatorname{tr}(BA).$$\n若 $AB-BA=E$，两边取迹：左边 $\\operatorname{tr}(AB)-\\operatorname{tr}(BA)=0$，右边 $\\operatorname{tr}E=n\\ne0$（数域包含有理数），矛盾。$\\blacksquare$",
+   "solutionSource": "编写",
+   "source": "经典题"
+  },
+  {
+   "no": "8",
+   "type": "证明",
+   "subjects": [
+    "高等代数"
+   ],
+   "topics": [
+    "幂零矩阵",
+    "逆矩阵"
+   ],
+   "difficulty": 2,
+   "statement": "设方阵 $A$ 满足 $A^k=0$（$k$ 为正整数）。证明 $E-A$ 与 $E+A$ 都可逆，并求其逆。",
+   "answer": "",
+   "solution": "与等比数列求和相同（$E$ 与 $A$ 可交换）：\n$$(E-A)(E+A+A^2+\\cdots+A^{k-1})=E-A^k=E,$$\n所以 $(E-A)^{-1}=E+A+\\cdots+A^{k-1}$。把 $A$ 换成 $-A$（$(-A)^k=0$）：\n$$(E+A)^{-1}=E-A+A^2-\\cdots+(-1)^{k-1}A^{k-1}.$$",
+   "solutionSource": "编写",
+   "source": "经典题"
+  },
+  {
+   "no": "9",
+   "type": "证明",
+   "subjects": [
+    "高等代数"
+   ],
+   "topics": [
+    "可交换矩阵",
+    "基本矩阵"
+   ],
+   "difficulty": 3,
+   "statement": "证明：与所有 $n$ 阶矩阵都可交换的 $n$ 阶矩阵一定是数量矩阵 $kE$。",
+   "answer": "",
+   "solution": "设 $A=(a_{kl})$ 与一切矩阵可交换。记 $E_{ij}$ 为 $(i,j)$ 元为 $1$、其余为 $0$ 的基本矩阵。\n\n$AE_{ij}$ 的第 $j$ 列是 $A$ 的第 $i$ 列，其余列为零；$E_{ij}A$ 的第 $i$ 行是 $A$ 的第 $j$ 行，其余行为零。比较 $AE_{ij}=E_{ij}A$：\n\n- 看第 $j$ 列中第 $k$ 行（$k\\ne i$）的元素：左边为 $a_{ki}$，右边为 $0$（右边只有第 $i$ 行非零），所以 $a_{ki}=0$（$k\\ne i$）。由 $i$ 的任意性，$A$ 是对角矩阵。\n- 看 $(i,j)$ 元：左边为 $a_{ii}$，右边为 $a_{jj}$，所以 $a_{ii}=a_{jj}$。\n\n故 $A=a_{11}E$。反之数量矩阵显然与一切矩阵可交换。$\\blacksquare$",
+   "solutionSource": "编写",
+   "source": "经典题"
+  },
+  {
+   "no": "10",
+   "type": "证明",
+   "subjects": [
+    "高等代数"
+   ],
+   "topics": [
+    "秩不等式",
+    "对合矩阵"
+   ],
+   "difficulty": 3,
+   "statement": "设 $n$ 阶矩阵 $A$ 满足 $A^2=E$。证明 $r(A+E)+r(A-E)=n$。",
+   "answer": "",
+   "solution": "**$\\le$**：$(A+E)(A-E)=A^2-E=0$，由“$BC=0\\Rightarrow r(B)+r(C)\\le n$”得 $r(A+E)+r(A-E)\\le n$。\n\n**$\\ge$**：由 $r(B+C)\\le r(B)+r(C)$ 及 $r(-C)=r(C)$，\n$$r(A+E)+r(A-E)=r(A+E)+r(E-A)\\ge r\\big((A+E)+(E-A)\\big)=r(2E)=n.$$\n所以等号成立。$\\blacksquare$",
+   "solutionSource": "编写",
+   "source": "经典题"
+  },
+  {
+   "no": "11",
+   "type": "证明",
+   "subjects": [
+    "高等代数"
+   ],
+   "topics": [
+    "分块矩阵",
+    "行列式"
+   ],
+   "difficulty": 3,
+   "statement": "设 $A,B$ 都是 $n$ 阶矩阵。证明\n$$\\begin{vmatrix}A&B\\\\B&A\\end{vmatrix}=|A+B|\\cdot|A-B|.$$",
+   "answer": "",
+   "solution": "分块初等变换：把第二块行加到第一块行（左乘 $\\begin{pmatrix}E&E\\\\0&E\\end{pmatrix}$，行列式为 $1$）：\n$$\\begin{vmatrix}A&B\\\\B&A\\end{vmatrix}=\\begin{vmatrix}A+B&A+B\\\\B&A\\end{vmatrix}.$$\n再把第一块列从第二块列中减去（右乘 $\\begin{pmatrix}E&-E\\\\0&E\\end{pmatrix}$，行列式为 $1$）：\n$$=\\begin{vmatrix}A+B&0\\\\B&A-B\\end{vmatrix}=|A+B|\\cdot|A-B|.$$\n最后一步用到分块下三角矩阵的行列式等于对角块行列式之积。$\\blacksquare$",
+   "solutionSource": "编写",
+   "source": "经典题"
+  },
+  {
+   "no": "12",
+   "type": "证明",
+   "subjects": [
+    "高等代数"
+   ],
+   "topics": [
+    "秩不等式",
+    "幂零矩阵"
+   ],
+   "difficulty": 3,
+   "statement": "设 $A$ 为 $n$ 阶矩阵，$A^2=0$。证明 $r(A)\\le\\dfrac n2$，并举例说明 $n$ 为偶数时等号可以成立。",
+   "answer": "",
+   "solution": "$A\\cdot A=0$，由“$BC=0\\Rightarrow r(B)+r(C)\\le n$”（$C$ 的列都是 $Bx=0$ 的解，故 $r(C)\\le n-r(B)$），得 $2r(A)\\le n$。\n\n**例** $n=2m$，$A=\\begin{pmatrix}0&E_m\\\\0&0\\end{pmatrix}$，则 $A^2=0$，$r(A)=m=\\dfrac n2$。",
+   "solutionSource": "编写",
+   "source": "经典题"
+  },
+  {
+   "no": "13",
+   "type": "证明",
+   "subjects": [
+    "高等代数"
+   ],
+   "topics": [
+    "等价标准形",
+    "满秩分解"
+   ],
+   "difficulty": 3,
+   "statement": "设 $A$ 为 $m\\times n$ 矩阵，$r(A)=r>0$。证明存在列满秩的 $m\\times r$ 矩阵 $B$ 与行满秩的 $r\\times n$ 矩阵 $C$，使 $A=BC$。",
+   "answer": "",
+   "solution": "由等价标准形，存在可逆矩阵 $P$（$m$ 阶）、$Q$（$n$ 阶）使\n$$A=P\\begin{pmatrix}E_r&0\\\\0&0\\end{pmatrix}Q=P\\begin{pmatrix}E_r\\\\0\\end{pmatrix}\\begin{pmatrix}E_r&0\\end{pmatrix}Q.$$\n令 $B=P\\begin{pmatrix}E_r\\\\0\\end{pmatrix}$（$m\\times r$），$C=\\begin{pmatrix}E_r&0\\end{pmatrix}Q$（$r\\times n$）。可逆矩阵乘法不改变秩，所以 $r(B)=r(C)=r$，即 $B$ 列满秩、$C$ 行满秩，且 $A=BC$。$\\blacksquare$",
+   "solutionSource": "编写",
+   "source": "经典题"
+  },
+  {
+   "no": "14",
+   "type": "证明",
+   "subjects": [
+    "高等代数"
+   ],
+   "topics": [
+    "伴随矩阵",
+    "转置"
+   ],
+   "difficulty": 3,
+   "statement": "设 $A$ 是 $n$ 阶非零实矩阵，且 $A^{T}=A^{*}$。证明 $|A|\\ne0$；并证明当 $n\\ge3$ 时 $|A|=1$。",
+   "answer": "",
+   "solution": "由 $AA^{*}=|A|E$ 及 $A^{*}=A^{T}$ 得\n$$AA^{T}=|A|E.$$\n$AA^{T}$ 的第 $i$ 个对角元为 $\\sum_{j}a_{ij}^2$。\n\n**$|A|\\ne0$**：若 $|A|=0$，则 $AA^{T}=0$，于是每个 $\\sum_ja_{ij}^2=0$，实数平方和为零推出 $A=0$，与 $A\\ne0$ 矛盾。\n\n**$|A|=1$（$n\\ge3$）**：比较迹，$n|A|=\\operatorname{tr}(AA^{T})=\\sum_{i,j}a_{ij}^2>0$，故 $|A|>0$。对 $AA^{T}=|A|E$ 取行列式：$|A|^2=|A|^n$，即 $|A|^{n-2}=1$。正实数满足此式（$n-2\\ge1$）只能 $|A|=1$。$\\blacksquare$",
+   "solutionSource": "编写",
+   "source": "经典题"
+  },
+  {
+   "no": "15",
+   "type": "证明",
+   "subjects": [
+    "高等代数"
+   ],
+   "topics": [
+    "秩不等式",
+    "Frobenius不等式",
+    "分块矩阵"
+   ],
+   "difficulty": 4,
+   "statement": "设 $A,B,C$ 分别为 $m\\times n$、$n\\times s$、$s\\times t$ 矩阵。证明 Frobenius 不等式\n$$r(ABC)\\ge r(AB)+r(BC)-r(B).$$",
+   "answer": "",
+   "solution": "**引理** 对分块矩阵 $\\begin{pmatrix}X&Y\\\\Z&0\\end{pmatrix}$，有 $r\\ge r(Y)+r(Z)$。\n\n证：取 $Y$ 的一个 $r(Y)$ 阶非零子式（对应子矩阵 $Y_1$）和 $Z$ 的一个 $r(Z)$ 阶非零子式（子矩阵 $Z_1$）。在大矩阵中取 $Y_1$ 的行与 $Z_1$ 的行、$Y_1$ 的列与 $Z_1$ 的列，得方子矩阵 $\\begin{pmatrix}*&Y_1\\\\Z_1&0\\end{pmatrix}$，其行列式为 $\\pm|Y_1||Z_1|\\ne0$（Laplace 展开）。故大矩阵的秩 $\\ge r(Y)+r(Z)$。\n\n**主证** 分块初等变换不改变秩：\n$$\\begin{pmatrix}B&0\\\\0&ABC\\end{pmatrix}\\xrightarrow{\\text{第二块列加上第一块列右乘 }C}\\begin{pmatrix}B&BC\\\\0&ABC\\end{pmatrix}\\xrightarrow{\\text{第二块行减去第一块行左乘 }A}\\begin{pmatrix}B&BC\\\\-AB&0\\end{pmatrix}.$$\n由引理，\n$$r(B)+r(ABC)=r\\begin{pmatrix}B&BC\\\\-AB&0\\end{pmatrix}\\ge r(BC)+r(AB).$$\n移项即得。$\\blacksquare$（取 $B=E_n$ 即得 Sylvester 不等式 $r(AC)\\ge r(A)+r(C)-n$。）",
+   "solutionSource": "编写",
+   "source": "经典题"
+  },
+  {
+   "no": "16",
+   "type": "证明",
+   "subjects": [
+    "高等代数"
+   ],
+   "topics": [
+    "逆矩阵",
+    "可交换矩阵"
+   ],
+   "difficulty": 4,
+   "statement": "设 $A,B$ 为 $n$ 阶矩阵，且 $AB=A+B$。证明 $AB=BA$。",
+   "answer": "",
+   "solution": "由 $AB-A-B=0$ 得\n$$(A-E)(B-E)=AB-A-B+E=E.$$\n对方阵而言，$XY=E$ 推出 $X,Y$ 互逆，从而 $YX=E$。于是\n$$(B-E)(A-E)=E,\\quad\\text{即}\\quad BA-A-B+E=E,$$\n所以 $BA=A+B=AB$。$\\blacksquare$",
+   "solutionSource": "编写",
+   "source": "经典题"
+  },
+  {
+   "no": "17",
+   "type": "证明",
+   "subjects": [
+    "高等代数"
+   ],
+   "topics": [
+    "矩阵的秩",
+    "矩阵的幂",
+    "Frobenius不等式"
+   ],
+   "difficulty": 4,
+   "statement": "设 $A$ 为 $n$ 阶矩阵。证明 $r(A^n)=r(A^{n+1})=r(A^{n+2})=\\cdots$。",
+   "answer": "",
+   "solution": "**第一步：一旦相等就永远相等。** 若 $r(A^k)=r(A^{k+1})$，由 Frobenius 不等式（取三个矩阵为 $A,A^k,A$）\n$$r(A^{k+2})\\ge r(A^{k+1})+r(A^{k+1})-r(A^k)=r(A^{k+1}),$$\n又显然 $r(A^{k+2})\\le r(A^{k+1})$，故 $r(A^{k+1})=r(A^{k+2})$。归纳得 $r(A^m)=r(A^k)$ 对一切 $m\\ge k$ 成立。\n\n**第二步：至迟在 $k=n$ 时出现相等。** 秩序列\n$$n=r(A^0)\\ge r(A^1)\\ge\\cdots\\ge r(A^{n+1})\\ge0$$\n共 $n+2$ 项，取值于 $\\{0,1,\\dots,n\\}$ 的 $n+1$ 个整数。若相邻两项总严格递减，则需 $n+2$ 个不同的值，不可能。所以存在 $k\\le n$ 使 $r(A^k)=r(A^{k+1})$。\n\n由第一步，$r(A^m)$ 在 $m\\ge k$ 时恒定，特别地 $r(A^n)=r(A^{n+1})=\\cdots$。$\\blacksquare$",
+   "solutionSource": "编写",
+   "source": "经典题"
+  },
+  {
+   "no": "18",
+   "type": "证明",
+   "subjects": [
+    "高等代数"
+   ],
+   "topics": [
+    "秩等式",
+    "分块矩阵"
+   ],
+   "difficulty": 5,
+   "statement": "设 $A$ 为 $m\\times n$ 矩阵，$B$ 为 $n\\times m$ 矩阵。证明\n$$r(A-ABA)=r(A)+r(E_n-BA)-n.$$\n并由此推出：$A=ABA$ 当且仅当 $r(A)+r(E_n-BA)=n$。",
+   "answer": "",
+   "solution": "从 $\\begin{pmatrix}A&0\\\\0&E_n-BA\\end{pmatrix}$ 出发作分块初等变换（不改变秩）：\n\n1. 第二块行加上第一块行左乘 $B$：$\\begin{pmatrix}A&0\\\\BA&E_n-BA\\end{pmatrix}$；\n2. 第二块列加上第一块列：$\\begin{pmatrix}A&A\\\\BA&E_n\\end{pmatrix}$；\n3. 第一块行减去第二块行左乘 $A$：$\\begin{pmatrix}A-ABA&0\\\\BA&E_n\\end{pmatrix}$；\n4. 第一块列减去第二块列右乘 $BA$：$\\begin{pmatrix}A-ABA&0\\\\0&E_n\\end{pmatrix}$。\n\n所以\n$$r(A)+r(E_n-BA)=r(A-ABA)+n.$$\n推论：$A=ABA\\Leftrightarrow r(A-ABA)=0\\Leftrightarrow r(A)+r(E_n-BA)=n$。$\\blacksquare$\n\n（特例 $m=n$、$B=E$：$r(A-A^2)=r(A)+r(E-A)-n$，所以 $A$ 幂等 $\\Leftrightarrow r(A)+r(E-A)=n$。）",
+   "solutionSource": "编写",
+   "source": "经典题（竞赛）"
+  }
+ ]
+}

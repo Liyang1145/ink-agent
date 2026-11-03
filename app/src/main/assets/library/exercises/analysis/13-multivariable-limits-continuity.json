@@ -1,0 +1,267 @@
+{
+ "id": "ex-analysis-13",
+ "title": "数学分析 · 多元函数的极限与连续",
+ "subject": "数学分析",
+ "chapter": 13,
+ "problems": [
+  {
+   "no": "1",
+   "type": "计算",
+   "subjects": [
+    "数学分析"
+   ],
+   "topics": [
+    "二重极限",
+    "夹逼准则"
+   ],
+   "difficulty": 1,
+   "statement": "求 $\\displaystyle\\lim_{(x,y)\\to(0,0)}\\dfrac{x^2y}{x^2+y^2}$。",
+   "answer": "$0$",
+   "solution": "由 $x^2\\le x^2+y^2$，\n$$0\\le\\left|\\dfrac{x^2y}{x^2+y^2}\\right|\\le|y|\\to0,$$\n由夹逼准则极限为 $0$。",
+   "solutionSource": "编写",
+   "source": "经典题"
+  },
+  {
+   "no": "2",
+   "type": "证明",
+   "subjects": [
+    "数学分析"
+   ],
+   "topics": [
+    "二重极限不存在",
+    "方向极限"
+   ],
+   "difficulty": 1,
+   "statement": "证明 $\\displaystyle\\lim_{(x,y)\\to(0,0)}\\dfrac{xy}{x^2+y^2}$ 不存在，但函数 $f(x,y)=\\dfrac{xy}{x^2+y^2}$（$f(0,0)=0$）对每个变量分别连续。",
+   "answer": "",
+   "solution": "沿直线 $y=kx$（$x\\ne0$）：$f(x,kx)=\\dfrac{k}{1+k^2}$，随 $k$ 不同而不同（$k=0$ 得 $0$，$k=1$ 得 $\\dfrac12$），故二重极限不存在。\n\n固定 $y=y_0\\ne0$，$f(x,y_0)$ 是 $x$ 的连续函数；固定 $y_0=0$，$f(x,0)\\equiv0$ 连续。关于 $y$ 同理。所以 $f$ 对每个变量分别连续，但在原点不连续。",
+   "solutionSource": "编写",
+   "source": "经典题"
+  },
+  {
+   "no": "3",
+   "type": "计算",
+   "subjects": [
+    "数学分析"
+   ],
+   "topics": [
+    "累次极限",
+    "二重极限"
+   ],
+   "difficulty": 1,
+   "statement": "设 $f(x,y)=\\dfrac{x-y}{x+y}$（$x+y\\ne0$）。求在原点处的两个累次极限，并判断二重极限是否存在。",
+   "answer": "$\\displaystyle\\lim_{x\\to0}\\lim_{y\\to0}f=1$，$\\displaystyle\\lim_{y\\to0}\\lim_{x\\to0}f=-1$；二重极限不存在",
+   "solution": "$\\lim_{y\\to0}f(x,y)=\\dfrac xx=1$（$x\\ne0$），再令 $x\\to0$ 得 $1$；$\\lim_{x\\to0}f(x,y)=-1$（$y\\ne0$），再令 $y\\to0$ 得 $-1$。\n\n若二重极限存在，则当两个累次极限都存在时它们必与之相等，但 $1\\ne-1$，故二重极限不存在。",
+   "solutionSource": "编写",
+   "source": "经典题"
+  },
+  {
+   "no": "4",
+   "type": "证明",
+   "subjects": [
+    "数学分析"
+   ],
+   "topics": [
+    "二重极限不存在",
+    "曲线路径"
+   ],
+   "difficulty": 2,
+   "statement": "证明：函数 $f(x,y)=\\dfrac{x^2y}{x^4+y^2}$ 沿过原点的任何直线趋于原点时极限都是 $0$，但 $\\displaystyle\\lim_{(x,y)\\to(0,0)}f(x,y)$ 不存在。",
+   "answer": "",
+   "solution": "沿 $x=0$：$f=0$。沿 $y=kx$（$x\\ne0$）：\n$$f(x,kx)=\\dfrac{kx^3}{x^4+k^2x^2}=\\dfrac{kx}{x^2+k^2}\\to0\\quad(k\\ne0),$$\n$k=0$ 时 $f\\equiv0$。\n\n但沿抛物线 $y=x^2$：$f(x,x^2)=\\dfrac{x^4}{2x^4}=\\dfrac12$。与沿直线的极限 $0$ 不同，故二重极限不存在。",
+   "solutionSource": "编写",
+   "source": "经典题"
+  },
+  {
+   "no": "5",
+   "type": "计算",
+   "subjects": [
+    "数学分析"
+   ],
+   "topics": [
+    "二重极限",
+    "对数变换"
+   ],
+   "difficulty": 2,
+   "statement": "求 $\\displaystyle\\lim_{(x,y)\\to(0,0)}(x^2+y^2)^{x^2y^2}$。",
+   "answer": "$1$",
+   "solution": "记 $r^2=x^2+y^2$，则 $x^2y^2\\le\\dfrac{(x^2+y^2)^2}{4}=\\dfrac{r^4}4$。当 $0<r<1$ 时\n$$\\big|x^2y^2\\ln(x^2+y^2)\\big|\\le\\dfrac{r^4}{4}\\cdot|\\ln r^2|=\\dfrac{r^4|\\ln r|}{2}\\to0\\quad(r\\to0^+).$$\n故指数 $x^2y^2\\ln(x^2+y^2)\\to0$，原极限为 $e^0=1$。",
+   "solutionSource": "编写",
+   "source": "经典题"
+  },
+  {
+   "no": "6",
+   "type": "计算",
+   "subjects": [
+    "数学分析"
+   ],
+   "topics": [
+    "无穷远处的极限",
+    "不等式放缩"
+   ],
+   "difficulty": 2,
+   "statement": "求 $\\displaystyle\\lim_{\\substack{x\\to\\infty\\\\y\\to\\infty}}\\dfrac{x+y}{x^2-xy+y^2}$。",
+   "answer": "$0$",
+   "solution": "由 $xy\\le\\dfrac{x^2+y^2}2$ 得 $x^2-xy+y^2\\ge\\dfrac{x^2+y^2}2$；又 $|x+y|\\le\\sqrt2\\sqrt{x^2+y^2}$。于是\n$$\\left|\\dfrac{x+y}{x^2-xy+y^2}\\right|\\le\\dfrac{2\\sqrt2}{\\sqrt{x^2+y^2}}\\to0.$$",
+   "solutionSource": "编写",
+   "source": "经典题"
+  },
+  {
+   "no": "7",
+   "type": "证明",
+   "subjects": [
+    "数学分析"
+   ],
+   "topics": [
+    "累次极限",
+    "二重极限"
+   ],
+   "difficulty": 2,
+   "statement": "设 $f(x,y)=x\\sin\\dfrac1y+y\\sin\\dfrac1x$（$xy\\ne0$），$f=0$（$xy=0$）。证明 $\\displaystyle\\lim_{(x,y)\\to(0,0)}f=0$，但两个累次极限都不存在。",
+   "answer": "",
+   "solution": "$|f(x,y)|\\le|x|+|y|\\to0$，故二重极限为 $0$。\n\n固定 $y\\ne0$，令 $x\\to0$：$x\\sin\\dfrac1y\\to0$，而 $y\\sin\\dfrac1x$ 无极限（$y\\ne0$），故内层极限 $\\lim_{x\\to0}f(x,y)$ 不存在，累次极限 $\\lim_{y\\to0}\\lim_{x\\to0}f$ 不存在。同理另一个累次极限也不存在。\n\n此例说明二重极限存在不能推出累次极限存在。",
+   "solutionSource": "编写",
+   "source": "经典题"
+  },
+  {
+   "no": "8",
+   "type": "证明",
+   "subjects": [
+    "数学分析"
+   ],
+   "topics": [
+    "二元函数连续性",
+    "距离函数"
+   ],
+   "difficulty": 2,
+   "statement": "设 $A\\subset\\mathbb{R}^2$ 非空，$d(P,A)=\\inf_{Q\\in A}|PQ|$。证明：（1）$|d(P_1,A)-d(P_2,A)|\\le|P_1P_2|$，从而 $d(\\cdot,A)$ 一致连续；（2）若 $A$ 是闭集且 $P\\notin A$，则 $d(P,A)>0$。",
+   "answer": "",
+   "solution": "（1）对任意 $Q\\in A$，$d(P_1,A)\\le|P_1Q|\\le|P_1P_2|+|P_2Q|$。对 $Q$ 取下确界，$d(P_1,A)\\le|P_1P_2|+d(P_2,A)$。交换 $P_1,P_2$ 得结论。\n\n（2）反设 $d(P,A)=0$，则存在 $Q_n\\in A$ 使 $|PQ_n|<\\dfrac1n$，即 $Q_n\\to P$，$P$ 是 $A$ 的聚点或属于 $A$。$A$ 闭，故 $P\\in A$，矛盾。",
+   "solutionSource": "编写",
+   "source": "经典题"
+  },
+  {
+   "no": "9",
+   "type": "证明",
+   "subjects": [
+    "数学分析"
+   ],
+   "topics": [
+    "紧集",
+    "一致连续",
+    "Bolzano-Weierstrass定理"
+   ],
+   "difficulty": 3,
+   "statement": "(Cantor 定理) 设 $D\\subset\\mathbb{R}^2$ 为有界闭集，$f$ 在 $D$ 上连续。证明 $f$ 在 $D$ 上一致连续。",
+   "answer": "",
+   "solution": "反设不一致连续，则存在 $\\varepsilon_0>0$ 及 $P_n,Q_n\\in D$，$|P_nQ_n|<\\dfrac1n$，但 $|f(P_n)-f(Q_n)|\\ge\\varepsilon_0$。\n\n$D$ 有界，由 Bolzano–Weierstrass 定理 $\\{P_n\\}$ 有收敛子列 $P_{n_k}\\to P_0$；$D$ 闭，$P_0\\in D$。又 $|Q_{n_k}P_0|\\le|Q_{n_k}P_{n_k}|+|P_{n_k}P_0|\\to0$，故 $Q_{n_k}\\to P_0$。由 $f$ 在 $P_0$ 连续，\n$$|f(P_{n_k})-f(Q_{n_k})|\\le|f(P_{n_k})-f(P_0)|+|f(P_0)-f(Q_{n_k})|\\to0,$$\n与 $\\ge\\varepsilon_0$ 矛盾。",
+   "solutionSource": "编写",
+   "source": "经典题"
+  },
+  {
+   "no": "10",
+   "type": "证明",
+   "subjects": [
+    "数学分析"
+   ],
+   "topics": [
+    "紧集",
+    "闭集",
+    "距离"
+   ],
+   "difficulty": 3,
+   "statement": "设 $A$ 为 $\\mathbb{R}^2$ 中的有界闭集，$B$ 为闭集，$A\\cap B=\\varnothing$，且均非空。证明 $d(A,B)=\\inf\\{|PQ|:P\\in A,Q\\in B\\}>0$。并举例说明若 $A,B$ 都只是闭集（不要求有界），结论不成立。",
+   "answer": "",
+   "solution": "由上题，$g(P)=d(P,B)$ 在 $\\mathbb{R}^2$ 上连续，且对 $P\\in A$（$P\\notin B$，$B$ 闭）有 $g(P)>0$。$A$ 有界闭，由最值定理 $g$ 在 $A$ 上取得最小值 $g(P_0)>0$。而\n$$d(A,B)=\\inf_{P\\in A}d(P,B)=g(P_0)>0.$$\n反例：$A=\\{(x,0):x\\in\\mathbb{R}\\}$，$B=\\left\\{\\left(x,\\frac1x\\right):x>0\\right\\}$，二者都是闭集且不相交，但 $d(A,B)\\le\\dfrac1x\\to0$，即 $d(A,B)=0$。",
+   "solutionSource": "编写",
+   "source": "经典题"
+  },
+  {
+   "no": "11",
+   "type": "证明",
+   "subjects": [
+    "数学分析"
+   ],
+   "topics": [
+    "聚点",
+    "导集",
+    "闭集"
+   ],
+   "difficulty": 3,
+   "statement": "设 $E\\subset\\mathbb{R}^2$，$E'$ 为 $E$ 的全体聚点构成的集合（导集）。证明 $E'$ 是闭集。",
+   "answer": "",
+   "solution": "只需证 $E'$ 的聚点仍属于 $E'$。设 $P_0$ 是 $E'$ 的聚点，任给 $\\varepsilon>0$，邻域 $U^\\circ(P_0;\\varepsilon)$ 内有 $Q\\in E'$，$Q\\ne P_0$。取 $\\delta=\\min\\{|QP_0|,\\ \\varepsilon-|QP_0|\\}>0$，则 $U(Q;\\delta)\\subset U^\\circ(P_0;\\varepsilon)$（去心是因为 $\\delta\\le|QP_0|$）。$Q$ 是 $E$ 的聚点，$U(Q;\\delta)$ 中含 $E$ 的点（实际上无穷多个），于是 $U^\\circ(P_0;\\varepsilon)$ 中含 $E$ 的点。由 $\\varepsilon$ 任意，$P_0\\in E'$。",
+   "solutionSource": "编写",
+   "source": "经典题"
+  },
+  {
+   "no": "12",
+   "type": "证明",
+   "subjects": [
+    "数学分析"
+   ],
+   "topics": [
+    "连续性",
+    "Lipschitz条件"
+   ],
+   "difficulty": 3,
+   "statement": "设 $f(x,y)$ 在 $\\mathbb{R}^2$ 上关于 $x$ 连续（对每个固定的 $y$），且关于 $y$ 满足 Lipschitz 条件：$|f(x,y_1)-f(x,y_2)|\\le L|y_1-y_2|$（$L$ 与 $x$ 无关）。证明 $f$ 在 $\\mathbb{R}^2$ 上连续。",
+   "answer": "",
+   "solution": "任取 $(x_0,y_0)$ 及 $\\varepsilon>0$。由 $f(\\cdot,y_0)$ 在 $x_0$ 连续，存在 $\\delta_1>0$，$|x-x_0|<\\delta_1$ 时 $|f(x,y_0)-f(x_0,y_0)|<\\dfrac\\varepsilon2$。取 $\\delta=\\min\\left\\{\\delta_1,\\dfrac{\\varepsilon}{2L+1}\\right\\}$，当 $|x-x_0|<\\delta$，$|y-y_0|<\\delta$ 时，\n$$|f(x,y)-f(x_0,y_0)|\\le|f(x,y)-f(x,y_0)|+|f(x,y_0)-f(x_0,y_0)|<L\\delta+\\dfrac\\varepsilon2<\\varepsilon.$$",
+   "solutionSource": "编写",
+   "source": "经典题"
+  },
+  {
+   "no": "13",
+   "type": "证明",
+   "subjects": [
+    "数学分析"
+   ],
+   "topics": [
+    "连通性",
+    "介值定理"
+   ],
+   "difficulty": 2,
+   "statement": "设 $D\\subset\\mathbb{R}^2$ 是道路连通集，$f$ 在 $D$ 上连续，$P_1,P_2\\in D$，$f(P_1)<c<f(P_2)$。证明存在 $P_0\\in D$ 使 $f(P_0)=c$。",
+   "answer": "",
+   "solution": "由道路连通，存在连续映射 $\\gamma:[0,1]\\to D$，$\\gamma(0)=P_1$，$\\gamma(1)=P_2$。复合函数 $\\varphi(t)=f(\\gamma(t))$ 在 $[0,1]$ 上连续，$\\varphi(0)<c<\\varphi(1)$。由一元函数介值定理，存在 $t_0$ 使 $\\varphi(t_0)=c$，取 $P_0=\\gamma(t_0)$ 即可。",
+   "solutionSource": "编写",
+   "source": "经典题"
+  },
+  {
+   "no": "14",
+   "type": "证明",
+   "subjects": [
+    "数学分析"
+   ],
+   "topics": [
+    "连通性",
+    "介值定理",
+    "单射"
+   ],
+   "difficulty": 4,
+   "statement": "证明：不存在从 $\\mathbb{R}^2$ 到 $\\mathbb{R}$ 的连续单射。",
+   "answer": "",
+   "solution": "反设 $f:\\mathbb{R}^2\\to\\mathbb{R}$ 连续且为单射。取两点 $P\\ne Q$，则 $f(P)\\ne f(Q)$，不妨 $f(P)<f(Q)$，令 $c=\\dfrac{f(P)+f(Q)}2$。\n\n以线段 $PQ$ 为直径作圆，圆周被 $P,Q$ 分成两段半圆弧 $\\Gamma_1,\\Gamma_2$，它们只在端点 $P,Q$ 处相交。每段弧都是从 $P$ 到 $Q$ 的连续道路，由上题的介值性，存在 $R_1\\in\\Gamma_1$，$R_2\\in\\Gamma_2$ 使 $f(R_1)=f(R_2)=c$。由于 $c\\ne f(P),f(Q)$，$R_1,R_2$ 都不是端点，因而 $R_1\\ne R_2$，与单射矛盾。",
+   "solutionSource": "编写",
+   "source": "经典题"
+  },
+  {
+   "no": "15",
+   "type": "证明",
+   "subjects": [
+    "数学分析"
+   ],
+   "topics": [
+    "二元函数连续性",
+    "单调性"
+   ],
+   "difficulty": 5,
+   "statement": "设 $f(x,y)$ 在 $\\mathbb{R}^2$ 上对每个变量分别连续，且对每个固定的 $x$，$f(x,y)$ 关于 $y$ 单调递增。证明 $f$ 在 $\\mathbb{R}^2$ 上（作为二元函数）连续。",
+   "answer": "",
+   "solution": "任取 $(x_0,y_0)$ 及 $\\varepsilon>0$。\n\n由 $f(x_0,\\cdot)$ 在 $y_0$ 处连续，存在 $\\eta>0$ 使\n$$f(x_0,y_0+\\eta)<f(x_0,y_0)+\\varepsilon,\\qquad f(x_0,y_0-\\eta)>f(x_0,y_0)-\\varepsilon.$$\n再由 $f(\\cdot,y_0+\\eta)$ 与 $f(\\cdot,y_0-\\eta)$ 在 $x_0$ 处连续，存在 $\\delta>0$，当 $|x-x_0|<\\delta$ 时\n$$|f(x,y_0\\pm\\eta)-f(x_0,y_0\\pm\\eta)|<\\varepsilon.$$\n于是当 $|x-x_0|<\\delta$，$|y-y_0|<\\eta$ 时，由关于 $y$ 的单调性，\n$$f(x_0,y_0)-2\\varepsilon<f(x,y_0-\\eta)\\le f(x,y)\\le f(x,y_0+\\eta)<f(x_0,y_0)+2\\varepsilon.$$\n即 $|f(x,y)-f(x_0,y_0)|<2\\varepsilon$，$f$ 在 $(x_0,y_0)$ 处连续。\n\n注：没有单调性时结论不成立，例如 $\\dfrac{xy}{x^2+y^2}$。",
+   "solutionSource": "编写",
+   "source": "经典题"
+  }
+ ]
+}

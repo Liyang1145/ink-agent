@@ -1,0 +1,199 @@
+{
+ "id": "cmc-nonmath-14-prelim-bu2",
+ "title": "第十四届全国大学生数学竞赛初赛第二次补赛（非数学类）",
+ "year": 2022,
+ "track": "非数学类",
+ "round": "初赛第二次补赛",
+ "paper": "",
+ "durationMin": 150,
+ "totalScore": 100,
+ "source": {
+  "question": "14-bu2-nonmath.pdf",
+  "solution": "14-bu2-nonmath.pdf"
+ },
+ "problems": [
+  {
+   "no": "一(1)",
+   "score": 6,
+   "type": "填空",
+   "subjects": [
+    "高等数学"
+   ],
+   "topics": [
+    "数列极限",
+    "定积分定义",
+    "黎曼和"
+   ],
+   "difficulty": 1,
+   "statement": "极限 $\\displaystyle\\lim_{n\\to\\infty}\\frac{1}{n^3}\\left[1^2+3^2+\\cdots+(2n-1)^2\\right]=$\\_\\_\\_\\_\\_\\_\\_\\_。",
+   "answer": "$\\dfrac43$",
+   "solution": "写成黎曼和：\n$$\\frac1{n^3}\\sum_{k=1}^n(2k-1)^2=4\\cdot\\frac1n\\sum_{k=1}^n\\left(\\frac kn-\\frac1{2n}\\right)^2\\to4\\int_0^1x^2\\,\\mathrm{d}x=\\frac43.$$",
+   "solutionSource": "官方"
+  },
+  {
+   "no": "一(2)",
+   "score": 6,
+   "type": "填空",
+   "subjects": [
+    "高等数学"
+   ],
+   "topics": [
+    "导数定义",
+    "切线方程",
+    "高阶无穷小"
+   ],
+   "difficulty": 1,
+   "statement": "设函数 $f(x)$ 在 $x=1$ 的某一邻域内可微，且满足\n$$f(1+x)-3f(1-x)=4+2x+o(x),$$\n其中 $o(x)$ 是当 $x\\to0$ 时 $x$ 的高阶无穷小，则曲线 $y=f(x)$ 在点 $(1,f(1))$ 处的切线方程为\\_\\_\\_\\_\\_\\_\\_\\_。",
+   "answer": "$x-2y-5=0$",
+   "solution": "$f$ 在 $x=1$ 处连续，令 $x\\to0$ 得 $-2f(1)=4$，$f(1)=-2$。于是\n$$\\frac{f(1+x)-f(1)}{x}+3\\cdot\\frac{f(1-x)-f(1)}{-x}=2+\\frac{o(x)}{x},$$\n令 $x\\to0$ 得 $4f'(1)=2$，$f'(1)=\\dfrac12$。切线 $y+2=\\dfrac12(x-1)$，即 $x-2y-5=0$。",
+   "solutionSource": "官方"
+  },
+  {
+   "no": "一(3)",
+   "score": 6,
+   "type": "填空",
+   "subjects": [
+    "高等数学"
+   ],
+   "topics": [
+    "二阶常系数线性微分方程",
+    "初值问题"
+   ],
+   "difficulty": 1,
+   "statement": "设 $y=y(x)$ 是初值问题 $\\begin{cases}y''-2y'-3y=1,\\\\ y(0)=0,\\ y'(0)=1\\end{cases}$ 的解，则 $y(x)=$\\_\\_\\_\\_\\_\\_\\_\\_。",
+   "answer": "$\\dfrac13\\left(e^{3x}-1\\right)$",
+   "solution": "特征方程 $\\lambda^2-2\\lambda-3=0$ 的根为 $3,-1$，齐次通解 $C_1e^{3x}+C_2e^{-x}$；常数特解 $y_0=-\\dfrac13$。由 $y(0)=0,y'(0)=1$ 得 $C_1=\\dfrac13,C_2=0$，故 $y=\\dfrac13(e^{3x}-1)$。",
+   "solutionSource": "官方"
+  },
+  {
+   "no": "一(4)",
+   "score": 6,
+   "type": "填空",
+   "subjects": [
+    "高等数学"
+   ],
+   "topics": [
+    "变量代换",
+    "多元复合函数求导",
+    "偏微分方程"
+   ],
+   "difficulty": 2,
+   "statement": "设可微函数 $z=z(x,y)$ 满足 $x^2\\dfrac{\\partial z}{\\partial x}+y^2\\dfrac{\\partial z}{\\partial y}=2z^2$，又设 $u=x$，$v=\\dfrac1y-\\dfrac1x$，$w=\\dfrac1z-\\dfrac1x$，则对函数 $w=w(u,v)$，偏导数 $\\dfrac{\\partial w}{\\partial u}\\Big|_{\\substack{u=2\\\\v=1}}=$\\_\\_\\_\\_\\_\\_\\_\\_。",
+   "answer": "$-\\dfrac14$",
+   "solution": "由 $u=x,\\ v=\\dfrac1y-\\dfrac1x$ 得 $x=u$，$y=\\dfrac{u}{uv+1}$，$w=\\dfrac1z-\\dfrac1u$。于是 $\\dfrac{\\partial x}{\\partial u}=1$，$\\dfrac{\\partial y}{\\partial u}=\\dfrac{1}{(uv+1)^2}=\\dfrac{y^2}{u^2}$，\n$$\\frac{\\partial w}{\\partial u}=-\\frac1{z^2}\\left(\\frac{\\partial z}{\\partial x}+\\frac{\\partial z}{\\partial y}\\cdot\\frac{y^2}{u^2}\\right)+\\frac1{u^2}=-\\frac{1}{z^2u^2}\\left(x^2\\frac{\\partial z}{\\partial x}+y^2\\frac{\\partial z}{\\partial y}\\right)+\\frac1{u^2}=-\\frac2{u^2}+\\frac1{u^2}=-\\frac1{u^2}.$$\n故在 $u=2$ 处为 $-\\dfrac14$。",
+   "solutionSource": "官方"
+  },
+  {
+   "no": "一(5)",
+   "score": 6,
+   "type": "填空",
+   "subjects": [
+    "高等数学"
+   ],
+   "topics": [
+    "重心",
+    "第一型曲面积分",
+    "球面",
+    "对称性"
+   ],
+   "difficulty": 2,
+   "statement": "设 $a>0$，则均匀曲面 $x^2+y^2+z^2=a^2\\ (x\\geqslant0,y\\geqslant0,z\\geqslant0)$ 的重心坐标为\\_\\_\\_\\_\\_\\_\\_\\_。",
+   "answer": "$\\left(\\dfrac a2,\\dfrac a2,\\dfrac a2\\right)$",
+   "solution": "记曲面为 $\\Sigma$，面积 $\\dfrac18\\cdot4\\pi a^2=\\dfrac{\\pi a^2}{2}$，故 $\\bar z=\\dfrac{2}{\\pi a^2}\\displaystyle\\iint_\\Sigma z\\,\\mathrm{d}S$。外法向与 $z$ 轴夹角 $\\gamma$ 满足 $\\cos\\gamma=\\dfrac za$，于是\n$$\\bar z=\\frac{2}{\\pi a}\\iint_\\Sigma\\cos\\gamma\\,\\mathrm{d}S=\\frac{2}{\\pi a}\\iint_{D_{xy}}\\mathrm{d}x\\,\\mathrm{d}y=\\frac{2}{\\pi a}\\cdot\\frac14\\pi a^2=\\frac a2.$$\n由对称性 $\\bar x=\\bar y=\\dfrac a2$。",
+   "solutionSource": "官方"
+  },
+  {
+   "no": "二",
+   "score": 14,
+   "type": "计算",
+   "subjects": [
+    "高等数学"
+   ],
+   "topics": [
+    "高阶导数",
+    "莱布尼茨公式",
+    "变限积分",
+    "递推"
+   ],
+   "difficulty": 3,
+   "statement": "设函数 $f(x)=e^{-x}\\displaystyle\\int_0^x\\frac{t^{2023}}{1+t^2}\\,\\mathrm{d}t$，正整数 $n\\leqslant2023$，求导数 $f^{(n)}(0)$。",
+   "answer": "$f^{(n)}(0)=0$",
+   "solution": "令 $F(x)=\\displaystyle\\int_0^x\\frac{t^{2023}}{1+t^2}\\mathrm{d}t$，则 $F'(x)=\\dfrac{x^{2023}}{1+x^2}$，易见 $F(0)=F'(0)=F''(0)=0$。由 Leibniz 公式\n$$f^{(n)}(0)=\\sum_{k=0}^n(-1)^{n-k}\\binom nkF^{(k)}(0).$$\n对 $(1+x^2)F'(x)=x^{2023}$ 求 $k-1$ 阶导数：\n$$(1+x^2)F^{(k)}(x)+2(k-1)xF^{(k-1)}(x)+(k-1)(k-2)F^{(k-2)}(x)=\\left(x^{2023}\\right)^{(k-1)}.$$\n令 $x=0$，因 $k\\leqslant n\\leqslant2023$，右端为 0，得 $F^{(k)}(0)=-(k-1)(k-2)F^{(k-2)}(0)$。由递推及 $F'(0)=F''(0)=0$ 得所有 $F^{(k)}(0)=0\\ (k\\leqslant n)$，故 $f^{(n)}(0)=0$。",
+   "solutionSource": "官方"
+  },
+  {
+   "no": "三",
+   "score": 14,
+   "type": "证明",
+   "subjects": [
+    "高等数学"
+   ],
+   "topics": [
+    "函数极限",
+    "无穷小",
+    "伸缩求和"
+   ],
+   "difficulty": 3,
+   "statement": "设函数 $f(x)$ 在区间 $(0,1)$ 内有定义，$\\displaystyle\\lim_{x\\to0^+}f(x)=0$，且 $\\displaystyle\\lim_{x\\to0^+}\\frac{f(x)-f\\left(\\frac x3\\right)}{x}=0$。证明：$\\displaystyle\\lim_{x\\to0^+}\\frac{f(x)}{x}=0$。",
+   "answer": "",
+   "solution": "以 $\\dfrac{x}{3^k}$ 代替 $x$，对任意非负整数 $k$，$\\displaystyle\\lim_{x\\to0^+}\\frac{f\\left(\\frac x{3^k}\\right)-f\\left(\\frac{x}{3^{k+1}}\\right)}{x/3^k}=0$。\n\n更精确地，记 $\\varepsilon(x)=\\displaystyle\\sup_{0<s\\leqslant x}\\left|\\frac{f(s)-f(s/3)}{s}\\right|$，则 $\\varepsilon(x)\\to0\\ (x\\to0^+)$。对 $k=0,1,\\cdots,n-1$ 求和：\n$$\\left|\\frac{f(x)-f\\left(\\frac x{3^n}\\right)}{x}\\right|\\leqslant\\sum_{k=0}^{n-1}\\left|\\frac{f\\left(\\frac x{3^k}\\right)-f\\left(\\frac x{3^{k+1}}\\right)}{x/3^k}\\right|\\cdot\\frac1{3^k}\\leqslant\\varepsilon(x)\\sum_{k=0}^\\infty\\frac1{3^k}=\\frac32\\varepsilon(x),$$\n且此界与 $n$ 无关。令 $n\\to\\infty$，由 $\\displaystyle\\lim_{x\\to0^+}f(x)=0$ 得 $\\left|\\dfrac{f(x)}{x}\\right|\\leqslant\\dfrac32\\varepsilon(x)\\to0$。（官方解答写作 $f(x)-f(x/3^n)=x\\alpha(x)$ 再令 $n\\to\\infty$，此处补充了 $\\alpha$ 关于 $n$ 一致的说明）",
+   "solutionSource": "官方"
+  },
+  {
+   "no": "四",
+   "score": 14,
+   "type": "证明",
+   "subjects": [
+    "高等数学"
+   ],
+   "topics": [
+    "介值定理",
+    "拉格朗日中值定理",
+    "均值不等式"
+   ],
+   "difficulty": 3,
+   "statement": "设函数 $f(x)$ 在区间 $[0,1]$ 上连续，在 $(0,1)$ 内可导，且 $f(0)=0$，$f(1)=2$。证明：存在两两互异的点 $\\xi_1,\\xi_2,\\xi_3\\in(0,1)$，使得\n$$f'(\\xi_1)f'(\\xi_2)\\sqrt{1-\\xi_3}\\geqslant2.$$",
+   "answer": "",
+   "solution": "令 $F(x)=f(x)-2+x$，$F(0)=-2<0$，$F(1)=1>0$，由介值定理存在 $\\xi_3\\in(0,1)$ 使 $f(\\xi_3)=2-\\xi_3$。\n\n在 $[0,\\xi_3]$、$[\\xi_3,1]$ 上分别用拉格朗日中值定理，存在 $\\xi_1\\in(0,\\xi_3)$，$\\xi_2\\in(\\xi_3,1)$ 使\n$$f'(\\xi_1)=\\frac{f(\\xi_3)-f(0)}{\\xi_3}=\\frac{2-\\xi_3}{\\xi_3},\\qquad f'(\\xi_2)=\\frac{f(1)-f(\\xi_3)}{1-\\xi_3}=\\frac{\\xi_3}{1-\\xi_3}.$$\n于是由均值不等式\n$$f'(\\xi_1)f'(\\xi_2)=\\frac{2-\\xi_3}{1-\\xi_3}=1+\\frac1{1-\\xi_3}\\geqslant\\frac{2}{\\sqrt{1-\\xi_3}},$$\n即 $f'(\\xi_1)f'(\\xi_2)\\sqrt{1-\\xi_3}\\geqslant2$，且 $\\xi_1<\\xi_3<\\xi_2$ 两两互异。",
+   "solutionSource": "官方"
+  },
+  {
+   "no": "五",
+   "score": 14,
+   "type": "计算",
+   "subjects": [
+    "高等数学"
+   ],
+   "topics": [
+    "第二型曲线积分",
+    "参数化",
+    "偶函数",
+    "对称性"
+   ],
+   "difficulty": 3,
+   "statement": "设 $f(x)$ 是 $[-1,1]$ 上的连续的偶函数，计算曲线积分：\n$$I=\\oint_L\\frac{x^2+y^2}{2\\sqrt{1-x^2}}\\mathrm{d}x+f(x)\\,\\mathrm{d}y,$$\n其中曲线 $L$ 为正向圆周 $x^2+y^2=-2y$。",
+   "answer": "$I=4$",
+   "solution": "$L:x^2+(y+1)^2=1$，参数化 $x=\\cos\\theta$，$y=-1+\\sin\\theta$，$0\\leqslant\\theta\\leqslant2\\pi$。在 $L$ 上 $x^2+y^2=-2y=2(1-\\sin\\theta)$，$\\sqrt{1-x^2}=|\\sin\\theta|$，故\n$$I=\\int_0^{2\\pi}\\frac{1-\\sin\\theta}{|\\sin\\theta|}(-\\sin\\theta)\\,\\mathrm{d}\\theta+\\int_0^{2\\pi}f(\\cos\\theta)\\cos\\theta\\,\\mathrm{d}\\theta=I_1+I_2.$$\n$$I_1=-\\int_0^\\pi(1-\\sin\\theta)\\,\\mathrm{d}\\theta+\\int_\\pi^{2\\pi}(1-\\sin\\theta)\\,\\mathrm{d}\\theta=-(\\pi-2)+(\\pi+2)=4.$$\n对 $I_2$，把 $[\\pi,2\\pi]$ 上的部分作代换 $\\theta=t+\\pi$，并用 $f$ 为偶函数：\n$$I_2=\\int_0^\\pi f(\\cos\\theta)\\cos\\theta\\,\\mathrm{d}\\theta-\\int_0^\\pi f(-\\cos t)\\cos t\\,\\mathrm{d}t=0.$$\n所以 $I=4$。",
+   "solutionSource": "官方"
+  },
+  {
+   "no": "六",
+   "score": 14,
+   "type": "证明",
+   "subjects": [
+    "高等数学"
+   ],
+   "topics": [
+    "正项级数",
+    "比较判别法",
+    "积分估计",
+    "不等式"
+   ],
+   "difficulty": 3,
+   "statement": "设函数 $f(x)=\\displaystyle\\int_0^x\\frac{\\ln(1+t)}{1+e^{-t}\\sin^3t}\\,\\mathrm{d}t\\ (x>0)$，证明级数 $\\displaystyle\\sum_{n=1}^\\infty f\\left(\\frac1n\\right)$ 收敛，且 $\\dfrac13<\\displaystyle\\sum_{n=1}^\\infty f\\left(\\frac1n\\right)<\\frac56$。",
+   "answer": "",
+   "solution": "当 $t\\in(0,1]$ 时，$t-\\dfrac{t^2}{2}<\\ln(1+t)\\leqslant t$，$0<e^{-t}\\sin^3t\\leqslant t$。对 $x\\in(0,1]$：\n\n下界：\n$$f(x)\\geqslant\\frac{1}{1+x}\\int_0^x\\left(t-\\frac{t^2}2\\right)\\mathrm{d}t=\\frac1{1+x}\\left(\\frac{x^2}2-\\frac{x^3}6\\right)\\geqslant\\frac13\\cdot\\frac{x^2}{1+x},$$\n且由 $\\ln(1+t)>t-\\frac{t^2}2$ 严格成立，$f(x)>\\dfrac13\\cdot\\dfrac{x^2}{1+x}$。\n\n上界：分母 $\\geqslant1$，故 $f(x)\\leqslant\\displaystyle\\int_0^xt\\,\\mathrm{d}t=\\frac{x^2}{2}$。\n\n所以\n$$\\sum_{n=1}^\\infty f\\left(\\frac1n\\right)>\\frac13\\sum_{n=1}^\\infty\\frac{1}{n(n+1)}=\\frac13,\\qquad\\sum_{n=1}^\\infty f\\left(\\frac1n\\right)\\leqslant\\frac12\\sum_{n=1}^\\infty\\frac1{n^2}=\\frac{\\pi^2}{12}<\\frac56.$$\n由比较判别法级数收敛，且 $\\dfrac13<\\displaystyle\\sum_{n=1}^\\infty f\\left(\\frac1n\\right)<\\frac56$。",
+   "solutionSource": "官方"
+  }
+ ]
+}

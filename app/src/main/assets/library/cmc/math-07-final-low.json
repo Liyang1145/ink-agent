@@ -1,0 +1,179 @@
+{
+ "id": "cmc-math-07-final-low",
+ "title": "第七届全国大学生数学竞赛决赛（数学类低年级组（一、二年级））",
+ "year": 2016,
+ "track": "数学类",
+ "round": "决赛",
+ "paper": "low",
+ "durationMin": 180,
+ "totalScore": 100,
+ "source": {
+  "question": "2016年03月-数学类一、二年级-第七届全国决赛试卷.pdf",
+  "solution": "2016年03月-数学类一、二年级参考解答-第七届全国决赛试卷.pdf"
+ },
+ "problems": [
+  {
+   "no": "一(1)",
+   "score": 5,
+   "type": "填空",
+   "subjects": [
+    "高等代数"
+   ],
+   "topics": [
+    "置换矩阵",
+    "行列式"
+   ],
+   "difficulty": 1,
+   "statement": "设 $\\Gamma$ 为形如下列形式的 2016 阶矩阵全体：矩阵的每行每列只有一个非零元素，且该非零元素为 1，则 $\\displaystyle\\sum_{A\\in\\Gamma}|A|=$ ______。",
+   "answer": "$0$",
+   "solution": "$\\Gamma$ 即全体 2016 阶置换矩阵，$|A|=\\operatorname{sgn}(\\pi)$。由于 $2016\\geqslant2$，奇置换与偶置换个数相等（各 $\\frac{2016!}2$ 个），故和为 $0$。",
+   "solutionSource": "官方"
+  },
+  {
+   "no": "一(2)",
+   "score": 5,
+   "type": "填空",
+   "subjects": [
+    "数学分析"
+   ],
+   "topics": [
+    "级数收敛",
+    "积分估计",
+    "递推"
+   ],
+   "difficulty": 2,
+   "statement": "令 $a_n=\\displaystyle\\int_0^{\\frac\\pi4}\\tan^nx\\,\\mathrm{d}x$。若 $\\displaystyle\\sum_{n=1}^\\infty a_n^p$ 收敛，则 $p$ 取值范围 ______。",
+   "answer": "$p>1$",
+   "solution": "由 $a_n+a_{n+2}=\\dfrac1{n+1}$ 且 $a_n$ 单调递减，得 $\\dfrac1{2(n+1)}<a_n<\\dfrac1{2(n-1)}$，即 $a_n\\sim\\dfrac1{2n}$。故 $\\sum a_n^p$ 收敛当且仅当 $p>1$。",
+   "solutionSource": "官方"
+  },
+  {
+   "no": "一(3)",
+   "score": 5,
+   "type": "填空",
+   "subjects": [
+    "数学分析"
+   ],
+   "topics": [
+    "二重积分",
+    "椭圆区域",
+    "形心"
+   ],
+   "difficulty": 1,
+   "statement": "设 $D:x^2+2y^2\\leqslant2x+4y$，则积分 $I=\\displaystyle\\iint_D(x+y)\\,\\mathrm{d}x\\,\\mathrm{d}y=$ ______。",
+   "answer": "$3\\sqrt2\\pi$",
+   "solution": "$D:(x-1)^2+2(y-1)^2\\leqslant3$，是中心 $(1,1)$、半轴 $\\sqrt3,\\sqrt{3/2}$ 的椭圆，面积 $\\dfrac{3\\pi}{\\sqrt2}$。由对称性 $I=(1+1)\\cdot\\dfrac{3\\pi}{\\sqrt2}=3\\sqrt2\\pi$。",
+   "solutionSource": "官方"
+  },
+  {
+   "no": "一(4)",
+   "score": 5,
+   "type": "填空",
+   "subjects": [
+    "高等代数"
+   ],
+   "topics": [
+    "矩阵的幂",
+    "上三角矩阵"
+   ],
+   "difficulty": 2,
+   "statement": "若实向量 $X=(a,b,c)$ 的三个分量 $a,b,c$ 满足 $\\begin{pmatrix}a&b\\\\0&c\\end{pmatrix}^{2016}=I_2$，则 $X=$ ____ 或 ____ 或 ______ 或 ______。",
+   "answer": "$(1,0,1),\\ (-1,0,-1),\\ (1,t,-1),\\ (-1,t,1)$，$t\\in\\mathbb R$",
+   "solution": "对角元满足 $a^{2016}=c^{2016}=1$，故 $a,c\\in\\{\\pm1\\}$。若 $a=c$，则 $\\begin{pmatrix}a&b\\\\0&a\\end{pmatrix}^{k}=\\begin{pmatrix}a^k&ka^{k-1}b\\\\0&a^k\\end{pmatrix}$，须 $b=0$；若 $a=-c$，则 $\\begin{pmatrix}a&b\\\\0&-a\\end{pmatrix}^2=I_2$，$b$ 任意。故 $X=(1,0,1),(-1,0,-1),(1,t,-1),(-1,t,1)$，$t\\in\\mathbb R$。",
+   "solutionSource": "官方"
+  },
+  {
+   "no": "二",
+   "score": 15,
+   "type": "计算",
+   "subjects": [
+    "解析几何"
+   ],
+   "topics": [
+    "椭圆柱面",
+    "平面截线",
+    "圆截面"
+   ],
+   "difficulty": 2,
+   "statement": "在空间直角坐标系中，设 $S$ 为椭圆柱面 $x^2+2y^2=1$，$\\sigma$ 是空间中的平面，它与 $S$ 的交集为一个圆。求所有这样平面 $\\sigma$ 的法向量。",
+   "answer": "$(0,1,1)$ 或 $(0,-1,1)$ 的非零倍数",
+   "solution": "形如 $\\alpha x+\\beta y+\\gamma=0$ 的平面（平行于 $z$ 轴）与 $S$ 只交于直线或空集，故可设 $\\sigma:z=\\alpha x+\\beta y+\\gamma$。令 $x=\\cos\\theta$，$y=\\frac1{\\sqrt2}\\sin\\theta$，交线为\n$$\\Gamma(\\theta)=\\left(\\cos\\theta,\\ \\tfrac1{\\sqrt2}\\sin\\theta,\\ \\alpha\\cos\\theta+\\tfrac{\\beta}{\\sqrt2}\\sin\\theta+\\gamma\\right),\\quad\\theta\\in[0,2\\pi].$$\n$\\Gamma$ 为圆，故它到某定点 $P=(a,b,c)$（圆心）的距离恒为 $R$：\n$$(\\cos\\theta-a)^2+\\left(\\tfrac1{\\sqrt2}\\sin\\theta-b\\right)^2+\\left(\\alpha\\cos\\theta+\\tfrac\\beta{\\sqrt2}\\sin\\theta+\\gamma-c\\right)^2=R^2.$$\n用倍角公式化为 $A\\cos2\\theta+B\\sin2\\theta+C\\cos\\theta+D\\sin\\theta+E=0$ 对一切 $\\theta$ 成立，故各系数为 0。特别地\n$$A=\\tfrac12(\\alpha^2+1)-\\tfrac14(\\beta^2+1)=0,\\qquad B=\\tfrac1{\\sqrt2}\\alpha\\beta=0.$$\n若 $\\beta=0$ 则 $\\alpha^2=-\\frac12$ 不可能，故 $\\alpha=0$，$\\beta=\\pm1$。法向量 $(-\\alpha,-\\beta,1)$ 为 $(0,1,1)$ 或 $(0,-1,1)$ 的非零倍数。",
+   "solutionSource": "官方"
+  },
+  {
+   "no": "三",
+   "score": 15,
+   "type": "证明",
+   "subjects": [
+    "高等代数"
+   ],
+   "topics": [
+    "实对称矩阵",
+    "迹",
+    "正交对角化",
+    "迹不等式"
+   ],
+   "difficulty": 2,
+   "statement": "设 $A,B$ 为 $n$ 阶实对称矩阵。证明 $\\operatorname{tr}\\big((AB)^2\\big)\\leqslant\\operatorname{tr}(A^2B^2)$。",
+   "answer": "",
+   "solution": "取正交阵 $T$ 使 $T^{-1}AT=\\tilde A=\\operatorname{diag}(a_{11},\\cdots,a_{nn})$，令 $\\tilde B=T^{-1}BT=(b_{ij})$，它仍是实对称阵。迹在相似下不变：\n$$\\operatorname{tr}\\big((AB)^2\\big)=\\operatorname{tr}\\big((\\tilde A\\tilde B)^2\\big)=\\sum_{i,j}a_{ii}a_{jj}b_{ij}b_{ji}=\\sum_{i<j}2a_{ii}a_{jj}b_{ij}^2+\\sum_ia_{ii}^2b_{ii}^2,$$\n$$\\operatorname{tr}(A^2B^2)=\\operatorname{tr}(\\tilde A^2\\tilde B^2)=\\sum_{i,j}a_{ii}^2b_{ij}^2=\\sum_{i<j}(a_{ii}^2+a_{jj}^2)b_{ij}^2+\\sum_ia_{ii}^2b_{ii}^2.$$\n相减得\n$$\\operatorname{tr}\\big((AB)^2\\big)-\\operatorname{tr}(A^2B^2)=-\\sum_{i<j}(a_{ii}-a_{jj})^2b_{ij}^2\\leqslant0.$$",
+   "solutionSource": "官方"
+  },
+  {
+   "no": "四",
+   "score": 20,
+   "type": "证明",
+   "subjects": [
+    "数学分析"
+   ],
+   "topics": [
+    "不等式",
+    "Hölder不等式",
+    "外切多边形",
+    "函数单调性"
+   ],
+   "difficulty": 3,
+   "statement": "设单位圆 $\\Gamma$ 的外切 $n$ 边形 $A_1A_2\\cdots A_n$ 各边与 $\\Gamma$ 分别切于 $B_1,B_2,\\cdots,B_n$。令 $P_A,P_B$ 分别表示多边形 $A_1A_2\\cdots A_n$ 与 $B_1B_2\\cdots B_n$ 的周长。求证：$P_A^{\\frac13}P_B^{\\frac23}>2\\pi$。",
+   "answer": "",
+   "solution": "设圆心为 $O$，$\\alpha_i=\\frac12\\angle B_iOB_{i+1}$（$B_{n+1}=B_1$），则 $\\sum\\alpha_i=\\pi$，且\n$$P_A=2\\sum_{i=1}^n\\tan\\alpha_i,\\qquad P_B=2\\sum_{i=1}^n\\sin\\alpha_i.$$\n**先证** 当 $0<x<\\frac\\pi2$ 时 $\\tan^{\\frac13}x\\sin^{\\frac23}x>x$，即 $g(x)=\\dfrac{\\sin x}{\\cos^{1/3}x}-x>0$。$g(0)=0$，\n$$g'(x)=\\frac{2\\cos^2x+1}{3\\cos^{4/3}x}-1>\\frac{3\\sqrt[3]{\\cos^2x\\cdot\\cos^2x\\cdot1}}{3\\cos^{4/3}x}-1=0$$\n（均值不等式，$\\cos x\\neq1$ 时严格），故 $g$ 严格递增，$g(x)>0$。\n\n由 Hölder 不等式（指数 $3$ 与 $\\frac32$），\n$$P_A^{\\frac13}P_B^{\\frac23}=2\\left(\\sum\\tan\\alpha_i\\right)^{\\frac13}\\left(\\sum\\sin\\alpha_i\\right)^{\\frac23}\\geqslant2\\sum_{i=1}^n\\tan^{\\frac13}\\alpha_i\\sin^{\\frac23}\\alpha_i>2\\sum_{i=1}^n\\alpha_i=2\\pi.$$",
+   "solutionSource": "官方"
+  },
+  {
+   "no": "五",
+   "score": 15,
+   "type": "证明",
+   "subjects": [
+    "常微分方程",
+    "数学分析"
+   ],
+   "topics": [
+    "一阶线性微分方程",
+    "常数变易法",
+    "极限"
+   ],
+   "difficulty": 3,
+   "statement": "设 $a(x),f(x)$ 为 $\\mathbb R$ 上的连续函数，且对任意 $x\\in\\mathbb R$ 有 $a(x)>0$。已知\n$$\\int_0^\\infty a(x)\\,\\mathrm{d}x=+\\infty,\\quad\\lim_{x\\to+\\infty}\\frac{f(x)}{a(x)}=0,\\quad y'(x)+a(x)y(x)=f(x),\\ x\\in\\mathbb R.$$\n求证：$\\lim\\limits_{x\\to+\\infty}y(x)=0$。",
+   "answer": "",
+   "solution": "令 $F(x)=\\int_0^xa(t)\\,\\mathrm{d}t$，则 $F(x)\\to+\\infty$，且\n$$y(x)=Ce^{-F(x)}+\\int_0^xf(t)e^{F(t)-F(x)}\\,\\mathrm{d}t.$$\n任给 $\\varepsilon>0$，存在 $x_0$，$t\\geqslant x_0$ 时 $|f(t)|\\leqslant\\varepsilon a(t)$。于是 $x>x_0$ 时\n$$\\left|e^{-F(x)}\\int_{x_0}^xf(t)e^{F(t)}\\,\\mathrm{d}t\\right|\\leqslant\\varepsilon e^{-F(x)}\\int_{x_0}^xa(t)e^{F(t)}\\,\\mathrm{d}t=\\varepsilon\\left(1-e^{F(x_0)-F(x)}\\right)<\\varepsilon.$$\n而 $Ce^{-F(x)}\\to0$，$e^{-F(x)}\\int_0^{x_0}|f(t)|e^{F(t)}\\,\\mathrm{d}t\\to0$，故 $\\varlimsup\\limits_{x\\to+\\infty}|y(x)|\\leqslant\\varepsilon$。由 $\\varepsilon$ 任意得 $\\lim\\limits_{x\\to+\\infty}y(x)=0$。",
+   "solutionSource": "官方"
+  },
+  {
+   "no": "六",
+   "score": 15,
+   "type": "计算",
+   "subjects": [
+    "数学分析"
+   ],
+   "topics": [
+    "积分方程",
+    "积分中值定理",
+    "连续函数"
+   ],
+   "difficulty": 3,
+   "statement": "设 $f(x)$ 是定义在 $\\mathbb R$ 上的连续函数，且满足方程\n$$xf(x)=2\\int_{\\frac x2}^xf(t)\\,\\mathrm{d}t+\\frac{x^2}4.$$\n求 $f(x)$。",
+   "answer": "$f(x)=x+C$，$C$ 为常数",
+   "solution": "令 $g(x)=f(x)-x$，由 $2\\int_{x/2}^xt\\,\\mathrm{d}t=\\frac34x^2$ 得\n$$xg(x)=2\\int_{\\frac x2}^xg(t)\\,\\mathrm{d}t.$$\n对 $x>0$，由积分中值定理存在 $x_1\\in(\\frac x2,x)\\subset(0,x)$ 使 $\\int_{x/2}^xg(t)\\,\\mathrm{d}t=g(x_1)\\frac x2$，故 $g(x)=g(x_1)$。\n\n设 $x_0=\\inf\\{t\\in(0,x]\\mid g(t)=g(x)\\}$，由连续性 $g(x_0)=g(x)$。若 $x_0>0$，对 $x_0$ 重复上述过程得 $y_0\\in(0,x_0)$ 使 $g(y_0)=g(x_0)=g(x)$，与 $x_0$ 的取法矛盾。故 $x_0=0$，$g(x)=g(0)$。同理 $x<0$ 时 $g(x)=g(0)$。\n\n所以 $g$ 为常数，$f(x)=x+C$（$C$ 为常数）。经验证满足方程。\n\n（注：原解答定义 $x_0$ 时写作 $f(x)=f(t)$，应为 $g(x)=g(t)$，原解答此处笔误，已改正。）",
+   "solutionSource": "官方"
+  }
+ ]
+}

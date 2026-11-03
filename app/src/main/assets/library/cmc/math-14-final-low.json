@@ -1,0 +1,204 @@
+{
+ "id": "cmc-math-14-final-low",
+ "title": "第十四届全国大学生数学竞赛决赛（数学类低年级组）",
+ "year": 2023,
+ "track": "数学类",
+ "round": "决赛",
+ "paper": "low",
+ "durationMin": 180,
+ "totalScore": 100,
+ "source": {
+  "question": "14-final-math-low.pdf",
+  "solution": "14-final-math-low.pdf"
+ },
+ "problems": [
+  {
+   "no": "一(1)",
+   "score": 5,
+   "type": "填空",
+   "subjects": [
+    "数学分析"
+   ],
+   "topics": [
+    "参数方程",
+    "切线"
+   ],
+   "difficulty": 1,
+   "statement": "由方程 $\\begin{cases}x+y=t,\\\\x^2-y^2=t\\end{cases}$ 确定的曲线 $\\begin{cases}x=x(t),\\\\y=y(t)\\end{cases}$ 在 $(1,0)$ 处的切线方程为______。",
+   "answer": "$y=x-1$",
+   "solution": "点 $(1,0)$ 对应 $t=1$。当 $t\\ne0$ 时由 $x^2-y^2=(x+y)(x-y)=t$ 得 $x-y=1$，即 $t\\ne0$ 附近曲线就是直线 $x=\\dfrac{t+1}{2}$，$y=\\dfrac{t-1}{2}$，故切线为 $y=x-1$。（官方仅给答案，过程为补充）",
+   "solutionSource": "编写"
+  },
+  {
+   "no": "一(2)",
+   "score": 5,
+   "type": "填空",
+   "subjects": [
+    "数学分析"
+   ],
+   "topics": [
+    "第一型曲线积分",
+    "对称性",
+    "大圆"
+   ],
+   "difficulty": 2,
+   "statement": "记 $L$ 为曲线 $\\begin{cases}x^2+y^2+z^2=1,\\\\x+2y+z=0.\\end{cases}$ 则曲线积分 $\\displaystyle\\int_L(2x^2+x+y^2+y)\\,\\mathrm{d}s=$______。",
+   "answer": "$2\\pi$",
+   "solution": "$L$ 是单位球面上过球心的大圆，长度 $2\\pi$，其形心为原点，故 $\\displaystyle\\int_Lx\\,\\mathrm{d}s=\\int_Ly\\,\\mathrm{d}s=0$。对单位向量 $u$，$\\displaystyle\\int_L(u\\cdot r)^2\\,\\mathrm{d}s=\\pi\\left(1-(u\\cdot n)^2\\right)$，其中 $n=\\dfrac{(1,2,1)}{\\sqrt6}$ 为平面单位法向量。于是 $\\displaystyle\\int_Lx^2\\,\\mathrm{d}s=\\pi\\left(1-\\frac16\\right)=\\frac{5\\pi}6$，$\\displaystyle\\int_Ly^2\\,\\mathrm{d}s=\\pi\\left(1-\\frac46\\right)=\\frac\\pi3$，所求 $=2\\cdot\\dfrac{5\\pi}6+\\dfrac\\pi3=2\\pi$。（官方仅给答案，过程为补充）",
+   "solutionSource": "编写"
+  },
+  {
+   "no": "一(3)",
+   "score": 5,
+   "type": "填空",
+   "subjects": [
+    "高等代数"
+   ],
+   "topics": [
+    "幂零矩阵",
+    "Jordan标准形",
+    "矩阵的秩"
+   ],
+   "difficulty": 1,
+   "statement": "设 $A$ 为 $n\\times n$ 实矩阵。若 $A^n=0$ 但 $A^{n-1}\\ne0$，则 $A$ 的秩为______。",
+   "answer": "$n-1$",
+   "solution": "$A$ 幂零且幂零指数为 $n$，其 Jordan 标准形只能是一个 $n$ 阶 Jordan 块 $J_n(0)$，秩为 $n-1$。（官方仅给答案，过程为补充）",
+   "solutionSource": "编写"
+  },
+  {
+   "no": "一(4)",
+   "score": 5,
+   "type": "填空",
+   "subjects": [
+    "数学分析",
+    "常微分方程"
+   ],
+   "topics": [
+    "积分方程",
+    "一阶线性微分方程"
+   ],
+   "difficulty": 1,
+   "statement": "设 $\\mathbb R$ 上函数 $f$ 具有连续的一阶导数，且满足 $f(x)=\\displaystyle\\int_0^x(x-t)f'(t)\\,\\mathrm{d}t+x^2\\ (x\\in\\mathbb R)$。则 $f(x)=$______。",
+   "answer": "$2e^x-2x-2$",
+   "solution": "$f(0)=0$。求导得 $f'(x)=\\displaystyle\\int_0^xf'(t)\\,\\mathrm{d}t+2x=f(x)+2x$，解得 $f(x)=Ce^x-2x-2$，由 $f(0)=0$ 得 $C=2$，故 $f(x)=2e^x-2x-2$。（官方仅给答案，过程为补充）",
+   "solutionSource": "编写"
+  },
+  {
+   "no": "二",
+   "score": 10,
+   "type": "证明",
+   "subjects": [
+    "解析几何",
+    "高等代数"
+   ],
+   "topics": [
+    "二次曲线",
+    "正交变换",
+    "不变量"
+   ],
+   "difficulty": 2,
+   "statement": "设二次曲线 $Ax^2+Bxy+Cy^2+Dx+Ey+F=0$，经过正交变换 $\\begin{pmatrix}x\\\\y\\end{pmatrix}=Q\\begin{pmatrix}x'\\\\y'\\end{pmatrix}$ 得此曲线的另一表达式。\n\n(i) 求证 $B^2-4AC$ 与 $F$ 为上述正交变换的不变量；\n\n(ii) 给出在上述正交变换下，交叉项 $x'y'$ 系数为零的充要条件。",
+   "answer": "(ii) $B'=0$，即 $(C-A)\\sin2\\theta+B\\cos2\\theta=0$。",
+   "solution": "(i) $Q$ 为正交矩阵，因此有 $\\theta\\in[0,2\\pi]$ 和 $\\varepsilon=\\pm1$ 使得\n$$\\begin{pmatrix}x\\\\y\\end{pmatrix}=\\begin{pmatrix}\\cos\\theta&-\\varepsilon\\sin\\theta\\\\\\sin\\theta&\\varepsilon\\cos\\theta\\end{pmatrix}\\begin{pmatrix}x'\\\\y'\\end{pmatrix}=\\begin{pmatrix}x'\\cos\\theta-y'\\varepsilon\\sin\\theta\\\\x'\\sin\\theta+y'\\varepsilon\\cos\\theta\\end{pmatrix}.$$\n代入得到 $A'x'^2+B'x'y'+C'y'^2+D'x'+E'y'+F'=0$，其中 $F'=F$，\n$$A'=A\\cos^2\\theta+B\\sin\\theta\\cos\\theta+C\\sin^2\\theta,\\quad\\varepsilon B'=(C-A)\\sin2\\theta+B\\cos2\\theta,\\quad C'=A\\sin^2\\theta-B\\cos\\theta\\sin\\theta+C\\cos^2\\theta.$$\n直接计算可得 $B'^2-4A'C'=B^2-4AC$，$F'=F$。这就证明了 $B^2-4AC$ 与 $F$ 是正交变换的不变量。\n注：事实上，方程可写为 $\\begin{pmatrix}x'\\\\y'\\end{pmatrix}^TQ^T\\begin{pmatrix}A&\\frac B2\\\\\\frac B2&C\\end{pmatrix}Q\\begin{pmatrix}x'\\\\y'\\end{pmatrix}+\\begin{pmatrix}D\\\\E\\end{pmatrix}^TQ\\begin{pmatrix}x'\\\\y'\\end{pmatrix}+F=0$，因此 $F'=F$，且\n$$A'C'-\\frac{B'^2}4=\\det\\begin{pmatrix}A'&\\frac{B'}2\\\\\\frac{B'}2&C'\\end{pmatrix}=\\det\\left[Q^T\\begin{pmatrix}A&\\frac B2\\\\\\frac B2&C\\end{pmatrix}Q\\right]=AC-\\frac{B^2}4.$$\n(ii) 依题意可知，在上述正交变换下，交叉项 $x'y'$ 系数为零的充要条件为 $B'=0$，即 $(C-A)\\sin(2\\theta)+B\\cos(2\\theta)=0$。",
+   "solutionSource": "官方"
+  },
+  {
+   "no": "三",
+   "score": 14,
+   "type": "证明",
+   "subjects": [
+    "高等代数"
+   ],
+   "topics": [
+    "Jordan标准形",
+    "矩阵多项式",
+    "幂零矩阵",
+    "相似"
+   ],
+   "difficulty": 3,
+   "statement": "设实系数多项式 $f(x)=a_0+a_1x+\\cdots+a_mx^m$，其中 $a_m\\ne0$，$m\\ge1$，$\\displaystyle\\sum_{k=0}^ma_k=a\\ne0$，$\\displaystyle\\sum_{k=1}^mka_k=b\\ne0$。证明：对任意大于等于 $2$ 的自然数 $n$ 以及任意的 $\\varepsilon\\ne0$，必存在 $n$ 阶复方阵 $C$，使得\n$$f(C)=\\begin{pmatrix}a&\\varepsilon&&\\\\&\\ddots&\\ddots&\\\\&&a&\\varepsilon\\\\&&&a\\end{pmatrix}_{n\\times n}.$$",
+   "answer": "",
+   "solution": "记 $H=\\begin{pmatrix}0&1&&\\\\&\\ddots&\\ddots&\\\\&&0&1\\\\&&&0\\end{pmatrix}$，$J=I+H$，其中 $I$ 为 $n$ 阶单位矩阵。则 $H^n=0$，且 $J^k=(I+H)^k=I+C_k^1H+\\cdots$（上三角，对角线为 $1$，第一条次对角线为 $C_k^1=k$）。于是\n$$f(J)=a_0I+a_1J+\\cdots+a_mJ^m=\\begin{pmatrix}a&b&\\cdots&*\\\\&\\ddots&\\ddots&\\vdots\\\\&&a&b\\\\&&&a\\end{pmatrix}.$$\n令 $W=f(J)$，$V=\\begin{pmatrix}a&\\varepsilon&&\\\\&\\ddots&\\ddots&\\\\&&a&\\varepsilon\\\\&&&a\\end{pmatrix}$，分别计算 $W,V$ 的 Jordan 标准形 $J_W$ 和 $J_V$。\n$W$ 的 $n$ 个特征值均为 $a$。进一步，$W-aI$ 去掉第一列和最后一行得到的 $n-1$ 阶子式是对角元全为 $b$ 的上三角行列式，等于 $b^{n-1}\\ne0$，故 $\\operatorname{rank}(W-aI)=n-1$，从而 $a$ 作为 $W$ 的特征值其几何重数为 $1$，即 $J_W$ 中相应于 $a$ 的 Jordan 块只有 $1$ 块：$J_W=J_n(a)$。同理，由 $\\varepsilon\\ne0$ 可知 $J_V=J_n(a)$。\n故存在可逆矩阵 $P$ 使得 $P^{-1}WP=V$，即 $P^{-1}f(J)P=V$。令 $C=P^{-1}JP$，则 $f(C)=P^{-1}f(J)P=V$。证毕。\n（官方另附一种写法：由 $bx^2g(x)=f(1+x)-a-bx$ 定义多项式 $g$，问题转化为寻找 $Q=S+\\sum_{k=2}^{n-1}\\alpha_kS^k$（$S=\\frac\\varepsilon bH$）使 $Q+Q^2g(Q)=S$，逐项确定系数即可，此处从略。）",
+   "solutionSource": "官方"
+  },
+  {
+   "no": "四",
+   "score": 20,
+   "type": "证明",
+   "subjects": [
+    "数学分析"
+   ],
+   "topics": [
+    "函数项级数",
+    "一致收敛",
+    "反函数求导",
+    "Darboux定理",
+    "稠密性"
+   ],
+   "difficulty": 5,
+   "statement": "设 $q_1,q_2,\\cdots,q_n,\\cdots$ 为有理数集 $\\mathbb Q$ 的一个排列，满足 $|q_n|<n\\ (\\forall n\\ge1)$。又设 $r\\in(0,1)$，$g(x)=\\displaystyle\\sum_{n=1}^\\infty r^n(x-q_n)^{\\frac13}$。证明：\n\n(i) $g$ 在 $\\mathbb R$ 上连续且严格单增，集合 $E=\\{g(q)\\mid q\\in\\mathbb Q\\}$ 的闭包为 $\\mathbb R$；\n\n(ii) $\\displaystyle\\lim_{x\\to t}\\frac{g(x)-g(t)}{x-t}=\\sum_{n=1}^\\infty\\frac{r^n}{3(t-q_n)^{\\frac23}}$，这里我们规定 $\\dfrac10=+\\infty$；\n\n(iii) $g$ 的反函数 $f$ 处处可导，且 $f'$ 在 $E$ 上为零；\n\n(iv) 对任意 $a<b$，存在不同的 $\\xi,\\eta\\in(a,b)$ 使得 $f'(\\xi)=f'(\\eta)=\\dfrac{f(b)-f(a)}{b-a}$。",
+   "answer": "",
+   "solution": "(i) 由题设，$\\left|r^n(x-q_n)^{\\frac13}\\right|\\le(|x|+n)^{\\frac13}r^n$，$\\forall n\\ge1,\\ x\\in\\mathbb R$。因此级数 $\\sum r^n(x-q_n)^{\\frac13}$ 关于 $x\\in\\mathbb R$ 内闭一致收敛，进而 $g$ 在 $\\mathbb R$ 上连续。又由于级数的每一项都严格单增，因此 $g$ 严格单增。\n注意到当 $x>0$ 时，$g(x)-g(0)>r\\left((x-q_1)^{\\frac13}+q_1^{\\frac13}\\right)$，故 $g(+\\infty)=+\\infty$。同理 $g(-\\infty)=-\\infty$。由连续函数的介值性，对任何 $t_0\\in\\mathbb R$，有 $x_0\\in\\mathbb R$ 使得 $g(x_0)=t_0$。取 $\\mathbb Q$ 中点列 $\\{x_n\\}$ 趋于 $x_0$，即得 $t_0=\\lim g(x_n)\\in\\overline E$。因此 $\\overline E=\\mathbb R$。\n\n(ii) 对于 $x\\ne t$，各项差商均为正，故\n$$\\frac{g(x)-g(t)}{x-t}\\ge\\sum_{n=1}^m\\frac{(x-q_n)^{\\frac13}-(t-q_n)^{\\frac13}}{x-t}r^n,\\quad\\forall m\\ge1,$$\n因此 $\\displaystyle\\varliminf_{x\\to t}\\frac{g(x)-g(t)}{x-t}\\ge\\sum_{n=1}^m\\frac{r^n}{3(t-q_n)^{\\frac23}}$，令 $m\\to+\\infty$ 得 $\\displaystyle\\varliminf_{x\\to t}\\frac{g(x)-g(t)}{x-t}\\ge\\sum_{n=1}^\\infty\\frac{r^n}{3(t-q_n)^{\\frac23}}$。\n另一方面，对任何 $x\\ne t$ 有 $\\dfrac{x^{\\frac13}-t^{\\frac13}}{x-t}=\\dfrac1{x^{\\frac23}+x^{\\frac13}t^{\\frac13}+t^{\\frac23}}\\le\\dfrac4{t^{\\frac23}}$。从而 $\\forall m\\ge1$，\n$$\\frac{g(x)-g(t)}{x-t}\\le\\sum_{n=1}^m\\frac{(x-q_n)^{\\frac13}-(t-q_n)^{\\frac13}}{x-t}r^n+\\sum_{n=m+1}^\\infty\\frac{4r^n}{(t-q_n)^{\\frac23}},$$\n因此 $\\displaystyle\\varlimsup_{x\\to t}\\frac{g(x)-g(t)}{x-t}\\le\\sum_{n=1}^m\\frac{r^n}{3(t-q_n)^{\\frac23}}+\\sum_{n=m+1}^\\infty\\frac{4r^n}{(t-q_n)^{\\frac23}}$。令 $m\\to+\\infty$（无论右端是否有限）可得上极限 $\\le\\displaystyle\\sum_{n=1}^\\infty\\frac{r^n}{3(t-q_n)^{\\frac23}}$。最终得到所需等式。\n\n(iii) 注意到 $0<\\displaystyle\\sum_{n=1}^\\infty\\frac{r^n}{3(t-q_n)^{\\frac23}}\\le+\\infty$。结合 $g$ 的连续性，可得（记 $\\dfrac1{+\\infty}=0$）\n$$\\lim_{x\\to t}\\frac{f(x)-f(t)}{x-t}=\\frac{1}{\\sum_{n=1}^\\infty\\frac{r^n}{3(t-q_n)^{2/3}}}\\in[0,+\\infty),$$\n这里右端 $t$ 理解为 $f$ 在该点的值。因此 $f$ 处处可导；当该点是某个 $q_n$ 时（即在 $E$ 上），和式为 $+\\infty$，故 $f'$ 在 $E$ 上为零。\n\n(iv) 任取 $a<b$。由中值定理，有 $\\xi\\in(a,b)$ 使得 $f'(\\xi)=k\\equiv\\dfrac{f(b)-f(a)}{b-a}>0$。易见 $\\dfrac{f(b)-f(\\xi)}{b-\\xi}\\ge k$ 或 $\\dfrac{f(\\xi)-f(a)}{\\xi-a}\\ge k$。不失一般性，设后者成立，则有 $\\zeta_1\\in(a,\\xi)$ 使得 $f'(\\zeta_1)=\\dfrac{f(\\xi)-f(a)}{\\xi-a}\\ge k$。而由 $E$ 的稠密性，有 $\\zeta_2\\in(a,\\zeta_1)\\cap E$，此时 $f'(\\zeta_2)=0$。于是由导函数的 Darboux 定理，存在 $\\eta\\in(\\zeta_2,\\zeta_1]\\subset(a,\\xi)$ 使得 $f'(\\eta)=k$，且 $\\eta\\ne\\xi$。",
+   "solutionSource": "官方"
+  },
+  {
+   "no": "五",
+   "score": 10,
+   "type": "证明",
+   "subjects": [
+    "高等代数"
+   ],
+   "topics": [
+    "幂等矩阵",
+    "循环矩阵",
+    "可对角化",
+    "范德蒙行列式",
+    "矩阵多项式"
+   ],
+   "difficulty": 3,
+   "statement": "设 $A$ 为复数域上的 4 阶幂等阵（即 $A^2=A$）。证明：存在复数 $c_0,c_1,c_2,c_3$ 使得 $A$ 相似于\n$$\\begin{pmatrix}c_0&c_1&c_2&c_3\\\\c_3&c_0&c_1&c_2\\\\c_2&c_3&c_0&c_1\\\\c_1&c_2&c_3&c_0\\end{pmatrix}.$$",
+   "answer": "",
+   "solution": "首先，由 $A$ 幂等可知 $\\mathbb C^4=\\operatorname{Ker}A\\oplus\\operatorname{Im}A$，进而 $\\operatorname{Ker}A$ 的一组基并上 $\\operatorname{Im}A$ 的一组基构成 $\\mathbb C^4$ 的一组基。$\\operatorname{Ker}A$ 的基为 $A$ 关于特征值 $0$ 的特征向量，$\\operatorname{Im}A$ 的基为 $A$ 关于特征值 $1$ 的特征向量，故 $A$ 拥有 $4$ 个线性无关的特征向量，$A$ 相似于对角阵 $\\Lambda=\\operatorname{diag}(\\lambda_1,\\cdots,\\lambda_4)$。\n其次，记 $B=\\begin{pmatrix}0&1&0&0\\\\0&0&1&0\\\\0&0&0&1\\\\1&0&0&0\\end{pmatrix}$，则 $B^2=\\begin{pmatrix}0&0&1&0\\\\0&0&0&1\\\\1&0&0&0\\\\0&1&0&0\\end{pmatrix}$，$B^3=\\begin{pmatrix}0&0&0&1\\\\1&0&0&0\\\\0&1&0&0\\\\0&0&1&0\\end{pmatrix}$，$B^4=I_4$。$B$ 的特征多项式为 $|\\lambda I-B|=\\lambda^4-1$，$B$ 有 4 个不同的特征值 $\\xi_1,\\cdots,\\xi_4$，从而 $B\\sim\\operatorname{diag}(\\xi_1,\\cdots,\\xi_4)$。\n考察关于 $a_0,a_1,a_2,a_3$ 的方程组\n$$a_0+a_1\\xi_i+a_2\\xi_i^2+a_3\\xi_i^3=\\lambda_i,\\quad i=1,2,3,4,$$\n其系数行列式为范德蒙行列式，不为 $0$，故有唯一解 $c_0,\\cdots,c_3$。令 $f(x)=c_0+c_1x+c_2x^2+c_3x^3$，则 $f(\\xi_i)=\\lambda_i$。\n最后，$f(B)\\sim\\operatorname{diag}(f(\\xi_1),\\cdots,f(\\xi_4))=\\operatorname{diag}(\\lambda_1,\\cdots,\\lambda_4)\\sim A$。而直接计算得\n$$f(B)=c_0I+c_1B+c_2B^2+c_3B^3=\\begin{pmatrix}c_0&c_1&c_2&c_3\\\\c_3&c_0&c_1&c_2\\\\c_2&c_3&c_0&c_1\\\\c_1&c_2&c_3&c_0\\end{pmatrix}.$$\n证毕。",
+   "solutionSource": "官方"
+  },
+  {
+   "no": "六",
+   "score": 16,
+   "type": "证明",
+   "subjects": [
+    "数学分析"
+   ],
+   "topics": [
+    "变限积分",
+    "分部积分",
+    "函数极限",
+    "积分平均"
+   ],
+   "difficulty": 3,
+   "statement": "设 $f$ 是 $[0,1]$ 上的可积函数，$\\alpha>0$ 是常数。证明：$\\displaystyle\\lim_{x\\to0^+}\\frac1x\\int_0^xf(t)\\,\\mathrm{d}t$ 存在当且仅当 $\\displaystyle\\lim_{x\\to0^+}\\frac1{x^\\alpha}\\int_0^xt^{\\alpha-1}f(t)\\,\\mathrm{d}t$ 存在。",
+   "answer": "",
+   "solution": "只要证明：对任何 $a,b>0$，$\\displaystyle\\lim_{x\\to0^+}\\frac1{x^a}\\int_0^xt^{a-1}f(t)\\,\\mathrm{d}t$ 存在蕴含 $\\displaystyle\\lim_{x\\to0^+}\\frac1{x^b}\\int_0^xt^{b-1}f(t)\\,\\mathrm{d}t$ 存在（取 $(a,b)=(1,\\alpha)$ 与 $(\\alpha,1)$ 即得）。（注：原解答此处误写为 $x\\to0^-$，已改正）\n设 $\\displaystyle\\lim_{x\\to0^+}\\frac1{x^a}\\int_0^xt^{a-1}f(t)\\,\\mathrm{d}t=A\\in\\mathbb R$，记\n$$F(x)=\\int_0^xt^{a-1}f(t)\\,\\mathrm{d}t\\ (x\\ge0),\\qquad\\omega(r)=\\sup_{x\\in(0,r)}\\left|\\frac{F(x)}{x^a}-A\\right|\\ (r>0),$$\n则 $\\displaystyle\\lim_{r\\to0^+}\\omega(r)=0$。由分部积分（$t^{b-1}f(t)=t^{b-a}F'(t)$），\n$$\\frac1{x^b}\\int_0^xt^{b-1}f(t)\\,\\mathrm{d}t=\\frac{t^{b-a}F(t)}{x^b}\\Big|_0^x-\\frac{b-a}{x^b}\\int_0^xt^{b-a-1}F(t)\\,\\mathrm{d}t=\\frac{F(x)}{x^a}-\\frac{b-a}{x^b}\\int_0^xt^{b-a-1}F(t)\\,\\mathrm{d}t$$\n$$=\\frac{F(x)}{x^a}-\\frac{(b-a)A}{b}-\\frac{b-a}{x^b}\\int_0^xt^{b-1}\\left(\\frac{F(t)}{t^a}-A\\right)\\mathrm{d}t,\\quad x>0.$$\n而\n$$\\left|\\frac1{x^b}\\int_0^xt^{b-1}\\left(\\frac{F(t)}{t^a}-A\\right)\\mathrm{d}t\\right|\\le\\frac{\\omega(x)}{x^b}\\int_0^xt^{b-1}\\,\\mathrm{d}t=\\frac{\\omega(x)}b,\\quad x>0.$$\n由此立即得到 $\\displaystyle\\lim_{x\\to0^+}\\frac1{x^b}\\int_0^xt^{b-1}f(t)\\,\\mathrm{d}t=A-\\frac{(b-a)A}{b}=\\frac{aA}{b}$。（注：原解答末行写为 $=A$，按上式计算应为 $\\dfrac{aA}{b}$，不影响存在性结论）",
+   "solutionSource": "官方"
+  },
+  {
+   "no": "七",
+   "score": 10,
+   "type": "解答",
+   "subjects": [
+    "数学分析",
+    "常微分方程"
+   ],
+   "topics": [
+    "非线性微分方程",
+    "Darboux定理",
+    "解的延拓",
+    "分段函数"
+   ],
+   "difficulty": 4,
+   "statement": "求在 $\\mathbb R$ 上处处可微且满足 $\\left(\\dfrac{\\mathrm{d}y}{\\mathrm{d}x}\\right)^2=4-y^2$ 的所有实函数 $y=y(x)$。",
+   "answer": "$y\\equiv\\pm2$；或存在 $\\varepsilon=\\pm1$，$-\\infty\\le\\ell\\le m\\le+\\infty$ 及满足 $a_{k+1}-a_k\\ge\\pi$ 的 $\\{a_k\\}_\\ell^m$，使\n$y(x)=2\\varepsilon\\begin{cases}(-1)^{k+1}\\cos(x-a_k),&x\\in(a_k,a_k+\\pi)\\\\(-1)^k,&a_k+\\pi\\le x\\le a_{k+1}\\\\(-1)^{\\ell+1},&x\\le a_\\ell\\\\(-1)^m,&x\\ge a_m+\\pi\\end{cases}$",
+   "solution": "形式求解 $\\dfrac{\\mathrm{d}y}{\\mathrm{d}x}=\\pm\\sqrt{4-y^2}$，易见在任何区间 $(a,b)\\subseteq(-\\infty,+\\infty)$ 和任何常数 $C\\in\\mathbb R$，$y=\\pm2$ 以及 $y=2\\sin(x+C)$ 均满足 $\\dfrac{\\mathrm{d}y}{\\mathrm{d}x}=\\pm\\sqrt{4-y^2}$。\n另一方面，设 $x_0\\in\\mathbb R$。若 $|y(x_0)|=2$，则 $y'(x_0)=0$。若 $|y(x_0)|<2$，则由连续性，有 $\\delta>0$ 使得在 $(x_0-\\delta,x_0+\\delta)$ 内 $|y(x)|<2$，进而在此区间内 $y'(x)\\ne0$。由导函数的 Darboux 定理，$y'(x)$ 在此区间内恒正或恒负。进一步，设 $(\\alpha,\\beta)\\ni x_0$ 是使得 $y'(x)$ 恒正或恒负的最大区间（目前不排除 $\\alpha,\\beta$ 可能是 $-\\infty,+\\infty$）。\n若 $y'(x_0)>0$，则 $y'(x)=\\sqrt{4-y^2}$，$x\\in(\\alpha,\\beta)$，解得 $\\arcsin\\dfrac y2=x-x_0+\\arcsin\\dfrac{y(x_0)}2$，从而 $y=2\\sin(x+C)$，$x\\in(\\alpha,\\beta)$，其中 $C=\\arcsin\\dfrac{y(x_0)}2-x_0$。由此可见 $-\\infty<\\alpha<\\beta<+\\infty$。由 $(\\alpha,\\beta)$ 的最大性，必然有 $|y(\\alpha)|=|y(\\beta)|=2$，即 $y'(\\alpha)=y'(\\beta)=0$。结合 $y'$ 在 $(\\alpha,\\beta)$ 内恒正得到 $\\beta-\\alpha=\\pi$，此时可以重写\n$$y(x)=-2\\cos(x-\\alpha),\\quad x\\in(\\alpha,\\alpha+\\pi).$$\n类似地，若 $y'(x_0)<0$，则 $\\beta=\\alpha+\\pi$，$y(x)=2\\cos(x-\\alpha)$，$x\\in(\\alpha,\\alpha+\\pi)$。易见，$y$ 的严格单增区间和严格单减区间是交替出现的。\n一般地，开集 $\\{x\\in\\mathbb R\\mid|y(x)|<2\\}$ 是一列两两不交的长度为 $\\pi$ 的区间的并，其中 $y$ 的严格单增区间和严格单减区间交替出现。于是：\n情形 1：$y$ 没有严格单调区间。此时 $y\\equiv2$ 或 $y\\equiv-2$。\n情形 2：$y$ 至少有一个严格单调区间。此时有 $\\varepsilon=\\pm1$，$-\\infty\\le\\ell\\le m\\le+\\infty$ 以及相应的 $\\{a_k\\}_\\ell^m$ 满足 $a_{k+1}-a_k\\ge\\pi\\ (\\ell\\le k\\le m-1)$，使得\n$$y(x)=2\\varepsilon\\begin{cases}(-1)^{k+1}\\cos(x-a_k),&x\\in(a_k,a_k+\\pi),\\ \\ell\\le k\\le m,\\\\(-1)^k,&a_k+\\pi\\le x\\le a_{k+1},\\ \\ell\\le k\\le m-1,\\\\(-1)^{\\ell+1},&x\\le a_\\ell,\\\\(-1)^m,&x\\ge a_m+\\pi,\\end{cases}$$\n其中后两种情形分别在 $\\ell>-\\infty$ 和 $m<+\\infty$ 时出现。\n另一方面，上述给出的函数均满足题设条件（在各衔接点处函数值与导数值 $0$ 均连续衔接）。因此这就是满足题设条件的所有函数。",
+   "solutionSource": "官方"
+  }
+ ]
+}

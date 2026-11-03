@@ -1,0 +1,246 @@
+{
+ "id": "ex-analysis-12",
+ "title": "数学分析 · 幂级数与Fourier级数",
+ "subject": "数学分析",
+ "chapter": 12,
+ "problems": [
+  {
+   "no": "1",
+   "type": "计算",
+   "subjects": [
+    "数学分析"
+   ],
+   "topics": [
+    "收敛半径",
+    "比值法"
+   ],
+   "difficulty": 1,
+   "statement": "求幂级数 $\\displaystyle\\sum_{n=1}^\\infty\\dfrac{n!}{n^n}x^n$ 的收敛半径。",
+   "answer": "$R=e$",
+   "solution": "$$\\left|\\dfrac{a_n}{a_{n+1}}\\right|=\\dfrac{n!}{n^n}\\cdot\\dfrac{(n+1)^{n+1}}{(n+1)!}=\\left(1+\\dfrac1n\\right)^n\\to e,$$\n故 $R=e$。",
+   "solutionSource": "编写",
+   "source": "经典题"
+  },
+  {
+   "no": "2",
+   "type": "计算",
+   "subjects": [
+    "数学分析"
+   ],
+   "topics": [
+    "收敛域",
+    "端点讨论"
+   ],
+   "difficulty": 1,
+   "statement": "求幂级数 $\\displaystyle\\sum_{n=1}^\\infty\\dfrac{(x-1)^n}{n\\cdot3^n}$ 的收敛域。",
+   "answer": "$[-2,4)$",
+   "solution": "$\\sqrt[n]{\\dfrac{1}{n3^n}}\\to\\dfrac13$，收敛半径 $R=3$，收敛区间 $(-2,4)$。\n\n$x=4$：级数为 $\\sum\\dfrac1n$，发散。$x=-2$：级数为 $\\sum\\dfrac{(-1)^n}{n}$，收敛。故收敛域为 $[-2,4)$。",
+   "solutionSource": "编写",
+   "source": "经典题"
+  },
+  {
+   "no": "3",
+   "type": "计算",
+   "subjects": [
+    "数学分析"
+   ],
+   "topics": [
+    "函数的幂级数展开",
+    "部分分式"
+   ],
+   "difficulty": 1,
+   "statement": "将 $f(x)=\\dfrac{1}{x^2-3x+2}$ 展开为 $x$ 的幂级数，并指出成立范围。",
+   "answer": "$\\displaystyle\\sum_{n=0}^\\infty\\left(1-\\dfrac{1}{2^{n+1}}\\right)x^n$，$|x|<1$",
+   "solution": "$$f(x)=\\dfrac{1}{(1-x)(2-x)}=\\dfrac1{1-x}-\\dfrac1{2-x}=\\sum_{n=0}^\\infty x^n-\\dfrac12\\sum_{n=0}^\\infty\\left(\\dfrac x2\\right)^n=\\sum_{n=0}^\\infty\\left(1-\\dfrac1{2^{n+1}}\\right)x^n.$$\n第一个展开要求 $|x|<1$，第二个要求 $|x|<2$，故成立范围为 $|x|<1$。",
+   "solutionSource": "编写",
+   "source": "经典题"
+  },
+  {
+   "no": "4",
+   "type": "计算",
+   "subjects": [
+    "数学分析"
+   ],
+   "topics": [
+    "幂级数求和",
+    "逐项求导"
+   ],
+   "difficulty": 2,
+   "statement": "求 $\\displaystyle\\sum_{n=1}^\\infty nx^n$ 的和函数（$|x|<1$），并求 $\\displaystyle\\sum_{n=1}^\\infty\\dfrac{n^2}{n!}$。",
+   "answer": "$\\dfrac{x}{(1-x)^2}$；$2e$",
+   "solution": "在 $|x|<1$ 内逐项求导 $\\sum x^n=\\dfrac1{1-x}$：$\\sum nx^{n-1}=\\dfrac1{(1-x)^2}$，故 $\\sum nx^n=\\dfrac{x}{(1-x)^2}$。\n\n第二问：$\\sum_{n\\ge1}\\dfrac{nx^n}{n!}=x\\left(\\sum\\dfrac{x^n}{n!}\\right)'=xe^x$，再用算子 $x\\dfrac{\\mathrm{d}}{\\mathrm{d}x}$：\n$$\\sum_{n=1}^\\infty\\dfrac{n^2x^n}{n!}=x(xe^x)'=(x^2+x)e^x.$$\n（收敛半径为 $+\\infty$。）令 $x=1$ 得 $2e$。",
+   "solutionSource": "编写",
+   "source": "经典题"
+  },
+  {
+   "no": "5",
+   "type": "计算",
+   "subjects": [
+    "数学分析"
+   ],
+   "topics": [
+    "Abel定理",
+    "幂级数求和"
+   ],
+   "difficulty": 2,
+   "statement": "利用 $\\arctan x$ 的幂级数展开与 Abel 定理，证明 $\\displaystyle1-\\dfrac13+\\dfrac15-\\dfrac17+\\cdots=\\dfrac\\pi4$。",
+   "answer": "$\\dfrac\\pi4$",
+   "solution": "对 $|x|<1$，$\\dfrac1{1+x^2}=\\sum_{n=0}^\\infty(-1)^nx^{2n}$，逐项积分得\n$$\\arctan x=\\sum_{n=0}^\\infty\\dfrac{(-1)^n}{2n+1}x^{2n+1},\\quad|x|<1.$$\n在 $x=1$ 处级数 $\\sum\\dfrac{(-1)^n}{2n+1}$ 由 Leibniz 判别法收敛。由 Abel 第二定理，和函数在 $x=1$ 处左连续，因此\n$$\\sum_{n=0}^\\infty\\dfrac{(-1)^n}{2n+1}=\\lim_{x\\to1^-}\\arctan x=\\dfrac\\pi4.$$",
+   "solutionSource": "编写",
+   "source": "经典题"
+  },
+  {
+   "no": "6",
+   "type": "计算",
+   "subjects": [
+    "数学分析"
+   ],
+   "topics": [
+    "Fourier级数",
+    "Dirichlet收敛定理"
+   ],
+   "difficulty": 2,
+   "statement": "将 $f(x)=x$（$-\\pi<x<\\pi$）展开为以 $2\\pi$ 为周期的 Fourier 级数，并由此求 $\\displaystyle\\sum_{k=0}^\\infty\\dfrac{(-1)^k}{2k+1}$。",
+   "answer": "$x=2\\displaystyle\\sum_{n=1}^\\infty\\dfrac{(-1)^{n+1}}{n}\\sin nx$（$-\\pi<x<\\pi$）；和为 $\\dfrac\\pi4$",
+   "solution": "$f$ 为奇函数，$a_n=0$，\n$$b_n=\\dfrac2\\pi\\int_0^\\pi x\\sin nx\\,\\mathrm{d}x=\\dfrac2\\pi\\left[-\\dfrac{x\\cos nx}{n}\\right]_0^\\pi+\\dfrac{2}{\\pi n}\\int_0^\\pi\\cos nx\\,\\mathrm{d}x=\\dfrac{2(-1)^{n+1}}{n}.$$\n$f$ 分段光滑，由 Dirichlet 收敛定理，在 $(-\\pi,\\pi)$ 内\n$$x=2\\sum_{n=1}^\\infty\\dfrac{(-1)^{n+1}}n\\sin nx,$$\n在 $x=\\pm\\pi$ 处级数收敛于 $0$。令 $x=\\dfrac\\pi2$：偶数项为 $0$，$n=2k+1$ 时 $(-1)^{n+1}=1$，$\\sin\\dfrac{(2k+1)\\pi}2=(-1)^k$，故 $\\dfrac\\pi2=2\\sum_{k=0}^\\infty\\dfrac{(-1)^k}{2k+1}$，即和为 $\\dfrac\\pi4$。",
+   "solutionSource": "编写",
+   "source": "经典题"
+  },
+  {
+   "no": "7",
+   "type": "计算",
+   "subjects": [
+    "数学分析"
+   ],
+   "topics": [
+    "Fourier级数",
+    "级数求和"
+   ],
+   "difficulty": 2,
+   "statement": "将 $f(x)=x^2$（$-\\pi\\le x\\le\\pi$）展开为 Fourier 级数，并求 $\\displaystyle\\sum_{n=1}^\\infty\\dfrac1{n^2}$ 与 $\\displaystyle\\sum_{n=1}^\\infty\\dfrac{(-1)^{n+1}}{n^2}$。",
+   "answer": "$x^2=\\dfrac{\\pi^2}3+4\\displaystyle\\sum_{n=1}^\\infty\\dfrac{(-1)^n}{n^2}\\cos nx$；$\\dfrac{\\pi^2}6$；$\\dfrac{\\pi^2}{12}$",
+   "solution": "$f$ 为偶函数，$b_n=0$。$a_0=\\dfrac2\\pi\\int_0^\\pi x^2\\,\\mathrm{d}x=\\dfrac{2\\pi^2}{3}$。$n\\ge1$ 时分部积分两次：\n$$a_n=\\dfrac2\\pi\\int_0^\\pi x^2\\cos nx\\,\\mathrm{d}x=-\\dfrac{4}{\\pi n}\\int_0^\\pi x\\sin nx\\,\\mathrm{d}x=-\\dfrac4{\\pi n}\\cdot\\dfrac{\\pi(-1)^{n+1}}{n}=\\dfrac{4(-1)^n}{n^2}.$$\n$f$ 的周期延拓连续且分段光滑，故在 $[-\\pi,\\pi]$ 上\n$$x^2=\\dfrac{\\pi^2}3+4\\sum_{n=1}^\\infty\\dfrac{(-1)^n}{n^2}\\cos nx.$$\n令 $x=\\pi$：$\\pi^2=\\dfrac{\\pi^2}3+4\\sum\\dfrac1{n^2}$，得 $\\sum\\dfrac1{n^2}=\\dfrac{\\pi^2}6$。令 $x=0$：$0=\\dfrac{\\pi^2}3+4\\sum\\dfrac{(-1)^n}{n^2}$，得 $\\sum\\dfrac{(-1)^{n+1}}{n^2}=\\dfrac{\\pi^2}{12}$。",
+   "solutionSource": "编写",
+   "source": "经典题"
+  },
+  {
+   "no": "8",
+   "type": "计算",
+   "subjects": [
+    "数学分析"
+   ],
+   "topics": [
+    "Parseval等式",
+    "Fourier级数"
+   ],
+   "difficulty": 3,
+   "statement": "利用上题 $x^2$ 的 Fourier 展开和 Parseval 等式，求 $\\displaystyle\\sum_{n=1}^\\infty\\dfrac1{n^4}$。",
+   "answer": "$\\dfrac{\\pi^4}{90}$",
+   "solution": "Parseval 等式：$\\dfrac1\\pi\\int_{-\\pi}^\\pi f^2=\\dfrac{a_0^2}2+\\sum_{n=1}^\\infty(a_n^2+b_n^2)$。这里\n$$\\dfrac1\\pi\\int_{-\\pi}^\\pi x^4\\,\\mathrm{d}x=\\dfrac{2\\pi^4}5,\\qquad\\dfrac{a_0^2}2=\\dfrac{2\\pi^4}9,\\qquad a_n^2=\\dfrac{16}{n^4}.$$\n于是 $16\\sum\\dfrac1{n^4}=\\dfrac{2\\pi^4}5-\\dfrac{2\\pi^4}9=\\dfrac{8\\pi^4}{45}$，$\\sum\\dfrac1{n^4}=\\dfrac{\\pi^4}{90}$。",
+   "solutionSource": "编写",
+   "source": "经典题"
+  },
+  {
+   "no": "9",
+   "type": "计算",
+   "subjects": [
+    "数学分析"
+   ],
+   "topics": [
+    "Fourier级数",
+    "级数求和"
+   ],
+   "difficulty": 3,
+   "statement": "将 $f(x)=|\\sin x|$ 展开为 Fourier 级数，并求 $\\displaystyle\\sum_{n=1}^\\infty\\dfrac{1}{4n^2-1}$。",
+   "answer": "$|\\sin x|=\\dfrac2\\pi-\\dfrac4\\pi\\displaystyle\\sum_{n=1}^\\infty\\dfrac{\\cos2nx}{4n^2-1}$；和为 $\\dfrac12$",
+   "solution": "$f$ 为偶函数（且以 $\\pi$ 为周期），$b_n=0$。$a_0=\\dfrac2\\pi\\int_0^\\pi\\sin x\\,\\mathrm{d}x=\\dfrac4\\pi$。\n$$a_n=\\dfrac2\\pi\\int_0^\\pi\\sin x\\cos nx\\,\\mathrm{d}x=\\dfrac1\\pi\\int_0^\\pi\\big[\\sin(1+n)x+\\sin(1-n)x\\big]\\mathrm{d}x.$$\n$n=1$ 时 $a_1=\\dfrac1\\pi\\int_0^\\pi\\sin2x\\,\\mathrm{d}x=0$。$n\\ge2$ 时，利用 $\\int_0^\\pi\\sin kx\\,\\mathrm{d}x=\\dfrac{1-(-1)^k}{k}$：$n$ 为奇数时 $1\\pm n$ 为偶数，$a_n=0$；$n$ 为偶数时\n$$a_n=\\dfrac1\\pi\\left(\\dfrac2{1+n}+\\dfrac2{1-n}\\right)=-\\dfrac{4}{\\pi(n^2-1)}.$$\n$f$ 连续且分段光滑，故\n$$|\\sin x|=\\dfrac2\\pi-\\dfrac4\\pi\\sum_{m=1}^\\infty\\dfrac{\\cos2mx}{4m^2-1},\\quad x\\in\\mathbb{R}.$$\n令 $x=0$：$0=\\dfrac2\\pi-\\dfrac4\\pi\\sum\\dfrac1{4m^2-1}$，故 $\\sum\\dfrac1{4m^2-1}=\\dfrac12$（也可由裂项 $\\dfrac1{4m^2-1}=\\dfrac12\\left(\\dfrac1{2m-1}-\\dfrac1{2m+1}\\right)$ 验证）。",
+   "solutionSource": "编写",
+   "source": "经典题"
+  },
+  {
+   "no": "10",
+   "type": "计算",
+   "subjects": [
+    "数学分析"
+   ],
+   "topics": [
+    "幂级数展开",
+    "逐项积分"
+   ],
+   "difficulty": 3,
+   "statement": "求 $\\arcsin x$ 的 Maclaurin 级数及其成立范围。",
+   "answer": "$\\arcsin x=x+\\displaystyle\\sum_{n=1}^\\infty\\dfrac{(2n-1)!!}{(2n)!!}\\cdot\\dfrac{x^{2n+1}}{2n+1}$，$x\\in[-1,1]$",
+   "solution": "由二项式级数，对 $|t|<1$，\n$$(1-t)^{-\\frac12}=1+\\sum_{n=1}^\\infty\\dfrac{\\frac12\\cdot\\frac32\\cdots\\frac{2n-1}{2}}{n!}t^n=1+\\sum_{n=1}^\\infty\\dfrac{(2n-1)!!}{(2n)!!}t^n.$$\n以 $t=x^2$ 代入并在 $[0,x]$ 上逐项积分（幂级数在收敛区间内可逐项积分）：\n$$\\arcsin x=x+\\sum_{n=1}^\\infty\\dfrac{(2n-1)!!}{(2n)!!}\\cdot\\dfrac{x^{2n+1}}{2n+1},\\quad|x|<1.$$\n端点：由 $\\left(\\dfrac{(2n-1)!!}{(2n)!!}\\right)^2<\\dfrac{1}{2n+1}$（由 $\\dfrac{(2k-1)(2k+1)}{(2k)^2}<1$ 连乘得到）知 $\\dfrac{(2n-1)!!}{(2n)!!}<\\dfrac{1}{\\sqrt{2n+1}}$，系数 $<\\dfrac{1}{(2n+1)^{3/2}}$，级数在 $x=\\pm1$ 处绝对收敛。由 Abel 定理与 $\\arcsin$ 在 $\\pm1$ 处的连续性，展开式在 $[-1,1]$ 上成立。",
+   "solutionSource": "编写",
+   "source": "经典题"
+  },
+  {
+   "no": "11",
+   "type": "证明",
+   "subjects": [
+    "数学分析"
+   ],
+   "topics": [
+    "Abel定理",
+    "Tauber型定理"
+   ],
+   "difficulty": 3,
+   "statement": "设 $a_n\\ge0$，幂级数 $\\sum a_nx^n$ 的收敛半径为 $1$，且 $\\displaystyle\\lim_{x\\to1^-}\\sum_{n=0}^\\infty a_nx^n=A$（有限）。证明 $\\sum a_n$ 收敛且和为 $A$。",
+   "answer": "",
+   "solution": "记 $S(x)=\\sum a_nx^n$，在 $[0,1)$ 上递增，故 $S(x)\\le A$。对任意 $N$，\n$$\\sum_{n=0}^Na_n=\\lim_{x\\to1^-}\\sum_{n=0}^Na_nx^n\\le\\lim_{x\\to1^-}S(x)=A.$$\n正项级数部分和有界，故 $\\sum a_n$ 收敛，且 $\\sum a_n\\le A$。另一方面，对 $x\\in[0,1)$，$S(x)\\le\\sum a_n$，令 $x\\to1^-$ 得 $A\\le\\sum a_n$。故 $\\sum a_n=A$。\n\n注：若没有 $a_n\\ge0$，结论不成立，例如 $a_n=(-1)^n$，$S(x)=\\dfrac1{1+x}\\to\\dfrac12$，但 $\\sum(-1)^n$ 发散。",
+   "solutionSource": "编写",
+   "source": "经典题"
+  },
+  {
+   "no": "12",
+   "type": "计算",
+   "subjects": [
+    "数学分析"
+   ],
+   "topics": [
+    "逐项积分",
+    "Abel定理"
+   ],
+   "difficulty": 3,
+   "statement": "计算 $\\displaystyle\\int_0^1\\dfrac{\\ln(1-x)}{x}\\,\\mathrm{d}x$。",
+   "answer": "$-\\dfrac{\\pi^2}6$",
+   "solution": "对 $0\\le x<1$，$-\\dfrac{\\ln(1-x)}{x}=\\sum_{n=1}^\\infty\\dfrac{x^{n-1}}{n}$（$x=0$ 处值为 $1$）。对 $0<r<1$，幂级数在 $[0,r]$ 上一致收敛，可逐项积分：\n$$-\\int_0^r\\dfrac{\\ln(1-x)}{x}\\,\\mathrm{d}x=\\sum_{n=1}^\\infty\\dfrac{r^n}{n^2}.$$\n右端级数在 $[0,1]$ 上由 Weierstrass 判别法一致收敛，和函数连续，令 $r\\to1^-$ 得右端 $\\to\\sum\\dfrac1{n^2}=\\dfrac{\\pi^2}6$。左端（被积函数非负）趋于反常积分 $-\\int_0^1\\dfrac{\\ln(1-x)}{x}\\,\\mathrm{d}x$，因此反常积分收敛且\n$$\\int_0^1\\dfrac{\\ln(1-x)}{x}\\,\\mathrm{d}x=-\\dfrac{\\pi^2}6.$$",
+   "solutionSource": "编写",
+   "source": "经典题"
+  },
+  {
+   "no": "13",
+   "type": "计算",
+   "subjects": [
+    "数学分析"
+   ],
+   "topics": [
+    "逐项积分",
+    "一致收敛"
+   ],
+   "difficulty": 4,
+   "statement": "证明 $\\displaystyle\\int_0^1x^{-x}\\,\\mathrm{d}x=\\sum_{n=1}^\\infty\\dfrac{1}{n^n}$。",
+   "answer": "",
+   "solution": "$x^{-x}=e^{-x\\ln x}=\\sum_{n=0}^\\infty\\dfrac{(-x\\ln x)^n}{n!}$（$x\\in(0,1]$，$x=0$ 处按极限值 $1$ 理解）。由于 $0\\le-x\\ln x\\le\\dfrac1e$，\n$$\\left|\\dfrac{(-x\\ln x)^n}{n!}\\right|\\le\\dfrac{1}{e^nn!},$$\n由 Weierstrass 判别法级数在 $[0,1]$ 上一致收敛，可逐项积分。由 $\\int_0^1x^m(\\ln x)^n\\,\\mathrm{d}x=\\dfrac{(-1)^nn!}{(m+1)^{n+1}}$（取 $m=n$），\n$$\\int_0^1\\dfrac{(-x\\ln x)^n}{n!}\\,\\mathrm{d}x=\\dfrac{(-1)^n}{n!}\\cdot\\dfrac{(-1)^nn!}{(n+1)^{n+1}}=\\dfrac1{(n+1)^{n+1}}.$$\n求和得 $\\int_0^1x^{-x}\\,\\mathrm{d}x=\\sum_{n=0}^\\infty\\dfrac1{(n+1)^{n+1}}=\\sum_{n=1}^\\infty\\dfrac1{n^n}$。",
+   "solutionSource": "编写",
+   "source": "经典题（\"大二学生之梦\"）"
+  },
+  {
+   "no": "14",
+   "type": "计算",
+   "subjects": [
+    "数学分析"
+   ],
+   "topics": [
+    "Fourier级数",
+    "部分分式展开"
+   ],
+   "difficulty": 5,
+   "statement": "设 $a$ 不是整数。将 $f(x)=\\cos ax$（$-\\pi\\le x\\le\\pi$）展开为 Fourier 级数，并由此证明\n$$\\dfrac{\\pi}{\\sin a\\pi}=\\dfrac1a+\\sum_{n=1}^\\infty(-1)^n\\dfrac{2a}{a^2-n^2},\\qquad\\pi\\cot a\\pi=\\dfrac1a+\\sum_{n=1}^\\infty\\dfrac{2a}{a^2-n^2}.$$",
+   "answer": "$\\cos ax=\\dfrac{\\sin a\\pi}{\\pi}\\left[\\dfrac1a+\\displaystyle\\sum_{n=1}^\\infty(-1)^n\\dfrac{2a}{a^2-n^2}\\cos nx\\right]$，$x\\in[-\\pi,\\pi]$",
+   "solution": "$f$ 为偶函数，$b_n=0$。\n$$a_n=\\dfrac2\\pi\\int_0^\\pi\\cos ax\\cos nx\\,\\mathrm{d}x=\\dfrac1\\pi\\left[\\dfrac{\\sin(a+n)\\pi}{a+n}+\\dfrac{\\sin(a-n)\\pi}{a-n}\\right].$$\n由 $\\sin(a\\pm n)\\pi=(-1)^n\\sin a\\pi$，\n$$a_n=\\dfrac{(-1)^n\\sin a\\pi}{\\pi}\\left(\\dfrac1{a+n}+\\dfrac1{a-n}\\right)=\\dfrac{(-1)^n\\sin a\\pi}{\\pi}\\cdot\\dfrac{2a}{a^2-n^2},\\qquad a_0=\\dfrac{2\\sin a\\pi}{a\\pi}.$$\n因 $f(-\\pi)=f(\\pi)$，$f$ 的周期延拓连续且分段光滑，Fourier 级数在 $[-\\pi,\\pi]$ 上处处收敛于 $f$：\n$$\\cos ax=\\dfrac{\\sin a\\pi}{\\pi}\\left[\\dfrac1a+\\sum_{n=1}^\\infty(-1)^n\\dfrac{2a}{a^2-n^2}\\cos nx\\right].$$\n令 $x=0$，两边除以 $\\dfrac{\\sin a\\pi}\\pi$（$\\ne0$）得第一式。令 $x=\\pi$，$\\cos n\\pi=(-1)^n$：\n$$\\cos a\\pi=\\dfrac{\\sin a\\pi}{\\pi}\\left[\\dfrac1a+\\sum_{n=1}^\\infty\\dfrac{2a}{a^2-n^2}\\right],$$\n即得第二式。",
+   "solutionSource": "编写",
+   "source": "经典题"
+  }
+ ]
+}

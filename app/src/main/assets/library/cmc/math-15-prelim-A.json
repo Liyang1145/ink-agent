@@ -1,0 +1,131 @@
+{
+ "id": "cmc-math-15-prelim-A",
+ "title": "第十五届全国大学生数学竞赛初赛（数学A类）",
+ "year": 2023,
+ "track": "数学类",
+ "round": "初赛",
+ "paper": "A",
+ "durationMin": 150,
+ "totalScore": 100,
+ "source": {
+  "question": "15-prelim-math-A.pdf",
+  "solution": "15-prelim-math-A.pdf"
+ },
+ "problems": [
+  {
+   "no": "一",
+   "score": 15,
+   "type": "计算",
+   "subjects": [
+    "解析几何"
+   ],
+   "topics": [
+    "球面",
+    "轨迹",
+    "抛物柱面",
+    "点到直线距离"
+   ],
+   "difficulty": 2,
+   "statement": "在空间中给定直线 $L$ 及直线外定点 $P$。设 $M$ 是过 $P$ 点且与直线 $L$ 相切的球面的球心。问：所有可能的球心 $M$ 构成何种曲面？证明你的结论。",
+   "answer": "抛物柱面。取 $L$ 为 $x$ 轴、$P=(0,0,a)\\ (a>0)$ 时，方程为 $z=\\dfrac{1}{2a}(x^2+a^2)$。",
+   "solution": "这是一个抛物柱面。\n\n建立直角坐标系，使直线 $L$ 为 $x$ 轴，点 $P$ 到 $L$ 的垂线为 $z$ 轴，垂足 $O$ 为原点。这时 $O=(0,0,0)$，$P=(0,0,a)\\ (a>0)$，$L$ 的方向向量为 $v=(1,0,0)$。设 $M=(x,y,z)$ 是过 $P$ 且与 $L$ 相切的球面的球心，则球半径 $PM$ 等于 $M$ 到 $L$ 的距离：\n$$PM=\\frac{|\\overrightarrow{OM}\\times v|}{|v|}.$$\n而 $PM^2=x^2+y^2+(z-a)^2$，$\\overrightarrow{OM}\\times v=(x,y,z)\\times(1,0,0)=(0,z,-y)$，故\n$$x^2+y^2+(z-a)^2=z^2+y^2,\\qquad z=\\frac{1}{2a}(x^2+a^2),$$\n为抛物柱面。",
+   "solutionSource": "官方"
+  },
+  {
+   "no": "二",
+   "score": 15,
+   "type": "计算",
+   "subjects": [
+    "数学分析"
+   ],
+   "topics": [
+    "多元函数极值",
+    "驻点",
+    "有界闭集上的最值"
+   ],
+   "difficulty": 2,
+   "statement": "设 $f(x,y,z)=x^2+(y^2+z^2)(1-x)^3$。\n\n(1) 计算 $f$ 的驻点；\n\n(2) 求 $f$ 在 $\\Sigma$ 上的最小值，其中 $\\Sigma$ 是 $\\left\\{(x,y,z)\\,\\middle|\\,|x|\\leqslant2,\\ y^2+z^2\\leqslant4\\right\\}$ 的边界；\n\n(3) 求 $f$ 在椭球 $x^2+\\dfrac{y^2}{2}+\\dfrac{z^2}{3}\\leqslant1$ 上的最小值。",
+   "answer": "(1) 唯一驻点 $(0,0,0)$；(2) 最小值 $0$；(3) 最小值 $0$。",
+   "solution": "**(1)**\n$$f_x=2x-3(y^2+z^2)(1-x)^2,\\quad f_y=2y(1-x)^3,\\quad f_z=2z(1-x)^3.$$\n由 $f_y=0$ 得 $x_0=1$ 或 $y_0=0$；若 $x_0=1$，则 $f_x=2\\neq0$，矛盾。故 $x_0\\neq1$，从而 $y_0=z_0=0$，再由 $f_x=0$ 得 $x_0=0$。唯一驻点为 $(0,0,0)$。\n\n**(2)** $\\Sigma=\\Sigma_1\\cup\\Sigma_2\\cup\\Sigma_3$，其中\n$$\\Sigma_1=\\{x\\in[-2,2],\\ y^2+z^2=4\\},\\quad\\Sigma_2=\\{x=2,\\ y^2+z^2\\leqslant4\\},\\quad\\Sigma_3=\\{x=-2,\\ y^2+z^2\\leqslant4\\}.$$\n在 $\\Sigma_1$ 上，$f=x^2+4(1-x)^3=g_1(x)$，$x\\in[-2,2]$。由 $g_1'(\\xi)=2\\xi-12(1-\\xi)^2=0$ 得 $\\xi_1=\\frac32,\\ \\xi_2=\\frac23$，且\n$$g_1(2)=0,\\quad g_1(-2)=112,\\quad g_1\\big(\\tfrac32\\big)=\\tfrac74,\\quad g_1\\big(\\tfrac23\\big)=\\tfrac{16}{27},$$\n故 $f$ 在 $\\Sigma_1$ 上最小值为 0。在 $\\Sigma_2$ 上，$f=4-(y^2+z^2)\\geqslant0$；在 $\\Sigma_3$ 上，$f=4+27(y^2+z^2)\\geqslant0$。故 $f$ 在 $\\Sigma$ 上的最小值为 0。\n\n**(3)** 椭球 $x^2+\\frac{y^2}{2}+\\frac{z^2}{3}\\leqslant1$ 完全落在 $\\Sigma$ 围成的区域 $\\Omega$ 内。$f$ 在 $\\overline\\Omega$ 上的最小值要么在边界 $\\Sigma$ 上取得（值为 0），要么在内部驻点取得；而 $\\Omega$ 内唯一驻点 $(0,0,0)$ 处 $f=0$。因此 $f$ 在 $\\overline\\Omega$ 上的最小值为 0，而椭球含原点，故 $f$ 在该椭球上的最小值就是 0。",
+   "solutionSource": "官方"
+  },
+  {
+   "no": "三",
+   "score": 20,
+   "type": "证明",
+   "subjects": [
+    "高等代数"
+   ],
+   "topics": [
+    "循环向量",
+    "几何重数",
+    "Jordan标准形",
+    "根子空间",
+    "最小多项式"
+   ],
+   "difficulty": 4,
+   "statement": "设 $V$ 是复数域 $\\mathbb{C}$ 上的 $n$ 维线性空间，$\\mathbf A$ 是 $V$ 上的一个线性变换。证明：存在 $\\alpha\\in V$ 使得 $\\{\\alpha,\\mathbf A\\alpha,\\cdots,\\mathbf A^{n-1}\\alpha\\}$ 成为 $V$ 的一组基当且仅当对于 $\\mathbf A$ 的任一特征值 $\\lambda$，$\\lambda$ 的几何重数为 1。",
+   "answer": "",
+   "solution": "**必要性.** 设 $\\{\\alpha,\\mathbf A\\alpha,\\cdots,\\mathbf A^{n-1}\\alpha\\}$ 是 $V$ 的一组基，则 $\\mathbf A$ 在该基下的矩阵为\n$$A=\\begin{pmatrix}0&&&&*\\\\1&0&&&*\\\\&1&\\ddots&&\\vdots\\\\&&\\ddots&0&*\\\\&&&1&*\\end{pmatrix}.$$\n对任意 $c\\in\\mathbb{C}$，$cI-A$ 的左下角 $n-1$ 阶子式（主对角线全为 $-1$ 的下三角块）非零，所以 $\\operatorname{rank}(cI-A)\\geqslant n-1$，从而 $(cI-A)X=0$ 的解空间维数 $\\leqslant1$。又对 $\\mathbf A$ 的任一特征值 $\\lambda$，$(\\lambda I-A)X=0$ 一定有非零解，解空间维数 $\\geqslant1$。所以解空间维数为 1，即 $\\lambda$ 的几何重数为 1。\n\n**充分性.** 设 $\\mathbf A$ 的互不相同的特征值为 $\\lambda_1,\\cdots,\\lambda_s$，代数重数分别为 $d_1,\\cdots,d_s$，$d_1+\\cdots+d_s=n$，特征多项式为\n$$f(x)=(x-\\lambda_1)^{d_1}(x-\\lambda_2)^{d_2}\\cdots(x-\\lambda_s)^{d_s}.$$\n记 $V_{\\lambda_i}=\\operatorname{Ker}(\\mathbf A-\\lambda_i\\mathbf I)^{d_i}$，则 $V_{\\lambda_i}$ 是 $\\mathbf A$-不变子空间，且 $V=V_{\\lambda_1}\\oplus\\cdots\\oplus V_{\\lambda_s}$。由于 $\\lambda_i$ 的几何重数为 1，$\\mathbf A|_{V_{\\lambda_i}}$ 的 Jordan 标准形是单个 $d_i$ 阶 Jordan 块\n$$\\begin{pmatrix}\\lambda_i&&&\\\\1&\\lambda_i&&\\\\&\\ddots&\\ddots&\\\\&&1&\\lambda_i\\end{pmatrix}_{d_i\\times d_i},$$\n所以存在 $\\alpha_i\\in V_{\\lambda_i}$ 使得 $(\\mathbf A-\\lambda_i\\mathbf I)^{d_i-1}\\alpha_i\\neq0$。令\n$$\\alpha=\\alpha_1+\\alpha_2+\\cdots+\\alpha_s,$$\n则 $\\{\\alpha,\\mathbf A\\alpha,\\cdots,\\mathbf A^{n-1}\\alpha\\}$ 是 $V$ 的一组基。若否，则存在次数 $\\leqslant n-1$ 的非零多项式 $p(x)\\in\\mathbb{C}[x]$ 使 $p(\\mathbf A)\\alpha=0$。由于 $V_{\\lambda_i}$ 是 $\\mathbf A$-不变子空间，$p(\\mathbf A)\\alpha_i\\in V_{\\lambda_i}$，由\n$$0=p(\\mathbf A)\\alpha=p(\\mathbf A)\\alpha_1+\\cdots+p(\\mathbf A)\\alpha_s$$\n及直和性知 $p(\\mathbf A)\\alpha_i=0$。由于 $(\\mathbf A-\\lambda_i\\mathbf I)^{d_i-1}\\alpha_i\\neq0$，$(x-\\lambda_i)^{d_i}$ 是零化 $\\alpha_i$ 的次数最低的（首一）多项式，从而 $(x-\\lambda_i)^{d_i}\\mid p(x)$。又 $i\\neq j$ 时 $(x-\\lambda_i)^{d_i}$ 与 $(x-\\lambda_j)^{d_j}$ 互素，所以 $f(x)\\mid p(x)$，这与 $\\deg p<\\deg f$ 且 $p\\neq0$ 矛盾。",
+   "solutionSource": "官方"
+  },
+  {
+   "no": "四",
+   "score": 15,
+   "type": "计算",
+   "subjects": [
+    "高等代数"
+   ],
+   "topics": [
+    "实对称矩阵",
+    "最小多项式",
+    "特征值",
+    "行列式",
+    "单位根"
+   ],
+   "difficulty": 4,
+   "statement": "设 $n\\geqslant3$ 为自然数，$\\theta=\\dfrac{2\\pi}{n}$。对任意 $1\\leqslant s,t\\leqslant n$，取 $a_{st}=\\sin(s+t)\\theta$，令矩阵 $A=(a_{st})_{n\\times n}$，计算 $E+A^{2023}$ 的行列式，其中 $E$ 为 $n$ 阶单位矩阵。",
+   "answer": "$|E+A^{2023}|=1-\\left(\\dfrac n2\\right)^{4046}$。",
+   "solution": "**1)** $A$ 为实对称矩阵，可对角化。$n\\geqslant3$ 且 $n\\neq4$ 时 $a_{11}=\\sin\\frac{4\\pi}{n}\\neq0$；$n=4$ 时 $a_{12}=\\sin\\frac{3\\pi}{2}\\neq0$。所以 $A\\neq0$。\n\n**2)** 断言：$A$ 的最小多项式为 $x^3-\\frac{n^2}{4}x$。事实上 $\\sin(s+t)\\theta=\\frac{1}{2i}\\big(e^{i(s+t)\\theta}-e^{-i(s+t)\\theta}\\big)$。令 $v=(e^{i\\theta},e^{i2\\theta},\\cdots,e^{in\\theta})^t$，则\n$$A=\\frac{1}{2i}\\big(vv^t-\\overline{vv^t}\\big)=\\frac{1}{2i}\\big(vv^t-\\bar v v^*\\big),\\quad v^*=\\bar v^t.$$\n注意到\n$$v^tv=e^{2i\\theta}+e^{4i\\theta}+\\cdots+e^{2in\\theta}=e^{2i\\theta}\\cdot\\frac{1-e^{2in\\theta}}{1-e^{2i\\theta}}=0$$\n（$n\\geqslant3$ 时 $e^{2i\\theta}\\neq1$），以及 $v^*v=n$。故\n$$A^2=-\\frac14\\big[(vv^t-\\bar vv^*)(vv^t-\\bar vv^*)\\big]=\\frac n4\\big(vv^*+\\bar vv^t\\big),$$\n$$A^3=A^2A=\\frac n4\\big[(vv^*+\\bar vv^t)(vv^t-\\bar vv^*)\\big]\\cdot\\frac{1}{2i}=\\frac{n^2}{4}A.$$\n因此 $x^3-\\frac{n^2}{4}x=x\\big(x+\\frac n2\\big)\\big(x-\\frac n2\\big)$ 零化 $A$，$A$ 的最小多项式 $\\varphi(x)$ 只可能是\n$$x,\\ x+\\tfrac n2,\\ x-\\tfrac n2,\\ x\\big(x+\\tfrac n2\\big),\\ x\\big(x-\\tfrac n2\\big),\\ \\big(x+\\tfrac n2\\big)\\big(x-\\tfrac n2\\big),\\ x^3-\\tfrac{n^2}{4}x$$\n之一。$\\varphi$ 不可能是一次的：$A\\neq0$；对 $x\\pm\\frac n2$，$A\\pm\\frac n2E$ 的 $(1,1)$ 元为 $\\sin\\frac{4\\pi}{n}\\pm\\frac n2$，由 $\\frac n2>1$ 知不为 0。$\\varphi$ 也不可能是二次的：$A^2$ 的 $(n,n)$ 元为 $\\frac n4\\big(e^{in\\theta}e^{-in\\theta}+e^{-in\\theta}e^{in\\theta}\\big)=\\frac n2$，而 $A$ 的 $(n,n)$ 元为 $\\sin\\big(2n\\cdot\\frac{2\\pi}{n}\\big)=0$，故 $A\\big(A+\\frac n2E\\big)$ 的 $(n,n)$ 元为 $\\frac n2\\neq0$，$x(x+\\frac n2)$ 不是零化多项式；同理 $x(x-\\frac n2)$ 和 $x^2-(\\frac n2)^2$ 也不是。故 $\\varphi(x)=x^3-\\frac{n^2}{4}x$。\n\n**3)** 于是 $A$ 的互不相同的特征值为 $0,\\frac n2,-\\frac n2$。又由 $A=\\frac{1}{2i}(vv^t-\\bar vv^*)$ 知 $\\operatorname{rank}A\\leqslant\\operatorname{rank}(vv^t)+\\operatorname{rank}(\\bar vv^*)\\leqslant2$，$A$ 至多两个非零特征值（计重数）。故 $A$ 的 $n$ 个特征值为 $\\underbrace{0,\\cdots,0}_{n-2},\\frac n2,-\\frac n2$，$E+A^{2023}$ 的特征值为 $\\underbrace{1,\\cdots,1}_{n-2},1+\\big(\\frac n2\\big)^{2023},1-\\big(\\frac n2\\big)^{2023}$，从而\n$$|E+A^{2023}|=\\Big(1+\\big(\\tfrac n2\\big)^{2023}\\Big)\\Big(1-\\big(\\tfrac n2\\big)^{2023}\\Big)=1-\\Big(\\frac n2\\Big)^{4046}.$$",
+   "solutionSource": "官方"
+  },
+  {
+   "no": "五",
+   "score": 15,
+   "type": "证明",
+   "subjects": [
+    "数学分析"
+   ],
+   "topics": [
+    "集合的直径",
+    "平移",
+    "欧氏空间",
+    "不等式"
+   ],
+   "difficulty": 3,
+   "statement": "设 $E\\subset\\mathbb{R}^n$ 非空有界，$\\mathbf c\\in\\mathbb{R}^n$，$\\mathbf c$ 非零。用 $\\operatorname{diam}E=\\sup\\limits_{\\mathbf x,\\mathbf y\\in E}\\|\\mathbf x-\\mathbf y\\|$ 表示 $E$ 的直径，记 $E+\\mathbf c=\\{\\mathbf x+\\mathbf c\\mid\\mathbf x\\in E\\}$。证明：\n$$\\operatorname{diam}E<\\operatorname{diam}\\big(E\\cup(E+\\mathbf c)\\big).$$",
+   "answer": "",
+   "solution": "简记 $\\|\\mathbf x\\|$ 为 $|\\mathbf x|$。记 $\\rho=\\operatorname{diam}E$。若 $\\rho=0$，即 $E$ 为单点集 $\\{\\mathbf x\\}$，则 $\\operatorname{diam}\\big(E\\cup(E+\\mathbf c)\\big)=|\\mathbf c|>0$，结论成立。\n\n下设 $\\rho>0$。取 $\\varepsilon>0$ 使 $\\varepsilon<\\rho$ 且 $\\varepsilon<\\frac{|\\mathbf c|^2}{4\\rho}$，再取 $\\mathbf x,\\mathbf y\\in E$ 使 $a=|\\mathbf x-\\mathbf y|\\geqslant\\rho-\\varepsilon$。由于\n$$|(\\mathbf x+\\mathbf c)-\\mathbf y|^2=a^2+|\\mathbf c|^2+2\\langle\\mathbf x-\\mathbf y,\\mathbf c\\rangle,\\qquad|(\\mathbf y+\\mathbf c)-\\mathbf x|^2=a^2+|\\mathbf c|^2+2\\langle\\mathbf y-\\mathbf x,\\mathbf c\\rangle,$$\n两式的交叉项互为相反数，必有一个 $\\geqslant0$（官方解答用 $\\mathbf y-\\mathbf x$ 与 $\\mathbf c$ 夹角余弦 $\\cos\\theta$ 的符号分两种情形讨论）。不妨设 $\\langle\\mathbf x-\\mathbf y,\\mathbf c\\rangle\\geqslant0$，则\n$$|(\\mathbf x+\\mathbf c)-\\mathbf y|\\geqslant\\sqrt{a^2+|\\mathbf c|^2}\\geqslant\\sqrt{(\\rho-\\varepsilon)^2+|\\mathbf c|^2}=\\sqrt{\\rho^2-2\\rho\\varepsilon+\\varepsilon^2+|\\mathbf c|^2}>\\sqrt{\\rho^2+\\frac{|\\mathbf c|^2}{2}}>\\rho,$$\n其中用到 $2\\rho\\varepsilon<\\frac{|\\mathbf c|^2}{2}$。另一情形同理得 $|(\\mathbf y+\\mathbf c)-\\mathbf x|>\\rho$。由于 $\\mathbf x,\\mathbf y\\in E$，$\\mathbf x+\\mathbf c,\\mathbf y+\\mathbf c\\in E+\\mathbf c$，故\n$$\\operatorname{diam}E<\\operatorname{diam}\\big(E\\cup(E+\\mathbf c)\\big).$$",
+   "solutionSource": "官方"
+  },
+  {
+   "no": "六",
+   "score": 20,
+   "type": "证明",
+   "subjects": [
+    "数学分析"
+   ],
+   "topics": [
+    "递推数列",
+    "单调有界",
+    "不动点",
+    "微分中值定理"
+   ],
+   "difficulty": 3,
+   "statement": "设 $a=\\sqrt[3]{3}$，$x_1=a$，$x_{n+1}=a^{x_n}\\ (n=1,2,\\ldots)$。证明：数列 $\\{x_n\\}_{n=1}^\\infty$ 极限存在，但不是 3。",
+   "answer": "",
+   "solution": "**极限存在.** 由于 $a=x_1=\\sqrt[3]{3}>1$，$x_2=a^{x_1}>a=x_1$。一般地，归纳可得 $x_{n+1}=a^{x_n}>a^{x_{n-1}}=x_n\\ (n\\geqslant2)$。另一方面，注意 $a^3=3$，归纳可得 $x_n\\leqslant3$（若 $x_n\\leqslant3$，则 $x_{n+1}=a^{x_n}\\leqslant a^3=3$）。故 $\\{x_n\\}$ 单调上升、有上界 3，极限存在。\n\n下证极限不为 3。\n\n**法 I.** 归纳证明 $1<x_1<x_2<\\cdots<x_n<\\cdots<\\frac52$。首先 $1<x_1=\\sqrt[3]3=\\sqrt[3]{\\frac{24}{8}}<\\sqrt[3]{\\frac{125}{8}}=\\frac52$。若 $1<x_n<\\frac52$，则\n$$x_{n+1}=a^{x_n}<\\big(\\sqrt[3]3\\big)^{\\frac52}=\\sqrt[6]{243}.$$\n而 $\\big(\\frac52\\big)^6=\\big(\\frac{25}{4}\\big)^3=\\big(6+\\frac14\\big)^3=216+3\\cdot6^2\\cdot\\frac14+\\cdots=243+\\cdots>243$（省略号为正数），故 $\\sqrt[6]{243}<\\frac52$。由于所有项都不超过 $\\frac52$，极限不可能为 3。\n\n**法 II.** 寻找上界 $L$，需要 $3^{\\frac L3}\\leqslant L$，即 $3^{\\frac13}\\leqslant L^{\\frac1L}$。考虑 $f(x)=x^{\\frac1x}\\ (x>0)$，有\n$$f'(x)=x^{\\frac1x}\\cdot\\frac{1-\\ln x}{x^2},$$\n可见 $f$ 在 $(0,e]$ 上严格单增，在 $[e,+\\infty)$ 上严格单减，最大值为 $f(e)=e^{\\frac1e}$。归纳证明 $x_n<e$：$x_1=3^{\\frac13}<e^{\\frac1e}<e$；若 $x_n<e$，则 $x_{n+1}=3^{\\frac{x_n}{3}}<e^{\\frac{x_n}{e}}<e$（用到 $3^{\\frac13}<e^{\\frac1e}$）。因此 $e$ 是 $\\{x_n\\}$ 的上界，极限不可能为 3。\n\n**法 III.** 设极限为 $L$，由单调性 $x_n<L\\ (\\forall n)$。记 $f(x)=a^x$，则 $f'(3)=a^3\\ln a=\\ln3>1$。若 $L=3$，由 $f'$ 连续，存在 $\\delta>0$ 使 $x\\in(3-\\delta,3+\\delta)$ 时 $f'(x)>1$；又有 $N$ 使 $n\\geqslant N$ 时 $3-\\delta<x_n<3$。由中值定理，存在 $\\xi_n\\in(x_n,3)$ 使\n$$|x_{n+1}-3|=f(3)-f(x_n)=f'(\\xi_n)(3-x_n)\\geqslant3-x_n,\\quad n\\geqslant N.$$\n归纳得 $|x_n-3|\\geqslant3-x_N>0\\ (\\forall n\\geqslant N)$，与 $x_n\\to3$ 矛盾。\n\n（官方解答法 II 中 $f'(x)$ 的表达式有笔误，此处已更正。）",
+   "solutionSource": "官方"
+  }
+ ]
+}

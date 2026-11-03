@@ -1,0 +1,185 @@
+{
+ "id": "cmc-math-10-final-low",
+ "title": "第十届全国大学生数学竞赛决赛（数学类低年级组（一、二年级））",
+ "year": 2019,
+ "track": "数学类",
+ "round": "决赛",
+ "paper": "low",
+ "durationMin": 180,
+ "totalScore": 100,
+ "source": {
+  "question": "2019年03月-数学类一、二年级-第十届全国决赛试卷.pdf",
+  "solution": "2019年03月-数学类一、二年级参考解答-第十届全国决赛试卷.pdf"
+ },
+ "problems": [
+  {
+   "no": "一(1)",
+   "score": 5,
+   "type": "填空",
+   "subjects": [
+    "高等代数"
+   ],
+   "topics": [
+    "实对称矩阵",
+    "列空间",
+    "极大无关组"
+   ],
+   "difficulty": 2,
+   "statement": "设 $A$ 为实对称方阵，$(1,0,1)$ 和 $(1,2,0)$ 构成其行向量的一个极大无关组，则有 $A=$\\_\\_\\_\\_\\_\\_\\_\\_。",
+   "answer": "例如 $\\begin{pmatrix}1&0&1\\\\0&-4&2\\\\1&2&0\\end{pmatrix}$ 或 $\\begin{pmatrix}\\frac32&1&1\\\\1&2&0\\\\1&0&1\\end{pmatrix}$（答案不唯一）",
+   "solution": "$A$ 的每一行都是 $(1,0,1)$ 与 $(1,2,0)$ 的线性组合，且 $A$ 对称、秩为 2。设第 $i$ 行为 $s_i(1,0,1)+t_i(1,2,0)=(s_i+t_i,2t_i,s_i)$，由对称性 $a_{12}=a_{21}$ 等条件可得满足要求的矩阵，例如\n$$\\begin{pmatrix}1&0&1\\\\0&-4&2\\\\1&2&0\\end{pmatrix}\\quad\\text{或}\\quad\\begin{pmatrix}\\frac32&1&1\\\\1&2&0\\\\1&0&1\\end{pmatrix},$$\n可直接验证它们对称且行空间由 $(1,0,1),(1,2,0)$ 张成。官方解答仅给出这两个答案。（注：题面印刷为“共行向量”，疑为“其行向量”之误，按此理解）",
+   "solutionSource": "官方"
+  },
+  {
+   "no": "一(2)",
+   "score": 5,
+   "type": "填空",
+   "subjects": [
+    "数学分析"
+   ],
+   "topics": [
+    "隐函数",
+    "导数",
+    "等价无穷小"
+   ],
+   "difficulty": 2,
+   "statement": "设 $y(x)\\in C^1[0,1]$ 满足 $y(x)\\in[0,\\pi]$ 及 $x=\\begin{cases}\\dfrac{\\sin y(x)}{y(x)},&y\\in(0,\\pi],\\\\1,&y=0,\\end{cases}$ 则 $y'(0)=$\\_\\_\\_\\_\\_\\_\\_\\_。",
+   "answer": "$-\\pi$",
+   "solution": "$x=0$ 时 $\\dfrac{\\sin y}{y}=0$，$y(0)=\\pi$。在 $y=\\pi$ 附近 $\\dfrac{\\sin y}{y}=\\dfrac{\\sin(\\pi-y)}{y}\\approx\\dfrac{\\pi-y}{\\pi}$，即 $x\\approx\\dfrac{\\pi-y}{\\pi}$。更严格地，对 $x=\\dfrac{\\sin y}{y}$ 求导得 $\\dfrac{\\mathrm{d}x}{\\mathrm{d}y}\\Big|_{y=\\pi}=\\dfrac{\\pi\\cos\\pi-\\sin\\pi}{\\pi^2}=-\\dfrac1\\pi$，故 $y'(0)=-\\pi$。",
+   "solutionSource": "编写"
+  },
+  {
+   "no": "一(3)",
+   "score": 5,
+   "type": "填空",
+   "subjects": [
+    "数学分析"
+   ],
+   "topics": [
+    "变限积分",
+    "分部积分",
+    "高斯积分"
+   ],
+   "difficulty": 1,
+   "statement": "设 $f(x)=\\displaystyle\\int_x^{+\\infty}e^{-t^2}\\,\\mathrm{d}t$，则 $\\displaystyle\\int_0^{+\\infty}xf(x)\\,\\mathrm{d}x=$\\_\\_\\_\\_\\_\\_\\_\\_。",
+   "answer": "$\\dfrac{\\sqrt\\pi}{8}$",
+   "solution": "分部积分，$f'(x)=-e^{-x^2}$，且 $x^2f(x)\\to0\\ (x\\to+\\infty)$：\n$$\\int_0^{+\\infty}xf(x)\\,\\mathrm{d}x=\\frac{x^2}{2}f(x)\\Big|_0^{+\\infty}+\\frac12\\int_0^{+\\infty}x^2e^{-x^2}\\,\\mathrm{d}x=\\frac12\\cdot\\frac{\\sqrt\\pi}{4}=\\frac{\\sqrt\\pi}8.$$",
+   "solutionSource": "编写"
+  },
+  {
+   "no": "一(4)",
+   "score": 5,
+   "type": "填空",
+   "subjects": [
+    "高等代数"
+   ],
+   "topics": [
+    "正交矩阵",
+    "Gram矩阵",
+    "半正定"
+   ],
+   "difficulty": 3,
+   "statement": "设 $U$ 为 8 阶实正交方阵，$U$ 中元素皆为 $\\dfrac{1}{2\\sqrt2}$ 的 $3\\times3$ 子矩阵的个数记为 $t$，则 $t$ 最多为\\_\\_\\_\\_\\_\\_\\_\\_。",
+   "answer": "$0$",
+   "solution": "设某 $3\\times3$ 子矩阵元素全为 $c=\\dfrac{1}{2\\sqrt2}$，位于第 $i,j,k$ 行。这三行在这 3 列上的部分相同，贡献内积 $3c^2=\\dfrac38$。记三行在其余 5 列上的部分为 $r_1',r_2',r_3'$，由各行为单位向量且两两正交，\n$$|r_s'|^2=1-\\frac38=\\frac58,\\qquad r_s'\\cdot r_t'=-\\frac38\\ (s\\neq t).$$\n其 Gram 矩阵 $\\begin{pmatrix}\\frac58&-\\frac38&-\\frac38\\\\-\\frac38&\\frac58&-\\frac38\\\\-\\frac38&-\\frac38&\\frac58\\end{pmatrix}$ 有特征值 $\\dfrac58-\\dfrac68=-\\dfrac18<0$，与 Gram 矩阵半正定矛盾。故不存在这样的子矩阵，$t$ 最多为 $0$。",
+   "solutionSource": "编写"
+  },
+  {
+   "no": "二",
+   "score": 15,
+   "type": "解答",
+   "subjects": [
+    "解析几何"
+   ],
+   "topics": [
+    "直纹面",
+    "平面束",
+    "马鞍面",
+    "二次曲面分类"
+   ],
+   "difficulty": 2,
+   "statement": "给定空间直角坐标系中的两条直线：$l_1$ 为 $z$ 轴，$l_2$ 过 $(-1,0,0)$ 及 $(0,1,1)$ 两点。动直线 $l$ 分别与 $l_1,l_2$ 共面，且与平面 $z=0$ 平行。\n\n(1) 求动直线 $l$ 全体构成的曲面 $S$ 的方程；\n\n(2) 确定 $S$ 是什么曲面。",
+   "answer": "(1) $xz-yz+y=0$；(2) 马鞍面（双曲抛物面）。",
+   "solution": "**(1) 思路一。** $l_1:x=0,y=0,z=s$；$l_2:x=-1+t,y=t,z=t$。设 $l$ 与 $l_1,l_2$ 分别交于 $(0,0,s)$ 与 $(-1+t,t,t)$，方向为 $(-1+t,t,t-s)$。$l$ 平行于平面 $z=0$，故 $t=s$，于是 $l$ 的参数方程为\n$$x=(t-1)u,\\quad y=tu,\\quad z=t.$$\n消去 $t,u$ 得 $S:xz-yz+y=0$。\n\n**思路二。** 过 $l_1$ 的平面束 $\\pi_1:(1-\\lambda)x+\\lambda y=0$，过 $l_2$ 的平面束 $\\pi_2:(1-\\mu)(x-y+1)+\\mu(y-z)=0$。$l=\\pi_1\\cap\\pi_2$，方向为\n$$(1-\\lambda,\\lambda,0)\\times(1-\\mu,2\\mu-1,-\\mu)=(-\\lambda\\mu,\\ \\mu(1-\\lambda),\\ -1+2\\mu-\\lambda\\mu).$$\n平行于 $z=0$ 得 $-1+2\\mu-\\lambda\\mu=0$。由 $\\pi_1,\\pi_2$ 解出 $\\lambda=\\dfrac{x}{x-y}$，$\\mu=\\dfrac{x-y+1}{x-2y+z+1}$，代入即得 $xz-yz+y=0$。\n\n**(2)** 作可逆线性变换 $x=x'-y'-z',\\ y=-z',\\ z=x'+y'$，方程化为 $z'=x'^2-y'^2$，故 $S$ 为马鞍面。",
+   "solutionSource": "官方"
+  },
+  {
+   "no": "三",
+   "score": 15,
+   "type": "证明",
+   "subjects": [
+    "高等代数"
+   ],
+   "topics": [
+    "迹",
+    "幂零矩阵",
+    "相似变换",
+    "数学归纳法",
+    "矩阵分解"
+   ],
+   "difficulty": 4,
+   "statement": "证明：任意 $n$ 阶实方阵 $A$ 可以分解成 $A=A_0+A_1+A_2$，其中 $A_0=aI_n$，$a$ 是实数，$A_1$ 与 $A_2$ 都是幂零方阵。",
+   "answer": "",
+   "solution": "**引理：** 若 $n$ 阶实方阵 $A$ 满足 $\\operatorname{tr}A=0$，则存在可逆实方阵 $P$，使 $P^{-1}AP$ 的对角元素都是 0。\n\n对 $n$ 归纳。$n=1$ 时 $A=(0)$。设 $n\\geqslant2$。\n\n情形一：$\\mathbb{R}^n$ 中所有非零向量都是 $A$ 的特征向量。由 $e_i$ 是特征向量知 $A=\\operatorname{diag}(\\lambda_1,\\cdots,\\lambda_n)$；由 $e_i+e_j$ 也是特征向量知 $\\lambda_i=\\lambda_j$，故 $A$ 为纯量阵，再由 $\\operatorname{tr}A=0$ 得 $A=0$。\n\n情形二：存在非零向量 $\\alpha$ 不是 $A$ 的特征向量，则 $\\alpha,A\\alpha$ 线性无关，可扩充为可逆阵 $Q=(\\alpha,A\\alpha,*,\\cdots,*)$，使\n$$Q^{-1}AQ=\\begin{pmatrix}0&*\\\\ *&B\\end{pmatrix},$$\n$B$ 为 $n-1$ 阶实方阵，$\\operatorname{tr}B=0$。由归纳假设存在可逆 $R$ 使 $R^{-1}BR$ 对角元全为 0，令 $P=Q\\operatorname{diag}(1,R)$ 即可。\n\n**原题。** 令 $A_0=\\dfrac{\\operatorname{tr}A}{n}I$，则 $\\operatorname{tr}(A-A_0)=0$。由引理存在可逆 $P$ 使 $B=P^{-1}(A-A_0)P$ 的对角元全为 0。写 $B=L+U$，$L,U$ 分别为严格下、上三角阵，均幂零。于是\n$$A=A_0+PLP^{-1}+PUP^{-1}=A_0+A_1+A_2,$$\n$A_1=PLP^{-1}$，$A_2=PUP^{-1}$ 都是幂零阵。",
+   "solutionSource": "官方"
+  },
+  {
+   "no": "四",
+   "score": 20,
+   "type": "证明",
+   "subjects": [
+    "数学分析"
+   ],
+   "topics": [
+    "微分不等式",
+    "泰勒展开",
+    "单调性",
+    "反例"
+   ],
+   "difficulty": 4,
+   "statement": "设 $\\alpha>0$，$f(x)\\in C^1[0,1]$，且对任何非负整数 $n$，$f^{(n)}(0)$ 均存在且为零。进一步存在常数 $C>0$ 使得 $\\left|x^\\alpha f'(x)\\right|\\leqslant C|f(x)|\\ (\\forall x\\in[0,1])$。证明：\n\n(1) 若 $\\alpha=1$，则 $[0,1]$ 上 $f(x)\\equiv0$；\n\n(2) 若 $\\alpha>1$，举例说明在 $[0,1]$ 上 $f(x)\\equiv0$ 可以不成立。",
+   "answer": "",
+   "solution": "**(1)** 由 $f^{(n)}(0)=0\\ (\\forall n)$ 及 Taylor 展开，对任意固定的 $k$，$f(x)=o(x^k)\\ (x\\to0^+)$，特别 $\\displaystyle\\lim_{x\\to0^+}\\frac{f(x)}{x^{2C}}=0$。\n\n另一方面，由假设 $xf(x)f'(x)\\leqslant|f(x)|\\cdot|xf'(x)|\\leqslant Cf^2(x)$，故对 $x\\in(0,1]$，\n$$\\left(x^{-2C}f^2(x)\\right)'=2x^{-2C-1}\\left(xf(x)f'(x)-Cf^2(x)\\right)\\leqslant0,$$\n$x^{-2C}f^2(x)$ 在 $(0,1]$ 上单调减少，因此\n$$x^{-2C}f^2(x)\\leqslant\\lim_{t\\to0^+}t^{-2C}f^2(t)=0,\\quad\\forall x\\in(0,1].$$\n所以在 $[0,1]$ 上 $f\\equiv0$。\n\n**(2)** 取 $f(x)=\\begin{cases}e^{-x^{1-\\alpha}},&x\\in(0,1],\\\\0,&x=0.\\end{cases}$ 当 $\\alpha>1$ 时 $x^{1-\\alpha}\\to+\\infty\\ (x\\to0^+)$，$f$ 在 $0$ 处各阶导数均为 0；且 $f'(x)=(\\alpha-1)x^{-\\alpha}f(x)$，即 $x^\\alpha f'(x)=(\\alpha-1)f(x)$，满足条件（$C=\\alpha-1$），但 $f\\not\\equiv0$。",
+   "solutionSource": "官方"
+  },
+  {
+   "no": "五",
+   "score": 15,
+   "type": "证明",
+   "subjects": [
+    "数学分析"
+   ],
+   "topics": [
+    "迭代数列",
+    "不动点",
+    "压缩映射",
+    "上下极限",
+    "微分中值定理"
+   ],
+   "difficulty": 4,
+   "statement": "设 $c\\in(0,1)$，$x_1\\in(0,1)$ 且 $x_1\\neq c(1-x_1^2)$，$x_{n+1}=c(1-x_n^2)\\ (n\\geqslant1)$。证明：$\\{x_n\\}$ 收敛当且仅当 $c\\in\\left(0,\\dfrac{\\sqrt3}{2}\\right]$。",
+   "answer": "",
+   "solution": "记 $f(x)=c(1-x^2)$，$x\\in[0,1]$，则 $f([0,1])\\subset[0,1]$，$\\{x_n\\}$ 有界。$f(x)-x$ 在 $[0,1]$ 上严格递减，故 $f(x)=x$ 在 $[0,1]$ 内只有唯一解 $\\bar x=\\dfrac{-1+\\sqrt{1+4c^2}}{2c}$。又 $f$ 在 $[0,1]$ 上单射且 $x_1\\neq f(x_1)$，故 $x_n\\neq\\bar x\\ (n\\geqslant1)$。\n\n**思路一（$c\\leqslant\\frac{\\sqrt3}2$ 时收敛）。** 设 $L=\\varlimsup x_n$，$\\ell=\\varliminf x_n$，由 $f$ 连续递减得 $L=c(1-\\ell^2)$，$\\ell=c(1-L^2)$，相减得 $L-\\ell=c(L-\\ell)(L+\\ell)$。若发散则 $L\\neq\\ell$，$L+\\ell=\\dfrac1c$，从而 $L,\\ell$ 是 $cs^2-s+\\dfrac1c-c=0$ 的两个不同实根，判别式 $1-4c\\left(\\dfrac1c-c\\right)=4c^2-3>0$，与 $c\\leqslant\\dfrac{\\sqrt3}{2}$ 矛盾。\n\n**思路二。** 令 $g=f\\circ f$，$g'(x)=f'(f(x))f'(x)=4c^3x(1-x^2)$。当 $c<\\dfrac{\\sqrt3}2$ 时，对 $x\\in[0,1]$，$0\\leqslant g'(x)\\leqslant r_c:=\\dfrac{8\\sqrt3c^3}{9}<1$，故 $|x_{n+2}-\\bar x|=|g(x_n)-g(\\bar x)|\\leqslant r_c|x_n-\\bar x|$，$x_n\\to\\bar x$。当 $c=\\dfrac{\\sqrt3}2$ 时，$x\\neq\\bar x$ 时 $|g(x)-\\bar x|<|x-\\bar x|$，于是 $|x_{2n}-\\bar x|$、$|x_{2n+1}-\\bar x|$ 单调递减，有极限 $d,t$；取 $\\{x_{2n}\\}$ 收敛子列 $x_{2n_k}\\to\\xi$，则 $|g(\\xi)-\\bar x|=d=|\\xi-\\bar x|$，迫使 $\\xi=\\bar x$，$d=0$；同理 $t=0$，故 $x_n\\to\\bar x$。\n\n**$c>\\frac{\\sqrt3}2$ 时发散。** 若收敛，极限必为 $\\bar x$。但 $f'(\\bar x)=-2c\\bar x=1-\\sqrt{1+4c^2}<-1$，故存在 $\\delta>0$，当 $|x-\\bar x|<\\delta$ 时 $|f'(x)|>1$。取 $N$ 使 $n\\geqslant N$ 时 $|x_n-\\bar x|<\\delta$，由中值定理\n$$|x_{n+1}-\\bar x|=|f(x_n)-f(\\bar x)|\\geqslant|x_n-\\bar x|,$$\n结合 $x_n\\neq\\bar x$，$\\{x_n\\}$ 不可能收敛到 $\\bar x$，矛盾。",
+   "solutionSource": "官方"
+  },
+  {
+   "no": "六",
+   "score": 15,
+   "type": "解答",
+   "subjects": [
+    "常微分方程"
+   ],
+   "topics": [
+    "Riccati方程",
+    "周期解",
+    "存在唯一性定理",
+    "变量代换"
+   ],
+   "difficulty": 4,
+   "statement": "已知 $a(x),b(x),c(x)\\in C(\\mathbb{R})$，方程 $\\dfrac{\\mathrm{d}y}{\\mathrm{d}x}=a(x)y^2+b(x)y+c(x)$ 只有有限个 $2\\pi$ 周期解。求它的 $2\\pi$ 周期解个数的最大值。",
+   "answer": "$2$",
+   "solution": "**可以有 2 个：** 例如 $a\\equiv b\\equiv1,c\\equiv0$，方程 $y'=y^2+y$ 的 $2\\pi$ 周期解只有 $y_1\\equiv0$，$y_2\\equiv-1$。\n\n**至多 2 个：** 设 $y_1,y_2$ 是两个 $2\\pi$ 周期解，由唯一性定理 $y_1(x)\\neq y_2(x)\\ (\\forall x)$。令 $y=(y_1-y_2)z+y_2$，代入得\n$$\\frac{\\mathrm{d}z}{\\mathrm{d}x}=a(x)\\left(y_1(x)-y_2(x)\\right)z(z-1),$$\n$z\\equiv0,z\\equiv1$ 对应 $y_2,y_1$。若还有第三个 $2\\pi$ 周期解 $z=z_1(x)$（$z_1\\neq0,1$），则\n$$F(x):=\\int_0^xa(s)\\left(y_1(s)-y_2(s)\\right)\\mathrm{d}s=\\int_0^x\\frac{z_1'(s)\\,\\mathrm{d}s}{z_1(s)(z_1(s)-1)}=\\ln\\left|\\frac{z_1(s)-1}{z_1(s)}\\right|\\Bigg|_0^x$$\n是 $2\\pi$ 周期函数。而方程的通解为 $z(x)=\\dfrac{1}{1-Ce^{F(x)}}$，于是对一切使之有定义的 $C$ 都得到 $2\\pi$ 周期解，方程有无穷多个周期解，与假设矛盾。故最大值为 2。",
+   "solutionSource": "官方"
+  }
+ ]
+}

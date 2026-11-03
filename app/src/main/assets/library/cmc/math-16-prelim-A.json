@@ -1,0 +1,127 @@
+{
+ "id": "cmc-math-16-prelim-A",
+ "title": "第十六届全国大学生数学竞赛初赛（数学A类）",
+ "year": 2024,
+ "track": "数学类",
+ "round": "初赛",
+ "paper": "A",
+ "durationMin": 150,
+ "totalScore": 100,
+ "source": {
+  "question": "16-prelim-math-A.pdf",
+  "solution": "16-prelim-math-A.pdf"
+ },
+ "problems": [
+  {
+   "no": "一",
+   "score": 15,
+   "type": "计算",
+   "subjects": [
+    "解析几何"
+   ],
+   "topics": [
+    "双叶双曲面",
+    "切锥面",
+    "切点所在平面"
+   ],
+   "difficulty": 3,
+   "statement": "设双叶双曲面 $S:\\ x^2+y^2-z^2=-2$。记以 $M_0(1,1,-1)$ 为顶点且与 $S$ 的上半叶\n$$S^+=\\left\\{(x,y,z)\\in S \\,\\middle|\\, z\\ge\\sqrt{2}\\right\\}$$\n相切的所有切线构成的锥面为 $\\Sigma$。\n\n(1) 求锥面 $\\Sigma$ 的方程；\n\n(2) 求 $S^+\\cap\\Sigma$ 所在平面 $\\pi$ 的方程。",
+   "answer": "(1) $(x-1)^2+(y-1)^2-2(z+1)^2-(x-1)(y-1)-(x-1)(z+1)-(y-1)(z+1)=0$；(2) $x+y+z+2=0$。",
+   "solution": "**(1)** 过顶点 $M_0(1,1,-1)$、方向向量为 $(l,m,n)$ 的直线 $L$ 的参数方程为\n$$x-1=lt,\\quad y-1=mt,\\quad z+1=nt.\\tag{1}$$\n代入 $S$ 的方程得 $(1+lt)^2+(1+mt)^2-(-1+nt)^2+2=0$，即\n$$(l^2+m^2-n^2)t^2+2(l+m+n)t+3=0.\\tag{2}$$\n$L$ 与 $S$ 相切，故 (2) 有重根：$4(l+m+n)^2-12(l^2+m^2-n^2)=0$，即\n$$l^2+m^2-2n^2-lm-ln-mn=0.\\tag{3}$$\n由 (1)(3) 消去参数 $t$（以 $x-1,y-1,z+1$ 代 $l,m,n$），得锥面方程\n$$(x-1)^2+(y-1)^2-2(z+1)^2-(x-1)(y-1)-(x-1)(z+1)-(y-1)(z+1)=0.$$\n\n**(2)** 任取 $M_1(x_1,y_1,z_1)\\in S^+\\cap\\Sigma$，设 $M(x,y,z)$ 是直线 $M_0M_1$ 上任一点，$\\overrightarrow{M_1M}=t\\,\\overrightarrow{M_0M_1}$，则\n$$x-x_1=t(x_1-1),\\quad y-y_1=t(y_1-1),\\quad z-z_1=t(z_1+1).\\tag{4}$$\n与 $S$ 的方程联立：\n$$(x_1(1+t)-t)^2+(y_1(1+t)-t)^2-(z_1(1+t)+t)^2+2=0.$$\n利用 $x_1^2+y_1^2-z_1^2=-2$ 化简得\n$$(-1-2x_1-2y_1+2z_1)t^2-2(x_1+y_1+z_1+2)t=0.$$\n由于 $M_1$ 是切点，$t=0$ 必为重根，故 $x_1+y_1+z_1+2=0$。因此所求平面为\n$$\\pi:\\ x+y+z+2=0.$$",
+   "solutionSource": "官方"
+  },
+  {
+   "no": "二",
+   "score": 15,
+   "type": "计算",
+   "subjects": [
+    "数学分析"
+   ],
+   "topics": [
+    "含参变量反常积分",
+    "积分号下求导",
+    "一致收敛",
+    "级数求和"
+   ],
+   "difficulty": 3,
+   "statement": "设 $s\\geqslant 0$，\n$$\\varphi(s)=\\int_0^{+\\infty}\\frac{\\ln(1+sx^2)}{x(1+x^2)}\\,dx.$$\n求 $\\varphi(1)$ 和 $\\varphi(2)$。",
+   "answer": "$\\varphi(1)=\\dfrac{\\pi^2}{12}$，$\\varphi(2)=\\dfrac{\\pi^2}{8}$。",
+   "solution": "由 $\\lim\\limits_{x\\to0^+}\\frac{\\ln(1+x)}{\\sqrt x}=0$、$\\lim\\limits_{x\\to+\\infty}\\frac{\\ln(1+x)}{\\sqrt x}=0$，存在常数 $C>0$ 使 $\\ln(1+x)\\leqslant C\\sqrt x\\ (x>0)$。于是\n$$\\frac{\\ln(1+sx^2)}{x(1+x^2)}\\leqslant C\\frac{\\sqrt s}{1+x^2},\\quad x>0,\\ s\\geqslant0,$$\n故积分关于 $s\\in[0,+\\infty)$ 内闭一致收敛，$\\varphi$ 在 $[0,+\\infty)$ 上连续。\n\n又 $\\dfrac{x}{(1+x^2)(1+sx^2)}\\leqslant\\dfrac{1}{2\\sqrt s(1+x^2)}$（$x>0,s>0$），形式求导后的积分关于 $s\\in(0,+\\infty)$ 内闭一致收敛，故 $\\varphi$ 在 $(0,+\\infty)$ 内连续可导，且\n$$\\varphi'(s)=\\int_0^{+\\infty}\\frac{x\\,dx}{(1+x^2)(1+sx^2)}=\\frac{1}{1-s}\\int_0^{+\\infty}\\Big(\\frac{x}{1+x^2}-\\frac{sx}{1+sx^2}\\Big)dx=\\frac{1}{2(1-s)}\\ln\\frac{1+x^2}{1+sx^2}\\Big|_{x=0}^{+\\infty}=-\\frac{\\ln s}{2(1-s)}$$\n（$s=1$ 时理解为相应的极限）。结合 $\\varphi(0)=0$：\n$$\\varphi(1)=-\\int_0^1\\frac{\\ln s}{2(1-s)}ds=-\\int_0^1\\frac{\\ln(1-s)}{2s}ds=\\lim_{\\varepsilon\\to0^+}\\int_0^{1-\\varepsilon}\\sum_{n=1}^\\infty\\frac{s^{n-1}}{2n}ds=\\lim_{\\varepsilon\\to0^+}\\sum_{n=1}^\\infty\\frac{(1-\\varepsilon)^n}{2n^2}=\\sum_{n=1}^\\infty\\frac{1}{2n^2}=\\frac{\\pi^2}{12}.$$\n同理\n$$\\varphi(2)=-\\int_0^2\\frac{\\ln s}{2(1-s)}ds=-\\int_{-1}^1\\frac{\\ln(1-s)}{2s}ds=\\lim_{\\varepsilon\\to0^+}\\sum_{n=1}^\\infty\\int_{-(1-\\varepsilon)}^{1-\\varepsilon}\\frac{s^{n-1}}{2n}ds=\\lim_{\\varepsilon\\to0^+}\\sum_{n=0}^\\infty\\frac{(1-\\varepsilon)^{2n+1}}{(2n+1)^2}=\\sum_{n=0}^\\infty\\frac{1}{(2n+1)^2}=\\frac{\\pi^2}{8}.$$\n\n**注**：也可利用 $\\int_0^1\\frac{\\ln(1+s)}{s}ds=\\int_0^1\\frac{\\ln(1-s^2)-\\ln(1-s)}{s}ds=-\\int_0^1\\frac{\\ln(1-s)}{2s}ds$ 等其它方法计算。",
+   "solutionSource": "官方"
+  },
+  {
+   "no": "三",
+   "score": 20,
+   "type": "计算",
+   "subjects": [
+    "高等代数"
+   ],
+   "topics": [
+    "伴随矩阵",
+    "矩阵的秩",
+    "代数余子式"
+   ],
+   "difficulty": 4,
+   "statement": "设\n$$A=\\begin{pmatrix}a_{11}&a_{12}&a_{13}\\\\a_{21}&a_{22}&a_{23}\\\\a_{31}&a_{32}&a_{33}\\end{pmatrix}$$\n为实数域 $\\mathbb{R}$ 上的 $3\\times3$ 不可逆方阵。若 $A$ 的伴随矩阵 $A^*$ 为\n$$A^*=\\begin{pmatrix}a_{11}^2&a_{12}^2&a_{13}^2\\\\a_{21}^2&a_{22}^2&a_{23}^2\\\\a_{31}^2&a_{32}^2&a_{33}^2\\end{pmatrix},$$\n求 $A$。",
+   "answer": "$A=0$。",
+   "solution": "(1) 由 $A$ 不可逆知 $\\operatorname{rank}(A^*)=0$ 或 $1$。\n\n(2) 若 $\\operatorname{rank}(A^*)=0$，则 $A^*=0$，从而 $A=0$。\n\n(3) 若 $\\operatorname{rank}(A^*)=1$，则 $A^*$ 的任何 2 阶子式皆为 0，特别地\n$$\\begin{vmatrix}a_{11}^2&a_{12}^2\\\\a_{21}^2&a_{22}^2\\end{vmatrix}=0,\\quad\\begin{vmatrix}a_{21}^2&a_{22}^2\\\\a_{31}^2&a_{32}^2\\end{vmatrix}=0,\\quad\\begin{vmatrix}a_{11}^2&a_{12}^2\\\\a_{31}^2&a_{32}^2\\end{vmatrix}=0,$$\n于是\n$$a_{11}a_{22}=\\pm a_{12}a_{21},\\quad a_{21}a_{32}=\\pm a_{22}a_{31},\\quad a_{12}a_{31}=\\pm a_{11}a_{32}.$$\n若某个等式取正号，不妨 $a_{11}a_{22}=a_{12}a_{21}$，则 $A$ 的子式 $\\begin{vmatrix}a_{11}&a_{12}\\\\a_{21}&a_{22}\\end{vmatrix}=0$，它是 $a_{33}$ 的代数余子式，由 $A^*$ 的定义得 $a_{33}^2=0$，即 $a_{33}=0$。若三个等式都取负号，左右分别相乘得\n$$a_{11}a_{22}a_{21}a_{32}a_{12}a_{31}=-a_{11}a_{22}a_{21}a_{32}a_{12}a_{31},$$\n从而 $a_{11},a_{12},a_{21},a_{22},a_{31},a_{32}$ 中至少有一个为 0。总之 $A^*$ 至少有一个元素为 0。\n\n不妨设 $a_{11}^2=0$。若 $A^*$ 的第一列不全为 0，则由 $\\operatorname{rank}(A^*)=1$ 知第二、三列可由第一列线性表出，故 $A^*$ 第一行全为 0。从而 $A^*$ 有一整行或一整列元素全为 0，相应地 $A$ 也有一整行或一整列全为 0。不妨设 $A$ 的第一行全为 0，此时 $A$ 其余元素的代数余子式全为 0，故 $a_{22}^2=a_{23}^2=a_{32}^2=a_{33}^2=0$。于是 $a_{22}=a_{23}=a_{32}=a_{33}=0$，所以 $a_{12}$、$a_{13}$ 的代数余子式都是 0，由 $A^*$ 的定义得 $a_{21}^2=a_{31}^2=0$，导致 $A^*=0$，与 $\\operatorname{rank}(A^*)=1$ 矛盾。\n\n故总有 $A=0$。",
+   "solutionSource": "官方"
+  },
+  {
+   "no": "四",
+   "score": 15,
+   "type": "证明",
+   "subjects": [
+    "高等代数"
+   ],
+   "topics": [
+    "多项式空间",
+    "线性相关",
+    "次数"
+   ],
+   "difficulty": 3,
+   "statement": "熟知实数域 $\\mathbb{R}$ 上的一元多项式集合 $\\mathbb{R}[x]$ 在多项式加法和数乘下构成 $\\mathbb{R}$ 上的一个线性空间。设 $f_i(x)\\in\\mathbb{R}[x]$ 且次数为 $n_i$，$1\\le i\\le 2024$，这里规定零多项式的次数为 $-\\infty$。已知\n$$\\sum_{i=1}^{2024}n_i<2047276,$$\n证明：$f_1(x),f_2(x),\\cdots,f_{2024}(x)$ 为空间 $\\mathbb{R}[x]$ 中线性相关的向量组。",
+   "answer": "",
+   "solution": "记 $f_1,\\cdots,f_{2024}$ 为向量组 (I)。若 (I) 含零多项式，显然线性相关。若 (I) 中都是非零多项式，则 (I) 中一定有两个次数相同的多项式：否则不妨 $n_1<n_2<\\cdots<n_{2024}$，于是 $n_i\\geqslant i-1$，\n$$\\sum_{i=1}^{2024}n_i\\geqslant\\sum_{i=1}^{2024}(i-1)=\\frac{2023\\times2024}{2}=2047276,$$\n矛盾。\n\n设 $n_i=n_j=n$（$j>i$），$f_i=ax^n+\\cdots$，$f_j=bx^n+\\cdots$，$a,b\\neq0$。令 $g=f_i-\\frac ab f_j$，则向量组 (I) 与向量组 (II)：$f_1,\\cdots,f_{i-1},g,f_{i+1},\\cdots,f_j,\\cdots,f_{2024}$ 等价，且 $\\deg g<\\deg f_i$，故 (II) 的次数之和小于 $\\sum n_i<2047276$。同理，(II) 中一定有零多项式或两个次数相同的多项式，从而 (II) 线性相关，或得到与 (II) 等价、次数之和更小的向量组 (III)，由等价的传递性 (III) 与 (I) 等价。重复此过程，每一步得到与之前等价、且（不含零多项式时）次数之和更低的向量组，最终得到与 (I) 等价的向量组 (IV)，其次数之和 $<0$，因而 (IV) 一定含零多项式，线性相关。\n\n由于等价向量组秩相同、所含向量个数相同，(I) 即 $f_1,\\cdots,f_{2024}$ 在 $\\mathbb{R}[x]$ 中线性相关。",
+   "solutionSource": "官方"
+  },
+  {
+   "no": "五",
+   "score": 15,
+   "type": "证明",
+   "subjects": [
+    "数学分析"
+   ],
+   "topics": [
+    "数项级数",
+    "条件收敛",
+    "Leibniz判别法",
+    "Abel变换"
+   ],
+   "difficulty": 4,
+   "statement": "讨论以下级数的收敛性：\n$$\\sum_{n=2}^\\infty\\frac{(-1)^n}{n+(-1)^{[\\sqrt n]}},\\qquad\\sum_{n=2}^\\infty\\frac{(-1)^n}{\\sqrt n+(-1)^{[\\sqrt n]}},$$\n其中 $[x]$ 表示 $x$ 的整数部分。",
+   "answer": "两个级数都条件收敛。",
+   "solution": "**I.** 由 Leibniz 判别法，$\\sum\\limits_{n=2}^\\infty\\frac{(-1)^n}{n}$ 收敛。而\n$$\\left|\\frac{(-1)^n}{n+(-1)^{[\\sqrt n]}}-\\frac{(-1)^n}{n}\\right|=\\frac{1}{n\\big(n+(-1)^{[\\sqrt n]}\\big)}\\leqslant\\frac{1}{n(n-1)},\\quad n\\geqslant2,$$\n故两者之差构成的级数绝对收敛，从而第一个级数收敛。显然它不绝对收敛，故条件收敛。\n\n**II.** 同样易见第二个级数不绝对收敛。下面给出两种方法证明其收敛。\n\n**方法 1.** 一般项趋于零，故对相邻两项加括号不改变收敛性，只需证明\n$$\\sum_{n=1}^\\infty\\Big(\\frac{1}{\\sqrt{2n}+(-1)^{[\\sqrt{2n}]}}-\\frac{1}{\\sqrt{2n+1}+(-1)^{[\\sqrt{2n+1}]}}\\Big)$$\n收敛，即\n$$\\sum_{n=1}^\\infty\\frac{(-1)^{[\\sqrt{2n+1}]}-(-1)^{[\\sqrt{2n}]}+\\sqrt{2n+1}-\\sqrt{2n}}{\\big(\\sqrt{2n}+(-1)^{[\\sqrt{2n}]}\\big)\\big(\\sqrt{2n+1}+(-1)^{[\\sqrt{2n+1}]}\\big)}$$\n收敛。含 $\\sqrt{2n+1}-\\sqrt{2n}$ 的部分是 $O(n^{-3/2})$，绝对收敛，故只需证明\n$$\\sum_{n=1}^\\infty\\frac{(-1)^{[\\sqrt{2n+1}]}-(-1)^{[\\sqrt{2n}]}}{\\big(\\sqrt{2n}+(-1)^{[\\sqrt{2n}]}\\big)\\big(\\sqrt{2n+1}+(-1)^{[\\sqrt{2n+1}]}\\big)}$$\n收敛。注意 $[\\sqrt{2k+1}]-[\\sqrt{2k}]=1$ 当且仅当存在 $m$ 使 $2k+1=(2m+1)^2$，即 $k=2m^2+2m$，其余项分子为 0。于是（$n=2m^2+2m$ 时 $\\sqrt{2n+1}=2m+1$，分母不小于 $2m\\big(\\sqrt{4m^2+4m}-1\\big)$）上式绝对值之和不超过\n$$\\sum_{m=1}^\\infty\\frac{2}{2m\\big(\\sqrt{4m^2+4m}-1\\big)}<+\\infty.$$\n因此第二个级数条件收敛。\n\n**方法 2.** 由 Leibniz 判别法 $\\sum\\frac{(-1)^n}{\\sqrt n}$ 收敛。记 $S_1=0$，$S_n=\\sum\\limits_{k=2}^n(-1)^{k+[\\sqrt k]}$，易见 $|S_n|\\leqslant2+2\\sqrt n$。由 Abel 变换\n$$\\sum_{k=2}^n\\frac{(-1)^{k+[\\sqrt k]}}{k}=\\sum_{k=2}^n\\frac{S_k-S_{k-1}}{k}=\\sum_{k=2}^n\\frac{S_k}{k}-\\sum_{k=2}^{n-1}\\frac{S_k}{k+1}=\\frac{S_n}{n}+\\sum_{k=2}^{n-1}\\frac{S_k}{k(k+1)},$$\n故 $\\sum\\limits_{n=2}^\\infty\\frac{(-1)^{n+[\\sqrt n]}}{n}$ 收敛。要证原级数收敛，只要证明\n$$\\sum_{n=2}^\\infty\\Big(\\frac{(-1)^n}{\\sqrt n}-\\frac{(-1)^n}{\\sqrt n+(-1)^{[\\sqrt n]}}-\\frac{(-1)^{n+[\\sqrt n]}}{n}\\Big)=\\sum_{n=2}^\\infty\\frac{(-1)^{n+1}}{n\\big(\\sqrt n+(-1)^{[\\sqrt n]}\\big)}$$\n收敛，而该级数绝对收敛。因此 $\\sum\\limits_{n=2}^\\infty\\frac{(-1)^n}{\\sqrt n+(-1)^{[\\sqrt n]}}$ 条件收敛。",
+   "solutionSource": "官方"
+  },
+  {
+   "no": "六",
+   "score": 20,
+   "type": "证明",
+   "subjects": [
+    "数学分析"
+   ],
+   "topics": [
+    "压缩映射",
+    "不动点",
+    "迭代复合",
+    "微分中值定理"
+   ],
+   "difficulty": 4,
+   "statement": "(1) 设 $f_1(t)=\\frac{t+3}{2}$，$f_2(t)=\\frac{t+6}{3}$，$\\{n_k\\}$ 为取值于 $\\{1,2\\}$ 的整数列。令 $F_1(t)=f_{n_1}(t)$，$F_{k+1}(t)=F_k\\big(f_{n_{k+1}}(t)\\big)\\ (k\\geqslant1)$。证明：对任何 $x\\in\\mathbb{R}$，极限 $\\lim\\limits_{k\\to+\\infty}F_k(x)$ 存在且与 $x$ 无关。\n\n(2) 若题 (1) 中的 $f_1,f_2$ 改为 $f_1(t)=t-\\arctan t$，$f_2(t)=2\\arctan t-t$，结论如何？",
+   "answer": "(1) $\\lim F_k(x)=3$；(2) 结论仍成立，$\\lim F_k(x)=0$。",
+   "solution": "**(1)** $f_1'(t)=\\frac12$，$f_2'(t)=\\frac13$，由微分中值定理\n$$|f_k(t)-f_k(s)|\\leqslant\\tfrac12|t-s|,\\quad k=1,2;\\ t,s\\in\\mathbb{R},$$\n即 $f_1,f_2$ 都是压缩映射，且唯一不动点都是 $\\bar x=3$。于是对任意 $x$ 和 $k\\geqslant1$，注意 $F_k=f_{n_1}\\circ f_{n_2}\\circ\\cdots\\circ f_{n_k}$，\n$$|F_k(x)-3|=|f_{n_1}\\circ\\cdots\\circ f_{n_k}(x)-f_{n_1}(3)|\\leqslant\\tfrac12|f_{n_2}\\circ\\cdots\\circ f_{n_k}(x)-3|\\leqslant\\cdots\\leqslant\\frac{1}{2^{k-1}}|f_{n_k}(x)-f_{n_k}(3)|\\leqslant\\frac{1}{2^k}|x-3|.$$\n令 $k\\to+\\infty$ 得 $\\lim\\limits_{k\\to+\\infty}F_k(x)=3$。\n\n**(2)** 此时 $f_1'(t)=\\frac{t^2}{1+t^2}$，$f_2'(t)=\\frac{1-t^2}{1+t^2}$。对任何 $t$，$|f_1'(t)|<1$，$|f_2'(t)|\\leqslant1$ 且仅当 $t=0$ 时 $|f_2'(t)|=1$。结合 $f_1(0)=f_2(0)=0$ 知 $f_1,f_2$ 有唯一不动点 $\\bar x=0$，进而 $|f_k(t)|\\leqslant|t|$。\n\n任取 $x$，则 $|F_k(x)|\\leqslant|x|$。下证 $\\lim F_k(x)=0$。否则存在子列 $\\{F_{m_k}(x)\\}$ 满足 $0<\\delta<|F_{m_k}(x)|\\leqslant|x|$。$|f_1'|,|f_2'|$ 在 $[\\frac\\delta2,|x|]\\cup[-|x|,-\\frac\\delta2]$ 上有上界 $\\ell<1$。由微分中值定理，对任何 $y\\in[\\delta,|x|]$，\n$$|f_k(\\pm y)|\\leqslant|f_k(\\pm y)-f_k(\\pm\\tfrac\\delta2)|+|f_k(\\pm\\tfrac\\delta2)-f_k(0)|\\leqslant\\ell\\big(y-\\tfrac\\delta2\\big)+\\tfrac\\delta2=\\ell y+(1-\\ell)\\tfrac\\delta2\\leqslant\\ell y+(1-\\ell)\\tfrac y2=\\tfrac{\\ell+1}{2}y.$$\n另一方面，对 $j=1,\\dots,m_k$，\n$$\\delta\\leqslant|F_{m_k}(x)|\\leqslant|f_{n_j}\\circ f_{n_{j+1}}\\circ\\cdots\\circ f_{n_{m_k}}(x)|\\leqslant|x|,$$\n所以每一步的自变量都落在 $[\\delta,|x|]$ 的绝对值范围内，从而\n$$|F_{m_k}(x)|\\leqslant\\tfrac{\\ell+1}{2}|f_{n_2}\\circ\\cdots\\circ f_{n_{m_k}}(x)|\\leqslant\\cdots\\leqslant\\Big(\\tfrac{\\ell+1}{2}\\Big)^{m_k}|x|.$$\n令 $k\\to+\\infty$ 得 $|F_{m_k}(x)|\\to0$，矛盾。因此 $\\lim\\limits_{k\\to+\\infty}F_k(x)=0$。\n\n**注**：由 $F_k$ 的定义方式，$\\{|F_k(x)-\\bar x|\\}$ 不见得单调下降。",
+   "solutionSource": "官方"
+  }
+ ]
+}

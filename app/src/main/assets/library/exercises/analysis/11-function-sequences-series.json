@@ -1,0 +1,264 @@
+{
+ "id": "ex-analysis-11",
+ "title": "数学分析 · 函数列与函数项级数",
+ "subject": "数学分析",
+ "chapter": 11,
+ "problems": [
+  {
+   "no": "1",
+   "type": "计算",
+   "subjects": [
+    "数学分析"
+   ],
+   "topics": [
+    "一致收敛",
+    "确界判别"
+   ],
+   "difficulty": 1,
+   "statement": "讨论函数列 $f_n(x)=x^n$ 在 $[0,1]$ 上的收敛性与一致收敛性；并证明它在 $[0,a]$（$0<a<1$）上一致收敛。",
+   "answer": "在 $[0,1]$ 上收敛但不一致收敛；在 $[0,a]$ 上一致收敛于 $0$",
+   "solution": "极限函数 $f(x)=\\begin{cases}0,&0\\le x<1,\\\\1,&x=1.\\end{cases}$\n\n在 $[0,1]$ 上：$\\sup_{[0,1]}|f_n-f|=\\sup_{0\\le x<1}x^n=1\\not\\to0$，不一致收敛（也可从\"连续函数列的一致极限必连续\"看出）。\n\n在 $[0,a]$ 上：$\\sup_{[0,a]}|f_n-0|=a^n\\to0$，一致收敛。",
+   "solutionSource": "编写",
+   "source": "经典题"
+  },
+  {
+   "no": "2",
+   "type": "计算",
+   "subjects": [
+    "数学分析"
+   ],
+   "topics": [
+    "一致收敛",
+    "确界判别"
+   ],
+   "difficulty": 1,
+   "statement": "讨论 $f_n(x)=\\dfrac{nx}{1+n^2x^2}$ 在 $[0,1]$ 上的一致收敛性。",
+   "answer": "收敛于 $0$ 但不一致收敛",
+   "solution": "对每个 $x\\in[0,1]$，$f_n(x)\\to0$（$x=0$ 时恒为 $0$；$x>0$ 时 $\\le\\dfrac{1}{nx}$）。但\n$$\\sup_{[0,1]}|f_n(x)|\\ge f_n\\left(\\dfrac1n\\right)=\\dfrac12,$$\n不趋于 $0$，故不一致收敛。",
+   "solutionSource": "编写",
+   "source": "经典题"
+  },
+  {
+   "no": "3",
+   "type": "证明",
+   "subjects": [
+    "数学分析"
+   ],
+   "topics": [
+    "Weierstrass判别法",
+    "和函数的连续性"
+   ],
+   "difficulty": 1,
+   "statement": "证明 $\\displaystyle\\sum_{n=1}^\\infty\\dfrac{\\sin nx}{n^2}$ 在 $\\mathbb{R}$ 上一致收敛，且和函数连续。",
+   "answer": "",
+   "solution": "$\\left|\\dfrac{\\sin nx}{n^2}\\right|\\le\\dfrac1{n^2}$ 且 $\\sum\\dfrac1{n^2}$ 收敛，由 Weierstrass 判别法一致收敛。每一项连续，一致收敛的连续函数项级数的和函数连续。",
+   "solutionSource": "编写",
+   "source": "经典题"
+  },
+  {
+   "no": "4",
+   "type": "计算",
+   "subjects": [
+    "数学分析"
+   ],
+   "topics": [
+    "一致收敛",
+    "和函数的连续性"
+   ],
+   "difficulty": 2,
+   "statement": "求 $\\displaystyle\\sum_{n=0}^\\infty\\dfrac{x^2}{(1+x^2)^n}$ 的和函数，并说明它在 $[-1,1]$ 上不一致收敛，但在 $[\\delta,+\\infty)$（$\\delta>0$）上一致收敛。",
+   "answer": "$S(x)=1+x^2$（$x\\ne0$），$S(0)=0$",
+   "solution": "$x=0$ 时各项为 $0$，$S(0)=0$。$x\\ne0$ 时为公比 $q=\\dfrac1{1+x^2}\\in(0,1)$ 的几何级数，\n$$S(x)=\\dfrac{x^2}{1-\\frac{1}{1+x^2}}=1+x^2.$$\n各项在 $[-1,1]$ 上连续，而和函数在 $x=0$ 处间断，故在 $[-1,1]$ 上不一致收敛。\n\n在 $[\\delta,+\\infty)$ 上，$n\\ge1$ 时 $\\dfrac{x^2}{(1+x^2)^n}=\\dfrac{x^2}{1+x^2}\\cdot\\dfrac{1}{(1+x^2)^{n-1}}\\le\\dfrac1{(1+\\delta^2)^{n-1}}$，由 Weierstrass 判别法一致收敛。",
+   "solutionSource": "编写",
+   "source": "经典题"
+  },
+  {
+   "no": "5",
+   "type": "证明",
+   "subjects": [
+    "数学分析"
+   ],
+   "topics": [
+    "一致收敛",
+    "Leibniz判别法"
+   ],
+   "difficulty": 2,
+   "statement": "证明 $\\displaystyle\\sum_{n=1}^\\infty\\dfrac{(-1)^n}{n+x^2}$ 在 $\\mathbb{R}$ 上一致收敛，但对任何 $x$ 都不绝对收敛。",
+   "answer": "",
+   "solution": "对固定 $x$，$\\dfrac1{n+x^2}$ 单调递减趋于 $0$，由 Leibniz 判别法收敛，且余项满足\n$$|R_n(x)|\\le\\dfrac1{n+1+x^2}\\le\\dfrac1{n+1}.$$\n$\\sup_{\\mathbb{R}}|R_n(x)|\\le\\dfrac1{n+1}\\to0$，故一致收敛。\n\n另一方面 $\\dfrac{1}{n+x^2}\\sim\\dfrac1n$，$\\sum\\dfrac1{n+x^2}$ 发散，故对任何 $x$ 都不绝对收敛。\n\n注：此例说明 Weierstrass 判别法只是一致收敛的充分条件。",
+   "solutionSource": "编写",
+   "source": "经典题"
+  },
+  {
+   "no": "6",
+   "type": "计算",
+   "subjects": [
+    "数学分析"
+   ],
+   "topics": [
+    "积分与极限交换",
+    "一致收敛"
+   ],
+   "difficulty": 2,
+   "statement": "设 $f_n(x)=nxe^{-nx^2}$，$x\\in[0,1]$。求 $\\displaystyle\\lim_{n\\to\\infty}\\int_0^1f_n(x)\\,\\mathrm{d}x$ 与 $\\displaystyle\\int_0^1\\lim_{n\\to\\infty}f_n(x)\\,\\mathrm{d}x$，并解释两者不等的原因。",
+   "answer": "前者为 $\\dfrac12$，后者为 $0$",
+   "solution": "$\\int_0^1nxe^{-nx^2}\\,\\mathrm{d}x=\\left[-\\dfrac12e^{-nx^2}\\right]_0^1=\\dfrac{1-e^{-n}}2\\to\\dfrac12$。\n\n逐点极限：$x=0$ 时 $f_n=0$；$x>0$ 时 $nxe^{-nx^2}\\to0$。故 $\\int_0^1\\lim f_n=0$。\n\n原因：$f_n$ 在 $x=\\dfrac{1}{\\sqrt{2n}}$ 处取最大值 $\\sqrt{\\dfrac n2}e^{-1/2}\\to+\\infty$，$\\{f_n\\}$ 在 $[0,1]$ 上不一致收敛，积分与极限交换的条件不满足。",
+   "solutionSource": "编写",
+   "source": "经典题"
+  },
+  {
+   "no": "7",
+   "type": "计算",
+   "subjects": [
+    "数学分析"
+   ],
+   "topics": [
+    "一致收敛",
+    "和函数"
+   ],
+   "difficulty": 3,
+   "statement": "求 $\\displaystyle\\sum_{n=1}^\\infty xe^{-nx}$ 在 $[0,+\\infty)$ 上的和函数，并讨论其在 $[0,+\\infty)$ 及 $[\\delta,+\\infty)$（$\\delta>0$）上的一致收敛性。",
+   "answer": "$S(x)=\\dfrac{x}{e^x-1}$（$x>0$），$S(0)=0$；在 $[0,+\\infty)$ 上不一致收敛，在 $[\\delta,+\\infty)$ 上一致收敛",
+   "solution": "$x>0$ 时为几何级数：$S(x)=\\dfrac{xe^{-x}}{1-e^{-x}}=\\dfrac{x}{e^x-1}$；$S(0)=0$。由于 $\\lim_{x\\to0^+}S(x)=1\\ne S(0)$，和函数在 $0$ 处不连续，而各项连续，所以在 $[0,+\\infty)$ 上不一致收敛。\n\n在 $[\\delta,+\\infty)$ 上：$g_n(x)=xe^{-nx}$ 在 $x=\\dfrac1n$ 处取最大值。当 $n>\\dfrac1\\delta$ 时 $g_n$ 在 $[\\delta,+\\infty)$ 上递减，$\\sup g_n=\\delta e^{-n\\delta}$，而 $\\sum\\delta e^{-n\\delta}$ 收敛，由 Weierstrass 判别法（去掉有限项）一致收敛。",
+   "solutionSource": "编写",
+   "source": "经典题"
+  },
+  {
+   "no": "8",
+   "type": "计算",
+   "subjects": [
+    "数学分析"
+   ],
+   "topics": [
+    "逐项求导",
+    "一致收敛"
+   ],
+   "difficulty": 3,
+   "statement": "设 $f(x)=\\displaystyle\\sum_{n=1}^\\infty\\dfrac{e^{-nx}}{n}$，$x>0$。证明 $f$ 在 $(0,+\\infty)$ 上可导，求 $f'(x)$，并由此求 $f(x)$。",
+   "answer": "$f'(x)=-\\dfrac{1}{e^x-1}$，$f(x)=-\\ln(1-e^{-x})$",
+   "solution": "任取 $\\delta>0$，在 $[\\delta,+\\infty)$ 上：原级数各项 $\\le e^{-n\\delta}$，一致收敛；逐项求导所得级数 $-\\sum e^{-nx}$，其项满足 $|e^{-nx}|\\le e^{-n\\delta}$，也一致收敛。由逐项求导定理，$f$ 在 $[\\delta,+\\infty)$ 上可导且\n$$f'(x)=-\\sum_{n=1}^\\infty e^{-nx}=-\\dfrac{e^{-x}}{1-e^{-x}}=-\\dfrac1{e^x-1}.$$\n由 $\\delta$ 任意，在 $(0,+\\infty)$ 上成立。又 $\\left[-\\ln(1-e^{-x})\\right]'=-\\dfrac{e^{-x}}{1-e^{-x}}=f'(x)$，且 $x\\to+\\infty$ 时 $f(x)\\to0$（$0<f(x)\\le\\sum e^{-nx}\\to0$），$-\\ln(1-e^{-x})\\to0$，故 $f(x)=-\\ln(1-e^{-x})$。",
+   "solutionSource": "编写",
+   "source": "经典题"
+  },
+  {
+   "no": "9",
+   "type": "证明",
+   "subjects": [
+    "数学分析"
+   ],
+   "topics": [
+    "内闭一致收敛",
+    "Riemann zeta函数"
+   ],
+   "difficulty": 3,
+   "statement": "证明 $\\zeta(x)=\\displaystyle\\sum_{n=1}^\\infty\\dfrac1{n^x}$ 在 $(1,+\\infty)$ 上连续，且具有任意阶连续导数。",
+   "answer": "",
+   "solution": "任取 $s_0>1$，在 $[s_0,+\\infty)$ 上考虑第 $k$ 阶逐项求导级数\n$$\\sum_{n=1}^\\infty\\dfrac{(-\\ln n)^k}{n^x},\\qquad\\left|\\dfrac{(-\\ln n)^k}{n^x}\\right|\\le\\dfrac{(\\ln n)^k}{n^{s_0}}.$$\n取 $\\sigma=\\dfrac{1+s_0}2\\in(1,s_0)$，因 $(\\ln n)^kn^{-(s_0-\\sigma)}\\to0$，$n$ 充分大时 $\\dfrac{(\\ln n)^k}{n^{s_0}}\\le\\dfrac1{n^\\sigma}$，故由 Weierstrass 判别法各阶求导级数在 $[s_0,+\\infty)$ 上一致收敛（$k=0$ 即原级数）。由逐项求导定理与连续性定理，$\\zeta$ 在 $[s_0,+\\infty)$ 上有任意阶连续导数。由 $s_0>1$ 任意，结论在 $(1,+\\infty)$ 上成立（内闭一致收敛即可）。",
+   "solutionSource": "编写",
+   "source": "经典题"
+  },
+  {
+   "no": "10",
+   "type": "证明",
+   "subjects": [
+    "数学分析"
+   ],
+   "topics": [
+    "一致收敛",
+    "连续性"
+   ],
+   "difficulty": 3,
+   "statement": "设 $f_n$ 在 $[a,b]$ 上连续，且一致收敛于 $f$。若 $x_n\\in[a,b]$，$x_n\\to x_0$，证明 $\\displaystyle\\lim_{n\\to\\infty}f_n(x_n)=f(x_0)$。",
+   "answer": "",
+   "solution": "一致收敛的连续函数列的极限 $f$ 连续。于是\n$$|f_n(x_n)-f(x_0)|\\le|f_n(x_n)-f(x_n)|+|f(x_n)-f(x_0)|\\le\\sup_{[a,b]}|f_n-f|+|f(x_n)-f(x_0)|,$$\n第一项由一致收敛 $\\to0$，第二项由 $f$ 的连续性 $\\to0$。",
+   "solutionSource": "编写",
+   "source": "经典题"
+  },
+  {
+   "no": "11",
+   "type": "证明",
+   "subjects": [
+    "数学分析"
+   ],
+   "topics": [
+    "Dirichlet判别法",
+    "一致收敛"
+   ],
+   "difficulty": 4,
+   "statement": "证明 $\\displaystyle\\sum_{n=1}^\\infty\\dfrac{\\sin nx}{n}$ 在 $[\\delta,2\\pi-\\delta]$（$0<\\delta<\\pi$）上一致收敛，但在 $(0,2\\pi)$ 上不一致收敛。",
+   "answer": "",
+   "solution": "在 $[\\delta,2\\pi-\\delta]$ 上 $\\sin\\dfrac x2\\ge\\sin\\dfrac\\delta2$，于是\n$$\\left|\\sum_{k=1}^n\\sin kx\\right|=\\dfrac{\\left|\\cos\\frac x2-\\cos\\left(n+\\frac12\\right)x\\right|}{2\\sin\\frac x2}\\le\\dfrac{1}{\\sin\\frac\\delta2},$$\n部分和一致有界；$\\dfrac1n$ 单调递减且一致趋于 $0$。由一致收敛的 Dirichlet 判别法得一致收敛。\n\n在 $(0,2\\pi)$ 上：取 $x_n=\\dfrac{\\pi}{4n}\\in(0,2\\pi)$，当 $n+1\\le k\\le2n$ 时 $kx_n\\in\\left(\\dfrac\\pi4,\\dfrac\\pi2\\right]$，$\\sin kx_n\\ge\\dfrac{\\sqrt2}{2}$，故\n$$\\sum_{k=n+1}^{2n}\\dfrac{\\sin kx_n}{k}\\ge n\\cdot\\dfrac{\\sqrt2}{2}\\cdot\\dfrac1{2n}=\\dfrac{\\sqrt2}4.$$\n不满足一致收敛的 Cauchy 准则。",
+   "solutionSource": "编写",
+   "source": "经典题"
+  },
+  {
+   "no": "12",
+   "type": "证明",
+   "subjects": [
+    "数学分析"
+   ],
+   "topics": [
+    "Dini定理",
+    "有限覆盖定理"
+   ],
+   "difficulty": 4,
+   "statement": "(Dini 定理) 设 $f_n$ 在 $[a,b]$ 上连续，对每个 $x$，$\\{f_n(x)\\}$ 单调递减且收敛于 $f(x)$，$f$ 在 $[a,b]$ 上连续。证明 $f_n$ 在 $[a,b]$ 上一致收敛于 $f$。",
+   "answer": "",
+   "solution": "令 $g_n=f_n-f$，则 $g_n$ 连续，$g_n\\ge0$，对每个 $x$ 单调递减趋于 $0$。\n\n任给 $\\varepsilon>0$。对每个 $x\\in[a,b]$，存在 $n_x$ 使 $g_{n_x}(x)<\\varepsilon$；由 $g_{n_x}$ 的连续性，存在开区间 $U_x\\ni x$，在 $U_x\\cap[a,b]$ 上 $g_{n_x}<\\varepsilon$。$\\{U_x\\}$ 覆盖 $[a,b]$，由有限覆盖定理取有限子覆盖 $U_{x_1},\\dots,U_{x_k}$，令 $N=\\max_in_{x_i}$。\n\n对任意 $y\\in[a,b]$，$y\\in U_{x_i}$ 对某个 $i$，当 $n\\ge N$ 时由单调性\n$$0\\le g_n(y)\\le g_{n_{x_i}}(y)<\\varepsilon.$$\n故 $n\\ge N$ 时 $\\sup_{[a,b]}|f_n-f|\\le\\varepsilon$，一致收敛。",
+   "solutionSource": "编写",
+   "source": "经典题"
+  },
+  {
+   "no": "13",
+   "type": "证明",
+   "subjects": [
+    "数学分析"
+   ],
+   "topics": [
+    "一致收敛",
+    "Lipschitz条件",
+    "等度连续"
+   ],
+   "difficulty": 4,
+   "statement": "设 $f_n$ 在 $[a,b]$ 上可导，$|f_n'(x)|\\le M$（对一切 $n$ 及 $x$），且 $\\{f_n\\}$ 在 $[a,b]$ 上逐点收敛于 $f$。证明 $\\{f_n\\}$ 在 $[a,b]$ 上一致收敛。",
+   "answer": "",
+   "solution": "由 Lagrange 中值定理 $|f_n(x)-f_n(y)|\\le M|x-y|$，令 $n\\to\\infty$ 得 $|f(x)-f(y)|\\le M|x-y|$。\n\n任给 $\\varepsilon>0$，取分点 $a=t_0<t_1<\\cdots<t_k=b$，使相邻间距 $<\\dfrac{\\varepsilon}{3M}$。由有限个点上的收敛，存在 $N$，$n>N$ 时 $|f_n(t_i)-f(t_i)|<\\dfrac\\varepsilon3$（$i=0,\\dots,k$）。对任意 $x$，取最近的分点 $t_i$，$|x-t_i|<\\dfrac{\\varepsilon}{3M}$，则\n$$|f_n(x)-f(x)|\\le|f_n(x)-f_n(t_i)|+|f_n(t_i)-f(t_i)|+|f(t_i)-f(x)|<\\dfrac\\varepsilon3+\\dfrac\\varepsilon3+\\dfrac\\varepsilon3=\\varepsilon.$$\n故一致收敛。",
+   "solutionSource": "编写",
+   "source": "经典题"
+  },
+  {
+   "no": "14",
+   "type": "证明",
+   "subjects": [
+    "数学分析"
+   ],
+   "topics": [
+    "Weierstrass逼近定理",
+    "积分"
+   ],
+   "difficulty": 4,
+   "statement": "设 $f$ 在 $[0,1]$ 上连续，且 $\\displaystyle\\int_0^1f(x)x^n\\,\\mathrm{d}x=0$ 对 $n=0,1,2,\\dots$ 都成立。证明 $f\\equiv0$。",
+   "answer": "",
+   "solution": "由线性性，对任意多项式 $P$，$\\int_0^1fP=0$。由 Weierstrass 逼近定理，存在多项式 $P_k$ 在 $[0,1]$ 上一致收敛于 $f$。设 $|f|\\le M$，则\n$$\\int_0^1f^2=\\left|\\int_0^1f(f-P_k)\\right|\\le M\\sup_{[0,1]}|f-P_k|\\to0,$$\n故 $\\int_0^1f^2=0$。$f^2$ 连续非负，积分为 $0$ 推出 $f^2\\equiv0$，即 $f\\equiv0$。",
+   "solutionSource": "编写",
+   "source": "经典题"
+  },
+  {
+   "no": "15",
+   "type": "证明",
+   "subjects": [
+    "数学分析"
+   ],
+   "topics": [
+    "处处连续处处不可导函数",
+    "Weierstrass判别法"
+   ],
+   "difficulty": 5,
+   "statement": "设 $\\varphi(x)=|x|$（$-1\\le x\\le1$），并以 $2$ 为周期延拓到 $\\mathbb{R}$。令\n$$f(x)=\\sum_{n=0}^\\infty\\left(\\dfrac34\\right)^n\\varphi(4^nx).$$\n证明 $f$ 在 $\\mathbb{R}$ 上连续，但处处不可导。",
+   "answer": "",
+   "solution": "连续性：$0\\le\\varphi\\le1$，$\\sum\\left(\\frac34\\right)^n$ 收敛，由 Weierstrass 判别法一致收敛，各项连续，故 $f$ 连续。\n\n不可导：易见 $|\\varphi(s)-\\varphi(t)|\\le|s-t|$，且 $\\varphi$ 在任何内部不含整数点的区间上是斜率为 $\\pm1$ 的线性函数。固定 $x$ 与正整数 $m$，取 $\\delta_m=\\pm\\dfrac12\\cdot4^{-m}$，符号的选取使得 $4^mx$ 与 $4^m(x+\\delta_m)=4^mx\\pm\\dfrac12$ 之间（开区间内）没有整数（两个方向中至少一个可行）。令\n$$\\gamma_n=\\dfrac{\\varphi\\big(4^n(x+\\delta_m)\\big)-\\varphi(4^nx)}{\\delta_m}.$$\n- $n>m$ 时 $4^n\\delta_m=\\pm\\dfrac12 4^{n-m}$ 是偶数，由周期性 $\\gamma_n=0$；\n- $0\\le n\\le m$ 时 $|\\gamma_n|\\le\\dfrac{4^n|\\delta_m|}{|\\delta_m|}=4^n$；\n- $n=m$ 时 $\\varphi$ 在两点之间线性，$|\\gamma_m|=4^m$。\n\n于是\n$$\\left|\\dfrac{f(x+\\delta_m)-f(x)}{\\delta_m}\\right|=\\left|\\sum_{n=0}^m\\left(\\dfrac34\\right)^n\\gamma_n\\right|\\ge3^m-\\sum_{n=0}^{m-1}3^n=\\dfrac{3^m+1}{2}.$$\n当 $m\\to\\infty$ 时 $\\delta_m\\to0$，而差商 $\\to\\infty$，故 $f$ 在 $x$ 处不可导。由 $x$ 任意，$f$ 处处不可导。",
+   "solutionSource": "编写",
+   "source": "经典题（van der Waerden 型构造）"
+  }
+ ]
+}

@@ -1,0 +1,198 @@
+{
+ "id": "cmc-nonmath-04-final",
+ "title": "第四届全国大学生数学竞赛决赛（非数学类）",
+ "year": 2013,
+ "track": "非数学类",
+ "round": "决赛",
+ "paper": "",
+ "durationMin": 180,
+ "totalScore": 100,
+ "source": {
+  "question": "2013年03月-非数学类-第四届全国决赛试卷.pdf",
+  "solution": "2013年03月-非数学类参考解答-第四届全国决赛试卷.pdf"
+ },
+ "problems": [
+  {
+   "no": "一(1)",
+   "score": 5,
+   "type": "计算",
+   "subjects": [
+    "高等数学"
+   ],
+   "topics": [
+    "函数极限",
+    "等价无穷小",
+    "对数"
+   ],
+   "difficulty": 2,
+   "statement": "计算 $\\displaystyle\\lim_{x\\to0^+}\\left[\\ln(x\\ln a)\\cdot\\ln\\left(\\frac{\\ln ax}{\\ln(x/a)}\\right)\\right]\\ (a>1)$。",
+   "answer": "$2\\ln a$",
+   "solution": "$\\dfrac{\\ln ax}{\\ln(x/a)}=1+\\dfrac{2\\ln a}{\\ln x-\\ln a}$，当 $x\\to0^+$ 时第二项趋于 0，利用 $\\ln(1+u)\\sim u$：\n$$\\text{原式}=\\lim_{x\\to0^+}\\left(\\ln x+\\ln\\ln a\\right)\\cdot\\frac{2\\ln a}{\\ln x-\\ln a}=2\\ln a.$$",
+   "solutionSource": "官方"
+  },
+  {
+   "no": "一(2)",
+   "score": 5,
+   "type": "计算",
+   "subjects": [
+    "高等数学"
+   ],
+   "topics": [
+    "多元复合函数求导",
+    "一阶线性微分方程"
+   ],
+   "difficulty": 2,
+   "statement": "设 $f(u,v)$ 具有连续偏导数，且满足 $f_u(u,v)+f_v(u,v)=uv$，求 $y(x)=e^{-2x}f(x,x)$ 所满足的一阶微分方程，并求其通解。",
+   "answer": "$y'+2y=x^2e^{-2x}$；通解 $y=\\left(\\dfrac{x^3}{3}+C\\right)e^{-2x}$。",
+   "solution": "由复合函数求导：\n$$y'(x)=-2e^{-2x}f(x,x)+e^{-2x}\\left[f_u(x,x)+f_v(x,x)\\right]=-2y+x^2e^{-2x}.$$\n所求方程为 $y'+2y=x^2e^{-2x}$，这是一阶线性方程，由通解公式\n$$y=e^{-\\int2\\,\\mathrm{d}x}\\left[\\int x^2e^{-2x}e^{\\int2\\,\\mathrm{d}x}\\mathrm{d}x+C\\right]=\\left(\\frac{x^3}{3}+C\\right)e^{-2x}.$$",
+   "solutionSource": "官方"
+  },
+  {
+   "no": "一(3)",
+   "score": 5,
+   "type": "计算",
+   "subjects": [
+    "高等数学"
+   ],
+   "topics": [
+    "积分方程",
+    "变限积分求导",
+    "可分离变量方程"
+   ],
+   "difficulty": 1,
+   "statement": "求在 $[0,+\\infty)$ 上的可微函数 $f(x)$，使 $f(x)=e^{-u(x)}$，其中 $u=\\displaystyle\\int_0^xf(t)\\,\\mathrm{d}t$。",
+   "answer": "$f(x)=\\dfrac{1}{x+1}$",
+   "solution": "由题意 $\\displaystyle\\int_0^xf(t)\\,\\mathrm{d}t=-\\ln f(x)$。两边求导得 $f'(x)=-f^2(x)$，且 $f(0)=e^0=1$。解得 $\\dfrac1{f(x)}=x+1$，即 $f(x)=\\dfrac{1}{x+1}$。",
+   "solutionSource": "官方"
+  },
+  {
+   "no": "一(4)",
+   "score": 5,
+   "type": "计算",
+   "subjects": [
+    "高等数学"
+   ],
+   "topics": [
+    "不定积分",
+    "分部积分"
+   ],
+   "difficulty": 2,
+   "statement": "计算不定积分 $\\displaystyle\\int x\\arctan x\\ln(1+x^2)\\,\\mathrm{d}x$。",
+   "answer": "$\\dfrac12\\arctan x\\left[(1+x^2)\\ln(1+x^2)-x^2-3\\right]-\\dfrac x2\\ln(1+x^2)+\\dfrac32x+C$",
+   "solution": "先求\n$$\\int x\\ln(1+x^2)\\,\\mathrm{d}x=\\frac12\\int\\ln(1+x^2)\\,\\mathrm{d}(1+x^2)=\\frac12(1+x^2)\\ln(1+x^2)-\\frac12x^2+C.$$\n于是\n$$\\begin{aligned}\\text{原式}&=\\int\\arctan x\\,\\mathrm{d}\\left[\\frac12(1+x^2)\\ln(1+x^2)-\\frac{x^2}2\\right]\\\\&=\\frac12\\left[(1+x^2)\\ln(1+x^2)-x^2\\right]\\arctan x-\\frac12\\int\\left[\\ln(1+x^2)-\\frac{x^2}{1+x^2}\\right]\\mathrm{d}x\\\\&=\\frac12\\arctan x\\left[(1+x^2)\\ln(1+x^2)-x^2-3\\right]-\\frac x2\\ln(1+x^2)+\\frac32x+C,\\end{aligned}$$\n其中用到 $\\displaystyle\\int\\ln(1+x^2)\\,\\mathrm{d}x=x\\ln(1+x^2)-2x+2\\arctan x$，$\\displaystyle\\int\\frac{x^2}{1+x^2}\\mathrm{d}x=x-\\arctan x$。",
+   "solutionSource": "官方"
+  },
+  {
+   "no": "一(5)",
+   "score": 5,
+   "type": "计算",
+   "subjects": [
+    "高等数学"
+   ],
+   "topics": [
+    "切平面",
+    "平面束",
+    "曲面法向量"
+   ],
+   "difficulty": 2,
+   "statement": "过直线 $\\begin{cases}10x+2y-2z=27,\\\\ x+y-z=0\\end{cases}$ 作曲面 $3x^2+y^2-z^2=27$ 的切平面，求此切平面的方程。",
+   "answer": "$9x+y-z-27=0$ 或 $9x+17y-17z+27=0$",
+   "solution": "记 $F=3x^2+y^2-z^2-27$，曲面法向量 $\\vec n_1=2(3x,y,-z)$。过直线的平面束为\n$$(10+\\lambda)x+(2+\\lambda)y-(2+\\lambda)z-27=0,$$\n法向量 $\\vec n_2=(10+\\lambda,2+\\lambda,-(2+\\lambda))$。设切点 $P_0(x_0,y_0,z_0)$，则\n$$\\begin{cases}\\dfrac{10+\\lambda}{3x_0}=\\dfrac{2+\\lambda}{y_0}=\\dfrac{2+\\lambda}{z_0},\\\\ 3x_0^2+y_0^2-z_0^2=27,\\\\ (10+\\lambda)x_0+(2+\\lambda)y_0-(2+\\lambda)z_0-27=0.\\end{cases}$$\n解得 $x_0=3,y_0=1,z_0=1,\\lambda=-1$，或 $x_0=-3,y_0=-17,z_0=-17,\\lambda=-19$。所求切平面为 $9x+y-z-27=0$ 或 $9x+17y-17z+27=0$。",
+   "solutionSource": "官方"
+  },
+  {
+   "no": "二",
+   "score": 15,
+   "type": "计算",
+   "subjects": [
+    "高等数学"
+   ],
+   "topics": [
+    "曲面积分",
+    "引力",
+    "锥面",
+    "对称性"
+   ],
+   "difficulty": 2,
+   "statement": "设曲面 $\\Sigma:z^2=x^2+y^2,\\ 1\\leqslant z\\leqslant2$，其面密度为常数 $\\rho$。求在原点处的质量为 1 的质点和 $\\Sigma$ 之间的引力（记引力常数为 $G$）。",
+   "answer": "$\\vec F=(0,0,G\\rho\\pi\\ln2)$",
+   "solution": "由对称性 $F_x=F_y=0$。记 $r=\\sqrt{x^2+y^2+z^2}$，点 $(x,y,z)$ 方向与 $z$ 轴夹角 $\\theta$ 满足 $\\cos\\theta=\\dfrac zr$。面元 $\\mathrm{d}S$ 对质点的引力 $\\mathrm{d}F=G\\dfrac{\\rho\\,\\mathrm{d}S}{r^2}$，其 $z$ 分量 $\\mathrm{d}F_z=G\\rho\\dfrac{z}{r^3}\\mathrm{d}S$。\n\n在锥面上对应 $[z,z+\\mathrm{d}z]$ 的环带面积 $\\mathrm{d}S=2\\pi z\\sqrt2\\,\\mathrm{d}z$，且 $r=\\sqrt2z$，故\n$$F_z=\\iint_\\Sigma G\\rho\\frac{z}{r^3}\\mathrm{d}S=\\int_1^2G\\rho\\frac{2\\sqrt2\\pi z^2}{2\\sqrt2z^3}\\mathrm{d}z=G\\rho\\pi\\int_1^2\\frac{\\mathrm{d}z}{z}=G\\rho\\pi\\ln2.$$",
+   "solutionSource": "官方"
+  },
+  {
+   "no": "三",
+   "score": 15,
+   "type": "证明",
+   "subjects": [
+    "高等数学"
+   ],
+   "topics": [
+    "单调有界准则",
+    "拉格朗日中值定理",
+    "不等式"
+   ],
+   "difficulty": 3,
+   "statement": "设 $f(x)$ 在 $[1,+\\infty)$ 连续可导，\n$$f'(x)=\\frac{1}{1+f^2(x)}\\left[\\sqrt{\\frac1x}-\\sqrt{\\ln\\left(1+\\frac1x\\right)}\\right],$$\n证明：$\\displaystyle\\lim_{x\\to+\\infty}f(x)$ 存在。",
+   "answer": "",
+   "solution": "对 $\\ln(1+x)$ 在 $[0,t]$ 上用拉格朗日中值定理，$t>0$ 时 $\\ln(1+t)=\\dfrac{t}{1+\\xi}\\ (0<\\xi<t)$，故 $\\dfrac{t}{1+t}<\\ln(1+t)<t$。取 $t=\\dfrac1x$ 得\n$$\\frac{1}{1+x}<\\ln\\left(1+\\frac1x\\right)<\\frac1x.$$\n因此 $x\\geqslant1$ 时 $f'(x)>0$，$f$ 在 $[1,+\\infty)$ 上单调增加。又\n$$f'(x)\\leqslant\\sqrt{\\frac1x}-\\sqrt{\\frac{1}{x+1}}=\\frac{1}{\\sqrt{x(x+1)}\\left(\\sqrt{x+1}+\\sqrt x\\right)}\\leqslant\\frac{1}{2\\sqrt{x^3}},$$\n积分得 $f(x)-f(1)\\leqslant\\displaystyle\\int_1^x\\frac{\\mathrm{d}t}{2\\sqrt{t^3}}=1-\\frac1{\\sqrt x}\\leqslant1$，即 $f$ 有上界。单调增加且有上界，故 $\\displaystyle\\lim_{x\\to+\\infty}f(x)$ 存在。",
+   "solutionSource": "官方"
+  },
+  {
+   "no": "四",
+   "score": 15,
+   "type": "证明",
+   "subjects": [
+    "高等数学"
+   ],
+   "topics": [
+    "拉格朗日中值定理",
+    "最大值定理",
+    "费马引理",
+    "辅助函数"
+   ],
+   "difficulty": 4,
+   "statement": "设函数 $f(x)$ 在 $[-2,2]$ 上二阶可导，且 $|f(x)|<1$，又 $f^2(0)+[f'(0)]^2=4$。试证在 $(-2,2)$ 内至少存在一点 $\\xi$，使得 $f(\\xi)+f''(\\xi)=0$。",
+   "answer": "",
+   "solution": "在 $[-2,0]$ 与 $[0,2]$ 上分别用拉格朗日中值定理，存在 $\\xi_1\\in(-2,0)$，$\\xi_2\\in(0,2)$ 使\n$$f'(\\xi_1)=\\frac{f(0)-f(-2)}{2},\\qquad f'(\\xi_2)=\\frac{f(2)-f(0)}{2},$$\n由 $|f|<1$ 得 $|f'(\\xi_1)|\\leqslant1$，$|f'(\\xi_2)|\\leqslant1$。\n\n令 $F(x)=f^2(x)+[f'(x)]^2$，则 $F(\\xi_1)\\leqslant2$，$F(\\xi_2)\\leqslant2$。而 $F(0)=4$，故 $F$ 在 $[\\xi_1,\\xi_2]$ 上的最大值 $M\\geqslant4$，且最大值点 $\\xi\\in(\\xi_1,\\xi_2)$ 为内点，是极大值点。由费马引理\n$$F'(\\xi)=2f'(\\xi)\\left[f(\\xi)+f''(\\xi)\\right]=0.$$\n又 $F(\\xi)\\geqslant4$ 且 $|f(\\xi)|<1$，故 $f'(\\xi)\\neq0$，从而 $f(\\xi)+f''(\\xi)=0$。",
+   "solutionSource": "官方"
+  },
+  {
+   "no": "五",
+   "score": 15,
+   "type": "计算",
+   "subjects": [
+    "高等数学"
+   ],
+   "topics": [
+    "二重积分",
+    "极坐标",
+    "绝对值被积函数",
+    "区域分割"
+   ],
+   "difficulty": 3,
+   "statement": "求二重积分 $I=\\displaystyle\\iint_{x^2+y^2\\leqslant1}\\left|x^2+y^2-x-y\\right|\\,\\mathrm{d}x\\,\\mathrm{d}y$。",
+   "answer": "$1+\\dfrac{3\\pi}{8}$",
+   "solution": "被积函数与区域关于直线 $y=x$ 对称，只需考虑 $y\\geqslant x$ 的部分。用极坐标，$x^2+y^2-x-y=r\\left(r-\\sqrt2\\sin\\left(\\varphi+\\frac\\pi4\\right)\\right)$，再平移角度得\n$$I=2\\int_{\\pi/4}^{5\\pi/4}\\mathrm{d}\\varphi\\int_0^1\\left|r-\\sqrt2\\sin\\left(\\varphi+\\frac\\pi4\\right)\\right|r^2\\,\\mathrm{d}r=2\\int_0^\\pi\\mathrm{d}\\varphi\\int_0^1\\left|r-\\sqrt2\\cos\\varphi\\right|r^2\\,\\mathrm{d}r.$$\n记矩形 $D:0\\leqslant\\varphi\\leqslant\\pi,0\\leqslant r\\leqslant1$，分成 $D_1:0\\leqslant\\varphi\\leqslant\\frac\\pi2$ 与 $D_2:\\frac\\pi2\\leqslant\\varphi\\leqslant\\pi$，再记 $D_3:\\frac\\pi4\\leqslant\\varphi\\leqslant\\frac\\pi2,\\ \\sqrt2\\cos\\varphi\\leqslant r\\leqslant1$（$D_3\\subset D_1$），$I_i=\\displaystyle\\iint_{D_i}\\left|r-\\sqrt2\\cos\\varphi\\right|r^2\\,\\mathrm{d}\\varphi\\,\\mathrm{d}r$。$r-\\sqrt2\\cos\\varphi$ 在 $D_1\\setminus D_3$ 上为负，在 $D_2$、$D_3$ 上为正，计算得\n$$I_3=\\frac{3\\pi}{32}+\\frac14-\\frac{\\sqrt2}{3},\\quad I_1=\\iint_{D_1}(\\sqrt2\\cos\\varphi-r)r^2\\,\\mathrm{d}\\varphi\\,\\mathrm{d}r+2I_3=\\frac\\pi{16}+\\frac12-\\frac{\\sqrt2}3,\\quad I_2=\\frac\\pi8+\\frac{\\sqrt2}3.$$\n所以 $I=2(I_1+I_2)=1+\\dfrac{3\\pi}{8}$。",
+   "solutionSource": "官方"
+  },
+  {
+   "no": "六",
+   "score": 15,
+   "type": "证明",
+   "subjects": [
+    "高等数学"
+   ],
+   "topics": [
+    "数项级数",
+    "绝对收敛",
+    "反证法",
+    "构造数列"
+   ],
+   "difficulty": 4,
+   "statement": "若对于任何收敛于零的序列 $\\{x_n\\}$，级数 $\\displaystyle\\sum_{n=1}^\\infty a_nx_n$ 都是收敛的，试证明级数 $\\displaystyle\\sum_{n=1}^\\infty|a_n|$ 收敛。",
+   "answer": "",
+   "solution": "反证。若 $\\sum|a_n|$ 发散，则 $\\sum|a_n|=\\infty$，于是存在自然数 $m_0=0<m_1<m_2<\\cdots$，使\n$$\\sum_{i=m_{k-1}+1}^{m_k}|a_i|\\geqslant k\\quad(k=1,2,\\cdots).$$\n取 $x_i=\\dfrac1k\\operatorname{sgn}a_i\\ (m_{k-1}<i\\leqslant m_k)$，则 $x_n\\to0$，但\n$$\\sum_{i=m_{k-1}+1}^{m_k}a_ix_i=\\sum_{i=m_{k-1}+1}^{m_k}\\frac{|a_i|}{k}\\geqslant1,$$\n由柯西准则 $\\sum a_nx_n$ 发散，矛盾。故 $\\sum|a_n|$ 收敛。",
+   "solutionSource": "官方"
+  }
+ ]
+}

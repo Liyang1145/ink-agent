@@ -1,0 +1,197 @@
+{
+ "id": "cmc-nonmath-08-final",
+ "title": "第八届全国大学生数学竞赛决赛（非数学类）",
+ "year": 2017,
+ "track": "非数学类",
+ "round": "决赛",
+ "paper": "",
+ "durationMin": 180,
+ "totalScore": 100,
+ "source": {
+  "question": "2017年03月-非数学类-第八届全国决赛试卷.pdf",
+  "solution": "2017年03月-非数学类参考解答-第八届全国决赛试卷.pdf"
+ },
+ "problems": [
+  {
+   "no": "一(1)",
+   "score": null,
+   "type": "填空",
+   "subjects": [
+    "高等数学"
+   ],
+   "topics": [
+    "空间曲线",
+    "平面方程",
+    "法向量"
+   ],
+   "difficulty": 2,
+   "statement": "过单叶双曲面 $\\dfrac{x^2}4+\\dfrac{y^2}2-2z^2=1$ 和球面 $x^2+y^2+z^2=4$ 的交线且与直线 $\\begin{cases}x=0,\\\\3y+z=0\\end{cases}$ 垂直的平面方程为______。",
+   "answer": "$y-3z=0$",
+   "solution": "由球面得 $x^2=4-y^2-z^2$，代入双曲面方程：$\\frac{4-y^2-z^2}4+\\frac{y^2}2-2z^2=1$，即 $y^2=9z^2$。故交线落在两平面 $y=\\pm3z$ 上。直线方向 $\\vec s=(1,0,0)\\times(0,3,1)=(0,-1,3)$，与之垂直的平面法向量须平行于 $(0,-1,3)$，只有 $y-3z=0$ 满足。",
+   "solutionSource": "编写"
+  },
+  {
+   "no": "一(2)",
+   "score": null,
+   "type": "填空",
+   "subjects": [
+    "高等数学"
+   ],
+   "topics": [
+    "偏微分方程",
+    "重要极限",
+    "导数"
+   ],
+   "difficulty": 2,
+   "statement": "设可微函数 $f(x,y)$ 满足 $\\dfrac{\\partial f}{\\partial x}=-f(x,y)$，$f\\left(0,\\dfrac\\pi2\\right)=1$，且 $$\\lim_{n\\to\\infty}\\left(\\frac{f(0,y+1/n)}{f(0,y)}\\right)^n=e^{\\cot y},$$ 则 $f(x,y)=$______。",
+   "answer": "$e^{-x}\\sin y$",
+   "solution": "由 $f_x=-f$ 得 $f(x,y)=C(y)e^{-x}$，$C(y)=f(0,y)$。又\n$$\\lim_{n\\to\\infty}\\Big(\\frac{C(y+1/n)}{C(y)}\\Big)^n=\\exp\\Big(\\lim_{n\\to\\infty}n\\ln\\frac{C(y+\\frac1n)}{C(y)}\\Big)=e^{C'(y)/C(y)},$$\n故 $(\\ln C)'=\\cot y$，$C(y)=k\\sin y$；由 $C(\\frac\\pi2)=1$ 得 $k=1$。所以 $f=e^{-x}\\sin y$。",
+   "solutionSource": "编写"
+  },
+  {
+   "no": "一(3)",
+   "score": null,
+   "type": "填空",
+   "subjects": [
+    "线性代数"
+   ],
+   "topics": [
+    "反对称矩阵",
+    "分块矩阵",
+    "矩阵的秩"
+   ],
+   "difficulty": 3,
+   "statement": "已知 $A$ 为 $n$ 阶可逆反对称矩阵，$b$ 为 $n$ 元列向量，设 $B=\\begin{pmatrix}A&b\\\\b^T&0\\end{pmatrix}$，则 $\\operatorname{rank}(B)=$______。",
+   "answer": "$n$",
+   "solution": "$B$ 含可逆子块 $A$，故 $\\operatorname{rank}B\\ge n$。对分块阵作初等变换：\n$$\\begin{pmatrix}E&0\\\\-b^TA^{-1}&1\\end{pmatrix}B=\\begin{pmatrix}A&b\\\\0&-b^TA^{-1}b\\end{pmatrix}.$$\n$A^{-1}$ 也反对称，故数 $b^TA^{-1}b=(b^TA^{-1}b)^T=-b^TA^{-1}b$，即为 $0$。于是 $\\operatorname{rank}B=n$。",
+   "solutionSource": "编写"
+  },
+  {
+   "no": "一(4)",
+   "score": null,
+   "type": "填空",
+   "subjects": [
+    "高等数学"
+   ],
+   "topics": [
+    "数项级数估计",
+    "积分估计"
+   ],
+   "difficulty": 2,
+   "statement": "$\\displaystyle\\sum_{n=1}^{100}n^{-\\frac12}$ 的整数部分为______。",
+   "answer": "$18$",
+   "solution": "由 $\\displaystyle\\int_n^{n+1}\\frac{\\mathrm{d}x}{\\sqrt x}<\\frac1{\\sqrt n}<\\int_{n-1}^n\\frac{\\mathrm{d}x}{\\sqrt x}$ 得\n$$2(\\sqrt{101}-1)<\\sum_{n=1}^{100}\\frac1{\\sqrt n}<1+2(\\sqrt{100}-1)=19,$$\n而 $2(\\sqrt{101}-1)>2(10-1)=18$，故整数部分为 $18$。",
+   "solutionSource": "编写"
+  },
+  {
+   "no": "一(5)",
+   "score": null,
+   "type": "填空",
+   "subjects": [
+    "高等数学"
+   ],
+   "topics": [
+    "旋转曲面面积",
+    "点到直线距离",
+    "弧长"
+   ],
+   "difficulty": 3,
+   "statement": "曲线 $L_1:y=\\dfrac13x^3+2x\\ (0\\le x\\le1)$ 绕直线 $L_2:y=\\dfrac43x$ 旋转所生成的旋转曲面的面积为______。",
+   "answer": "$\\dfrac{\\pi}{3}\\left(2\\sqrt{10}-\\sqrt5\\right)$",
+   "solution": "曲线上点到 $L_2:4x-3y=0$ 的距离 $r=\\dfrac{|4x-3y|}{5}=\\dfrac{x^3+2x}{5}$，弧长元 $\\mathrm{d}s=\\sqrt{1+(x^2+2)^2}\\,\\mathrm{d}x$。面积\n$$S=2\\pi\\int_0^1\\frac{x(x^2+2)}5\\sqrt{1+(x^2+2)^2}\\,\\mathrm{d}x\\overset{u=x^2+2}{=}\\frac\\pi5\\int_2^3u\\sqrt{1+u^2}\\,\\mathrm{d}u=\\frac{\\pi}{15}\\Big[(1+u^2)^{3/2}\\Big]_2^3=\\frac{\\pi}{15}(10\\sqrt{10}-5\\sqrt5).$$\n即 $S=\\dfrac\\pi3(2\\sqrt{10}-\\sqrt5)$。",
+   "solutionSource": "编写"
+  },
+  {
+   "no": "二",
+   "score": null,
+   "type": "证明",
+   "subjects": [
+    "高等数学"
+   ],
+   "topics": [
+    "不等式",
+    "单调性",
+    "导数"
+   ],
+   "difficulty": 3,
+   "statement": "设 $0<x<\\dfrac\\pi2$，证明：$\\dfrac4{\\pi^2}<\\dfrac1{x^2}-\\dfrac1{\\tan^2x}<\\dfrac23$。",
+   "answer": "",
+   "solution": "令 $f(x)=\\dfrac1{x^2}-\\cot^2x=\\dfrac1{x^2}-\\dfrac1{\\sin^2x}+1$。由 $\\sin x=x-\\frac{x^3}6+o(x^3)$ 得 $\\frac1{\\sin^2x}=\\frac1{x^2}+\\frac13+o(1)$，故 $f(0^+)=\\frac23$；又 $f(\\frac\\pi2^-)=\\frac4{\\pi^2}$。只需证 $f$ 在 $(0,\\frac\\pi2)$ 严格递减。\n$$f'(x)=-\\frac2{x^3}+\\frac{2\\cos x}{\\sin^3x}<0\\iff \\frac{\\sin x}{\\sqrt[3]{\\cos x}}>x.$$\n令 $h(x)=\\sin x\\cos^{-1/3}x-x$，$h(0)=0$。记 $t=\\cos^{2/3}x\\in(0,1)$，则 $\\sin^2x=1-t^3$，\n$$h'(x)=\\cos^{2/3}x+\\frac13\\sin^2x\\cos^{-4/3}x-1=t+\\frac{1-t^3}{3t^2}-1=\\frac{(t-1)^2(2t+1)}{3t^2}>0,$$\n故 $h>0$，$f$ 严格递减，从而 $\\frac4{\\pi^2}<f(x)<\\frac23$。",
+   "solutionSource": "编写"
+  },
+  {
+   "no": "三",
+   "score": null,
+   "type": "证明",
+   "subjects": [
+    "高等数学"
+   ],
+   "topics": [
+    "周期函数",
+    "积分不等式",
+    "柯西不等式"
+   ],
+   "difficulty": 3,
+   "statement": "设 $f(x)$ 为 $(-\\infty,+\\infty)$ 上连续的周期为 $1$ 的周期函数，且满足 $0\\le f(x)\\le1$ 与 $\\displaystyle\\int_0^1f(x)\\,\\mathrm{d}x=1$。证明：当 $0\\le x\\le13$ 时，有 $$\\int_0^{\\sqrt x}f(t)\\,\\mathrm{d}t+\\int_0^{\\sqrt{x+27}}f(t)\\,\\mathrm{d}t+\\int_0^{\\sqrt{13-x}}f(t)\\,\\mathrm{d}t\\le11,$$ 并给出取等号的条件。",
+   "answer": "等号当且仅当 $x=9$ 时成立。",
+   "solution": "由 $0\\le f\\le1$ 连续且 $\\int_0^1(1-f)=0$ 得 $f\\equiv1$（在 $[0,1]$ 上，再由周期性在全体实数上）。于是左边 $=\\sqrt x+\\sqrt{x+27}+\\sqrt{13-x}$。由柯西不等式（权 $3,6,2$）：\n$$\\sqrt x+\\sqrt{x+27}+\\sqrt{13-x}=\\sqrt3\\sqrt{\\tfrac x3}+\\sqrt6\\sqrt{\\tfrac{x+27}6}+\\sqrt2\\sqrt{\\tfrac{13-x}2}\\le\\sqrt{3+6+2}\\cdot\\sqrt{\\tfrac x3+\\tfrac{x+27}6+\\tfrac{13-x}2}=\\sqrt{11}\\cdot\\sqrt{11}=11.$$\n等号当且仅当 $\\frac{x}{9}=\\frac{x+27}{36}=\\frac{13-x}{4}$，即 $x=9$（此时 $3+6+2=11$）。\n（注：若只用 $0\\le f\\le1$ 的估计 $\\int_0^a f\\le a$ 亦得同一结论；本题条件实际上迫使 $f\\equiv1$。）",
+   "solutionSource": "编写"
+  },
+  {
+   "no": "四",
+   "score": null,
+   "type": "计算",
+   "subjects": [
+    "高等数学"
+   ],
+   "topics": [
+    "三重积分",
+    "高斯公式",
+    "球坐标",
+    "拉普拉斯算子"
+   ],
+   "difficulty": 3,
+   "statement": "设函数 $f(x,y,z)$ 在区域 $\\Omega=\\{(x,y,z)\\mid x^2+y^2+z^2\\le1\\}$ 上具有连续的二阶偏导数，且满足 $\\dfrac{\\partial^2f}{\\partial x^2}+\\dfrac{\\partial^2f}{\\partial y^2}+\\dfrac{\\partial^2f}{\\partial z^2}=\\sqrt{x^2+y^2+z^2}$，计算 $$I=\\iiint_\\Omega\\left(x\\frac{\\partial f}{\\partial x}+y\\frac{\\partial f}{\\partial y}+z\\frac{\\partial f}{\\partial z}\\right)\\mathrm{d}x\\,\\mathrm{d}y\\,\\mathrm{d}z.$$（原题积分区域记作 $W$，即 $\\Omega$。）",
+   "answer": "$I=\\dfrac\\pi6$",
+   "solution": "记 $r=\\sqrt{x^2+y^2+z^2}$，$B_r$ 为半径 $r$ 的球、$S_r$ 为其球面。被积函数 $=r\\dfrac{\\partial f}{\\partial n}$（$n$ 为球面外法向），按球壳分层：\n$$I=\\int_0^1 r\\Big(\\oiint_{S_r}\\frac{\\partial f}{\\partial n}\\mathrm{d}S\\Big)\\mathrm{d}r=\\int_0^1r\\Big(\\iiint_{B_r}\\Delta f\\,\\mathrm{d}V\\Big)\\mathrm{d}r$$\n（第二步用高斯公式）。而 $\\iiint_{B_r}\\rho\\,\\mathrm{d}V=\\int_0^r\\rho\\cdot4\\pi\\rho^2\\mathrm{d}\\rho=\\pi r^4$，故 $I=\\int_0^1\\pi r^5\\mathrm{d}r=\\dfrac\\pi6$。",
+   "solutionSource": "编写"
+  },
+  {
+   "no": "五",
+   "score": null,
+   "type": "证明",
+   "subjects": [
+    "线性代数"
+   ],
+   "topics": [
+    "幂零矩阵",
+    "行列式",
+    "矩阵方程"
+   ],
+   "difficulty": 3,
+   "statement": "设 $n$ 阶方阵 $A,B$ 满足 $AB=A+B$，证明：若存在正整数 $k$，使得 $A^k=O$（$O$ 为零矩阵），则行列式 $|B+2017A|=|B|$。",
+   "answer": "",
+   "solution": "由 $AB=A+B$ 得 $A(B-E)=B$，故 $|B|=|A|\\,|B-E|$。$A$ 幂零，$|A|^k=|A^k|=0$，$|A|=0$，所以 $|B|=0$。\n又 $B+2017A=A(B-E)+2017A=A(B+2016E)$，故 $|B+2017A|=|A|\\,|B+2016E|=0$。于是 $|B+2017A|=|B|=0$。",
+   "solutionSource": "编写"
+  },
+  {
+   "no": "六",
+   "score": null,
+   "type": "证明",
+   "subjects": [
+    "高等数学"
+   ],
+   "topics": [
+    "欧拉常数",
+    "单调有界",
+    "级数发散",
+    "对数不等式"
+   ],
+   "difficulty": 3,
+   "statement": "设 $a_n=\\displaystyle\\sum_{k=1}^n\\frac1k-\\ln n$。\n\n(1) 证明：极限 $\\displaystyle\\lim_{n\\to\\infty}a_n$ 存在；\n\n(2) 记 $\\displaystyle\\lim_{n\\to\\infty}a_n=C$，讨论级数 $\\displaystyle\\sum_{n=1}^\\infty(a_n-C)$ 的敛散性。",
+   "answer": "(1) 极限存在；(2) 级数发散。",
+   "solution": "**(1)** $a_n-a_{n+1}=\\ln\\big(1+\\frac1n\\big)-\\frac1{n+1}>0$（因 $\\ln(1+t)>\\frac t{1+t}$），$a_n$ 递减；又 $\\sum_{k=1}^n\\frac1k>\\sum_{k=1}^n\\ln(1+\\frac1k)=\\ln(n+1)>\\ln n$，$a_n>0$。单调有界，极限存在。\n\n**(2)** 由 $\\ln\\dfrac{1+t}{1-t}>2t\\ (0<t<1)$，取 $t=\\frac1{2k+1}$ 得 $\\ln(1+\\frac1k)>\\frac{2}{2k+1}$。于是\n$$a_k-a_{k+1}>\\frac2{2k+1}-\\frac1{k+1}=\\frac1{(2k+1)(k+1)}>\\frac{1}{2(k+1)(k+2)}=\\frac12\\Big(\\frac1{k+1}-\\frac1{k+2}\\Big).$$\n对 $k\\ge n$ 求和：$a_n-C=\\sum_{k\\ge n}(a_k-a_{k+1})>\\dfrac1{2(n+1)}$。由比较判别法，正项级数 $\\sum(a_n-C)$ 发散。",
+   "solutionSource": "编写"
+  }
+ ]
+}

@@ -1,0 +1,186 @@
+{
+ "id": "cmc-math-08-final-low",
+ "title": "第八届全国大学生数学竞赛决赛（数学类低年级组（一、二年级））",
+ "year": 2017,
+ "track": "数学类",
+ "round": "决赛",
+ "paper": "low",
+ "durationMin": 180,
+ "totalScore": 100,
+ "source": {
+  "question": "2017年03月-数学类一、二年级-第八届全国决赛试卷.pdf",
+  "solution": "2017年03月-数学类一、二年级参考解答-第八届全国决赛试卷.pdf"
+ },
+ "problems": [
+  {
+   "no": "一(1)",
+   "score": 5,
+   "type": "填空",
+   "subjects": [
+    "高等代数"
+   ],
+   "topics": [
+    "行列式",
+    "韦达定理",
+    "循环行列式"
+   ],
+   "difficulty": 1,
+   "statement": "设 $x^4+3x^2+2x+1=0$ 的 4 个根为 $\\alpha_1,\\alpha_2,\\alpha_3,\\alpha_4$，则\n$$\\begin{vmatrix}\\alpha_1&\\alpha_2&\\alpha_3&\\alpha_4\\\\\\alpha_2&\\alpha_3&\\alpha_4&\\alpha_1\\\\\\alpha_3&\\alpha_4&\\alpha_1&\\alpha_2\\\\\\alpha_4&\\alpha_1&\\alpha_2&\\alpha_3\\end{vmatrix}=\\underline{\\qquad\\qquad}.$$",
+   "answer": "$0$",
+   "solution": "多项式无三次项，由韦达定理四根之和为 0。把其余各列都加到第一列，第一列全为 $\\alpha_1+\\alpha_2+\\alpha_3+\\alpha_4=0$，故行列式为 0。",
+   "solutionSource": "官方"
+  },
+  {
+   "no": "一(2)",
+   "score": 5,
+   "type": "填空",
+   "subjects": [
+    "数学分析"
+   ],
+   "topics": [
+    "多项式根",
+    "极值",
+    "实根个数"
+   ],
+   "difficulty": 2,
+   "statement": "设 $a$ 为实数，关于 $x$ 的方程 $3x^4-8x^3-30x^2+72x+a=0$ 有虚根的充分必要条件是 $a$ 满足\\_\\_\\_\\_\\_\\_\\_\\_。",
+   "answer": "$a>27$ 或 $a<-37$",
+   "solution": "记 $f(x)=3x^4-8x^3-30x^2+72x+a$，\n$$f'(x)=12(x^3-2x^2-5x+6)=12(x-1)(x-3)(x+2).$$\n$f$ 在 $x=-2$ 与 $x=3$ 取极小值 $-152+a$ 与 $-27+a$，在 $x=1$ 取极大值 $37+a$。四根全为实根当且仅当极大值 $\\geqslant0$ 且两极小值 $\\leqslant0$，即 $-37\\leqslant a\\leqslant27$。故有虚根当且仅当 $a>27$ 或 $a<-37$。",
+   "solutionSource": "官方"
+  },
+  {
+   "no": "一(3)",
+   "score": 5,
+   "type": "填空",
+   "subjects": [
+    "数学分析"
+   ],
+   "topics": [
+    "第二型曲面积分",
+    "高斯公式",
+    "补面法"
+   ],
+   "difficulty": 2,
+   "statement": "计算曲面积分 $I=\\displaystyle\\iint_S\\frac{ax\\,\\mathrm{d}y\\,\\mathrm{d}z+(z+a)^2\\,\\mathrm{d}x\\,\\mathrm{d}y}{\\sqrt{x^2+y^2+z^2}}$（$a>0$ 为常数），其中 $S:z=-\\sqrt{a^2-x^2-y^2}$，取下侧，则 $I=$\\_\\_\\_\\_\\_\\_\\_\\_。",
+   "answer": "$-\\dfrac{\\pi}{2}a^3$",
+   "solution": "在 $S$ 上分母为 $a$。补面 $S_1:x^2+y^2\\leqslant a^2,\\ z=0$，取下侧，则 $S\\cup S_1$ 为闭下半球面的内侧，记其内部为 $\\Omega$，$D$ 为圆域 $x^2+y^2\\leqslant a^2$。由高斯公式（内侧取负号）\n$$\\begin{aligned}I&=\\frac1a\\left\\{\\iint_{S\\cup S_1}-\\iint_{S_1}\\left[ax\\,\\mathrm{d}y\\,\\mathrm{d}z+(z+a)^2\\,\\mathrm{d}x\\,\\mathrm{d}y\\right]\\right\\}=\\frac1a\\left\\{-\\iiint_\\Omega(3a+2z)\\,\\mathrm{d}V+\\iint_Da^2\\,\\mathrm{d}x\\,\\mathrm{d}y\\right\\}\\\\&=\\frac1a\\left\\{-2\\pi a^4-2\\iiint_\\Omega z\\,\\mathrm{d}V+\\pi a^4\\right\\}=-\\pi a^3-\\frac2a\\int_0^{2\\pi}\\mathrm{d}\\theta\\int_0^ar\\,\\mathrm{d}r\\int_{-\\sqrt{a^2-r^2}}^0z\\,\\mathrm{d}z=-\\frac\\pi2a^3.\\end{aligned}$$",
+   "solutionSource": "官方"
+  },
+  {
+   "no": "一(4)",
+   "score": 5,
+   "type": "填空",
+   "subjects": [
+    "高等代数"
+   ],
+   "topics": [
+    "实对称矩阵",
+    "正交相似",
+    "特征值"
+   ],
+   "difficulty": 2,
+   "statement": "记两个特征值为 1，2 的 2 阶实对称矩阵的全体为 $\\Gamma$。$\\forall A\\in\\Gamma$，$a_{21}$ 表示 $A$ 的 $(2,1)$ 位置元素，则集合 $\\bigcup_{A\\in\\Gamma}\\{a_{21}\\}$ 的最小元等于\\_\\_\\_\\_\\_\\_\\_\\_。",
+   "answer": "$-\\dfrac12$",
+   "solution": "$A=Q\\begin{pmatrix}1&0\\\\0&2\\end{pmatrix}Q^T$，正交阵 $Q$ 可写成 $\\begin{pmatrix}\\cos t&-\\sin t\\\\\\sin t&\\cos t\\end{pmatrix}$ 或 $\\begin{pmatrix}\\cos t&\\sin t\\\\\\sin t&-\\cos t\\end{pmatrix}$，相应 $a_{21}=\\mp\\sin t\\cos t=\\mp\\dfrac12\\sin2t$，最小值为 $-\\dfrac12$。",
+   "solutionSource": "官方"
+  },
+  {
+   "no": "二",
+   "score": 15,
+   "type": "证明",
+   "subjects": [
+    "解析几何"
+   ],
+   "topics": [
+    "旋转抛物面",
+    "平面截线",
+    "抛物线",
+    "椭圆",
+    "Dandelin球"
+   ],
+   "difficulty": 3,
+   "statement": "在空间直角坐标系中设旋转抛物面 $\\Gamma$ 的方程为 $z=\\dfrac12(x^2+y^2)$。设 $P$ 为空间中的平面，它交抛物面 $\\Gamma$ 于交线 $C$。问：$C$ 是何种类型的曲线？证明你的结论。",
+   "answer": "$P$ 平行于 $z$ 轴时 $C$ 为抛物线；否则 $C$ 为椭圆（退化时为一点）。",
+   "solution": "**(1) $P$ 平行于 $z$ 轴。** 绕 $z$ 轴旋转不改变 $\\Gamma$，可设 $P:x=c$，则 $C:z=\\dfrac12(c^2+y^2)$，即在平面 $x=c$ 内 $z-\\dfrac{c^2}{2}=\\dfrac12y^2$，为抛物线。\n\n**(2) $P$ 不平行于 $z$ 轴。** 设 $P:z=ax+by+c$，代入 $z=\\dfrac12(x^2+y^2)$（注：原解答此处笔误，已改正）得\n$$(x-a)^2+(y-b)^2=a^2+b^2+2c=:R^2.$$\n（$R^2<0$ 时无交线，$R=0$ 时交于一点，下设 $R>0$。）于是 $C$ 在 $xy$ 平面上的垂直投影为圆周 $(x-a)^2+(y-b)^2=R^2$。令 $Q$ 为以此圆为底的直圆柱，则 $C=Q\\cap P$。在圆柱 $Q$ 内从上方与下方各放一个半径为 $R$ 的球，使之与平面 $P$ 分别相切于 $F_1,F_2$，与圆柱分别相切于圆 $D_1,D_2$。对 $C$ 上任一点 $A$，过 $A$ 的圆柱母线交 $D_1,D_2$ 于 $B_1,B_2$，由球的切线长相等，\n$$|AF_1|+|AF_2|=|AB_1|+|AB_2|=|B_1B_2|$$\n为常数，故 $C$ 为椭圆。",
+   "solutionSource": "官方"
+  },
+  {
+   "no": "三",
+   "score": 15,
+   "type": "证明",
+   "subjects": [
+    "高等代数"
+   ],
+   "topics": [
+    "矩阵秩",
+    "相似矩阵",
+    "分块矩阵",
+    "等价标准形"
+   ],
+   "difficulty": 4,
+   "statement": "设 $n$ 阶方阵 $A,B$ 满足：$\\operatorname{rank}(ABA)=\\operatorname{rank}(B)$。证明：$AB$ 与 $BA$ 相似。",
+   "answer": "",
+   "solution": "设 $A=P\\begin{pmatrix}I_r&O\\\\O&O\\end{pmatrix}Q$（$P,Q$ 可逆），并写 $B=Q^{-1}\\begin{pmatrix}B_1&B_2\\\\B_3&B_4\\end{pmatrix}P^{-1}$，$B_1$ 为 $r$ 阶方阵。则\n$$AB=P\\begin{pmatrix}B_1&B_2\\\\O&O\\end{pmatrix}P^{-1},\\quad BA=Q^{-1}\\begin{pmatrix}B_1&O\\\\B_3&O\\end{pmatrix}Q,\\quad ABA=P\\begin{pmatrix}B_1&O\\\\O&O\\end{pmatrix}Q.$$\n由 $\\operatorname{rank}B_1=\\operatorname{rank}ABA=\\operatorname{rank}B$，$B$ 的列（行）都可由含 $B_1$ 的列（行）线性表示，故存在矩阵 $X,Y$ 使 $B_2=B_1X$，$B_3=YB_1$。从而\n$$AB=P\\begin{pmatrix}I&-X\\\\O&I\\end{pmatrix}\\begin{pmatrix}B_1&O\\\\O&O\\end{pmatrix}\\begin{pmatrix}I&X\\\\O&I\\end{pmatrix}P^{-1},\\quad BA=Q^{-1}\\begin{pmatrix}I&O\\\\Y&I\\end{pmatrix}\\begin{pmatrix}B_1&O\\\\O&O\\end{pmatrix}\\begin{pmatrix}I&O\\\\-Y&I\\end{pmatrix}Q,$$\n二者都与 $\\begin{pmatrix}B_1&O\\\\O&O\\end{pmatrix}$ 相似，因此 $AB$ 与 $BA$ 相似。",
+   "solutionSource": "官方"
+  },
+  {
+   "no": "四",
+   "score": 15,
+   "type": "证明",
+   "subjects": [
+    "数学分析"
+   ],
+   "topics": [
+    "Fourier变换",
+    "Schwartz空间",
+    "含参积分",
+    "黎曼引理",
+    "反演公式"
+   ],
+   "difficulty": 5,
+   "statement": "对 $\\mathbb{R}$ 上无穷次可微的（复值）函数 $\\varphi(x)$，称 $\\varphi\\in\\mathscr{S}$，如果 $\\forall m,k\\geqslant0$ 成立 $\\displaystyle\\sup_{x\\in\\mathbb{R}}\\left|x^m\\varphi^{(k)}(x)\\right|<+\\infty$。若 $f\\in\\mathscr{S}$，可定义\n$$\\hat f(x)=\\int_{\\mathbb{R}}f(y)e^{-2\\pi ixy}\\,\\mathrm{d}y\\quad(\\forall x\\in\\mathbb{R}).$$\n证明：$\\hat f\\in\\mathscr{S}$，且 $f(x)=\\displaystyle\\int_{\\mathbb{R}}\\hat f(y)e^{2\\pi ixy}\\,\\mathrm{d}y\\ (\\forall x\\in\\mathbb{R})$。",
+   "answer": "",
+   "solution": "**$\\hat f\\in\\mathscr{S}$。** 由 $f\\in\\mathscr{S}$，存在 $M_1>0$ 使 $|2\\pi ixf(x)|\\leqslant\\dfrac{M_1}{x^2+1}$，故 $\\displaystyle\\int_{\\mathbb{R}}(-2\\pi iy)f(y)e^{-2\\pi ixy}\\,\\mathrm{d}y$ 关于 $x$ 一致收敛，可在积分号下求导；同理对任意 $n$，\n$$\\frac{\\mathrm{d}^n\\hat f(x)}{\\mathrm{d}x^n}=\\int_{\\mathbb{R}}(-2\\pi iy)^nf(y)e^{-2\\pi ixy}\\,\\mathrm{d}y.\\qquad(3)$$\n分部积分（边界项因 $f\\in\\mathscr{S}$ 而消失）得\n$$\\widehat{f^{(n)}}(x)=(2\\pi ix)^n\\hat f(x),\\quad\\forall n\\geqslant0.\\qquad(4)$$\n结合 (3)(4)，对任意 $m,k\\geqslant0$，\n$$x^m\\frac{\\mathrm{d}^k\\hat f(x)}{\\mathrm{d}x^k}=\\frac{1}{(2\\pi i)^m}\\int_{\\mathbb{R}}\\frac{\\mathrm{d}^m\\left[(-2\\pi iy)^kf(y)\\right]}{\\mathrm{d}y^m}e^{-2\\pi ixy}\\,\\mathrm{d}y,$$\n被积函数的模可积且与 $x$ 无关，故上式在 $\\mathbb{R}$ 上有界，$\\hat f\\in\\mathscr{S}$。\n\n**反演公式。** 于是 $\\displaystyle\\int_{-\\infty}^{+\\infty}\\hat f(y)e^{2\\pi ixy}\\,\\mathrm{d}y$ 收敛。交换积分次序（绝对可积）：\n$$\\begin{aligned}\\int_{-A}^A\\hat f(y)e^{2\\pi ixy}\\,\\mathrm{d}y&=\\int_{-A}^A\\mathrm{d}y\\int_{-\\infty}^{+\\infty}f(x-t)e^{2\\pi ity}\\,\\mathrm{d}t=\\int_{-\\infty}^{+\\infty}f(x-t)\\frac{\\sin(2\\pi At)}{\\pi t}\\,\\mathrm{d}t\\\\&=\\int_{-\\infty}^{+\\infty}\\frac{f(x-t)-f(x)}{\\pi t}\\sin(2\\pi At)\\,\\mathrm{d}t+f(x),\\end{aligned}\\qquad(5)$$\n其中用到 $\\displaystyle\\int_{-\\infty}^{+\\infty}\\frac{\\sin(2\\pi At)}{\\pi t}\\,\\mathrm{d}t=1$。由 $f\\in\\mathscr{S}$，$\\displaystyle\\int_{-\\infty}^{+\\infty}\\left|\\frac{f(x-t)-f(x)}{\\pi t}\\right|\\mathrm{d}t$ 收敛，由黎曼引理 (5) 中第一项当 $A\\to+\\infty$ 时趋于 0，结论成立。",
+   "solutionSource": "官方"
+  },
+  {
+   "no": "五",
+   "score": 15,
+   "type": "证明",
+   "subjects": [
+    "数学分析"
+   ],
+   "topics": [
+    "数列极限",
+    "单调有界准则",
+    "均值不等式",
+    "夹逼"
+   ],
+   "difficulty": 3,
+   "statement": "设 $n>1$ 为正整数，令 $S_n=\\left(\\dfrac1n\\right)^n+\\left(\\dfrac2n\\right)^n+\\cdots+\\left(\\dfrac{n-1}{n}\\right)^n$。\n\n1. 证明：数列 $S_n$ 单调增加且有界，从而极限 $\\displaystyle\\lim_{n\\to\\infty}S_n$ 存在；\n\n2. 求极限 $\\displaystyle\\lim_{n\\to\\infty}S_n$。",
+   "answer": "$\\displaystyle\\lim_{n\\to\\infty}S_n=\\frac{1}{e-1}$",
+   "solution": "**1.** 对 $n$ 个 $\\dfrac kn$ 与一个 $1$ 用均值不等式：\n$$\\frac{k+1}{n+1}=\\frac{\\frac kn+\\cdots+\\frac kn+1}{n+1}>\\sqrt[n+1]{\\left(\\frac kn\\right)^n},\\quad\\text{即}\\quad\\left(\\frac kn\\right)^n<\\left(\\frac{k+1}{n+1}\\right)^{n+1},\\ k=1,\\cdots,n-1.$$\n于是\n$$S_{n+1}=\\sum_{k=1}^n\\left(\\frac{k}{n+1}\\right)^{n+1}>\\left(\\frac1{n+1}\\right)^{n+1}+\\sum_{k=1}^{n-1}\\left(\\frac kn\\right)^n>S_n,$$\n$S_n$ 单调递增。又 $\\dfrac{S_n}{n}<\\displaystyle\\int_0^1x^n\\,\\mathrm{d}x=\\frac1{n+1}$（右端点黎曼和小于积分），故 $S_n<\\dfrac{n}{n+1}<1$。单调有界，极限存在。\n\n**2.** 由 $e^x>1+x\\ (x\\neq0)$，$\\left(1-\\dfrac kn\\right)^n<e^{-k}$，故\n$$S_n=\\sum_{k=1}^{n-1}\\left(1-\\frac kn\\right)^n<\\sum_{k=1}^\\infty e^{-k}=\\frac{1}{e-1},$$\n从而 $S=\\lim S_n\\leqslant\\dfrac1{e-1}$。另一方面，对固定 $m$ 及 $n>m$，$S_n\\geqslant\\displaystyle\\sum_{k=1}^m\\left(1-\\frac kn\\right)^n$，令 $n\\to\\infty$ 得 $S\\geqslant\\displaystyle\\sum_{k=1}^me^{-k}$，再令 $m\\to\\infty$ 得 $S\\geqslant\\dfrac1{e-1}$。所以 $\\displaystyle\\lim_{n\\to\\infty}S_n=\\frac1{e-1}$。",
+   "solutionSource": "官方"
+  },
+  {
+   "no": "六",
+   "score": 15,
+   "type": "证明",
+   "subjects": [
+    "常微分方程"
+   ],
+   "topics": [
+    "周期边值问题",
+    "存在唯一性定理",
+    "不动点",
+    "比较原理",
+    "对初值的可微性"
+   ],
+   "difficulty": 4,
+   "statement": "求证：常微分方程 $\\dfrac{\\mathrm{d}y}{\\mathrm{d}x}=-y^3+\\sin x,\\ x\\in[0,2\\pi]$ 有唯一的满足 $y(0)=y(2\\pi)$ 的解。",
+   "answer": "",
+   "solution": "记 $y(x,r)$ 为满足初值 $y(0)=r$ 的解（局部存在唯一）。\n\n**引理：** 对任意 $r$，$y(x,r)$ 在 $[0,2\\pi]$ 上有定义，且对 $r\\geqslant2$ 有 $y(x,r)\\leqslant r$，$y(x,-r)\\geqslant-r$。\n\n反证：若有 $x_0\\in[0,2\\pi]$，$r\\geqslant2$ 使 $y(x_0,r)>r$，则 $x_0>0$。记 $t=\\inf\\{s\\in[0,x_0]\\mid y(x,r)\\geqslant r,\\ \\forall x\\in[s,x_0]\\}$，则 $y(t,r)=r$ 且 $y_x'(t,r)\\geqslant0$；但 $y_x'(t,r)=-r^3+\\sin t<0$，矛盾。另一半同理。由此解有界，可延拓到整个 $[0,2\\pi]$。\n\n**存在性。** 令 $f(r)=y(2\\pi,r)$，由解对初值的连续依赖性 $f$ 连续，且由引理 $f([-2,2])\\subset[-2,2]$，故存在不动点 $y_0\\in[-2,2]$，$f(y_0)=y_0$，即 $y(x,y_0)$ 满足 $y(0)=y(2\\pi)$。\n\n**唯一性。** 对 $\\dfrac{\\mathrm{d}y(x,r)}{\\mathrm{d}x}=-y(x,r)^3+\\sin x$ 两边对 $r$ 求导：\n$$\\frac{\\mathrm{d}}{\\mathrm{d}x}\\left(\\frac{\\partial y(x,r)}{\\partial r}\\right)=-3y(x,r)^2\\frac{\\partial y(x,r)}{\\partial r},\\quad\\frac{\\partial y}{\\partial r}(0,r)=1,$$\n故 $\\dfrac{\\partial y(x,r)}{\\partial r}=e^{-3\\int_0^xy(s,r)^2\\mathrm{d}s}$，从而 $f'(r)=e^{-3\\int_0^{2\\pi}y(s,r)^2\\mathrm{d}s}<1$（$y\\not\\equiv0$），所以 $f(r)-r$ 严格递减，$f$ 至多有一个不动点。\n\n**唯一性另证：** 设 $y_1,y_2$ 是两个满足边值条件的不同解，由唯一性定理它们处处不相等，不妨 $y_1>y_2$。令 $y=y_1-y_2>0$，则 $y(0)=y(2\\pi)$，但 $y'=-(y_1^2+y_1y_2+y_2^2)y<0$，得 $y(0)>y(2\\pi)$，矛盾。（注：原解答此处写作 $y(0)<y(2\\pi)$，笔误，已改正）",
+   "solutionSource": "官方"
+  }
+ ]
+}

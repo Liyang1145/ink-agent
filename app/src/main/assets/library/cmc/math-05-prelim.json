@@ -1,0 +1,130 @@
+{
+ "id": "cmc-math-05-prelim",
+ "title": "第五届全国大学生数学竞赛初赛（数学类）",
+ "year": 2013,
+ "track": "数学类",
+ "round": "初赛",
+ "paper": "",
+ "durationMin": 150,
+ "totalScore": 100,
+ "source": {
+  "question": "2013年01-试题-第五届全国初赛-数学类试卷.pdf",
+  "solution": "2013年02-参考解答-第五届全国初赛-数学类试卷.pdf"
+ },
+ "problems": [
+  {
+   "no": "一",
+   "score": 15,
+   "type": "证明",
+   "subjects": [
+    "解析几何"
+   ],
+   "topics": [
+    "心脏线",
+    "反演变换",
+    "抛物线",
+    "滚动轨迹"
+   ],
+   "difficulty": 3,
+   "statement": "平面 $\\mathbb R^2$ 上两个半径为 $r$ 的圆 $C_1,C_2$ 外切于 $P$ 点，将圆 $C_2$ 沿 $C_1$ 的圆周（无滑动）滚动一周，这时 $C_2$ 上的 $P$ 点也随 $C_2$ 的运动而运动。记 $\\Gamma$ 为 $P$ 点的运动轨迹曲线，称为心脏线。现设 $C$ 为以 $P$ 的初始位置（切点）为圆心的圆，其半径为 $R$。记 $\\gamma:\\mathbb R^2\\cup\\{\\infty\\}\\to\\mathbb R^2\\cup\\{\\infty\\}$ 为圆 $C$ 的反演变换，它将 $Q\\in\\mathbb R^2\\setminus\\{P\\}$ 映成射线 $PQ$ 上的点 $Q'$，满足 $\\overrightarrow{PQ}\\cdot\\overrightarrow{PQ'}=R^2$。求证：$\\gamma(\\Gamma)$ 为抛物线。",
+   "answer": "",
+   "solution": "以 $C_1$ 的圆心 $O$ 为原点建立直角坐标系，使初始切点 $P=(0,r)$。圆 $C_2$ 滚动到与 $C_1$ 切于 $Q$ 点时，记 $\\angle POQ=\\theta$，则 $Q=(r\\sin\\theta,r\\cos\\theta)$。$C_1$ 在 $Q$ 处切线 $l_Q$ 的单位法向量为 $\\vec n=(\\sin\\theta,\\cos\\theta)$，由对称性此时 $P$ 点运动到 $P$ 关于 $l_Q$ 的对称点 $P'=P(\\theta)$：\n$$\\overrightarrow{OP'}=\\overrightarrow{OP}-2\\big(\\overrightarrow{QP}\\cdot\\vec n\\big)\\vec n.$$\n算得心脏线\n$$P(\\theta)=\\big(2r(1-\\cos\\theta)\\sin\\theta,\\ r+2r(1-\\cos\\theta)\\cos\\theta\\big),\\quad0\\leqslant\\theta\\leqslant2\\pi.$$\n圆 $C$ 的反演变换的坐标表示为\n$$(\\tilde x,\\tilde y)=(0,r)+\\frac{R^2}{x^2+(y-r)^2}(x,y-r).$$\n将 $(x,y)=P(\\theta)$ 代入（$x^2+(y-r)^2=4r^2(1-\\cos\\theta)^2$），得\n$$(\\tilde x,\\tilde y)=\\left(\\frac{R^2\\sin\\theta}{2r(1-\\cos\\theta)},\\ \\frac{R^2\\cos\\theta}{2r(1-\\cos\\theta)}+r\\right).$$\n利用 $\\sin^2\\theta=(1-\\cos\\theta)(1+\\cos\\theta)$ 直接计算消去 $\\theta$，得\n$$\\tilde y=\\frac{r}{R^2}\\tilde x^2+\\left(r-\\frac{R^2}{4r}\\right),$$\n故 $\\gamma(\\Gamma)$ 为抛物线。",
+   "solutionSource": "官方"
+  },
+  {
+   "no": "二",
+   "score": 10,
+   "type": "证明",
+   "subjects": [
+    "高等代数"
+   ],
+   "topics": [
+    "多项式矩阵",
+    "Cramer 法则",
+    "线性方程组相容性",
+    "秩"
+   ],
+   "difficulty": 2,
+   "statement": "设 $n$ 阶方阵 $B(t)$ 和 $n\\times1$ 矩阵 $b(t)$ 分别为 $$B(t)=\\big(b_{ij}(t)\\big),\\quad b(t)=\\big(b_1(t),\\dots,b_n(t)\\big)^{\\mathrm T},$$ 其中 $b_{ij}(t),b_i(t)$ 均为关于 $t$ 的实系数多项式，$i,j=1,2,\\dots,n$。记 $d(t)$ 为 $B(t)$ 的行列式，$d_i(t)$ 为用 $b(t)$ 替代 $B(t)$ 的第 $i$ 列后所得的 $n$ 阶矩阵的行列式。若 $d(t)$ 有实根 $t_0$，使得 $B(t_0)X=b(t_0)$ 成为关于 $X$ 的相容线性方程组，试证明：$d(t),d_1(t),\\dots,d_n(t)$ 必有次数大于等于 1 的公因式。",
+   "answer": "",
+   "solution": "断言：$t-t_0$ 是 $d(t),d_1(t),\\dots,d_n(t)$ 的公因式。由 $d(t_0)=0$，只需证 $d_i(t_0)=0\\ (i=1,\\dots,n)$。\n\n反证。不妨设 $d_1(t_0)\\neq0$。$d_1(t_0)$ 是增广矩阵 $[B(t_0),b(t_0)]$ 的一个 $n$ 阶子式，故 $\\operatorname{rank}[B(t_0),b(t_0)]=n$；而 $d(t_0)=0$ 给出 $\\operatorname{rank}B(t_0)\\leqslant n-1$。增广矩阵的秩不等于系数矩阵的秩，于是 $B(t_0)X=b(t_0)$ 不相容，矛盾。",
+   "solutionSource": "官方"
+  },
+  {
+   "no": "三",
+   "score": 15,
+   "type": "计算",
+   "subjects": [
+    "数学分析"
+   ],
+   "topics": [
+    "迭代数列",
+    "Stolz 定理",
+    "L'Hospital 法则",
+    "数列极限"
+   ],
+   "difficulty": 3,
+   "statement": "设 $f(x)$ 在区间 $[0,a]$ 上有二阶连续导数，$f'(0)=1$，$f''(0)\\neq0$ 且 $0<f(x)<x,\\ x\\in(0,a)$。令 $x_{n+1}=f(x_n)$，$x_1\\in(0,a)$。\n\n(1) 求证 $\\{x_n\\}$ 收敛并求极限；\n\n(2) 试问 $\\{nx_n\\}$ 是否收敛？若不收敛，则说明理由；若收敛，则求其极限。",
+   "answer": "(1) $\\lim\\limits_{n\\to\\infty}x_n=0$；(2) 收敛，$\\lim\\limits_{n\\to\\infty}nx_n=-\\dfrac{2}{f''(0)}$。",
+   "solution": "**(1)** 由 $0<x_2=f(x_1)<x_1$，归纳可得 $0<x_{n+1}<x_n$，故 $\\{x_n\\}$ 单调有界，有极限 $x_0\\in[0,a)$。由 $f$ 连续及 $x_{n+1}=f(x_n)$ 得 $x_0=f(x_0)$。又当 $x>0$ 时 $f(x)<x$，故只有 $x_0=0$，即 $\\lim\\limits_{n\\to\\infty}x_n=0$。\n\n**(2)** 由 Stolz 定理（$1/x_n$ 严格单增趋于 $+\\infty$）和 L'Hospital 法则：\n$$\\lim_{n\\to\\infty}nx_n=\\lim_{n\\to\\infty}\\frac{n}{1/x_n}=\\lim_{n\\to\\infty}\\frac{1}{1/x_{n+1}-1/x_n}=\\lim_{n\\to\\infty}\\frac{x_nf(x_n)}{x_n-f(x_n)}=\\lim_{x\\to0}\\frac{xf(x)}{x-f(x)}$$\n$$=\\lim_{x\\to0}\\frac{f(x)+xf'(x)}{1-f'(x)}=\\lim_{x\\to0}\\frac{2f'(x)+xf''(x)}{-f''(x)}=-\\frac{2}{f''(0)}.$$",
+   "solutionSource": "官方"
+  },
+  {
+   "no": "四",
+   "score": 15,
+   "type": "证明",
+   "subjects": [
+    "数学分析"
+   ],
+   "topics": [
+    "微分中值定理",
+    "反证法",
+    "单调性"
+   ],
+   "difficulty": 3,
+   "statement": "设 $a>1$，函数 $f:(0,+\\infty)\\to(0,+\\infty)$ 可微，求证：存在趋于无穷的正数列 $\\{x_n\\}$ 使得 $f'(x_n)<f(ax_n),\\ n=1,2,\\dots$。",
+   "answer": "",
+   "solution": "若结论不对，则存在 $x_0>0$，使当 $x\\geqslant x_0$ 时 $f'(x)\\geqslant f(ax)>0$。于是当 $x>x_0$ 时 $f$ 严格递增，且由微分中值定理，存在 $\\xi\\in(x,ax)$，\n$$f(ax)-f(x)=f'(\\xi)(a-1)x\\geqslant f(a\\xi)(a-1)x>f(ax)(a-1)x.$$\n从而 $f(ax)\\big(1-(a-1)x\\big)>f(x)>0$，这对于 $x>\\dfrac{1}{a-1}$ 是不能成立的。矛盾。",
+   "solutionSource": "官方"
+  },
+  {
+   "no": "五",
+   "score": 20,
+   "type": "证明",
+   "subjects": [
+    "数学分析"
+   ],
+   "topics": [
+    "凸函数",
+    "积分不等式",
+    "Chebyshev 不等式",
+    "偶函数"
+   ],
+   "difficulty": 3,
+   "statement": "设 $f:[-1,1]\\to\\mathbb R$ 为偶函数，$f$ 在 $[0,1]$ 上单调递增，又设 $g$ 是 $[-1,1]$ 上的凸函数，即对任意 $x,y\\in[-1,1]$ 及 $t\\in(0,1)$ 有 $$g(tx+(1-t)y)\\leqslant tg(x)+(1-t)g(y).$$ 求证：$$2\\int_{-1}^1f(x)g(x)\\,\\mathrm dx\\geqslant\\int_{-1}^1f(x)\\,\\mathrm dx\\int_{-1}^1g(x)\\,\\mathrm dx.$$",
+   "answer": "",
+   "solution": "由 $f$ 为偶函数，$\\displaystyle\\int_{-1}^1f(x)g(x)\\,\\mathrm dx=\\int_{-1}^1f(x)g(-x)\\,\\mathrm dx$，因而\n$$2\\int_{-1}^1f(x)g(x)\\,\\mathrm dx=\\int_{-1}^1f(x)\\big(g(x)+g(-x)\\big)\\,\\mathrm dx=2\\int_0^1f(x)h(x)\\,\\mathrm dx,\\tag{1}$$\n其中 $h(x)=g(x)+g(-x)$。因 $g$ 是凸函数，$h$ 在 $[0,1]$ 上递增，故对任意 $x,y\\in[0,1]$，$\\big(f(x)-f(y)\\big)\\big(h(x)-h(y)\\big)\\geqslant0$，从而\n$$\\int_0^1\\!\\!\\int_0^1\\big(f(x)-f(y)\\big)\\big(h(x)-h(y)\\big)\\,\\mathrm dx\\,\\mathrm dy\\geqslant0.$$\n展开即得\n$$2\\int_0^1fh\\,\\mathrm dx\\geqslant2\\int_0^1f\\,\\mathrm dx\\int_0^1h\\,\\mathrm dx=\\frac12\\int_{-1}^1f\\,\\mathrm dx\\int_{-1}^1h\\,\\mathrm dx=\\int_{-1}^1f\\,\\mathrm dx\\int_{-1}^1g\\,\\mathrm dx.$$\n结合 (1) 即得结论。",
+   "solutionSource": "官方"
+  },
+  {
+   "no": "六",
+   "score": 25,
+   "type": "证明",
+   "subjects": [
+    "高等代数"
+   ],
+   "topics": [
+    "矩阵乘法映射",
+    "秩",
+    "幂等矩阵",
+    "矩阵单位",
+    "相似"
+   ],
+   "difficulty": 5,
+   "statement": "设 $\\mathbb R^{n\\times n}$ 为 $n$ 阶实方阵全体，$E_{ij}$ 为 $(i,j)$ 位置元素为 1，其余位置元素为 0 的 $n$ 阶方阵，$i,j=1,2,\\dots,n$。让 $\\Gamma_r$ 为秩等于 $r$ 的 $n$ 阶实方阵全体，$r=0,1,2,\\dots,n$，并让 $\\phi:\\mathbb R^{n\\times n}\\to\\mathbb R^{n\\times n}$ 为可乘映照，即满足：$\\phi(AB)=\\phi(A)\\phi(B),\\ \\forall A,B\\in\\mathbb R^{n\\times n}$。试证明：\n\n(1) $\\forall A,B\\in\\Gamma_r$，$\\operatorname{rank}\\phi(A)=\\operatorname{rank}\\phi(B)$；\n\n(2) 若 $\\phi(0)=0$，且存在某个秩为 1 的矩阵 $W$，使得 $\\phi(W)\\neq0$，则必存在可逆方阵 $R$ 使得 $\\phi(E_{ij})=RE_{ij}R^{-1}$ 对于一切 $E_{ij}$ 皆成立，$i,j=1,2,\\dots,n$。",
+   "answer": "",
+   "solution": "**(1)** $A,B\\in\\Gamma_r$ 表明 $A=PBQ$，其中 $P,Q$ 可逆。于是 $\\phi(A)=\\phi(P)\\phi(B)\\phi(Q)$，从而 $\\operatorname{rank}\\phi(A)\\leqslant\\operatorname{rank}\\phi(B)$；对称地 $\\operatorname{rank}\\phi(B)\\leqslant\\operatorname{rank}\\phi(A)$。\n\n**(2)** 由 (1)，所有 $\\phi(E_{ij})$ 与 $\\phi(W)$ 同秩，均为非零阵；特别 $\\phi(E_{ii})$ 是非零幂等阵（$\\phi(E_{ii})^2=\\phi(E_{ii})$），故存在特征向量 $w_i\\neq0$ 使 $\\phi(E_{ii})w_i=w_i$，$i=1,\\dots,n$。\n\na) $k\\neq i$ 时 $\\phi(E_{ii})w_k=\\phi(E_{ii})\\phi(E_{kk})w_k=\\phi(E_{ii}E_{kk})w_k=\\phi(0)w_k=0$；$k=i$ 时为 $w_i$。\n\nb) $w_1,\\dots,w_n$ 线性无关：若 $\\sum x_kw_k=0$，两边用 $\\phi(E_{ii})$ 作用得 $x_i=0$。故 $W_0=[w_1,\\dots,w_n]$ 可逆。\n\nc) 当 $k\\neq j$ 时，$\\phi(E_{ij})w_k=\\phi(E_{ij})\\phi(E_{kk})w_k=\\phi(E_{ij}E_{kk})w_k=0$。设 $\\phi(E_{ij})w_j=\\sum_lc_lw_l$，对 $l\\neq i$ 两边用 $\\phi(E_{ll})$ 作用：$0=\\phi(E_{ll}E_{ij})w_j=c_lw_l$，故 $c_l=0$，记 $\\phi(E_{ij})w_j=b_{ij}w_i$。且 $b_{ij}\\neq0$，否则 $\\phi(E_{ij})W_0=0$，$\\phi(E_{ij})=0$，不可能。\n\n由 $E_{mr}E_{rs}=E_{ms}$：\n$$b_{ms}w_m=\\phi(E_{ms})w_s=\\phi(E_{mr})\\phi(E_{rs})w_s=\\phi(E_{mr})b_{rs}w_r=b_{rs}b_{mr}w_m,$$\n故 $b_{mr}b_{rs}=b_{ms}$。\n\n最后令 $v_i=b_{i1}w_i$，则\n$$\\phi(E_{ij})v_k=\\begin{cases}b_{j1}b_{ij}w_i=b_{i1}w_i=v_i,&k=j,\\\\0,&k\\neq j.\\end{cases}$$\n令 $R=[v_1,\\dots,v_n]=W_0\\operatorname{diag}(b_{11},\\dots,b_{n1})$，可逆，且\n$$\\phi(E_{ij})R=[0,\\dots,0,\\underset{\\text{第 }j\\text{ 列}}{v_i},0,\\dots,0]=RE_{ij},$$\n即 $\\phi(E_{ij})=RE_{ij}R^{-1}$。",
+   "solutionSource": "官方"
+  }
+ ]
+}

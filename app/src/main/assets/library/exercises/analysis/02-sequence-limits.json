@@ -1,0 +1,261 @@
+{
+ "id": "ex-analysis-02",
+ "title": "数学分析 · 数列极限",
+ "subject": "数学分析",
+ "chapter": 2,
+ "problems": [
+  {
+   "no": "1",
+   "type": "证明",
+   "subjects": [
+    "数学分析"
+   ],
+   "topics": [
+    "ε-N定义"
+   ],
+   "difficulty": 1,
+   "statement": "用 $\\varepsilon$-$N$ 定义证明 $\\displaystyle\\lim_{n\\to\\infty}\\dfrac{3n^2+n}{2n^2-1}=\\dfrac32$。",
+   "answer": "",
+   "solution": "$$\\left|\\dfrac{3n^2+n}{2n^2-1}-\\dfrac32\\right|=\\dfrac{|2n+3|}{2(2n^2-1)}.$$\n当 $n\\ge3$ 时 $2n+3\\le3n$，且 $2n^2-1\\ge n^2$，所以上式 $\\le\\dfrac{3n}{2n^2}=\\dfrac{3}{2n}$。\n\n任给 $\\varepsilon>0$，取 $N=\\max\\left\\{3,\\left[\\dfrac{3}{2\\varepsilon}\\right]+1\\right\\}$，当 $n>N$ 时 $\\left|\\dfrac{3n^2+n}{2n^2-1}-\\dfrac32\\right|\\le\\dfrac3{2n}<\\varepsilon$。",
+   "solutionSource": "编写",
+   "source": "经典题"
+  },
+  {
+   "no": "2",
+   "type": "证明",
+   "subjects": [
+    "数学分析"
+   ],
+   "topics": [
+    "ε-N定义",
+    "二项式展开"
+   ],
+   "difficulty": 1,
+   "statement": "证明 $\\displaystyle\\lim_{n\\to\\infty}\\sqrt[n]{n}=1$。",
+   "answer": "",
+   "solution": "令 $\\sqrt[n]{n}=1+h_n$，$h_n\\ge0$。当 $n\\ge2$ 时由二项式展开\n$$n=(1+h_n)^n\\ge\\dfrac{n(n-1)}{2}h_n^2,$$\n得 $0\\le h_n\\le\\sqrt{\\dfrac{2}{n-1}}$。任给 $\\varepsilon>0$，取 $N=\\left[\\dfrac{2}{\\varepsilon^2}\\right]+2$，当 $n>N$ 时 $h_n<\\varepsilon$，即 $|\\sqrt[n]{n}-1|<\\varepsilon$。",
+   "solutionSource": "编写",
+   "source": "经典题"
+  },
+  {
+   "no": "3",
+   "type": "计算",
+   "subjects": [
+    "数学分析"
+   ],
+   "topics": [
+    "夹逼准则"
+   ],
+   "difficulty": 1,
+   "statement": "求 $\\displaystyle\\lim_{n\\to\\infty}\\left(\\dfrac{1}{\\sqrt{n^2+1}}+\\dfrac{1}{\\sqrt{n^2+2}}+\\cdots+\\dfrac{1}{\\sqrt{n^2+n}}\\right)$。",
+   "answer": "$1$",
+   "solution": "和式共 $n$ 项，每项介于 $\\dfrac1{\\sqrt{n^2+n}}$ 与 $\\dfrac1{\\sqrt{n^2+1}}$ 之间，故\n$$\\dfrac{n}{\\sqrt{n^2+n}}\\le x_n\\le\\dfrac{n}{\\sqrt{n^2+1}}.$$\n两端 $=\\dfrac{1}{\\sqrt{1+1/n}}\\to1$ 与 $\\dfrac{1}{\\sqrt{1+1/n^2}}\\to1$。由夹逼准则极限为 $1$。",
+   "solutionSource": "编写",
+   "source": "经典题"
+  },
+  {
+   "no": "4",
+   "type": "证明",
+   "subjects": [
+    "数学分析"
+   ],
+   "topics": [
+    "单调有界定理",
+    "重要极限"
+   ],
+   "difficulty": 2,
+   "statement": "证明数列 $x_n=\\left(1+\\dfrac1n\\right)^n$ 单调递增且有上界，从而收敛（其极限记为 $e$）。",
+   "answer": "",
+   "solution": "单调性：由均值不等式（$n$ 个 $1+\\dfrac1n$ 与一个 $1$）\n$$\\sqrt[n+1]{\\left(1+\\dfrac1n\\right)^n\\cdot1}\\le\\dfrac{n\\left(1+\\frac1n\\right)+1}{n+1}=1+\\dfrac1{n+1},$$\n即 $x_n\\le x_{n+1}$。\n\n有界性：由二项式展开，\n$$x_n=\\sum_{k=0}^n\\binom nk\\dfrac1{n^k}=\\sum_{k=0}^n\\dfrac1{k!}\\left(1-\\dfrac1n\\right)\\cdots\\left(1-\\dfrac{k-1}n\\right)\\le\\sum_{k=0}^n\\dfrac1{k!}\\le1+1+\\dfrac12+\\dfrac1{2^2}+\\cdots+\\dfrac1{2^{n-1}}<3.$$\n由单调有界定理 $\\{x_n\\}$ 收敛。",
+   "solutionSource": "编写",
+   "source": "经典题"
+  },
+  {
+   "no": "5",
+   "type": "计算",
+   "subjects": [
+    "数学分析"
+   ],
+   "topics": [
+    "Stolz定理"
+   ],
+   "difficulty": 2,
+   "statement": "求 $\\displaystyle\\lim_{n\\to\\infty}\\dfrac{1+\\frac12+\\cdots+\\frac1n}{\\ln n}$。",
+   "answer": "$1$",
+   "solution": "分母 $\\ln n$ 严格递增趋于 $+\\infty$，用 Stolz 定理：\n$$\\lim_{n\\to\\infty}\\dfrac{\\frac1{n+1}}{\\ln(n+1)-\\ln n}=\\lim_{n\\to\\infty}\\dfrac{\\frac1{n+1}}{\\ln\\left(1+\\frac1n\\right)}=\\lim_{n\\to\\infty}\\dfrac{\\frac1{n+1}}{\\frac1n+o\\left(\\frac1n\\right)}=1.$$\n故原极限为 $1$。",
+   "solutionSource": "编写",
+   "source": "经典题"
+  },
+  {
+   "no": "6",
+   "type": "计算",
+   "subjects": [
+    "数学分析"
+   ],
+   "topics": [
+    "Stolz定理"
+   ],
+   "difficulty": 2,
+   "statement": "设 $k$ 为正整数，求 $\\displaystyle\\lim_{n\\to\\infty}\\dfrac{1^k+2^k+\\cdots+n^k}{n^{k+1}}$。",
+   "answer": "$\\dfrac{1}{k+1}$",
+   "solution": "由 Stolz 定理（分母严格递增趋于 $+\\infty$），\n$$\\lim_{n\\to\\infty}\\dfrac{(n+1)^k}{(n+1)^{k+1}-n^{k+1}}.$$\n分母按二项式展开为 $(k+1)n^k+\\binom{k+1}{2}n^{k-1}+\\cdots+1$，分子为 $n^k+\\cdots$，二者都是 $n$ 的 $k$ 次多项式，首项系数分别为 $1$ 与 $k+1$，故极限为 $\\dfrac1{k+1}$。",
+   "solutionSource": "编写",
+   "source": "经典题"
+  },
+  {
+   "no": "7",
+   "type": "证明",
+   "subjects": [
+    "数学分析"
+   ],
+   "topics": [
+    "Cesàro平均",
+    "ε-N定义"
+   ],
+   "difficulty": 2,
+   "statement": "设 $\\displaystyle\\lim_{n\\to\\infty}a_n=a$，证明 $\\displaystyle\\lim_{n\\to\\infty}\\dfrac{a_1+a_2+\\cdots+a_n}{n}=a$。",
+   "answer": "",
+   "solution": "任给 $\\varepsilon>0$，存在 $N_1$，当 $k>N_1$ 时 $|a_k-a|<\\dfrac\\varepsilon2$。记 $M=\\sum_{k=1}^{N_1}|a_k-a|$（定值）。当 $n>N_1$ 时\n$$\\left|\\dfrac{a_1+\\cdots+a_n}{n}-a\\right|\\le\\dfrac{M}{n}+\\dfrac1n\\sum_{k=N_1+1}^n|a_k-a|<\\dfrac Mn+\\dfrac\\varepsilon2.$$\n再取 $N>N_1$ 使 $n>N$ 时 $\\dfrac Mn<\\dfrac\\varepsilon2$，则上式 $<\\varepsilon$。",
+   "solutionSource": "编写",
+   "source": "经典题"
+  },
+  {
+   "no": "8",
+   "type": "计算",
+   "subjects": [
+    "数学分析"
+   ],
+   "topics": [
+    "单调有界定理",
+    "递推数列"
+   ],
+   "difficulty": 2,
+   "statement": "设 $x_1=\\sqrt2$，$x_{n+1}=\\sqrt{2+x_n}$。证明 $\\{x_n\\}$ 收敛并求其极限。",
+   "answer": "$2$",
+   "solution": "有界：$x_1<2$；若 $x_n<2$，则 $x_{n+1}<\\sqrt{4}=2$。故 $0<x_n<2$。\n\n单调：$x_{n+1}^2-x_n^2=2+x_n-x_n^2=(2-x_n)(1+x_n)>0$，故 $x_{n+1}>x_n$。\n\n由单调有界定理 $x_n\\to a$，且 $a\\ge x_1>0$。在递推式中令 $n\\to\\infty$ 得 $a=\\sqrt{2+a}$，即 $a^2-a-2=0$，解得 $a=2$（舍去 $-1$）。",
+   "solutionSource": "编写",
+   "source": "经典题"
+  },
+  {
+   "no": "9",
+   "type": "证明",
+   "subjects": [
+    "数学分析"
+   ],
+   "topics": [
+    "Cauchy收敛准则"
+   ],
+   "difficulty": 2,
+   "statement": "用 Cauchy 收敛准则证明 $x_n=1+\\dfrac12+\\cdots+\\dfrac1n$ 发散。",
+   "answer": "",
+   "solution": "对任意 $n$，\n$$x_{2n}-x_n=\\dfrac1{n+1}+\\cdots+\\dfrac1{2n}\\ge n\\cdot\\dfrac1{2n}=\\dfrac12.$$\n取 $\\varepsilon_0=\\dfrac12$，对任意 $N$，取 $n=N+1$，$m=2n$，均大于 $N$，而 $|x_m-x_n|\\ge\\varepsilon_0$。故 $\\{x_n\\}$ 不是 Cauchy 列，从而发散。",
+   "solutionSource": "编写",
+   "source": "经典题"
+  },
+  {
+   "no": "10",
+   "type": "证明",
+   "subjects": [
+    "数学分析"
+   ],
+   "topics": [
+    "单调有界定理",
+    "Euler常数"
+   ],
+   "difficulty": 3,
+   "statement": "证明数列 $c_n=1+\\dfrac12+\\cdots+\\dfrac1n-\\ln n$ 收敛（其极限为 Euler 常数 $\\gamma$）。",
+   "answer": "",
+   "solution": "先证：对 $x>0$，$\\dfrac{x}{1+x}<\\ln(1+x)<x$。取 $x=\\dfrac1n$ 得\n$$\\dfrac1{n+1}<\\ln\\left(1+\\dfrac1n\\right)<\\dfrac1n.$$\n单调：$c_{n+1}-c_n=\\dfrac1{n+1}-\\ln\\left(1+\\dfrac1n\\right)<0$，故递减。\n\n有下界：$\\ln(n+1)=\\sum_{k=1}^n\\ln\\left(1+\\dfrac1k\\right)<\\sum_{k=1}^n\\dfrac1k$，所以\n$$c_n>\\ln(n+1)-\\ln n>0.$$\n由单调有界定理 $c_n$ 收敛。",
+   "solutionSource": "编写",
+   "source": "经典题"
+  },
+  {
+   "no": "11",
+   "type": "计算",
+   "subjects": [
+    "数学分析"
+   ],
+   "topics": [
+    "压缩映射",
+    "递推数列",
+    "Cauchy收敛准则"
+   ],
+   "difficulty": 3,
+   "statement": "设 $x_1=1$，$x_{n+1}=1+\\dfrac{1}{x_n}$。证明 $\\{x_n\\}$ 收敛并求极限。",
+   "answer": "$\\dfrac{1+\\sqrt5}{2}$",
+   "solution": "显然 $x_n\\ge1$，且 $x_n x_{n-1}=x_{n-1}+1\\ge2$（$n\\ge2$）。于是\n$$|x_{n+1}-x_n|=\\left|\\dfrac1{x_n}-\\dfrac1{x_{n-1}}\\right|=\\dfrac{|x_n-x_{n-1}|}{x_nx_{n-1}}\\le\\dfrac12|x_n-x_{n-1}|.$$\n所以 $|x_{n+1}-x_n|\\le\\dfrac{1}{2^{n-1}}|x_2-x_1|$，对 $p\\ge1$，\n$$|x_{n+p}-x_n|\\le\\sum_{k=n}^{n+p-1}|x_{k+1}-x_k|\\le\\dfrac{|x_2-x_1|}{2^{n-2}},$$\n由 Cauchy 准则 $\\{x_n\\}$ 收敛，设极限为 $a\\ge1$。由 $a=1+\\dfrac1a$ 得 $a^2-a-1=0$，$a=\\dfrac{1+\\sqrt5}2$。\n\n注：此数列不单调（奇偶子列分别单调），故用压缩估计而非单调有界定理。",
+   "solutionSource": "编写",
+   "source": "经典题"
+  },
+  {
+   "no": "12",
+   "type": "计算",
+   "subjects": [
+    "数学分析"
+   ],
+   "topics": [
+    "Stolz定理",
+    "几何平均"
+   ],
+   "difficulty": 3,
+   "statement": "求 $\\displaystyle\\lim_{n\\to\\infty}\\dfrac{n}{\\sqrt[n]{n!}}$。",
+   "answer": "$e$",
+   "solution": "引理：若 $b_n>0$ 且 $\\dfrac{b_{n+1}}{b_n}\\to l>0$，则 $\\sqrt[n]{b_n}\\to l$。\n\n证：$\\ln\\sqrt[n]{b_n}=\\dfrac1n\\left(\\ln b_1+\\sum_{k=1}^{n-1}\\ln\\dfrac{b_{k+1}}{b_k}\\right)$，括号内为数列 $\\ln\\dfrac{b_{k+1}}{b_k}\\to\\ln l$ 的部分和，由 Cesàro 平均（或 Stolz 定理）知上式 $\\to\\ln l$。\n\n取 $b_n=\\dfrac{n^n}{n!}$，则\n$$\\dfrac{b_{n+1}}{b_n}=\\dfrac{(n+1)^{n+1}}{(n+1)!}\\cdot\\dfrac{n!}{n^n}=\\left(1+\\dfrac1n\\right)^n\\to e.$$\n故 $\\dfrac{n}{\\sqrt[n]{n!}}=\\sqrt[n]{b_n}\\to e$。",
+   "solutionSource": "编写",
+   "source": "经典题"
+  },
+  {
+   "no": "13",
+   "type": "计算",
+   "subjects": [
+    "数学分析"
+   ],
+   "topics": [
+    "Stolz定理",
+    "递推数列",
+    "渐近估计"
+   ],
+   "difficulty": 4,
+   "statement": "设 $0<x_1<1$，$x_{n+1}=x_n(1-x_n)$。证明 $\\displaystyle\\lim_{n\\to\\infty}nx_n=1$。",
+   "answer": "$1$",
+   "solution": "由归纳 $0<x_n<1$，且 $x_{n+1}<x_n$，$\\{x_n\\}$ 单调递减有下界，极限 $a$ 满足 $a=a(1-a)$，故 $a=0$。\n\n由于 $\\dfrac1{x_n}$ 严格递增趋于 $+\\infty$，对 $\\dfrac{n}{1/x_n}$ 用 Stolz 定理：\n$$\\dfrac1{x_{n+1}}-\\dfrac1{x_n}=\\dfrac{x_n-x_{n+1}}{x_nx_{n+1}}=\\dfrac{x_n^2}{x_n^2(1-x_n)}=\\dfrac1{1-x_n}\\to1,$$\n故\n$$\\lim_{n\\to\\infty}nx_n=\\lim_{n\\to\\infty}\\dfrac{n}{1/x_n}=\\lim_{n\\to\\infty}\\dfrac{(n+1)-n}{\\frac1{x_{n+1}}-\\frac1{x_n}}=1.$$",
+   "solutionSource": "编写",
+   "source": "经典题"
+  },
+  {
+   "no": "14",
+   "type": "证明",
+   "subjects": [
+    "数学分析"
+   ],
+   "topics": [
+    "Cesàro平均",
+    "数列极限"
+   ],
+   "difficulty": 4,
+   "statement": "设 $\\displaystyle\\lim_{n\\to\\infty}(x_n-x_{n-2})=0$。证明 $\\displaystyle\\lim_{n\\to\\infty}\\dfrac{x_n-x_{n-1}}{n}=0$。",
+   "answer": "",
+   "solution": "令 $y_n=x_n-x_{n-1}$（$n\\ge2$），$z_n=y_n+y_{n-1}=x_n-x_{n-2}\\to0$（$n\\ge3$）。反复利用 $y_k=z_k-y_{k-1}$：\n$$y_n=z_n-z_{n-1}+z_{n-2}-\\cdots+(-1)^{n-3}z_3+(-1)^{n-2}y_2.$$\n于是\n$$\\dfrac{|y_n|}{n}\\le\\dfrac{|z_3|+|z_4|+\\cdots+|z_n|}{n}+\\dfrac{|y_2|}{n}.$$\n因 $|z_n|\\to0$，由 Cesàro 平均定理右端第一项 $\\to0$，第二项显然 $\\to0$。故 $\\dfrac{x_n-x_{n-1}}n\\to0$。",
+   "solutionSource": "编写",
+   "source": "经典题"
+  },
+  {
+   "no": "15",
+   "type": "证明",
+   "subjects": [
+    "数学分析"
+   ],
+   "topics": [
+    "次可加数列",
+    "Fekete引理",
+    "下确界"
+   ],
+   "difficulty": 5,
+   "statement": "(Fekete 引理) 设数列 $\\{a_n\\}$ 满足 $a_{m+n}\\le a_m+a_n$（$m,n\\ge1$）。证明 $\\displaystyle\\lim_{n\\to\\infty}\\dfrac{a_n}{n}=\\inf_{n\\ge1}\\dfrac{a_n}{n}$（下确界可以为 $-\\infty$）。",
+   "answer": "",
+   "solution": "记 $L=\\inf_n\\dfrac{a_n}n$。显然 $\\varliminf\\dfrac{a_n}n\\ge L$，只需证 $\\varlimsup\\dfrac{a_n}n\\le L$，即对任意实数 $\\ell>L$，有 $\\varlimsup\\dfrac{a_n}{n}\\le\\ell$。\n\n取 $m$ 使 $\\dfrac{a_m}m<\\ell$。对任意 $n>m$，写 $n=qm+r$，$q\\ge1$，$r\\in\\{1,2,\\dots,m\\}$。由次可加性反复使用，\n$$a_n\\le q\\,a_m+a_r\\le q\\,a_m+C,\\qquad C=\\max_{1\\le r\\le m}a_r.$$\n于是\n$$\\dfrac{a_n}{n}\\le\\dfrac{qm}{n}\\cdot\\dfrac{a_m}{m}+\\dfrac{C}{n}.$$\n当 $n\\to\\infty$ 时 $\\dfrac{qm}{n}=\\dfrac{n-r}{n}\\to1$，$\\dfrac Cn\\to0$，故 $\\varlimsup\\dfrac{a_n}n\\le\\dfrac{a_m}{m}<\\ell$。由 $\\ell>L$ 的任意性得 $\\varlimsup\\dfrac{a_n}n\\le L$，结论成立（$L=-\\infty$ 时即 $\\dfrac{a_n}n\\to-\\infty$）。",
+   "solutionSource": "编写",
+   "source": "经典题（Fekete 引理）"
+  }
+ ]
+}

@@ -1,0 +1,127 @@
+{
+ "id": "cmc-math-08-prelim",
+ "title": "第八届全国大学生数学竞赛初赛（数学类）",
+ "year": 2016,
+ "track": "数学类",
+ "round": "初赛",
+ "paper": "",
+ "durationMin": 150,
+ "totalScore": 100,
+ "source": {
+  "question": "2016年01-试题-第八届全国初赛-数学类试卷.pdf",
+  "solution": "2016年02-参考解答-第八届全国初赛-数学类试卷.pdf"
+ },
+ "problems": [
+  {
+   "no": "一",
+   "score": 15,
+   "type": "证明",
+   "subjects": [
+    "解析几何"
+   ],
+   "topics": [
+    "椭球面",
+    "切线",
+    "仿射变换",
+    "平面"
+   ],
+   "difficulty": 2,
+   "statement": "设 $S$ 是空间中的一个椭球面。设方向为常向量 $V$ 的一束平行光照射 $S$，其中部分光线与 $S$ 相切，它们的切点在 $S$ 上形成一条曲线 $\\Gamma$。证明：$\\Gamma$ 落在一张过椭球中心的平面上。",
+   "answer": "",
+   "solution": "**证明 1** 在空间中取直角坐标系，记椭球面 $S$ 的方程为\n$$\\frac{x^2}{a^2}+\\frac{y^2}{b^2}+\\frac{z^2}{c^2}=1,\\qquad V=(\\alpha,\\beta,\\gamma).$$\n设 $(x,y,z)\\in\\Gamma$，则光束中的光线\n$$l(t)=(x,y,z)+t(\\alpha,\\beta,\\gamma),\\quad t\\in R$$\n是椭球面 $S$ 的切线。由于每条切线与椭球面有且仅有一个交点，故 $t=0$ 是方程\n$$\\frac{(x+t\\alpha)^2}{a^2}+\\frac{(y+t\\beta)^2}{b^2}+\\frac{(z+t\\gamma)^2}{c^2}=1$$\n的唯一解。由于 $(x,y,z)\\in\\Gamma\\subset S$，上述方程化为\n$$\\left(\\frac{\\alpha^2}{a^2}+\\frac{\\beta^2}{b^2}+\\frac{\\gamma^2}{c^2}\\right)t^2+2\\left(\\frac\\alpha{a^2}x+\\frac\\beta{b^2}y+\\frac\\gamma{c^2}z\\right)t=0.$$\n这个方程只有 $t=0$ 的唯一解，当且仅当 $\\dfrac\\alpha{a^2}x+\\dfrac\\beta{b^2}y+\\dfrac\\gamma{c^2}z=0$。这是一个过原点的平面方程，故 $\\Gamma$ 落在过椭球面中心的一张平面上。\n\n**证明 2** 在空间中做仿射变换，将椭球面映成圆球面。这时平行光束映成平行光束，切线映成切线，切点映成切点，椭球中心映成球面中心。由于平行光束照圆球面的所有切线的切点是一个大圆，它落在过球心的平面上，而仿射变换将平面映成平面，故 $\\Gamma$ 落在一张过椭球面中心的平面上。\n\n（注：原解答此处笔误，已改正：光线写成 $(x+y+z)+t(\\alpha,\\beta,\\gamma)$ 应为 $(x,y,z)+t(\\alpha,\\beta,\\gamma)$；“故 $\\gamma$ 落在”应为“故 $\\Gamma$ 落在”。）",
+   "solutionSource": "官方"
+  },
+  {
+   "no": "二",
+   "score": 15,
+   "type": "证明",
+   "subjects": [
+    "高等代数"
+   ],
+   "topics": [
+    "秩不等式",
+    "Jordan标准型",
+    "特征值"
+   ],
+   "difficulty": 3,
+   "statement": "设 $n$ 为奇数，$A,B$ 为两个实 $n$ 阶方阵，且 $BA=0$。记 $A+J_A$ 的特征值集合为 $S_1$，$B+J_B$ 的特征值集合为 $S_2$，其中 $J_A,J_B$ 分别表示 $A,B$ 的 Jordan 标准型。求证：$0\\in S_1\\cup S_2$。",
+   "answer": "",
+   "solution": "由秩不等式 $\\operatorname{rank}A+\\operatorname{rank}B\\leqslant\\operatorname{rank}(BA)+n$，得 $\\operatorname{rank}A+\\operatorname{rank}B\\leqslant n$。结果\n$$\\operatorname{rank}A\\leqslant\\frac n2\\quad\\text{或}\\quad\\operatorname{rank}B\\leqslant\\frac n2.$$\n注意到 $n$ 为奇数，故有 $\\operatorname{rank}A<\\dfrac n2$ 或 $\\operatorname{rank}B<\\dfrac n2$ 成立。\n\n若 $\\operatorname{rank}A<\\dfrac n2$，则 $\\operatorname{rank}(A+J_A)\\leqslant\\operatorname{rank}A+\\operatorname{rank}J_A=2\\operatorname{rank}A<n$，故 $0\\in S_1$；\n\n或 $\\operatorname{rank}B<\\dfrac n2$，则 $\\operatorname{rank}(B+J_B)\\leqslant\\operatorname{rank}B+\\operatorname{rank}J_B<n$，故 $0\\in S_2$。\n\n所以最终有 $0\\in S_1\\cup S_2$。",
+   "solutionSource": "官方"
+  },
+  {
+   "no": "三",
+   "score": 20,
+   "type": "证明",
+   "subjects": [
+    "高等代数"
+   ],
+   "topics": [
+    "行列式",
+    "齐次线性方程组",
+    "非零解"
+   ],
+   "difficulty": 2,
+   "statement": "设 $A_1,\\cdots,A_{2017}$ 为 $2016$ 阶实方阵。证明关于 $x_1,\\cdots,x_{2017}$ 的方程\n$$\\det\\left(x_1A_1+\\cdots+x_{2017}A_{2017}\\right)=0$$\n至少有一组非零实数解，其中 $\\det$ 表示行列式。",
+   "answer": "",
+   "solution": "记 $A_1=\\left(p_1^{(1)},\\cdots,p_{2016}^{(1)}\\right),\\cdots,A_{2017}=\\left(p_1^{(2017)},\\cdots,p_{2016}^{(2017)}\\right)$（按列分块）。考虑线性方程组\n$$x_1p_1^{(1)}+\\cdots+x_{2017}p_1^{(2017)}=0.$$\n由于未知数个数 $2017$ 大于方程个数 $2016$，故该线性方程组必有非零解 $(c_1,\\cdots,c_{2017})$。从而 $c_1A_1+\\cdots+c_{2017}A_{2017}$ 的第一列为 $0$，更有\n$$\\det\\left(c_1A_1+\\cdots+c_{2017}A_{2017}\\right)=0.$$",
+   "solutionSource": "官方"
+  },
+  {
+   "no": "四",
+   "score": 20,
+   "type": "证明",
+   "subjects": [
+    "数学分析"
+   ],
+   "topics": [
+    "函数列",
+    "积分不等式",
+    "单调有界原理",
+    "数学归纳法"
+   ],
+   "difficulty": 4,
+   "statement": "设 $f_0(x),f_1(x)$ 是 $[0,1]$ 上正连续函数，满足 $\\displaystyle\\int_0^1f_0(x)\\,\\mathrm dx\\leqslant\\int_0^1f_1(x)\\,\\mathrm dx$。设\n$$f_{n+1}(x)=\\frac{2f_n^2(x)}{f_n(x)+f_{n-1}(x)},\\quad n=1,2,\\cdots.$$\n求证：数列 $a_n=\\displaystyle\\int_0^1f_n(x)\\,\\mathrm dx,\\ n=1,2,\\cdots$ 单调递增且收敛。",
+   "answer": "",
+   "solution": "因为\n$$\\int_0^1\\frac{f_1^2(x)}{f_1(x)+f_0(x)}\\,\\mathrm dx-\\int_0^1\\frac{f_0^2(x)}{f_1(x)+f_0(x)}\\,\\mathrm dx=\\int_0^1\\frac{f_1^2(x)-f_0^2(x)}{f_1(x)+f_0(x)}\\,\\mathrm dx=\\int_0^1f_1(x)\\,\\mathrm dx-\\int_0^1f_0(x)\\,\\mathrm dx\\geqslant0,$$\n所以\n$$\\begin{aligned}a_2-a_1&=2\\int_0^1\\frac{f_1^2(x)}{f_1(x)+f_0(x)}\\,\\mathrm dx-\\int_0^1f_1(x)\\,\\mathrm dx=\\int_0^1\\frac{f_1^2(x)}{f_1(x)+f_0(x)}\\,\\mathrm dx-\\int_0^1\\frac{f_1(x)f_0(x)}{f_1(x)+f_0(x)}\\,\\mathrm dx\\\\&\\geqslant\\frac12\\int_0^1\\frac{f_1^2(x)+f_0^2(x)}{f_1(x)+f_0(x)}\\,\\mathrm dx-\\int_0^1\\frac{f_1(x)f_0(x)}{f_1(x)+f_0(x)}\\,\\mathrm dx=\\int_0^1\\frac{\\left[f_1(x)-f_0(x)\\right]^2}{2\\left[f_1(x)+f_0(x)\\right]}\\,\\mathrm dx\\geqslant0.\\end{aligned}$$\n归纳地可以证明 $a_{n+1}\\geqslant a_n,\\ n=1,2,\\cdots$。\n\n由于 $f_1,f_0$ 为正的连续函数，可取常数 $k\\geqslant1$，使得 $f_1\\leqslant kf_0$。设 $c_1=k$。根据递推关系式可以归纳证明\n$$f_n(x)\\leqslant c_nf_{n-1}(x),\\qquad(1)$$\n其中 $c_{n+1}=\\dfrac{2c_n}{c_n+1},\\ n=1,2,\\cdots$（事实上 $f_{n+1}=\\dfrac{2f_n}{1+f_{n-1}/f_n}\\leqslant\\dfrac{2f_n}{1+1/c_n}=c_{n+1}f_n$）。容易证明 $\\{c_n\\}$ 单调递减且趋于 $1$，且 $\\dfrac{c_n}{c_n+1}\\leqslant\\dfrac k{k+1}$。\n\n以下证明 $\\{a_n\\}$ 收敛。由 (1) 可得 $a_{n+1}\\leqslant c_{n+1}a_n$。因此\n$$c_{n+1}a_{n+1}\\leqslant\\frac{2c_n}{c_n+1}c_{n+1}a_n=\\frac{4c_n}{(c_n+1)^2}c_na_n\\leqslant c_na_n.$$\n这就说明 $\\{c_na_n\\}$ 是正单调递减数列，因而收敛。注意到 $\\{c_n\\}$ 收敛到 $1$，可知 $\\{a_n\\}$ 收敛，且有 $\\displaystyle\\lim_{n\\to\\infty}a_n\\leqslant c_1a_1=ka_1$。",
+   "solutionSource": "官方"
+  },
+  {
+   "no": "五",
+   "score": 15,
+   "type": "证明",
+   "subjects": [
+    "数学分析"
+   ],
+   "topics": [
+    "微分不等式",
+    "单调性",
+    "微分中值定理",
+    "反证法"
+   ],
+   "difficulty": 3,
+   "statement": "设 $\\alpha>1$。求证：不存在 $[0,+\\infty)$ 上的正可导函数 $f(x)$ 满足\n$$f'(x)\\geqslant f^\\alpha(x),\\quad x\\in[0,+\\infty).\\qquad(1)$$",
+   "answer": "",
+   "solution": "若 $f(x)$ 是这样的函数，则 $f'(x)>0$。因此 $f(x)$ 是严格递增函数。(1) 可以表示为\n$$\\left(\\frac1{\\alpha-1}f^{1-\\alpha}(x)+x\\right)'\\leqslant0.$$\n这说明 $\\dfrac1{\\alpha-1}f^{1-\\alpha}(x)+x$ 是单调递减函数。因而\n$$\\frac1{\\alpha-1}f^{1-\\alpha}(x+1)+(x+1)\\leqslant\\frac1{\\alpha-1}f^{1-\\alpha}(x)+x,$$\n即 $\\alpha-1\\leqslant f^{1-\\alpha}(x)-f^{1-\\alpha}(x+1)<f^{1-\\alpha}(x)$。因此有 $f^{\\alpha-1}(x)<\\dfrac1{\\alpha-1}$。从而 $f(x)$ 是有界函数。\n\n从 $f(x)$ 的严格递增性，可知 $\\displaystyle\\lim_{x\\to+\\infty}f(x)$ 收敛。由微分中值定理，存在 $\\xi\\in(x,x+1)$，使得\n$$f(x+1)-f(x)=f'(\\xi)\\geqslant f^\\alpha(\\xi)\\geqslant f^\\alpha(0)>0.$$\n令 $x\\to+\\infty$，上式左端趋于 $0$，可得矛盾！\n\n（注：原解答此处笔误，已改正：原文“$f'(\\xi)\\geqslant f^\\alpha(x)\\leqslant f^\\alpha(0)>0$”中不等号方向有误。）",
+   "solutionSource": "官方"
+  },
+  {
+   "no": "六",
+   "score": 15,
+   "type": "证明",
+   "subjects": [
+    "数学分析"
+   ],
+   "topics": [
+    "单调函数",
+    "积分不等式",
+    "阶梯函数逼近"
+   ],
+   "difficulty": 4,
+   "statement": "设 $f(x),g(x)$ 是 $[0,1]$ 区间上的单调递增函数，满足\n$$0\\leqslant f(x),g(x)\\leqslant1,\\qquad\\int_0^1f(x)\\,\\mathrm dx=\\int_0^1g(x)\\,\\mathrm dx.$$\n求证：$\\displaystyle\\int_0^1\\left|f(x)-g(x)\\right|\\mathrm dx\\leqslant\\frac12$。",
+   "answer": "",
+   "solution": "由于 $f,g$ 可用单调阶梯函数逼近，故可不妨设它们都是单调增的阶梯函数。令 $h(x)=f(x)-g(x)$，则对 $\\forall x,y\\in[0,1]$，有 $|h(x)-h(y)|\\leqslant1$。事实上，对 $x\\geqslant y$，我们有\n$$-1\\leqslant-\\left(g(x)-g(y)\\right)\\leqslant h(x)-h(y)=f(x)-f(y)-\\left(g(x)-g(y)\\right)\\leqslant f(x)-f(y)\\leqslant1;$$\n对 $x<y$，有\n$$-1\\leqslant f(x)-f(y)\\leqslant h(x)-h(y)\\leqslant g(y)-g(x)\\leqslant1.$$\n现记\n$$C_1=\\left\\{x\\in[0,1]\\mid f(x)\\geqslant g(x)\\right\\},\\qquad C_2=\\left\\{x\\in[0,1]\\mid f(x)<g(x)\\right\\},$$\n则 $C_1,C_2$ 分别为有限个互不相交区间的并，且由 $\\displaystyle\\int_0^1f\\,\\mathrm dx=\\int_0^1g\\,\\mathrm dx$，有\n$$\\int_{C_1}h\\,\\mathrm dx=-\\int_{C_2}h\\,\\mathrm dx.$$\n让 $|C_i|\\ (i=1,2)$ 表示 $C_i$ 所含的那些区间的长度之和，则 $|C_1|+|C_2|=1$。于是\n$$\\begin{aligned}2\\int_0^1|f-g|\\,\\mathrm dx&=2\\left(\\int_{C_1}h\\,\\mathrm dx-\\int_{C_2}h\\,\\mathrm dx\\right)\\\\&\\leqslant\\left(\\frac{|C_2|}{|C_1|}\\int_{C_1}h\\,\\mathrm dx+\\frac{|C_1|}{|C_2|}\\int_{C_2}(-h)\\,\\mathrm dx\\right)+\\int_{C_1}h\\,\\mathrm dx-\\int_{C_2}h\\,\\mathrm dx\\\\&=\\frac1{|C_1|}\\int_{C_1}h\\,\\mathrm dx+\\frac1{|C_2|}\\int_{C_2}(-h)\\,\\mathrm dx\\\\&\\leqslant\\sup_{C_1}h+\\sup_{C_2}(-h)\\leqslant1.\\end{aligned}$$\n（第一个不等号：记 $A=\\int_{C_1}h=\\int_{C_2}(-h)\\geqslant0$，由 $\\frac{|C_2|}{|C_1|}+\\frac{|C_1|}{|C_2|}\\geqslant2$ 得出。）\n\n注意，上式中最后一个不等式来自 $|h(x)-h(y)|\\leqslant1$。另外，若某个 $|C_i|$ 等于 $0$，则结论显然成立。",
+   "solutionSource": "官方"
+  }
+ ]
+}

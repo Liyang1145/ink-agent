@@ -1,0 +1,127 @@
+{
+ "id": "cmc-math-13-prelim-bu-B",
+ "title": "第十三届全国大学生数学竞赛初赛补赛（数学B类）",
+ "year": 2021,
+ "track": "数学类",
+ "round": "初赛补赛",
+ "paper": "B",
+ "durationMin": 150,
+ "totalScore": 100,
+ "source": {
+  "question": "13-bu-math-B.pdf",
+  "solution": "13-bu-math-B.pdf"
+ },
+ "problems": [
+  {
+   "no": "一",
+   "score": 15,
+   "type": "计算",
+   "subjects": [
+    "解析几何"
+   ],
+   "topics": [
+    "平面方程",
+    "截距式",
+    "重心"
+   ],
+   "difficulty": 1,
+   "statement": "在空间直角坐标系 $Oxyz$ 中，设 $P=(a,b,c)$ 为第一卦限中的点（即 $a,b,c>0$）。求过 $P$ 点的平面 $\\sigma$ 的方程，它分别交 $x$-轴，$y$-轴和 $z$-轴的正轴于 $A,B$ 和 $C$ 三点，并使得 $P$ 恰为三角形 $ABC$ 的重心。",
+   "answer": "$\\dfrac xa+\\dfrac yb+\\dfrac zc=3$",
+   "solution": "平面与三条正半轴相交，可写成截距式 $\\frac xp+\\frac yq+\\frac zr=1$（$p,q,r>0$），$A=(p,0,0),B=(0,q,0),C=(0,0,r)$。重心 $\\big(\\frac p3,\\frac q3,\\frac r3\\big)=(a,b,c)$，得 $p=3a,q=3b,r=3c$，此时 $P$ 确在平面上（$\\frac13+\\frac13+\\frac13=1$）。故 $\\sigma:\\ \\frac xa+\\frac yb+\\frac zc=3$。",
+   "solutionSource": "编写"
+  },
+  {
+   "no": "二",
+   "score": 15,
+   "type": "计算",
+   "subjects": [
+    "数学分析"
+   ],
+   "topics": [
+    "反常积分",
+    "倒代换",
+    "对称性"
+   ],
+   "difficulty": 2,
+   "statement": "计算积分 $$\\int_0^{+\\infty}\\frac{x-x^2+x^3-x^4+\\cdots-x^{2018}}{(1+x)^{2021}}\\,\\mathrm{d}x.$$",
+   "answer": "$0$",
+   "solution": "对 $1\\le k\\le2018$，$I_k=\\displaystyle\\int_0^{+\\infty}\\frac{x^k}{(1+x)^{2021}}\\mathrm{d}x$ 收敛（被积函数在无穷远处 $\\sim x^{k-2021}$，$k-2021\\le-3$）。令 $x=\\frac1t$：\n$$I_k=\\int_0^{+\\infty}\\frac{t^{-k}}{(1+t^{-1})^{2021}}\\frac{\\mathrm{d}t}{t^2}=\\int_0^{+\\infty}\\frac{t^{2019-k}}{(1+t)^{2021}}\\mathrm{d}t=I_{2019-k}.$$\n分子中带正号的是奇次幂 $x^{2j+1}$，带负号的是偶次幂 $x^{2018-2j}$（$j=0,\\dots,1008$），二者指数之和为 $2019$，于是两两抵消：原积分 $=\\sum_{j=0}^{1008}(I_{2j+1}-I_{2018-2j})=0$。",
+   "solutionSource": "编写"
+  },
+  {
+   "no": "三",
+   "score": 15,
+   "type": "证明",
+   "subjects": [
+    "高等代数"
+   ],
+   "topics": [
+    "矩阵乘法可换",
+    "抽屉原理",
+    "组合计数"
+   ],
+   "difficulty": 4,
+   "statement": "设 $R=\\{0,1,4,9,16\\}$，$U$ 为 $R$ 上的 $3$ 阶方阵全体：$U=\\{(a_{ij})_{3\\times3}\\mid a_{ij}\\in R\\}$。例如，$\\begin{pmatrix}1&1&0\\\\0&1&0\\\\0&0&0\\end{pmatrix},\\begin{pmatrix}1&4&0\\\\0&1&0\\\\0&0&0\\end{pmatrix}$ 便为 $U$ 中的两元。现设 $S$ 为 $U$ 的一个子集。证明：若 $S$ 的元素个数多于 $5^9-5^3-18$，则必存在不同的 $A,B\\in S$ 使得 $AB=BA$。\n\n（注：原题印作“一个了集”，为“子集”之笔误，已改正。）",
+   "answer": "",
+   "solution": "$|U|=5^9$。构造 $U$ 中四个两两不交、且各自内部元素两两可换的子集：\n\n- $D$：全部对角阵，$|D|=5^3$；\n- $\\mathcal J=\\{J,9J\\}$，$J$ 为全 $1$ 阵（$J^2=3J$，$9J=$ 全 $9$ 阵，二者可换），$|\\mathcal J|=2$；\n- $L=\\Big\\{\\begin{pmatrix}1&s&0\\\\0&1&0\\\\0&0&d\\end{pmatrix}:s\\in\\{1,4\\},\\ d\\in R\\Big\\}$，$|L|=10$。这些是分块对角阵，左上块 $\\begin{pmatrix}1&s\\\\0&1\\end{pmatrix}$ 彼此可换，右下为数，故 $L$ 中元素两两可换；\n- $H=\\Big\\{\\begin{pmatrix}d&0&0\\\\0&1&0\\\\0&s&1\\end{pmatrix}:s\\in\\{1,4\\},\\ d\\in R\\Big\\}$，$|H|=10$，同理两两可换。\n\n它们两两不交（$D$ 无非零非对角元，$L$ 的 $(1,2)$ 元非零而 $H$ 的 $(3,2)$ 元非零，$\\mathcal J$ 元素无零元）。令 $T=D\\cup\\mathcal J\\cup L\\cup H$，$|T|=125+2+10+10=147$，$|U\\setminus T|=5^9-5^3-22$。\n\n若 $S$ 中任意两不同元素都不可换，则 $S$ 与上述四个集合各至多有一个公共元，$|S\\cap T|\\le4$，从而\n$$|S|\\le4+|U\\setminus T|=5^9-5^3-18,$$\n与假设矛盾。故必有不同的 $A,B\\in S$ 使 $AB=BA$。",
+   "solutionSource": "编写"
+  },
+  {
+   "no": "四",
+   "score": 20,
+   "type": "证明",
+   "subjects": [
+    "高等代数"
+   ],
+   "topics": [
+    "特征值",
+    "特征子空间",
+    "代数重数",
+    "正矩阵",
+    "行随机矩阵"
+   ],
+   "difficulty": 4,
+   "statement": "设 $a_1,\\dots,a_n$ 为和为 $1$ 的 $n$ 个正数（$n\\ge2$），$A=(a_{ij})_{n\\times n}$ 为 $n$ 阶方阵，其每一行均是 $a_1,\\dots,a_n$ 的一个排列。\n\n(1) 设 $V_1$ 表示 $A$ 关于特征值 $1$ 的复特征向量空间，试计算 $V_1$ 的维数并给出 $V_1$ 的一组基。\n\n(2) 证明：$1$ 作为 $A$ 的特征值，其代数重数也为 $1$。",
+   "answer": "(1) $\\dim V_1=1$，基为 $\\mathbf 1=(1,1,\\dots,1)^T$；(2) 代数重数为 $1$。",
+   "solution": "$A$ 的元素全为正，且每行和为 $1$，故 $A\\mathbf1=\\mathbf1$。\n\n**引理** 若实向量 $z$ 满足 $Az=z+c\\mathbf1$（$c\\ge0$），取 $z_{i_0}=\\max_iz_i$，则\n$$z_{i_0}+c=\\sum_ja_{i_0j}z_j\\le z_{i_0}\\sum_ja_{i_0j}=z_{i_0},$$\n故 $c=0$，且等号成立；由于各 $a_{i_0j}>0$，必须所有 $z_j=z_{i_0}$。\n\n**(1)** 设 $v=z+i\\xi\\in V_1$（$z,\\xi$ 实），$A$ 为实矩阵，故 $Az=z$，$A\\xi=\\xi$。由引理（$c=0$），$z,\\xi$ 都是 $\\mathbf1$ 的倍数，$v\\in\\mathbb C\\mathbf1$。所以 $\\dim V_1=1$，基为 $\\mathbf1$。\n\n**(2)** 若 $1$ 的代数重数 $\\ge2$，由于几何重数为 $1$，$A$ 关于 $1$ 的 Jordan 块阶数 $\\ge2$，于是存在 $w$ 使 $(A-E)w$ 为非零特征向量，可设 $(A-E)w=\\mathbf1$。$A-E$ 为实矩阵，取实部可设 $w$ 为实向量。由引理（$c=1>0$）得矛盾。故代数重数为 $1$。",
+   "solutionSource": "编写"
+  },
+  {
+   "no": "五",
+   "score": 15,
+   "type": "计算",
+   "subjects": [
+    "数学分析"
+   ],
+   "topics": [
+    "积分最值",
+    "配方法",
+    "变分"
+   ],
+   "difficulty": 2,
+   "statement": "设 $I(f)=\\displaystyle\\int_0^\\pi(\\sin x-f(x))f(x)\\,\\mathrm{d}x$，求当遍历 $[0,\\pi]$ 上所有连续函数 $f$ 时 $I(f)$ 的最大值。",
+   "answer": "最大值 $\\dfrac\\pi8$，在 $f(x)=\\dfrac{\\sin x}2$ 时取得。",
+   "solution": "配方：$(\\sin x-f)f=\\dfrac{\\sin^2x}4-\\Big(f-\\dfrac{\\sin x}2\\Big)^2$，于是\n$$I(f)=\\int_0^\\pi\\frac{\\sin^2x}4\\mathrm{d}x-\\int_0^\\pi\\Big(f-\\frac{\\sin x}2\\Big)^2\\mathrm{d}x=\\frac\\pi8-\\int_0^\\pi\\Big(f-\\frac{\\sin x}2\\Big)^2\\mathrm{d}x\\le\\frac\\pi8,$$\n等号当且仅当 $f=\\frac{\\sin x}2$。",
+   "solutionSource": "编写"
+  },
+  {
+   "no": "六",
+   "score": 20,
+   "type": "证明",
+   "subjects": [
+    "数学分析"
+   ],
+   "topics": [
+    "正项级数",
+    "比较判别法",
+    "整数计数",
+    "中值定理"
+   ],
+   "difficulty": 4,
+   "statement": "设 $\\alpha>1$，$\\Gamma_k=\\left[k^\\alpha,\\Big(k+\\dfrac12\\Big)^\\alpha\\right]\\cap\\mathbb N\\ (k\\ge1)$。试判断级数 $\\displaystyle\\sum_{n=1}^\\infty a_n$ 和 $\\displaystyle\\sum_{n=1}^\\infty b_n$ 的敛散性，其中 $$a_n=\\begin{cases}\\dfrac1n,&\\text{存在 }k\\text{ 使得 }n=\\min\\Gamma_k,\\\\[2mm]\\dfrac1{n^\\alpha},&\\text{其他},\\end{cases}\\qquad b_n=\\begin{cases}\\dfrac1n,&\\text{存在 }k\\text{ 使得 }n\\in\\Gamma_k,\\\\[2mm]\\dfrac1{n^\\alpha},&\\text{其他}.\\end{cases}$$",
+   "answer": "$\\sum a_n$ 收敛，$\\sum b_n$ 发散。",
+   "solution": "**$\\sum a_n$ 收敛。** 由于 $(k+\\frac12)^\\alpha<(k+1)^\\alpha$，诸 $\\Gamma_k$ 两两不交，每个 $n$ 至多是一个 $\\min\\Gamma_k$。又 $\\min\\Gamma_k\\ge k^\\alpha$，于是\n$$\\sum_na_n\\le\\sum_n\\frac1{n^\\alpha}+\\sum_{k:\\Gamma_k\\ne\\varnothing}\\frac1{\\min\\Gamma_k}\\le2\\sum_{k\\ge1}\\frac1{k^\\alpha}<+\\infty.$$\n\n**$\\sum b_n$ 发散。** 由中值定理，$(k+\\frac12)^\\alpha-k^\\alpha\\ge\\frac\\alpha2k^{\\alpha-1}>\\frac12k^{\\alpha-1}$。区间 $[k^\\alpha,(k+\\frac12)^\\alpha]$ 中整数个数不少于其长度减 $1$，故当 $k\\ge K:=4^{1/(\\alpha-1)}$（此时 $\\frac14k^{\\alpha-1}\\ge1$）时\n$$|\\Gamma_k|\\ge\\frac12k^{\\alpha-1}-1\\ge\\frac14k^{\\alpha-1}.$$\n$\\Gamma_k$ 中每个 $n\\le(k+\\frac12)^\\alpha$，所以\n$$\\sum_{n\\in\\Gamma_k}\\frac1n\\ge\\frac14k^{\\alpha-1}\\Big(k+\\frac12\\Big)^{-\\alpha}=\\frac1{4k}\\Big(1+\\frac1{2k}\\Big)^{-\\alpha}\\ge\\frac1{4k}\\Big(\\frac32\\Big)^{-\\alpha}.$$\n由 $\\Gamma_k$ 两两不交，$\\sum_nb_n\\ge\\sum_{k\\ge K}\\sum_{n\\in\\Gamma_k}\\frac1n\\ge\\big(\\frac23\\big)^\\alpha\\sum_{k\\ge K}\\frac1{4k}=+\\infty$。",
+   "solutionSource": "编写"
+  }
+ ]
+}

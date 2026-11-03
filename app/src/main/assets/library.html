@@ -68,7 +68,7 @@ function home(m){
     ps.sort(function(a,b){return (b.year||0)-(a.year||0) || String(a.id).localeCompare(String(b.id));});
     var last=null, list;
     ps.forEach(function(p){ if(p.year!==last){ last=p.year; $('div','grp',m,(p.year||'')+' 年'); list=$('div','list',m);} 
-      var it=$('div','item',list,'<div class="t">'+esc(p.title)+'</div><div class="m">'+esc(p.round||'')+(p.paper?' · '+esc(p.paper):'')+' · '+p.count+' 题</div>');
+      var it=$('div','item',list,'<div class="t">'+esc(p.title)+'</div><div class="m">'+esc(p.round||'')+(p.paper?' · '+esc({high:'高年级',low:'低年级',A:'A卷',B:'B卷'}[p.paper]||p.paper):'')+' · '+p.count+' 题</div>');
       it.onclick=function(){show({k:'set',id:p.id});}; });
   } else {
     var tb2=$('div','tabs',m); ['analysis','algebra'].forEach(function(s){ var b=$('button',subj===s?'on':'',tb2,SUBJ[s]); b.onclick=function(){subj=s;render();}; });

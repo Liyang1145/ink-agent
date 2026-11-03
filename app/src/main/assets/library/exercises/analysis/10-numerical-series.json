@@ -1,0 +1,247 @@
+{
+ "id": "ex-analysis-10",
+ "title": "数学分析 · 数项级数",
+ "subject": "数学分析",
+ "chapter": 10,
+ "problems": [
+  {
+   "no": "1",
+   "type": "计算",
+   "subjects": [
+    "数学分析"
+   ],
+   "topics": [
+    "级数求和",
+    "裂项"
+   ],
+   "difficulty": 1,
+   "statement": "求下列级数的和：（1）$\\displaystyle\\sum_{n=1}^\\infty\\dfrac1{n(n+1)}$；（2）$\\displaystyle\\sum_{n=1}^\\infty\\dfrac{n}{2^n}$。",
+   "answer": "（1）$1$；（2）$2$",
+   "solution": "（1）$S_n=\\sum_{k=1}^n\\left(\\dfrac1k-\\dfrac1{k+1}\\right)=1-\\dfrac1{n+1}\\to1$。\n\n（2）$S_n=\\sum_{k=1}^n\\dfrac{k}{2^k}$，则 $S_n-\\dfrac12S_n=\\sum_{k=1}^n\\dfrac1{2^k}-\\dfrac{n}{2^{n+1}}=1-\\dfrac1{2^n}-\\dfrac n{2^{n+1}}$，故 $S_n\\to2$。",
+   "solutionSource": "编写",
+   "source": "经典题"
+  },
+  {
+   "no": "2",
+   "type": "计算",
+   "subjects": [
+    "数学分析"
+   ],
+   "topics": [
+    "比值判别法",
+    "根值判别法"
+   ],
+   "difficulty": 1,
+   "statement": "判断敛散性：（1）$\\displaystyle\\sum_{n=1}^\\infty\\dfrac{n!}{n^n}$；（2）$\\displaystyle\\sum_{n=1}^\\infty\\left(\\dfrac{n}{2n+1}\\right)^n$；（3）$\\displaystyle\\sum_{n=1}^\\infty\\dfrac{n^2}{2^n}$。",
+   "answer": "三者均收敛",
+   "solution": "（1）$\\dfrac{a_{n+1}}{a_n}=\\dfrac{(n+1)!\\,n^n}{(n+1)^{n+1}n!}=\\left(\\dfrac{n}{n+1}\\right)^n\\to\\dfrac1e<1$，收敛。\n\n（2）$\\sqrt[n]{a_n}=\\dfrac{n}{2n+1}\\to\\dfrac12<1$，收敛。\n\n（3）$\\dfrac{a_{n+1}}{a_n}=\\dfrac{(n+1)^2}{2n^2}\\to\\dfrac12<1$，收敛。",
+   "solutionSource": "编写",
+   "source": "经典题"
+  },
+  {
+   "no": "3",
+   "type": "计算",
+   "subjects": [
+    "数学分析"
+   ],
+   "topics": [
+    "Cauchy凝聚判别法",
+    "积分判别法"
+   ],
+   "difficulty": 2,
+   "statement": "讨论 $\\displaystyle\\sum_{n=2}^\\infty\\dfrac1{n(\\ln n)^p}$ 的敛散性。",
+   "answer": "当且仅当 $p>1$ 时收敛",
+   "solution": "$p\\le0$ 时，$n\\ge3$ 有 $(\\ln n)^{-p}\\ge1$，通项 $\\dfrac{(\\ln n)^{-p}}{n}\\ge\\dfrac1n$，发散。\n\n$p>0$ 时 $f(x)=\\dfrac{1}{x(\\ln x)^p}$ 在 $[2,+\\infty)$ 上正、连续、递减，由积分判别法，与\n$$\\int_2^{+\\infty}\\dfrac{\\mathrm{d}x}{x(\\ln x)^p}=\\int_{\\ln2}^{+\\infty}\\dfrac{\\mathrm{d}u}{u^p}$$\n同敛散，当且仅当 $p>1$ 收敛。\n\n（也可用 Cauchy 凝聚判别法：$2^ka_{2^k}=\\dfrac{1}{(k\\ln2)^p}$。）",
+   "solutionSource": "编写",
+   "source": "经典题"
+  },
+  {
+   "no": "4",
+   "type": "计算",
+   "subjects": [
+    "数学分析"
+   ],
+   "topics": [
+    "Leibniz判别法",
+    "级数求和"
+   ],
+   "difficulty": 2,
+   "statement": "证明 $\\displaystyle\\sum_{n=1}^\\infty\\dfrac{(-1)^{n-1}}{n}$ 条件收敛，并求其和。",
+   "answer": "$\\ln2$",
+   "solution": "$\\dfrac1n$ 单调递减趋于 $0$，由 Leibniz 判别法收敛；而 $\\sum\\dfrac1n$ 发散，故条件收敛。\n\n求和：由 $\\sum_{k=1}^n(-1)^{k-1}x^{k-1}=\\dfrac{1-(-x)^n}{1+x}$，在 $[0,1]$ 上积分：\n$$S_n=\\sum_{k=1}^n\\dfrac{(-1)^{k-1}}{k}=\\ln2-(-1)^n\\int_0^1\\dfrac{x^n}{1+x}\\,\\mathrm{d}x,$$\n而 $0\\le\\int_0^1\\dfrac{x^n}{1+x}\\,\\mathrm{d}x\\le\\int_0^1x^n\\,\\mathrm{d}x=\\dfrac1{n+1}\\to0$，故和为 $\\ln2$。",
+   "solutionSource": "编写",
+   "source": "经典题"
+  },
+  {
+   "no": "5",
+   "type": "证明",
+   "subjects": [
+    "数学分析"
+   ],
+   "topics": [
+    "Cauchy-Schwarz不等式",
+    "比较判别法"
+   ],
+   "difficulty": 2,
+   "statement": "设 $a_n\\ge0$ 且 $\\sum a_n$ 收敛。证明 $\\displaystyle\\sum_{n=1}^\\infty\\dfrac{\\sqrt{a_n}}{n}$ 收敛。",
+   "answer": "",
+   "solution": "由均值不等式 $\\dfrac{\\sqrt{a_n}}{n}\\le\\dfrac12\\left(a_n+\\dfrac1{n^2}\\right)$，右端级数收敛，由比较判别法得证。",
+   "solutionSource": "编写",
+   "source": "经典题"
+  },
+  {
+   "no": "6",
+   "type": "计算",
+   "subjects": [
+    "数学分析"
+   ],
+   "topics": [
+    "Dirichlet判别法",
+    "三角级数"
+   ],
+   "difficulty": 3,
+   "statement": "证明 $\\displaystyle\\sum_{n=1}^\\infty\\dfrac{\\sin nx}{n}$ 对一切实数 $x$ 收敛。",
+   "answer": "",
+   "solution": "若 $x=2k\\pi$，各项为 $0$，收敛。否则 $\\sin\\dfrac x2\\ne0$，由积化和差\n$$2\\sin\\dfrac x2\\sum_{k=1}^n\\sin kx=\\cos\\dfrac x2-\\cos\\left(n+\\dfrac12\\right)x,$$\n得 $\\left|\\sum_{k=1}^n\\sin kx\\right|\\le\\dfrac{1}{\\left|\\sin\\frac x2\\right|}$，部分和有界。又 $\\dfrac1n$ 单调递减趋于 $0$，由 Dirichlet 判别法收敛。",
+   "solutionSource": "编写",
+   "source": "经典题"
+  },
+  {
+   "no": "7",
+   "type": "证明",
+   "subjects": [
+    "数学分析"
+   ],
+   "topics": [
+    "Abel判别法",
+    "Abel变换"
+   ],
+   "difficulty": 3,
+   "statement": "(Abel 判别法) 设 $\\sum a_n$ 收敛，$\\{b_n\\}$ 单调有界。证明 $\\sum a_nb_n$ 收敛。",
+   "answer": "",
+   "solution": "设 $|b_n|\\le M$。由 Abel 变换（分部求和），对 $m>n$，记 $A_k=a_{n+1}+\\cdots+a_k$（$n<k\\le m$），\n$$\\sum_{k=n+1}^ma_kb_k=\\sum_{k=n+1}^{m-1}A_k(b_k-b_{k+1})+A_mb_m.$$\n任给 $\\varepsilon>0$，由 $\\sum a_n$ 收敛，存在 $N$，$n\\ge N$ 时 $|A_k|<\\varepsilon$ 对一切 $k>n$ 成立。由 $b_k$ 单调，$\\sum_{k=n+1}^{m-1}|b_k-b_{k+1}|=|b_{n+1}-b_m|\\le2M$，于是\n$$\\left|\\sum_{k=n+1}^ma_kb_k\\right|\\le\\varepsilon\\cdot2M+\\varepsilon M=3M\\varepsilon.$$\n由 Cauchy 准则 $\\sum a_nb_n$ 收敛。",
+   "solutionSource": "编写",
+   "source": "经典题"
+  },
+  {
+   "no": "8",
+   "type": "证明",
+   "subjects": [
+    "数学分析"
+   ],
+   "topics": [
+    "正项级数",
+    "Cauchy收敛准则"
+   ],
+   "difficulty": 3,
+   "statement": "设 $a_n\\ge0$ 单调递减，且 $\\sum a_n$ 收敛。证明 $\\displaystyle\\lim_{n\\to\\infty}na_n=0$，并举例说明去掉单调性条件后结论不成立。",
+   "answer": "",
+   "solution": "由 Cauchy 准则，任给 $\\varepsilon>0$，存在 $N$，$n>N$ 时 $\\sum_{k=n+1}^{2n}a_k<\\varepsilon$。由单调性左端 $\\ge na_{2n}$，故 $2na_{2n}<2\\varepsilon$。又 $(2n+1)a_{2n+1}\\le(2n+1)a_{2n}\\le 3na_{2n}<3\\varepsilon$。所以 $na_n\\to0$。\n\n反例：$n$ 为完全平方数时 $a_n=\\dfrac1n$，否则 $a_n=\\dfrac1{n^2}$。则 $\\sum a_n\\le\\sum\\dfrac1{k^2}+\\sum\\dfrac1{n^2}<+\\infty$，但 $n=k^2$ 时 $na_n=1$，$na_n\\not\\to0$。",
+   "solutionSource": "编写",
+   "source": "经典题"
+  },
+  {
+   "no": "9",
+   "type": "计算",
+   "subjects": [
+    "数学分析"
+   ],
+   "topics": [
+    "Leibniz判别法",
+    "级数的变形"
+   ],
+   "difficulty": 3,
+   "statement": "判断 $\\displaystyle\\sum_{n=1}^\\infty\\sin\\left(\\pi\\sqrt{n^2+1}\\right)$ 的敛散性（绝对收敛还是条件收敛）。",
+   "answer": "条件收敛",
+   "solution": "$$\\sin\\left(\\pi\\sqrt{n^2+1}\\right)=\\sin\\left(n\\pi+\\pi(\\sqrt{n^2+1}-n)\\right)=(-1)^n\\sin\\dfrac{\\pi}{\\sqrt{n^2+1}+n}.$$\n记 $u_n=\\sin\\dfrac{\\pi}{\\sqrt{n^2+1}+n}$，因 $0<\\dfrac\\pi{\\sqrt{n^2+1}+n}<\\dfrac\\pi2$ 且单调递减趋于 $0$，$u_n>0$ 单调递减趋于 $0$，由 Leibniz 判别法收敛。又 $u_n\\sim\\dfrac{\\pi}{2n}$，$\\sum u_n$ 发散，故条件收敛。",
+   "solutionSource": "编写",
+   "source": "经典题"
+  },
+  {
+   "no": "10",
+   "type": "证明",
+   "subjects": [
+    "数学分析"
+   ],
+   "topics": [
+    "级数的发散性",
+    "Leibniz判别法"
+   ],
+   "difficulty": 4,
+   "statement": "证明 $\\displaystyle\\sum_{n=2}^\\infty\\dfrac{(-1)^n}{\\sqrt n+(-1)^n}$ 发散（尽管它是一个通项趋于零的交错级数）。",
+   "answer": "",
+   "solution": "$$\\dfrac{(-1)^n}{\\sqrt n+(-1)^n}=\\dfrac{(-1)^n\\big(\\sqrt n-(-1)^n\\big)}{n-1}=\\dfrac{(-1)^n\\sqrt n}{n-1}-\\dfrac{1}{n-1}.$$\n函数 $\\varphi(x)=\\dfrac{\\sqrt x}{x-1}$ 在 $x>1$ 时 $\\varphi'(x)=\\dfrac{-(x+1)}{2\\sqrt x(x-1)^2}<0$，故 $\\dfrac{\\sqrt n}{n-1}$ 单调递减趋于 $0$，$\\sum\\dfrac{(-1)^n\\sqrt n}{n-1}$ 由 Leibniz 判别法收敛；而 $\\sum\\dfrac1{n-1}$ 发散。收敛级数加发散级数必发散，故原级数发散。\n\n注：原级数的项绝对值 $\\dfrac{1}{\\sqrt n+(-1)^n}$ 不单调，Leibniz 判别法不适用。",
+   "solutionSource": "编写",
+   "source": "经典题"
+  },
+  {
+   "no": "11",
+   "type": "计算",
+   "subjects": [
+    "数学分析"
+   ],
+   "topics": [
+    "Raabe判别法",
+    "双阶乘"
+   ],
+   "difficulty": 4,
+   "statement": "讨论 $\\displaystyle\\sum_{n=1}^\\infty\\left(\\dfrac{(2n-1)!!}{(2n)!!}\\right)^p$（$p>0$）的敛散性。",
+   "answer": "当且仅当 $p>2$ 时收敛",
+   "solution": "记 $a_n=\\dfrac{(2n-1)!!}{(2n)!!}$，则 $\\dfrac{a_n}{a_{n+1}}=\\dfrac{2n+2}{2n+1}=1+\\dfrac1{2n+1}$。比值判别法失效，用 Raabe 判别法：\n$$n\\left[\\left(\\dfrac{a_n}{a_{n+1}}\\right)^p-1\\right]=n\\left[\\left(1+\\dfrac{1}{2n+1}\\right)^p-1\\right]\\to\\dfrac p2.$$\n$p>2$ 时极限 $>1$，收敛；$p<2$ 时极限 $<1$，发散。\n\n$p=2$ 时单独处理：对 $k\\ge2$，$\\left(\\dfrac{2k-1}{2k}\\right)^2\\ge\\dfrac{2k-1}{2k}\\cdot\\dfrac{2k-2}{2k-1}=\\dfrac{k-1}{k}$，故\n$$a_n^2\\ge\\dfrac14\\prod_{k=2}^n\\dfrac{k-1}{k}=\\dfrac{1}{4n},$$\n$\\sum a_n^2$ 发散。综上，当且仅当 $p>2$ 收敛。",
+   "solutionSource": "编写",
+   "source": "经典题"
+  },
+  {
+   "no": "12",
+   "type": "计算",
+   "subjects": [
+    "数学分析"
+   ],
+   "topics": [
+    "级数重排",
+    "Euler常数"
+   ],
+   "difficulty": 4,
+   "statement": "将级数 $1-\\dfrac12+\\dfrac13-\\dfrac14+\\cdots$ 重排为\"两个正项后接一个负项\"：\n$$1+\\dfrac13-\\dfrac12+\\dfrac15+\\dfrac17-\\dfrac14+\\cdots,$$\n求重排后级数的和。",
+   "answer": "$\\dfrac32\\ln2$",
+   "solution": "记 $H_n=1+\\dfrac12+\\cdots+\\dfrac1n=\\ln n+\\gamma+o(1)$。重排级数前 $3n$ 项之和为\n$$T_{3n}=\\sum_{k=1}^{2n}\\dfrac1{2k-1}-\\sum_{k=1}^n\\dfrac1{2k}=\\left(H_{4n}-\\dfrac12H_{2n}\\right)-\\dfrac12H_n.$$\n代入渐近式：\n$$T_{3n}=\\ln4n+\\gamma-\\dfrac12(\\ln2n+\\gamma)-\\dfrac12(\\ln n+\\gamma)+o(1)=\\ln4-\\dfrac12\\ln2+o(1)\\to\\dfrac32\\ln2.$$\n又通项趋于 $0$，故 $T_{3n+1},T_{3n+2}$ 与 $T_{3n}$ 之差 $\\to0$，重排级数和为 $\\dfrac32\\ln2$（是原级数和 $\\ln2$ 的 $\\dfrac32$ 倍，体现了条件收敛级数重排可改变和）。",
+   "solutionSource": "编写",
+   "source": "经典题"
+  },
+  {
+   "no": "13",
+   "type": "证明",
+   "subjects": [
+    "数学分析"
+   ],
+   "topics": [
+    "正项级数",
+    "部分和",
+    "Cauchy收敛准则"
+   ],
+   "difficulty": 4,
+   "statement": "设 $a_n>0$，$\\sum a_n$ 发散，$S_n=a_1+\\cdots+a_n$。证明：（1）$\\displaystyle\\sum\\dfrac{a_n}{S_n}$ 发散；（2）$\\displaystyle\\sum\\dfrac{a_n}{S_n^2}$ 收敛。",
+   "answer": "",
+   "solution": "$S_n$ 单调递增趋于 $+\\infty$。\n\n（1）对 $m>n$，\n$$\\sum_{k=n+1}^m\\dfrac{a_k}{S_k}\\ge\\dfrac{1}{S_m}\\sum_{k=n+1}^ma_k=1-\\dfrac{S_n}{S_m}.$$\n固定 $n$，令 $m\\to\\infty$，右端 $\\to1$，故存在 $m$ 使左端 $>\\dfrac12$。不满足 Cauchy 准则，发散。\n\n（2）$n\\ge2$ 时\n$$\\dfrac{a_n}{S_n^2}\\le\\dfrac{a_n}{S_{n-1}S_n}=\\dfrac{S_n-S_{n-1}}{S_{n-1}S_n}=\\dfrac1{S_{n-1}}-\\dfrac1{S_n},$$\n右端级数的部分和为 $\\dfrac1{S_1}-\\dfrac1{S_n}<\\dfrac1{S_1}$，有界，故 $\\sum\\dfrac{a_n}{S_n^2}$ 收敛。",
+   "solutionSource": "编写",
+   "source": "经典题"
+  },
+  {
+   "no": "14",
+   "type": "证明",
+   "subjects": [
+    "数学分析"
+   ],
+   "topics": [
+    "Carleman不等式",
+    "均值不等式"
+   ],
+   "difficulty": 5,
+   "statement": "(Carleman 不等式) 设 $a_n\\ge0$ 且 $\\sum a_n$ 收敛。证明\n$$\\sum_{n=1}^\\infty\\sqrt[n]{a_1a_2\\cdots a_n}\\le e\\sum_{n=1}^\\infty a_n.$$",
+   "answer": "",
+   "solution": "先证 $n!>\\left(\\dfrac{n+1}{e}\\right)^n$：由 $\\left(1+\\dfrac1k\\right)^k<e$，\n$$\\prod_{k=1}^n\\left(1+\\dfrac1k\\right)^k=\\prod_{k=1}^n\\dfrac{(k+1)^k}{k^k}=\\dfrac{(n+1)^n}{n!}<e^n.$$\n由均值不等式，\n$$\\sqrt[n]{a_1\\cdots a_n}=\\dfrac{\\sqrt[n]{(1a_1)(2a_2)\\cdots(na_n)}}{\\sqrt[n]{n!}}\\le\\dfrac{1a_1+2a_2+\\cdots+na_n}{n\\sqrt[n]{n!}}<\\dfrac{e}{n(n+1)}\\sum_{k=1}^nka_k.$$\n对 $n$ 求和并交换求和次序（正项级数可交换）：\n$$\\sum_{n=1}^\\infty\\sqrt[n]{a_1\\cdots a_n}\\le e\\sum_{k=1}^\\infty ka_k\\sum_{n=k}^\\infty\\dfrac1{n(n+1)}=e\\sum_{k=1}^\\infty ka_k\\cdot\\dfrac1k=e\\sum_{k=1}^\\infty a_k.$$",
+   "solutionSource": "编写",
+   "source": "经典题（Carleman 不等式）"
+  }
+ ]
+}

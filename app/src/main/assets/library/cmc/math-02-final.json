@@ -1,0 +1,126 @@
+{
+ "id": "cmc-math-02-final",
+ "title": "第二届全国大学生数学竞赛决赛（数学类）",
+ "year": 2011,
+ "track": "数学类",
+ "round": "决赛",
+ "paper": "",
+ "durationMin": 180,
+ "totalScore": 100,
+ "source": {
+  "question": "2011年03月-数学类-第二届全国决赛试卷.pdf",
+  "solution": "2011年03月-数学类参考解答-第二届全国决赛试卷.pdf"
+ },
+ "problems": [
+  {
+   "no": "一",
+   "score": 15,
+   "type": "计算",
+   "subjects": [
+    "解析几何"
+   ],
+   "topics": [
+    "椭球面",
+    "平面截线",
+    "圆截面"
+   ],
+   "difficulty": 3,
+   "statement": "求出过原点且和椭球面 $4x^2+5y^2+6z^2=1$ 的交线为一个圆周的所有平面。",
+   "answer": "$x-z=0$ 与 $x+z=0$。",
+   "solution": "设过原点的平面 $\\Sigma$ 与椭球面的交线 $\\Gamma$ 为圆。由椭球面与 $\\Sigma$ 都关于原点中心对称，圆心必为原点，故 $\\Gamma$ 落在某球面 $x^2+y^2+z^2=r^2$ 上。在 $\\Gamma$ 上把椭球方程减去 $5r^2=5(x^2+y^2+z^2)$，得\n$$z^2-x^2=1-5r^2,$$\n即 $\\Gamma$ 落在曲面 $H:\\ z^2-x^2=1-5r^2$ 上。\n\n若 $5r^2\\neq1$，$H$ 是双曲柱面，其两叶互为关于原点的中心对称像；而 $\\Gamma$ 关于原点对称，故与两叶都有交点，又整个落在 $H$ 上，这与圆周 $\\Gamma$ 是连通的连续曲线矛盾。故 $5r^2=1$，$\\Gamma$ 落在 $z^2-x^2=0$ 上，即在平面 $x-z=0$ 或 $x+z=0$ 上，所以 $\\Sigma$ 只能是这两个平面之一。\n\n反之，当 $\\Sigma$ 为 $x\\mp z=0$ 时，$\\Sigma$ 与椭球面的交线满足 $5x^2+5y^2+5z^2=1$，是球面与过球心平面的交线，为圆。故所求平面为 $x-z=0$ 与 $x+z=0$。",
+   "solutionSource": "官方"
+  },
+  {
+   "no": "二",
+   "score": 15,
+   "type": "证明",
+   "subjects": [
+    "数学分析"
+   ],
+   "topics": [
+    "反常积分",
+    "积分不等式"
+   ],
+   "difficulty": 3,
+   "statement": "设 $0<f(x)<1$，无穷积分 $\\displaystyle\\int_0^{+\\infty}f(x)\\,\\mathrm dx$ 和 $\\displaystyle\\int_0^{+\\infty}xf(x)\\,\\mathrm dx$ 都收敛。求证：$$\\int_0^{+\\infty}xf(x)\\,\\mathrm dx>\\frac12\\left(\\int_0^{+\\infty}f(x)\\,\\mathrm dx\\right)^2.$$",
+   "answer": "",
+   "solution": "**思路一** 记 $a=\\displaystyle\\int_0^{+\\infty}f(x)\\,\\mathrm dx\\in(0,+\\infty)$（由 $0<f<1$ 且积分收敛）。则\n$$\\int_0^{+\\infty}xf(x)\\,\\mathrm dx\\geqslant\\int_a^{+\\infty}xf(x)\\,\\mathrm dx+\\int_0^a xf(x)\\,\\mathrm dx\\geqslant a\\int_a^{+\\infty}f(x)\\,\\mathrm dx+\\int_0^a xf(x)\\,\\mathrm dx.$$\n而 $a\\displaystyle\\int_a^{+\\infty}f\\,\\mathrm dx=a\\Big(a-\\int_0^af\\,\\mathrm dx\\Big)=a\\int_0^a(1-f(x))\\,\\mathrm dx>\\int_0^a x(1-f(x))\\,\\mathrm dx$（因 $1-f>0$，$x<a$）。代入得\n$$\\int_0^{+\\infty}xf(x)\\,\\mathrm dx>\\int_0^a x\\,\\mathrm dx=\\frac{a^2}{2}.$$\n\n**思路二** 对 $M\\geqslant1$ 记 $a_M=\\displaystyle\\int_0^Mf\\,\\mathrm dx\\in(0,M)$，令 $g_M=1$ 于 $[0,a_M]$，$g_M=0$ 于 $(a_M,M]$，$G_M(x)=\\displaystyle\\int_0^x(g_M-f)\\,\\mathrm dt$。则 $G_M(x)>0\\ (0<x<M)$，$G_M(M)=0$，且由 $a_M\\geqslant a_1$ 知 $G_M=G_1$ 于 $[0,a_1]$。分部积分\n$$\\int_0^Mx(g_M-f)\\,\\mathrm dx=-\\int_0^MG_M\\,\\mathrm dx\\leqslant-\\int_0^{a_1}G_1\\,\\mathrm dx,$$\n故 $\\displaystyle\\int_0^{+\\infty}xf\\,\\mathrm dx\\geqslant\\int_0^Mxf\\,\\mathrm dx\\geqslant\\frac12a_M^2+\\int_0^{a_1}G_1\\,\\mathrm dx$。令 $M\\to+\\infty$ 得\n$$\\int_0^{+\\infty}xf\\,\\mathrm dx\\geqslant\\frac12\\Big(\\int_0^{+\\infty}f\\,\\mathrm dx\\Big)^2+\\int_0^{a_1}G_1\\,\\mathrm dx>\\frac12\\Big(\\int_0^{+\\infty}f\\,\\mathrm dx\\Big)^2.$$\n\n**注** 若 $f$ 连续，可令 $F(x)=\\displaystyle\\int_0^xtf(t)\\,\\mathrm dt-\\frac12\\Big(\\int_0^xf\\,\\mathrm dt\\Big)^2$，则 $F'(x)=f(x)\\Big(x-\\displaystyle\\int_0^xf\\,\\mathrm dt\\Big)>0\\ (x>0)$，故 $F(+\\infty)>F(0)=0$。",
+   "solutionSource": "官方"
+  },
+  {
+   "no": "三",
+   "score": 15,
+   "type": "证明",
+   "subjects": [
+    "数学分析"
+   ],
+   "topics": [
+    "级数",
+    "Abel 变换",
+    "Abel 判别法"
+   ],
+   "difficulty": 3,
+   "statement": "设 $\\displaystyle\\sum_{n=1}^{+\\infty}na_n$ 收敛，$t_n=a_{n+1}+2a_{n+2}+\\cdots+ka_{n+k}+\\cdots$。证明：$$\\lim_{n\\to+\\infty}t_n=0.$$",
+   "answer": "",
+   "solution": "$t_n=\\displaystyle\\sum_{k=1}^{\\infty}ka_{n+k}=\\sum_{k=1}^{\\infty}\\frac{k}{n+k}\\,(n+k)a_{n+k}$。由假设 $\\sum(n+k)a_{n+k}$ 收敛，而 $\\dfrac{k}{n+k}$ 关于 $k$ 单调且一致有界，由 Abel 判别法知 $t_n$ 有定义。\n\n记 $S_n=\\displaystyle\\sum_{k=n}^{\\infty}ka_k$。$\\forall\\varepsilon>0$，$\\exists N$，当 $n>N$ 时 $|S_n|<\\varepsilon$。对 $n>N$ 及 $m>1$，由 $(n+k)a_{n+k}=S_{n+k}-S_{n+k+1}$ 作 Abel 变换：\n$$\\sum_{k=1}^mka_{n+k}=\\frac{1}{n+1}S_{n+1}-\\frac{m}{n+m}S_{n+m+1}+\\sum_{k=2}^m\\Big(\\frac{k}{n+k}-\\frac{k-1}{n+k-1}\\Big)S_{n+k}.$$\n括号内各项为正，求和可裂项，故\n$$\\Big|\\sum_{k=1}^mka_{n+k}\\Big|\\leqslant\\Big(\\frac1{n+1}+\\frac{m}{n+m}\\Big)\\varepsilon+\\Big(\\frac{m}{n+m}-\\frac{1}{n+1}\\Big)\\varepsilon\\leqslant2\\varepsilon.$$\n令 $m\\to\\infty$ 得 $|t_n|\\leqslant2\\varepsilon\\ (n>N)$，即 $\\lim\\limits_{n\\to+\\infty}t_n=0$。",
+   "solutionSource": "官方"
+  },
+  {
+   "no": "四",
+   "score": 15,
+   "type": "证明",
+   "subjects": [
+    "高等代数"
+   ],
+   "topics": [
+    "可对角化",
+    "线性变换",
+    "特征向量",
+    "矩阵空间"
+   ],
+   "difficulty": 3,
+   "statement": "设 $A\\in M_n(\\mathbb C)$，定义线性变换 $$\\sigma_A:M_n(\\mathbb C)\\to M_n(\\mathbb C),\\quad \\sigma_A(X)=AX-XA.$$ 证明：当 $A$ 可对角化时，$\\sigma_A$ 也可对角化。这里 $M_n(\\mathbb C)$ 是复数域 $\\mathbb C$ 上 $n$ 阶方阵组成的线性空间。",
+   "answer": "",
+   "solution": "设 $A$ 的特征向量 $\\alpha_1,\\dots,\\alpha_n$ 构成 $\\mathbb C^n$ 的基，$A\\alpha_i=\\lambda_i\\alpha_i$。对任意 $i,j$，令 $T_{ij}\\in M_n(\\mathbb C)$ 满足 $T_{ij}\\alpha_k=\\delta_{ik}\\alpha_j\\ (\\forall k)$，即\n$$T_{ij}(\\alpha_1,\\dots,\\alpha_n)=(0,\\dots,0,\\underset{\\text{第 }i\\text{ 列}}{\\alpha_j},0,\\dots,0).$$\n\n$\\{T_{ij}\\}$ 线性无关：若 $\\sum_{i,j}\\lambda_{ij}T_{ij}=0$，作用于 $(\\alpha_1,\\dots,\\alpha_n)$，第 $i$ 列为 $\\sum_j\\lambda_{ij}\\alpha_j=0$，故 $\\lambda_{ij}=0$。于是 $T_{ij}\\ (i,j=1,\\dots,n)$ 是 $M_n(\\mathbb C)$ 的一组基。\n\n又\n$$\\sigma_A(T_{ij})(\\alpha_1,\\dots,\\alpha_n)=(AT_{ij}-T_{ij}A)(\\alpha_1,\\dots,\\alpha_n)=(0,\\dots,0,(\\lambda_j-\\lambda_i)\\alpha_j,0,\\dots,0)=(\\lambda_j-\\lambda_i)T_{ij}(\\alpha_1,\\dots,\\alpha_n),$$\n故 $\\sigma_A(T_{ij})=(\\lambda_j-\\lambda_i)T_{ij}$。即 $\\sigma_A$ 有一组由特征向量构成的基，从而可对角化。",
+   "solutionSource": "官方"
+  },
+  {
+   "no": "五",
+   "score": 20,
+   "type": "证明",
+   "subjects": [
+    "数学分析"
+   ],
+   "topics": [
+    "Cauchy 函数方程",
+    "一致收敛",
+    "近似可加函数"
+   ],
+   "difficulty": 3,
+   "statement": "设连续函数 $f:\\mathbb R\\to\\mathbb R$ 满足 $$\\sup_{x,y\\in\\mathbb R}\\big|f(x+y)-f(x)-f(y)\\big|<+\\infty.$$ 证明：存在实常数 $a$ 满足 $\\displaystyle\\sup_{x\\in\\mathbb R}\\big|f(x)-ax\\big|<+\\infty$。",
+   "answer": "",
+   "solution": "记 $M=\\sup\\limits_{x,y}|f(x+y)-f(x)-f(y)|$。则 $|f(kx)-f((k-1)x)-f(x)|\\leqslant M\\ (k\\geqslant2)$，累加得\n$$|f(nx)-nf(x)|\\leqslant(n-1)M\\leqslant nM,\\quad\\forall x\\in\\mathbb R,\\ n\\in\\mathbb N^+.\\tag{1}$$\n以 $mx$ 代 $x$ 得 $|f(mnx)-nf(mx)|\\leqslant nM$，互换 $m,n$ 得 $|f(mnx)-mf(nx)|\\leqslant mM$，于是\n$$\\Big|\\frac{f(mx)}{m}-\\frac{f(nx)}{n}\\Big|\\leqslant\\Big(\\frac1n+\\frac1m\\Big)M,$$\n即 $\\Big\\{\\dfrac{f(nx)}{n}\\Big\\}$ 关于 $x\\in\\mathbb R$ 一致收敛，设极限为 $g(x)$，则 $g$ 连续。由\n$$\\Big|\\frac{f(n(x+y))}{n}-\\frac{f(nx)}{n}-\\frac{f(ny)}{n}\\Big|\\leqslant\\frac Mn$$\n取极限得 $g(x+y)=g(x)+g(y)$。(1) 式除以 $n$ 取极限得 $|g(x)-f(x)|\\leqslant M$。\n\n由可加性，$g\\big(\\frac mn\\big)=\\frac mn g(1)\\ (m\\in\\mathbb Z,n\\in\\mathbb N^+)$，再由连续性与有理数稠密得 $g(x)=g(1)x$。取 $a=g(1)$ 即得 $\\sup_x|f(x)-ax|\\leqslant M<+\\infty$。",
+   "solutionSource": "官方"
+  },
+  {
+   "no": "六",
+   "score": 20,
+   "type": "证明",
+   "subjects": [
+    "高等代数"
+   ],
+   "topics": [
+    "线性函数",
+    "迹",
+    "双线性型",
+    "对偶基",
+    "数量矩阵"
+   ],
+   "difficulty": 4,
+   "statement": "设 $\\varphi:M_n(\\mathbb R)\\to\\mathbb R$ 是非零线性映射，满足 $$\\varphi(XY)=\\varphi(YX),\\quad\\forall X,Y\\in M_n(\\mathbb R),$$ 这里 $M_n(\\mathbb R)$ 是实数域 $\\mathbb R$ 上 $n$ 阶方阵组成的线性空间。在 $M_n(\\mathbb R)$ 上定义双线性型 $(-,-):M_n(\\mathbb R)\\times M_n(\\mathbb R)\\to\\mathbb R$ 为 $(X,Y)=\\varphi(XY)$。\n\n(1) 证明 $(-,-)$ 是非退化的，即若 $(X,Y)=0,\\ \\forall Y\\in M_n(\\mathbb R)$，则 $X=0$；\n\n(2) 设 $A_1,\\dots,A_{n^2}$ 是 $M_n(\\mathbb R)$ 的一组基，$B_1,\\dots,B_{n^2}$ 是相应的对偶基，即 $$(A_i,B_j)=\\delta_{ij}=\\begin{cases}0,&i\\neq j,\\\\1,&i=j.\\end{cases}$$ 证明 $\\displaystyle\\sum_{i=1}^{n^2}A_iB_i$ 是数量矩阵。",
+   "answer": "",
+   "solution": "先证 $\\varphi=a\\cdot\\operatorname{tr}$。记 $E_{ij}$ 为 $(i,j)$ 位置为 1、其余为 0 的矩阵，则\n$$\\varphi(E_{ij})=\\varphi(E_{i1}E_{1j})=\\varphi(E_{1j}E_{i1})=\\delta_{ij}\\varphi(E_{11}).$$\n取 $a=\\varphi(E_{11})$，则 $\\varphi(E_{ij})=a\\operatorname{tr}(E_{ij})$，故 $\\varphi=a\\operatorname{tr}$，且由 $\\varphi\\neq0$ 知 $a\\neq0$。\n\n**(1)** $(-,-)$ 是对称双线性型。若 $(X,Y)=0,\\ \\forall Y$，取 $Y=X^{\\mathrm T}$，得 $a\\operatorname{tr}(XX^{\\mathrm T})=0$，即 $\\sum_{i,j}x_{ij}^2=0$，故 $X=0$。\n\n**(2)** 只需证 $\\sum_iA_iB_i$ 与每个 $A_k$ 可交换（从而与一切矩阵可交换，为数量矩阵）。由对偶基展开：\n$$B_iA_k=\\sum_l(B_iA_k,A_l)B_l,\\qquad A_kA_i=\\sum_l(A_kA_i,B_l)A_l.$$\n于是\n$$\\Delta=\\Big(\\sum_iA_iB_i\\Big)A_k-A_k\\sum_iA_iB_i=\\sum_i\\sum_l\\Big[(B_iA_k,A_l)A_iB_l-(A_kA_i,B_l)A_lB_i\\Big].$$\n交换第二项中 $i,l$ 的记号，并注意由迹的轮换性 $(A_kA_l,B_i)=\\varphi(A_kA_lB_i)=\\varphi(B_iA_kA_l)=(B_iA_k,A_l)$，两项相消，$\\Delta=0$。故 $\\sum_iA_iB_i$ 是数量矩阵。",
+   "solutionSource": "官方"
+  }
+ ]
+}

@@ -1,0 +1,261 @@
+{
+ "id": "ex-analysis-06",
+ "title": "数学分析 · 微分中值定理与Taylor公式",
+ "subject": "数学分析",
+ "chapter": 6,
+ "problems": [
+  {
+   "no": "1",
+   "type": "证明",
+   "subjects": [
+    "数学分析"
+   ],
+   "topics": [
+    "Lagrange中值定理"
+   ],
+   "difficulty": 1,
+   "statement": "证明：对任意实数 $x,y$，$|\\sin x-\\sin y|\\le|x-y|$。",
+   "answer": "",
+   "solution": "$x=y$ 时显然。否则由 Lagrange 中值定理，存在 $\\xi$ 介于 $x,y$ 之间，使 $\\sin x-\\sin y=\\cos\\xi\\,(x-y)$，而 $|\\cos\\xi|\\le1$。",
+   "solutionSource": "编写",
+   "source": "经典题"
+  },
+  {
+   "no": "2",
+   "type": "证明",
+   "subjects": [
+    "数学分析"
+   ],
+   "topics": [
+    "Lagrange中值定理",
+    "不等式"
+   ],
+   "difficulty": 1,
+   "statement": "证明：当 $x>0$ 时，$\\dfrac{x}{1+x}<\\ln(1+x)<x$。",
+   "answer": "",
+   "solution": "对 $\\ln t$ 在 $[1,1+x]$ 上用 Lagrange 中值定理：存在 $\\xi\\in(1,1+x)$，\n$$\\ln(1+x)=\\ln(1+x)-\\ln1=\\dfrac{x}{\\xi}.$$\n由 $1<\\xi<1+x$ 得 $\\dfrac{x}{1+x}<\\dfrac x\\xi<x$。",
+   "solutionSource": "编写",
+   "source": "经典题"
+  },
+  {
+   "no": "3",
+   "type": "计算",
+   "subjects": [
+    "数学分析"
+   ],
+   "topics": [
+    "洛必达法则"
+   ],
+   "difficulty": 1,
+   "statement": "求 $\\displaystyle\\lim_{x\\to0}\\dfrac{e^x-1-x}{x^2}$。",
+   "answer": "$\\dfrac12$",
+   "solution": "$\\dfrac00$ 型，连用两次洛必达法则：\n$$\\lim_{x\\to0}\\dfrac{e^x-1-x}{x^2}=\\lim_{x\\to0}\\dfrac{e^x-1}{2x}=\\lim_{x\\to0}\\dfrac{e^x}{2}=\\dfrac12.$$",
+   "solutionSource": "编写",
+   "source": "经典题"
+  },
+  {
+   "no": "4",
+   "type": "证明",
+   "subjects": [
+    "数学分析"
+   ],
+   "topics": [
+    "凹凸性",
+    "不等式"
+   ],
+   "difficulty": 2,
+   "statement": "(Jordan 不等式) 证明：当 $0<x<\\dfrac\\pi2$ 时，$\\sin x>\\dfrac{2}{\\pi}x$。",
+   "answer": "",
+   "solution": "$f(x)=\\sin x$ 在 $\\left[0,\\dfrac\\pi2\\right]$ 上 $f''(x)=-\\sin x<0$（内部），是严格凹函数。连接 $(0,0)$ 与 $\\left(\\dfrac\\pi2,1\\right)$ 的弦为 $y=\\dfrac2\\pi x$。严格凹函数的图像在弦的上方（端点除外），故 $0<x<\\dfrac\\pi2$ 时 $\\sin x>\\dfrac2\\pi x$。\n\n也可令 $g(x)=\\dfrac{\\sin x}{x}$，$g'(x)=\\dfrac{\\cos x\\,(x-\\tan x)}{x^2}<0$，$g$ 在 $\\left(0,\\dfrac\\pi2\\right]$ 上严格递减，故 $g(x)>g\\left(\\dfrac\\pi2\\right)=\\dfrac2\\pi$。",
+   "solutionSource": "编写",
+   "source": "经典题"
+  },
+  {
+   "no": "5",
+   "type": "计算",
+   "subjects": [
+    "数学分析"
+   ],
+   "topics": [
+    "Taylor公式",
+    "Peano余项"
+   ],
+   "difficulty": 2,
+   "statement": "求 $\\displaystyle\\lim_{x\\to0}\\dfrac{\\cos x-e^{-\\frac{x^2}2}}{x^4}$。",
+   "answer": "$-\\dfrac1{12}$",
+   "solution": "$$\\cos x=1-\\dfrac{x^2}2+\\dfrac{x^4}{24}+o(x^4),\\qquad e^{-\\frac{x^2}2}=1-\\dfrac{x^2}2+\\dfrac{x^4}8+o(x^4).$$\n相减：$\\cos x-e^{-x^2/2}=\\left(\\dfrac1{24}-\\dfrac18\\right)x^4+o(x^4)=-\\dfrac{x^4}{12}+o(x^4)$，故极限为 $-\\dfrac1{12}$。",
+   "solutionSource": "编写",
+   "source": "经典题"
+  },
+  {
+   "no": "6",
+   "type": "证明",
+   "subjects": [
+    "数学分析"
+   ],
+   "topics": [
+    "Rolle定理",
+    "辅助函数"
+   ],
+   "difficulty": 2,
+   "statement": "设 $f$ 在 $[a,b]$ 上连续，在 $(a,b)$ 内可导，$f(a)=f(b)=0$。证明存在 $\\xi\\in(a,b)$ 使 $f'(\\xi)=f(\\xi)$。",
+   "answer": "",
+   "solution": "令 $g(x)=e^{-x}f(x)$，则 $g$ 在 $[a,b]$ 上连续、在 $(a,b)$ 内可导，$g(a)=g(b)=0$。由 Rolle 定理存在 $\\xi$ 使\n$$g'(\\xi)=e^{-\\xi}\\big(f'(\\xi)-f(\\xi)\\big)=0,$$\n即 $f'(\\xi)=f(\\xi)$。\n\n注：一般地，要证 $f'(\\xi)+\\lambda f(\\xi)=0$，可取 $g=e^{\\lambda x}f$。",
+   "solutionSource": "编写",
+   "source": "经典题"
+  },
+  {
+   "no": "7",
+   "type": "计算",
+   "subjects": [
+    "数学分析"
+   ],
+   "topics": [
+    "洛必达法则",
+    "等价无穷小"
+   ],
+   "difficulty": 3,
+   "statement": "求 $\\displaystyle\\lim_{x\\to0}\\left(\\dfrac1{x^2}-\\cot^2x\\right)$。",
+   "answer": "$\\dfrac23$",
+   "solution": "$$\\dfrac1{x^2}-\\dfrac{\\cos^2x}{\\sin^2x}=\\dfrac{\\sin^2x-x^2\\cos^2x}{x^2\\sin^2x}=\\dfrac{(\\sin x-x\\cos x)(\\sin x+x\\cos x)}{x^2\\sin^2x}.$$\n分母 $\\sim x^4$；$\\sin x+x\\cos x\\sim2x$；由 Taylor 公式\n$$\\sin x-x\\cos x=\\left(x-\\dfrac{x^3}6\\right)-\\left(x-\\dfrac{x^3}2\\right)+o(x^3)=\\dfrac{x^3}{3}+o(x^3).$$\n故原式 $\\to\\dfrac{\\frac{x^3}3\\cdot2x}{x^4}=\\dfrac23$。",
+   "solutionSource": "编写",
+   "source": "经典题"
+  },
+  {
+   "no": "8",
+   "type": "证明",
+   "subjects": [
+    "数学分析"
+   ],
+   "topics": [
+    "Lagrange中值定理",
+    "介值定理"
+   ],
+   "difficulty": 3,
+   "statement": "设 $f$ 在 $[0,1]$ 上连续，在 $(0,1)$ 内可导，$f(0)=0$，$f(1)=1$。证明：\n（1）存在 $c\\in(0,1)$ 使 $f(c)=1-c$；\n（2）存在两个不同的点 $\\xi,\\eta\\in(0,1)$，使 $f'(\\xi)f'(\\eta)=1$。",
+   "answer": "",
+   "solution": "（1）令 $g(x)=f(x)-1+x$，$g(0)=-1<0$，$g(1)=1>0$，由零点存在定理得 $c\\in(0,1)$。\n\n（2）在 $[0,c]$ 与 $[c,1]$ 上分别用 Lagrange 中值定理：存在 $\\xi\\in(0,c)$，$\\eta\\in(c,1)$，\n$$f'(\\xi)=\\dfrac{f(c)-f(0)}{c}=\\dfrac{1-c}{c},\\qquad f'(\\eta)=\\dfrac{f(1)-f(c)}{1-c}=\\dfrac{c}{1-c}.$$\n于是 $f'(\\xi)f'(\\eta)=1$，且 $\\xi<c<\\eta$。",
+   "solutionSource": "编写",
+   "source": "经典题"
+  },
+  {
+   "no": "9",
+   "type": "证明",
+   "subjects": [
+    "数学分析"
+   ],
+   "topics": [
+    "Cauchy中值定理"
+   ],
+   "difficulty": 3,
+   "statement": "设 $0<a<b$。证明存在 $\\xi\\in(a,b)$，使\n$$ae^b-be^a=(1-\\xi)e^\\xi(a-b).$$",
+   "answer": "",
+   "solution": "取 $F(x)=\\dfrac{e^x}{x}$，$G(x)=\\dfrac1x$，在 $[a,b]$ 上满足 Cauchy 中值定理条件（$G'(x)=-\\dfrac1{x^2}\\ne0$）。存在 $\\xi\\in(a,b)$，\n$$\\dfrac{F(b)-F(a)}{G(b)-G(a)}=\\dfrac{F'(\\xi)}{G'(\\xi)}=\\dfrac{\\frac{e^\\xi(\\xi-1)}{\\xi^2}}{-\\frac{1}{\\xi^2}}=(1-\\xi)e^\\xi.$$\n左端\n$$\\dfrac{\\frac{e^b}{b}-\\frac{e^a}a}{\\frac1b-\\frac1a}=\\dfrac{\\frac{ae^b-be^a}{ab}}{\\frac{a-b}{ab}}=\\dfrac{ae^b-be^a}{a-b}.$$\n整理即得结论。",
+   "solutionSource": "编写",
+   "source": "经典题"
+  },
+  {
+   "no": "10",
+   "type": "证明",
+   "subjects": [
+    "数学分析"
+   ],
+   "topics": [
+    "Darboux定理",
+    "导函数的介值性"
+   ],
+   "difficulty": 3,
+   "statement": "(Darboux 定理) 设 $f$ 在 $[a,b]$ 上可导（端点为单侧导数），$f'_+(a)<\\mu<f'_-(b)$。证明存在 $\\xi\\in(a,b)$ 使 $f'(\\xi)=\\mu$。",
+   "answer": "",
+   "solution": "令 $g(x)=f(x)-\\mu x$，则 $g$ 在 $[a,b]$ 上可导，$g'_+(a)<0<g'_-(b)$。$g$ 连续，在 $[a,b]$ 上取得最小值于某点 $\\xi$。\n\n由 $g'_+(a)=\\lim_{x\\to a^+}\\dfrac{g(x)-g(a)}{x-a}<0$，存在 $x$ 靠近 $a$ 使 $g(x)<g(a)$，故 $\\xi\\ne a$；同理由 $g'_-(b)>0$，存在 $x$ 靠近 $b$ 使 $g(x)<g(b)$，故 $\\xi\\ne b$。于是 $\\xi\\in(a,b)$ 是内部最小值点，由 Fermat 定理 $g'(\\xi)=0$，即 $f'(\\xi)=\\mu$。\n\n推论：导函数没有第一类间断点。",
+   "solutionSource": "编写",
+   "source": "经典题"
+  },
+  {
+   "no": "11",
+   "type": "证明",
+   "subjects": [
+    "数学分析"
+   ],
+   "topics": [
+    "Taylor公式",
+    "Lagrange余项"
+   ],
+   "difficulty": 4,
+   "statement": "设 $f$ 在 $[0,1]$ 上二阶可导，$f(0)=f(1)=0$，$\\displaystyle\\min_{[0,1]}f=-1$。证明存在 $\\xi\\in(0,1)$ 使 $f''(\\xi)\\ge8$。",
+   "answer": "",
+   "solution": "设最小值在 $c$ 处取得，$f(c)=-1$，由端点值为 $0$ 知 $c\\in(0,1)$，故 $f'(c)=0$。在 $c$ 处作 Taylor 展开：\n$$0=f(0)=-1+\\dfrac{f''(\\xi_1)}{2}c^2,\\quad\\xi_1\\in(0,c);\\qquad0=f(1)=-1+\\dfrac{f''(\\xi_2)}2(1-c)^2,\\quad\\xi_2\\in(c,1).$$\n所以 $f''(\\xi_1)=\\dfrac2{c^2}$，$f''(\\xi_2)=\\dfrac2{(1-c)^2}$。若 $c\\le\\dfrac12$，则 $f''(\\xi_1)\\ge8$；若 $c>\\dfrac12$，则 $f''(\\xi_2)>8$。",
+   "solutionSource": "编写",
+   "source": "经典题"
+  },
+  {
+   "no": "12",
+   "type": "证明",
+   "subjects": [
+    "数学分析"
+   ],
+   "topics": [
+    "Taylor公式",
+    "导数估计"
+   ],
+   "difficulty": 4,
+   "statement": "(Landau 不等式) 设 $f$ 在 $\\mathbb{R}$ 上二阶可导，$M_0=\\sup|f|<+\\infty$，$M_2=\\sup|f''|<+\\infty$。证明 $\\sup|f'|\\le\\sqrt{2M_0M_2}$。",
+   "answer": "",
+   "solution": "对任意 $x$ 及 $h>0$，由 Taylor 公式\n$$f(x+h)=f(x)+f'(x)h+\\dfrac{f''(\\xi_1)}2h^2,\\qquad f(x-h)=f(x)-f'(x)h+\\dfrac{f''(\\xi_2)}2h^2.$$\n相减得 $2hf'(x)=f(x+h)-f(x-h)-\\dfrac{h^2}2\\big(f''(\\xi_1)-f''(\\xi_2)\\big)$，于是\n$$|f'(x)|\\le\\dfrac{M_0}{h}+\\dfrac{M_2h}{2}.$$\n若 $M_2=0$，$f$ 为线性函数，有界则为常数，$f'\\equiv0$，结论成立。若 $M_2>0$，取 $h=\\sqrt{\\dfrac{2M_0}{M_2}}$（$M_0=0$ 时 $f\\equiv0$，平凡），右端 $=\\sqrt{\\dfrac{M_0M_2}2}+\\sqrt{\\dfrac{M_0M_2}2}=\\sqrt{2M_0M_2}$。",
+   "solutionSource": "编写",
+   "source": "经典题"
+  },
+  {
+   "no": "13",
+   "type": "证明",
+   "subjects": [
+    "数学分析"
+   ],
+   "topics": [
+    "洛必达法则",
+    "函数极限"
+   ],
+   "difficulty": 4,
+   "statement": "设 $f$ 在 $(a,+\\infty)$ 上可导，且 $\\displaystyle\\lim_{x\\to+\\infty}\\big(f(x)+f'(x)\\big)=0$。证明 $\\displaystyle\\lim_{x\\to+\\infty}f(x)=0$。",
+   "answer": "",
+   "solution": "写 $f(x)=\\dfrac{e^xf(x)}{e^x}$。分母 $e^x\\to+\\infty$ 且导数不为零。洛必达法则的\"$\\dfrac{*}{\\infty}$\"型（只需分母趋于无穷，不要求分子趋于无穷）给出\n$$\\lim_{x\\to+\\infty}\\dfrac{e^xf(x)}{e^x}=\\lim_{x\\to+\\infty}\\dfrac{e^x\\big(f(x)+f'(x)\\big)}{e^x}=\\lim_{x\\to+\\infty}\\big(f(x)+f'(x)\\big)=0,$$\n前提是最后的极限存在，这正是题设。",
+   "solutionSource": "编写",
+   "source": "经典题"
+  },
+  {
+   "no": "14",
+   "type": "证明",
+   "subjects": [
+    "数学分析"
+   ],
+   "topics": [
+    "Taylor公式",
+    "中点展开"
+   ],
+   "difficulty": 4,
+   "statement": "设 $f$ 在 $[a,b]$ 上二阶可导，$f'(a)=f'(b)=0$。证明存在 $\\xi\\in(a,b)$，使\n$$|f''(\\xi)|\\ge\\dfrac{4}{(b-a)^2}|f(b)-f(a)|.$$",
+   "answer": "",
+   "solution": "记 $m=\\dfrac{a+b}2$，$h=\\dfrac{b-a}2$。分别在 $a,b$ 处展开到 $m$：\n$$f(m)=f(a)+\\dfrac{f''(\\xi_1)}{2}h^2,\\qquad f(m)=f(b)+\\dfrac{f''(\\xi_2)}{2}h^2,$$\n其中 $\\xi_1\\in(a,m)$，$\\xi_2\\in(m,b)$（一阶项因 $f'(a)=f'(b)=0$ 消失）。相减：\n$$|f(b)-f(a)|=\\dfrac{h^2}{2}|f''(\\xi_1)-f''(\\xi_2)|\\le\\dfrac{(b-a)^2}{8}\\big(|f''(\\xi_1)|+|f''(\\xi_2)|\\big).$$\n取 $\\xi$ 为 $\\xi_1,\\xi_2$ 中使 $|f''|$ 较大者，得 $|f(b)-f(a)|\\le\\dfrac{(b-a)^2}{4}|f''(\\xi)|$。",
+   "solutionSource": "编写",
+   "source": "经典题"
+  },
+  {
+   "no": "15",
+   "type": "计算",
+   "subjects": [
+    "数学分析"
+   ],
+   "topics": [
+    "Stolz定理",
+    "Taylor公式",
+    "递推数列"
+   ],
+   "difficulty": 5,
+   "statement": "设 $x_1\\in(0,\\pi)$，$x_{n+1}=\\sin x_n$。证明 $\\displaystyle\\lim_{n\\to\\infty}\\sqrt n\\,x_n=\\sqrt3$。",
+   "answer": "$\\sqrt3$",
+   "solution": "$x_2=\\sin x_1\\in(0,1]$，此后 $0<x_{n+1}=\\sin x_n<x_n$，数列单调递减有下界，极限 $a$ 满足 $a=\\sin a$，故 $a=0$。\n\n计算\n$$\\lim_{x\\to0}\\left(\\dfrac1{\\sin^2x}-\\dfrac1{x^2}\\right)=\\lim_{x\\to0}\\dfrac{x^2-\\sin^2x}{x^4}=\\lim_{x\\to0}\\dfrac{(x-\\sin x)(x+\\sin x)}{x^4}=\\lim\\dfrac{\\frac{x^3}{6}\\cdot2x}{x^4}=\\dfrac13.$$\n所以 $\\dfrac1{x_{n+1}^2}-\\dfrac1{x_n^2}\\to\\dfrac13$。由于 $\\dfrac1{x_n^2}$ 严格递增趋于 $+\\infty$，由 Stolz 定理\n$$\\lim_{n\\to\\infty}\\dfrac{1/x_n^2}{n}=\\lim_{n\\to\\infty}\\left(\\dfrac1{x_{n+1}^2}-\\dfrac1{x_n^2}\\right)=\\dfrac13,$$\n即 $nx_n^2\\to3$，$\\sqrt n\\,x_n\\to\\sqrt3$。",
+   "solutionSource": "编写",
+   "source": "经典题"
+  }
+ ]
+}

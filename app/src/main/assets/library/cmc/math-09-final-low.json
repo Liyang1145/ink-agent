@@ -1,0 +1,184 @@
+{
+ "id": "cmc-math-09-final-low",
+ "title": "第九届全国大学生数学竞赛决赛（数学类低年级组（一、二年级））",
+ "year": 2018,
+ "track": "数学类",
+ "round": "决赛",
+ "paper": "low",
+ "durationMin": 180,
+ "totalScore": 100,
+ "source": {
+  "question": "2018年03月-数学类一、二年级-第九届全国决赛试卷.pdf",
+  "solution": "2018年03月-数学类一、二年级参考解答-第九届全国决赛试卷.pdf"
+ },
+ "problems": [
+  {
+   "no": "一(1)",
+   "score": 5,
+   "type": "填空",
+   "subjects": [
+    "高等代数"
+   ],
+   "topics": [
+    "分块矩阵",
+    "特征值",
+    "矩阵的秩"
+   ],
+   "difficulty": 2,
+   "statement": "设实方阵 $H_1=\\begin{pmatrix}0&1\\\\1&0\\end{pmatrix}$，$H_{n+1}=\\begin{pmatrix}H_n&I\\\\I&H_n\\end{pmatrix}$，$n\\geqslant1$，其中 $I$ 是与 $H_n$ 同阶的单位方阵，则 $\\operatorname{rank}(H_4)=$ ______。",
+   "answer": "$10$",
+   "solution": "$H_n$ 是 $2^n$ 阶实对称阵，可正交相似于对角阵 $D$，从而 $H_{n+1}$ 相似于 $\\begin{pmatrix}D&I\\\\I&D\\end{pmatrix}$。若 $H_n$ 的特征值为 $\\lambda_1,\\cdots,\\lambda_m$，则 $H_{n+1}$ 的特征值为 $\\lambda_i\\pm1$。归纳可得 $H_n$ 的特征值为 $n-2k$（$k=0,1,\\cdots,n$），重数 $C_n^k$。故 $H_4$ 的零特征值重数为 $C_4^2=6$，$\\operatorname{rank}(H_4)=2^4-6=10$。",
+   "solutionSource": "官方"
+  },
+  {
+   "no": "一(2)",
+   "score": 5,
+   "type": "填空",
+   "subjects": [
+    "数学分析"
+   ],
+   "topics": [
+    "极限",
+    "等价无穷小"
+   ],
+   "difficulty": 1,
+   "statement": "$\\displaystyle\\lim_{x\\to0}\\frac{\\ln(1+\\tan x)-\\ln(1+\\sin x)}{x^3}=$ ______。",
+   "answer": "$\\dfrac12$",
+   "solution": "$\\ln(1+\\tan x)-\\ln(1+\\sin x)=\\ln\\left(1+\\dfrac{\\tan x-\\sin x}{1+\\sin x}\\right)\\sim\\tan x-\\sin x$，故\n$$\\text{原式}=\\lim_{x\\to0}\\frac{\\tan x-\\sin x}{x^3}=\\lim_{x\\to0}\\frac{1-\\cos x}{x^2}=\\frac12.$$",
+   "solutionSource": "官方"
+  },
+  {
+   "no": "一(3)",
+   "score": 5,
+   "type": "填空",
+   "subjects": [
+    "数学分析"
+   ],
+   "topics": [
+    "第二型曲线积分",
+    "全微分",
+    "原函数"
+   ],
+   "difficulty": 2,
+   "statement": "设 $\\Gamma$ 为空间曲线 $\\begin{cases}x=\\pi\\sin(t/2)\\\\y=t-\\sin t\\\\z=\\sin2t\\end{cases}$ 从 $t=0$ 到 $t=\\pi$ 的一段，则第二型曲线积分\n$$\\int_\\Gamma e^{\\sin x}(\\cos x\\cos y\\,\\mathrm{d}x-\\sin y\\,\\mathrm{d}y)+\\cos z\\,\\mathrm{d}z=\\underline{\\qquad\\qquad}.$$",
+   "answer": "$-2$",
+   "solution": "被积式是全微分：$e^{\\sin x}(\\cos x\\cos y\\,\\mathrm{d}x-\\sin y\\,\\mathrm{d}y)+\\cos z\\,\\mathrm{d}z=\\mathrm{d}\\left(e^{\\sin x}\\cos y+\\sin z\\right)$。起点 $t=0$：$(0,0,0)$；终点 $t=\\pi$：$(\\pi,\\pi,0)$。故\n$$\\text{原积分}=\\left[e^{\\sin x}\\cos y+\\sin z\\right]_{(0,0,0)}^{(\\pi,\\pi,0)}=-1-1=-2.$$\n（原解答直接代入参数表达式，求得原函数 $F(t)=\\sin(\\sin2t)+e^{\\sin(\\pi\\sin\\frac t2)}\\cos(t-\\sin t)$，结果相同。）",
+   "solutionSource": "官方"
+  },
+  {
+   "no": "一(4)",
+   "score": 5,
+   "type": "填空",
+   "subjects": [
+    "高等代数"
+   ],
+   "topics": [
+    "二次型",
+    "正交变换",
+    "特征值",
+    "秩1矩阵"
+   ],
+   "difficulty": 1,
+   "statement": "设二次型 $f(x_1,\\cdots,x_n)=(x_1,\\cdots,x_n)A\\begin{pmatrix}x_1\\\\x_2\\\\\\vdots\\\\x_n\\end{pmatrix}$ 的矩阵 $A$ 为\n$$\\begin{pmatrix}1&a&a&\\cdots&a\\\\a&1&a&\\cdots&a\\\\\\vdots&\\vdots&\\vdots&&\\vdots\\\\a&\\cdots&a&1&a\\\\a&a&\\cdots&a&1\\end{pmatrix},$$\n其中 $n>1$，$a\\in\\mathbb R$，则 $f$ 在正交变换下的标准形为 ______。",
+   "answer": "$\\big((n-1)a+1\\big)y_1^2-(a-1)y_2^2-\\cdots-(a-1)y_n^2$",
+   "solution": "$A+(a-1)I$ 的所有元素都等于 $a$，秩 $\\leqslant1$，故 $1-a$ 是 $A$ 的至少 $n-1$ 重特征值；再由 $\\operatorname{tr}A=n$ 得另一特征值 $(n-1)a+1$。标准形为\n$$\\big((n-1)a+1\\big)y_1^2-(a-1)y_2^2-\\cdots-(a-1)y_n^2.$$",
+   "solutionSource": "官方"
+  },
+  {
+   "no": "二",
+   "score": 15,
+   "type": "证明",
+   "subjects": [
+    "解析几何"
+   ],
+   "topics": [
+    "椭球面",
+    "切锥面",
+    "极平面",
+    "切平面"
+   ],
+   "difficulty": 2,
+   "statement": "在空间直角坐标系下，设有椭球面\n$$S:\\frac{x^2}{a^2}+\\frac{y^2}{b^2}+\\frac{z^2}{c^2}=1,\\quad a,b,c>0$$\n及 $S$ 外部一点 $A(x_0,y_0,z_0)$，过 $A$ 点且与 $S$ 相切的所有直线构成锥面 $\\Sigma$。证明：存在平面 $\\Pi$，使得交线 $S\\cap\\Sigma=S\\cap\\Pi$；同时求出平面 $\\Pi$ 的方程。",
+   "answer": "$\\Pi:\\dfrac{x_0}{a^2}x+\\dfrac{y_0}{b^2}y+\\dfrac{z_0}{c^2}z=1$",
+   "solution": "因 $A$ 在 $S$ 外，$\\dfrac{x_0^2}{a^2}+\\dfrac{y_0^2}{b^2}+\\dfrac{z_0^2}{c^2}>1$，特别 $x_0,y_0,z_0$ 不全为 0，故\n$$\\Pi:\\frac{x_0}{a^2}x+\\frac{y_0}{b^2}y+\\frac{z_0}{c^2}z-1=0$$\n是一个平面。\n\n**$S\\cap\\Sigma\\subset S\\cap\\Pi$**：任取 $M(x_1,y_1,z_1)\\in S\\cap\\Sigma$，直线 $AM$ 是 $S$ 在 $M$ 处的切线，所以 $A$ 在 $S$ 于 $M$ 点的切平面 $\\dfrac{x_1}{a^2}x+\\dfrac{y_1}{b^2}y+\\dfrac{z_1}{c^2}z=1$ 上，即\n$$\\frac{x_1x_0}{a^2}+\\frac{y_1y_0}{b^2}+\\frac{z_1z_0}{c^2}=1,$$\n这正说明 $M\\in\\Pi$。\n\n**$S\\cap\\Pi\\subset S\\cap\\Sigma$**：任取 $M(x_1,y_1,z_1)\\in S\\cap\\Pi$，上式成立，即 $A$ 位于 $S$ 在 $M$ 点的切平面上，从而直线 $AM$ 在 $M$ 处与 $S$ 相切，$AM\\subset\\Sigma$，$M\\in\\Sigma$。\n\n（原解答另有思路：把直线 $AM$ 的参数式代入椭球面方程，由 $t=0$ 为二重根直接导出 $M$ 满足 $\\Pi$ 的方程。）",
+   "solutionSource": "官方"
+  },
+  {
+   "no": "三",
+   "score": 15,
+   "type": "证明",
+   "subjects": [
+    "高等代数"
+   ],
+   "topics": [
+    "交换子",
+    "幂零矩阵",
+    "同时上三角化",
+    "Jordan标准形",
+    "矩阵单位"
+   ],
+   "difficulty": 3,
+   "statement": "设 $A,B,C$ 均为 $n$ 阶复方阵，且满足\n$$AB-BA=C,\\quad AC=CA,\\quad BC=CB.$$\n(1) 证明：$C$ 是幂零方阵；\n\n(2) 证明：$A,B,C$ 同时相似于上三角阵；\n\n(3) 若 $C\\neq0$，求 $n$ 的最小值。",
+   "answer": "(3) $n$ 的最小值为 $3$",
+   "solution": "**(1)** 不妨设 $C$ 为 Jordan 标准形 $C=\\operatorname{diag}(J_1,\\cdots,J_k)$，$J_i$ 对应互不相同的特征值 $\\lambda_i$（把同一特征值的块合在一起）。对 $B$ 作相同分块 $B=(B_{ij})$，由 $BC=CB$ 得 $J_iB_{ij}=B_{ij}J_j$，从而对任意多项式 $p$ 有 $p(J_i)B_{ij}=B_{ij}p(J_j)$。取 $p$ 为 $J_j$ 的最小多项式，得 $p(J_i)B_{ij}=0$；$i\\neq j$ 时 $p(J_i)$ 可逆，故 $B_{ij}=0$，$B$ 分块对角。同理 $A=\\operatorname{diag}(A_{11},\\cdots,A_{kk})$。于是 $A_{ii}B_{ii}-B_{ii}A_{ii}=J_i$，取迹得 $\\operatorname{tr}J_i=0$，即 $\\lambda_i=0$。所以 $C$ 幂零。\n\n**(2)** 令 $V_0=\\{v\\in\\mathbb C^n\\mid Cv=0\\}\\neq0$。由 $AC=CA,BC=CB$ 知 $AV_0\\subseteq V_0$，$BV_0\\subseteq V_0$。取 $A$ 在 $V_0$ 中的特征值 $\\lambda$，令 $V_1=\\{v\\in V_0\\mid Av=\\lambda v\\}$。对 $u\\in V_1$，$A(Bu)=B(Au)+Cu=\\lambda Bu$，故 $BV_1\\subseteq V_1$，从而存在 $0\\neq v_1\\in V_1$ 为 $B$ 的特征向量。于是 $v_1$ 是 $A,B,C$ 的公共特征向量。将 $v_1$ 扩充为基，令 $P=(v_1,\\cdots,v_n)$，则\n$$AP=P\\begin{pmatrix}\\lambda&x\\\\0&A_1\\end{pmatrix},\\quad BP=P\\begin{pmatrix}\\mu&y\\\\0&B_1\\end{pmatrix},\\quad CP=P\\begin{pmatrix}0&z\\\\0&C_1\\end{pmatrix},$$\n且 $A_1B_1-B_1A_1=C_1$，$A_1C_1=C_1A_1$，$B_1C_1=C_1B_1$。对 $n$ 归纳即得 $A,B,C$ 同时相似于上三角阵。\n\n**(3)** $n\\geqslant3$ 时取 $A=E_{12}$，$B=E_{23}$，$C=E_{13}$ 满足题意。$n=1$ 时 $C=AB-BA=0$。$n=2$ 时，由 (1) 不妨设 $C=\\begin{pmatrix}0&1\\\\0&0\\end{pmatrix}$，由 $AC=CA$ 得 $A=\\begin{pmatrix}a_1&a_2\\\\0&a_1\\end{pmatrix}$，同理 $B=\\begin{pmatrix}b_1&b_2\\\\0&b_1\\end{pmatrix}$，于是 $AB-BA=0\\neq C$，矛盾。故所求最小值为 3。",
+   "solutionSource": "官方"
+  },
+  {
+   "no": "四",
+   "score": 20,
+   "type": "证明",
+   "subjects": [
+    "数学分析"
+   ],
+   "topics": [
+    "积分不等式",
+    "导数",
+    "中值定理"
+   ],
+   "difficulty": 3,
+   "statement": "设 $f(x)$ 在 $[0,1]$ 上有二阶连续导函数，且 $f(0)f(1)\\geqslant0$。求证：\n$$\\int_0^1|f'(x)|\\,\\mathrm{d}x\\leqslant2\\int_0^1|f(x)|\\,\\mathrm{d}x+\\int_0^1|f''(x)|\\,\\mathrm{d}x.$$",
+   "answer": "",
+   "solution": "设 $M=\\max\\limits_{[0,1]}|f'(x)|=|f'(x_1)|$，$m=\\min\\limits_{[0,1]}|f'(x)|=|f'(x_0)|$。则\n$$\\int_0^1|f''(x)|\\,\\mathrm{d}x\\geqslant\\left|\\int_{x_0}^{x_1}f''(x)\\,\\mathrm{d}x\\right|=|f'(x_1)-f'(x_0)|\\geqslant M-m,$$\n而 $\\int_0^1|f'|\\,\\mathrm{d}x\\leqslant M$，故只需证 $m\\leqslant2\\int_0^1|f(x)|\\,\\mathrm{d}x$。\n\n若 $f'$ 在 $[0,1]$ 上有零点，则 $m=0$，显然成立。否则不妨设 $f'>0$，$f$ 严格递增，$f'(x)\\geqslant m$。\n\n**情形 1：$f(0)\\geqslant0$。** 此时 $f\\geqslant0$，\n$$\\int_0^1|f|\\,\\mathrm{d}x\\geqslant\\int_0^1\\big(f(x)-f(0)\\big)\\,\\mathrm{d}x=\\int_0^1f'(\\xi_x)x\\,\\mathrm{d}x\\geqslant\\int_0^1mx\\,\\mathrm{d}x=\\frac m2.$$\n**情形 2：$f(0)<0$。** 由 $f(0)f(1)\\geqslant0$ 得 $f(1)\\leqslant0$，从而 $f\\leqslant0$，\n$$\\int_0^1|f|\\,\\mathrm{d}x\\geqslant\\int_0^1\\big(f(1)-f(x)\\big)\\,\\mathrm{d}x=\\int_0^1f'(\\xi_x)(1-x)\\,\\mathrm{d}x\\geqslant\\frac m2.$$\n两种情形都有 $m\\leqslant2\\int_0^1|f|\\,\\mathrm{d}x$，结论成立。",
+   "solutionSource": "官方"
+  },
+  {
+   "no": "五",
+   "score": 15,
+   "type": "证明",
+   "subjects": [
+    "数学分析",
+    "高等代数"
+   ],
+   "topics": [
+    "幂零矩阵",
+    "矩阵函数",
+    "麦克劳林级数",
+    "反常积分收敛"
+   ],
+   "difficulty": 4,
+   "statement": "设 $\\alpha\\in(1,2)$，$(1-x)^\\alpha$ 的麦克劳林级数为 $\\displaystyle\\sum_{k=0}^\\infty a_kx^k$，$n\\times n$ 实常数矩阵 $A$ 为幂零矩阵，$I$ 为单位阵。设矩阵值函数 $G(x)$ 定义为\n$$G(x)\\equiv\\big(g_{ij}(x)\\big):=\\sum_{k=0}^\\infty a_k(xI+A)^k,\\quad0\\leqslant x<1.$$\n试证对于 $1\\leqslant i,j\\leqslant n$，积分 $\\displaystyle\\int_0^1g_{ij}(x)\\,\\mathrm{d}x$ 均存在的充分必要条件是 $A^3=0$。",
+   "answer": "",
+   "solution": "$A$ 幂零，故 $A^n=0$。记 $f(x)=(1-x)^\\alpha$，展开 $(xI+A)^k$ 并交换求和（$|x|<1$ 时绝对收敛）：\n$$G(x)=\\sum_{k=0}^\\infty a_k\\sum_{j=0}^{n-1}C_k^jx^{k-j}A^j=\\sum_{j=0}^{n-1}\\frac{f^{(j)}(x)}{j!}A^j,\\quad x\\in(-1,1),$$\n其中 $f^{(j)}(x)=(-1)^j\\alpha(\\alpha-1)\\cdots(\\alpha-j+1)(1-x)^{\\alpha-j}$。\n\n设 $m$ 为使 $A^m\\neq0$ 的最大指标（$A^{m+1}=0$）。则\n$$\\lim_{x\\to1^-}(1-x)^{m-\\alpha}G(x)=(-1)^m\\frac{\\alpha(\\alpha-1)\\cdots(\\alpha-m+1)}{m!}A^m\\neq0$$\n（$\\alpha\\in(1,2)$ 不是整数，系数非零）。若 $m\\geqslant3$，则 $m-\\alpha>1$，$A^m$ 的某个非零元素对应的 $g_{ij}$ 与 $(1-x)^{\\alpha-m}$ 同阶，积分发散。若 $m\\leqslant2$，则每项 $(1-x)^{\\alpha-j}$（$j\\leqslant2$）中 $\\alpha-j>-1$，各 $g_{ij}$ 在 $[0,1)$ 上可积。故所有积分存在当且仅当 $m\\leqslant2$，即 $A^3=0$。",
+   "solutionSource": "官方"
+  },
+  {
+   "no": "六",
+   "score": 15,
+   "type": "证明",
+   "subjects": [
+    "常微分方程"
+   ],
+   "topics": [
+    "二阶线性方程",
+    "Riccati方程",
+    "比较原理",
+    "解的估计"
+   ],
+   "difficulty": 4,
+   "statement": "有界连续函数 $g(t):\\mathbb R\\to\\mathbb R$ 满足 $1<g(t)<2$。$x(t)$，$t\\in\\mathbb R$ 是方程 $\\ddot x(t)=g(t)x$ 的单调正解。求证：存在常数 $C_2>C_1>0$ 满足\n$$C_1x(t)<|\\dot x(t)|<C_2x(t),\\quad t\\in\\mathbb R.$$",
+   "answer": "",
+   "solution": "令 $y=\\dfrac{\\dot x}{x}$，因 $x$ 单调，$y$ 定号。不妨设 $y\\geqslant0$（否则以 $-t$ 代 $t$）。$y$ 满足 Riccati 方程\n$$\\dot y=\\frac{\\ddot xx-\\dot x^2}{x^2}=g(t)-y^2.$$\n下证结论对 $C_1=1,C_2=\\sqrt3$ 成立。\n\n**$y<\\sqrt3$。** 若存在 $t_0$ 使 $y(t_0)\\geqslant\\sqrt3$，则 $\\dot y(t_0)<2-3<0$；向 $t<t_0$ 方向，只要 $y>\\sqrt3$ 就有 $\\dot y<2-y^2<-1<0$，于是 $y$ 向左递增，对一切 $t<t_0$ 保持 $y(t)>\\sqrt3$ 且 $\\dfrac{\\dot y}{y^2-2}<-1$。积分得\n$$t>t_0+\\frac{1}{2\\sqrt2}\\ln\\frac{y(s)-\\sqrt2}{y(s)+\\sqrt2}\\Big|_{t}^{t_0}>t_0-L,$$\n其中 $L>0$ 为常数，即 $t$ 有下界，与 $y$ 在 $\\mathbb R$ 上有定义矛盾（$y$ 在有限时间内爆破）。\n\n**$y>1$。** 若存在 $t_0$ 使 $y(t_0)=1$，则 $\\dot y(t_0)=g(t_0)-1>0$，故稍左处 $y<1$；因此只需排除 $y(t_0)<1$。设 $y(t_0)<1$，$\\delta=1-y(t_0)^2>0$。向 $t<t_0$ 方向，只要 $y(t)\\leqslant y(t_0)$，就有 $\\dot y=g-y^2>1-y(t_0)^2=\\delta$，于是 $y$ 向左严格递减，始终保持 $y(t)\\leqslant y(t_0)$，并且 $y(t)<y(t_0)-\\delta(t_0-t)$。当 $t_0-t>y(t_0)/\\delta$ 时 $y(t)<0$，与 $y\\geqslant0$ 矛盾。\n\n故 $1<\\dfrac{|\\dot x|}{x}<\\sqrt3$，即 $C_1=1$，$C_2=\\sqrt3$。\n\n（原解答另有思路：设 $x$ 递增，利用 $x(-\\infty)=\\dot x(-\\infty)=0$ 及 $\\frac12\\dot x^2=\\int_{-\\infty}^tg\\,x\\dot x\\,\\mathrm{d}s$ 得 $x<\\dot x<\\sqrt2x$。此处严格不等号的论证为整理时补充。）",
+   "solutionSource": "官方"
+  }
+ ]
+}

@@ -1,0 +1,200 @@
+{
+ "id": "cmc-nonmath-05-final",
+ "title": "第五届全国大学生数学竞赛决赛（非数学类）",
+ "year": 2014,
+ "track": "非数学类",
+ "round": "决赛",
+ "paper": "",
+ "durationMin": 180,
+ "totalScore": 100,
+ "source": {
+  "question": "2014年03月-非数学类-第五届全国决赛试卷.pdf",
+  "solution": "2014年03月-非数学类参考解答-第五届全国决赛试卷.pdf"
+ },
+ "problems": [
+  {
+   "no": "一(1)",
+   "score": 7,
+   "type": "计算",
+   "subjects": [
+    "高等数学"
+   ],
+   "topics": [
+    "定积分",
+    "交换积分次序",
+    "分部积分"
+   ],
+   "difficulty": 2,
+   "statement": "计算积分 $\\displaystyle\\int_0^{2\\pi}x\\int_x^{2\\pi}\\frac{\\sin^2t}{t^2}\\,\\mathrm{d}t\\,\\mathrm{d}x$。",
+   "answer": "$\\dfrac{\\pi}{2}$",
+   "solution": "【解法一】交换积分次序：\n$$\\text{原式}=\\int_0^{2\\pi}\\frac{\\sin^2t}{t^2}\\,\\mathrm{d}t\\int_0^tx\\,\\mathrm{d}x=\\frac12\\int_0^{2\\pi}\\sin^2t\\,\\mathrm{d}t=2\\int_0^{\\frac\\pi2}\\sin^2t\\,\\mathrm{d}t=\\frac{\\pi}{2}.$$\n【解法二】令 $f(x)=\\displaystyle\\int_x^{2\\pi}\\frac{\\sin^2t}{t^2}\\,\\mathrm{d}t$，则 $f'(x)=-\\dfrac{\\sin^2x}{x^2}$ 且 $f(2\\pi)=0$。\n$$\\text{原式}=\\int_0^{2\\pi}xf(x)\\,\\mathrm{d}x=\\left[\\frac12x^2f(x)\\right]_0^{2\\pi}-\\frac12\\int_0^{2\\pi}x^2f'(x)\\,\\mathrm{d}x=\\frac12\\int_0^{2\\pi}\\sin^2x\\,\\mathrm{d}x=\\frac\\pi2.$$",
+   "solutionSource": "官方"
+  },
+  {
+   "no": "一(2)",
+   "score": 7,
+   "type": "计算",
+   "subjects": [
+    "高等数学"
+   ],
+   "topics": [
+    "积分不等式",
+    "柯西-施瓦茨不等式",
+    "最值"
+   ],
+   "difficulty": 2,
+   "statement": "设 $f(x)$ 是 $[0,1]$ 上的连续函数，且满足 $\\displaystyle\\int_0^1f(x)\\,\\mathrm{d}x=1$，求一个这样的函数 $f(x)$，使得积分 $I=\\displaystyle\\int_0^1(1+x^2)f^2(x)\\,\\mathrm{d}x$ 取到最小值。",
+   "answer": "$f(x)=\\dfrac{4}{\\pi(1+x^2)}$，最小值 $\\dfrac4\\pi$。",
+   "solution": "由柯西-施瓦茨不等式，\n$$1=\\int_0^1f(x)\\,\\mathrm{d}x=\\int_0^1f(x)\\sqrt{1+x^2}\\cdot\\frac{1}{\\sqrt{1+x^2}}\\,\\mathrm{d}x\\le\\left(\\int_0^1(1+x^2)f^2(x)\\,\\mathrm{d}x\\right)^{1/2}\\left(\\int_0^1\\frac{\\mathrm{d}x}{1+x^2}\\right)^{1/2}=\\left(\\int_0^1(1+x^2)f^2(x)\\,\\mathrm{d}x\\right)^{1/2}\\left(\\frac\\pi4\\right)^{1/2},$$\n所以 $\\displaystyle\\int_0^1(1+x^2)f^2(x)\\,\\mathrm{d}x\\ge\\frac4\\pi$，取 $f(x)=\\dfrac{4}{\\pi(1+x^2)}$ 即可取到等号。",
+   "solutionSource": "官方"
+  },
+  {
+   "no": "一(3)",
+   "score": 7,
+   "type": "计算",
+   "subjects": [
+    "高等数学"
+   ],
+   "topics": [
+    "空间曲线",
+    "切线",
+    "投影曲线",
+    "雅可比行列式"
+   ],
+   "difficulty": 2,
+   "statement": "设 $F(x,y,z),\\,G(x,y,z)$ 有连续偏导数，$\\dfrac{\\partial(F,G)}{\\partial(x,z)}\\neq0$，曲线 $\\Gamma:\\begin{cases}F(x,y,z)=0,\\\\G(x,y,z)=0\\end{cases}$ 过点 $P_0(x_0,y_0,z_0)$。记 $\\Gamma$ 在 $xOy$ 面上的投影曲线为 $S$。求 $S$ 上过点 $(x_0,y_0)$ 的切线方程。",
+   "answer": "$\\left(F_xG_z-G_xF_z\\right)_{P_0}(x-x_0)+\\left(F_yG_z-G_yF_z\\right)_{P_0}(y-y_0)=0$",
+   "solution": "由两方程定义的曲面在 $P_0(x_0,y_0,z_0)$ 的切平面分别为\n$$F_x(P_0)(x-x_0)+F_y(P_0)(y-y_0)+F_z(P_0)(z-z_0)=0,$$\n$$G_x(P_0)(x-x_0)+G_y(P_0)(y-y_0)+G_z(P_0)(z-z_0)=0.$$\n两切平面的交线就是 $\\Gamma$ 在 $P_0$ 点的切线，该切线在 $xOy$ 面上的投影就是 $S$ 过 $(x_0,y_0)$ 的切线。消去 $z-z_0$，有\n$$\\left(F_xG_z-G_xF_z\\right)_{P_0}(x-x_0)+\\left(F_yG_z-G_yF_z\\right)_{P_0}(y-y_0)=0.$$\n这里 $x-x_0$ 的系数 $\\dfrac{\\partial(F,G)}{\\partial(x,z)}\\neq0$，故上式是一条直线的方程，就是所求的切线。",
+   "solutionSource": "官方"
+  },
+  {
+   "no": "一(4)",
+   "score": 7,
+   "type": "计算",
+   "subjects": [
+    "线性代数"
+   ],
+   "topics": [
+    "矩阵的秩",
+    "矩阵方程",
+    "秩不等式"
+   ],
+   "difficulty": 2,
+   "statement": "设矩阵 $A=\\begin{pmatrix}1&2&1\\\\3&4&a\\\\1&2&2\\end{pmatrix}$，其中 $a$ 为常数，矩阵 $B$ 满足关系式 $AB=A-B+E$，其中 $E$ 是单位矩阵且 $B\\neq E$。若秩 $\\operatorname{rank}(A+B)=3$，求常数 $a$ 的值。",
+   "answer": "$a=\\dfrac{13}{2}$",
+   "solution": "由关系式 $AB=A-B+E\\Rightarrow(A+E)(B-E)=O$，所以\n$$\\operatorname{rank}(A+B)\\le\\operatorname{rank}(A+E)+\\operatorname{rank}(B-E)\\le3.$$\n因为 $\\operatorname{rank}(A+B)=3$，所以 $\\operatorname{rank}(A+E)+\\operatorname{rank}(B-E)=3$。又 $\\operatorname{rank}(A+E)\\ge2$，而 $B\\ne E$ 使 $\\operatorname{rank}(B-E)\\ge1$，只有 $\\operatorname{rank}(A+E)=2$。\n$$A+E=\\begin{pmatrix}2&2&1\\\\3&5&a\\\\1&2&3\\end{pmatrix}\\to\\begin{pmatrix}0&-2&-5\\\\0&-1&a-9\\\\1&2&3\\end{pmatrix}\\to\\begin{pmatrix}0&0&13-2a\\\\0&-1&a-9\\\\1&2&3\\end{pmatrix},$$\n从而 $a=\\dfrac{13}{2}$。",
+   "solutionSource": "官方"
+  },
+  {
+   "no": "二",
+   "score": 12,
+   "type": "证明",
+   "subjects": [
+    "高等数学"
+   ],
+   "topics": [
+    "泰勒公式",
+    "拉格朗日中值定理",
+    "多项式"
+   ],
+   "difficulty": 3,
+   "statement": "设 $f\\in C^4(-\\infty,+\\infty)$，\n$$f(x+h)=f(x)+f'(x)h+\\frac12f''(x+\\theta h)h^2,$$\n其中 $\\theta$ 是与 $x,h$ 无关的常数。证明 $f$ 是不超过三次的多项式。",
+   "answer": "",
+   "solution": "由泰勒公式\n$$f(x+h)=f(x)+f'(x)h+\\frac{f''(x)}{2}h^2+\\frac{f'''(x)}{6}h^3+\\frac{f^{(4)}(\\xi)}{24}h^4,\\tag{1}$$\n$$f''(x+\\theta h)=f''(x)+f'''(x)\\theta h+\\frac{f^{(4)}(\\eta)}{2}\\theta^2h^2,\\tag{2}$$\n其中 $\\xi$ 介于 $x$ 与 $x+h$ 之间，$\\eta$ 介于 $x$ 与 $x+\\theta h$ 之间。由 (1)(2) 式和已知条件 $f(x+h)=f(x)+f'(x)h+\\dfrac{f''(x+\\theta h)}{2}h^2$，可得\n$$4(1-3\\theta)f'''(x)=\\left[6f^{(4)}(\\eta)\\theta^2-f^{(4)}(\\xi)\\right]h.$$\n当 $\\theta\\ne\\dfrac13$ 时，令 $h\\to0$ 得 $f'''(x)=0$，此时 $f$ 是不超过二次的多项式；\n当 $\\theta=\\dfrac13$ 时，有 $\\dfrac23f^{(4)}(\\eta)=f^{(4)}(\\xi)$。令 $h\\to0$，注意到 $\\xi\\to x,\\ \\eta\\to x$，有 $f^{(4)}(x)=0$，此时 $f$ 是不超过三次的多项式。",
+   "solutionSource": "官方"
+  },
+  {
+   "no": "三",
+   "score": 12,
+   "type": "证明",
+   "subjects": [
+    "高等数学"
+   ],
+   "topics": [
+    "积分方程",
+    "可降阶微分方程",
+    "函数不等式"
+   ],
+   "difficulty": 2,
+   "statement": "设当 $x>-1$ 时，可微函数 $f(x)$ 满足条件\n$$f'(x)+f(x)-\\frac{1}{1+x}\\int_0^xf(t)\\,\\mathrm{d}t=0\\quad\\text{且}\\quad f(0)=1.$$\n试证：当 $x\\ge0$ 时，有 $e^{-x}\\le f(x)\\le1$ 成立。",
+   "answer": "",
+   "solution": "由题设可知 $f'(0)=-1$，所给方程可变形为 $(1+x)f'(x)+(1+x)f(x)-\\displaystyle\\int_0^xf(t)\\,\\mathrm{d}t=0$，两端关于 $x$ 求导并整理得\n$$(1+x)f''(x)+(2+x)f'(x)=0.$$\n这是一个可降阶的二阶微分方程，用分离变量法求得 $f'(x)=\\dfrac{Ce^{-x}}{1+x}$。由 $f'(0)=-1$ 得 $C=-1$，即 $f'(x)=-\\dfrac{e^{-x}}{1+x}<0$，函数 $f(x)$ 单调递减。而 $f(0)=1$，所以当 $x\\ge0$ 时 $f(x)\\le1$。\n对 $f'(t)=-\\dfrac{e^{-t}}{1+t}<0$ 在 $[0,x]$ 上进行积分，得\n$$f(x)=f(0)-\\int_0^x\\frac{e^{-t}}{1+t}\\,\\mathrm{d}t\\ge1-\\int_0^xe^{-t}\\,\\mathrm{d}t=e^{-x}.$$",
+   "solutionSource": "官方"
+  },
+  {
+   "no": "四",
+   "score": 10,
+   "type": "证明",
+   "subjects": [
+    "高等数学"
+   ],
+   "topics": [
+    "二重积分",
+    "分部积分",
+    "积分估计"
+   ],
+   "difficulty": 3,
+   "statement": "设 $D=\\{(x,y)\\mid0\\le x\\le1,\\ 0\\le y\\le1\\}$，$I=\\displaystyle\\iint_Df(x,y)\\,\\mathrm{d}x\\,\\mathrm{d}y$，其中函数 $f(x,y)$ 在 $D$ 上有连续二阶偏导数，若对任何 $x,y$ 有 $f(0,y)=f(x,0)=0$ 且 $\\dfrac{\\partial^2f}{\\partial x\\partial y}\\le A$。证明 $I\\le\\dfrac{A}{4}$。",
+   "answer": "",
+   "solution": "$I=\\displaystyle\\int_0^1\\mathrm{d}y\\int_0^1f(x,y)\\,\\mathrm{d}x=-\\int_0^1\\mathrm{d}y\\int_0^1f(x,y)\\,\\mathrm{d}(1-x)$。对于固定 $y$，$(1-x)f(x,y)\\Big|_{x=0}^{x=1}=0$，由分部积分法可得\n$$\\int_0^1f(x,y)\\,\\mathrm{d}(1-x)=-\\int_0^1(1-x)\\frac{\\partial f(x,y)}{\\partial x}\\,\\mathrm{d}x.$$\n交换积分次序后可得 $I=\\displaystyle\\int_0^1(1-x)\\,\\mathrm{d}x\\int_0^1\\frac{\\partial f(x,y)}{\\partial x}\\,\\mathrm{d}y$。因为 $f(x,0)=0$，所以 $\\dfrac{\\partial f(x,0)}{\\partial x}=0$，从而 $(1-y)\\dfrac{\\partial f(x,y)}{\\partial x}\\Big|_{y=0}^{y=1}=0$。再由分部积分法得\n$$\\int_0^1\\frac{\\partial f(x,y)}{\\partial x}\\,\\mathrm{d}y=-\\int_0^1\\frac{\\partial f(x,y)}{\\partial x}\\,\\mathrm{d}(1-y)=\\int_0^1(1-y)\\frac{\\partial^2f}{\\partial x\\partial y}\\,\\mathrm{d}y,$$\n$$I=\\int_0^1(1-x)\\,\\mathrm{d}x\\int_0^1(1-y)\\frac{\\partial^2f}{\\partial x\\partial y}\\,\\mathrm{d}y=\\iint_D(1-x)(1-y)\\frac{\\partial^2f}{\\partial x\\partial y}\\,\\mathrm{d}x\\,\\mathrm{d}y.$$\n因为 $\\dfrac{\\partial^2f}{\\partial x\\partial y}\\le A$，且 $(1-x)(1-y)$ 在 $D$ 上非负，故\n$$I\\le A\\iint_D(1-x)(1-y)\\,\\mathrm{d}x\\,\\mathrm{d}y=\\frac A4.$$",
+   "solutionSource": "官方"
+  },
+  {
+   "no": "五",
+   "score": 12,
+   "type": "计算",
+   "subjects": [
+    "高等数学"
+   ],
+   "topics": [
+    "第二型曲面积分",
+    "高斯公式",
+    "柱面坐标",
+    "洛必达法则"
+   ],
+   "difficulty": 3,
+   "statement": "设函数 $f(x)$ 连续可导，$P=Q=R=f\\left((x^2+y^2)z\\right)$，有向曲面 $\\Sigma_t$ 是圆柱体 $x^2+y^2\\le t^2,\\ 0\\le z\\le1$ 的表面，方向朝外。记第二型曲面积分\n$$I_t=\\iint_{\\Sigma_t}P\\,\\mathrm{d}y\\,\\mathrm{d}z+Q\\,\\mathrm{d}z\\,\\mathrm{d}x+R\\,\\mathrm{d}x\\,\\mathrm{d}y.$$\n求极限 $\\displaystyle\\lim_{t\\to0^+}\\frac{I_t}{t^4}$。",
+   "answer": "$\\dfrac{\\pi}{2}f'(0)$",
+   "solution": "由高斯公式，有（$V$ 为该圆柱体）\n$$I_t=\\iiint_V\\left(\\frac{\\partial P}{\\partial x}+\\frac{\\partial Q}{\\partial y}+\\frac{\\partial R}{\\partial z}\\right)\\mathrm{d}V=\\iiint_V\\left(2xz+2yz+x^2+y^2\\right)f'\\left((x^2+y^2)z\\right)\\mathrm{d}V.$$\n由对称性，$\\displaystyle\\iiint_V(2xz+2yz)f'\\left((x^2+y^2)z\\right)\\mathrm{d}V=0$。从而\n$$I_t=\\iiint_V(x^2+y^2)f'\\left((x^2+y^2)z\\right)\\mathrm{d}V=\\int_0^1\\left[\\int_0^{2\\pi}\\mathrm{d}\\theta\\int_0^tf'(r^2z)r^3\\,\\mathrm{d}r\\right]\\mathrm{d}z=2\\pi\\int_0^1\\left[\\int_0^tf'(r^2z)r^3\\,\\mathrm{d}r\\right]\\mathrm{d}z,$$\n$$\\lim_{t\\to0^+}\\frac{I_t}{t^4}=\\lim_{t\\to0^+}\\frac{2\\pi\\int_0^1f'(t^2z)t^3\\,\\mathrm{d}z}{4t^3}=\\lim_{t\\to0^+}\\frac\\pi2\\int_0^1f'(t^2z)\\,\\mathrm{d}z=\\frac\\pi2f'(0).$$",
+   "solutionSource": "官方"
+  },
+  {
+   "no": "六",
+   "score": 12,
+   "type": "证明",
+   "subjects": [
+    "线性代数"
+   ],
+   "topics": [
+    "正定矩阵",
+    "矩阵乘积",
+    "相似矩阵",
+    "特征值"
+   ],
+   "difficulty": 3,
+   "statement": "设 $A,B$ 是两个 $n$ 阶正定矩阵，求证 $AB$ 正定的充要条件是 $AB=BA$。",
+   "answer": "",
+   "solution": "（必要性）设 $A,B$ 是两个 $n$ 阶正定矩阵，若 $AB$ 正定，则 $AB$ 为对称矩阵，即 $(AB)^T=AB$。又 $A^T=A,\\ B^T=B$，所以 $(AB)^T=B^TA^T=BA$，所以 $AB=BA$。\n（充分性）因为 $AB=BA$，则 $(AB)^T=B^TA^T=BA=AB$，所以 $AB$ 为实对称矩阵。因为 $A,B$ 是正定矩阵，存在可逆矩阵 $P,Q$，使得 $A=P^TP,\\ B=Q^TQ\\Rightarrow AB=P^TPQ^TQ$。所以\n$$(P^T)^{-1}ABP^T=PQ^TQP^T=(QP^T)^T(QP^T),$$\n即 $(P^T)^{-1}ABP^T$ 是正定矩阵，其特征值全为正实数。而 $AB$ 相似于 $(P^T)^{-1}ABP^T$，所以 $AB$ 的特征值全为正实数，又 $AB$ 实对称，所以 $AB$ 为正定矩阵。",
+   "solutionSource": "官方"
+  },
+  {
+   "no": "七",
+   "score": 12,
+   "type": "证明",
+   "subjects": [
+    "高等数学"
+   ],
+   "topics": [
+    "幂级数",
+    "Tauber定理",
+    "阿贝尔和",
+    "ε-N语言"
+   ],
+   "difficulty": 4,
+   "statement": "假设 $\\displaystyle\\sum_{n=0}^{\\infty}a_nx^n$ 的收敛半径为 $1$，$\\displaystyle\\lim_{n\\to\\infty}na_n=0$，且 $\\displaystyle\\lim_{x\\to1^-}\\sum_{n=0}^\\infty a_nx^n=A$。证明 $\\displaystyle\\sum_{n=0}^\\infty a_n$ 收敛且 $\\displaystyle\\sum_{n=0}^\\infty a_n=A$。",
+   "answer": "",
+   "solution": "由 $\\displaystyle\\lim_{n\\to\\infty}na_n=0$，知 $\\displaystyle\\lim_{n\\to\\infty}\\frac{\\sum_{k=0}^nk|a_k|}{n}=0$，故对任意 $\\varepsilon>0$，存在 $N_1$，使得当 $n>N_1$ 时，有\n$$0\\le\\frac{\\sum_{k=0}^nk|a_k|}{n}<\\frac\\varepsilon3,\\qquad n|a_n|<\\frac\\varepsilon3.$$\n又因为 $\\displaystyle\\lim_{x\\to1^-}\\sum_{n=0}^\\infty a_nx^n=A$，所以存在 $\\delta>0$，当 $1-\\delta<x<1$ 时，$\\left|\\displaystyle\\sum_{n=0}^\\infty a_nx^n-A\\right|<\\dfrac\\varepsilon3$。取 $N_2$，使得当 $n>N_2$ 时 $\\dfrac1n<\\delta$，从而 $1-\\delta<1-\\dfrac1n$。\n取 $N=\\max\\{N_1,N_2\\}$，当 $n>N$ 时\n$$\\left|\\sum_{k=0}^na_k-A\\right|\\le\\left|\\sum_{k=0}^na_k(1-x^k)\\right|+\\left|\\sum_{k=n+1}^\\infty a_kx^k\\right|+\\left|\\sum_{k=0}^\\infty a_kx^k-A\\right|.$$\n取 $x=1-\\dfrac1n$，则\n$$\\left|\\sum_{k=0}^na_k(1-x^k)\\right|=\\left|\\sum_{k=0}^na_k(1-x)(1+x+\\cdots+x^{k-1})\\right|\\le\\sum_{k=0}^n|a_k|(1-x)k=\\frac{\\sum_{k=0}^nk|a_k|}{n}<\\frac\\varepsilon3,$$\n$$\\left|\\sum_{k=n+1}^\\infty a_kx^k\\right|\\le\\frac1n\\sum_{k=n+1}^\\infty k|a_k|x^k<\\frac{\\varepsilon}{3n}\\sum_{k=n+1}^\\infty x^k\\le\\frac{\\varepsilon}{3n}\\cdot\\frac{1}{1-x}=\\frac\\varepsilon3.$$\n又 $\\left|\\displaystyle\\sum_{k=0}^\\infty a_kx^k-A\\right|<\\dfrac\\varepsilon3$，则 $\\left|\\displaystyle\\sum_{k=0}^na_k-A\\right|<3\\cdot\\dfrac\\varepsilon3=\\varepsilon$。故 $\\displaystyle\\sum_{n=0}^\\infty a_n$ 收敛且和为 $A$。",
+   "solutionSource": "官方"
+  }
+ ]
+}

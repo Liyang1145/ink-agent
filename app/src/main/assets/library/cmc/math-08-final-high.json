@@ -1,0 +1,259 @@
+{
+ "id": "cmc-math-08-final-high",
+ "title": "第八届全国大学生数学竞赛决赛（数学类高年级组（三、四年级））",
+ "year": 2017,
+ "track": "数学类",
+ "round": "决赛",
+ "paper": "high",
+ "durationMin": 180,
+ "totalScore": 100,
+ "source": {
+  "question": "2017年03月-数学类三、四年级-第八届全国决赛试卷.pdf",
+  "solution": "2017年03月-数学类三、四年级参考解答-第八届全国决赛试卷.pdf"
+ },
+ "problems": [
+  {
+   "no": "一(1)",
+   "score": 5,
+   "type": "填空",
+   "subjects": [
+    "高等代数"
+   ],
+   "topics": [
+    "行列式",
+    "循环行列式",
+    "韦达定理"
+   ],
+   "difficulty": 1,
+   "statement": "设 $x^4+3x^2+2x+1=0$ 的 $4$ 个根为 $\\alpha_1,\\alpha_2,\\alpha_3,\\alpha_4$，则\n$$\\begin{vmatrix}\\alpha_1&\\alpha_2&\\alpha_3&\\alpha_4\\\\\\alpha_2&\\alpha_3&\\alpha_4&\\alpha_1\\\\\\alpha_3&\\alpha_4&\\alpha_1&\\alpha_2\\\\\\alpha_4&\\alpha_1&\\alpha_2&\\alpha_3\\end{vmatrix}=\\_\\_\\_\\_\\_\\_\\_\\_.$$",
+   "answer": "$0$",
+   "solution": "多项式无 $3$ 次项，由韦达定理 $\\alpha_1+\\alpha_2+\\alpha_3+\\alpha_4=0$。把行列式的每一列都加到第一列，第一列全为 $0$，故行列式的值为 $0$。",
+   "solutionSource": "官方"
+  },
+  {
+   "no": "一(2)",
+   "score": 5,
+   "type": "填空",
+   "subjects": [
+    "数学分析"
+   ],
+   "topics": [
+    "多项式实根",
+    "极值",
+    "虚根条件"
+   ],
+   "difficulty": 2,
+   "statement": "设 $a$ 为实数，关于 $x$ 的方程 $3x^4-8x^3-30x^2+72x+a=0$ 有虚根的充分必要条件是 $a$ 满足\\_\\_\\_\\_\\_\\_\\_\\_。",
+   "answer": "$a>27$ 或 $a<-37$",
+   "solution": "记 $f(x)=3x^4-8x^3-30x^2+72x+a$，则\n$$f'(x)=12x^3-24x^2-60x+72=12(x-1)(x-3)(x+2).$$\n$f$ 在 $-2$ 和 $3$ 取极小值 $-152+a$ 和 $-27+a$，在 $1$ 取极大值 $37+a$。四次方程四根全实当且仅当 $f$ 的图像与 $x$ 轴有足够交点，即两个极小值 $\\leqslant0$ 且极大值 $\\geqslant0$：$-37\\leqslant a\\leqslant27$。因此当且仅当 $a>27$ 或 $a<-37$ 时方程有虚根。",
+   "solutionSource": "官方"
+  },
+  {
+   "no": "一(3)",
+   "score": 5,
+   "type": "填空",
+   "subjects": [
+    "数学分析"
+   ],
+   "topics": [
+    "第二型曲面积分",
+    "Gauss公式",
+    "补面法"
+   ],
+   "difficulty": 2,
+   "statement": "计算曲面积分 $I=\\displaystyle\\iint_S\\frac{ax\\,\\mathrm{d}y\\,\\mathrm{d}z+(z+a)^2\\,\\mathrm{d}x\\,\\mathrm{d}y}{\\sqrt{x^2+y^2+z^2}}$（$a>0$ 为常数），其中 $S:\\ z=-\\sqrt{a^2-x^2-y^2}$，取上侧，则 $I=$\\_\\_\\_\\_\\_\\_\\_\\_。",
+   "answer": "$-\\dfrac{\\pi}{2}a^3$",
+   "solution": "在 $S$ 上 $\\sqrt{x^2+y^2+z^2}=a$。令 $S_1:\\ x^2+y^2\\leqslant a^2,\\ z=0$，取下侧，则 $S\\cup S_1$ 为闭下半球面的内侧。设其内部区域为 $\\Omega$，$D$ 为 $xOy$ 平面上的圆域 $x^2+y^2\\leqslant a^2$。由 Gauss 公式\n$$I=\\frac1a\\left\\{\\iint_{S\\cup S_1}-\\iint_{S_1}\\right\\}\\left[ax\\,\\mathrm{d}y\\,\\mathrm{d}z+(z+a)^2\\,\\mathrm{d}x\\,\\mathrm{d}y\\right]=\\frac1a\\left\\{-\\iiint_\\Omega(3a+2z)\\,\\mathrm{d}V+\\iint_Da^2\\,\\mathrm{d}x\\,\\mathrm{d}y\\right\\}$$\n$$=\\frac1a\\left\\{-2\\pi a^4-2\\iiint_\\Omega z\\,\\mathrm{d}V+\\pi a^4\\right\\}=-\\pi a^3-\\frac2a\\int_0^{2\\pi}\\mathrm{d}\\theta\\int_0^ar\\,\\mathrm{d}r\\int_{-\\sqrt{a^2-r^2}}^0z\\,\\mathrm{d}z=-\\frac{\\pi}{2}a^3.$$",
+   "solutionSource": "官方"
+  },
+  {
+   "no": "一(4)",
+   "score": 5,
+   "type": "填空",
+   "subjects": [
+    "高等代数"
+   ],
+   "topics": [
+    "实对称矩阵",
+    "正交相似",
+    "矩阵元素的极值"
+   ],
+   "difficulty": 2,
+   "statement": "记两个特征值为 $1,2$ 的 $2$ 阶实对称矩阵的全体为 $\\Gamma$。$\\forall A\\in\\Gamma$，$a_{21}$ 表示 $A$ 的 $(2,1)$ 位置元素，则集合 $\\bigcup\\limits_{A\\in\\Gamma}\\{a_{21}\\}$ 的最小元等于\\_\\_\\_\\_\\_\\_\\_\\_。\n\n（注：原题此处将 $(2,1)$ 位置元素记作 $a_{12}$，为笔误，已统一为 $a_{21}$。）",
+   "answer": "$-\\dfrac12$",
+   "solution": "$A=Q\\begin{pmatrix}1&0\\\\0&2\\end{pmatrix}Q^{\\mathrm T}$，$Q$ 可表示为 $\\begin{pmatrix}\\cos t&-\\sin t\\\\\\sin t&\\cos t\\end{pmatrix}$ 或 $\\begin{pmatrix}\\cos t&\\sin t\\\\\\sin t&-\\cos t\\end{pmatrix}$，所以 $a_{21}=-\\sin t\\cos t=-\\dfrac12\\sin2t$，其最小值为 $-\\dfrac12$（$t=\\frac\\pi4$ 时取到）。",
+   "solutionSource": "官方"
+  },
+  {
+   "no": "二",
+   "score": 15,
+   "type": "证明",
+   "subjects": [
+    "解析几何"
+   ],
+   "topics": [
+    "旋转抛物面",
+    "平面截线",
+    "Dandelin球",
+    "椭圆"
+   ],
+   "difficulty": 3,
+   "statement": "在空间直角坐标系中设旋转抛物面 $\\Gamma$ 的方程为 $z=\\dfrac12\\left(x^2+y^2\\right)$。设 $P$ 为空间中的平面，它交抛物面 $\\Gamma$ 于交线 $C$。问：$C$ 是何种类型的曲线？证明你的结论。",
+   "answer": "$P$ 平行于 $z$ 轴时 $C$ 为抛物线；否则 $C$ 为椭圆（退化时为一点）。",
+   "solution": "交线为抛物线或椭圆。\n\n(1) 若平面 $P$ 平行于 $z$ 轴，则绕 $z$ 轴旋转（$\\Gamma$ 不变）可使 $P$ 平行于 $yz$ 平面，不妨设 $P:\\ x=c$，交线 $C$ 为\n$$z=\\frac12\\left(c^2+y^2\\right),$$\n即平面 $x=c$ 内的抛物线 $z-\\dfrac{c^2}2=\\dfrac12y^2$。\n\n(2) 若 $P$ 不平行于 $z$ 轴，设 $P:\\ z=ax+by+c$，代入 $\\Gamma$ 的方程得\n$$(x-a)^2+(y-b)^2=a^2+b^2+2c=:R^2.$$\n（$R^2<0$ 时无交，$R=0$ 时交于一点，以下设 $R>0$。）$C$ 在 $xy$ 平面上的垂直投影为圆周 $(x-a)^2+(y-b)^2=R^2$。令 $Q$ 是以此圆为底、母线平行于 $z$ 轴的圆柱，则 $C=Q\\cap P$。在圆柱 $Q$ 中从上、下各放入一个半径为 $R$ 的球，与平面 $P$ 分别相切于 $F_1,F_2$，与圆柱 $Q$ 分别相切于圆 $D_1,D_2$。对 $C$ 上任一点 $A$，过 $A$ 的圆柱母线交 $D_1,D_2$ 于 $B_1,B_2$，线段 $B_1B_2$ 长为定值。由球的切线长相等，\n$$|AF_1|+|AF_2|=|AB_1|+|AB_2|=|B_1B_2|$$\n为常数，故 $C$ 为以 $F_1,F_2$ 为焦点的椭圆。",
+   "solutionSource": "官方"
+  },
+  {
+   "no": "三",
+   "score": 15,
+   "type": "证明",
+   "subjects": [
+    "高等代数"
+   ],
+   "topics": [
+    "矩阵相似",
+    "秩",
+    "分块矩阵",
+    "等价标准形"
+   ],
+   "difficulty": 3,
+   "statement": "设 $n$ 阶方阵 $A,B$ 满足：$\\operatorname{rank}(ABA)=\\operatorname{rank}(B)$。证明：$AB$ 与 $BA$ 相似。",
+   "answer": "",
+   "solution": "设 $A=P\\begin{pmatrix}I_r&O\\\\O&O\\end{pmatrix}Q$，并记 $B=Q^{-1}\\begin{pmatrix}B_1&B_2\\\\B_3&B_4\\end{pmatrix}P^{-1}$，其中 $P,Q$ 可逆，$B_1$ 为 $r$ 阶方阵。则\n$$AB=P\\begin{pmatrix}B_1&B_2\\\\O&O\\end{pmatrix}P^{-1},\\quad BA=Q^{-1}\\begin{pmatrix}B_1&O\\\\B_3&O\\end{pmatrix}Q,\\quad ABA=P\\begin{pmatrix}B_1&O\\\\O&O\\end{pmatrix}Q.$$\n由 $\\operatorname{rank}(ABA)=\\operatorname{rank}B_1=\\operatorname{rank}B$，$\\begin{pmatrix}B_1&B_2\\end{pmatrix}$ 的列以及 $\\begin{pmatrix}B_1\\\\B_3\\end{pmatrix}$ 的行都可由 $B_1$ 表出，故存在矩阵 $X,Y$ 使 $B_2=B_1X$，$B_3=YB_1$。从而\n$$AB=P\\begin{pmatrix}I&-X\\\\O&I\\end{pmatrix}\\begin{pmatrix}B_1&O\\\\O&O\\end{pmatrix}\\begin{pmatrix}I&X\\\\O&I\\end{pmatrix}P^{-1},\\quad BA=Q^{-1}\\begin{pmatrix}I&O\\\\Y&I\\end{pmatrix}\\begin{pmatrix}B_1&O\\\\O&O\\end{pmatrix}\\begin{pmatrix}I&O\\\\-Y&I\\end{pmatrix}Q.$$\n二者都与 $\\begin{pmatrix}B_1&O\\\\O&O\\end{pmatrix}$ 相似，因此 $AB$ 与 $BA$ 相似。",
+   "solutionSource": "官方"
+  },
+  {
+   "no": "四",
+   "score": 20,
+   "type": "证明",
+   "subjects": [
+    "数学分析"
+   ],
+   "topics": [
+    "Fourier变换",
+    "Schwartz空间",
+    "反演公式",
+    "Riemann引理",
+    "含参积分"
+   ],
+   "difficulty": 4,
+   "statement": "对 $\\mathbb R$ 上无穷次可微的（复值）函数 $\\varphi(x)$，称 $\\varphi\\in\\mathscr S$，如果 $\\forall m,k\\geqslant0$ 成立 $\\sup\\limits_{x\\in\\mathbb R}\\left|x^m\\varphi^{(k)}(x)\\right|<+\\infty$。若 $f\\in\\mathscr S$，可定义 $\\hat f(x)=\\displaystyle\\int_{\\mathbb R}f(y)e^{-2\\pi\\mathrm ixy}\\,\\mathrm{d}y\\ (\\forall x\\in\\mathbb R)$。\n\n证明：$\\hat f\\in\\mathscr S$，且 $f(x)=\\displaystyle\\int_{\\mathbb R}\\hat f(y)e^{2\\pi\\mathrm ixy}\\,\\mathrm{d}y\\ (\\forall x\\in\\mathbb R)$。",
+   "answer": "",
+   "solution": "由 $f\\in\\mathscr S$，存在 $M_1>0$ 使 $|2\\pi\\mathrm ixf(x)|\\leqslant\\dfrac{M_1}{x^2+1}$，从而 $\\displaystyle\\int_{\\mathbb R}(-2\\pi\\mathrm iy)f(y)e^{-2\\pi\\mathrm ixy}\\,\\mathrm{d}y$ 关于 $x\\in\\mathbb R$ 一致收敛，可在积分号下求导：\n$$\\frac{\\mathrm d\\hat f(x)}{\\mathrm dx}=\\int_{\\mathbb R}(-2\\pi\\mathrm iy)f(y)e^{-2\\pi\\mathrm ixy}\\,\\mathrm{d}y,\\qquad\\frac{\\mathrm d^n\\hat f(x)}{\\mathrm dx^n}=\\int_{\\mathbb R}(-2\\pi\\mathrm iy)^nf(y)e^{-2\\pi\\mathrm ixy}\\,\\mathrm{d}y.\\tag{3}$$\n分部积分得\n$$\\widehat{f^{(n)}}(x)=(2\\pi\\mathrm ix)^n\\hat f(x),\\quad\\forall n\\geqslant0.\\tag{4}$$\n结合 (3)(4)，对任何 $m,k\\geqslant0$，\n$$x^m\\frac{\\mathrm d^k\\hat f(x)}{\\mathrm dx^k}=\\frac1{(2\\pi\\mathrm i)^m}\\int_{\\mathbb R}\\frac{\\mathrm d^m\\left[(-2\\pi\\mathrm iy)^kf(y)\\right]}{\\mathrm dy^m}e^{-2\\pi\\mathrm ixy}\\,\\mathrm{d}y,$$\n右端被积函数绝对可积（属于 $\\mathscr S$），故左端在 $\\mathbb R$ 上有界，$\\hat f\\in\\mathscr S$。\n\n于是 $\\int_{-\\infty}^{+\\infty}\\hat f(y)e^{2\\pi\\mathrm ixy}\\,\\mathrm{d}y$ 收敛。交换积分次序（内层积分在有限区间上，一致收敛），\n$$\\int_{-A}^A\\hat f(y)e^{2\\pi\\mathrm ixy}\\,\\mathrm{d}y=\\int_{-A}^A\\mathrm dy\\int_{-\\infty}^{+\\infty}f(x-t)e^{2\\pi\\mathrm ity}\\,\\mathrm{d}t=\\int_{-\\infty}^{+\\infty}f(x-t)\\frac{\\sin(2\\pi At)}{\\pi t}\\,\\mathrm{d}t$$\n$$=\\int_{-\\infty}^{+\\infty}\\frac{f(x-t)-f(x)}{\\pi t}\\sin(2\\pi At)\\,\\mathrm{d}t+f(x),\\tag{5}$$\n这里用了 $\\int_{-\\infty}^{+\\infty}\\frac{\\sin(2\\pi At)}{\\pi t}\\,\\mathrm{d}t=1$。由 $f\\in\\mathscr S$，$\\int_{-\\infty}^{+\\infty}\\left|\\frac{f(x-t)-f(x)}{\\pi t}\\right|\\mathrm{d}t$ 收敛（$t=0$ 附近有界，无穷远处可积），由 Riemann 引理\n$$\\lim_{A\\to+\\infty}\\int_{-\\infty}^{+\\infty}\\frac{f(x-t)-f(x)}{\\pi t}\\sin(2\\pi At)\\,\\mathrm{d}t=0.$$\n结合 (5) 即得 $f(x)=\\int_{\\mathbb R}\\hat f(y)e^{2\\pi\\mathrm ixy}\\,\\mathrm{d}y$。",
+   "solutionSource": "官方"
+  },
+  {
+   "no": "五",
+   "score": 10,
+   "type": "证明",
+   "subjects": [
+    "抽象代数"
+   ],
+   "topics": [
+    "域的特征",
+    "群同态",
+    "Frobenius映射"
+   ],
+   "difficulty": 3,
+   "statement": "（抽象代数）设 $(F,+,\\cdot)$ 是特征为 $p\\ (p\\neq0)$ 的域，$1$ 和 $0$ 分别为 $F$ 的单位元和零元。若 $\\varphi$ 为其加群 $(F,+)$ 到其乘法半群 $(F,\\cdot)$ 的同态，即 $\\forall x,y\\in F$ 有 $\\varphi(x+y)=\\varphi(x)\\varphi(y)$。证明：$\\varphi$ 要么将 $F$ 的所有元映照为 $0$，要么将 $F$ 的所有元映照为 $1$。",
+   "answer": "",
+   "solution": "假设 $\\varphi$ 不恒为 $0$，则存在 $a\\in F$ 使 $\\varphi(a)\\neq0$。由 $\\varphi(a)=\\varphi(0+a)=\\varphi(0)\\varphi(a)$ 得 $\\varphi(0)=1$。进而对任意 $x\\in F$，\n$$1=\\varphi(0)=\\varphi(\\underbrace{x+\\cdots+x}_{p})=\\big(\\varphi(x)\\big)^p,\\quad\\text{即}\\ \\big(\\varphi(x)\\big)^p-1=0.$$\n因 $\\operatorname{char}F=p$ 为素数，$\\forall a,b\\in F$ 有 $(a+b)^p=a^p+b^p$，进而 $(a-b)^p=a^p-b^p$。于是 $\\big(\\varphi(x)-1\\big)^p=\\big(\\varphi(x)\\big)^p-1=0$，域中无零因子，故 $\\varphi(x)=1$。",
+   "solutionSource": "官方"
+  },
+  {
+   "no": "六",
+   "score": 10,
+   "type": "证明",
+   "subjects": [
+    "实变函数"
+   ],
+   "topics": [
+    "有界变差函数",
+    "Cantor集",
+    "特征函数",
+    "边界点"
+   ],
+   "difficulty": 3,
+   "statement": "（实变函数）(1) 设 $E$ 是三分 Cantor 集，证明 $\\chi_E(x)$ 不是 $[0,1]$ 上的有界变差函数。\n\n(2) 设 $E\\subset[0,1]$，证明 $\\chi_E(x)$ 在 $[0,1]$ 上有界变差的充要条件是 $E$ 的边界点集是有限集。",
+   "answer": "",
+   "solution": "(1) 对任意 $n$，作 $[0,1]$ 的划分 $0=x_0<x_1<\\cdots<x_n=1$，使 $x_0,x_2,x_4,\\cdots\\in E$，$x_1,x_3,\\cdots\\notin E$：先取 $x_0=0,x_2,x_4,\\cdots,x_n=1$ 属于 $E$（$n$ 取偶数），由 Cantor 集的构造，每个区间 $[x_{2j},x_{2j+2}]$ 中都有无穷多不属于 $E$ 的点，取 $x_{2j+1}\\in(x_{2j},x_{2j+2})\\setminus E$。于是 $\\sum\\limits_{i=1}^n|\\chi_E(x_i)-\\chi_E(x_{i-1})|=n\\to\\infty$，即 $\\bigvee\\limits_0^1\\chi_E=+\\infty$。\n\n(2) ($\\Rightarrow$) 反证。设 $E$ 有无穷多边界点 $\\{c_j\\}$。对任意 $n$，取其中 $n$ 个点按大小排列为 $c_1<\\cdots<c_n$，取 $0<\\varepsilon<\\frac12\\min\\{c_{i+1}-c_i\\}$。由边界点定义，每个 $U(c_i,\\varepsilon)$ 中既有 $E$ 的点也有 $\\complement E$ 的点。依次在 $(x_{i-1},c_i+\\varepsilon)$ 中交替选取属于 $E$、不属于 $E$ 的点 $x_i$，得划分使 $\\sum\\limits_{i=1}^n|\\chi_E(x_i)-\\chi_E(x_{i-1})|\\geqslant n-1\\to\\infty$，与有界变差矛盾。\n\n($\\Leftarrow$) 设 $E$ 的边界点只有 $c_1,\\cdots,c_m$。对 $[0,1]$ 的任意划分，不含边界点的闭小区间 $[x_{i-1},x_i]$ 要么全含于 $E$ 的内部、要么全含于 $\\complement E$ 的内部（连通性），其上 $|\\chi_E(x_i)-\\chi_E(x_{i-1})|=0$；含有边界点的小区间至多 $2m$ 个（每个边界点至多属于两个相邻小区间），每个贡献至多 $1$。于是\n$$\\sum_{i=1}^n|\\chi_E(x_i)-\\chi_E(x_{i-1})|\\leqslant2m,\\qquad\\bigvee_0^1\\chi_E\\leqslant2m<\\infty.$$\n（原解答估计为 $\\leqslant m$，此处按端点可能被两个小区间共享改为 $2m$，不影响结论。）",
+   "solutionSource": "官方"
+  },
+  {
+   "no": "七",
+   "score": 10,
+   "type": "证明",
+   "subjects": [
+    "微分几何"
+   ],
+   "topics": [
+    "法曲率",
+    "Euler公式",
+    "渐近方向",
+    "Weingarten变换",
+    "平面"
+   ],
+   "difficulty": 3,
+   "statement": "（微分几何）设 $S$ 为三维欧式空间中的一张连通光滑的正则曲面，过 $S$ 上每一点都存在不同的三条直线落在曲面 $S$ 上。证明：$S$ 是平面的一部分。",
+   "answer": "",
+   "solution": "设 $k_1,k_2$ 为 $S$ 在点 $p$ 的两个主曲率，对应单位主方向 $e_1,e_2$。设单位切向量 $v$ 与 $e_1$ 夹角为 $\\theta$，由 Euler 公式，沿 $v$ 方向的法曲率\n$$k_n(v)=k_1\\cos^2\\theta+k_2\\sin^2\\theta.$$\n法曲率 $k_n(v)$ 等于沿 $v$ 方向的法截线在 $p$ 点的相对曲率。直线的曲率为 $0$，落在曲面上的直线方向的法曲率为 $0$。因 $p$ 点处有三个不同方向 $v_1,v_2,v_3$ 使 $k_n=0$，存在互不相同的 $\\theta_1,\\theta_2,\\theta_3\\in[0,\\pi)$ 使\n$$k_1\\cos^2\\theta_j+k_2\\sin^2\\theta_j=0,\\quad j=1,2,3.$$\n若 $(k_1,k_2)\\neq(0,0)$，则 $\\tan^2\\theta_j$（或 $\\cot^2\\theta_j$）为同一个值，于是存在 $\\varepsilon_1,\\varepsilon_2=\\pm1$ 使\n$$\\sin(\\theta_1+\\varepsilon_1\\theta_2)=0,\\quad\\sin(\\theta_1+\\varepsilon_2\\theta_3)=0,\\quad\\sin(\\theta_2-\\varepsilon_1\\varepsilon_2\\theta_3)=0,$$\n而 $[0,\\pi)$ 中满足 $\\tan^2\\theta=c$ 的 $\\theta$ 至多两个，推出 $\\theta_1,\\theta_2,\\theta_3$ 中必有两个相同，矛盾。故 $S$ 上每点 $k_1=k_2=0$。\n\n于是 Weingarten 变换 $W\\equiv0$。设 $S$ 的参数化为 $\\mathbf x(u,v)$，单位法向量 $N(u,v)$，则 $W(\\mathbf x_u)=-N_u=0$，$W(\\mathbf x_v)=-N_v=0$，由连通性 $N$ 为常向量。再由 $(\\mathbf x\\cdot N)_u=\\mathbf x_u\\cdot N=0$，$(\\mathbf x\\cdot N)_v=0$，得 $\\mathbf x\\cdot N=c$ 为常数，故 $S$ 落在一张平面上。",
+   "solutionSource": "官方"
+  },
+  {
+   "no": "八",
+   "score": 10,
+   "type": "计算",
+   "subjects": [
+    "数值分析"
+   ],
+   "topics": [
+    "Runge-Kutta法",
+    "Simpson公式",
+    "Taylor展开",
+    "绝对稳定性"
+   ],
+   "difficulty": 4,
+   "statement": "（数值分析）考虑求解一阶常微分方程的初值问题 $\\begin{cases}y'=f(x,y)\\\\y(x_0)=y_0\\end{cases}$ 的 Runge-Kutta 法。\n\n(1) 确定下列三级三阶 Runge-Kutta 法中的所有特定参数：\n$$y_{n+1}=y_n+h(c_1K_1+c_2K_2+c_3K_3),$$\n其中 $K_1=f(x_n,y_n)$，$K_2=f(x_n+a_2h,\\ y_n+b_{21}hK_1)$，$K_3=f(x_n+a_3h,\\ y_n+b_{31}hK_1+b_{32}hK_2)$。\n\n(2) 讨论上述 Runge-Kutta 法格式的稳定性。\n\n（注：原题 $K_2$ 中写作 $x_n+ah$，按后文统一记为 $a_2$。）",
+   "answer": "(1) $c_1=\\dfrac16,\\ c_2=\\dfrac46,\\ c_3=\\dfrac16$，$a_2=b_{21}=\\dfrac12$，$a_3=1$，$b_{31}=-1$，$b_{32}=2$（即 Kutta 三阶公式）；(2) 绝对稳定条件 $\\left|1+\\lambda h+\\dfrac12(\\lambda h)^2+\\dfrac16(\\lambda h)^3\\right|<1$。",
+   "solution": "(1) 对 $y'=f(x,y)$ 积分得 $y(x_{n+1})=y(x_n)+\\int_{x_n}^{x_{n+1}}f(x,y(x))\\,\\mathrm dx$。由 Simpson 公式\n$$y(x_{n+1})=y(x_n)+\\frac h6\\left[f(x_n,y(x_n))+4f\\left(x_n+\\tfrac h2,y(x_n+\\tfrac h2)\\right)+f(x_{n+1},y(x_{n+1}))\\right]+O(h^5),$$\n由此令 $c_1=\\frac16$，$c_2=\\frac46$，$c_3=\\frac16$。令 $y_n=y(x_n)$，则\n$$y(x_{n+1})-y_{n+1}=\\frac{2h}3\\left[f\\left(x_n+\\tfrac h2,y(x_n+\\tfrac h2)\\right)-K_2\\right]+\\frac h6\\left[f(x_{n+1},y(x_{n+1}))-K_3\\right],$$\n只需选取 $a_2,a_3,b_{21},b_{31},b_{32}$ 使右端为 $O(h^4)$。记 $f_n=f(x_n,y(x_n))$，将 $y(x_n+\\frac h2)=y_n+\\frac h2f_n+\\frac{h^2}8y''(x_n)+O(h^3)$ 代入，为达到精度应取 $a_2=\\frac12$，$b_{21}=\\frac12$，此时\n$$f\\left(x_n+\\tfrac h2,y(x_n+\\tfrac h2)\\right)-K_2=\\frac{h^2}8y''(x_n)f_y(x_n,y_n)+O(h^3).$$\n另一方面，由 $y(x_n+h)=y_n+hf_n+\\frac{h^2}2y''(x_n)+O(h^3)$ 及 $K_3$ 的展开，为达到精度令 $a_3=1$，$b_{31}+b_{32}=1$。注意 $y''(x_n)=f_x(x_n,y_n)+f_y(x_n,y_n)f_n$，再次 Taylor 展开得\n$$f(x_{n+1},y(x_{n+1}))-K_3=\\frac{h^2}2(1-b_{32})y''(x_n)f_y(x_n,y_n)+O(h^3).$$\n综合得\n$$y(x_{n+1})-y_{n+1}=\\frac{h^3}{12}(2-b_{32})y''(x_n)f_y(x_n,y_n)+O(h^4).$$\n令 $b_{32}=2$，则 $b_{31}=-1$，得到三级三阶 Runge-Kutta 格式的全部参数。\n\n(2) 对模型方程 $y'=\\lambda y$ 应用上述格式：\n$$K_1=\\lambda y_n,\\quad K_2=\\lambda\\left(1+\\tfrac12\\lambda h\\right)y_n,\\quad K_3=\\lambda\\left(1+\\lambda h+(\\lambda h)^2\\right)y_n,$$\n从而 $y_{n+1}=\\left(1+\\lambda h+\\frac12(\\lambda h)^2+\\frac16(\\lambda h)^3\\right)y_n$，故格式（绝对）稳定的条件是\n$$\\left|1+\\lambda h+\\frac12(\\lambda h)^2+\\frac16(\\lambda h)^3\\right|<1.$$\n（注：原解答中 $K_3$ 展开的系数及\"令 $h_{32}=2$\"有笔误，已改正为 $\\frac{h^2}{2}(1-b_{32})$ 与 $b_{32}=2$。）",
+   "solutionSource": "官方"
+  },
+  {
+   "no": "九",
+   "score": 10,
+   "type": "证明",
+   "subjects": [
+    "复变函数"
+   ],
+   "topics": [
+    "Schwarz引理",
+    "分式线性变换",
+    "解析函数导数估计"
+   ],
+   "difficulty": 3,
+   "statement": "（复变函数）设函数 $f(z)$ 在单位圆 $|z|<1$ 内解析，并且 $|f(z)|\\leqslant M\\ (M>0)$，$M$ 为常数。证明：\n$$|f'(0)|\\leqslant M-\\frac{|f(0)|^2}{M}.$$",
+   "answer": "",
+   "solution": "若 $|f(0)|=M$，由最大模原理 $f$ 为常数，$f'(0)=0$，结论成立。下设 $|f(0)|<M$。令 $w(z)=\\dfrac{f(z)}M$，$|w|\\leqslant1$（实际上 $|w|<1$），作变换\n$$F(z)=\\frac{w(z)-w(0)}{1-\\overline{w(0)}w(z)},$$\n它把单位圆映入 $|F|<1$，且 $F(0)=0$。由 Schwarz 引理 $|F'(0)|\\leqslant1$。而\n$$F'(0)=\\frac{w'(0)}{1-|w(0)|^2}=\\frac{f'(0)M}{M^2-|f(0)|^2},$$\n所以 $|f'(0)|M\\leqslant M^2-|f(0)|^2$，即 $|f'(0)|\\leqslant M-\\dfrac{|f(0)|^2}M$。",
+   "solutionSource": "官方"
+  },
+  {
+   "no": "十",
+   "score": 10,
+   "type": "证明",
+   "subjects": [
+    "概率论"
+   ],
+   "topics": [
+    "特征函数",
+    "依分布收敛",
+    "均匀分布",
+    "连续性定理"
+   ],
+   "difficulty": 3,
+   "statement": "（概率统计）设 $\\{X_n\\}$ 是独立同分布的随机变量序列，且\n$$P(X_n=0)=P(X_n=a)=\\frac12,$$\n其中常数 $a>0$。记 $Y_n=\\displaystyle\\sum_{k=1}^n\\frac{X_k}{2^k}$，求 $Y_n$ 的特征函数，并证明其分布收敛于区间 $[0,a]$ 上的均匀分布。",
+   "answer": "$f_{Y_n}(t)=\\dfrac1{2^n}\\dfrac{\\sin\\frac{at}2}{\\sin\\frac{at}{2^{n+1}}}\\exp\\left\\{\\dfrac{\\mathrm iat}2\\left(1-\\dfrac1{2^n}\\right)\\right\\}$",
+   "solution": "$X_k$ 的特征函数为\n$$f_{X_k}(t)=Ee^{\\mathrm itX_k}=\\frac12\\left(e^{\\mathrm iat}+1\\right)=\\exp\\left\\{\\frac{\\mathrm iat}2\\right\\}\\cos\\frac{at}2,$$\n所以 $X_k/2^k$ 的特征函数为 $f_{X_k}(t/2^k)=\\exp\\left\\{\\frac{\\mathrm iat}{2^{k+1}}\\right\\}\\cos\\frac{at}{2^{k+1}}$。由独立性，并利用 $\\cos\\frac{at}{2^2}\\cos\\frac{at}{2^3}\\cdots\\cos\\frac{at}{2^{n+1}}=\\dfrac1{2^n}\\dfrac{\\sin\\frac{at}2}{\\sin\\frac{at}{2^{n+1}}}$，\n$$f_{Y_n}(t)=\\prod_{k=1}^nf_{X_k}(t/2^k)=\\frac1{2^n}\\frac{\\sin\\frac{at}2}{\\sin\\frac{at}{2^{n+1}}}\\exp\\left\\{\\frac{\\mathrm iat}2\\left(1-\\frac1{2^n}\\right)\\right\\}.$$\n由 $\\lim\\limits_{n\\to\\infty}2^n\\sin\\frac{at}{2^{n+1}}=\\frac{at}2$，得\n$$\\lim_{n\\to\\infty}f_{Y_n}(t)=\\frac2{at}\\exp\\left(\\frac{\\mathrm iat}2\\right)\\sin\\frac{at}2=\\frac1{\\mathrm iat}\\left[\\exp(\\mathrm iat)-1\\right],$$\n这正是 $[0,a]$ 上均匀分布的特征函数 $\\varphi(t)=\\frac1{\\mathrm iat}\\left[e^{\\mathrm iat}-1\\right]$（$t=0$ 时两边均为 $1$）。由特征函数的连续性定理，$Y_n$ 的分布收敛于 $[0,a]$ 上的均匀分布。",
+   "solutionSource": "官方"
+  }
+ ]
+}

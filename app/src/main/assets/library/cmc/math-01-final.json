@@ -1,0 +1,214 @@
+{
+ "id": "cmc-math-01-final",
+ "title": "第一届全国大学生数学竞赛决赛（数学类）",
+ "year": 2010,
+ "track": "数学类",
+ "round": "决赛",
+ "paper": "",
+ "durationMin": 180,
+ "totalScore": 100,
+ "source": {
+  "question": "2010年03月-数学类-第一届全国决赛试卷.pdf",
+  "solution": "2010年03月-数学类参考解答-第一届全国决赛试卷.pdf"
+ },
+ "problems": [
+  {
+   "no": "一(1)",
+   "score": 2,
+   "type": "填空",
+   "subjects": [
+    "数学分析"
+   ],
+   "topics": [
+    "反常积分",
+    "含参积分",
+    "Frullani型积分"
+   ],
+   "difficulty": 2,
+   "statement": "设 $\\beta>\\alpha>0$，则 $\\displaystyle\\int_0^{+\\infty}\\frac{e^{-\\alpha x^2}-e^{-\\beta x^2}}{x^2}\\,\\mathrm{d}x=$______。",
+   "answer": "$\\sqrt{\\pi}\\,(\\sqrt{\\beta}-\\sqrt{\\alpha})$",
+   "solution": "分部积分：$\\displaystyle\\int_0^{+\\infty}\\frac{e^{-\\alpha x^2}-e^{-\\beta x^2}}{x^2}\\mathrm{d}x=\\Big[-\\frac{e^{-\\alpha x^2}-e^{-\\beta x^2}}{x}\\Big]_0^{+\\infty}+\\int_0^{+\\infty}\\big(-2\\alpha e^{-\\alpha x^2}+2\\beta e^{-\\beta x^2}\\big)\\mathrm{d}x$。边界项为 $0$，再用 $\\displaystyle\\int_0^{+\\infty}e^{-cx^2}\\mathrm{d}x=\\frac12\\sqrt{\\frac{\\pi}{c}}$ 得结果 $\\sqrt\\pi(\\sqrt\\beta-\\sqrt\\alpha)$。",
+   "solutionSource": "编写"
+  },
+  {
+   "no": "一(2)",
+   "score": 2,
+   "type": "填空",
+   "subjects": [
+    "数学分析"
+   ],
+   "topics": [
+    "方程根的个数",
+    "函数极值"
+   ],
+   "difficulty": 2,
+   "statement": "若关于 $x$ 的方程 $kx+\\dfrac{1}{x^2}=1\\ (k>0)$ 在区间 $(0,+\\infty)$ 中有惟一实数解，则常数 $k=$______。",
+   "answer": "$\\dfrac{2\\sqrt3}{9}$",
+   "solution": "方程等价于 $k=\\varphi(x)=\\dfrac{x^2-1}{x^3}$。$\\varphi'(x)=\\dfrac{3-x^2}{x^4}$，$\\varphi$ 在 $(0,\\sqrt3)$ 增、在 $(\\sqrt3,+\\infty)$ 减，且 $\\varphi(0^+)=-\\infty$，$\\varphi(+\\infty)=0^+$。故 $k>0$ 时恰有一解当且仅当 $k=\\varphi(\\sqrt3)=\\dfrac{2}{3\\sqrt3}=\\dfrac{2\\sqrt3}{9}$。",
+   "solutionSource": "编写"
+  },
+  {
+   "no": "一(3)",
+   "score": 2,
+   "type": "填空",
+   "subjects": [
+    "数学分析"
+   ],
+   "topics": [
+    "积分中值定理",
+    "单侧导数",
+    "极限"
+   ],
+   "difficulty": 2,
+   "statement": "设函数 $f(x)$ 在区间 $[a,b]$ 上连续。由积分中值公式有 $$\\int_a^x f(t)\\,\\mathrm{d}t=(x-a)f(\\xi)\\quad(a\\le\\xi\\le x<b).$$ 若导数 $f_+'(a)$ 存在且非零，则 $\\displaystyle\\lim_{x\\to a^+}\\frac{\\xi-a}{x-a}$ 的值等于______。",
+   "answer": "$\\dfrac12$",
+   "solution": "由 $f(\\xi)-f(a)=\\dfrac{1}{x-a}\\displaystyle\\int_a^x(f(t)-f(a))\\mathrm{d}t$。左边 $=(f_+'(a)+o(1))(\\xi-a)$，右边 $=\\dfrac{1}{x-a}\\displaystyle\\int_a^x (f_+'(a)+o(1))(t-a)\\mathrm{d}t=\\big(\\tfrac12f_+'(a)+o(1)\\big)(x-a)$。因 $f_+'(a)\\ne0$，得 $\\dfrac{\\xi-a}{x-a}\\to\\dfrac12$。",
+   "solutionSource": "编写"
+  },
+  {
+   "no": "一(4)",
+   "score": 2,
+   "type": "填空",
+   "subjects": [
+    "解析几何"
+   ],
+   "topics": [
+    "混合积",
+    "向量运算"
+   ],
+   "difficulty": 1,
+   "statement": "设 $(\\vec a\\times\\vec b)\\cdot\\vec c=6$，则 $[(\\vec a+\\vec b)\\times(\\vec b+\\vec c)]\\cdot(\\vec a+\\vec c)=$______。",
+   "answer": "$12$",
+   "solution": "展开 $(\\vec a+\\vec b)\\times(\\vec b+\\vec c)=\\vec a\\times\\vec b+\\vec a\\times\\vec c+\\vec b\\times\\vec c$，与 $\\vec a+\\vec c$ 作数量积，只剩 $(\\vec a\\times\\vec b)\\cdot\\vec c+(\\vec b\\times\\vec c)\\cdot\\vec a=2(\\vec a\\times\\vec b)\\cdot\\vec c=12$。",
+   "solutionSource": "编写"
+  },
+  {
+   "no": "二",
+   "score": 10,
+   "type": "证明",
+   "subjects": [
+    "数学分析"
+   ],
+   "topics": [
+    "导数定义",
+    "数列极限",
+    "黎曼和"
+   ],
+   "difficulty": 2,
+   "statement": "设 $f(x)$ 在 $(-1,1)$ 内有定义，在 $x=0$ 处可导，且 $f(0)=0$。证明：$$\\lim_{n\\to\\infty}\\sum_{k=1}^n f\\Big(\\frac{k}{n^2}\\Big)=\\frac{f'(0)}{2}.$$",
+   "answer": "",
+   "solution": "由 $f(0)=0$ 及可导性，$f(x)=f'(0)x+\\alpha(x)x$，其中 $\\alpha(x)\\to0\\ (x\\to0)$。任给 $\\varepsilon>0$，取 $\\delta>0$ 使 $|x|<\\delta$ 时 $|\\alpha(x)|<\\varepsilon$。当 $n>1/\\delta$ 时，对 $1\\le k\\le n$ 有 $0<k/n^2\\le 1/n<\\delta$，于是\n$$\\Big|\\sum_{k=1}^n f\\Big(\\frac k{n^2}\\Big)-f'(0)\\sum_{k=1}^n\\frac k{n^2}\\Big|\\le\\varepsilon\\sum_{k=1}^n\\frac k{n^2}=\\frac{\\varepsilon}{2}\\Big(1+\\frac1n\\Big).$$\n而 $f'(0)\\sum_{k=1}^n\\frac{k}{n^2}=\\frac{f'(0)}2\\big(1+\\frac1n\\big)\\to\\frac{f'(0)}2$，故上、下极限与 $\\frac{f'(0)}2$ 之差都不超过 $\\frac\\varepsilon2$；由 $\\varepsilon$ 任意即得结论。",
+   "solutionSource": "编写"
+  },
+  {
+   "no": "三",
+   "score": 12,
+   "type": "证明",
+   "subjects": [
+    "数学分析"
+   ],
+   "topics": [
+    "一致连续",
+    "一致收敛",
+    "有限覆盖"
+   ],
+   "difficulty": 3,
+   "statement": "设 $f(x)$ 在 $[0,+\\infty)$ 上一致连续，且对于固定的 $x\\in[0,+\\infty)$，当自然数 $n\\to\\infty$ 时 $f(x+n)\\to0$。证明函数序列 $\\{f(x+n):n=1,2,\\cdots\\}$ 在 $[0,1]$ 上一致收敛于 $0$。",
+   "answer": "",
+   "solution": "任给 $\\varepsilon>0$。由一致连续，存在 $\\delta>0$，当 $x_1,x_2\\ge0$，$|x_1-x_2|<\\delta$ 时 $|f(x_1)-f(x_2)|<\\frac\\varepsilon2$。取正整数 $m>1/\\delta$，令 $x_j=j/m\\ (j=0,1,\\dots,m)$。对每个 $j$，由 $f(x_j+n)\\to0$，存在 $N_j$，$n>N_j$ 时 $|f(x_j+n)|<\\frac\\varepsilon2$。令 $N=\\max_j N_j$。\n对任意 $x\\in[0,1]$，取 $x_j$ 使 $|x-x_j|\\le\\frac1m<\\delta$，则 $|(x+n)-(x_j+n)|<\\delta$，于是当 $n>N$ 时\n$$|f(x+n)|\\le|f(x+n)-f(x_j+n)|+|f(x_j+n)|<\\varepsilon.$$\n$N$ 与 $x$ 无关，故 $f(x+n)$ 在 $[0,1]$ 上一致收敛于 $0$。",
+   "solutionSource": "编写"
+  },
+  {
+   "no": "四",
+   "score": 12,
+   "type": "证明",
+   "subjects": [
+    "数学分析"
+   ],
+   "topics": [
+    "极值原理",
+    "拉普拉斯算子",
+    "反证法"
+   ],
+   "difficulty": 3,
+   "statement": "设 $D=\\{(x,y):x^2+y^2<1\\}$，$f(x,y)$ 在 $D$ 内连续，$g(x,y)$ 在 $D$ 内连续有界，且满足条件：\n\n(1) 当 $x^2+y^2\\to1$ 时，$f(x,y)\\to+\\infty$；\n\n(2) 在 $D$ 内 $f$ 与 $g$ 有二阶偏导数，$\\dfrac{\\partial^2f}{\\partial x^2}+\\dfrac{\\partial^2f}{\\partial y^2}=e^f$ 和 $\\dfrac{\\partial^2g}{\\partial x^2}+\\dfrac{\\partial^2g}{\\partial y^2}\\ge e^g$。\n\n证明：$f(x,y)\\ge g(x,y)$ 在 $D$ 内处处成立。",
+   "answer": "",
+   "solution": "令 $F=f-g$。因 $g$ 有界而 $f\\to+\\infty\\ (x^2+y^2\\to1)$，故 $F\\to+\\infty$，从而 $F$ 在 $D$ 内某点 $(x_0,y_0)$ 取得最小值。\n反设结论不成立，则 $F(x_0,y_0)<0$，即 $f(x_0,y_0)<g(x_0,y_0)$。由条件\n$$\\Delta F(x_0,y_0)=\\Delta f-\\Delta g\\le e^{f(x_0,y_0)}-e^{g(x_0,y_0)}<0.$$\n但 $(x_0,y_0)$ 是 $F$ 的内部极小点，固定 $y=y_0$ 看一元函数 $F(x,y_0)$ 在 $x_0$ 取极小，故 $F_{xx}(x_0,y_0)\\ge0$；同理 $F_{yy}(x_0,y_0)\\ge0$，于是 $\\Delta F(x_0,y_0)\\ge0$，矛盾。故 $f\\ge g$ 在 $D$ 内处处成立。",
+   "solutionSource": "编写"
+  },
+  {
+   "no": "五",
+   "score": 10,
+   "type": "证明",
+   "subjects": [
+    "数学分析"
+   ],
+   "topics": [
+    "二重积分",
+    "变量替换",
+    "级数求和",
+    "巴塞尔问题"
+   ],
+   "difficulty": 4,
+   "statement": "分别设 $R=\\{(x,y):0\\le x\\le1;0\\le y\\le1\\}$，$R_\\varepsilon=\\{(x,y):0\\le x\\le1-\\varepsilon;0\\le y\\le1-\\varepsilon\\}$。考虑 $I=\\displaystyle\\iint_R\\frac{\\mathrm{d}x\\,\\mathrm{d}y}{1-xy}$ 与 $I_\\varepsilon=\\displaystyle\\iint_{R_\\varepsilon}\\frac{\\mathrm{d}x\\,\\mathrm{d}y}{1-xy}$，定义 $I=\\displaystyle\\lim_{\\varepsilon\\to0^+}I_\\varepsilon$：\n\n(1) 证明 $I=\\displaystyle\\sum_{n=1}^\\infty\\frac1{n^2}$；\n\n(2) 利用变量替换 $\\begin{cases}u=\\frac12(x+y)\\\\ v=\\frac12(y-x)\\end{cases}$ 计算积分 $I$ 的值，并由此推出 $\\dfrac{\\pi^2}{6}=\\displaystyle\\sum_{n=1}^\\infty\\frac1{n^2}$。",
+   "answer": "$I=\\dfrac{\\pi^2}{6}$",
+   "solution": "**(1)** 在 $R_\\varepsilon$ 上 $0\\le xy\\le(1-\\varepsilon)^2<1$，$\\frac1{1-xy}=\\sum_{n\\ge0}(xy)^n$ 一致收敛，可逐项积分：\n$$I_\\varepsilon=\\sum_{n=0}^\\infty\\Big(\\int_0^{1-\\varepsilon}x^n\\mathrm{d}x\\Big)^2=\\sum_{n=1}^\\infty\\frac{(1-\\varepsilon)^{2n}}{n^2}.$$\n幂级数 $\\sum\\frac{t^{2n}}{n^2}$ 在 $t=1$ 收敛，由 Abel 定理（或单调收敛）得 $I=\\lim_{\\varepsilon\\to0^+}I_\\varepsilon=\\sum_{n=1}^\\infty\\frac1{n^2}$。\n\n**(2)** $x=u-v,\\ y=u+v$，$1-xy=1-u^2+v^2$，$\\left|\\frac{\\partial(x,y)}{\\partial(u,v)}\\right|=2$。正方形 $R$ 变为以 $(0,0),(\\frac12,\\pm\\frac12),(1,0)$ 为顶点的正方形，关于 $v$ 对称，故\n$$I=4\\int_0^{1/2}\\!\\!\\int_0^{u}\\frac{\\mathrm{d}v}{1-u^2+v^2}\\mathrm{d}u+4\\int_{1/2}^1\\!\\!\\int_0^{1-u}\\frac{\\mathrm{d}v}{1-u^2+v^2}\\mathrm{d}u\n=4\\int_0^{1/2}\\frac{g(u)}{\\sqrt{1-u^2}}\\mathrm{d}u+4\\int_{1/2}^1\\frac{h(u)}{\\sqrt{1-u^2}}\\mathrm{d}u,$$\n其中 $g(u)=\\arctan\\dfrac{u}{\\sqrt{1-u^2}}=\\arcsin u$，$h(u)=\\arctan\\dfrac{1-u}{\\sqrt{1-u^2}}=\\arctan\\sqrt{\\dfrac{1-u}{1+u}}$，且 $g'(u)=\\dfrac1{\\sqrt{1-u^2}}$，$h'(u)=-\\dfrac{1}{2\\sqrt{1-u^2}}$。于是\n$$I=2\\big[g^2\\big]_0^{1/2}-4\\big[h^2\\big]_{1/2}^1=2\\Big(\\frac\\pi6\\Big)^2+4\\Big(\\frac\\pi6\\Big)^2=\\frac{\\pi^2}{6}.$$\n结合 (1) 得 $\\sum_{n=1}^\\infty\\frac1{n^2}=\\frac{\\pi^2}6$。（注：$h(\\tfrac12)=\\arctan\\tfrac1{\\sqrt3}=\\tfrac\\pi6$，$h(1)=0$。）",
+   "solutionSource": "编写"
+  },
+  {
+   "no": "六",
+   "score": 13,
+   "type": "计算",
+   "subjects": [
+    "解析几何"
+   ],
+   "topics": [
+    "异面直线",
+    "混合积",
+    "旋转曲面",
+    "二次曲面分类"
+   ],
+   "difficulty": 3,
+   "statement": "已知两直线的方程：$L:x=y=z$，$L':\\dfrac{x}{1}=\\dfrac{y}{a}=\\dfrac{z-b}{1}$。\n\n(1) 问：参数 $a,b$ 满足什么条件时，$L$ 与 $L'$ 是异面直线？\n\n(2) 当 $L$ 与 $L'$ 不重合时，求 $L'$ 绕 $L$ 旋转所生成的旋转面 $\\pi$ 的方程，并指出曲面 $\\pi$ 的类型。",
+   "answer": "(1) $a\\ne1$ 且 $b\\ne0$。(2) $a\\ne-2$ 时 $\\pi:\\ x^2+y^2+z^2-\\dfrac{a^2+2}{(a+2)^2}(x+y+z-b)^2-\\dfrac{2b}{a+2}(x+y+z-b)-b^2=0$；$a=-2$ 时 $\\pi$ 为平面 $x+y+z=b$ 上满足 $x^2+y^2+z^2\\ge\\frac56b^2$ 的部分。类型：$a=1,b\\ne0$ 圆柱面；$a\\ne1,b=0$ 圆锥面（$a=-2$ 时为平面）；$a\\ne1,b\\ne0$ 单叶旋转双曲面（$a=-2$ 时为平面去掉一个圆盘）。",
+   "solution": "**(1)** 方向向量 $\\vec n=(1,1,1)$，$\\vec n'=(1,a,1)$，取 $O(0,0,0)\\in L$，$P(0,0,b)\\in L'$。异面当且仅当混合积\n$$(\\vec n,\\vec n',\\overrightarrow{OP})=\\begin{vmatrix}1&1&1\\\\1&a&1\\\\0&0&b\\end{vmatrix}=(a-1)b\\ne0,$$\n即 $a\\ne1$ 且 $b\\ne0$。\n\n**(2)** 点 $P(x,y,z)\\in\\pi$ 当且仅当它由 $L'$ 上某点 $P'=(t,at,t+b)$ 绕 $L$ 转得，即 $\\overrightarrow{P'P}\\perp L$ 且 $|OP|=|OP'|$（$O\\in L$）：\n$$(x-t)+(y-at)+(z-t-b)=0\\ \\Rightarrow\\ (a+2)t=x+y+z-b,$$\n$$x^2+y^2+z^2=t^2+a^2t^2+(t+b)^2.$$\n当 $a\\ne-2$，代入 $t=\\frac{x+y+z-b}{a+2}$ 得\n$$x^2+y^2+z^2-\\frac{a^2+2}{(a+2)^2}(x+y+z-b)^2-\\frac{2b}{a+2}(x+y+z-b)-b^2=0.$$\n当 $a=-2$（$L'\\perp L$），$x+y+z=b$，且 $x^2+y^2+z^2=6t^2+2bt+b^2=6(t+\\frac b6)^2+\\frac56b^2$，$t$ 任意，故 $\\pi$ 为该平面上 $x^2+y^2+z^2\\ge\\frac56b^2$ 的部分。\n\n类型：$a=1,b\\ne0$ 时 $L'\\parallel L$，$\\pi$ 为圆柱面；$a\\ne1,b=0$ 时两线相交，$\\pi$ 为圆锥面（$a=-2$ 时退化为平面）；$a\\ne1,b\\ne0$ 时异面，$\\pi$ 为单叶旋转双曲面（$a=-2$ 时为平面去掉一个圆盘）。",
+   "solutionSource": "编写"
+  },
+  {
+   "no": "七",
+   "score": 20,
+   "type": "证明",
+   "subjects": [
+    "高等代数"
+   ],
+   "topics": [
+    "合同对角化",
+    "半正定矩阵",
+    "同时对角化"
+   ],
+   "difficulty": 4,
+   "statement": "设 $A,B$ 均为 $n$ 阶半正定实对称矩阵，且满足 $n-1\\le\\operatorname{rank}A\\le n$。证明存在实可逆矩阵 $C$ 使得 $C^TAC$，$C^TBC$ 均为对角阵。",
+   "answer": "",
+   "solution": "**情形 $\\operatorname{rank}A=n$。** $A$ 正定，存在可逆 $P$ 使 $P^TAP=I$。$P^TBP$ 实对称，存在正交阵 $Q$ 使 $Q^T(P^TBP)Q$ 为对角阵，而 $Q^TP^TAPQ=I$。取 $C=PQ$。\n\n**情形 $\\operatorname{rank}A=n-1$。** 存在可逆 $P$ 使 $P^TAP=\\begin{pmatrix}I_{n-1}&0\\\\0&0\\end{pmatrix}$。记 $P^TBP=\\begin{pmatrix}B_1&\\beta\\\\ \\beta^T&c\\end{pmatrix}$，它半正定，故 $c\\ge0$。\n\n- 若 $c=0$：半正定矩阵对角元为 $0$ 时该行该列全为 $0$（见文末说明），故 $\\beta=0$，$P^TBP=\\operatorname{diag}(B_1,0)$。取正交阵 $Q_1$ 对角化 $B_1$，$C=P\\operatorname{diag}(Q_1,1)$ 即可。\n- 若 $c>0$：令 $T=\\begin{pmatrix}I_{n-1}&0\\\\-c^{-1}\\beta^T&1\\end{pmatrix}$，则\n$$T^T\\begin{pmatrix}I_{n-1}&0\\\\0&0\\end{pmatrix}T=\\begin{pmatrix}I_{n-1}&0\\\\0&0\\end{pmatrix},\\qquad T^T\\begin{pmatrix}B_1&\\beta\\\\ \\beta^T&c\\end{pmatrix}T=\\begin{pmatrix}B_1-c^{-1}\\beta\\beta^T&0\\\\0&c\\end{pmatrix}.$$\n再取正交阵 $Q_1$ 对角化实对称阵 $B_1-c^{-1}\\beta\\beta^T$，令 $C=PT\\operatorname{diag}(Q_1,1)$，则 $C^TAC=\\operatorname{diag}(I_{n-1},0)$，$C^TBC$ 为对角阵。\n\n（$c=0\\Rightarrow\\beta=0$ 的理由：对任意 $u\\in\\mathbb R^{n-1}$ 与实数 $s$，$(u^T,s)\\begin{pmatrix}B_1&\\beta\\\\\\beta^T&0\\end{pmatrix}\\begin{pmatrix}u\\\\s\\end{pmatrix}=u^TB_1u+2s\\,\\beta^Tu\\ge0$ 对所有 $s$ 成立，迫使 $\\beta^Tu=0$。）",
+   "solutionSource": "编写"
+  },
+  {
+   "no": "八",
+   "score": 15,
+   "type": "证明",
+   "subjects": [
+    "高等代数"
+   ],
+   "topics": [
+    "线性函数",
+    "核空间",
+    "对偶空间"
+   ],
+   "difficulty": 3,
+   "statement": "设 $V$ 是复数域 $\\mathbb C$ 上的 $n$ 维线性空间，$f_j:V\\to\\mathbb C$ 是非零的线性函数，$j=1,2$。若不存在 $0\\ne c\\in\\mathbb C$ 使得 $f_1=cf_2$，证明：任意的 $\\alpha\\in V$ 都可表为 $\\alpha=\\alpha_1+\\alpha_2$ 使得 $$f_1(\\alpha)=f_1(\\alpha_2),\\quad f_2(\\alpha)=f_2(\\alpha_1).$$",
+   "answer": "",
+   "solution": "所求条件等价于 $f_1(\\alpha_1)=0$，$f_2(\\alpha_2)=0$。\n\n先证 $\\ker f_1\\not\\subseteq\\ker f_2$。若 $\\ker f_1\\subseteq\\ker f_2$，取 $\\gamma$ 使 $f_1(\\gamma)=1$，则 $V=\\ker f_1\\oplus\\mathbb C\\gamma$，对任意 $v=w+s\\gamma$（$w\\in\\ker f_1$）有 $f_2(v)=sf_2(\\gamma)=f_2(\\gamma)f_1(v)$，即 $f_2=f_2(\\gamma)f_1$；因 $f_2\\ne0$，$f_2(\\gamma)\\ne0$，得 $f_1=f_2(\\gamma)^{-1}f_2$，与假设矛盾。\n\n于是存在 $\\beta\\in\\ker f_1$ 使 $f_2(\\beta)=1$。对任意 $\\alpha$，令\n$$\\alpha_1=f_2(\\alpha)\\beta,\\qquad \\alpha_2=\\alpha-f_2(\\alpha)\\beta.$$\n则 $f_1(\\alpha_1)=0$，故 $f_1(\\alpha_2)=f_1(\\alpha)$；$f_2(\\alpha_1)=f_2(\\alpha)$。证毕。",
+   "solutionSource": "编写"
+  }
+ ]
+}

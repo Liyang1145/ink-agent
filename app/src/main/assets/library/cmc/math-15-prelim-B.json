@@ -1,0 +1,129 @@
+{
+ "id": "cmc-math-15-prelim-B",
+ "title": "第十五届全国大学生数学竞赛初赛（数学B类）",
+ "year": 2023,
+ "track": "数学类",
+ "round": "初赛",
+ "paper": "B",
+ "durationMin": 150,
+ "totalScore": 100,
+ "source": {
+  "question": "15-prelim-math-B.pdf",
+  "solution": "15-prelim-math-B.pdf"
+ },
+ "problems": [
+  {
+   "no": "一",
+   "score": 15,
+   "type": "计算",
+   "subjects": [
+    "解析几何"
+   ],
+   "topics": [
+    "球面",
+    "轨迹",
+    "抛物柱面",
+    "点到直线距离"
+   ],
+   "difficulty": 2,
+   "statement": "在空间中给定直线 $L$ 及直线外定点 $P$。设 $M$ 是过 $P$ 点且与直线 $L$ 相切的球面的球心。问：所有可能的球心 $M$ 构成何种曲面？证明你的结论。",
+   "answer": "抛物柱面。取 $L$ 为 $x$ 轴、$P=(0,0,a)\\ (a>0)$ 时，方程为 $z=\\dfrac{1}{2a}(x^2+a^2)$。",
+   "solution": "这是一个抛物柱面。\n\n建立直角坐标系，使直线 $L$ 为 $x$ 轴，点 $P$ 到 $L$ 的垂线为 $z$ 轴，垂足 $O$ 为原点。这时 $O=(0,0,0)$，$P=(0,0,a)\\ (a>0)$，$L$ 的方向向量为 $v=(1,0,0)$。设 $M=(x,y,z)$ 是过 $P$ 且与 $L$ 相切的球面的球心，则球半径 $PM$ 等于 $M$ 到 $L$ 的距离：\n$$PM=\\frac{|\\overrightarrow{OM}\\times v|}{|v|}.$$\n而 $PM^2=x^2+y^2+(z-a)^2$，$\\overrightarrow{OM}\\times v=(x,y,z)\\times(1,0,0)=(0,z,-y)$，故\n$$x^2+y^2+(z-a)^2=z^2+y^2,\\qquad z=\\frac{1}{2a}(x^2+a^2),$$\n为抛物柱面。",
+   "solutionSource": "官方"
+  },
+  {
+   "no": "二",
+   "score": 15,
+   "type": "计算",
+   "subjects": [
+    "数学分析"
+   ],
+   "topics": [
+    "多元函数极值",
+    "驻点",
+    "有界闭集上的最值"
+   ],
+   "difficulty": 2,
+   "statement": "设 $f(x,y,z)=x^2+(y^2+z^2)(1-x)^3$。\n\n(1) 计算 $f$ 的驻点；\n\n(2) 求 $f$ 在 $\\Sigma$ 上的最小值，其中 $\\Sigma$ 是 $\\left\\{(x,y,z)\\,\\middle|\\,|x|\\leqslant2,\\ y^2+z^2\\leqslant4\\right\\}$ 的边界；\n\n(3) 求 $f$ 在椭球 $x^2+\\dfrac{y^2}{2}+\\dfrac{z^2}{3}\\leqslant1$ 上的最小值。",
+   "answer": "(1) 唯一驻点 $(0,0,0)$；(2) 最小值 $0$；(3) 最小值 $0$。",
+   "solution": "**(1)**\n$$f_x=2x-3(y^2+z^2)(1-x)^2,\\quad f_y=2y(1-x)^3,\\quad f_z=2z(1-x)^3.$$\n由 $f_y=0$ 得 $x_0=1$ 或 $y_0=0$；若 $x_0=1$，则 $f_x=2\\neq0$，矛盾。故 $x_0\\neq1$，从而 $y_0=z_0=0$，再由 $f_x=0$ 得 $x_0=0$。唯一驻点为 $(0,0,0)$。\n\n**(2)** $\\Sigma=\\Sigma_1\\cup\\Sigma_2\\cup\\Sigma_3$，其中\n$$\\Sigma_1=\\{x\\in[-2,2],\\ y^2+z^2=4\\},\\quad\\Sigma_2=\\{x=2,\\ y^2+z^2\\leqslant4\\},\\quad\\Sigma_3=\\{x=-2,\\ y^2+z^2\\leqslant4\\}.$$\n在 $\\Sigma_1$ 上，$f=x^2+4(1-x)^3=g_1(x)$，$x\\in[-2,2]$。由 $g_1'(\\xi)=2\\xi-12(1-\\xi)^2=0$ 得 $\\xi_1=\\frac32,\\ \\xi_2=\\frac23$，且\n$$g_1(2)=0,\\quad g_1(-2)=112,\\quad g_1\\big(\\tfrac32\\big)=\\tfrac74,\\quad g_1\\big(\\tfrac23\\big)=\\tfrac{16}{27},$$\n故 $f$ 在 $\\Sigma_1$ 上最小值为 0。在 $\\Sigma_2$ 上，$f=4-(y^2+z^2)\\geqslant0$；在 $\\Sigma_3$ 上，$f=4+27(y^2+z^2)\\geqslant0$。故 $f$ 在 $\\Sigma$ 上的最小值为 0。\n\n**(3)** 椭球 $x^2+\\frac{y^2}{2}+\\frac{z^2}{3}\\leqslant1$ 完全落在 $\\Sigma$ 围成的区域 $\\Omega$ 内。$f$ 在 $\\overline\\Omega$ 上的最小值要么在边界 $\\Sigma$ 上取得（值为 0），要么在内部驻点取得；而 $\\Omega$ 内唯一驻点 $(0,0,0)$ 处 $f=0$。因此 $f$ 在 $\\overline\\Omega$ 上的最小值为 0，而椭球含原点，故 $f$ 在该椭球上的最小值就是 0。",
+   "solutionSource": "官方"
+  },
+  {
+   "no": "三",
+   "score": 20,
+   "type": "证明",
+   "subjects": [
+    "高等代数"
+   ],
+   "topics": [
+    "循环向量",
+    "几何重数",
+    "Jordan标准形",
+    "根子空间",
+    "最小多项式"
+   ],
+   "difficulty": 4,
+   "statement": "设 $V$ 是复数域 $\\mathbb{C}$ 上的 $n$ 维线性空间，$\\mathbf A$ 是 $V$ 上的一个线性变换。证明：存在 $\\alpha\\in V$ 使得 $\\{\\alpha,\\mathbf A\\alpha,\\cdots,\\mathbf A^{n-1}\\alpha\\}$ 成为 $V$ 的一组基当且仅当对于 $\\mathbf A$ 的任一特征值 $\\lambda$，$\\lambda$ 的几何重数为 1。",
+   "answer": "",
+   "solution": "**必要性.** 设 $\\{\\alpha,\\mathbf A\\alpha,\\cdots,\\mathbf A^{n-1}\\alpha\\}$ 是 $V$ 的一组基，则 $\\mathbf A$ 在该基下的矩阵为\n$$A=\\begin{pmatrix}0&&&&*\\\\1&0&&&*\\\\&1&\\ddots&&\\vdots\\\\&&\\ddots&0&*\\\\&&&1&*\\end{pmatrix}.$$\n对任意 $c\\in\\mathbb{C}$，$cI-A$ 的左下角 $n-1$ 阶子式（主对角线全为 $-1$ 的下三角块）非零，所以 $\\operatorname{rank}(cI-A)\\geqslant n-1$，从而 $(cI-A)X=0$ 的解空间维数 $\\leqslant1$。又对 $\\mathbf A$ 的任一特征值 $\\lambda$，$(\\lambda I-A)X=0$ 一定有非零解，解空间维数 $\\geqslant1$。所以解空间维数为 1，即 $\\lambda$ 的几何重数为 1。\n\n**充分性.** 设 $\\mathbf A$ 的互不相同的特征值为 $\\lambda_1,\\cdots,\\lambda_s$，代数重数分别为 $d_1,\\cdots,d_s$，$d_1+\\cdots+d_s=n$，特征多项式为\n$$f(x)=(x-\\lambda_1)^{d_1}(x-\\lambda_2)^{d_2}\\cdots(x-\\lambda_s)^{d_s}.$$\n记 $V_{\\lambda_i}=\\operatorname{Ker}(\\mathbf A-\\lambda_i\\mathbf I)^{d_i}$，则 $V_{\\lambda_i}$ 是 $\\mathbf A$-不变子空间，且 $V=V_{\\lambda_1}\\oplus\\cdots\\oplus V_{\\lambda_s}$。由于 $\\lambda_i$ 的几何重数为 1，$\\mathbf A|_{V_{\\lambda_i}}$ 的 Jordan 标准形是单个 $d_i$ 阶 Jordan 块\n$$\\begin{pmatrix}\\lambda_i&&&\\\\1&\\lambda_i&&\\\\&\\ddots&\\ddots&\\\\&&1&\\lambda_i\\end{pmatrix}_{d_i\\times d_i},$$\n所以存在 $\\alpha_i\\in V_{\\lambda_i}$ 使得 $(\\mathbf A-\\lambda_i\\mathbf I)^{d_i-1}\\alpha_i\\neq0$。令\n$$\\alpha=\\alpha_1+\\alpha_2+\\cdots+\\alpha_s,$$\n则 $\\{\\alpha,\\mathbf A\\alpha,\\cdots,\\mathbf A^{n-1}\\alpha\\}$ 是 $V$ 的一组基。若否，则存在次数 $\\leqslant n-1$ 的非零多项式 $p(x)\\in\\mathbb{C}[x]$ 使 $p(\\mathbf A)\\alpha=0$。由于 $V_{\\lambda_i}$ 是 $\\mathbf A$-不变子空间，$p(\\mathbf A)\\alpha_i\\in V_{\\lambda_i}$，由\n$$0=p(\\mathbf A)\\alpha=p(\\mathbf A)\\alpha_1+\\cdots+p(\\mathbf A)\\alpha_s$$\n及直和性知 $p(\\mathbf A)\\alpha_i=0$。由于 $(\\mathbf A-\\lambda_i\\mathbf I)^{d_i-1}\\alpha_i\\neq0$，$(x-\\lambda_i)^{d_i}$ 是零化 $\\alpha_i$ 的次数最低的（首一）多项式，从而 $(x-\\lambda_i)^{d_i}\\mid p(x)$。又 $i\\neq j$ 时 $(x-\\lambda_i)^{d_i}$ 与 $(x-\\lambda_j)^{d_j}$ 互素，所以 $f(x)\\mid p(x)$，这与 $\\deg p<\\deg f$ 且 $p\\neq0$ 矛盾。",
+   "solutionSource": "官方"
+  },
+  {
+   "no": "四",
+   "score": 15,
+   "type": "证明",
+   "subjects": [
+    "高等代数"
+   ],
+   "topics": [
+    "行列式",
+    "数学归纳法",
+    "可逆矩阵",
+    "分块矩阵"
+   ],
+   "difficulty": 3,
+   "statement": "证明：对任意 $n$ 阶方阵 $A$，存在主对角线上元素为 $1$ 或 $-1$ 的 $n$ 阶对角矩阵 $J$ 使得 $A+J$ 可逆。",
+   "answer": "",
+   "solution": "对 $n$ 做归纳。$n=1$ 时 $A=(a)$，$a+1$ 与 $a-1$ 中一定有一个非零，结论成立。\n\n设结论对 $n-1$ 阶矩阵成立，考察 $n$ 阶方阵\n$$A=\\begin{pmatrix}A_1&\\beta\\\\\\alpha&a_{nn}\\end{pmatrix},$$\n其中 $A_1$ 为 $n-1$ 阶矩阵，$\\alpha$ 为 $n-1$ 维行向量，$\\beta$ 为 $n-1$ 维列向量。由归纳假设，存在主对角元为 $\\pm1$ 的 $n-1$ 阶对角矩阵 $J_1$ 使 $A_1+J_1$ 可逆。两个行列式仅最后一列不同，由行列式对最后一列的线性性：\n$$\\left|A+\\begin{pmatrix}J_1&0\\\\0&1\\end{pmatrix}\\right|-\\left|A+\\begin{pmatrix}J_1&0\\\\0&-1\\end{pmatrix}\\right|=\\begin{vmatrix}A_1+J_1&\\beta\\\\\\alpha&a_{nn}+1\\end{vmatrix}-\\begin{vmatrix}A_1+J_1&\\beta\\\\\\alpha&a_{nn}-1\\end{vmatrix}=\\begin{vmatrix}A_1+J_1&0\\\\\\alpha&2\\end{vmatrix}=2|A_1+J_1|\\neq0.$$\n所以左边两个行列式中至少有一个非零。若前者非零，令 $J=\\begin{pmatrix}J_1&0\\\\0&1\\end{pmatrix}$；否则令 $J=\\begin{pmatrix}J_1&0\\\\0&-1\\end{pmatrix}$。则 $J$ 的主对角元为 $\\pm1$ 且 $|A+J|\\neq0$，结论对 $n$ 成立。由归纳法原理，结论对任意方阵成立。",
+   "solutionSource": "官方"
+  },
+  {
+   "no": "五",
+   "score": 15,
+   "type": "计算",
+   "subjects": [
+    "数学分析"
+   ],
+   "topics": [
+    "高阶导数",
+    "求导",
+    "多项式"
+   ],
+   "difficulty": 1,
+   "statement": "设 $f(x)=x^n(1-x)^n$，\n$$F(x)=f(x)-f''(x)+f^{(4)}(x)-\\cdots+(-1)^nf^{(2n)}(x).$$\n计算并化简 $\\dfrac{d}{dx}\\big(F'(x)\\sin x-F(x)\\cos x\\big)$。",
+   "answer": "$x^n(1-x)^n\\sin x$",
+   "solution": "$$\\begin{aligned}\\frac{d}{dx}\\big(F'(x)\\sin x-F(x)\\cos x\\big)&=F''(x)\\sin x+F'(x)\\cos x-F'(x)\\cos x+F(x)\\sin x\\\\&=\\big(F''(x)+F(x)\\big)\\sin x\\\\&=\\big(f(x)+(-1)^nf^{(2n+2)}(x)\\big)\\sin x\\\\&=f(x)\\sin x=x^n(1-x)^n\\sin x,\\end{aligned}$$\n其中用到 $F''+F$ 中各项交错相消只剩首尾两项，以及 $f$ 是 $2n$ 次多项式，故 $f^{(2n+2)}\\equiv0$。",
+   "solutionSource": "官方"
+  },
+  {
+   "no": "六",
+   "score": 20,
+   "type": "证明",
+   "subjects": [
+    "数学分析"
+   ],
+   "topics": [
+    "反常积分",
+    "Cauchy准则",
+    "函数极限",
+    "微分不等式"
+   ],
+   "difficulty": 4,
+   "statement": "设非负函数 $f$ 在 $[0,+\\infty)$ 上连续可微，无穷积分 $\\displaystyle\\int_0^{+\\infty}f(x)\\,dx$ 收敛，且存在 $[0,+\\infty)$ 上的非负函数 $g$，使得\n$$f'(x)\\leqslant g(x),\\qquad x\\geqslant0.\\tag{1}$$\n分别就下列三种情形，证明 $\\lim\\limits_{x\\to+\\infty}f(x)=0$：\n\n(i) $\\displaystyle\\int_0^{+\\infty}g(x)\\,dx$ 收敛；\n\n(ii) $g(x)=C>0$，其中 $C$ 为常数；\n\n(iii) $g(x)=Cf^p(x)$，其中 $C>0,\\ p>0$ 为常数。",
+   "answer": "",
+   "solution": "**(i)** 由 (1)，\n$$f(x)\\leqslant f(y)+\\int_y^xg(t)\\,dt\\leqslant f(y)+\\int_y^{+\\infty}g(t)\\,dt,\\quad0\\leqslant y<x.$$\n所以 $f$ 在 $[0,+\\infty)$ 上有界，且 $\\varlimsup\\limits_{x\\to+\\infty}f(x)\\leqslant f(y)+\\int_y^{+\\infty}g(t)\\,dt$ 对一切 $y\\geqslant0$ 成立。令 $y\\to+\\infty$ 取下极限，由 $\\int_0^{+\\infty}g$ 收敛得 $\\varlimsup\\limits_{x\\to+\\infty}f(x)\\leqslant\\varliminf\\limits_{x\\to+\\infty}f(x)$，故 $\\lim\\limits_{x\\to+\\infty}f(x)=A$ 存在。又 $\\int_0^{+\\infty}f$ 收敛，从而 $A=0$。\n\n**(ii)** 反证。若结论不成立，存在正数 $a$ 和正数列 $\\{x_n\\}$，$x_n\\to+\\infty$，$f(x_n)\\geqslant a$。不妨设 $x_n>\\frac{a}{2C}$。在区间 $\\big[x_n-\\frac{a}{2C},x_n\\big]$ 上对 (1) 从 $x$ 积分到 $x_n$：\n$$f(x_n)-f(x)\\leqslant C(x_n-x)\\ \\Rightarrow\\ a-f(x)\\leqslant C\\cdot\\frac{a}{2C}=\\frac a2,$$\n即 $f(x)\\geqslant\\frac a2$，$x\\in\\big[x_n-\\frac{a}{2C},x_n\\big]$。从而\n$$\\int_{x_n-\\frac{a}{2C}}^{x_n}f(x)\\,dx\\geqslant\\frac a2\\cdot\\frac{a}{2C}=\\frac{a^2}{4C},\\quad n=1,2,\\cdots,$$\n与 $\\int_0^{+\\infty}f\\,dx$ 收敛的 Cauchy 准则矛盾。\n\n**(iii)** 反证。设存在 $a>0$ 和 $x_n\\to+\\infty$ 使 $f(x_n)\\geqslant a$，不妨设\n$$x_n>b=\\frac{a}{2a^{p-1}C}=\\frac{a^{1-p}}{2C}.\\tag{3}$$\n设 $f$ 在 $[x_n-b,x_n]$ 上的最小值 $m_n=f(t_n)$，$t_n\\in[x_n-b,x_n]$。\n\n1. 若 $m_n\\geqslant a$，则在该区间上 $f\\geqslant a$。\n\n2. 若 $m_n<a$，则 $t_n<x_n$。记 $T_n=\\sup\\{t:\\ f(x)<a,\\ x\\in[t_n,t)\\}$，由连续性 $t_n<T_n\\leqslant x_n$，$f(T_n)=a$，且在 $[t_n,T_n]$ 上 $f\\leqslant a$。在 $t_n$ 与 $T_n$ 之间对 (1) 积分，利用 (3)：\n$$a-m_n=f(T_n)-f(t_n)\\leqslant C\\int_{t_n}^{T_n}f^p(x)\\,dx\\leqslant Ca^p(T_n-t_n)\\leqslant Ca^pb=\\frac a2,$$\n即 $f(x)\\geqslant m_n\\geqslant\\frac a2$，$x\\in[x_n-b,x_n]$。\n\n综合两种情况，$f(x)\\geqslant\\frac a2$ 在 $[x_n-b,x_n]$ 上成立，于是\n$$\\int_{x_n-b}^{x_n}f(x)\\,dx\\geqslant\\frac{ab}{2}>0,\\quad n=1,2,\\cdots,$$\n与 $\\int_0^{+\\infty}f\\,dx$ 收敛的 Cauchy 准则矛盾。\n\n（官方解答另有“法 2”，将三种情形统一为 $g=Cf^p+h$（$h\\geqslant0$ 可积）处理，此处从略。）",
+   "solutionSource": "官方"
+  }
+ ]
+}

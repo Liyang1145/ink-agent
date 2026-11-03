@@ -1,0 +1,196 @@
+{
+ "id": "cmc-nonmath-07-prelim",
+ "title": "第七届全国大学生数学竞赛初赛（非数学类）",
+ "year": 2015,
+ "track": "非数学类",
+ "round": "初赛",
+ "paper": "",
+ "durationMin": 150,
+ "totalScore": 100,
+ "source": {
+  "question": "2015年第七届全国初赛-非数学类试卷.pdf",
+  "solution": "07-第七届全国初赛-非数学类试题参考解答.pdf"
+ },
+ "problems": [
+  {
+   "no": "一(1)",
+   "score": 6,
+   "type": "填空",
+   "subjects": [
+    "高等数学"
+   ],
+   "topics": [
+    "数列极限",
+    "夹逼准则",
+    "定积分定义"
+   ],
+   "difficulty": 2,
+   "statement": "极限 $\\displaystyle\\lim_{n\\to\\infty}n\\left(\\frac{\\sin\\frac\\pi n}{n^2+1}+\\frac{\\sin\\frac{2\\pi}{n}}{n^2+2}+\\cdots+\\frac{\\sin\\pi}{n^2+n}\\right)=$ ______。",
+   "answer": "$\\dfrac2\\pi$",
+   "solution": "原式即 $\\displaystyle\\lim_{n\\to\\infty}\\sum_{i=1}^n\\frac{\\sin\\frac{i\\pi}n}{n+\\frac in}$，且\n$$\\frac1{n+1}\\sum_{i=1}^n\\sin\\frac{i\\pi}{n}\\leqslant\\sum_{i=1}^n\\frac{\\sin\\frac{i\\pi}n}{n+\\frac in}\\leqslant\\frac1n\\sum_{i=1}^n\\sin\\frac{i\\pi}n.$$\n两端极限都等于 $\\dfrac1\\pi\\displaystyle\\int_0^\\pi\\sin x\\,\\mathrm dx=\\dfrac2\\pi$，由夹逼准则原极限为 $\\dfrac2\\pi$。",
+   "solutionSource": "官方"
+  },
+  {
+   "no": "一(2)",
+   "score": 6,
+   "type": "填空",
+   "subjects": [
+    "高等数学"
+   ],
+   "topics": [
+    "隐函数求偏导",
+    "多元复合函数"
+   ],
+   "difficulty": 2,
+   "statement": "设 $z=z(x,y)$ 由方程 $F\\left(x+\\dfrac zy,\\,y+\\dfrac zx\\right)=0$ 所决定，其中 $F(u,v)$ 具有连续偏导数，且 $xF_u+yF_v\\neq0$，则（结果要求不显含有 $F$ 及其偏导数）$x\\dfrac{\\partial z}{\\partial x}+y\\dfrac{\\partial z}{\\partial y}=$ ______。",
+   "answer": "$z-xy$",
+   "solution": "对 $x$ 求偏导：$\\left(1+\\dfrac1y\\dfrac{\\partial z}{\\partial x}\\right)F_u+\\left(\\dfrac1x\\dfrac{\\partial z}{\\partial x}-\\dfrac{z}{x^2}\\right)F_v=0$，得\n$$x\\frac{\\partial z}{\\partial x}=\\frac{y(zF_v-x^2F_u)}{xF_u+yF_v};\\quad\\text{同理}\\quad y\\frac{\\partial z}{\\partial y}=\\frac{x(zF_u-y^2F_v)}{xF_u+yF_v}.$$\n相加得 $x\\dfrac{\\partial z}{\\partial x}+y\\dfrac{\\partial z}{\\partial y}=\\dfrac{-xy(xF_u+yF_v)+z(xF_u+yF_v)}{xF_u+yF_v}=z-xy$。",
+   "solutionSource": "官方"
+  },
+  {
+   "no": "一(3)",
+   "score": 6,
+   "type": "填空",
+   "subjects": [
+    "高等数学"
+   ],
+   "topics": [
+    "切平面",
+    "二重积分",
+    "体积"
+   ],
+   "difficulty": 1,
+   "statement": "曲面 $z=x^2+y^2+1$ 在点 $M(1,-1,3)$ 的切平面与曲面 $z=x^2+y^2$ 所围区域的体积为 ______。",
+   "answer": "$\\dfrac\\pi2$",
+   "solution": "切平面为 $2(x-1)-2(y+1)-(z-3)=0$，即 $z=2x-2y-1$。与 $z=x^2+y^2$ 联立，所围区域在 $xOy$ 面上的投影为 $D:(x-1)^2+(y+1)^2\\leqslant1$，\n$$V=\\iint_D\\left[(2x-2y-1)-(x^2+y^2)\\right]\\mathrm d\\sigma=\\iint_D\\left[1-(x-1)^2-(y+1)^2\\right]\\mathrm d\\sigma=\\int_0^{2\\pi}\\mathrm dt\\int_0^1(1-r^2)r\\,\\mathrm dr=\\frac\\pi2.$$",
+   "solutionSource": "官方"
+  },
+  {
+   "no": "一(4)",
+   "score": 6,
+   "type": "填空",
+   "subjects": [
+    "高等数学"
+   ],
+   "topics": [
+    "傅里叶级数",
+    "狄利克雷收敛定理"
+   ],
+   "difficulty": 1,
+   "statement": "函数 $f(x)=\\begin{cases}3,&x\\in[-5,0),\\\\0,&x\\in[0,5)\\end{cases}$ 在 $(-5,5]$ 的傅里叶级数在 $x=0$ 收敛的值为 ______。",
+   "answer": "$\\dfrac32$",
+   "solution": "$x=0$ 是跳跃间断点，由狄利克雷收敛定理，傅里叶级数在该点收敛于 $\\dfrac{f(0^-)+f(0^+)}{2}=\\dfrac{3+0}{2}=\\dfrac32$。",
+   "solutionSource": "官方"
+  },
+  {
+   "no": "一(5)",
+   "score": 6,
+   "type": "填空",
+   "subjects": [
+    "高等数学"
+   ],
+   "topics": [
+    "反常积分",
+    "二重积分",
+    "极坐标",
+    "高斯积分"
+   ],
+   "difficulty": 2,
+   "statement": "设区间 $(0,+\\infty)$ 上的函数 $u(x)$ 定义为 $u(x)=\\displaystyle\\int_0^{+\\infty}e^{-xt^2}\\,\\mathrm dt$，则 $u(x)$ 的初等函数表达式为 ______。",
+   "answer": "$u(x)=\\dfrac{\\sqrt\\pi}{2\\sqrt x}$",
+   "solution": "$$u^2(x)=\\int_0^{+\\infty}e^{-xt^2}\\,\\mathrm dt\\int_0^{+\\infty}e^{-xs^2}\\,\\mathrm ds=\\iint_{s\\geqslant0,t\\geqslant0}e^{-x(t^2+s^2)}\\,\\mathrm ds\\,\\mathrm dt=\\int_0^{\\frac\\pi2}\\mathrm d\\varphi\\int_0^{+\\infty}e^{-x\\rho^2}\\rho\\,\\mathrm d\\rho=\\frac{\\pi}{4x},$$\n又 $u(x)>0$，故 $u(x)=\\dfrac{\\sqrt\\pi}{2\\sqrt x}$。",
+   "solutionSource": "官方"
+  },
+  {
+   "no": "二",
+   "score": 12,
+   "type": "计算",
+   "subjects": [
+    "高等数学"
+   ],
+   "topics": [
+    "锥面方程",
+    "准线",
+    "母线"
+   ],
+   "difficulty": 2,
+   "statement": "设 $M$ 是以三个正半轴为母线的半圆锥面，求其方程。",
+   "answer": "$xy+yz+zx=0$",
+   "solution": "$M$ 的顶点为原点 $O$，$A(1,0,0),B(0,1,0),C(0,0,1)$ 在 $M$ 上。取过这三点的平面 $x+y+z=1$ 与球面 $x^2+y^2+z^2=1$ 的交线 $L$ 为准线（它是过 $A,B,C$ 的圆）。\n\n设 $P(x,y,z)\\in M$，母线 $OP$ 与 $L$ 交于 $(u,v,w)$，则 $u=xt,\\ v=yt,\\ w=zt$。代入准线方程得\n$$(x+y+z)t=1,\\qquad(x^2+y^2+z^2)t^2=1,$$\n消去 $t$ 得 $(x+y+z)^2=x^2+y^2+z^2$，即锥面 $M$ 的方程为 $xy+yz+zx=0$。",
+   "solutionSource": "官方"
+  },
+  {
+   "no": "三",
+   "score": 12,
+   "type": "证明",
+   "subjects": [
+    "高等数学"
+   ],
+   "topics": [
+    "高阶导数",
+    "数学归纳法"
+   ],
+   "difficulty": 2,
+   "statement": "设 $f(x)$ 在 $(a,b)$ 内二次可导，且存在常数 $\\alpha,\\beta$，使得对于 $\\forall x\\in(a,b)$，有 $f'(x)=\\alpha f(x)+\\beta f''(x)$，则 $f(x)$ 在 $(a,b)$ 内无穷次可导。",
+   "answer": "",
+   "solution": "1. 若 $\\beta=0$，则 $f'=\\alpha f$，逐次求导得 $f^{(n)}(x)=\\alpha^nf(x)$，故 $f$ 无穷次可导。\n\n2. 若 $\\beta\\neq0$，则\n$$f''(x)=\\frac{f'(x)-\\alpha f(x)}{\\beta}=A_1f'(x)+B_1f(x),\\qquad A_1=\\frac1\\beta,\\ B_1=-\\frac\\alpha\\beta.\\tag{1}$$\n(1) 右端可导，所以 $f'''(x)=A_1f''(x)+B_1f'(x)$。归纳地，若 $f^{(n)}=A_1f^{(n-1)}+B_1f^{(n-2)}\\ (n>1)$，右端可导，故 $f^{(n+1)}=A_1f^{(n)}+B_1f^{(n-1)}$。所以 $f$ 在 $(a,b)$ 内无穷次可导。\n（注：原解答此处 (1) 式左端误写为 $f'(x)$、且 $B_1$ 误写为 $\\frac\\alpha\\beta$，为笔误，已改正；不影响结论。）",
+   "solutionSource": "官方"
+  },
+  {
+   "no": "四",
+   "score": 14,
+   "type": "计算",
+   "subjects": [
+    "高等数学"
+   ],
+   "topics": [
+    "幂级数",
+    "收敛域",
+    "和函数",
+    "指数函数展开"
+   ],
+   "difficulty": 3,
+   "statement": "求级数 $\\displaystyle\\sum_{n=0}^\\infty\\frac{n^3+2}{(n+1)!}(x-1)^n$ 的收敛域与和函数。",
+   "answer": "收敛域 $(-\\infty,+\\infty)$；$S(x)=(x^2-2x+2)e^{x-1}+\\dfrac{e^{x-1}-1}{x-1}\\ (x\\neq1)$，$S(1)=2$",
+   "solution": "$\\lim\\limits_{n\\to\\infty}\\dfrac{a_{n+1}}{a_n}=\\lim\\limits_{n\\to\\infty}\\dfrac{(n+1)^3+2}{(n+2)(n^3+2)}=0$，收敛半径 $R=+\\infty$，收敛域为 $(-\\infty,+\\infty)$。由 $n^3+2=(n+1)n(n-1)+(n+1)+1$ 得\n$$\\frac{n^3+2}{(n+1)!}=\\frac1{(n-2)!}+\\frac1{n!}+\\frac1{(n+1)!}\\quad(n\\geqslant2),$$\n故原级数 $=\\displaystyle\\sum_{n=2}^\\infty\\frac{(x-1)^n}{(n-2)!}+\\sum_{n=0}^\\infty\\frac{(x-1)^n}{n!}+\\sum_{n=0}^\\infty\\frac{(x-1)^n}{(n+1)!}=S_1+S_2+S_3$。由 $e^x$ 的展开式，\n$S_1=(x-1)^2e^{x-1}$，$S_2=e^{x-1}$，$(x-1)S_3=e^{x-1}-1$，所以 $x\\neq1$ 时 $S_3=\\dfrac{e^{x-1}-1}{x-1}$，且 $S_3(1)=1$。综上\n$$S(x)=\\begin{cases}(x^2-2x+2)e^{x-1}+\\dfrac{e^{x-1}-1}{x-1},&x\\neq1,\\\\2,&x=1.\\end{cases}$$",
+   "solutionSource": "官方"
+  },
+  {
+   "no": "五",
+   "score": 16,
+   "type": "证明",
+   "subjects": [
+    "高等数学"
+   ],
+   "topics": [
+    "定积分不等式",
+    "连续函数",
+    "介值定理",
+    "反证法"
+   ],
+   "difficulty": 3,
+   "statement": "设函数 $f$ 在 $[0,1]$ 上连续，且 $\\displaystyle\\int_0^1f(x)\\,\\mathrm dx=0$，$\\displaystyle\\int_0^1xf(x)\\,\\mathrm dx=1$。试证：\n\n(1) $\\exists x_0\\in[0,1]$ 使得 $|f(x_0)|>4$；\n\n(2) $\\exists x_1\\in[0,1]$ 使得 $|f(x_1)|=4$。",
+   "answer": "",
+   "solution": "(1) 若对 $\\forall x\\in[0,1]$ 有 $|f(x)|\\leqslant4$，则\n$$1=\\int_0^1\\left(x-\\frac12\\right)f(x)\\,\\mathrm dx\\leqslant\\int_0^1\\left|x-\\frac12\\right||f(x)|\\,\\mathrm dx\\leqslant4\\int_0^1\\left|x-\\frac12\\right|\\mathrm dx=1,$$\n于是 $\\displaystyle\\int_0^1\\left|x-\\frac12\\right|\\left(4-|f(x)|\\right)\\mathrm dx=0$，被积函数连续非负，故 $|f(x)|\\equiv4$，由连续性 $f\\equiv4$ 或 $f\\equiv-4$，与 $\\int_0^1f=0$ 矛盾。所以存在 $x_0$ 使 $|f(x_0)|>4$。\n\n(2) 先证存在 $x_2$ 使 $|f(x_2)|<4$：否则 $|f|\\geqslant4$ 处处成立，由连续性 $f\\geqslant4$ 或 $f\\leqslant-4$ 恒成立，与 $\\int_0^1f=0$ 矛盾。再由 $|f|$ 的连续性、(1) 的结论及介值定理，存在 $x_1$ 使 $|f(x_1)|=4$。",
+   "solutionSource": "官方"
+  },
+  {
+   "no": "六",
+   "score": 16,
+   "type": "证明",
+   "subjects": [
+    "高等数学"
+   ],
+   "topics": [
+    "二元泰勒公式",
+    "柯西-施瓦茨不等式",
+    "二重积分估计"
+   ],
+   "difficulty": 4,
+   "statement": "设 $f(x,y)$ 在 $x^2+y^2\\leqslant1$ 上有连续的二阶导数，$f_{xx}^2+2f_{xy}^2+f_{yy}^2\\leqslant M$。若 $f(0,0)=f_x(0,0)=f_y(0,0)=0$，证明：\n$$\\left|\\iint_{x^2+y^2\\leqslant1}f(x,y)\\,\\mathrm dx\\,\\mathrm dy\\right|\\leqslant\\frac{\\pi\\sqrt M}{4}.$$",
+   "answer": "",
+   "solution": "在 $(0,0)$ 处作带拉格朗日余项的泰勒展开（一阶项为零）：\n$$f(x,y)=\\frac12\\left(x^2f_{xx}+2xyf_{xy}+y^2f_{yy}\\right)\\Big|_{(\\theta x,\\theta y)},\\quad\\theta\\in(0,1).$$\n记 $(u,v,w)=(f_{xx},f_{xy},f_{yy})\\big|_{(\\theta x,\\theta y)}$，则 $f(x,y)=\\frac12(ux^2+2vxy+wy^2)=\\frac12(u,\\sqrt2v,w)\\cdot(x^2,\\sqrt2xy,y^2)$。由于 $\\|(u,\\sqrt2v,w)\\|=\\sqrt{u^2+2v^2+w^2}\\leqslant\\sqrt M$，$\\|(x^2,\\sqrt2xy,y^2)\\|=x^2+y^2$，由柯西-施瓦茨不等式得 $|f(x,y)|\\leqslant\\frac12\\sqrt M(x^2+y^2)$。从而\n$$\\left|\\iint_{x^2+y^2\\leqslant1}f\\,\\mathrm dx\\,\\mathrm dy\\right|\\leqslant\\frac{\\sqrt M}2\\iint_{x^2+y^2\\leqslant1}(x^2+y^2)\\,\\mathrm dx\\,\\mathrm dy=\\frac{\\sqrt M}{2}\\cdot\\frac\\pi2=\\frac{\\pi\\sqrt M}4.$$",
+   "solutionSource": "官方"
+  }
+ ]
+}

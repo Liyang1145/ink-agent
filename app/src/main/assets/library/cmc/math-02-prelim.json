@@ -1,0 +1,165 @@
+{
+ "id": "cmc-math-02-prelim",
+ "title": "第二届全国大学生数学竞赛初赛（数学类）",
+ "year": 2010,
+ "track": "数学类",
+ "round": "初赛",
+ "paper": "",
+ "durationMin": 150,
+ "totalScore": 100,
+ "source": {
+  "question": "2010年01-试卷-第二届全国初赛-数学类试卷.pdf",
+  "solution": "2010年02-参考答案-第二届全国初赛-数学类试卷.pdf"
+ },
+ "problems": [
+  {
+   "no": "一",
+   "score": 10,
+   "type": "证明",
+   "subjects": [
+    "数学分析"
+   ],
+   "topics": [
+    "压缩映射",
+    "数列极限",
+    "微分中值定理",
+    "方程根的唯一性"
+   ],
+   "difficulty": 2,
+   "statement": "设 $\\varepsilon\\in(0,1)$，$x_0=a$，$x_{n+1}=a+\\varepsilon\\sin x_n\\ (n=0,1,2,\\cdots)$。证明 $\\xi=\\lim\\limits_{n\\to+\\infty}x_n$ 存在，且 $\\xi$ 为方程 $x-\\varepsilon\\sin x=a$ 的唯一根。",
+   "answer": "",
+   "solution": "由 $|(\\sin x)'|=|\\cos x|\\leqslant1$ 及中值定理，$|\\sin x-\\sin y|\\leqslant|x-y|$，故\n$$|x_{n+2}-x_{n+1}|=\\varepsilon|\\sin x_{n+1}-\\sin x_n|\\leqslant\\varepsilon|x_{n+1}-x_n|,$$\n从而 $|x_{n+1}-x_n|\\leqslant\\varepsilon^n|x_1-x_0|$。于是级数 $\\sum\\limits_{n=0}^{\\infty}(x_{n+1}-x_n)$ 绝对收敛，$\\xi=\\lim\\limits_{n\\to+\\infty}x_n$ 存在。在递推式两边取极限，得 $\\xi$ 是 $x-\\varepsilon\\sin x=a$ 的根。\n\n若 $\\eta$ 也是根，则 $|\\xi-\\eta|=\\varepsilon|\\sin\\xi-\\sin\\eta|\\leqslant\\varepsilon|\\xi-\\eta|$，由 $\\varepsilon\\in(0,1)$ 得 $\\eta=\\xi$，即根唯一。",
+   "solutionSource": "官方"
+  },
+  {
+   "no": "二",
+   "score": 15,
+   "type": "证明",
+   "subjects": [
+    "高等代数"
+   ],
+   "topics": [
+    "矩阵方程",
+    "Jordan标准型",
+    "幂零矩阵",
+    "秩"
+   ],
+   "difficulty": 2,
+   "statement": "设 $B=\\begin{pmatrix}0&10&30\\\\0&0&2010\\\\0&0&0\\end{pmatrix}$。证明 $X^2=B$ 无解，这里 $X$ 为三阶未知复方阵。",
+   "answer": "",
+   "solution": "反证。设存在复矩阵 $A$ 使 $A^2=B$。$B$ 的特征根为 $0$（代数重数 $3$）。若 $\\lambda$ 为 $A$ 的特征根，则 $\\lambda^2$ 为 $B$ 的特征根，故 $\\lambda=0$，$A$ 幂零。于是 $A$ 的 Jordan 标准型只能为\n$$J_1=\\begin{pmatrix}0&0&0\\\\0&0&0\\\\0&0&0\\end{pmatrix},\\quad J_2=\\begin{pmatrix}0&1&0\\\\0&0&0\\\\0&0&0\\end{pmatrix},\\quad J_3=\\begin{pmatrix}0&1&0\\\\0&0&1\\\\0&0&0\\end{pmatrix}.$$\n而 $J_1^2=J_2^2=J_1$，$J_3^2=J_2$，所以 $A^2$ 的秩不超过 $1$，与 $B=A^2$ 的秩为 $2$ 矛盾。故 $X^2=B$ 无解。",
+   "solutionSource": "官方"
+  },
+  {
+   "no": "三",
+   "score": 10,
+   "type": "证明",
+   "subjects": [
+    "数学分析"
+   ],
+   "topics": [
+    "凸函数",
+    "连续性",
+    "二元函数"
+   ],
+   "difficulty": 3,
+   "statement": "设 $D\\subset\\mathbb{R}^2$ 是凸区域，函数 $f(x,y)$ 是凸函数。证明或否定：$f(x,y)$ 在 $D$ 上连续。\n\n注：函数 $f(x,y)$ 为凸函数的定义是 $\\forall\\alpha\\in(0,1)$ 以及 $(x_1,y_1),(x_2,y_2)\\in D$，成立\n$$f(\\alpha x_1+(1-\\alpha)x_2,\\alpha y_1+(1-\\alpha)y_2)\\leqslant\\alpha f(x_1,y_1)+(1-\\alpha)f(x_2,y_2).$$",
+   "answer": "结论成立：$f$ 在 $D$ 上连续。",
+   "solution": "结论成立。分两步。\n\n(i) 设 $g$ 是 $[x_0-\\delta,x_0+\\delta]$ 上的一元凸函数，则对 $x\\in(x_0-\\delta,x_0+\\delta)$，由凸函数差商单调性\n$$\\frac{g(x_0)-g(x_0-\\delta)}{\\delta}\\leqslant\\frac{g(x)-g(x_0)}{x-x_0}\\leqslant\\frac{g(x_0+\\delta)-g(x_0)}{\\delta},$$\n从而\n$$\\left|\\frac{g(x)-g(x_0)}{x-x_0}\\right|\\leqslant\\left|\\frac{g(x_0+\\delta)-g(x_0)}{\\delta}\\right|+\\left|\\frac{g(x_0)-g(x_0-\\delta)}{\\delta}\\right|,$$\n故 $g$ 在 $x_0$ 连续。一般地，开区间上的一元凸函数连续。\n\n(ii) 设 $(x_0,y_0)\\in D$（区域为开集），取 $\\delta>0$ 使 $E_\\delta=[x_0-\\delta,x_0+\\delta]\\times[y_0-\\delta,y_0+\\delta]\\subset D$。固定 $x$ 或 $y$ 时 $f$ 是一元凸函数，由 (i)，$f(x,y_0)$，$f(x,y_0\\pm\\delta)$ 都是 $x\\in[x_0-\\delta,x_0+\\delta]$ 上的连续函数，从而有界，于是存在常数 $M_\\delta>0$，使对 $x\\in[x_0-\\delta,x_0+\\delta]$，\n$$\\frac{|f(x,y_0+\\delta)-f(x,y_0)|}{\\delta}+\\frac{|f(x,y_0)-f(x,y_0-\\delta)|}{\\delta}+\\frac{|f(x_0+\\delta,y_0)-f(x_0,y_0)|}{\\delta}+\\frac{|f(x_0,y_0)-f(x_0-\\delta,y_0)|}{\\delta}\\leqslant M_\\delta.$$\n再由 (i) 的估计，对 $(x,y)\\in E_\\delta$，\n$$|f(x,y)-f(x_0,y_0)|\\leqslant|f(x,y)-f(x,y_0)|+|f(x,y_0)-f(x_0,y_0)|\\leqslant M_\\delta|y-y_0|+M_\\delta|x-x_0|.$$\n于是 $f$ 在 $(x_0,y_0)$ 连续。",
+   "solutionSource": "官方"
+  },
+  {
+   "no": "四",
+   "score": 10,
+   "type": "证明",
+   "subjects": [
+    "数学分析"
+   ],
+   "topics": [
+    "积分极限",
+    "Peano余项",
+    "Taylor展开",
+    "Riemann可积"
+   ],
+   "difficulty": 3,
+   "statement": "设 $f(x)$ 在 $[0,1]$ 上黎曼（Riemann）可积，在 $x=1$ 可导，$f(1)=0$，$f'(1)=a$。证明：$\\lim\\limits_{n\\to+\\infty}n^2\\displaystyle\\int_0^1x^nf(x)\\,\\mathrm{d}x=-a$。",
+   "answer": "",
+   "solution": "记 $M=\\sup\\limits_{x\\in[0,1]}|f(x)|<+\\infty$，令 $r(x)=f(x)-f(1)-f'(1)(x-1)=f(x)-a(x-1)$。由 Peano 型 Taylor 展开，$\\forall\\varepsilon>0$，$\\exists\\delta\\in(0,1)$，当 $\\delta<x\\leqslant1$ 时 $|r(x)|\\leqslant\\varepsilon(1-x)$。于是\n$$\\int_0^1x^nf(x)\\,\\mathrm{d}x=\\int_0^\\delta x^nf(x)\\,\\mathrm{d}x+\\int_\\delta^1ax^n(x-1)\\,\\mathrm{d}x+\\int_\\delta^1x^nr(x)\\,\\mathrm{d}x=R_1+R_2+R_3.$$\n其中\n$$|R_1|\\leqslant M\\frac{\\delta^{n+1}}{n+1},\\qquad R_2=-\\frac{a}{(n+1)(n+2)}+a\\left(\\frac{\\delta^{n+1}}{n+1}-\\frac{\\delta^{n+2}}{n+2}\\right),$$\n$$|R_3|\\leqslant\\varepsilon\\int_\\delta^1x^n(1-x)\\,\\mathrm{d}x\\leqslant\\varepsilon\\int_0^1x^n(1-x)\\,\\mathrm{d}x=\\frac{\\varepsilon}{(n+1)(n+2)}.$$\n故 $\\lim n^2R_1=0$，$\\lim(n^2R_2+a)=0$，$\\varlimsup|n^2R_3|\\leqslant\\varepsilon$，所以\n$$\\varlimsup_{n\\to+\\infty}\\left|n^2\\int_0^1x^nf(x)\\,\\mathrm{d}x+a\\right|\\leqslant\\varepsilon.$$\n由 $\\varepsilon$ 的任意性即得结论。",
+   "solutionSource": "官方"
+  },
+  {
+   "no": "五",
+   "score": 15,
+   "type": "解答",
+   "subjects": [
+    "解析几何"
+   ],
+   "topics": [
+    "二次曲面",
+    "直纹面",
+    "单叶双曲面",
+    "共线点"
+   ],
+   "difficulty": 3,
+   "statement": "已知二次曲面 $\\Sigma$（非退化）过以下九点：\n$$A(1,0,0),\\ B(1,1,2),\\ C(1,-1,-2),\\ D(3,0,0),\\ E(3,1,2),$$\n$$F(3,-2,-4),\\ G(0,1,4),\\ H(3,-1,-2),\\ I(5,2\\sqrt2,8).$$\n问 $\\Sigma$ 是哪一类曲面？",
+   "answer": "单叶双曲面（方程为 $(x-2)^2+y^2-\\dfrac{z^2}{4}=1$）。",
+   "solution": "容易验证 $A,B,C$ 共线，$D,E,F$ 共线。非退化二次曲面中只有单叶双曲面和双曲抛物面上可能有三点共线，此时该直线整条落在曲面上（直母线）。又直线 $ABC$ 与直线 $DEF$ 平行（方向均为 $(0,1,2)$）且不重合。双曲抛物面的同族直母线都异面、不同族直母线都相交，不可能有两条平行直母线，故排除双曲抛物面，$\\Sigma$ 只能是单叶双曲面。\n\n【注】曲面方程是 $(x-2)^2+y^2-\\dfrac{z^2}{4}=1$（原题不要求求写）。",
+   "solutionSource": "官方"
+  },
+  {
+   "no": "六",
+   "score": 20,
+   "type": "证明",
+   "subjects": [
+    "高等代数"
+   ],
+   "topics": [
+    "二次型",
+    "半正定",
+    "二次三项式判别"
+   ],
+   "difficulty": 3,
+   "statement": "设 $A$ 为 $n\\times n$ 实矩阵（未必对称），对任一 $n$ 维实向量 $\\alpha=(\\alpha_1,\\ldots,\\alpha_n)$，$\\alpha A\\alpha^{\\mathrm T}\\geqslant0$（这里 $\\alpha^{\\mathrm T}$ 表示 $\\alpha$ 的转置），且存在 $n$ 维实向量 $\\beta$ 使得 $\\beta A\\beta^{\\mathrm T}=0$。同时对任意 $n$ 维实向量 $x$ 和 $y$，当 $xAy^{\\mathrm T}\\neq0$ 时有 $xAy^{\\mathrm T}+yAx^{\\mathrm T}\\neq0$。证明：对任意 $n$ 维实向量 $v$，都有 $vA\\beta^{\\mathrm T}=0$。",
+   "answer": "",
+   "solution": "任取实数 $r$，由题设 $(v+r\\beta)A(v+r\\beta)^{\\mathrm T}\\geqslant0$，利用 $\\beta A\\beta^{\\mathrm T}=0$ 得\n$$vAv^{\\mathrm T}+r\\left(vA\\beta^{\\mathrm T}+\\beta Av^{\\mathrm T}\\right)\\geqslant0,\\quad\\forall r\\in\\mathbb R.$$\n若 $vA\\beta^{\\mathrm T}\\neq0$，则由题设 $vA\\beta^{\\mathrm T}+\\beta Av^{\\mathrm T}\\neq0$，于是可取适当的实数 $r$ 使上式左端小于 $0$，矛盾。故 $vA\\beta^{\\mathrm T}=0$。",
+   "solutionSource": "官方"
+  },
+  {
+   "no": "七",
+   "score": 10,
+   "type": "证明",
+   "subjects": [
+    "数学分析"
+   ],
+   "topics": [
+    "Riemann积分",
+    "阶梯函数逼近",
+    "积分估计"
+   ],
+   "difficulty": 3,
+   "statement": "设 $f$ 在区间 $[0,1]$ 上黎曼（Riemann）可积，$0\\leqslant f\\leqslant1$。求证：对任何 $\\varepsilon>0$，存在只取值为 $0$ 和 $1$ 的分段（段数有限）常值函数 $g(x)$，使得 $\\forall[\\alpha,\\beta]\\subseteq[0,1]$，\n$$\\left|\\int_\\alpha^\\beta\\big(f(x)-g(x)\\big)\\,\\mathrm{d}x\\right|<\\varepsilon.$$",
+   "answer": "",
+   "solution": "取定 $n>\\dfrac2\\varepsilon$，令\n$$A_m=\\left[\\frac mn,\\ \\frac mn+\\int_{m/n}^{(m+1)/n}f(t)\\,\\mathrm{d}t\\right),\\qquad g(x)=\\begin{cases}1,&x\\in\\bigcup\\limits_{m=0}^{n-1}A_m,\\\\0,&x\\notin\\bigcup\\limits_{m=0}^{n-1}A_m.\\end{cases}$$\n由 $0\\leqslant f\\leqslant1$，$A_m\\subset\\left[\\frac mn,\\frac{m+1}n\\right]$，且在每个 $\\left[\\frac mn,\\frac{m+1}n\\right]$ 上 $\\int(f-g)=0$。对 $0\\leqslant\\alpha<\\beta\\leqslant1$，取非负整数 $k\\leqslant l$ 使 $\\frac kn\\leqslant\\alpha<\\frac{k+1}n$，$\\frac ln\\leqslant\\beta<\\frac{l+1}n$（$k=l$ 时直接估计），则\n$$\\left|\\int_\\alpha^\\beta(f-g)\\right|\\leqslant\\int_\\alpha^{\\frac{k+1}n}|f-g|+\\left|\\int_{\\frac{k+1}n}^{\\frac ln}(f-g)\\right|+\\int_{\\frac ln}^\\beta|f-g|\\leqslant\\frac1n+0+\\frac1n=\\frac2n<\\varepsilon.$$",
+   "solutionSource": "官方"
+  },
+  {
+   "no": "八",
+   "score": 10,
+   "type": "证明",
+   "subjects": [
+    "数学分析"
+   ],
+   "topics": [
+    "反函数",
+    "Cauchy-Schwarz不等式",
+    "Young不等式",
+    "广义积分"
+   ],
+   "difficulty": 4,
+   "statement": "已知 $\\varphi:(0,+\\infty)\\to(0,+\\infty)$ 是一个严格单调下降的连续函数，满足 $\\lim\\limits_{t\\to0^+}\\varphi(t)=+\\infty$，且 $\\displaystyle\\int_0^{+\\infty}\\varphi(t)\\,\\mathrm{d}t=\\int_0^{+\\infty}\\varphi^{-1}(t)\\,\\mathrm{d}t=a<+\\infty$，其中 $\\varphi^{-1}$ 表示 $\\varphi$ 的反函数。求证：\n$$\\int_0^{+\\infty}[\\varphi(t)]^2\\,\\mathrm{d}t+\\int_0^{+\\infty}\\left[\\varphi^{-1}(t)\\right]^2\\mathrm{d}t\\geqslant\\frac12a^{\\frac32}.$$",
+   "answer": "",
+   "solution": "取 $p,q>0$，$pq=a$，令 $P=\\displaystyle\\int_p^{+\\infty}\\varphi(t)\\,\\mathrm{d}t$，$Q=\\displaystyle\\int_q^{+\\infty}\\varphi^{-1}(t)\\,\\mathrm{d}t$，$I=a-P-Q$。由 Cauchy-Schwarz 不等式\n$$\\int_0^{+\\infty}\\left[\\varphi^{-1}(t)\\right]^2\\mathrm{d}t\\geqslant\\int_0^q\\left[\\varphi^{-1}(t)\\right]^2\\mathrm{d}t\\geqslant\\frac1q\\left(\\int_0^q\\varphi^{-1}(t)\\,\\mathrm{d}t\\right)^2=\\frac1q(a-Q)^2=\\frac1q(I+P)^2,$$\n$$\\int_0^{+\\infty}[\\varphi(t)]^2\\,\\mathrm{d}t\\geqslant\\frac1p\\left(\\int_0^p\\varphi(t)\\,\\mathrm{d}t\\right)^2=\\frac1p(a-P)^2=\\frac1p(I+Q)^2.$$\n因此\n$$\\int_0^{+\\infty}\\varphi^2+\\int_0^{+\\infty}\\left(\\varphi^{-1}\\right)^2\\geqslant\\frac1p(I+Q)^2+\\frac1q(I+P)^2\\geqslant\\frac{2}{\\sqrt{pq}}(I+P)(I+Q)=\\frac{2}{\\sqrt a}(PQ+aI).$$\n当 $p$ 由 $0$ 增到 $+\\infty$（$q=a/p$）时，$P$ 连续地由 $a$ 减到 $0$，$Q$ 连续地由 $0$ 增到 $a$，故可取 $p,q$ 使 $P=Q=\\dfrac{a-I}{2}$。又由 Young 不等式（几何上，矩形 $[0,p]\\times[0,q]$ 被曲线 $y=\\varphi(x)$ 下方与左方两块区域覆盖）$\\displaystyle\\int_0^p\\varphi+\\int_0^q\\varphi^{-1}\\geqslant pq=a$，即 $I\\geqslant0$。从而\n$$\\int_0^{+\\infty}\\varphi^2+\\int_0^{+\\infty}\\left(\\varphi^{-1}\\right)^2\\geqslant\\frac{2}{\\sqrt a}\\left[\\frac{(a-I)^2}{4}+aI\\right]=\\frac{2}{\\sqrt a}\\cdot\\frac{(a+I)^2}{4}\\geqslant\\frac12a^{\\frac32}.$$\n（注：原解答此处笔误，已改正；并补充了 $I\\geqslant0$ 的说明。）",
+   "solutionSource": "官方"
+  }
+ ]
+}

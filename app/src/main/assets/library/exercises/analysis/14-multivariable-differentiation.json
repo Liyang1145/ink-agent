@@ -1,0 +1,281 @@
+{
+ "id": "ex-analysis-14",
+ "title": "数学分析 · 多元函数微分学",
+ "subject": "数学分析",
+ "chapter": 14,
+ "problems": [
+  {
+   "no": "1",
+   "type": "计算",
+   "subjects": [
+    "数学分析"
+   ],
+   "topics": [
+    "偏导数",
+    "Laplace方程"
+   ],
+   "difficulty": 1,
+   "statement": "设 $z=\\arctan\\dfrac yx$，求 $z_x,z_y$，并验证 $z_{xx}+z_{yy}=0$。",
+   "answer": "$z_x=-\\dfrac{y}{x^2+y^2}$，$z_y=\\dfrac{x}{x^2+y^2}$",
+   "solution": "$$z_x=\\dfrac{1}{1+\\frac{y^2}{x^2}}\\cdot\\left(-\\dfrac y{x^2}\\right)=-\\dfrac{y}{x^2+y^2},\\qquad z_y=\\dfrac{1}{1+\\frac{y^2}{x^2}}\\cdot\\dfrac1x=\\dfrac{x}{x^2+y^2}.$$\n$$z_{xx}=\\dfrac{2xy}{(x^2+y^2)^2},\\qquad z_{yy}=-\\dfrac{2xy}{(x^2+y^2)^2},$$\n相加为 $0$。",
+   "solutionSource": "编写",
+   "source": "经典题"
+  },
+  {
+   "no": "2",
+   "type": "计算",
+   "subjects": [
+    "数学分析"
+   ],
+   "topics": [
+    "方向导数",
+    "梯度"
+   ],
+   "difficulty": 1,
+   "statement": "求 $u=x^2+2y^2+3z^2$ 在点 $(1,1,1)$ 处沿方向 $\\boldsymbol{l}=(1,1,1)$ 的方向导数，以及该点处方向导数的最大值。",
+   "answer": "$4\\sqrt3$；最大值 $2\\sqrt{14}$",
+   "solution": "$\\nabla u=(2x,4y,6z)$，在 $(1,1,1)$ 处为 $(2,4,6)$。单位方向 $\\boldsymbol{l}^0=\\dfrac{1}{\\sqrt3}(1,1,1)$，\n$$\\dfrac{\\partial u}{\\partial\\boldsymbol{l}}=\\nabla u\\cdot\\boldsymbol{l}^0=\\dfrac{2+4+6}{\\sqrt3}=4\\sqrt3.$$\n方向导数最大值为 $|\\nabla u|=\\sqrt{4+16+36}=2\\sqrt{14}$，沿梯度方向取得。",
+   "solutionSource": "编写",
+   "source": "经典题"
+  },
+  {
+   "no": "3",
+   "type": "计算",
+   "subjects": [
+    "数学分析"
+   ],
+   "topics": [
+    "切平面",
+    "法线"
+   ],
+   "difficulty": 1,
+   "statement": "求椭球面 $x^2+2y^2+3z^2=6$ 在点 $(1,1,1)$ 处的切平面与法线方程。",
+   "answer": "切平面 $x+2y+3z=6$；法线 $\\dfrac{x-1}{1}=\\dfrac{y-1}{2}=\\dfrac{z-1}{3}$",
+   "solution": "令 $F=x^2+2y^2+3z^2-6$，法向量 $\\nabla F=(2x,4y,6z)=(2,4,6)\\parallel(1,2,3)$。切平面：$(x-1)+2(y-1)+3(z-1)=0$，即 $x+2y+3z=6$；法线：$\\dfrac{x-1}1=\\dfrac{y-1}2=\\dfrac{z-1}3$。",
+   "solutionSource": "编写",
+   "source": "经典题"
+  },
+  {
+   "no": "4",
+   "type": "计算",
+   "subjects": [
+    "数学分析"
+   ],
+   "topics": [
+    "复合函数求导",
+    "链式法则"
+   ],
+   "difficulty": 2,
+   "statement": "设 $z=f(xy,\\ x^2-y^2)$，$f$ 具有二阶连续偏导数。求 $\\dfrac{\\partial z}{\\partial x}$ 与 $\\dfrac{\\partial^2z}{\\partial x\\partial y}$。",
+   "answer": "$z_x=yf_1+2xf_2$；$z_{xy}=f_1+xyf_{11}+2(x^2-y^2)f_{12}-4xyf_{22}$",
+   "solution": "记 $u=xy$，$v=x^2-y^2$，$f_1,f_2$ 为对第一、二个变量的偏导。\n$$z_x=yf_1+2xf_2.$$\n对 $y$ 求偏导，注意 $u_y=x$，$v_y=-2y$：\n$$z_{xy}=f_1+y\\big(xf_{11}-2yf_{12}\\big)+2x\\big(xf_{21}-2yf_{22}\\big)=f_1+xyf_{11}+2(x^2-y^2)f_{12}-4xyf_{22},$$\n其中用到 $f_{12}=f_{21}$（二阶偏导连续）。",
+   "solutionSource": "编写",
+   "source": "经典题"
+  },
+  {
+   "no": "5",
+   "type": "计算",
+   "subjects": [
+    "数学分析"
+   ],
+   "topics": [
+    "隐函数求导",
+    "二阶偏导数"
+   ],
+   "difficulty": 2,
+   "statement": "设 $z=z(x,y)$ 由 $x^2+y^2+z^2=4z$ 确定（$z\\ne2$），求 $z_{xx}$。",
+   "answer": "$z_{xx}=\\dfrac{(2-z)^2+x^2}{(2-z)^3}$",
+   "solution": "对 $x$ 求偏导：$2x+2zz_x=4z_x$，得 $z_x=\\dfrac{x}{2-z}$。再对 $x$ 求偏导：\n$$z_{xx}=\\dfrac{(2-z)+xz_x}{(2-z)^2}=\\dfrac{(2-z)+\\frac{x^2}{2-z}}{(2-z)^2}=\\dfrac{(2-z)^2+x^2}{(2-z)^3}.$$",
+   "solutionSource": "编写",
+   "source": "经典题"
+  },
+  {
+   "no": "6",
+   "type": "计算",
+   "subjects": [
+    "数学分析"
+   ],
+   "topics": [
+    "隐函数组",
+    "Jacobi行列式"
+   ],
+   "difficulty": 2,
+   "statement": "设 $y=y(x)$，$z=z(x)$ 由方程组 $x+y+z=0$，$x^2+y^2+z^2=1$ 确定，求 $\\dfrac{\\mathrm{d}y}{\\mathrm{d}x}$ 与 $\\dfrac{\\mathrm{d}z}{\\mathrm{d}x}$（$y\\ne z$）。",
+   "answer": "$\\dfrac{\\mathrm{d}y}{\\mathrm{d}x}=\\dfrac{z-x}{y-z}$，$\\dfrac{\\mathrm{d}z}{\\mathrm{d}x}=\\dfrac{x-y}{y-z}$",
+   "solution": "两式对 $x$ 求导：\n$$1+y'+z'=0,\\qquad x+yy'+zz'=0.$$\n由第一式 $z'=-1-y'$ 代入第二式：$x+yy'-z-zy'=0$，即 $(y-z)y'=z-x$，故 $y'=\\dfrac{z-x}{y-z}$；$z'=-1-y'=\\dfrac{-(y-z)-(z-x)}{y-z}=\\dfrac{x-y}{y-z}$。",
+   "solutionSource": "编写",
+   "source": "经典题"
+  },
+  {
+   "no": "7",
+   "type": "证明",
+   "subjects": [
+    "数学分析"
+   ],
+   "topics": [
+    "可微性",
+    "偏导数"
+   ],
+   "difficulty": 2,
+   "statement": "设 $f(x,y)=\\dfrac{xy}{\\sqrt{x^2+y^2}}$（$(x,y)\\ne(0,0)$），$f(0,0)=0$。证明 $f$ 在原点连续，偏导数存在，但不可微。",
+   "answer": "",
+   "solution": "连续：$|f|\\le\\dfrac{\\frac12(x^2+y^2)}{\\sqrt{x^2+y^2}}=\\dfrac12\\sqrt{x^2+y^2}\\to0$。\n\n偏导：$f(x,0)=0$，$f(0,y)=0$，故 $f_x(0,0)=f_y(0,0)=0$。\n\n可微则必有 $\\dfrac{f(\\Delta x,\\Delta y)-0-0}{\\rho}\\to0$（$\\rho=\\sqrt{\\Delta x^2+\\Delta y^2}$），而\n$$\\dfrac{f(\\Delta x,\\Delta y)}{\\rho}=\\dfrac{\\Delta x\\Delta y}{\\Delta x^2+\\Delta y^2},$$\n沿 $\\Delta y=k\\Delta x$ 趋于 $\\dfrac{k}{1+k^2}$，极限不存在，故不可微。",
+   "solutionSource": "编写",
+   "source": "经典题"
+  },
+  {
+   "no": "8",
+   "type": "证明",
+   "subjects": [
+    "数学分析"
+   ],
+   "topics": [
+    "可微性",
+    "偏导数的连续性"
+   ],
+   "difficulty": 3,
+   "statement": "设 $f(x,y)=(x^2+y^2)\\sin\\dfrac{1}{x^2+y^2}$（$(x,y)\\ne(0,0)$），$f(0,0)=0$。证明 $f$ 在原点可微，但偏导数在原点不连续。",
+   "answer": "",
+   "solution": "记 $\\rho=\\sqrt{x^2+y^2}$。$\\dfrac{|f(x,y)|}{\\rho}\\le\\rho\\to0$，故 $f(x,y)=0\\cdot x+0\\cdot y+o(\\rho)$，$f$ 在原点可微，$f_x(0,0)=f_y(0,0)=0$。\n\n$(x,y)\\ne(0,0)$ 时\n$$f_x=2x\\sin\\dfrac1{\\rho^2}-\\dfrac{2x}{\\rho^2}\\cos\\dfrac{1}{\\rho^2}.$$\n沿 $y=0$：$f_x(x,0)=2x\\sin\\dfrac{1}{x^2}-\\dfrac2x\\cos\\dfrac1{x^2}$。取 $x_n=\\dfrac{1}{\\sqrt{2n\\pi}}\\to0$，得 $f_x(x_n,0)=-2\\sqrt{2n\\pi}\\to-\\infty$，故 $f_x$ 在原点不连续（$f_y$ 同理）。\n\n此例说明偏导数连续只是可微的充分条件。",
+   "solutionSource": "编写",
+   "source": "经典题"
+  },
+  {
+   "no": "9",
+   "type": "计算",
+   "subjects": [
+    "数学分析"
+   ],
+   "topics": [
+    "二元函数极值",
+    "Hesse矩阵"
+   ],
+   "difficulty": 2,
+   "statement": "求 $f(x,y)=x^3+y^3-3xy$ 的极值。",
+   "answer": "$(1,1)$ 处取极小值 $-1$；$(0,0)$ 不是极值点",
+   "solution": "$f_x=3x^2-3y=0$，$f_y=3y^2-3x=0$，得 $y=x^2$，$x=y^2$，故 $x^4=x$，驻点为 $(0,0)$ 与 $(1,1)$。\n\n$A=f_{xx}=6x$，$B=f_{xy}=-3$，$C=f_{yy}=6y$。\n- $(0,0)$：$AC-B^2=-9<0$，不是极值点（鞍点）。\n- $(1,1)$：$AC-B^2=36-9=27>0$，$A=6>0$，为极小值点，$f(1,1)=-1$。",
+   "solutionSource": "编写",
+   "source": "经典题"
+  },
+  {
+   "no": "10",
+   "type": "计算",
+   "subjects": [
+    "数学分析"
+   ],
+   "topics": [
+    "Taylor公式",
+    "二元函数"
+   ],
+   "difficulty": 2,
+   "statement": "写出 $f(x,y)=e^x\\ln(1+y)$ 在点 $(0,0)$ 处带 Peano 余项的二阶 Taylor 公式。",
+   "answer": "$f(x,y)=y+xy-\\dfrac{y^2}2+o(x^2+y^2)$",
+   "solution": "由一元展开 $e^x=1+x+\\dfrac{x^2}2+o(x^2)$，$\\ln(1+y)=y-\\dfrac{y^2}2+o(y^2)$，相乘并保留二次及以下的项：\n$$f(x,y)=y+xy-\\dfrac{y^2}2+o(\\rho^2),\\quad\\rho=\\sqrt{x^2+y^2}.$$\n（也可直接验证：$f_y(0,0)=1$，$f_{xy}(0,0)=1$，$f_{yy}(0,0)=-1$，其余一、二阶偏导在原点为 $0$。）",
+   "solutionSource": "编写",
+   "source": "经典题"
+  },
+  {
+   "no": "11",
+   "type": "计算",
+   "subjects": [
+    "数学分析"
+   ],
+   "topics": [
+    "Lagrange乘数法",
+    "点到平面距离"
+   ],
+   "difficulty": 2,
+   "statement": "用 Lagrange 乘数法求点 $(x_0,y_0,z_0)$ 到平面 $Ax+By+Cz+D=0$ 的距离。",
+   "answer": "$\\dfrac{|Ax_0+By_0+Cz_0+D|}{\\sqrt{A^2+B^2+C^2}}$",
+   "solution": "求 $d^2=(x-x_0)^2+(y-y_0)^2+(z-z_0)^2$ 在约束 $Ax+By+Cz+D=0$ 下的最小值。令\n$$L=(x-x_0)^2+(y-y_0)^2+(z-z_0)^2-2\\lambda(Ax+By+Cz+D),$$\n得 $x-x_0=\\lambda A$，$y-y_0=\\lambda B$，$z-z_0=\\lambda C$。代入约束：$Ax_0+By_0+Cz_0+D+\\lambda(A^2+B^2+C^2)=0$，\n$$\\lambda=-\\dfrac{Ax_0+By_0+Cz_0+D}{A^2+B^2+C^2},\\qquad d=|\\lambda|\\sqrt{A^2+B^2+C^2}=\\dfrac{|Ax_0+By_0+Cz_0+D|}{\\sqrt{A^2+B^2+C^2}}.$$\n$d^2$ 连续且在平面上当点趋于无穷时 $\\to+\\infty$，最小值存在，唯一的驻点即最小值点。",
+   "solutionSource": "编写",
+   "source": "经典题"
+  },
+  {
+   "no": "12",
+   "type": "计算",
+   "subjects": [
+    "数学分析"
+   ],
+   "topics": [
+    "Lagrange乘数法",
+    "条件极值"
+   ],
+   "difficulty": 3,
+   "statement": "求内接于椭球 $\\dfrac{x^2}{a^2}+\\dfrac{y^2}{b^2}+\\dfrac{z^2}{c^2}=1$ 且各棱平行于坐标轴的长方体的最大体积。",
+   "answer": "$\\dfrac{8abc}{3\\sqrt3}$",
+   "solution": "设长方体在第一卦限的顶点为 $(x,y,z)$，$x,y,z>0$，体积 $V=8xyz$。令\n$$L=xyz-\\lambda\\left(\\dfrac{x^2}{a^2}+\\dfrac{y^2}{b^2}+\\dfrac{z^2}{c^2}-1\\right),$$\n$L_x=yz-\\dfrac{2\\lambda x}{a^2}=0$ 等三式分别乘以 $x,y,z$ 得\n$$xyz=\\dfrac{2\\lambda x^2}{a^2}=\\dfrac{2\\lambda y^2}{b^2}=\\dfrac{2\\lambda z^2}{c^2},$$\n故 $\\dfrac{x^2}{a^2}=\\dfrac{y^2}{b^2}=\\dfrac{z^2}{c^2}=\\dfrac13$，$x=\\dfrac{a}{\\sqrt3}$，$y=\\dfrac b{\\sqrt3}$，$z=\\dfrac c{\\sqrt3}$。\n\n$V$ 在紧集（椭球面第一卦限部分的闭包）上连续，边界（某坐标为 $0$）上 $V=0$，故最大值在内部唯一的驻点处取得：$V_{\\max}=\\dfrac{8abc}{3\\sqrt3}$。\n\n（也可由均值不等式：$\\sqrt[3]{\\frac{x^2}{a^2}\\frac{y^2}{b^2}\\frac{z^2}{c^2}}\\le\\dfrac13$ 直接得到。）",
+   "solutionSource": "编写",
+   "source": "经典题"
+  },
+  {
+   "no": "13",
+   "type": "证明",
+   "subjects": [
+    "数学分析"
+   ],
+   "topics": [
+    "齐次函数",
+    "Euler定理"
+   ],
+   "difficulty": 3,
+   "statement": "设 $f$ 在 $\\mathbb{R}^2\\setminus\\{(0,0)\\}$ 上可微。证明：$f$ 为 $k$ 次齐次函数（即 $f(tx,ty)=t^kf(x,y)$ 对一切 $t>0$ 成立）当且仅当\n$$xf_x(x,y)+yf_y(x,y)=kf(x,y).$$",
+   "answer": "",
+   "solution": "必要性：对 $f(tx,ty)=t^kf(x,y)$ 两边关于 $t$ 求导：$xf_x(tx,ty)+yf_y(tx,ty)=kt^{k-1}f(x,y)$，令 $t=1$ 即得。\n\n充分性：固定 $(x,y)\\ne(0,0)$，令 $\\varphi(t)=\\dfrac{f(tx,ty)}{t^k}$，$t>0$。在点 $(tx,ty)$ 处应用所给等式：$tx\\,f_x(tx,ty)+ty\\,f_y(tx,ty)=kf(tx,ty)$。于是\n$$\\varphi'(t)=\\dfrac{t\\big(xf_x(tx,ty)+yf_y(tx,ty)\\big)-kf(tx,ty)}{t^{k+1}}=0,$$\n$\\varphi$ 在 $(0,+\\infty)$ 上为常数，$\\varphi(t)=\\varphi(1)=f(x,y)$，即 $f(tx,ty)=t^kf(x,y)$。",
+   "solutionSource": "编写",
+   "source": "经典题"
+  },
+  {
+   "no": "14",
+   "type": "计算",
+   "subjects": [
+    "数学分析"
+   ],
+   "topics": [
+    "变量代换",
+    "偏微分方程"
+   ],
+   "difficulty": 3,
+   "statement": "用变换 $\\xi=x+y$，$\\eta=x-y$ 化简方程 $u_{xx}-u_{yy}=0$（$u$ 有二阶连续偏导数），并求其一般解。",
+   "answer": "化为 $u_{\\xi\\eta}=0$；$u=\\varphi(x+y)+\\psi(x-y)$",
+   "solution": "$u_x=u_\\xi+u_\\eta$，$u_y=u_\\xi-u_\\eta$。\n$$u_{xx}=u_{\\xi\\xi}+2u_{\\xi\\eta}+u_{\\eta\\eta},\\qquad u_{yy}=u_{\\xi\\xi}-2u_{\\xi\\eta}+u_{\\eta\\eta}.$$\n于是 $u_{xx}-u_{yy}=4u_{\\xi\\eta}=0$，即 $u_{\\xi\\eta}=0$。对 $\\eta$ 积分知 $u_\\xi$ 只依赖于 $\\xi$，记 $u_\\xi=\\varphi'(\\xi)$，再积分得 $u=\\varphi(\\xi)+\\psi(\\eta)=\\varphi(x+y)+\\psi(x-y)$，其中 $\\varphi,\\psi$ 为任意二阶可微函数。",
+   "solutionSource": "编写",
+   "source": "经典题"
+  },
+  {
+   "no": "15",
+   "type": "计算",
+   "subjects": [
+    "数学分析"
+   ],
+   "topics": [
+    "Laplace算子",
+    "复合函数求导"
+   ],
+   "difficulty": 3,
+   "statement": "设 $r=\\sqrt{x^2+y^2+z^2}$，$u=f(r)$，$f$ 二阶可导。证明 $\\Delta u=u_{xx}+u_{yy}+u_{zz}=f''(r)+\\dfrac2rf'(r)$，并求所有满足 $\\Delta u=0$（$r>0$）的这类函数。",
+   "answer": "$u=C_1+\\dfrac{C_2}{r}$",
+   "solution": "$r_x=\\dfrac xr$，$u_x=f'(r)\\dfrac xr$，\n$$u_{xx}=f''(r)\\dfrac{x^2}{r^2}+f'(r)\\left(\\dfrac1r-\\dfrac{x^2}{r^3}\\right).$$\n对 $y,z$ 同理，相加并用 $x^2+y^2+z^2=r^2$：\n$$\\Delta u=f''(r)+f'(r)\\left(\\dfrac3r-\\dfrac1r\\right)=f''(r)+\\dfrac2rf'(r).$$\n$\\Delta u=0\\iff r^2f''+2rf'=0\\iff(r^2f')'=0\\iff f'=-\\dfrac{C_2}{r^2}\\iff f=C_1+\\dfrac{C_2}{r}$。",
+   "solutionSource": "编写",
+   "source": "经典题"
+  },
+  {
+   "no": "16",
+   "type": "证明",
+   "subjects": [
+    "数学分析"
+   ],
+   "topics": [
+    "最值",
+    "梯度",
+    "辅助函数"
+   ],
+   "difficulty": 5,
+   "statement": "设 $f(x,y)$ 在闭单位圆盘 $D=\\{x^2+y^2\\le1\\}$ 上有连续偏导数，且 $|f(x,y)|\\le1$。证明存在 $(x_0,y_0)$，$x_0^2+y_0^2<1$，使 $f_x^2(x_0,y_0)+f_y^2(x_0,y_0)<16$。",
+   "answer": "",
+   "solution": "令 $g(x,y)=f(x,y)+2(x^2+y^2)$，在紧集 $D$ 上连续，取得最小值。在边界 $x^2+y^2=1$ 上 $g\\ge-1+2=1$；而 $g(0,0)=f(0,0)\\le1$。\n\n因此最小值 $\\le g(0,0)\\le1\\le\\min_{\\partial D}g$：若最小值只在边界上取得，则它等于 $1$ 且 $g(0,0)=1$ 也是最小值，原点为内部最小值点。总之 $g$ 在某个内点 $(x_0,y_0)$ 处取得最小值，故\n$$g_x=f_x+4x_0=0,\\qquad g_y=f_y+4y_0=0.$$\n于是 $f_x^2+f_y^2=16(x_0^2+y_0^2)<16$。",
+   "solutionSource": "编写",
+   "source": "经典竞赛题"
+  }
+ ]
+}

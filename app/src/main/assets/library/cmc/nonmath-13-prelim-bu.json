@@ -1,0 +1,201 @@
+{
+ "id": "cmc-nonmath-13-prelim-bu",
+ "title": "第十三届全国大学生数学竞赛初赛补赛（非数学类）",
+ "year": 2021,
+ "track": "非数学类",
+ "round": "初赛补赛",
+ "paper": "",
+ "durationMin": 150,
+ "totalScore": 100,
+ "source": {
+  "question": "13-bu-nonmath.pdf",
+  "solution": "13-bu-nonmath.pdf"
+ },
+ "problems": [
+  {
+   "no": "一(1)",
+   "score": 6,
+   "type": "填空",
+   "subjects": [
+    "高等数学"
+   ],
+   "topics": [
+    "递推数列",
+    "Stolz 定理",
+    "等价无穷小"
+   ],
+   "difficulty": 2,
+   "statement": "设 $x_0=1$，$x_n=\\ln\\left(1+x_{n-1}\\right)\\ (n\\geqslant1)$，则 $\\lim\\limits_{n\\to+\\infty}nx_n=$\\_\\_\\_\\_\\_\\_。",
+   "answer": "$2$",
+   "solution": "由 $\\ln(1+x)<x$ 知 $x_n\\geqslant0$ 单调递减，故收敛，极限 $A$ 满足 $A=\\ln(1+A)$，$A=0$。由 Stolz 定理，\n$$\\lim nx_n=\\lim\\frac{n}{1/x_n}=\\lim\\frac{1}{\\frac1{x_{n+1}}-\\frac1{x_n}}=\\lim\\frac{x_nx_{n+1}}{x_n-x_{n+1}}=\\lim\\frac{x_n\\ln(1+x_n)}{x_n-\\ln(1+x_n)}=\\lim\\frac{x_n^2}{\\frac12x_n^2}=2.$$",
+   "solutionSource": "官方"
+  },
+  {
+   "no": "一(2)",
+   "score": 6,
+   "type": "填空",
+   "subjects": [
+    "高等数学"
+   ],
+   "topics": [
+    "定积分",
+    "区间再现",
+    "对称性"
+   ],
+   "difficulty": 2,
+   "statement": "积分 $I=\\displaystyle\\int_0^{\\frac\\pi2}\\frac{\\cos x}{1+\\tan x}\\,\\mathrm{d}x=$\\_\\_\\_\\_\\_\\_。",
+   "answer": "$\\dfrac{1}{2\\sqrt2}\\ln\\dfrac{1+\\sqrt2}{\\sqrt2-1}=\\dfrac{\\sqrt2}{2}\\ln\\left(1+\\sqrt2\\right)$",
+   "solution": "$I=\\displaystyle\\int_0^{\\pi/2}\\frac{\\cos^2x}{\\sin x+\\cos x}\\,\\mathrm{d}x$，令 $x=\\frac\\pi2-t$ 得 $I=\\displaystyle\\int_0^{\\pi/2}\\frac{\\sin^2x}{\\sin x+\\cos x}\\,\\mathrm{d}x$。两式相加：\n$$2I=\\int_0^{\\pi/2}\\frac{\\mathrm{d}x}{\\sin x+\\cos x}=\\frac1{\\sqrt2}\\int_{\\pi/4}^{3\\pi/4}\\frac{\\mathrm{d}u}{\\sin u}=\\frac1{\\sqrt2}\\Big[\\ln\\tan\\frac u2\\Big]_{\\pi/4}^{3\\pi/4}=\\frac1{\\sqrt2}\\ln\\frac{\\sqrt2+1}{\\sqrt2-1},$$\n故 $I=\\dfrac1{2\\sqrt2}\\ln\\dfrac{1+\\sqrt2}{\\sqrt2-1}=\\dfrac{\\sqrt2}2\\ln(1+\\sqrt2)$。\n\n（另法：万能代换 $t=\\tan\\frac x2$ 后分解部分分式逐项积分，结果相同。）",
+   "solutionSource": "官方"
+  },
+  {
+   "no": "一(3)",
+   "score": 6,
+   "type": "填空",
+   "subjects": [
+    "高等数学"
+   ],
+   "topics": [
+    "投影直线",
+    "平面束"
+   ],
+   "difficulty": 2,
+   "statement": "已知直线 $L:\\begin{cases}2x-4y+z=0\\\\3x-y-2z=9\\end{cases}$ 和平面 $\\pi:4x-y+z=1$，则直线 $L$ 在平面 $\\pi$ 上的投影直线方程为\\_\\_\\_\\_\\_\\_。",
+   "answer": "$\\begin{cases}17x+31y-37z-117=0\\\\4x-y+z-1=0\\end{cases}$",
+   "solution": "过 $L$ 的平面束：$(2+3\\lambda)x-(4+\\lambda)y+(1-2\\lambda)z-9\\lambda=0$。要求与 $\\pi$ 垂直：\n$$4(2+3\\lambda)+(4+\\lambda)+(1-2\\lambda)=0\\Longrightarrow\\lambda=-\\frac{13}{11}.$$\n代入得 $17x+31y-37z-117=0$，它与 $\\pi$ 的交线即投影直线。",
+   "solutionSource": "官方"
+  },
+  {
+   "no": "一(4)",
+   "score": 6,
+   "type": "填空",
+   "subjects": [
+    "高等数学"
+   ],
+   "topics": [
+    "级数求和",
+    "反正切差公式",
+    "裂项"
+   ],
+   "difficulty": 2,
+   "statement": "$\\displaystyle\\sum_{n=1}^{+\\infty}\\arctan\\frac{2}{4n^2+4n+1}=$\\_\\_\\_\\_\\_\\_。",
+   "answer": "$\\dfrac\\pi2-\\arctan2=\\arctan\\dfrac12$",
+   "solution": "$\\dfrac2{4n^2+4n+1}=\\dfrac{(2n+2)-2n}{1+2n(2n+2)}$，由 $\\arctan\\dfrac{x-y}{1+xy}=\\arctan x-\\arctan y$（$x,y>0$），\n$$\\sum_{n=1}^N\\arctan\\frac2{4n^2+4n+1}=\\arctan(2N+2)-\\arctan2\\to\\frac\\pi2-\\arctan2=\\arctan\\frac12.$$",
+   "solutionSource": "官方"
+  },
+  {
+   "no": "一(5)",
+   "score": 6,
+   "type": "填空",
+   "subjects": [
+    "常微分方程"
+   ],
+   "topics": [
+    "可分离变量方程",
+    "一阶线性方程",
+    "初值问题"
+   ],
+   "difficulty": 2,
+   "statement": "微分方程 $\\begin{cases}(x+1)\\dfrac{\\mathrm{d}y}{\\mathrm{d}x}+1=2e^{-y}\\\\y(0)=0\\end{cases}$ 的解为\\_\\_\\_\\_\\_\\_。",
+   "answer": "$y=\\ln\\dfrac{2x+1}{x+1}$（在含 $x=0$ 的区间 $x>-\\frac12$ 上）",
+   "solution": "方程两边乘 $e^y$：$(x+1)\\dfrac{\\mathrm{d}e^y}{\\mathrm{d}x}+e^y=2$，即 $\\big[(x+1)e^y\\big]'=2$，积分得 $(x+1)e^y=2x+C$。由 $y(0)=0$ 得 $C=1$，故\n$$e^y=\\frac{2x+1}{x+1},\\qquad y=\\ln\\frac{2x+1}{x+1}.$$\n（也可分离变量 $\\dfrac{e^y\\,\\mathrm{d}y}{2-e^y}=\\dfrac{\\mathrm{d}x}{x+1}$，或令 $u=e^y$ 化为一阶线性方程求解。）\n\n（注：参考解答把答案写成 $y=\\ln\\left|\\dfrac{2x+1}{x+1}\\right|\\ (x\\neq-1)$，并补充 $x=-1$ 时 $y=\\ln2$。作为初值问题的解，应取包含 $x=0$ 且使对数有意义的区间 $x>-\\frac12$。）",
+   "solutionSource": "官方"
+  },
+  {
+   "no": "二",
+   "score": 14,
+   "type": "证明",
+   "subjects": [
+    "高等数学"
+   ],
+   "topics": [
+    "含参积分",
+    "零点定理",
+    "单调性",
+    "偶函数"
+   ],
+   "difficulty": 2,
+   "statement": "设 $f(x)=-\\dfrac12\\left(1+\\dfrac1e\\right)+\\displaystyle\\int_{-1}^1|x-t|e^{-t^2}\\,\\mathrm{d}t$，证明：在区间 $(-1,1)$ 内 $f(x)$ 有且仅有两个实根。",
+   "answer": "",
+   "solution": "对 $x\\in(-1,1)$ 去绝对值并利用 $e^{-t^2}$ 为偶函数、$te^{-t^2}$ 为奇函数，整理得\n$$f(x)=2x\\int_0^xe^{-t^2}\\,\\mathrm{d}t+e^{-x^2}-\\frac3{2e}-\\frac12,$$\n$$f'(x)=2\\int_0^xe^{-t^2}\\,\\mathrm{d}t.$$\n故 $f$ 是偶函数，$x>0$ 时 $f'>0$，$x<0$ 时 $f'<0$，$f$ 在 $x=0$ 两侧各至多一个零点。\n\n又\n$$f(0)=1-\\frac3{2e}-\\frac12=\\frac{e-3}{2e}<0,$$\n$$f(1)=2\\int_0^1e^{-t^2}\\,\\mathrm{d}t-\\frac1{2e}-\\frac12>2\\int_0^1e^{-t}\\,\\mathrm{d}t-\\frac1{2e}-\\frac12=\\frac{3e-5}{2e}>0.$$\n由零点定理及单调性，$f$ 在 $(0,1)$ 内恰有一个零点；由偶性在 $(-1,0)$ 内也恰有一个。故 $f$ 在 $(-1,1)$ 内恰有两个实根。",
+   "solutionSource": "官方"
+  },
+  {
+   "no": "三",
+   "score": 14,
+   "type": "计算",
+   "subjects": [
+    "高等数学"
+   ],
+   "topics": [
+    "二重积分",
+    "格林公式",
+    "极坐标",
+    "等价无穷小"
+   ],
+   "difficulty": 3,
+   "statement": "设函数 $f(x,y)$ 在闭区域 $D=\\left\\{(x,y)\\mid x^2+y^2\\leqslant1\\right\\}$ 上具有二阶连续偏导数，且 $\\dfrac{\\partial^2f}{\\partial x^2}+\\dfrac{\\partial^2f}{\\partial y^2}=x^2+y^2$，求\n$$\\lim_{r\\to0^+}\\frac{\\displaystyle\\iint_{x^2+y^2\\leqslant r^2}\\left(x\\frac{\\partial f}{\\partial x}+y\\frac{\\partial f}{\\partial y}\\right)\\mathrm{d}x\\,\\mathrm{d}y}{(\\tan r-\\sin r)^2}.$$",
+   "answer": "$\\dfrac\\pi3$",
+   "solution": "记分子为 $I$，极坐标下\n$$I=\\int_0^r\\rho\\,\\mathrm{d}\\rho\\int_0^{2\\pi}\\Big(\\rho\\cos\\theta\\frac{\\partial f}{\\partial x}+\\rho\\sin\\theta\\frac{\\partial f}{\\partial y}\\Big)\\mathrm{d}\\theta.$$\n在圆周 $L_\\rho:x^2+y^2=\\rho^2$ 上 $\\rho\\cos\\theta\\,\\mathrm{d}\\theta=\\mathrm{d}y$，$\\rho\\sin\\theta\\,\\mathrm{d}\\theta=-\\mathrm{d}x$，由格林公式\n$$\\int_0^{2\\pi}(\\cdots)\\,\\mathrm{d}\\theta=\\oint_{L_\\rho}f_x\\,\\mathrm{d}y-f_y\\,\\mathrm{d}x=\\iint_{D_\\rho}(f_{xx}+f_{yy})\\,\\mathrm{d}x\\,\\mathrm{d}y=\\iint_{D_\\rho}(x^2+y^2)\\,\\mathrm{d}x\\,\\mathrm{d}y=\\frac{\\pi\\rho^4}2.$$\n故 $I=\\displaystyle\\int_0^r\\frac{\\pi\\rho^5}2\\,\\mathrm{d}\\rho=\\frac{\\pi}{12}r^6$。又 $\\tan r-\\sin r=\\tan r(1-\\cos r)\\sim\\dfrac{r^3}2$，所以\n$$\\text{原式}=\\frac\\pi{12}\\lim_{r\\to0^+}\\frac{r^6}{r^6/4}=\\frac\\pi3.$$\n（也可对 $\\iint x f_x$ 关于 $x$ 分部积分，得 $I=\\dfrac12\\iint_{D_r}\\big[r^2-(x^2+y^2)\\big](x^2+y^2)\\,\\mathrm{d}x\\,\\mathrm{d}y=\\dfrac\\pi{12}r^6$。）",
+   "solutionSource": "官方"
+  },
+  {
+   "no": "四",
+   "score": 14,
+   "type": "计算",
+   "subjects": [
+    "高等数学",
+    "常微分方程"
+   ],
+   "topics": [
+    "高斯公式",
+    "散度为零",
+    "二阶常系数线性方程"
+   ],
+   "difficulty": 2,
+   "statement": "若对于 $R^3$ 中半空间 $\\left\\{(x,y,z)\\in R^3\\mid x>0\\right\\}$ 内任意有向光滑封闭曲面 $S$，都有\n$$\\iint_Sxf'(x)\\,\\mathrm{d}y\\,\\mathrm{d}z+y\\big(xf(x)-f'(x)\\big)\\mathrm{d}z\\,\\mathrm{d}x-xz\\big(\\sin x+f'(x)\\big)\\mathrm{d}x\\,\\mathrm{d}y=0,$$\n其中 $f$ 在 $(0,+\\infty)$ 上二阶导数连续且 $\\lim\\limits_{x\\to0^+}f(x)=\\lim\\limits_{x\\to0^+}f'(x)=0$，求 $f(x)$。",
+   "answer": "$f(x)=e^{\\frac x2}\\left(-\\cos\\dfrac{\\sqrt3}2x+\\dfrac1{\\sqrt3}\\sin\\dfrac{\\sqrt3}2x\\right)+\\cos x$",
+   "solution": "由高斯公式及 $S$ 的任意性，散度恒为零：\n$$\\frac{\\partial P}{\\partial x}+\\frac{\\partial Q}{\\partial y}+\\frac{\\partial R}{\\partial z}=xf''(x)-xf'(x)+xf(x)-x\\sin x=0,$$\n即 $f''-f'+f=\\sin x$（$x>0$）。齐次通解 $e^{\\frac x2}\\big(C_1\\cos\\frac{\\sqrt3}2x+C_2\\sin\\frac{\\sqrt3}2x\\big)$；设特解 $a\\cos x+b\\sin x$，代入得 $y^*=\\cos x$。由 $f(0^+)=0$ 得 $C_1=-1$；由 $f'(0^+)=\\frac12C_1+\\frac{\\sqrt3}2C_2=0$ 得 $C_2=\\dfrac1{\\sqrt3}$。故\n$$f(x)=e^{\\frac x2}\\Big(-\\cos\\frac{\\sqrt3}2x+\\frac1{\\sqrt3}\\sin\\frac{\\sqrt3}2x\\Big)+\\cos x.$$",
+   "solutionSource": "官方"
+  },
+  {
+   "no": "五",
+   "score": 14,
+   "type": "计算",
+   "subjects": [
+    "高等数学"
+   ],
+   "topics": [
+    "反常积分敛散性",
+    "取整函数",
+    "Stirling 公式",
+    "Dirichlet 判别法",
+    "条件收敛"
+   ],
+   "difficulty": 4,
+   "statement": "设 $f(x)=\\displaystyle\\int_0^x\\left(1-\\frac{[u]}{u}\\right)\\mathrm{d}u$，其中 $[x]$ 表示小于等于 $x$ 的最大整数，试讨论 $\\displaystyle\\int_1^{+\\infty}\\frac{e^{f(x)}}{x^p}\\cos\\left(x^2-\\frac1{x^2}\\right)\\mathrm{d}x$ 的敛散性，其中 $p>0$。",
+   "answer": "$0<p\\leqslant\\dfrac32$ 时条件收敛；$p>\\dfrac32$ 时绝对收敛。",
+   "solution": "**计算 $f$。** 当 $x\\in[N,N+1)$，\n$$f(x)=1+\\sum_{k=1}^{N-1}\\int_k^{k+1}\\Big(1-\\frac ku\\Big)\\mathrm{d}u+\\int_N^x\\Big(1-\\frac Nu\\Big)\\mathrm{d}u=x+\\ln(N!)-N\\ln x,$$\n所以 $e^{f(x)}=\\dfrac{e^xN!}{x^N}$，且 $\\dfrac{e^NN!}{(N+1)^N}\\leqslant e^{f(x)}\\leqslant\\dfrac{e^{N+1}N!}{N^N}$。由 Stirling 公式 $N!\\sim\\sqrt{2\\pi N}(N/e)^N$，存在常数 $0<c<C$ 使 $x$ 充分大时 $c\\sqrt x\\leqslant e^{f(x)}\\leqslant C\\sqrt x$。\n\n**绝对收敛。** 由上式，绝对收敛性等价于 $\\displaystyle\\int_1^{\\infty}x^{\\frac12-p}\\Big|\\cos\\Big(x^2-\\frac1{x^2}\\Big)\\Big|\\mathrm{d}x$ 收敛。令 $x=\\sqrt y$，化为 $\\displaystyle\\int_1^\\infty\\frac{|\\cos(y-1/y)|}{2y^{(2p+1)/4}}\\,\\mathrm{d}y$，它收敛当且仅当 $\\dfrac{2p+1}4>1$，即 $p>\\dfrac32$。\n\n**收敛性（$p>0$）。** 写 $\\cos\\big(x^2-x^{-2}\\big)\\,\\mathrm{d}x=\\dfrac{\\mathrm{d}\\sin(x^2-x^{-2})}{2x+2x^{-3}}$，令 $h(x)=\\dfrac{e^{f(x)}}{x^p(2x+2x^{-3})}$，则 $h(x)\\leqslant C'x^{-p-\\frac12}\\to0$，且\n$$\\frac{h'(x)}{h(x)}=f'(x)-\\frac px-\\frac{2-6x^{-4}}{2x+2x^{-3}}=\\frac{x-N}{x}-\\frac{p+1}{x}+O(x^{-5})<0\\quad(x\\text{ 充分大}),$$\n因为 $x-N<1<p+1$。即 $h$ 最终单调减趋于 0，而 $\\sin(x^2-x^{-2})$ 有界，由 Dirichlet 判别法原积分对一切 $p>0$ 收敛。\n\n综上，$0<p\\leqslant\\frac32$ 条件收敛，$p>\\frac32$ 绝对收敛。\n\n（注：参考解答由 $e^{f(x)}$ 与 $\\sqrt x$ 同阶直接换成 $\\displaystyle\\int\\frac{\\cos(x^2-x^{-2})}{x^{p-1/2}}\\mathrm{d}x$ 判断，对条件收敛部分并不严密（同阶不能保证条件收敛性相同），且末尾\"$\\int_1^\\infty\\frac{\\cos y}{y^{(2p+1)/4}}\\mathrm{d}y=\\infty$\"应为绝对值积分发散；此处已补充单调性论证。）",
+   "solutionSource": "官方"
+  },
+  {
+   "no": "六",
+   "score": 14,
+   "type": "证明",
+   "subjects": [
+    "高等数学"
+   ],
+   "topics": [
+    "幂级数",
+    "收敛半径",
+    "反常积分发散",
+    "单调数列"
+   ],
+   "difficulty": 4,
+   "statement": "设正数列 $\\{a_n\\}$ 单调减少且趋于零，$f(x)=\\displaystyle\\sum_{n=1}^\\infty a_n^nx^n$，证明：若级数 $\\displaystyle\\sum_{n=1}^\\infty a_n$ 发散，则积分 $\\displaystyle\\int_1^{+\\infty}\\frac{\\ln f(x)}{x^2}\\,\\mathrm{d}x$ 也发散。",
+   "answer": "",
+   "solution": "收敛半径 $R=\\lim\\dfrac1{\\sqrt[n]{a_n^n}}=\\lim\\dfrac1{a_n}=\\infty$，$f$ 在 $(-\\infty,+\\infty)$ 上有定义。$x>0$ 时 $f(x)>0$ 且单调增，故 $\\displaystyle\\int_1^{e/a_1}\\frac{\\ln f(x)}{x^2}\\mathrm{d}x$ 是有限常数 $C_0$。（注：参考解答写\"$f(x)\\geqslant f(0)=1$\"，但按题设 $f(0)=0$，原解答此处笔误，已改为如下处理。）\n\n若 $x\\in\\Big[\\dfrac e{a_p},\\dfrac e{a_{p+1}}\\Big]$，则对 $k\\leqslant p$ 有 $a_kx\\geqslant a_px\\geqslant e$，故 $f(x)\\geqslant\\sum_{k\\leqslant p}(a_kx)^k\\geqslant e^p$，$\\ln f(x)\\geqslant p$。\n\n对固定 $n$ 和 $X>\\max\\big\\{n,\\frac e{a_n}\\big\\}$，\n$$\\int_1^X\\frac{\\ln f(x)}{x^2}\\,\\mathrm{d}x-C_0\\geqslant\\sum_{p=1}^{n-1}p\\int_{e/a_p}^{e/a_{p+1}}\\frac{\\mathrm{d}x}{x^2}+n\\int_{e/a_n}^X\\frac{\\mathrm{d}x}{x^2}=\\sum_{p=1}^{n-1}p\\,\\frac{a_p-a_{p+1}}e+n\\Big(\\frac{a_n}e-\\frac1X\\Big)=\\frac1e\\sum_{p=1}^na_p-\\frac nX.$$\n于是 $\\displaystyle\\int_1^X\\frac{\\ln f}{x^2}\\,\\mathrm{d}x\\geqslant C_0+\\frac1e\\sum_{p=1}^na_p-1$。由 $\\sum a_n$ 发散，令 $n\\to\\infty$（同时 $X\\to\\infty$）知积分发散。",
+   "solutionSource": "官方"
+  }
+ ]
+}

@@ -1,0 +1,182 @@
+{
+ "id": "cmc-math-11-final-low",
+ "title": "第十一届全国大学生数学竞赛决赛（数学类低年级组）",
+ "year": 2020,
+ "track": "数学类",
+ "round": "决赛",
+ "paper": "low",
+ "durationMin": 180,
+ "totalScore": 100,
+ "source": {
+  "question": "11-final-math-low.pdf",
+  "solution": "11-final-math-low.pdf"
+ },
+ "problems": [
+  {
+   "no": "一(1)",
+   "score": 5,
+   "type": "填空",
+   "subjects": [
+    "数学分析"
+   ],
+   "topics": [
+    "数列极限",
+    "定积分定义",
+    "Riemann和"
+   ],
+   "difficulty": 2,
+   "statement": "$\\displaystyle\\lim_{n\\to+\\infty}\\left(\\prod_{k=n}^{3n-1}k\\right)^{\\frac1{2n}}\\sin\\frac1n=$______。",
+   "answer": "$\\dfrac{3\\sqrt3}{e}$",
+   "solution": "取对数：\n$$\\frac1{2n}\\sum_{k=n}^{3n-1}\\ln k=\\ln n+\\frac12\\cdot\\frac1n\\sum_{k=n}^{3n-1}\\ln\\frac kn\\to\\ln n+\\frac12\\int_1^3\\ln t\\,\\mathrm{d}t+o(1),$$\n而 $\\displaystyle\\int_1^3\\ln t\\,\\mathrm{d}t=3\\ln3-2$。所以 $\\left(\\prod k\\right)^{\\frac1{2n}}=n\\cdot e^{\\frac{3\\ln3-2}{2}+o(1)}=n\\cdot\\dfrac{3\\sqrt3}{e}(1+o(1))$，乘以 $\\sin\\frac1n\\sim\\frac1n$，极限为 $\\dfrac{3\\sqrt3}{e}$。",
+   "solutionSource": "编写"
+  },
+  {
+   "no": "一(2)",
+   "score": 5,
+   "type": "填空",
+   "subjects": [
+    "数学分析"
+   ],
+   "topics": [
+    "定积分",
+    "分部积分",
+    "换元"
+   ],
+   "difficulty": 1,
+   "statement": "已知 $f$ 在区间 $(-1,3)$ 内有二阶连续导数，$f(0)=12$，$f(2)=2f'(2)+8$，则 $\\displaystyle\\int_0^1xf''(2x)\\,\\mathrm{d}x=$______。",
+   "answer": "$1$",
+   "solution": "令 $t=2x$：$\\displaystyle\\int_0^1xf''(2x)\\mathrm{d}x=\\frac14\\int_0^2tf''(t)\\mathrm{d}t=\\frac14\\Big([tf'(t)]_0^2-\\int_0^2f'(t)\\mathrm{d}t\\Big)=\\frac14\\big(2f'(2)-f(2)+f(0)\\big)$。代入 $f(2)=2f'(2)+8$，$f(0)=12$，得 $\\frac14(-8+12)=1$。",
+   "solutionSource": "编写"
+  },
+  {
+   "no": "一(3)",
+   "score": 5,
+   "type": "填空",
+   "subjects": [
+    "解析几何",
+    "高等代数"
+   ],
+   "topics": [
+    "二次曲面分类",
+    "二次型特征值"
+   ],
+   "difficulty": 1,
+   "statement": "在三维空间的直角坐标系中，方程 $2x^2+y^2+z^2+2xy-2xz=1$ 表示的二次曲面类型是______。",
+   "answer": "椭圆柱面",
+   "solution": "二次型矩阵 $\\begin{pmatrix}2&1&-1\\\\1&1&0\\\\-1&0&1\\end{pmatrix}$ 的特征多项式为 $\\lambda^3-4\\lambda^2+3\\lambda=\\lambda(\\lambda-1)(\\lambda-3)$。正交变换后方程化为 $X^2+3Y^2=1$，是椭圆柱面。",
+   "solutionSource": "编写"
+  },
+  {
+   "no": "一(4)",
+   "score": 5,
+   "type": "填空",
+   "subjects": [
+    "高等代数"
+   ],
+   "topics": [
+    "奇异值分解",
+    "奇异值"
+   ],
+   "difficulty": 1,
+   "statement": "在矩阵 $A=\\begin{pmatrix}1&-2&0\\\\1&0&1\\\\0&2&1\\end{pmatrix}$ 的奇异值分解 $A=U\\Lambda V$ 中（其中 $U,V$ 为正交方阵，$\\Lambda$ 为对角阵），$\\Lambda=$______。",
+   "answer": "$\\begin{pmatrix}3&0&0\\\\0&\\sqrt3&0\\\\0&0&0\\end{pmatrix}$",
+   "solution": "$A^TA=\\begin{pmatrix}2&-2&1\\\\-2&8&2\\\\1&2&2\\end{pmatrix}$，迹为 $12$，二阶主子式之和为 $12+3+12=27$，$\\det(A^TA)=(\\det A)^2=0$。特征多项式 $\\lambda^3-12\\lambda^2+27\\lambda=\\lambda(\\lambda-3)(\\lambda-9)$，奇异值为 $3,\\sqrt3,0$。",
+   "solutionSource": "编写"
+  },
+  {
+   "no": "二",
+   "score": 15,
+   "type": "计算",
+   "subjects": [
+    "解析几何"
+   ],
+   "topics": [
+    "单叶双曲面",
+    "直母线",
+    "异面直线",
+    "公垂线"
+   ],
+   "difficulty": 3,
+   "statement": "考虑单叶双曲面 $S:x^2-y^2+z^2=1$。\n\n1. 证明：$S$ 上同一族直母线中任意两条不同的直母线是异面直线；\n\n2. 设 $S$ 上同一族直母线中的两条直母线分别经过 $M_1(1,1,1)$ 与 $M_2(2,2,1)$ 两点。求这两条直母线的公垂线方程以及这两条直母线之间的距离。",
+   "answer": "公垂线 $\\dfrac{x-1}{-1}=\\dfrac{y+\\frac3{19}}{3}=\\dfrac{z+\\frac3{19}}{-3}$（经过 $\\frac1{19}(19,-3,-3)$ 与 $\\frac1{19}(17,3,-9)$）；距离 $\\dfrac{2}{\\sqrt{19}}=\\dfrac{2\\sqrt{19}}{19}$。",
+   "solution": "**1.** 由 $(x+y)(x-y)=(1+z)(1-z)$，两族直母线为\n$$\\text{I}:\\begin{cases}\\lambda(x+y)=\\mu(1+z)\\\\\\mu(x-y)=\\lambda(1-z)\\end{cases}\\qquad\\text{II}:\\begin{cases}u(x+y)=v(1-z)\\\\v(x-y)=u(1+z)\\end{cases}$$\n（$(\\lambda,\\mu),(u,v)$ 不全为零）。以第 I 族为例，取 $(\\lambda_1:\\mu_1)\\neq(\\lambda_2:\\mu_2)$。\n*不相交：* 以 $x+y,\\ x-y,\\ z$ 为未知量，两条直线的四个方程的增广矩阵行列式（把常数列加到 $z$ 系数列上后按分块计算）为\n$$\\det\\begin{pmatrix}\\lambda_1&0&-\\mu_1&\\mu_1\\\\0&\\mu_1&\\lambda_1&\\lambda_1\\\\\\lambda_2&0&-\\mu_2&\\mu_2\\\\0&\\mu_2&\\lambda_2&\\lambda_2\\end{pmatrix}=2(\\lambda_1\\mu_2-\\lambda_2\\mu_1)^2\\neq0,$$\n增广矩阵秩为 4，方程组无解。\n*不平行：* $(\\lambda,\\mu)$ 对应直线的方向为两法向 $(\\lambda,\\lambda,-\\mu)\\times(\\mu,-\\mu,\\lambda)=(\\lambda^2-\\mu^2,\\ -(\\lambda^2+\\mu^2),\\ -2\\lambda\\mu)$。由 $(\\lambda^2-\\mu^2):(\\lambda^2+\\mu^2):2\\lambda\\mu$ 可唯一确定 $\\lambda:\\mu$，故不同母线方向不平行。所以它们异面。第 II 族同理。\n**2.** 代入第 II 族：$M_1,M_2$ 都给出 $u=0$，即同一条母线 $z=1,\\ x=y$，不合题意，故考虑第 I 族。\n过 $M_1$：$\\lambda=\\mu$，$L_1:\\ x+y=1+z,\\ x-y=1-z$，方向 $(0,1,1)$，参数式 $(1,1+t,1+t)$。\n过 $M_2$：$\\mu=2\\lambda$，$L_2:\\ x+y=2(1+z),\\ 2(x-y)=1-z$，方向 $(3,5,4)$，参数式 $(2+3s,2+5s,1+4s)$。\n公垂方向 $\\vec n=(0,1,1)\\times(3,5,4)=(-1,3,-3)$。距离\n$$d=\\frac{|\\overrightarrow{M_1M_2}\\cdot\\vec n|}{|\\vec n|}=\\frac{|(1,1,0)\\cdot(-1,3,-3)|}{\\sqrt{19}}=\\frac{2}{\\sqrt{19}}.$$\n求垂足：令 $P_2-P_1=(1+3s,1+5s-t,4s-t)$ 与两方向都正交，得 $1+9s-2t=0$，$8+50s-9t=0$，解得 $s=-\\frac7{19}$，$t=-\\frac{22}{19}$，垂足 $P_1=\\frac1{19}(19,-3,-3)$，$P_2=\\frac1{19}(17,3,-9)$。公垂线方程\n$$\\frac{x-1}{-1}=\\frac{y+\\frac3{19}}{3}=\\frac{z+\\frac3{19}}{-3}.$$",
+   "solutionSource": "编写"
+  },
+  {
+   "no": "三",
+   "score": 15,
+   "type": "证明",
+   "subjects": [
+    "高等代数"
+   ],
+   "topics": [
+    "正交投影",
+    "行列式",
+    "正定",
+    "直和"
+   ],
+   "difficulty": 3,
+   "statement": "设 $V$ 是有限维欧氏空间，$V_1,V_2$ 是 $V$ 的非平凡子空间且 $V=V_1\\oplus V_2$。设 $p_1,p_2$ 分别是 $V$ 到 $V_1,V_2$ 的正交投影，$\\varphi=p_1+p_2$，用 $\\det\\varphi$ 表示线性变换 $\\varphi$ 的行列式。证明：$0<\\det\\varphi\\leqslant1$ 且 $\\det\\varphi=1$ 的充要条件是 $V_1$ 与 $V_2$ 正交。",
+   "answer": "",
+   "solution": "**$\\det\\varphi>0$：** $p_1,p_2$ 自伴且半正定，故 $\\varphi$ 自伴半正定。若 $\\varphi v=0$，则 $0=\\langle\\varphi v,v\\rangle=\\|p_1v\\|^2+\\|p_2v\\|^2$，$v\\perp V_1$ 且 $v\\perp V_2$，从而 $v\\perp V_1+V_2=V$，$v=0$。所以 $\\varphi$ 正定，$\\det\\varphi>0$。\n**矩阵形式：** 取 $V_1$ 的标准正交基 $e_1,\\dots,e_m$ 与 $V_2$ 的标准正交基 $f_1,\\dots,f_n$，合起来是 $V$ 的基。$\\varphi e_i=e_i+p_2e_i$，$\\varphi f_j=p_1f_j+f_j$，故 $\\varphi$ 的矩阵为 $\\begin{pmatrix}I_m&B\\\\C&I_n\\end{pmatrix}$，其中 $B_{ij}=\\langle p_1f_j,e_i\\rangle=\\langle f_j,e_i\\rangle$，$C_{ji}=\\langle p_2e_i,f_j\\rangle=\\langle e_i,f_j\\rangle$，即 $C=B^T$。于是\n$$\\det\\varphi=\\det(I_n-B^TB)=\\prod_\\lambda(1-\\lambda),$$\n$\\lambda$ 取遍半正定阵 $B^TB$ 的特征值。$B^TB$ 是 $V_2$ 上 $p_2p_1|_{V_2}$ 的矩阵，对其单位特征向量 $v$：$\\lambda=\\langle p_2p_1v,v\\rangle=\\|p_1v\\|^2\\leqslant1$。所以每个因子 $1-\\lambda\\in[0,1]$，又乘积 $>0$，故每个因子在 $(0,1]$ 中，$0<\\det\\varphi\\leqslant1$。\n**取等：** $\\det\\varphi=1\\iff$ 所有 $\\lambda=0\\iff B^TB=0\\iff B=0\\iff\\langle e_i,f_j\\rangle=0$ 对一切 $i,j\\iff V_1\\perp V_2$。",
+   "solutionSource": "编写"
+  },
+  {
+   "no": "四",
+   "score": 20,
+   "type": "证明",
+   "subjects": [
+    "数学分析"
+   ],
+   "topics": [
+    "反函数",
+    "三次方程",
+    "定积分换元",
+    "奇偶性"
+   ],
+   "difficulty": 4,
+   "statement": "证明：\n\n1. 证明：函数方程 $x^3-3x=t$ 存在三个在闭区间 $[-2,2]$ 上连续，在开区间 $(-2,2)$ 内连续可微的解 $x=\\varphi_1(t)$，$x=\\varphi_2(t)$，$x=\\varphi_3(t)$ 满足：\n$$\\varphi_1(-t)=-\\varphi_3(t),\\quad\\varphi_2(-t)=-\\varphi_2(t),\\quad|t|\\leqslant2.$$\n\n2. 若 $f$ 是 $[-2,2]$ 上的连续偶函数，证明：$\\displaystyle\\int_1^2f(x^3-3x)\\,\\mathrm{d}x=\\int_0^1f(x^3-3x)\\,\\mathrm{d}x$。",
+   "answer": "",
+   "solution": "**1.** $g(x)=x^3-3x$ 为奇函数，$g'(x)=3(x^2-1)$。$g$ 在 $[-2,-1]$ 上严格增、值域 $[-2,2]$；在 $[-1,1]$ 上严格减、值域 $[-2,2]$；在 $[1,2]$ 上严格增、值域 $[-2,2]$。分别取反函数得 $\\varphi_1:[-2,2]\\to[-2,-1]$，$\\varphi_2:[-2,2]\\to[-1,1]$，$\\varphi_3:[-2,2]\\to[1,2]$，它们连续；在 $(-2,2)$ 内对应 $g'\\neq0$，由反函数定理连续可微。\n由 $g$ 是奇函数，$g(-\\varphi_3(t))=-t$ 且 $-\\varphi_3(t)\\in[-2,-1]$，所以 $-\\varphi_3(t)=\\varphi_1(-t)$；同理 $-\\varphi_2(t)\\in[-1,1]$ 且 $g(-\\varphi_2(t))=-t$，得 $\\varphi_2(-t)=-\\varphi_2(t)$。\n**2.** 由韦达定理（$x^2$ 项系数为 $0$），$\\varphi_1+\\varphi_2+\\varphi_3\\equiv0$，从而 $\\varphi_3'=-\\varphi_1'-\\varphi_2'$。由 1，$\\varphi_1'(-t)=\\varphi_3'(t)$，$\\varphi_2'(-t)=\\varphi_2'(t)$。\n在 $[1,2]$ 上令 $x=\\varphi_3(t)$，在 $[0,1]$ 上令 $x=\\varphi_2(t)$（$t$ 从 $0$ 到 $-2$），得（端点处为收敛的广义积分，可先在闭子区间上换元再取极限）\n$$I_1=\\int_1^2f(g(x))\\mathrm{d}x=\\int_{-2}^2f(t)\\varphi_3'(t)\\mathrm{d}t,\\qquad I_0=\\int_0^1f(g(x))\\mathrm{d}x=-\\int_{-2}^0f(t)\\varphi_2'(t)\\mathrm{d}t.$$\n由 $f$ 为偶函数，$\\int_{-2}^2f\\varphi_1'\\,\\mathrm{d}t=\\int_{-2}^2f(t)\\varphi_1'(-t)\\mathrm{d}t=\\int_{-2}^2f\\varphi_3'\\,\\mathrm{d}t=I_1$；而 $f\\varphi_2'$ 为偶函数，$\\int_{-2}^2f\\varphi_2'=2\\int_{-2}^0f\\varphi_2'=-2I_0$。于是\n$$I_1=\\int_{-2}^2f\\varphi_3'=-\\int_{-2}^2f\\varphi_1'-\\int_{-2}^2f\\varphi_2'=-I_1+2I_0,$$\n即 $I_1=I_0$。",
+   "solutionSource": "编写"
+  },
+  {
+   "no": "五",
+   "score": 15,
+   "type": "证明",
+   "subjects": [
+    "数学分析",
+    "高等代数"
+   ],
+   "topics": [
+    "矩阵函数",
+    "矩阵幂级数",
+    "绝对收敛",
+    "算子范数"
+   ],
+   "difficulty": 3,
+   "statement": "设 $n\\geqslant2$，对于 $A\\in\\mathbb{R}^{n\\times n}$，规定 $A^0$ 为 $n$ 阶单位阵 $I$。形式定义 $\\sin A=\\displaystyle\\sum_{k=0}^\\infty\\frac{(-1)^k}{(2k+1)!}A^{2k+1}$，$\\cos A=\\displaystyle\\sum_{k=0}^\\infty\\frac{(-1)^k}{(2k)!}A^{2k}$ 以及 $\\arctan A=\\displaystyle\\sum_{k=0}^\\infty\\frac{(-1)^k}{2k+1}A^{2k+1}$。记 $\\|A\\|\\equiv\\max\\limits_{\\mathbf{x}\\in\\mathbb{R}^n,\\ \\|\\mathbf{x}\\|=1}\\|A\\mathbf{x}\\|$，其中 $\\|\\mathbf{x}\\|\\equiv\\sqrt{\\mathbf{x}^T\\mathbf{x}}$。证明：\n\n1. $\\forall A\\in\\mathbb{R}^{n\\times n}$，$\\sin A,\\cos A$ 均有意义，且 $(\\sin A)^2+(\\cos A)^2=I$。\n\n2. 当 $\\|A\\|<1$ 时，$\\arctan A$ 有意义，且 $\\sin\\arctan A=A\\cos\\arctan A$。",
+   "answer": "",
+   "solution": "**基本事实。** 算子范数满足 $\\|A^k\\|\\leqslant\\|A\\|^k$。若幂级数 $h(z)=\\sum c_kz^k$ 满足 $\\sum|c_k|\\,\\|A\\|^k<\\infty$，则 $h(A)=\\sum c_kA^k$ 绝对收敛；绝对收敛的矩阵级数（各项都是 $A$ 的多项式、彼此可交换）可以任意重排与作 Cauchy 乘积，因此 $h_1(A)h_2(A)=(h_1h_2)(A)$，$h_1(A)+h_2(A)=(h_1+h_2)(A)$。\n**1.** $\\sum\\frac{\\|A\\|^{2k+1}}{(2k+1)!}$、$\\sum\\frac{\\|A\\|^{2k}}{(2k)!}$ 都收敛（被 $e^{\\|A\\|}$ 控制），故 $\\sin A,\\cos A$ 有意义。作为整幂级数恒等式 $\\sin^2z+\\cos^2z=1$（Cauchy 乘积后各系数对应相等），代入 $A$ 得 $(\\sin A)^2+(\\cos A)^2=I$。\n**2.** $\\|A\\|<1$ 时 $\\sum\\frac{\\|A\\|^{2k+1}}{2k+1}<\\infty$，$\\arctan A$ 有意义。记 $B=\\arctan A=\\sum b_kA^k$，$\\beta=\\sum|b_k|\\,\\|A\\|^k<\\infty$。对 $\\sin B=\\sum_j c_jB^j$ 把每个 $B^j$ 展开成 $A$ 的幂级数，所得二重级数被 $\\sum_j|c_j|\\beta^j\\leqslant\\sinh\\beta<\\infty$ 控制而绝对收敛，因此可按 $A$ 的幂重排：$\\sin(\\arctan A)=S(A)$，其中 $S(z)$ 是 $\\sin(\\arctan z)$ 在 $0$ 处的幂级数（$|z|<1$ 时收敛）。同理 $\\cos(\\arctan A)=K(A)$。\n在 $|z|<1$ 上，$\\sin(\\arctan z)=\\dfrac{z}{\\sqrt{1+z^2}}=z\\cos(\\arctan z)$（实 $z$ 时直接验证，再由解析延拓），故幂级数 $S(z)$ 与 $zK(z)$ 系数逐项相等，于是 $\\sin\\arctan A=S(A)=AK(A)=A\\cos\\arctan A$。",
+   "solutionSource": "编写"
+  },
+  {
+   "no": "六",
+   "score": 15,
+   "type": "证明",
+   "subjects": [
+    "常微分方程"
+   ],
+   "topics": [
+    "解的爆破",
+    "最大存在区间",
+    "比较原理"
+   ],
+   "difficulty": 3,
+   "statement": "设 $m,n$ 为正整数。证明：当参数 $k\\neq0$ 时，微分方程 $y'(x)=ky^{2n}(x)+x^{2m-1}$ 的所有解都不是全局解（全局解即指定义在 $(-\\infty,+\\infty)$ 上的解）。",
+   "answer": "",
+   "solution": "**情形 $k>0$。** 设 $y$ 是全局解。当 $x\\geqslant1$ 时 $y'\\geqslant x^{2m-1}\\geqslant1$，故 $y(x)\\to+\\infty$，存在 $x_0\\geqslant1$ 使 $x\\geqslant x_0$ 时 $y(x)\\geqslant1$。此时 $y^{2n}\\geqslant y^2$，\n$$y'\\geqslant ky^2\\ \\Rightarrow\\ \\left(-\\frac1y\\right)'\\geqslant k\\ \\Rightarrow\\ \\frac1{y(x_0)}\\geqslant\\frac1{y(x_0)}-\\frac1{y(x)}\\geqslant k(x-x_0)\\quad(x\\geqslant x_0),$$\n令 $x\\to+\\infty$ 矛盾。所以解在有限处爆破，不是全局解。\n**情形 $k<0$。** 设 $y$ 是全局解，令 $w(s)=y(-s)$，则\n$$w'(s)=-y'(-s)=-ky^{2n}(-s)-(-s)^{2m-1}=|k|\\,w^{2n}(s)+s^{2m-1},$$\n即 $w$ 是参数为 $|k|>0$ 的同型方程的全局解，与情形一矛盾。\n故 $k\\neq0$ 时方程没有全局解。",
+   "solutionSource": "编写"
+  }
+ ]
+}

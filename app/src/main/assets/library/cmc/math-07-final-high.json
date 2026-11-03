@@ -1,0 +1,252 @@
+{
+ "id": "cmc-math-07-final-high",
+ "title": "第七届全国大学生数学竞赛决赛（数学类高年级组（三、四年级））",
+ "year": 2016,
+ "track": "数学类",
+ "round": "决赛",
+ "paper": "high",
+ "durationMin": 180,
+ "totalScore": 100,
+ "source": {
+  "question": "2016年03月-数学类三、四年级-第七届全国决赛试卷.pdf",
+  "solution": "2016年03月-数学类三、四年级参考解答-第七届全国决赛试卷.pdf"
+ },
+ "problems": [
+  {
+   "no": "一(1)",
+   "score": 5,
+   "type": "填空",
+   "subjects": [
+    "高等代数"
+   ],
+   "topics": [
+    "置换矩阵",
+    "行列式"
+   ],
+   "difficulty": 1,
+   "statement": "设 $\\Gamma$ 为形如下列形式的 2016 阶矩阵全体：矩阵的每行每列只有一个非零元素，且该非零元素为 1，则 $\\displaystyle\\sum_{A\\in\\Gamma}|A|=$______。",
+   "answer": "$0$",
+   "solution": "$\\Gamma$ 恰为全体 2016 阶置换矩阵，与 $S_{2016}$ 中的置换一一对应，$|A|=\\operatorname{sgn}\\sigma$。奇、偶置换各占一半，故 $\\displaystyle\\sum_{A\\in\\Gamma}|A|=\\sum_{\\sigma\\in S_{2016}}\\operatorname{sgn}\\sigma=0$。\n（注意 $|A|$ 表示行列式而非绝对值。）",
+   "solutionSource": "编写"
+  },
+  {
+   "no": "一(2)",
+   "score": 5,
+   "type": "填空",
+   "subjects": [
+    "数学分析"
+   ],
+   "topics": [
+    "定积分递推",
+    "级数敛散性",
+    "比较判别法"
+   ],
+   "difficulty": 2,
+   "statement": "令 $a_n=\\displaystyle\\int_0^{\\frac\\pi4}\\tan^nx\\,\\mathrm{d}x$。若 $\\displaystyle\\sum_{n=1}^\\infty a_n^p$ 收敛，则 $p$ 取值范围______。",
+   "answer": "$p>1$",
+   "solution": "$a_n+a_{n+2}=\\displaystyle\\int_0^{\\frac\\pi4}\\tan^nx\\sec^2x\\,\\mathrm{d}x=\\frac1{n+1}$，且 $a_n$ 单调递减。于是\n$$\\frac1{2(n+1)}=\\frac{a_n+a_{n+2}}{2}\\leqslant a_n\\leqslant\\frac{a_{n-2}+a_n}{2}=\\frac1{2(n-1)}\\quad(n\\geqslant3),$$\n即 $a_n\\sim\\dfrac1{2n}$，故 $\\sum a_n^p$ 收敛当且仅当 $p>1$。",
+   "solutionSource": "编写"
+  },
+  {
+   "no": "一(3)",
+   "score": 5,
+   "type": "填空",
+   "subjects": [
+    "数学分析"
+   ],
+   "topics": [
+    "二重积分",
+    "形心",
+    "椭圆面积"
+   ],
+   "difficulty": 1,
+   "statement": "设 $D:x^2+2y^2\\leqslant2x+4y$，则积分 $I=\\displaystyle\\iint_D(x+y)\\,\\mathrm{d}x\\,\\mathrm{d}y=$______。",
+   "answer": "$3\\sqrt2\\pi$",
+   "solution": "$D:(x-1)^2+2(y-1)^2\\leqslant3$，是以 $(1,1)$ 为中心、半轴为 $\\sqrt3,\\sqrt{3/2}$ 的椭圆，面积 $\\pi\\sqrt3\\cdot\\sqrt{\\frac32}=\\dfrac{3\\pi}{\\sqrt2}$。由对称性 $\\iint_D(x-1)=\\iint_D(y-1)=0$，故 $I=2\\cdot\\dfrac{3\\pi}{\\sqrt2}=3\\sqrt2\\pi$。",
+   "solutionSource": "编写"
+  },
+  {
+   "no": "一(4)",
+   "score": 5,
+   "type": "填空",
+   "subjects": [
+    "高等代数"
+   ],
+   "topics": [
+    "矩阵幂",
+    "上三角矩阵"
+   ],
+   "difficulty": 2,
+   "statement": "若实向量 $X=(a,b,c)$ 的三个分量 $a,b,c$ 满足 $\\begin{pmatrix}a&b\\\\0&c\\end{pmatrix}^{2016}=I_2$，则 $X=$______或______或______或______。",
+   "answer": "$(1,0,1)$，$(-1,0,-1)$，$(1,b,-1)$，$(-1,b,1)$（$b$ 为任意实数）",
+   "solution": "$\\begin{pmatrix}a&b\\\\0&c\\end{pmatrix}^{m}=\\begin{pmatrix}a^m&b\\sum_{k=0}^{m-1}a^kc^{m-1-k}\\\\0&c^m\\end{pmatrix}$，$m=2016$。由 $a^m=c^m=1$ 得 $a,c\\in\\{\\pm1\\}$。\n- 若 $a=c$，右上角为 $2016a^{2015}b=0$，得 $b=0$：$X=(1,0,1)$ 或 $(-1,0,-1)$。\n- 若 $a=-c$，右上角为 $a^{2015}b\\sum_{k=0}^{2015}(-1)^{2015-k}=0$ 恒成立，$b$ 任意：$X=(1,b,-1)$ 或 $(-1,b,1)$。",
+   "solutionSource": "编写"
+  },
+  {
+   "no": "二",
+   "score": 15,
+   "type": "计算",
+   "subjects": [
+    "解析几何"
+   ],
+   "topics": [
+    "椭圆柱面",
+    "圆截口",
+    "平面法向量"
+   ],
+   "difficulty": 2,
+   "statement": "在空间直角坐标系中，设 $S$ 为椭圆柱面 $x^2+2y^2=1$，$\\sigma$ 是空间中的平面，它与 $S$ 的交集为一个圆。求所有这样平面 $\\sigma$ 的法向量。",
+   "answer": "法向量与 $(0,1,1)$ 或 $(0,1,-1)$ 平行。",
+   "solution": "平行于 $z$ 轴的平面与 $S$ 交于直线（或空集），故可设 $\\sigma:z=px+qy+r$。交线在 $xOy$ 面上的投影为椭圆 $x^2+2y^2=1$，交线关于点 $(0,0,r)$ 中心对称，若为圆，其圆心必为 $(0,0,r)$。交线上点 $(x,y,px+qy+r)$ 到圆心距离平方\n$$x^2+y^2+(px+qy)^2=1-y^2+p^2(1-2y^2)+2pqxy+q^2y^2$$\n在椭圆上为常数，需 $pq=0$ 且 $q^2-2p^2-1=0$。$q=0$ 不可能，故 $p=0,\\ q=\\pm1$，即 $\\sigma:z=\\pm y+r$，反之这些平面截出半径为 $1$ 的圆。所以法向量为 $k(0,1,\\mp1)$，$k\\neq0$，即与 $(0,1,1)$ 或 $(0,1,-1)$ 平行。",
+   "solutionSource": "编写"
+  },
+  {
+   "no": "三",
+   "score": 15,
+   "type": "证明",
+   "subjects": [
+    "高等代数"
+   ],
+   "topics": [
+    "迹",
+    "对称矩阵",
+    "反对称矩阵"
+   ],
+   "difficulty": 2,
+   "statement": "设 $A,B$ 为 $n$ 阶实对称矩阵。证明 $\\operatorname{tr}\\left((AB)^2\\right)\\leqslant\\operatorname{tr}\\left(A^2B^2\\right)$。",
+   "answer": "",
+   "solution": "令 $X=AB-BA$，则 $X^T=BA-AB=-X$，所以\n$$0\\leqslant\\operatorname{tr}(XX^T)=-\\operatorname{tr}(X^2).$$\n展开 $X^2=ABAB-AB^2A-BA^2B+BABA$，由迹的循环性 $\\operatorname{tr}(AB^2A)=\\operatorname{tr}(BA^2B)=\\operatorname{tr}(A^2B^2)$，$\\operatorname{tr}(BABA)=\\operatorname{tr}(ABAB)$，故\n$$-\\operatorname{tr}(X^2)=2\\operatorname{tr}(A^2B^2)-2\\operatorname{tr}\\left((AB)^2\\right)\\geqslant0.$$",
+   "solutionSource": "编写"
+  },
+  {
+   "no": "四",
+   "score": 20,
+   "type": "证明",
+   "subjects": [
+    "数学分析"
+   ],
+   "topics": [
+    "几何不等式",
+    "Hölder不等式",
+    "三角不等式"
+   ],
+   "difficulty": 4,
+   "statement": "设单位圆 $\\Gamma$ 的外切 $n$ 边形 $A_1A_2\\cdots A_n$ 各边与 $\\Gamma$ 分别切于 $B_1,B_2,\\cdots,B_n$。令 $P_A,P_B$ 分别表示多边形 $A_1A_2\\cdots A_n$ 与 $B_1B_2\\cdots B_n$ 的周长。求证：$P_A^{\\frac13}P_B^{\\frac23}>2\\pi$。",
+   "answer": "",
+   "solution": "设相邻切点 $B_i,B_{i+1}$ 所对圆心角为 $2\\theta_i$，则 $\\theta_i\\in\\left(0,\\frac\\pi2\\right)$，$\\sum\\theta_i=\\pi$。弦 $B_iB_{i+1}=2\\sin\\theta_i$，而夹在它们之间的顶点到两切点的切线长均为 $\\tan\\theta_i$，所以\n$$P_A=2\\sum_{i=1}^n\\tan\\theta_i,\\qquad P_B=2\\sum_{i=1}^n\\sin\\theta_i.$$\n**引理：** $0<\\theta<\\frac\\pi2$ 时 $\\tan^{\\frac13}\\theta\\sin^{\\frac23}\\theta=\\dfrac{\\sin\\theta}{\\cos^{1/3}\\theta}>\\theta$。令 $h(\\theta)=\\sin\\theta\\cos^{-\\frac13}\\theta-\\theta$，记 $u=\\cos^{\\frac23}\\theta\\in(0,1)$，则\n$$h'(\\theta)=\\cos^{\\frac23}\\theta+\\frac13\\sin^2\\theta\\cos^{-\\frac43}\\theta-1=\\frac{2u^3-3u^2+1}{3u^2}=\\frac{(u-1)^2(2u+1)}{3u^2}>0,$$\n又 $h(0)=0$，故 $h>0$。\n**结论：** 由引理及 Hölder 不等式（指数 $3,\\frac32$）\n$$\\pi=\\sum\\theta_i<\\sum\\tan^{\\frac13}\\theta_i\\sin^{\\frac23}\\theta_i\\leqslant\\left(\\sum\\tan\\theta_i\\right)^{\\frac13}\\left(\\sum\\sin\\theta_i\\right)^{\\frac23}=\\frac12P_A^{\\frac13}P_B^{\\frac23},$$\n即 $P_A^{\\frac13}P_B^{\\frac23}>2\\pi$。",
+   "solutionSource": "编写"
+  },
+  {
+   "no": "五",
+   "score": 10,
+   "type": "证明",
+   "subjects": [
+    "抽象代数"
+   ],
+   "topics": [
+    "元素的阶",
+    "交换元素",
+    "互素"
+   ],
+   "difficulty": 2,
+   "statement": "设 $u_1,v_1,u_2,v_2$ 为群 $G$ 中的元素，满足\n$$u_1v_1=v_1u_1=u_2v_2=v_2u_2.$$\n若 $u_1,u_2$ 的阶均为 8，$v_1,v_2$ 的阶均为 13。证明：$u_1u_2$ 的阶为 4 及 $v_1v_2$ 的阶为 13。",
+   "answer": "",
+   "solution": "记 $g=u_iv_i=v_iu_i$（$i=1,2$）。因 $u_i,v_i$ 可交换，\n$$g^{13}=u_i^{13}v_i^{13}=u_i^{13}=u_i^5,\\qquad g^{8}=u_i^8v_i^8=v_i^8.$$\n由 $5\\cdot5=25\\equiv1\\pmod8$，$u_i=(u_i^5)^5=g^{65}$；由 $8\\cdot5=40\\equiv1\\pmod{13}$，$v_i=(v_i^8)^5=g^{40}$。因此 $u_1=u_2=:u$，$v_1=v_2=:v$。\n于是 $u_1u_2=u^2$，$u$ 的阶为 8，故 $u^2$ 的阶为 $8/\\gcd(2,8)=4$；$v_1v_2=v^2$，$\\gcd(2,13)=1$，阶仍为 13。",
+   "solutionSource": "编写"
+  },
+  {
+   "no": "六",
+   "score": 10,
+   "type": "证明",
+   "subjects": [
+    "实变函数"
+   ],
+   "topics": [
+    "Lebesgue测度",
+    "内正则性",
+    "闭集",
+    "无内点集"
+   ],
+   "difficulty": 2,
+   "statement": "设 $E\\subset\\mathbb{R}^1$，$E$ 是 $L$-可测的，若 $m(E)>a>0$，则存在无内点的有界闭集 $F\\subset E$，使得 $m(F)=a$。",
+   "answer": "",
+   "solution": "**有界化：** $m(E\\cap[-N,N])\\uparrow m(E)>a$，取 $N$ 使 $E_N=E\\cap[-N,N]$ 满足 $m(E_N)>a$。\n**去掉有理数：** $E'=E_N\\setminus\\mathbb{Q}$，$m(E')=m(E_N)>a$。\n**内正则：** 存在闭集 $F_1\\subset E'$，$m(F_1)>a$。$F_1$ 有界闭，且不含有理数，因此不含任何区间，即无内点。\n**截取：** $\\varphi(t)=m\\left(F_1\\cap[-N,t]\\right)$ 在 $[-N,N]$ 上连续（$|\\varphi(t)-\\varphi(s)|\\leqslant|t-s|$），$\\varphi(-N)=0$，$\\varphi(N)=m(F_1)>a$，故存在 $t_0$ 使 $\\varphi(t_0)=a$。取 $F=F_1\\cap[-N,t_0]$，它是 $E$ 的无内点有界闭子集且 $m(F)=a$。",
+   "solutionSource": "编写"
+  },
+  {
+   "no": "七",
+   "score": 10,
+   "type": "证明",
+   "subjects": [
+    "微分几何"
+   ],
+   "topics": [
+    "主法向量",
+    "球面像",
+    "测地曲率",
+    "Gauss-Bonnet公式",
+    "Jacobi定理"
+   ],
+   "difficulty": 4,
+   "statement": "设 $\\gamma(s),\\ s\\in[0,l]$ 是空间中一条光滑闭曲线，以弧长为参数，且曲率 $k>0$。设 $\\beta:[0,l]\\to S^2$ 为单位球面上由 $\\gamma(s)$ 的单位主法向量构成的一条简单闭曲线 $B$。证明：$B$ 将球面分成面积相等的两个部分。",
+   "answer": "",
+   "solution": "记 $\\{T,N,B_0\\}$ 为 Frenet 标架，曲率 $k>0$，挠率 $\\tau$。$\\beta=N$，由 Frenet 公式\n$$\\beta'=-kT+\\tau B_0,\\quad|\\beta'|=\\sqrt{k^2+\\tau^2}>0,\\quad\\beta''=-k'T+\\tau'B_0-(k^2+\\tau^2)N,$$\n所以 $\\beta$ 是正则闭曲线，弧长元 $\\mathrm{d}\\sigma=\\sqrt{k^2+\\tau^2}\\,\\mathrm{d}s$。单位球面上曲线的测地曲率\n$$k_g=\\frac{(\\beta,\\beta',\\beta'')}{|\\beta'|^3},\\qquad(\\beta,\\beta',\\beta'')=\\det\\begin{pmatrix}0&1&0\\\\-k&0&\\tau\\\\-k'&0&\\tau'\\end{pmatrix}=k\\tau'-k'\\tau.$$\n因此\n$$\\oint_Bk_g\\,\\mathrm{d}\\sigma=\\int_0^l\\frac{k\\tau'-k'\\tau}{k^2+\\tau^2}\\mathrm{d}s=\\int_0^l\\frac{\\mathrm{d}}{\\mathrm{d}s}\\arctan\\frac{\\tau}{k}\\,\\mathrm{d}s=0,$$\n因为 $k>0$，$\\arctan\\frac\\tau k$ 是闭曲线上光滑的周期函数。\n设 $B$ 围成球面上的区域 $R$（取 $B$ 的定向使 $R$ 在左侧），由 Gauss-Bonnet 公式（$K\\equiv1$）\n$$\\operatorname{Area}(R)+\\oint_Bk_g\\,\\mathrm{d}\\sigma=2\\pi\\Rightarrow\\operatorname{Area}(R)=2\\pi.$$\n另一部分面积为 $4\\pi-2\\pi=2\\pi$，两部分面积相等。",
+   "solutionSource": "编写"
+  },
+  {
+   "no": "八",
+   "score": 10,
+   "type": "计算",
+   "subjects": [
+    "数值分析"
+   ],
+   "topics": [
+    "单侧逼近",
+    "L1范数",
+    "Gauss求积",
+    "Radau求积"
+   ],
+   "difficulty": 4,
+   "statement": "实系数多项式 $p(x)$ 的模 1 范数定义为：\n$$\\|p\\|_1:=\\int_0^1|p(x)|\\,\\mathrm{d}x.$$\n\n1．求二次实系数多项式 $p(x)$ 使得 $p(x)\\leqslant x^3$，对任意 $x\\in[0,1]$ 成立，且 $\\left\\|x^3-p(x)\\right\\|_1$ 达到最小。\n\n2．求三次实系数多项式 $p(x)$ 使得 $p(x)\\leqslant x^4$，对任意 $x\\in[0,1]$ 成立，且 $\\left\\|x^4-p(x)\\right\\|_1$ 达到最小。",
+   "answer": "1. $p(x)=\\dfrac43x^2-\\dfrac49x$（最小值 $\\dfrac1{36}$）；2. $p(x)=2x^3-\\dfrac43x^2+\\dfrac13x-\\dfrac1{36}$（最小值 $\\dfrac1{180}$）。",
+   "solution": "由于 $p\\leqslant x^m$，$\\|x^m-p\\|_1=\\displaystyle\\int_0^1x^m\\mathrm{d}x-\\int_0^1p\\,\\mathrm{d}x$。思路：用一个对 $p$ 的次数精确、权为正的求积公式 $Q$ 估计 $\\int p$。\n**1．** 以 $0$ 为固定节点的两点 Radau 公式 $Q(g)=\\frac14g(0)+\\frac34g\\left(\\frac23\\right)$ 对次数 $\\leqslant2$ 的多项式精确（验证 $1,x,x^2$）。对任意满足条件的二次 $p$：\n$$\\int_0^1p\\,\\mathrm{d}x=Q(p)\\leqslant Q(x^3)=\\frac34\\cdot\\frac8{27}=\\frac29,\\quad\\|x^3-p\\|_1\\geqslant\\frac14-\\frac29=\\frac1{36}.$$\n等号当且仅当 $p(0)=0$，$p\\left(\\frac23\\right)=\\frac8{27}$；又 $x^3-p\\geqslant0$ 在内点 $\\frac23$ 取零，故 $p'\\left(\\frac23\\right)=\\frac43$。三个条件唯一确定 $p(x)=x^3-x\\left(x-\\frac23\\right)^2=\\dfrac43x^2-\\dfrac49x$，确有 $x^3-p=x\\left(x-\\frac23\\right)^2\\geqslant0$。\n**2．** 两点 Gauss–Legendre 公式 $Q(g)=\\frac12\\left[g(t_1)+g(t_2)\\right]$，$t_{1,2}=\\frac12\\mp\\frac{\\sqrt3}6$（$x^2-x+\\frac16$ 的根），对三次多项式精确。同理 $\\|x^4-p\\|_1\\geqslant\\int_0^1x^4-Q(x^4)$，等号当且仅当 $p(t_i)=t_i^4$ 且 $p'(t_i)=4t_i^3$（内点切触），即 $x^4-p=\\left(x^2-x+\\frac16\\right)^2$：\n$$p(x)=x^4-\\left(x^2-x+\\frac16\\right)^2=2x^3-\\frac43x^2+\\frac13x-\\frac1{36},$$\n最小值 $\\displaystyle\\int_0^1\\left(x^2-x+\\frac16\\right)^2\\mathrm{d}x=\\frac1{36}\\int_0^1(6x^2-6x+1)^2\\mathrm{d}x=\\frac1{180}$。",
+   "solutionSource": "编写"
+  },
+  {
+   "no": "九",
+   "score": 10,
+   "type": "证明",
+   "subjects": [
+    "复变函数"
+   ],
+   "topics": [
+    "Schwarz引理",
+    "Borel-Carathéodory型不等式",
+    "分式线性变换"
+   ],
+   "difficulty": 3,
+   "statement": "设 $D=\\{z\\in\\mathbb{C}:|z|<1\\}$ 是单位圆盘，$f(z)$ 在 $D$ 上解析，$f(0)=0$，且在 $D$ 上有 $\\operatorname{Re}f(z)\\leqslant1$。求证：在 $D$ 上有 $\\operatorname{Re}f(z)\\leqslant\\dfrac{2|z|}{1+|z|}$。",
+   "answer": "",
+   "solution": "若 $f\\equiv0$ 显然。否则 $\\operatorname{Re}f$ 是非常数调和函数，由极值原理 $\\operatorname{Re}f<1$ 于 $D$。由于 $\\operatorname{Re}w<1\\iff|w|<|2-w|$，函数 $g=\\dfrac{f}{2-f}$ 在 $D$ 上解析，$|g|<1$，$g(0)=0$。由 Schwarz 引理 $|g(z)|\\leqslant|z|$。\n反解 $f=\\dfrac{2g}{1+g}$。对 $|g|=r$，记 $x=\\operatorname{Re}g\\in[-r,r]$：\n$$\\operatorname{Re}\\frac{2g}{1+g}=\\frac{2(x+r^2)}{1+2x+r^2},$$\n关于 $x$ 的导数为 $\\dfrac{2(1-r^2)}{(1+2x+r^2)^2}>0$，在 $x=r$ 取最大值 $\\dfrac{2r}{1+r}$。而 $\\dfrac{2r}{1+r}$ 关于 $r$ 递增，$r\\leqslant|z|$，故\n$$\\operatorname{Re}f(z)\\leqslant\\frac{2|z|}{1+|z|}.$$",
+   "solutionSource": "编写"
+  },
+  {
+   "no": "十",
+   "score": 10,
+   "type": "计算",
+   "subjects": [
+    "概率论"
+   ],
+   "topics": [
+    "Markov链",
+    "递推",
+    "全概率公式"
+   ],
+   "difficulty": 2,
+   "statement": "甲袋中有 $N-1\\ (N>1)$ 个白球和 1 个黑球，乙袋中有 $N$ 个白球，每次从甲乙两袋中分别取出一个球并交换放入另一袋中，这样经过了 $n$ 次，求黑球出现在甲袋中的概率 $p_n$，并计算 $\\lim\\limits_{n\\to\\infty}p_n$。",
+   "answer": "$p_n=\\dfrac12+\\dfrac12\\left(1-\\dfrac2N\\right)^n$，$\\lim\\limits_{n\\to\\infty}p_n=\\dfrac12$。",
+   "solution": "每次交换后两袋仍各有 $N$ 个球。若黑球在甲袋，它以概率 $\\frac1N$ 被取出移到乙袋；若在乙袋，以概率 $\\frac1N$ 移回甲袋。由全概率公式\n$$p_{n+1}=p_n\\left(1-\\frac1N\\right)+(1-p_n)\\frac1N=\\left(1-\\frac2N\\right)p_n+\\frac1N,\\quad p_0=1.$$\n于是 $p_n-\\frac12=\\left(1-\\frac2N\\right)^n\\left(p_0-\\frac12\\right)$，即 $p_n=\\dfrac12+\\dfrac12\\left(1-\\dfrac2N\\right)^n$。由 $N>1$ 知 $\\left|1-\\frac2N\\right|<1$，故 $\\lim\\limits_{n\\to\\infty}p_n=\\dfrac12$。",
+   "solutionSource": "编写"
+  }
+ ]
+}

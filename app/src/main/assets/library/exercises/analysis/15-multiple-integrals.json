@@ -1,0 +1,281 @@
+{
+ "id": "ex-analysis-15",
+ "title": "数学分析 · 重积分",
+ "subject": "数学分析",
+ "chapter": 15,
+ "problems": [
+  {
+   "no": "1",
+   "type": "计算",
+   "subjects": [
+    "数学分析"
+   ],
+   "topics": [
+    "二重积分",
+    "累次积分"
+   ],
+   "difficulty": 1,
+   "statement": "计算 $\\displaystyle\\iint_Dxy\\,\\mathrm{d}\\sigma$，其中 $D$ 由 $y=x$ 与 $y=x^2$ 围成。",
+   "answer": "$\\dfrac1{24}$",
+   "solution": "两曲线交于 $(0,0)$、$(1,1)$，$D=\\{0\\le x\\le1,\\ x^2\\le y\\le x\\}$。\n$$\\iint_Dxy\\,\\mathrm{d}\\sigma=\\int_0^1x\\,\\mathrm{d}x\\int_{x^2}^xy\\,\\mathrm{d}y=\\int_0^1\\dfrac{x^3-x^5}2\\,\\mathrm{d}x=\\dfrac12\\left(\\dfrac14-\\dfrac16\\right)=\\dfrac1{24}.$$",
+   "solutionSource": "编写",
+   "source": "经典题"
+  },
+  {
+   "no": "2",
+   "type": "计算",
+   "subjects": [
+    "数学分析"
+   ],
+   "topics": [
+    "交换积分次序"
+   ],
+   "difficulty": 1,
+   "statement": "计算 $\\displaystyle\\int_0^1\\mathrm{d}x\\int_x^1e^{y^2}\\,\\mathrm{d}y$。",
+   "answer": "$\\dfrac{e-1}2$",
+   "solution": "$e^{y^2}$ 的原函数不是初等函数，交换次序。积分区域为 $\\{0\\le x\\le y\\le1\\}$：\n$$\\int_0^1\\mathrm{d}y\\int_0^ye^{y^2}\\,\\mathrm{d}x=\\int_0^1ye^{y^2}\\,\\mathrm{d}y=\\dfrac{e-1}2.$$",
+   "solutionSource": "编写",
+   "source": "经典题"
+  },
+  {
+   "no": "3",
+   "type": "计算",
+   "subjects": [
+    "数学分析"
+   ],
+   "topics": [
+    "球坐标",
+    "对称性"
+   ],
+   "difficulty": 1,
+   "statement": "设 $\\Omega$ 为单位球 $x^2+y^2+z^2\\le1$。计算 $\\displaystyle\\iiint_\\Omega(x^2+y^2+z^2)\\,\\mathrm{d}V$ 与 $\\displaystyle\\iiint_\\Omega z^2\\,\\mathrm{d}V$。",
+   "answer": "$\\dfrac{4\\pi}5$；$\\dfrac{4\\pi}{15}$",
+   "solution": "球坐标：\n$$\\iiint_\\Omega(x^2+y^2+z^2)\\,\\mathrm{d}V=\\int_0^{2\\pi}\\mathrm{d}\\theta\\int_0^\\pi\\sin\\varphi\\,\\mathrm{d}\\varphi\\int_0^1\\rho^4\\,\\mathrm{d}\\rho=2\\pi\\cdot2\\cdot\\dfrac15=\\dfrac{4\\pi}5.$$\n由轮换对称性 $\\iiint x^2=\\iiint y^2=\\iiint z^2$，故 $\\iiint_\\Omega z^2\\,\\mathrm{d}V=\\dfrac13\\cdot\\dfrac{4\\pi}5=\\dfrac{4\\pi}{15}$。",
+   "solutionSource": "编写",
+   "source": "经典题"
+  },
+  {
+   "no": "4",
+   "type": "计算",
+   "subjects": [
+    "数学分析"
+   ],
+   "topics": [
+    "分区域积分",
+    "绝对值"
+   ],
+   "difficulty": 2,
+   "statement": "计算 $\\displaystyle\\iint_D|y-x^2|\\,\\mathrm{d}\\sigma$，$D=[-1,1]\\times[0,2]$。",
+   "answer": "$\\dfrac{46}{15}$",
+   "solution": "以 $y=x^2$ 将 $D$ 分为 $D_1:y\\ge x^2$ 与 $D_2:y<x^2$。\n$$\\iint_{D_1}(y-x^2)=\\int_{-1}^1\\mathrm{d}x\\int_{x^2}^2(y-x^2)\\,\\mathrm{d}y=\\int_{-1}^1\\dfrac{(2-x^2)^2}{2}\\,\\mathrm{d}x=\\dfrac12\\left(8-\\dfrac83+\\dfrac25\\right)=\\dfrac{43}{15}.$$\n$$\\iint_{D_2}(x^2-y)=\\int_{-1}^1\\mathrm{d}x\\int_0^{x^2}(x^2-y)\\,\\mathrm{d}y=\\int_{-1}^1\\dfrac{x^4}2\\,\\mathrm{d}x=\\dfrac15.$$\n合计 $\\dfrac{43}{15}+\\dfrac{3}{15}=\\dfrac{46}{15}$。",
+   "solutionSource": "编写",
+   "source": "经典题"
+  },
+  {
+   "no": "5",
+   "type": "计算",
+   "subjects": [
+    "数学分析"
+   ],
+   "topics": [
+    "三重积分",
+    "柱坐标"
+   ],
+   "difficulty": 2,
+   "statement": "计算 $\\displaystyle\\iiint_\\Omega z\\,\\mathrm{d}V$，其中 $\\Omega$ 由旋转抛物面 $z=x^2+y^2$ 与平面 $z=1$ 围成。",
+   "answer": "$\\dfrac\\pi3$",
+   "solution": "柱坐标下 $\\Omega:0\\le\\theta\\le2\\pi$，$0\\le r\\le1$，$r^2\\le z\\le1$。\n$$\\iiint_\\Omega z\\,\\mathrm{d}V=\\int_0^{2\\pi}\\mathrm{d}\\theta\\int_0^1r\\,\\mathrm{d}r\\int_{r^2}^1z\\,\\mathrm{d}z=2\\pi\\int_0^1\\dfrac{r-r^5}{2}\\,\\mathrm{d}r=\\pi\\left(\\dfrac12-\\dfrac16\\right)=\\dfrac\\pi3.$$\n（或用\"先二后一\"：截面面积 $\\pi z$，$\\int_0^1z\\cdot\\pi z\\,\\mathrm{d}z=\\dfrac\\pi3$。）",
+   "solutionSource": "编写",
+   "source": "经典题"
+  },
+  {
+   "no": "6",
+   "type": "计算",
+   "subjects": [
+    "数学分析"
+   ],
+   "topics": [
+    "体积",
+    "对称性"
+   ],
+   "difficulty": 2,
+   "statement": "求两个圆柱 $x^2+y^2\\le R^2$ 与 $x^2+z^2\\le R^2$ 公共部分的体积。",
+   "answer": "$\\dfrac{16}3R^3$",
+   "solution": "由对称性，体积为第一卦限部分的 $8$ 倍。第一卦限部分是以 $\\{x^2+y^2\\le R^2,x,y\\ge0\\}$ 为底、以 $z=\\sqrt{R^2-x^2}$ 为顶的曲顶柱体：\n$$V=8\\int_0^R\\mathrm{d}x\\int_0^{\\sqrt{R^2-x^2}}\\sqrt{R^2-x^2}\\,\\mathrm{d}y=8\\int_0^R(R^2-x^2)\\,\\mathrm{d}x=8\\cdot\\dfrac{2R^3}3=\\dfrac{16}{3}R^3.$$",
+   "solutionSource": "编写",
+   "source": "经典题"
+  },
+  {
+   "no": "7",
+   "type": "计算",
+   "subjects": [
+    "数学分析"
+   ],
+   "topics": [
+    "球坐标",
+    "体积"
+   ],
+   "difficulty": 2,
+   "statement": "求锥面 $z=\\sqrt{x^2+y^2}$ 与球面 $x^2+y^2+z^2=2z$ 所围（锥面上方、球面内部）区域的体积。",
+   "answer": "$\\pi$",
+   "solution": "球面 $x^2+y^2+z^2=2z$ 在球坐标下为 $\\rho=2\\cos\\varphi$，锥面为 $\\varphi=\\dfrac\\pi4$。区域为 $0\\le\\theta\\le2\\pi$，$0\\le\\varphi\\le\\dfrac\\pi4$，$0\\le\\rho\\le2\\cos\\varphi$：\n$$V=\\int_0^{2\\pi}\\mathrm{d}\\theta\\int_0^{\\pi/4}\\sin\\varphi\\,\\mathrm{d}\\varphi\\int_0^{2\\cos\\varphi}\\rho^2\\,\\mathrm{d}\\rho=2\\pi\\int_0^{\\pi/4}\\dfrac{8}{3}\\cos^3\\varphi\\sin\\varphi\\,\\mathrm{d}\\varphi=\\dfrac{16\\pi}3\\cdot\\dfrac14\\left(1-\\dfrac14\\right)=\\pi.$$",
+   "solutionSource": "编写",
+   "source": "经典题"
+  },
+  {
+   "no": "8",
+   "type": "计算",
+   "subjects": [
+    "数学分析"
+   ],
+   "topics": [
+    "质心",
+    "球坐标"
+   ],
+   "difficulty": 2,
+   "statement": "求密度均匀的半球体 $x^2+y^2+z^2\\le R^2$，$z\\ge0$ 的质心。",
+   "answer": "$\\left(0,0,\\dfrac{3R}8\\right)$",
+   "solution": "由对称性 $\\bar x=\\bar y=0$。\n$$\\iiint z\\,\\mathrm{d}V=\\int_0^{2\\pi}\\mathrm{d}\\theta\\int_0^{\\pi/2}\\cos\\varphi\\sin\\varphi\\,\\mathrm{d}\\varphi\\int_0^R\\rho^3\\,\\mathrm{d}\\rho=2\\pi\\cdot\\dfrac12\\cdot\\dfrac{R^4}4=\\dfrac{\\pi R^4}4.$$\n体积 $V=\\dfrac23\\pi R^3$，故 $\\bar z=\\dfrac{\\pi R^4/4}{2\\pi R^3/3}=\\dfrac{3R}8$。",
+   "solutionSource": "编写",
+   "source": "经典题"
+  },
+  {
+   "no": "9",
+   "type": "证明",
+   "subjects": [
+    "数学分析"
+   ],
+   "topics": [
+    "交换积分次序",
+    "累次积分"
+   ],
+   "difficulty": 3,
+   "statement": "设 $f$ 在 $[0,a]$ 上连续。证明对 $0\\le x\\le a$ 及 $n\\ge1$，\n$$\\int_0^x\\mathrm{d}x_1\\int_0^{x_1}\\mathrm{d}x_2\\cdots\\int_0^{x_{n-1}}f(x_n)\\,\\mathrm{d}x_n=\\dfrac{1}{(n-1)!}\\int_0^x(x-u)^{n-1}f(u)\\,\\mathrm{d}u.$$",
+   "answer": "",
+   "solution": "对 $n$ 归纳。$n=1$ 显然。记左端为 $I_n(x)$，则 $I_n(x)=\\int_0^xI_{n-1}(t)\\,\\mathrm{d}t$（这里 $I_{n-1}$ 是对后 $n-1$ 层积分，上限为 $t$）。由归纳假设并在三角形 $\\{0\\le u\\le t\\le x\\}$ 上交换积分次序：\n$$I_n(x)=\\int_0^x\\mathrm{d}t\\int_0^t\\dfrac{(t-u)^{n-2}}{(n-2)!}f(u)\\,\\mathrm{d}u=\\int_0^xf(u)\\,\\mathrm{d}u\\int_u^x\\dfrac{(t-u)^{n-2}}{(n-2)!}\\,\\mathrm{d}t=\\int_0^x\\dfrac{(x-u)^{n-1}}{(n-1)!}f(u)\\,\\mathrm{d}u.$$",
+   "solutionSource": "编写",
+   "source": "经典题"
+  },
+  {
+   "no": "10",
+   "type": "计算",
+   "subjects": [
+    "数学分析"
+   ],
+   "topics": [
+    "二重积分换元",
+    "Jacobi行列式"
+   ],
+   "difficulty": 3,
+   "statement": "计算 $\\displaystyle\\iint_De^{\\frac{y-x}{y+x}}\\,\\mathrm{d}x\\,\\mathrm{d}y$，其中 $D$ 是由 $x=0$，$y=0$，$x+y=2$ 围成的三角形。",
+   "answer": "$e-e^{-1}$",
+   "solution": "令 $u=y-x$，$v=y+x$，则 $x=\\dfrac{v-u}2$，$y=\\dfrac{v+u}2$，$\\left|\\dfrac{\\partial(x,y)}{\\partial(u,v)}\\right|=\\dfrac12$。区域变为 $0\\le v\\le2$，$-v\\le u\\le v$（$x\\ge0\\iff u\\le v$，$y\\ge0\\iff u\\ge-v$）。\n$$\\iint_De^{\\frac{y-x}{y+x}}\\,\\mathrm{d}x\\,\\mathrm{d}y=\\dfrac12\\int_0^2\\mathrm{d}v\\int_{-v}^ve^{u/v}\\,\\mathrm{d}u=\\dfrac12\\int_0^2v\\left(e-e^{-1}\\right)\\mathrm{d}v=e-e^{-1}.$$\n（原点处被积函数无定义但有界，不影响积分。）",
+   "solutionSource": "编写",
+   "source": "经典题"
+  },
+  {
+   "no": "11",
+   "type": "计算",
+   "subjects": [
+    "数学分析"
+   ],
+   "topics": [
+    "极坐标",
+    "Gauss积分"
+   ],
+   "difficulty": 3,
+   "statement": "计算 $\\displaystyle\\iint_{x^2+y^2\\le R^2}e^{-(x^2+y^2)}\\,\\mathrm{d}x\\,\\mathrm{d}y$，并由此证明 $\\displaystyle\\int_0^{+\\infty}e^{-x^2}\\,\\mathrm{d}x=\\dfrac{\\sqrt\\pi}2$。",
+   "answer": "$\\pi\\left(1-e^{-R^2}\\right)$",
+   "solution": "极坐标：$\\displaystyle\\int_0^{2\\pi}\\mathrm{d}\\theta\\int_0^Re^{-r^2}r\\,\\mathrm{d}r=\\pi\\left(1-e^{-R^2}\\right)$，记为 $I(R)$。\n\n正方形 $[-R,R]^2$ 夹在半径为 $R$ 与 $\\sqrt2R$ 的圆盘之间，被积函数为正，故\n$$\\pi\\left(1-e^{-R^2}\\right)\\le\\iint_{[-R,R]^2}e^{-x^2-y^2}=\\left(\\int_{-R}^Re^{-x^2}\\,\\mathrm{d}x\\right)^2\\le\\pi\\left(1-e^{-2R^2}\\right).$$\n令 $R\\to+\\infty$，由夹逼准则 $\\left(\\int_{-\\infty}^{+\\infty}e^{-x^2}\\,\\mathrm{d}x\\right)^2=\\pi$，再由偶性得 $\\int_0^{+\\infty}e^{-x^2}\\,\\mathrm{d}x=\\dfrac{\\sqrt\\pi}2$。",
+   "solutionSource": "编写",
+   "source": "经典题"
+  },
+  {
+   "no": "12",
+   "type": "计算",
+   "subjects": [
+    "数学分析"
+   ],
+   "topics": [
+    "交换积分次序",
+    "含参积分"
+   ],
+   "difficulty": 3,
+   "statement": "设 $-1<a<b$，计算 $\\displaystyle\\int_0^1\\dfrac{x^b-x^a}{\\ln x}\\,\\mathrm{d}x$。",
+   "answer": "$\\ln\\dfrac{b+1}{a+1}$",
+   "solution": "由 $\\dfrac{x^b-x^a}{\\ln x}=\\int_a^bx^y\\,\\mathrm{d}y$（$0<x<1$），\n$$\\int_0^1\\dfrac{x^b-x^a}{\\ln x}\\,\\mathrm{d}x=\\int_0^1\\mathrm{d}x\\int_a^bx^y\\,\\mathrm{d}y=\\int_a^b\\mathrm{d}y\\int_0^1x^y\\,\\mathrm{d}x=\\int_a^b\\dfrac{\\mathrm{d}y}{y+1}=\\ln\\dfrac{b+1}{a+1}.$$\n交换次序的合理性：被积函数 $x^y>0$，当 $a\\ge0$ 时它在 $[0,1]\\times[a,b]$ 上连续；当 $-1<a<0$ 时为非负函数的反常二重积分，由非负性（Tonelli 型结论）或先在 $[\\varepsilon,1]$ 上交换再令 $\\varepsilon\\to0^+$ 均可得到。",
+   "solutionSource": "编写",
+   "source": "经典题"
+  },
+  {
+   "no": "13",
+   "type": "证明",
+   "subjects": [
+    "数学分析"
+   ],
+   "topics": [
+    "对称性",
+    "积分估计"
+   ],
+   "difficulty": 3,
+   "statement": "设 $D=[0,1]\\times[0,1]$。证明\n$$1\\le\\iint_D\\left(\\sin x^2+\\cos y^2\\right)\\mathrm{d}x\\,\\mathrm{d}y\\le\\sqrt2.$$",
+   "answer": "",
+   "solution": "由 $D$ 关于直线 $y=x$ 的对称性，$\\iint_D\\sin x^2=\\iint_D\\sin y^2$，故\n$$\\iint_D(\\sin x^2+\\cos y^2)=\\iint_D(\\sin y^2+\\cos y^2)=\\int_0^1\\sqrt2\\sin\\left(y^2+\\dfrac\\pi4\\right)\\mathrm{d}y.$$\n$y\\in[0,1]$ 时 $y^2+\\dfrac\\pi4\\in\\left[\\dfrac\\pi4,1+\\dfrac\\pi4\\right]\\subset\\left[\\dfrac\\pi4,\\dfrac{3\\pi}4\\right]$（因 $1<\\dfrac\\pi2$），故 $\\sqrt2\\sin\\left(y^2+\\frac\\pi4\\right)\\in[1,\\sqrt2]$，积分介于 $1$ 与 $\\sqrt2$ 之间。",
+   "solutionSource": "编写",
+   "source": "经典题"
+  },
+  {
+   "no": "14",
+   "type": "计算",
+   "subjects": [
+    "数学分析"
+   ],
+   "topics": [
+    "n重积分",
+    "单纯形体积",
+    "数学归纳法"
+   ],
+   "difficulty": 3,
+   "statement": "求 $n$ 维单纯形 $\\Delta_n=\\{(x_1,\\dots,x_n):x_i\\ge0,\\ x_1+\\cdots+x_n\\le1\\}$ 的体积。",
+   "answer": "$\\dfrac1{n!}$",
+   "solution": "记 $V_n(a)$ 为 $\\{x_i\\ge0,\\sum x_i\\le a\\}$ 的体积，由伸缩变换 $V_n(a)=a^nV_n(1)$。按最后一个坐标切片：\n$$V_n(1)=\\int_0^1V_{n-1}(1-t)\\,\\mathrm{d}t=V_{n-1}(1)\\int_0^1(1-t)^{n-1}\\,\\mathrm{d}t=\\dfrac{V_{n-1}(1)}{n}.$$\n$V_1(1)=1$，故 $V_n(1)=\\dfrac1{n!}$。",
+   "solutionSource": "编写",
+   "source": "经典题"
+  },
+  {
+   "no": "15",
+   "type": "证明",
+   "subjects": [
+    "数学分析"
+   ],
+   "topics": [
+    "对称性",
+    "三重积分"
+   ],
+   "difficulty": 4,
+   "statement": "设 $f$ 在 $[0,1]$ 上连续。证明\n$$\\int_0^1\\mathrm{d}x\\int_x^1\\mathrm{d}y\\int_x^yf(x)f(y)f(z)\\,\\mathrm{d}z=\\dfrac16\\left(\\int_0^1f(t)\\,\\mathrm{d}t\\right)^3.$$",
+   "answer": "",
+   "solution": "左端是 $F(x,y,z)=f(x)f(y)f(z)$ 在区域 $\\Omega=\\{0\\le x\\le z\\le y\\le1\\}$ 上的三重积分。立方体 $[0,1]^3$ 按三个坐标的大小顺序分成 $6$ 个区域（交集为零测集），每个区域都可由 $\\Omega$ 经交换坐标得到。$F$ 关于三个变量对称，交换坐标（Jacobi 行列式绝对值为 $1$）不改变积分值，故这 $6$ 个积分相等。于是\n$$\\iiint_\\Omega F=\\dfrac16\\iiint_{[0,1]^3}f(x)f(y)f(z)\\,\\mathrm{d}V=\\dfrac16\\left(\\int_0^1f\\right)^3.$$\n（另法：令 $G(t)=\\int_0^tf$，直接计算内层积分，也可得到 $\\dfrac16G(1)^3$。）",
+   "solutionSource": "编写",
+   "source": "经典题"
+  },
+  {
+   "no": "16",
+   "type": "计算",
+   "subjects": [
+    "数学分析"
+   ],
+   "topics": [
+    "正交变换",
+    "旋转不变性",
+    "三重积分"
+   ],
+   "difficulty": 5,
+   "statement": "设 $k=\\sqrt{a^2+b^2+c^2}>0$，$\\Omega$ 为单位球 $x^2+y^2+z^2\\le1$。计算 $\\displaystyle\\iiint_\\Omega\\cos(ax+by+cz)\\,\\mathrm{d}V$。",
+   "answer": "$\\dfrac{4\\pi(\\sin k-k\\cos k)}{k^3}$",
+   "solution": "取正交矩阵 $Q$，使其第三行为单位向量 $\\dfrac1k(a,b,c)$，作变换 $(u,v,w)^{\\mathrm T}=Q(x,y,z)^{\\mathrm T}$。正交变换把单位球变为单位球，Jacobi 行列式绝对值为 $1$，且 $ax+by+cz=kw$。于是\n$$I=\\iiint_{u^2+v^2+w^2\\le1}\\cos kw\\,\\mathrm{d}V=\\int_{-1}^1\\cos kw\\cdot\\pi(1-w^2)\\,\\mathrm{d}w=2\\pi\\int_0^1(1-w^2)\\cos kw\\,\\mathrm{d}w,$$\n其中 $\\pi(1-w^2)$ 是高度 $w$ 处截面圆盘的面积。分部积分：\n$$\\int_0^1\\cos kw\\,\\mathrm{d}w=\\dfrac{\\sin k}k,\\qquad\\int_0^1w^2\\cos kw\\,\\mathrm{d}w=\\dfrac{\\sin k}k+\\dfrac{2\\cos k}{k^2}-\\dfrac{2\\sin k}{k^3}.$$\n故\n$$I=2\\pi\\left(\\dfrac{2\\sin k}{k^3}-\\dfrac{2\\cos k}{k^2}\\right)=\\dfrac{4\\pi(\\sin k-k\\cos k)}{k^3}.$$\n检验：$k\\to0$ 时 $\\sin k-k\\cos k\\sim\\dfrac{k^3}3$，$I\\to\\dfrac{4\\pi}3$，即球的体积。",
+   "solutionSource": "编写",
+   "source": "经典题"
+  }
+ ]
+}

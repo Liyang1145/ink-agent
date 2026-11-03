@@ -1,0 +1,147 @@
+{
+ "id": "cmc-math-01-prelim",
+ "title": "第一届全国大学生数学竞赛初赛（数学类）",
+ "year": 2009,
+ "track": "数学类",
+ "round": "初赛",
+ "paper": "",
+ "durationMin": 150,
+ "totalScore": 100,
+ "source": {
+  "question": "2009年01-试卷-第一届全国初赛-数学类试卷.pdf",
+  "solution": "2009年02-参考答案-第一届全国初赛-数学类试卷.pdf"
+ },
+ "problems": [
+  {
+   "no": "一",
+   "score": 15,
+   "type": "计算",
+   "subjects": [
+    "解析几何"
+   ],
+   "topics": [
+    "圆柱面",
+    "平行直线",
+    "点到直线距离"
+   ],
+   "difficulty": 2,
+   "statement": "求经过三平行直线 $L_1:x=y=z$，$L_2:x-1=y=z+1$，$L_3:x=y+1=z-1$ 的圆柱面的方程。",
+   "answer": "$x^2+y^2+z^2-xy-xz-yz-3x+3y=0$",
+   "solution": "母线方向为 $\\vec n=(1,1,1)$。过原点作垂直于 $\\vec n$ 的平面 $\\pi:x+y+z=0$，它与三条直线分别交于\n$$O(0,0,0),\\quad P(1,0,-1),\\quad Q(0,-1,1).$$\n轴 $L_0$ 是到这三点等距的点的轨迹：\n$$\\begin{cases}x^2+y^2+z^2=(x-1)^2+y^2+(z+1)^2\\\\ x^2+y^2+z^2=x^2+(y+1)^2+(z-1)^2\\end{cases}\\Longrightarrow\\begin{cases}x-z=1\\\\ y-z=-1\\end{cases}$$\n即 $L_0:\\ x-1=y+1=z$，其上取点 $P_0(1,-1,0)$。半径等于 $O$ 到 $L_0$ 的距离。对圆柱面上任一点 $S(x,y,z)$，\n$$\\frac{|\\vec n\\times\\overrightarrow{P_0S}|}{|\\vec n|}=\\frac{|\\vec n\\times\\overrightarrow{P_0O}|}{|\\vec n|},$$\n即\n$$(-y+z-1)^2+(x-z-1)^2+(-x+y+2)^2=6,$$\n化简得圆柱面方程\n$$x^2+y^2+z^2-xy-xz-yz-3x+3y=0.$$",
+   "solutionSource": "官方"
+  },
+  {
+   "no": "二",
+   "score": 20,
+   "type": "证明",
+   "subjects": [
+    "高等代数"
+   ],
+   "topics": [
+    "友矩阵",
+    "可交换矩阵",
+    "子空间维数",
+    "循环向量"
+   ],
+   "difficulty": 3,
+   "statement": "设 $C^{n\\times n}$ 是 $n\\times n$ 复矩阵全体在通常的运算下所构成的复数域 $C$ 上的线性空间，\n$$F=\\begin{pmatrix}0&0&\\cdots&0&-a_n\\\\1&0&\\cdots&0&-a_{n-1}\\\\0&1&\\cdots&0&-a_{n-2}\\\\\\vdots&\\vdots&&\\vdots&\\vdots\\\\0&0&\\cdots&1&-a_1\\end{pmatrix}.$$\n\n(1) 假设 $A=\\begin{pmatrix}a_{11}&a_{12}&\\cdots&a_{1n}\\\\a_{21}&a_{22}&\\cdots&a_{2n}\\\\\\vdots&\\vdots&&\\vdots\\\\a_{n1}&a_{n2}&\\cdots&a_{nn}\\end{pmatrix}$，若 $AF=FA$，证明：\n$$A=a_{n1}F^{n-1}+a_{n-1,1}F^{n-2}+\\cdots+a_{21}F+a_{11}E;$$\n\n(2) 求 $C^{n\\times n}$ 的子空间 $C(F)=\\left\\{X\\in C^{n\\times n}\\mid FX=XF\\right\\}$ 的维数。",
+   "answer": "(2) $\\dim C(F)=n$，基为 $E,F,\\dots,F^{n-1}$。",
+   "solution": "**(1)** 记 $A=(\\alpha_1,\\dots,\\alpha_n)$，$M=a_{n1}F^{n-1}+a_{n-1,1}F^{n-2}+\\cdots+a_{21}F+a_{11}E$，$e_i$ 为第 $i$ 个单位列向量。只需证 $Me_i=Ae_i$ 对每个 $i$ 成立。\n\n由 $F=(e_2,e_3,\\dots,e_n,\\beta)$（$\\beta=(-a_n,\\dots,-a_1)^T$）知\n$$Fe_1=e_2,\\ F^2e_1=e_3,\\ \\dots,\\ F^{n-1}e_1=e_n.\\qquad(*)$$\n于是\n$$Me_1=a_{n1}e_n+a_{n-1,1}e_{n-1}+\\cdots+a_{21}e_2+a_{11}e_1=\\alpha_1=Ae_1.$$\n由于 $M$ 是 $F$ 的多项式，$MF=FM$，又 $AF=FA$，故对 $k=1,\\dots,n-1$，\n$$Me_{k+1}=MF^ke_1=F^kMe_1=F^kAe_1=AF^ke_1=Ae_{k+1}.$$\n所以 $M=A$。\n\n**(2)** 由 (1)，$C(F)=\\operatorname{span}\\{E,F,\\dots,F^{n-1}\\}$。若 $x_0E+x_1F+\\cdots+x_{n-1}F^{n-1}=O$，两边右乘 $e_1$ 并用 $(*)$ 得 $x_0e_1+x_1e_2+\\cdots+x_{n-1}e_n=0$，故全部 $x_i=0$，即 $E,F,\\dots,F^{n-1}$ 线性无关。因此它们构成 $C(F)$ 的基，$\\dim C(F)=n$。",
+   "solutionSource": "官方"
+  },
+  {
+   "no": "三",
+   "score": 15,
+   "type": "证明",
+   "subjects": [
+    "高等代数"
+   ],
+   "topics": [
+    "线性变换",
+    "特征值",
+    "公共特征向量",
+    "不变子空间",
+    "迹"
+   ],
+   "difficulty": 4,
+   "statement": "假设 $V$ 是复数域 $C$ 上 $n$ 维线性空间（$n>0$），$f,g$ 是 $V$ 上的线性变换。如果 $fg-gf=f$，证明：$f$ 的特征值都是 0，且 $f,g$ 有公共特征向量。",
+   "answer": "",
+   "solution": "设 $\\lambda_0$ 是 $f$ 的特征值，$W=\\{\\eta\\in V\\mid f(\\eta)=\\lambda_0\\eta\\}$。\n\n**先证 $\\lambda_0=0$。** 取非零 $\\eta\\in W$，设 $m$ 是使 $\\eta,g(\\eta),\\dots,g^m(\\eta)$ 线性相关的最小整数，令 $W_m=\\operatorname{span}\\{\\eta,g(\\eta),\\dots,g^{m-1}(\\eta)\\}$，则 $\\dim W_m=m$ 且 $W_m$ 是 $g$-不变子空间。\n\n由 $fg=gf+f$ 得 $fg^k(\\eta)=g\\big(fg^{k-1}(\\eta)\\big)+fg^{k-1}(\\eta)$，归纳可知 $fg^k(\\eta)$ 是 $\\eta,g(\\eta),\\dots,g^k(\\eta)$ 的线性组合，且 $g^k(\\eta)$ 的系数为 $\\lambda_0$（例如 $fg(\\eta)=\\lambda_0g(\\eta)+\\lambda_0\\eta$）。故 $W_m$ 也是 $f$-不变的，$f|_{W_m}$ 在上述基下的矩阵为上三角阵，对角元都是 $\\lambda_0$，迹为 $m\\lambda_0$。\n\n在 $W_m$ 上仍有 $fg-gf=f$，而 $fg-gf$ 的迹为 0，所以 $m\\lambda_0=0$，$\\lambda_0=0$。\n\n**公共特征向量。** 此时 $W=\\ker f$。对 $\\eta\\in W$，$f(g(\\eta))=g(f(\\eta))+f(\\eta)=0$，故 $g(\\eta)\\in W$，$W$ 是 $g$-不变的非零子空间。于是 $g|_W$ 在 $W$ 中有特征向量（复数域），它也是 $f$ 的（属于特征值 0 的）特征向量，即 $f,g$ 的公共特征向量。",
+   "solutionSource": "官方"
+  },
+  {
+   "no": "四",
+   "score": 10,
+   "type": "证明",
+   "subjects": [
+    "数学分析"
+   ],
+   "topics": [
+    "一致收敛",
+    "函数列",
+    "导数有界",
+    "反例"
+   ],
+   "difficulty": 2,
+   "statement": "设 $\\{f_n(x)\\}$ 是定义在 $[a,b]$ 上的无穷次可微的函数序列且逐点收敛，并在 $[a,b]$ 上满足 $|f_n'(x)|\\leqslant M$。\n\n(1) 证明 $\\{f_n(x)\\}$ 在 $[a,b]$ 上一致收敛；\n\n(2) 设 $f(x)=\\lim\\limits_{n\\to\\infty}f_n(x)$，问 $f(x)$ 是否一定在 $[a,b]$ 上处处可导，为什么？",
+   "answer": "(2) 不一定，例如 $f_n(x)=\\sqrt{x^2+\\frac1n}$（$0\\in(a,b)$ 时），极限 $|x|$ 在 $0$ 处不可导。",
+   "solution": "**(1)** 任给 $\\varepsilon>0$，把 $[a,b]$ $K$ 等分，分点 $x_j=a+\\dfrac{j(b-a)}{K}$（$j=0,1,\\dots,K$），使 $\\dfrac{b-a}{K}<\\varepsilon$。由于在有限个点 $x_j$ 上收敛，存在 $N$，当 $m>n>N$ 时对一切 $j$ 有 $|f_m(x_j)-f_n(x_j)|<\\varepsilon$。\n\n对任意 $x\\in[x_j,x_{j+1}]$，由中值定理，\n$$|f_m(x)-f_n(x)|\\leqslant|f_m(x)-f_m(x_j)|+|f_m(x_j)-f_n(x_j)|+|f_n(x_j)-f_n(x)|<M\\varepsilon+\\varepsilon+M\\varepsilon=(2M+1)\\varepsilon.$$\n由 Cauchy 准则，$\\{f_n\\}$ 在 $[a,b]$ 上一致收敛。\n\n**(2)** 不一定。取 $f_n(x)=\\sqrt{x^2+\\dfrac1n}$，则 $|f_n'(x)|=\\dfrac{|x|}{\\sqrt{x^2+1/n}}\\leqslant1$，各 $f_n$ 无穷次可微且逐点收敛于 $|x|$，而 $|x|$ 在 $x=0$ 处不可导（当 $0\\in[a,b]$ 时）。",
+   "solutionSource": "官方"
+  },
+  {
+   "no": "五",
+   "score": 10,
+   "type": "证明",
+   "subjects": [
+    "数学分析"
+   ],
+   "topics": [
+    "级数发散",
+    "积分估计",
+    "Jordan 不等式"
+   ],
+   "difficulty": 3,
+   "statement": "设 $a_n=\\displaystyle\\int_0^{\\frac{\\pi}{2}}t\\left|\\frac{\\sin nt}{\\sin t}\\right|^3\\mathrm{d}t$，证明 $\\displaystyle\\sum_{n=1}^{\\infty}\\frac{1}{a_n}$ 发散。",
+   "answer": "",
+   "solution": "将积分拆为 $[0,\\frac{\\pi}{n}]$ 与 $[\\frac{\\pi}{n},\\frac{\\pi}{2}]$ 两段：$a_n=I_1+I_2$。\n\n由 $|\\sin nt|\\leqslant n|\\sin t|$，\n$$I_1<n^3\\int_0^{\\frac{\\pi}{n}}t\\,\\mathrm{d}t=\\frac{\\pi^2n}{2}.$$\n在 $[0,\\frac{\\pi}{2}]$ 上 $\\sin t\\geqslant\\dfrac{2t}{\\pi}$，故 $\\left|\\dfrac{\\sin nt}{\\sin t}\\right|\\leqslant\\dfrac{\\pi}{2t}$，\n$$I_2<\\int_{\\frac{\\pi}{n}}^{\\frac{\\pi}{2}}t\\left(\\frac{\\pi}{2t}\\right)^3\\mathrm{d}t=\\frac{\\pi^3}{8}\\left(\\frac{n}{\\pi}-\\frac{2}{\\pi}\\right)<\\frac{\\pi^2n}{8}.$$\n因此 $a_n<\\pi^2n$，即 $\\dfrac{1}{a_n}>\\dfrac{1}{\\pi^2n}$，由调和级数发散知 $\\displaystyle\\sum\\frac{1}{a_n}$ 发散。",
+   "solutionSource": "官方"
+  },
+  {
+   "no": "六",
+   "score": 15,
+   "type": "计算",
+   "subjects": [
+    "数学分析"
+   ],
+   "topics": [
+    "二重积分",
+    "格林公式",
+    "极坐标",
+    "方向导数"
+   ],
+   "difficulty": 3,
+   "statement": "$f(x,y)$ 是 $\\left\\{(x,y)\\mid x^2+y^2\\leqslant1\\right\\}$ 上二次连续可微函数，满足\n$$\\frac{\\partial^2f}{\\partial x^2}+\\frac{\\partial^2f}{\\partial y^2}=x^2y^2,$$\n计算积分\n$$I=\\iint_{x^2+y^2\\leqslant1}\\left(\\frac{x}{\\sqrt{x^2+y^2}}\\frac{\\partial f}{\\partial x}+\\frac{y}{\\sqrt{x^2+y^2}}\\frac{\\partial f}{\\partial y}\\right)\\mathrm{d}x\\,\\mathrm{d}y.$$",
+   "answer": "$I=\\dfrac{\\pi}{168}$",
+   "solution": "令 $x=r\\cos\\theta,\\ y=r\\sin\\theta$，被积函数是 $f$ 沿半径方向的方向导数。对每个 $r$，在圆周 $x^2+y^2=r^2$ 上用格林公式：\n$$\\begin{aligned}I&=\\int_0^1\\mathrm{d}r\\int_0^{2\\pi}\\Big(\\cos\\theta\\,f_x+\\sin\\theta\\,f_y\\Big)r\\,\\mathrm{d}\\theta=\\int_0^1\\mathrm{d}r\\oint_{x^2+y^2=r^2}f_x\\,\\mathrm{d}y-f_y\\,\\mathrm{d}x\\\\&=\\int_0^1\\mathrm{d}r\\iint_{x^2+y^2\\leqslant r^2}(f_{xx}+f_{yy})\\,\\mathrm{d}x\\,\\mathrm{d}y=\\int_0^1\\mathrm{d}r\\iint_{x^2+y^2\\leqslant r^2}x^2y^2\\,\\mathrm{d}x\\,\\mathrm{d}y\\\\&=\\int_0^1\\mathrm{d}r\\int_0^r\\rho^5\\,\\mathrm{d}\\rho\\int_0^{2\\pi}\\cos^2\\theta\\sin^2\\theta\\,\\mathrm{d}\\theta=\\int_0^1\\frac{r^6}{6}\\cdot\\frac{\\pi}{4}\\,\\mathrm{d}r=\\frac{\\pi}{168}.\\end{aligned}$$",
+   "solutionSource": "官方"
+  },
+  {
+   "no": "七",
+   "score": 15,
+   "type": "证明",
+   "subjects": [
+    "数学分析"
+   ],
+   "topics": [
+    "拉格朗日中值定理",
+    "罗尔定理",
+    "弦与曲线"
+   ],
+   "difficulty": 1,
+   "statement": "假设函数 $f(x)$ 在 $[0,1]$ 上连续，在 $(0,1)$ 内二阶可导，过点 $A(0,f(0))$ 与点 $B(1,f(1))$ 的直线与曲线 $y=f(x)$ 相交于点 $C(c,f(c))$，其中 $0<c<1$。证明：在 $(0,1)$ 内至少存在一点 $\\xi$，使 $f''(\\xi)=0$。",
+   "answer": "",
+   "solution": "在 $[0,c]$ 上用拉格朗日中值定理，存在 $\\xi_1\\in(0,c)$ 使 $f'(\\xi_1)=\\dfrac{f(c)-f(0)}{c}$。由于 $C$ 在弦 $AB$ 上，\n$$\\frac{f(c)-f(0)}{c-0}=\\frac{f(1)-f(0)}{1-0}=f(1)-f(0),$$\n故 $f'(\\xi_1)=f(1)-f(0)$。同理在 $[c,1]$ 上存在 $\\xi_2\\in(c,1)$ 使 $f'(\\xi_2)=f(1)-f(0)$。于是 $f'(\\xi_1)=f'(\\xi_2)$，对 $f'$ 在 $[\\xi_1,\\xi_2]$ 上用罗尔定理，存在 $\\xi\\in(\\xi_1,\\xi_2)\\subset(0,1)$ 使 $f''(\\xi)=0$。",
+   "solutionSource": "官方"
+  }
+ ]
+}

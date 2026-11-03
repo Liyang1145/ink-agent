@@ -1,0 +1,213 @@
+{
+ "id": "cmc-nonmath-10-final",
+ "title": "第十届全国大学生数学竞赛决赛（非数学类）",
+ "year": 2019,
+ "track": "非数学类",
+ "round": "决赛",
+ "paper": "",
+ "durationMin": 180,
+ "totalScore": 100,
+ "source": {
+  "question": "2019年03月-非数学类-第十届全国决赛试卷.pdf",
+  "solution": "2019年03月-非数学类参考解答-第十届全国决赛试卷.pdf"
+ },
+ "problems": [
+  {
+   "no": "一(1)",
+   "score": 6,
+   "type": "填空",
+   "subjects": [
+    "高等数学"
+   ],
+   "topics": [
+    "连续性",
+    "等价无穷小"
+   ],
+   "difficulty": 1,
+   "statement": "设函数 $y=\\begin{cases}\\dfrac{\\sqrt{1-a\\sin^2x}-b}{x^2},&x\\ne0\\\\[2mm] 2,&x=0\\end{cases}$ 在点 $x=0$ 处连续，则 $a+b$ 的值为______。",
+   "answer": "$-3$",
+   "solution": "分母 $\\to0$，极限存在需分子 $\\to0$：$1-b=0$，$b=1$。此时 $\\sqrt{1-a\\sin^2x}-1\\sim-\\frac a2x^2$，故极限为 $-\\frac a2=2$，$a=-4$。$a+b=-3$。",
+   "solutionSource": "编写"
+  },
+  {
+   "no": "一(2)",
+   "score": 6,
+   "type": "填空",
+   "subjects": [
+    "高等数学"
+   ],
+   "topics": [
+    "反常积分",
+    "变量替换",
+    "对称性"
+   ],
+   "difficulty": 2,
+   "statement": "设 $a>0$，则 $\\displaystyle\\int_0^{+\\infty}\\frac{\\ln x}{x^2+a^2}\\,\\mathrm{d}x=$______。",
+   "answer": "$\\dfrac{\\pi\\ln a}{2a}$",
+   "solution": "令 $x=at$：原式 $=\\dfrac1a\\displaystyle\\int_0^{+\\infty}\\frac{\\ln a+\\ln t}{1+t^2}\\mathrm{d}t$。而 $\\int_0^{+\\infty}\\frac{\\ln t}{1+t^2}\\mathrm{d}t=0$（代换 $t\\to\\frac1t$ 变号），$\\int_0^{+\\infty}\\frac{\\mathrm{d}t}{1+t^2}=\\frac\\pi2$，故结果为 $\\dfrac{\\pi\\ln a}{2a}$。",
+   "solutionSource": "编写"
+  },
+  {
+   "no": "一(3)",
+   "score": 6,
+   "type": "填空",
+   "subjects": [
+    "高等数学"
+   ],
+   "topics": [
+    "斯托克斯公式",
+    "曲线积分",
+    "立方体截面"
+   ],
+   "difficulty": 3,
+   "statement": "设曲线 $L$ 是空间区域 $0\\le x\\le1,\\ 0\\le y\\le1,\\ 0\\le z\\le1$ 的表面与平面 $x+y+z=\\dfrac32$ 的交线，则 $\\left|\\displaystyle\\oint_L(z^2-y^2)\\,\\mathrm{d}x+(x^2-z^2)\\,\\mathrm{d}y+(y^2-x^2)\\,\\mathrm{d}z\\right|=$______。",
+   "answer": "$\\dfrac92$",
+   "solution": "取 $L$ 所围平面块 $\\Sigma$（正六边形），单位法向 $\\vec n=\\frac1{\\sqrt3}(1,1,1)$。旋度 $\\operatorname{rot}\\vec F=(2y+2z,\\ 2z+2x,\\ 2x+2y)$，故 $\\operatorname{rot}\\vec F\\cdot\\vec n=\\frac{4(x+y+z)}{\\sqrt3}=\\frac{6}{\\sqrt3}=2\\sqrt3$。正六边形顶点为各棱中点，边长 $\\frac{\\sqrt2}2$，面积 $\\frac{3\\sqrt3}2\\cdot\\frac12=\\frac{3\\sqrt3}4$。由斯托克斯公式，所求 $=2\\sqrt3\\cdot\\frac{3\\sqrt3}4=\\frac92$。",
+   "solutionSource": "编写"
+  },
+  {
+   "no": "一(4)",
+   "score": 6,
+   "type": "填空",
+   "subjects": [
+    "高等数学"
+   ],
+   "topics": [
+    "隐函数求导",
+    "二阶偏导数"
+   ],
+   "difficulty": 2,
+   "statement": "设函数 $z=z(x,y)$ 由方程 $F(x-y,z)=0$ 确定，其中 $F(u,v)$ 具有连续二阶偏导数，则 $\\dfrac{\\partial^2z}{\\partial x\\partial y}=$______。",
+   "answer": "$\\dfrac{F_{11}F_2^2-2F_1F_2F_{12}+F_{22}F_1^2}{F_2^3}$（$F_1=F_u,\\ F_2=F_v$ 等）",
+   "solution": "$z_x=-\\dfrac{F_1}{F_2}$，$z_y=\\dfrac{F_1}{F_2}$。对 $y$ 求导时 $\\frac{\\mathrm{d}}{\\mathrm{d}y}F_i=-F_{i1}+F_{i2}z_y$，于是\n$$z_{xy}=-\\frac{(-F_{11}+F_{12}z_y)F_2-F_1(-F_{12}+F_{22}z_y)}{F_2^2},$$\n代入 $z_y=F_1/F_2$ 并整理即得 $\\dfrac{F_{11}F_2^2-2F_1F_2F_{12}+F_{22}F_1^2}{F_2^3}$。",
+   "solutionSource": "编写"
+  },
+  {
+   "no": "一(5)",
+   "score": 6,
+   "type": "填空",
+   "subjects": [
+    "线性代数"
+   ],
+   "topics": [
+    "二次型",
+    "规范形",
+    "特征值"
+   ],
+   "difficulty": 2,
+   "statement": "已知二次型 $f(x_1,x_2,\\cdots,x_n)=\\displaystyle\\sum_{i=1}^n\\Big(x_i-\\frac{x_1+x_2+\\cdots+x_n}{n}\\Big)^2$，则 $f$ 的规范形为______。",
+   "answer": "$y_1^2+y_2^2+\\cdots+y_{n-1}^2$",
+   "solution": "$f=x^T\\big(E-\\frac1nJ\\big)x$，$J$ 为全 $1$ 矩阵。$J$ 的特征值为 $n$（一重）和 $0$（$n-1$ 重），故 $E-\\frac1nJ$ 的特征值为 $0$（一重）和 $1$（$n-1$ 重），正惯性指数 $n-1$，负惯性指数 $0$。",
+   "solutionSource": "编写"
+  },
+  {
+   "no": "二",
+   "score": 12,
+   "type": "计算",
+   "subjects": [
+    "高等数学"
+   ],
+   "topics": [
+    "递推数列",
+    "泰勒公式",
+    "Stolz定理"
+   ],
+   "difficulty": 3,
+   "statement": "设 $f(x)$ 在区间 $(-1,1)$ 内三阶连续可导，满足 $f(0)=0,\\ f'(0)=1,\\ f''(0)=0,\\ f'''(0)=-1$；又设数列 $\\{a_n\\}$ 满足 $a_1\\in(0,1)$，$a_{n+1}=f(a_n)\\ (n=1,2,3,\\cdots)$，严格单调减少且 $\\displaystyle\\lim_{n\\to\\infty}a_n=0$。计算 $\\displaystyle\\lim_{n\\to\\infty}na_n^2$。",
+   "answer": "$3$",
+   "solution": "由泰勒公式 $f(x)=x-\\frac{x^3}6+o(x^3)$，故 $a_{n+1}=a_n\\big(1-\\frac{a_n^2}6+o(a_n^2)\\big)$，\n$$\\frac1{a_{n+1}^2}=\\frac1{a_n^2}\\Big(1+\\frac{a_n^2}3+o(a_n^2)\\Big),\\qquad \\frac1{a_{n+1}^2}-\\frac1{a_n^2}\\to\\frac13.$$\n$\\frac1{a_n^2}$ 严格递增趋于 $+\\infty$，由 Stolz 定理 $\\lim\\dfrac{1/a_n^2}{n}=\\frac13$，即 $\\lim na_n^2=3$。",
+   "solutionSource": "编写"
+  },
+  {
+   "no": "三",
+   "score": 12,
+   "type": "证明",
+   "subjects": [
+    "高等数学"
+   ],
+   "topics": [
+    "定积分估计",
+    "变量替换",
+    "单调性"
+   ],
+   "difficulty": 3,
+   "statement": "设 $f(x)$ 在 $(-\\infty,+\\infty)$ 上具有连续导数，且 $|f(x)|\\le1$，$f'(x)>0$，$x\\in(-\\infty,+\\infty)$。证明：对于 $0<\\alpha<\\beta$，成立 $$\\lim_{n\\to\\infty}\\int_\\alpha^\\beta f'\\Big(nx-\\frac1x\\Big)\\mathrm{d}x=0.$$",
+   "answer": "",
+   "solution": "令 $t=nx-\\frac1x$，在 $[\\alpha,\\beta]$ 上严格递增，$\\mathrm{d}t=\\big(n+\\frac1{x^2}\\big)\\mathrm{d}x$。于是\n$$\\int_\\alpha^\\beta f'\\Big(nx-\\frac1x\\Big)\\mathrm{d}x=\\int_{n\\alpha-\\frac1\\alpha}^{n\\beta-\\frac1\\beta}\\frac{f'(t)}{n+1/x(t)^2}\\,\\mathrm{d}t.$$\n因 $f'>0$ 且 $0<\\frac1{n+1/x^2}<\\frac1n$，\n$$0<\\int_\\alpha^\\beta f'\\Big(nx-\\frac1x\\Big)\\mathrm{d}x<\\frac1n\\Big[f\\Big(n\\beta-\\frac1\\beta\\Big)-f\\Big(n\\alpha-\\frac1\\alpha\\Big)\\Big]\\le\\frac2n\\to0.$$",
+   "solutionSource": "编写"
+  },
+  {
+   "no": "四",
+   "score": 12,
+   "type": "计算",
+   "subjects": [
+    "高等数学"
+   ],
+   "topics": [
+    "三重积分",
+    "极坐标",
+    "对称性",
+    "先二后一"
+   ],
+   "difficulty": 4,
+   "statement": "计算三重积分 $\\displaystyle\\iiint_\\Omega\\frac{\\mathrm{d}x\\,\\mathrm{d}y\\,\\mathrm{d}z}{(1+x^2+y^2+z^2)^2}$，其中 $\\Omega:0\\le x\\le1,\\ 0\\le y\\le1,\\ 0\\le z\\le1$。",
+   "answer": "$\\dfrac{\\pi^2}{32}$",
+   "solution": "先对 $(x,y)$ 积分。记 $a=1+z^2$，由关于 $y=x$ 的对称性，正方形上的积分是三角形 $D:0\\le y\\le x\\le1$ 上的 $2$ 倍。在 $D$ 上用极坐标（$0\\le\\theta\\le\\frac\\pi4$，$0\\le r\\le\\sec\\theta$）：\n$$2\\iint_D\\frac{\\mathrm{d}x\\mathrm{d}y}{(a+x^2+y^2)^2}=\\int_0^{\\pi/4}\\Big(\\frac1a-\\frac1{a+\\sec^2\\theta}\\Big)\\mathrm{d}\\theta.$$\n于是\n$$I=\\int_0^{\\pi/4}\\!\\!\\mathrm{d}\\theta\\int_0^1\\Big(\\frac1{1+z^2}-\\frac1{1+z^2+\\sec^2\\theta}\\Big)\\mathrm{d}z=\\frac{\\pi^2}{16}-J.$$\n在 $J$ 中令 $z=\\tan t$（$1+z^2=\\sec^2t$，$\\mathrm{d}z=\\sec^2t\\,\\mathrm{d}t$）：\n$$J=\\int_0^{\\pi/4}\\!\\!\\int_0^{\\pi/4}\\frac{\\sec^2t}{\\sec^2t+\\sec^2\\theta}\\,\\mathrm{d}t\\,\\mathrm{d}\\theta.$$\n交换 $t,\\theta$ 的地位得同一积分，两式相加被积函数为 $1$，故 $J=\\frac12\\cdot\\frac{\\pi^2}{16}=\\frac{\\pi^2}{32}$。所以 $I=\\frac{\\pi^2}{32}$。",
+   "solutionSource": "编写"
+  },
+  {
+   "no": "五",
+   "score": 12,
+   "type": "计算",
+   "subjects": [
+    "高等数学"
+   ],
+   "topics": [
+    "幂级数求和",
+    "反正弦函数",
+    "双阶乘"
+   ],
+   "difficulty": 4,
+   "statement": "求级数 $\\displaystyle\\sum_{n=1}^\\infty\\frac13\\cdot\\frac25\\cdot\\frac37\\cdots\\frac{n}{2n+1}\\cdot\\frac1{n+1}$ 之和。",
+   "answer": "$\\dfrac{\\pi^2-8}{8}$",
+   "solution": "通项 $a_n=\\dfrac{n!}{(2n+1)!!}\\cdot\\dfrac1{n+1}=\\dfrac{(2n)!!}{(2n+1)!!(n+1)}\\cdot\\dfrac1{2^n}$。\n\n已知 $g(x)=\\dfrac{\\arcsin x}{\\sqrt{1-x^2}}=\\displaystyle\\sum_{n=0}^\\infty\\frac{(2n)!!}{(2n+1)!!}x^{2n+1}\\ (|x|<1)$（它满足 $(1-x^2)g'-xg=1$，$g(0)=0$，比较系数即得）。由 $\\big((\\arcsin x)^2\\big)'=2g(x)$ 逐项积分：\n$$(\\arcsin x)^2=\\sum_{n=0}^\\infty\\frac{(2n)!!}{(2n+1)!!(n+1)}x^{2n+2}.$$\n取 $x=\\frac1{\\sqrt2}$，$x^{2n+2}=2^{-(n+1)}$，得 $\\dfrac{\\pi^2}{16}=\\dfrac12+\\sum_{n\\ge1}\\dfrac{a_n}{2}$（$n=0$ 项为 $\\frac12$）。故 $\\displaystyle\\sum_{n=1}^\\infty a_n=2\\Big(\\frac{\\pi^2}{16}-\\frac12\\Big)=\\frac{\\pi^2-8}{8}$。",
+   "solutionSource": "编写"
+  },
+  {
+   "no": "六",
+   "score": 11,
+   "type": "证明",
+   "subjects": [
+    "线性代数"
+   ],
+   "topics": [
+    "幂零矩阵",
+    "相似标准形",
+    "像与核"
+   ],
+   "difficulty": 3,
+   "statement": "设 $A$ 是 $n$ 阶幂零矩阵，即满足 $A^2=O$。证明：若 $A$ 的秩为 $r$，且 $1\\le r<\\dfrac n2$，则存在 $n$ 阶可逆矩阵 $P$，使得 $P^{-1}AP=\\begin{pmatrix}O&I_r&O\\\\O&O&O\\end{pmatrix}$，其中 $I_r$ 为 $r$ 阶单位矩阵。",
+   "answer": "",
+   "solution": "由 $A^2=O$ 知 $\\operatorname{Im}A\\subseteq\\ker A$，$\\dim\\ker A=n-r\\ge r$。取 $\\alpha_1,\\dots,\\alpha_r$ 使 $\\beta_i=A\\alpha_i\\ (i=1,\\dots,r)$ 构成 $\\operatorname{Im}A$ 的基，再把 $\\beta_1,\\dots,\\beta_r$ 扩充为 $\\ker A$ 的基 $\\beta_1,\\dots,\\beta_r,\\gamma_1,\\dots,\\gamma_{n-2r}$。\n\n这 $n$ 个向量 $\\beta_1,\\dots,\\beta_r,\\alpha_1,\\dots,\\alpha_r,\\gamma_1,\\dots,\\gamma_{n-2r}$ 线性无关：若 $\\sum a_i\\beta_i+\\sum b_i\\alpha_i+\\sum c_k\\gamma_k=0$，左乘 $A$ 得 $\\sum b_i\\beta_i=0$，故 $b_i=0$；余下是 $\\ker A$ 的基的组合，系数全为 $0$。\n\n令 $P=(\\beta_1,\\dots,\\beta_r,\\alpha_1,\\dots,\\alpha_r,\\gamma_1,\\dots,\\gamma_{n-2r})$，则\n$$AP=(0,\\dots,0,\\beta_1,\\dots,\\beta_r,0,\\dots,0)=P\\begin{pmatrix}O&I_r&O\\\\O&O&O\\end{pmatrix},$$\n其中右边分块的行数为 $r,\\ n-r$，列数为 $r,\\ r,\\ n-2r$。即 $P^{-1}AP$ 为所求形式。",
+   "solutionSource": "编写"
+  },
+  {
+   "no": "七",
+   "score": 11,
+   "type": "证明",
+   "subjects": [
+    "高等数学"
+   ],
+   "topics": [
+    "Abel变换",
+    "Kronecker引理",
+    "级数收敛"
+   ],
+   "difficulty": 4,
+   "statement": "设 $\\{u_n\\}_{n=1}^\\infty$ 为单调递减的正实数列，$\\displaystyle\\lim_{n\\to\\infty}u_n=0$，$\\{a_n\\}_{n=1}^\\infty$ 为一实数列，级数 $\\displaystyle\\sum_{n=1}^\\infty a_nu_n$ 收敛，证明：$\\displaystyle\\lim_{n\\to\\infty}(a_1+a_2+\\cdots+a_n)u_n=0$。",
+   "answer": "",
+   "solution": "记 $b_k=a_ku_k$，余和 $R_k=\\sum_{j\\ge k}b_j\\to0$，$b_k=R_k-R_{k+1}$。由 Abel 变换，\n$$\\sum_{k=1}^na_k=\\sum_{k=1}^n\\frac{R_k-R_{k+1}}{u_k}=\\frac{R_1}{u_1}+\\sum_{k=2}^nR_k\\Big(\\frac1{u_k}-\\frac1{u_{k-1}}\\Big)-\\frac{R_{n+1}}{u_n}.$$\n乘以 $u_n$：\n$$u_n\\sum_{k=1}^na_k=\\frac{u_nR_1}{u_1}+u_n\\sum_{k=2}^nR_kc_k-R_{n+1},\\qquad c_k=\\frac1{u_k}-\\frac1{u_{k-1}}\\ge0.$$\n首末两项 $\\to0$。任给 $\\varepsilon>0$，取 $N$ 使 $k>N$ 时 $|R_k|<\\varepsilon$，则\n$$\\Big|u_n\\sum_{k=2}^nR_kc_k\\Big|\\le u_n\\sum_{k=2}^N|R_k|c_k+\\varepsilon u_n\\sum_{k=N+1}^nc_k\\le u_n\\sum_{k=2}^N|R_k|c_k+\\varepsilon,$$\n（因 $\\sum_{k=N+1}^nc_k\\le\\frac1{u_n}$），第一项随 $u_n\\to0$ 趋于 $0$。故上极限 $\\le\\varepsilon$，结论成立。",
+   "solutionSource": "编写"
+  }
+ ]
+}

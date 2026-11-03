@@ -1,0 +1,129 @@
+{
+ "id": "cmc-math-12-prelim-B",
+ "title": "第十二届全国大学生数学竞赛初赛（数学B类）",
+ "year": 2020,
+ "track": "数学类",
+ "round": "初赛",
+ "paper": "B",
+ "durationMin": 150,
+ "totalScore": 100,
+ "source": {
+  "question": "12-初赛-2020年第十二届全国大学生数学竞赛初赛《数学类B卷》试题.pdf",
+  "solution": "12-初赛-2020年第十二届全国大学生数学竞赛初赛《数学类B卷》参考解答.pdf"
+ },
+ "problems": [
+  {
+   "no": "一",
+   "score": 15,
+   "type": "计算",
+   "subjects": [
+    "解析几何"
+   ],
+   "topics": [
+    "椭球面",
+    "外切柱面",
+    "圆截面",
+    "二次曲面"
+   ],
+   "difficulty": 3,
+   "statement": "已知椭球面 $\\Sigma_0:\\dfrac{x^2}{a^2}+\\dfrac{y^2}{b^2}+\\dfrac{z^2}{c^2}=1,\\ a>b$ 的外切柱面 $\\Sigma_\\varepsilon$（$\\varepsilon=1$ 或 $-1$）平行于已知直线 $l_\\varepsilon:\\dfrac{x-2}{0}=\\dfrac{y-1}{\\varepsilon\\sqrt{a^2-b^2}}=\\dfrac{z-3}{c}$。试求与 $\\Sigma_\\varepsilon$ 交于一个圆周的平面的法方向。\n\n注：本题中的外切柱面指的是每一条直母线均与已知椭球面相切的柱面。",
+   "answer": "法方向为 $(0,0,1)$（即平行于 $xOy$ 面的平面）。",
+   "solution": "设母线 $l$ 与 $\\Sigma_0$ 切于 $M_1(x_1,y_1,z_1)$，则\n$$l:\\ x=x_1,\\quad y=y_1+\\varepsilon t\\sqrt{a^2-b^2},\\quad z=z_1+ct.$$\n代入 $\\Sigma_0$ 并利用 $M_1\\in\\Sigma_0$：\n$$t^2\\left(\\frac{a^2-b^2}{b^2}+1\\right)+2t\\left(\\varepsilon\\frac{\\sqrt{a^2-b^2}}{b^2}y_1+\\frac1cz_1\\right)=0.\\qquad(1)$$\n（首项系数为 $\\dfrac{a^2}{b^2}>0$；注：原解答此处笔误写作 $\\dfrac{a^2-b^2}{a^2}+1$，已改正）相切等价于 $t=0$ 为 (1) 的重根，即\n$$\\varepsilon c\\sqrt{a^2-b^2}\\,y_1+b^2z_1=0.$$\n与母线方程 $\\varepsilon cy_1-\\sqrt{a^2-b^2}\\,z_1=\\varepsilon cy-\\sqrt{a^2-b^2}\\,z$ 联立解得\n$$y_1=\\frac{b^2}{ca^2}\\left(cy-\\varepsilon\\sqrt{a^2-b^2}\\,z\\right),\\qquad z_1=-\\varepsilon\\frac{\\sqrt{a^2-b^2}}{a^2}\\left(cy-\\varepsilon\\sqrt{a^2-b^2}\\,z\\right).$$\n把 $x_1=x$ 及上式代入 $\\Sigma_0$，得外切柱面方程\n$$\\frac{x^2}{a^2}+\\frac{b^2\\left(cy-\\varepsilon\\sqrt{a^2-b^2}\\,z\\right)^2}{a^4c^2}+\\frac{(a^2-b^2)\\left(cy-\\varepsilon\\sqrt{a^2-b^2}\\,z\\right)^2}{a^4c^2}=1.$$\n令 $z=0$，化为 $\\dfrac{x^2}{a^2}+\\dfrac{b^2y^2}{a^4}+\\dfrac{(a^2-b^2)y^2}{a^4}=1$，即 $x^2+y^2=a^2$。所以 $\\Sigma_\\varepsilon$ 与 $xOy$ 面交于圆周。二次柱面与平面交线为圆周的平面彼此平行（$\\Sigma_\\varepsilon$ 不是圆柱面，圆截面只有一族），故所求法方向唯一，为 $(0,0,1)$。",
+   "solutionSource": "官方"
+  },
+  {
+   "no": "二",
+   "score": 15,
+   "type": "证明",
+   "subjects": [
+    "数学分析"
+   ],
+   "topics": [
+    "积分不等式",
+    "柯西-施瓦茨不等式",
+    "均值不等式"
+   ],
+   "difficulty": 2,
+   "statement": "设 $f(x)$ 在 $[0,1]$ 上连续，且 $1\\leqslant f(x)\\leqslant3$。证明：\n$$1\\leqslant\\int_0^1f(x)\\,\\mathrm{d}x\\int_0^1\\frac{\\mathrm{d}x}{f(x)}\\leqslant\\frac43.$$",
+   "answer": "",
+   "solution": "**左边：** 由 Schwarz 不等式\n$$1=\\left(\\int_0^1\\sqrt{f(x)}\\cdot\\frac{1}{\\sqrt{f(x)}}\\,\\mathrm{d}x\\right)^2\\leqslant\\int_0^1f(x)\\,\\mathrm{d}x\\int_0^1\\frac{\\mathrm{d}x}{f(x)}.$$\n\n**右边：** 由 $(f-1)(f-3)\\leqslant0$ 得 $\\dfrac{(f-1)(f-3)}{f}\\leqslant0$，即 $f+\\dfrac3f\\leqslant4$，积分得 $\\displaystyle\\int_0^1\\left(f+\\frac3f\\right)\\mathrm{d}x\\leqslant4$。再由 $4ab\\leqslant(a+b)^2$，\n$$\\int_0^1f\\,\\mathrm{d}x\\int_0^1\\frac3f\\,\\mathrm{d}x\\leqslant\\frac14\\left(\\int_0^1f\\,\\mathrm{d}x+\\int_0^1\\frac3f\\,\\mathrm{d}x\\right)^2\\leqslant4,$$\n即 $\\displaystyle\\int_0^1f\\,\\mathrm{d}x\\int_0^1\\frac{\\mathrm{d}x}{f}\\leqslant\\frac43$。",
+   "solutionSource": "官方"
+  },
+  {
+   "no": "三",
+   "score": 15,
+   "type": "证明",
+   "subjects": [
+    "高等代数"
+   ],
+   "topics": [
+    "矩阵多项式",
+    "特征多项式",
+    "Jordan标准形",
+    "互素"
+   ],
+   "difficulty": 2,
+   "statement": "设 $A$ 为 $n$ 阶复方阵，$p(x)$ 为 $A$ 的特征多项式，又设 $g(x)$ 为 $m$ 次复系数多项式，$m\\geqslant1$。证明：$g(A)$ 可逆当且仅当 $p(x)$ 与 $g(x)$ 互素。",
+   "answer": "",
+   "solution": "取 Jordan 分解 $A=P\\operatorname{diag}(J_1,\\cdots,J_s)P^{-1}$，$J_i$ 是特征值为 $\\lambda_i$ 的 Jordan 块。则\n$$g(A)=P\\operatorname{diag}(g(J_1),\\cdots,g(J_s))P^{-1},$$\n其中 $g(J_i)$ 是对角元全为 $g(\\lambda_i)$ 的上三角阵，故 $\\det g(A)$ 等于 $g$ 在 $A$ 的全部特征值（计重数）处取值之积。\n\n$(\\Leftarrow)$ $p,g$ 互素，则无公共根；$A$ 的特征值都是 $p$ 的根，故 $g(\\lambda_i)\\neq0$，$\\det g(A)\\neq0$，$g(A)$ 可逆。\n\n$(\\Rightarrow)$ $g(A)$ 可逆，则 $\\det g(A)\\neq0$，故 $g(\\lambda_i)$ 全不为零，即 $p$ 与 $g$ 无公共根。在复数域上无公共根即互素（否则 $\\gcd$ 的根就是公共根）。",
+   "solutionSource": "官方"
+  },
+  {
+   "no": "四",
+   "score": 20,
+   "type": "证明",
+   "subjects": [
+    "高等代数"
+   ],
+   "topics": [
+    "线性变换",
+    "特征向量",
+    "数乘变换",
+    "迹",
+    "相似"
+   ],
+   "difficulty": 3,
+   "statement": "设 $\\sigma$ 为 $n$ 维复向量空间 $\\mathbb{C}^n$ 的一个线性变换，$\\mathbf 1$ 表示恒等变换。证明以下两条等价：\n\n(1) $\\sigma=k\\mathbf 1,\\ k\\in\\mathbb{C}$；\n\n(2) 存在 $\\sigma$ 的 $n+1$ 个特征向量：$v_1,\\cdots,v_{n+1}$，这 $n+1$ 个向量中任何 $n$ 个向量均线性无关。",
+   "answer": "",
+   "solution": "**(1)$\\Rightarrow$(2)：** 取 $v_i=e_i\\ (i=1,\\cdots,n)$，$v_{n+1}=e_1+\\cdots+e_n$，它们都是 $k\\mathbf 1$ 的特征向量。去掉某个 $v_i\\ (i\\leqslant n)$ 后，若 $\\sum_{j\\neq i}a_jv_j=0$，按 $e_1,\\cdots,e_n$ 展开，$e_i$ 的系数为 $a_{n+1}$，故 $a_{n+1}=0$，进而其余 $a_j=0$；去掉 $v_{n+1}$ 时显然无关。\n\n**(2)$\\Rightarrow$(1)：** 设 $v_j$ 对应特征值 $\\lambda_j$，$s=\\lambda_1+\\cdots+\\lambda_{n+1}$。去掉 $v_i$ 后余下 $n$ 个向量构成基，$\\sigma$ 在此基下的矩阵是对角阵，迹为 $s-\\lambda_i$。同一线性变换在不同基下的矩阵相似，迹相同，故对任意 $i,j$ 有 $s-\\lambda_i=s-\\lambda_j$，即所有 $\\lambda_i$ 相等，记为 $k$。于是 $\\sigma$ 在一组基下的矩阵为 $kI$，$\\sigma=k\\mathbf 1$。",
+   "solutionSource": "官方"
+  },
+  {
+   "no": "五",
+   "score": 15,
+   "type": "计算",
+   "subjects": [
+    "数学分析"
+   ],
+   "topics": [
+    "反常积分",
+    "小数部分",
+    "裂项",
+    "Basel级数"
+   ],
+   "difficulty": 3,
+   "statement": "计算广义积分 $\\displaystyle\\int_1^{+\\infty}\\frac{(x)}{x^3}\\,\\mathrm{d}x$，这里 $(x)$ 表示 $x$ 的小数部分（例如：当 $n$ 为正整数且 $x\\in[n,n+1)$ 时，则 $(x)=x-n$）。",
+   "answer": "$1-\\dfrac{\\pi^2}{12}$",
+   "solution": "对正整数 $\\ell>2$，\n$$\\begin{aligned}\\int_1^\\ell\\frac{(x)}{x^3}\\mathrm{d}x&=\\sum_{n=1}^{\\ell-1}\\int_n^{n+1}\\frac{x-n}{x^3}\\mathrm{d}x=\\sum_{n=1}^{\\ell-1}\\left[\\frac{1}{n(n+1)}-\\frac12\\cdot\\frac{2n+1}{n(n+1)^2}\\right]\\\\&=\\frac12\\sum_{n=1}^{\\ell-1}\\left[\\frac1{n(n+1)}-\\frac1{(n+1)^2}\\right]=\\frac12\\left(1-\\frac1\\ell\\right)-\\frac12\\sum_{n=2}^\\ell\\frac1{n^2}.\\end{aligned}$$\n被积函数非负，对 $y\\in[\\ell,\\ell+1]$，$\\displaystyle\\int_1^y$ 夹在 $\\ell$ 与 $\\ell+1$ 处的值之间，令 $\\ell\\to\\infty$ 得\n$$\\int_1^{+\\infty}\\frac{(x)}{x^3}\\mathrm{d}x=\\frac12-\\frac12\\sum_{n=2}^\\infty\\frac1{n^2}=\\frac12-\\frac12\\left(\\frac{\\pi^2}{6}-1\\right)=1-\\frac{\\pi^2}{12}.$$",
+   "solutionSource": "官方"
+  },
+  {
+   "no": "六",
+   "score": 20,
+   "type": "证明",
+   "subjects": [
+    "数学分析"
+   ],
+   "topics": [
+    "积分不等式",
+    "交换积分次序",
+    "柯西-施瓦茨不等式"
+   ],
+   "difficulty": 3,
+   "statement": "设函数 $f(x)$ 在 $[0,1]$ 上连续，满足对任意 $x\\in[0,1]$，$\\displaystyle\\int_{x^2}^xf(t)\\,\\mathrm{d}t\\geqslant\\frac{x^2-x^4}{2}$。证明：$\\displaystyle\\int_0^1f^2(x)\\,\\mathrm{d}x\\geqslant\\frac{1}{10}$。",
+   "answer": "",
+   "solution": "**思路一。** 交换积分次序：\n$$\\int_0^1\\mathrm{d}x\\int_{x^2}^xf(t)\\,\\mathrm{d}t=\\int_0^1\\mathrm{d}t\\int_t^{\\sqrt t}f(t)\\,\\mathrm{d}x=\\int_0^1(\\sqrt t-t)f(t)\\,\\mathrm{d}t,$$\n故 $\\displaystyle\\int_0^1(\\sqrt t-t)f(t)\\,\\mathrm{d}t\\geqslant\\int_0^1\\frac{x^2-x^4}{2}\\mathrm{d}x=\\frac1{15}$。又 $\\displaystyle\\int_0^1(\\sqrt t-t)^2\\,\\mathrm{d}t=\\frac12-\\frac45+\\frac13=\\frac1{30}$，由\n$$0\\leqslant\\int_0^1\\left(f(t)-(\\sqrt t-t)\\right)^2\\mathrm{d}t=\\int_0^1f^2\\,\\mathrm{d}t-2\\int_0^1(\\sqrt t-t)f\\,\\mathrm{d}t+\\frac1{30}$$\n得 $\\displaystyle\\int_0^1f^2\\,\\mathrm{d}t\\geqslant\\frac2{15}-\\frac1{30}=\\frac1{10}$。\n\n**思路二（加参数）。** 对任意 $\\beta>0$，由 $\\displaystyle\\int_0^1\\left(\\beta f-(\\sqrt t-t)\\right)^2\\mathrm{d}t\\geqslant0$ 得\n$$\\int_0^1f^2\\,\\mathrm{d}t\\geqslant\\frac{2}{15\\beta}-\\frac{1}{30\\beta^2}=\\frac1{30}\\left(\\frac4\\beta-\\frac1{\\beta^2}\\right),$$\n取 $\\beta=\\dfrac12$ 得更强的 $\\displaystyle\\int_0^1f^2\\geqslant\\frac2{15}$。\n\n**思路三。** 对 $0<\\beta<1$ 及正整数 $n$，在 $x=\\beta^{2^{k-1}}$ 处用条件并求和（望远镜和）：\n$$\\int_{\\beta^{2^n}}^\\beta f(t)\\,\\mathrm{d}t=\\sum_{k=1}^n\\int_{\\beta^{2^k}}^{\\beta^{2^{k-1}}}f(t)\\,\\mathrm{d}t\\geqslant\\sum_{k=1}^n\\frac{\\beta^{2^k}-\\beta^{2^{k+1}}}{2}=\\frac12\\left(\\beta^2-\\beta^{2^{n+1}}\\right).$$\n令 $n\\to\\infty$ 得 $\\displaystyle\\int_0^\\beta f\\geqslant\\frac{\\beta^2}{2}$，再令 $\\beta\\to1^-$ 得 $\\displaystyle\\int_0^1f\\geqslant\\frac12$。由柯西-施瓦茨不等式 $\\dfrac12\\leqslant\\displaystyle\\int_0^1f\\leqslant\\left(\\int_0^1f^2\\right)^{1/2}$，故 $\\displaystyle\\int_0^1f^2\\geqslant\\frac14>\\frac1{10}$。",
+   "solutionSource": "官方"
+  }
+ ]
+}

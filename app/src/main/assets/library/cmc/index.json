@@ -1,0 +1,782 @@
+[
+ {
+  "id": "cmc-math-16-prelim-A",
+  "title": "第十六届全国大学生数学竞赛初赛（数学A类）",
+  "year": 2024,
+  "track": "数学类",
+  "round": "初赛",
+  "paper": "A",
+  "problemCount": 6,
+  "file": "math-16-prelim-A.json"
+ },
+ {
+  "id": "cmc-math-16-prelim-B",
+  "title": "第十六届全国大学生数学竞赛初赛（数学B类）",
+  "year": 2024,
+  "track": "数学类",
+  "round": "初赛",
+  "paper": "B",
+  "problemCount": 6,
+  "file": "math-16-prelim-B.json"
+ },
+ {
+  "id": "cmc-math-14-final-high",
+  "title": "第十四届全国大学生数学竞赛决赛（数学类高年级组）",
+  "year": 2023,
+  "track": "数学类",
+  "round": "决赛",
+  "paper": "high",
+  "problemCount": 13,
+  "file": "math-14-final-high.json"
+ },
+ {
+  "id": "cmc-math-14-final-low",
+  "title": "第十四届全国大学生数学竞赛决赛（数学类低年级组）",
+  "year": 2023,
+  "track": "数学类",
+  "round": "决赛",
+  "paper": "low",
+  "problemCount": 10,
+  "file": "math-14-final-low.json"
+ },
+ {
+  "id": "cmc-math-15-prelim-A",
+  "title": "第十五届全国大学生数学竞赛初赛（数学A类）",
+  "year": 2023,
+  "track": "数学类",
+  "round": "初赛",
+  "paper": "A",
+  "problemCount": 6,
+  "file": "math-15-prelim-A.json"
+ },
+ {
+  "id": "cmc-math-15-prelim-B",
+  "title": "第十五届全国大学生数学竞赛初赛（数学B类）",
+  "year": 2023,
+  "track": "数学类",
+  "round": "初赛",
+  "paper": "B",
+  "problemCount": 6,
+  "file": "math-15-prelim-B.json"
+ },
+ {
+  "id": "cmc-math-14-prelim-bu2-A",
+  "title": "第十四届全国大学生数学竞赛初赛第二次补赛（数学A类）",
+  "year": 2022,
+  "track": "数学类",
+  "round": "初赛第二次补赛",
+  "paper": "A",
+  "problemCount": 6,
+  "file": "math-14-prelim-bu2-A.json"
+ },
+ {
+  "id": "cmc-math-14-prelim-bu2-B",
+  "title": "第十四届全国大学生数学竞赛初赛第二次补赛（数学B类）",
+  "year": 2022,
+  "track": "数学类",
+  "round": "初赛第二次补赛",
+  "paper": "B",
+  "problemCount": 6,
+  "file": "math-14-prelim-bu2-B.json"
+ },
+ {
+  "id": "cmc-math-12-final-high",
+  "title": "第十二届全国大学生数学竞赛决赛（数学类高年级组）",
+  "year": 2021,
+  "track": "数学类",
+  "round": "决赛",
+  "paper": "high",
+  "problemCount": 13,
+  "file": "math-12-final-high.json"
+ },
+ {
+  "id": "cmc-math-12-final-low",
+  "title": "第十二届全国大学生数学竞赛决赛（数学类低年级组）",
+  "year": 2021,
+  "track": "数学类",
+  "round": "决赛",
+  "paper": "low",
+  "problemCount": 9,
+  "file": "math-12-final-low.json"
+ },
+ {
+  "id": "cmc-math-13-prelim-A",
+  "title": "第十三届全国大学生数学竞赛初赛（数学A类）",
+  "year": 2021,
+  "track": "数学类",
+  "round": "初赛",
+  "paper": "A",
+  "problemCount": 6,
+  "file": "math-13-prelim-A.json"
+ },
+ {
+  "id": "cmc-math-13-prelim-B",
+  "title": "第十三届全国大学生数学竞赛初赛（数学B类）",
+  "year": 2021,
+  "track": "数学类",
+  "round": "初赛",
+  "paper": "B",
+  "problemCount": 6,
+  "file": "math-13-prelim-B.json"
+ },
+ {
+  "id": "cmc-math-13-prelim-bu-A",
+  "title": "第十三届全国大学生数学竞赛初赛补赛（数学A类）",
+  "year": 2021,
+  "track": "数学类",
+  "round": "初赛补赛",
+  "paper": "A",
+  "problemCount": 6,
+  "file": "math-13-prelim-bu-A.json"
+ },
+ {
+  "id": "cmc-math-13-prelim-bu-B",
+  "title": "第十三届全国大学生数学竞赛初赛补赛（数学B类）",
+  "year": 2021,
+  "track": "数学类",
+  "round": "初赛补赛",
+  "paper": "B",
+  "problemCount": 6,
+  "file": "math-13-prelim-bu-B.json"
+ },
+ {
+  "id": "cmc-math-11-final-high",
+  "title": "第十一届全国大学生数学竞赛决赛（数学类高年级组）",
+  "year": 2020,
+  "track": "数学类",
+  "round": "决赛",
+  "paper": "high",
+  "problemCount": 13,
+  "file": "math-11-final-high.json"
+ },
+ {
+  "id": "cmc-math-11-final-low",
+  "title": "第十一届全国大学生数学竞赛决赛（数学类低年级组）",
+  "year": 2020,
+  "track": "数学类",
+  "round": "决赛",
+  "paper": "low",
+  "problemCount": 9,
+  "file": "math-11-final-low.json"
+ },
+ {
+  "id": "cmc-math-12-prelim-A",
+  "title": "第十二届全国大学生数学竞赛初赛（数学A类）",
+  "year": 2020,
+  "track": "数学类",
+  "round": "初赛",
+  "paper": "A",
+  "problemCount": 6,
+  "file": "math-12-prelim-A.json"
+ },
+ {
+  "id": "cmc-math-12-prelim-B",
+  "title": "第十二届全国大学生数学竞赛初赛（数学B类）",
+  "year": 2020,
+  "track": "数学类",
+  "round": "初赛",
+  "paper": "B",
+  "problemCount": 6,
+  "file": "math-12-prelim-B.json"
+ },
+ {
+  "id": "cmc-math-10-final-high",
+  "title": "第十届全国大学生数学竞赛决赛（数学类高年级组（三、四年级））",
+  "year": 2019,
+  "track": "数学类",
+  "round": "决赛",
+  "paper": "high",
+  "problemCount": 13,
+  "file": "math-10-final-high.json"
+ },
+ {
+  "id": "cmc-math-10-final-low",
+  "title": "第十届全国大学生数学竞赛决赛（数学类低年级组（一、二年级））",
+  "year": 2019,
+  "track": "数学类",
+  "round": "决赛",
+  "paper": "low",
+  "problemCount": 9,
+  "file": "math-10-final-low.json"
+ },
+ {
+  "id": "cmc-math-11-prelim-A",
+  "title": "第十一届全国大学生数学竞赛初赛（数学A类）",
+  "year": 2019,
+  "track": "数学类",
+  "round": "初赛",
+  "paper": "A",
+  "problemCount": 6,
+  "file": "math-11-prelim-A.json"
+ },
+ {
+  "id": "cmc-math-11-prelim-B",
+  "title": "第十一届全国大学生数学竞赛初赛（数学B类）",
+  "year": 2019,
+  "track": "数学类",
+  "round": "初赛",
+  "paper": "B",
+  "problemCount": 7,
+  "file": "math-11-prelim-B.json"
+ },
+ {
+  "id": "cmc-math-09-final-high",
+  "title": "第九届全国大学生数学竞赛决赛（数学类高年级组（三、四年级））",
+  "year": 2018,
+  "track": "数学类",
+  "round": "决赛",
+  "paper": "high",
+  "problemCount": 13,
+  "file": "math-09-final-high.json"
+ },
+ {
+  "id": "cmc-math-09-final-low",
+  "title": "第九届全国大学生数学竞赛决赛（数学类低年级组（一、二年级））",
+  "year": 2018,
+  "track": "数学类",
+  "round": "决赛",
+  "paper": "low",
+  "problemCount": 9,
+  "file": "math-09-final-low.json"
+ },
+ {
+  "id": "cmc-math-10-prelim",
+  "title": "第十届全国大学生数学竞赛初赛（数学类）",
+  "year": 2018,
+  "track": "数学类",
+  "round": "初赛",
+  "paper": "",
+  "problemCount": 6,
+  "file": "math-10-prelim.json"
+ },
+ {
+  "id": "cmc-math-08-final-high",
+  "title": "第八届全国大学生数学竞赛决赛（数学类高年级组（三、四年级））",
+  "year": 2017,
+  "track": "数学类",
+  "round": "决赛",
+  "paper": "high",
+  "problemCount": 13,
+  "file": "math-08-final-high.json"
+ },
+ {
+  "id": "cmc-math-08-final-low",
+  "title": "第八届全国大学生数学竞赛决赛（数学类低年级组（一、二年级））",
+  "year": 2017,
+  "track": "数学类",
+  "round": "决赛",
+  "paper": "low",
+  "problemCount": 9,
+  "file": "math-08-final-low.json"
+ },
+ {
+  "id": "cmc-math-09-prelim",
+  "title": "第九届全国大学生数学竞赛初赛（数学类）",
+  "year": 2017,
+  "track": "数学类",
+  "round": "初赛",
+  "paper": "",
+  "problemCount": 6,
+  "file": "math-09-prelim.json"
+ },
+ {
+  "id": "cmc-math-07-final-high",
+  "title": "第七届全国大学生数学竞赛决赛（数学类高年级组（三、四年级））",
+  "year": 2016,
+  "track": "数学类",
+  "round": "决赛",
+  "paper": "high",
+  "problemCount": 13,
+  "file": "math-07-final-high.json"
+ },
+ {
+  "id": "cmc-math-07-final-low",
+  "title": "第七届全国大学生数学竞赛决赛（数学类低年级组（一、二年级））",
+  "year": 2016,
+  "track": "数学类",
+  "round": "决赛",
+  "paper": "low",
+  "problemCount": 9,
+  "file": "math-07-final-low.json"
+ },
+ {
+  "id": "cmc-math-08-prelim",
+  "title": "第八届全国大学生数学竞赛初赛（数学类）",
+  "year": 2016,
+  "track": "数学类",
+  "round": "初赛",
+  "paper": "",
+  "problemCount": 6,
+  "file": "math-08-prelim.json"
+ },
+ {
+  "id": "cmc-math-06-final-high",
+  "title": "第六届全国大学生数学竞赛决赛（数学类高年级组（三、四年级））",
+  "year": 2015,
+  "track": "数学类",
+  "round": "决赛",
+  "paper": "high",
+  "problemCount": 14,
+  "file": "math-06-final-high.json"
+ },
+ {
+  "id": "cmc-math-06-final-low",
+  "title": "第六届全国大学生数学竞赛决赛（数学类低年级组（一、二年级））",
+  "year": 2015,
+  "track": "数学类",
+  "round": "决赛",
+  "paper": "low",
+  "problemCount": 9,
+  "file": "math-06-final-low.json"
+ },
+ {
+  "id": "cmc-math-07-prelim",
+  "title": "第七届全国大学生数学竞赛初赛（数学类）",
+  "year": 2015,
+  "track": "数学类",
+  "round": "初赛",
+  "paper": "",
+  "problemCount": 6,
+  "file": "math-07-prelim.json"
+ },
+ {
+  "id": "cmc-math-05-final-high",
+  "title": "第五届全国大学生数学竞赛决赛（数学类高年级组（三、四年级））",
+  "year": 2014,
+  "track": "数学类",
+  "round": "决赛",
+  "paper": "high",
+  "problemCount": 11,
+  "file": "math-05-final-high.json"
+ },
+ {
+  "id": "cmc-math-05-final-low",
+  "title": "第五届全国大学生数学竞赛决赛（数学类低年级组（一、二年级））",
+  "year": 2014,
+  "track": "数学类",
+  "round": "决赛",
+  "paper": "low",
+  "problemCount": 6,
+  "file": "math-05-final-low.json"
+ },
+ {
+  "id": "cmc-math-06-prelim",
+  "title": "第六届全国大学生数学竞赛初赛（数学类）",
+  "year": 2014,
+  "track": "数学类",
+  "round": "初赛",
+  "paper": "",
+  "problemCount": 6,
+  "file": "math-06-prelim.json"
+ },
+ {
+  "id": "cmc-math-04-final",
+  "title": "第四届全国大学生数学竞赛决赛（数学类）",
+  "year": 2013,
+  "track": "数学类",
+  "round": "决赛",
+  "paper": "",
+  "problemCount": 6,
+  "file": "math-04-final.json"
+ },
+ {
+  "id": "cmc-math-05-prelim",
+  "title": "第五届全国大学生数学竞赛初赛（数学类）",
+  "year": 2013,
+  "track": "数学类",
+  "round": "初赛",
+  "paper": "",
+  "problemCount": 6,
+  "file": "math-05-prelim.json"
+ },
+ {
+  "id": "cmc-math-03-final",
+  "title": "第三届全国大学生数学竞赛决赛（数学类）",
+  "year": 2012,
+  "track": "数学类",
+  "round": "决赛",
+  "paper": "",
+  "problemCount": 7,
+  "file": "math-03-final.json"
+ },
+ {
+  "id": "cmc-math-04-prelim",
+  "title": "第四届全国大学生数学竞赛初赛（数学类）",
+  "year": 2012,
+  "track": "数学类",
+  "round": "初赛",
+  "paper": "",
+  "problemCount": 7,
+  "file": "math-04-prelim.json"
+ },
+ {
+  "id": "cmc-math-02-final",
+  "title": "第二届全国大学生数学竞赛决赛（数学类）",
+  "year": 2011,
+  "track": "数学类",
+  "round": "决赛",
+  "paper": "",
+  "problemCount": 6,
+  "file": "math-02-final.json"
+ },
+ {
+  "id": "cmc-math-03-prelim",
+  "title": "第三届全国大学生数学竞赛初赛（数学类）",
+  "year": 2011,
+  "track": "数学类",
+  "round": "初赛",
+  "paper": "",
+  "problemCount": 7,
+  "file": "math-03-prelim.json"
+ },
+ {
+  "id": "cmc-math-01-final",
+  "title": "第一届全国大学生数学竞赛决赛（数学类）",
+  "year": 2010,
+  "track": "数学类",
+  "round": "决赛",
+  "paper": "",
+  "problemCount": 11,
+  "file": "math-01-final.json"
+ },
+ {
+  "id": "cmc-math-02-prelim",
+  "title": "第二届全国大学生数学竞赛初赛（数学类）",
+  "year": 2010,
+  "track": "数学类",
+  "round": "初赛",
+  "paper": "",
+  "problemCount": 8,
+  "file": "math-02-prelim.json"
+ },
+ {
+  "id": "cmc-math-01-prelim",
+  "title": "第一届全国大学生数学竞赛初赛（数学类）",
+  "year": 2009,
+  "track": "数学类",
+  "round": "初赛",
+  "paper": "",
+  "problemCount": 7,
+  "file": "math-01-prelim.json"
+ },
+ {
+  "id": "cmc-nonmath-16-prelim-A",
+  "title": "第十六届全国大学生数学竞赛初赛（非数学A类）",
+  "year": 2024,
+  "track": "非数学类",
+  "round": "初赛",
+  "paper": "A",
+  "problemCount": 10,
+  "file": "nonmath-16-prelim-A.json"
+ },
+ {
+  "id": "cmc-nonmath-16-prelim-B",
+  "title": "第十六届全国大学生数学竞赛初赛（非数学B类）",
+  "year": 2024,
+  "track": "非数学类",
+  "round": "初赛",
+  "paper": "B",
+  "problemCount": 10,
+  "file": "nonmath-16-prelim-B.json"
+ },
+ {
+  "id": "cmc-nonmath-14-final",
+  "title": "第十四届全国大学生数学竞赛决赛（非数学类）",
+  "year": 2023,
+  "track": "非数学类",
+  "round": "决赛",
+  "paper": "",
+  "problemCount": 11,
+  "file": "nonmath-14-final.json"
+ },
+ {
+  "id": "cmc-nonmath-15-prelim-A",
+  "title": "第十五届全国大学生数学竞赛初赛（非数学A类）",
+  "year": 2023,
+  "track": "非数学类",
+  "round": "初赛",
+  "paper": "A",
+  "problemCount": 10,
+  "file": "nonmath-15-prelim-A.json"
+ },
+ {
+  "id": "cmc-nonmath-15-prelim-B",
+  "title": "第十五届全国大学生数学竞赛初赛（非数学B类）",
+  "year": 2023,
+  "track": "非数学类",
+  "round": "初赛",
+  "paper": "B",
+  "problemCount": 10,
+  "file": "nonmath-15-prelim-B.json"
+ },
+ {
+  "id": "cmc-nonmath-14-prelim-bu2",
+  "title": "第十四届全国大学生数学竞赛初赛第二次补赛（非数学类）",
+  "year": 2022,
+  "track": "非数学类",
+  "round": "初赛第二次补赛",
+  "paper": "",
+  "problemCount": 10,
+  "file": "nonmath-14-prelim-bu2.json"
+ },
+ {
+  "id": "cmc-nonmath-12-final",
+  "title": "第十二届全国大学生数学竞赛决赛（非数学类）",
+  "year": 2021,
+  "track": "非数学类",
+  "round": "决赛",
+  "paper": "",
+  "problemCount": 11,
+  "file": "nonmath-12-final.json"
+ },
+ {
+  "id": "cmc-nonmath-13-prelim",
+  "title": "第十三届全国大学生数学竞赛初赛（非数学类）",
+  "year": 2021,
+  "track": "非数学类",
+  "round": "初赛",
+  "paper": "",
+  "problemCount": 10,
+  "file": "nonmath-13-prelim.json"
+ },
+ {
+  "id": "cmc-nonmath-13-prelim-bu",
+  "title": "第十三届全国大学生数学竞赛初赛补赛（非数学类）",
+  "year": 2021,
+  "track": "非数学类",
+  "round": "初赛补赛",
+  "paper": "",
+  "problemCount": 10,
+  "file": "nonmath-13-prelim-bu.json"
+ },
+ {
+  "id": "cmc-nonmath-11-final",
+  "title": "第十一届全国大学生数学竞赛决赛（非数学类）",
+  "year": 2020,
+  "track": "非数学类",
+  "round": "决赛",
+  "paper": "",
+  "problemCount": 11,
+  "file": "nonmath-11-final.json"
+ },
+ {
+  "id": "cmc-nonmath-12-prelim",
+  "title": "第十二届全国大学生数学竞赛初赛（非数学类）",
+  "year": 2020,
+  "track": "非数学类",
+  "round": "初赛",
+  "paper": "",
+  "problemCount": 11,
+  "file": "nonmath-12-prelim.json"
+ },
+ {
+  "id": "cmc-nonmath-10-final",
+  "title": "第十届全国大学生数学竞赛决赛（非数学类）",
+  "year": 2019,
+  "track": "非数学类",
+  "round": "决赛",
+  "paper": "",
+  "problemCount": 11,
+  "file": "nonmath-10-final.json"
+ },
+ {
+  "id": "cmc-nonmath-11-prelim",
+  "title": "第十一届全国大学生数学竞赛初赛（非数学类）",
+  "year": 2019,
+  "track": "非数学类",
+  "round": "初赛",
+  "paper": "",
+  "problemCount": 10,
+  "file": "nonmath-11-prelim.json"
+ },
+ {
+  "id": "cmc-nonmath-09-final",
+  "title": "第九届全国大学生数学竞赛决赛（非数学类）",
+  "year": 2018,
+  "track": "非数学类",
+  "round": "决赛",
+  "paper": "",
+  "problemCount": 13,
+  "file": "nonmath-09-final.json"
+ },
+ {
+  "id": "cmc-nonmath-10-prelim",
+  "title": "第十届全国大学生数学竞赛初赛（非数学类）",
+  "year": 2018,
+  "track": "非数学类",
+  "round": "初赛",
+  "paper": "",
+  "problemCount": 10,
+  "file": "nonmath-10-prelim.json"
+ },
+ {
+  "id": "cmc-nonmath-08-final",
+  "title": "第八届全国大学生数学竞赛决赛（非数学类）",
+  "year": 2017,
+  "track": "非数学类",
+  "round": "决赛",
+  "paper": "",
+  "problemCount": 10,
+  "file": "nonmath-08-final.json"
+ },
+ {
+  "id": "cmc-nonmath-09-prelim",
+  "title": "第九届全国大学生数学竞赛初赛（非数学类）",
+  "year": 2017,
+  "track": "非数学类",
+  "round": "初赛",
+  "paper": "",
+  "problemCount": 10,
+  "file": "nonmath-09-prelim.json"
+ },
+ {
+  "id": "cmc-nonmath-07-final",
+  "title": "第七届全国大学生数学竞赛决赛（非数学类）",
+  "year": 2016,
+  "track": "非数学类",
+  "round": "决赛",
+  "paper": "",
+  "problemCount": 11,
+  "file": "nonmath-07-final.json"
+ },
+ {
+  "id": "cmc-nonmath-08-prelim",
+  "title": "第八届全国大学生数学竞赛初赛（非数学类）",
+  "year": 2016,
+  "track": "非数学类",
+  "round": "初赛",
+  "paper": "",
+  "problemCount": 10,
+  "file": "nonmath-08-prelim.json"
+ },
+ {
+  "id": "cmc-nonmath-06-final",
+  "title": "第六届全国大学生数学竞赛决赛（非数学类）",
+  "year": 2015,
+  "track": "非数学类",
+  "round": "决赛",
+  "paper": "",
+  "problemCount": 11,
+  "file": "nonmath-06-final.json"
+ },
+ {
+  "id": "cmc-nonmath-07-prelim",
+  "title": "第七届全国大学生数学竞赛初赛（非数学类）",
+  "year": 2015,
+  "track": "非数学类",
+  "round": "初赛",
+  "paper": "",
+  "problemCount": 10,
+  "file": "nonmath-07-prelim.json"
+ },
+ {
+  "id": "cmc-nonmath-05-final",
+  "title": "第五届全国大学生数学竞赛决赛（非数学类）",
+  "year": 2014,
+  "track": "非数学类",
+  "round": "决赛",
+  "paper": "",
+  "problemCount": 10,
+  "file": "nonmath-05-final.json"
+ },
+ {
+  "id": "cmc-nonmath-06-prelim",
+  "title": "第六届全国大学生数学竞赛初赛（非数学类）",
+  "year": 2014,
+  "track": "非数学类",
+  "round": "初赛",
+  "paper": "",
+  "problemCount": 10,
+  "file": "nonmath-06-prelim.json"
+ },
+ {
+  "id": "cmc-nonmath-04-final",
+  "title": "第四届全国大学生数学竞赛决赛（非数学类）",
+  "year": 2013,
+  "track": "非数学类",
+  "round": "决赛",
+  "paper": "",
+  "problemCount": 10,
+  "file": "nonmath-04-final.json"
+ },
+ {
+  "id": "cmc-nonmath-05-prelim",
+  "title": "第五届全国大学生数学竞赛初赛（非数学类）",
+  "year": 2013,
+  "track": "非数学类",
+  "round": "初赛",
+  "paper": "",
+  "problemCount": 10,
+  "file": "nonmath-05-prelim.json"
+ },
+ {
+  "id": "cmc-nonmath-03-final",
+  "title": "第三届全国大学生数学竞赛决赛（非数学类）",
+  "year": 2012,
+  "track": "非数学类",
+  "round": "决赛",
+  "paper": "",
+  "problemCount": 10,
+  "file": "nonmath-03-final.json"
+ },
+ {
+  "id": "cmc-nonmath-04-prelim",
+  "title": "第四届全国大学生数学竞赛初赛（非数学类）",
+  "year": 2012,
+  "track": "非数学类",
+  "round": "初赛",
+  "paper": "",
+  "problemCount": 11,
+  "file": "nonmath-04-prelim.json"
+ },
+ {
+  "id": "cmc-nonmath-02-final",
+  "title": "第二届全国大学生数学竞赛决赛（非数学类）",
+  "year": 2011,
+  "track": "非数学类",
+  "round": "决赛",
+  "paper": "",
+  "problemCount": 9,
+  "file": "nonmath-02-final.json"
+ },
+ {
+  "id": "cmc-nonmath-03-prelim",
+  "title": "第三届全国大学生数学竞赛初赛（非数学类）",
+  "year": 2011,
+  "track": "非数学类",
+  "round": "初赛",
+  "paper": "",
+  "problemCount": 10,
+  "file": "nonmath-03-prelim.json"
+ },
+ {
+  "id": "cmc-nonmath-01-final",
+  "title": "第一届全国大学生数学竞赛决赛（非数学类）",
+  "year": 2010,
+  "track": "非数学类",
+  "round": "决赛",
+  "paper": "",
+  "problemCount": 12,
+  "file": "nonmath-01-final.json"
+ },
+ {
+  "id": "cmc-nonmath-02-prelim",
+  "title": "第二届全国大学生数学竞赛初赛（非数学类）",
+  "year": 2010,
+  "track": "非数学类",
+  "round": "初赛",
+  "paper": "",
+  "problemCount": 10,
+  "file": "nonmath-02-prelim.json"
+ },
+ {
+  "id": "cmc-nonmath-01-prelim",
+  "title": "第一届全国大学生数学竞赛初赛（非数学类）",
+  "year": 2009,
+  "track": "非数学类",
+  "round": "初赛",
+  "paper": "",
+  "problemCount": 11,
+  "file": "nonmath-01-prelim.json"
+ }
+]

@@ -1,0 +1,132 @@
+{
+ "id": "cmc-math-14-prelim-bu2-B",
+ "title": "第十四届全国大学生数学竞赛初赛第二次补赛（数学B类）",
+ "year": 2022,
+ "track": "数学类",
+ "round": "初赛第二次补赛",
+ "paper": "B",
+ "durationMin": 150,
+ "totalScore": 100,
+ "source": {
+  "question": "14-bu2-math-B.pdf",
+  "solution": "14-bu2-math-B.pdf"
+ },
+ "problems": [
+  {
+   "no": "一",
+   "score": 15,
+   "type": "计算",
+   "subjects": [
+    "解析几何"
+   ],
+   "topics": [
+    "平面方程",
+    "重心",
+    "向量积"
+   ],
+   "difficulty": 1,
+   "statement": "设空间直角坐标系中三角形 $ABC$ 的三个顶点坐标为：$A=(1,2,3)$，$B=(2,3,1)$，$C=(3,1,2)$。$M$ 为三角形 $ABC$ 的三中线交点（重心）。求过点 $M$ 的平面方程，该平面与三角形 $ABC$ 垂直，且与直线 $BC$ 平行。",
+   "answer": "$x-z=0$",
+   "solution": "重心 $M=\\frac13(A+B+C)=(2,2,2)$。$\\overrightarrow{AB}=(1,1,-2)$，$\\overrightarrow{BC}=(1,-2,1)$，三角形所在平面的法向量 $\\overrightarrow{AB}\\times\\overrightarrow{BC}=(-3,-3,-3)\\parallel(1,1,1)$。所求平面同时平行于 $(1,1,1)$ 与 $\\overrightarrow{BC}$，其法向量为\n$$(1,1,1)\\times(1,-2,1)=(3,0,-3)\\parallel(1,0,-1).$$\n过 $M(2,2,2)$，得 $(x-2)-(z-2)=0$，即 $x-z=0$。",
+   "solutionSource": "官方"
+  },
+  {
+   "no": "二",
+   "score": 15,
+   "type": "证明",
+   "subjects": [
+    "数学分析"
+   ],
+   "topics": [
+    "三进制展开",
+    "单射",
+    "聚点",
+    "上极限",
+    "构造数列"
+   ],
+   "difficulty": 3,
+   "statement": "设 $\\Gamma=\\{\\{x_n\\}\\mid x_n=0,2\\}$，即 $\\Gamma$ 为全体各项为 0 或 2 的数列构成的集合。对于任何 $x=\\{x_n\\}\\in\\Gamma$，令\n$$\\Pi(x)=\\sum_{n=1}^\\infty\\frac{x_n}{3^n},\\qquad f(x)=\\overline{\\lim_{n\\to+\\infty}}\\,\\frac{x_1+x_2+\\cdots+x_n}{n}.$$\n证明：1. $\\Pi$ 是单射；2. 集合 $\\Pi(\\Gamma)$ 中的每一点均为 $\\Pi(\\Gamma)$ 的聚点；3. $f(\\Gamma)=[0,2]$。",
+   "answer": "",
+   "solution": "**1.** 设 $\\{x_n\\}\\neq\\{y_n\\}$，$k$ 为使 $x_\\ell\\neq y_\\ell$ 的最小下标，则 $|x_k-y_k|=2$，且\n$$\\left|\\Pi(\\{x_n\\})-\\Pi(\\{y_n\\})\\right|\\geqslant\\frac2{3^k}-\\sum_{n=k+1}^\\infty\\frac{|x_n-y_n|}{3^n}\\geqslant\\frac2{3^k}-\\sum_{n=k+1}^\\infty\\frac2{3^n}=\\frac1{3^k}>0.$$\n故 $\\Pi$ 是单射。\n\n**2.** 任取 $x=\\{x_n\\}\\in\\Gamma$，$A=\\Pi(x)$。对每个 $k$，令 $z^{(k)}\\in\\Gamma$ 与 $x$ 的前 $k$ 项相同、第 $k+1$ 项不同（$0\\leftrightarrow2$ 互换）、其余项任取。由 1，$\\Pi(z^{(k)})\\neq A$ 且这些点两两不同，而 $|\\Pi(z^{(k)})-A|\\leqslant\\sum_{n>k}\\frac2{3^n}=\\frac1{3^k}\\to0$。所以 $A$ 是 $\\Pi(\\Gamma)$ 的聚点。\n（官方解答用 $X_k=\\sum_{n\\leqslant k}\\frac{x_n}{3^n}$ 加上单个 $Y_{2k}$ 的形式表述同一想法。）\n\n**3.** 显然 $f(\\Gamma)\\subseteq[0,2]$。任取 $\\alpha\\in[0,2]$，记 $S_n=x_1+\\cdots+x_n$，取 $x_1=0$，并贪心地令\n$$x_{n+1}=\\begin{cases}0,&S_n\\geqslant n\\alpha,\\\\2,&S_n<n\\alpha.\\end{cases}$$\n归纳证明 $(n-1)\\alpha\\leqslant S_n\\leqslant(n-1)\\alpha+2$：$n=1$ 时 $S_1=0$ 成立；若对 $n$ 成立，当 $S_n\\geqslant n\\alpha$ 时 $n\\alpha\\leqslant S_{n+1}=S_n\\leqslant n\\alpha+2$（用 $\\alpha\\geqslant0$）；当 $S_n<n\\alpha$ 时 $n\\alpha<S_n+2=S_{n+1}\\leqslant n\\alpha+2$（用 $S_n\\geqslant(n-1)\\alpha$ 及 $\\alpha\\leqslant2$ 得下界；上界由 $S_n<n\\alpha$）。于是 $\\lim\\limits_{n\\to\\infty}\\dfrac{S_n}n=\\alpha$，故 $f(\\{x_n\\})=\\alpha$，$f(\\Gamma)=[0,2]$。",
+   "solutionSource": "官方"
+  },
+  {
+   "no": "三",
+   "score": 15,
+   "type": "证明",
+   "subjects": [
+    "高等代数"
+   ],
+   "topics": [
+    "极小多项式",
+    "中国剩余定理",
+    "互素多项式",
+    "数学归纳法",
+    "分块对角矩阵"
+   ],
+   "difficulty": 3,
+   "statement": "设 $n\\geqslant2$，$A_1,A_2,\\cdots,A_n$ 为数域 $K$ 上的方阵，它们的极小多项式两两互素。证明：给定数域 $K$ 上的任意多项式 $f_1(x),f_2(x),\\cdots,f_n(x)\\in K[x]$，存在多项式 $f(x)\\in K[x]$ 使得对所有 $i=1,2,\\cdots,n$ 有 $f(A_i)=f_i(A_i)$。",
+   "answer": "",
+   "solution": "记 $A_i$ 的极小多项式为 $p_i(x)$，对 $n$ 归纳。\n\n$n=2$：$p_1,p_2$ 互素，存在 $u,v\\in K[x]$ 使 $up_1+vp_2=1$。乘以 $f_1-f_2$ 并移项得\n$$u(f_2-f_1)p_1+f_1=v(f_1-f_2)p_2+f_2.$$\n令 $f$ 为此公共多项式。由 $p_1(A_1)=0,\\ p_2(A_2)=0$ 得 $f(A_1)=f_1(A_1)$，$f(A_2)=f_2(A_2)$。\n\n设结论对 $n=k$ 成立，即有 $g$ 使 $g(A_j)=f_j(A_j)\\ (1\\leqslant j\\leqslant k)$。令分块对角阵 $B=\\operatorname{diag}(A_1,\\ldots,A_k)$，其极小多项式整除 $p_1\\cdots p_k$，与 $p_{k+1}$ 互素。对 $B$ 与 $A_{k+1}$ 用 $n=2$ 的结论，存在 $f$ 使 $f(B)=g(B)$ 且 $f(A_{k+1})=f_{k+1}(A_{k+1})$。比较对角块，$f(A_j)=g(A_j)=f_j(A_j)\\ (1\\leqslant j\\leqslant k)$，故结论对 $n=k+1$ 成立。由归纳法得证。",
+   "solutionSource": "官方"
+  },
+  {
+   "no": "四",
+   "score": 20,
+   "type": "计算",
+   "subjects": [
+    "高等代数"
+   ],
+   "topics": [
+    "实对称矩阵",
+    "特征向量",
+    "正交补",
+    "相似对角化"
+   ],
+   "difficulty": 1,
+   "statement": "设 3 阶实对称矩阵 $A$ 的三个特征值为 $-1,1,1$。又 $A$ 的与特征值 $-1$ 相对应的一个特征向量为 $p=\\begin{pmatrix}0\\\\0\\\\1\\end{pmatrix}$，求 $A$。",
+   "answer": "$A=\\begin{pmatrix}1&0&0\\\\0&1&0\\\\0&0&-1\\end{pmatrix}$",
+   "solution": "实对称矩阵不同特征值的特征子空间正交，且 $\\mathbb R^3=V_{-1}\\oplus V_1$（正交和），故 $V_1=V_{-1}^\\perp=\\{x\\mid p\\cdot x=0\\}$，基为 $p_2=(1,0,0)^{\\mathrm T}$，$p_3=(0,1,0)^{\\mathrm T}$。令 $P=(p,p_2,p_3)$，则\n$$A=P\\begin{pmatrix}-1&&\\\\&1&\\\\&&1\\end{pmatrix}P^{-1}=\\begin{pmatrix}1&&\\\\&1&\\\\&&-1\\end{pmatrix}.$$",
+   "solutionSource": "官方"
+  },
+  {
+   "no": "五",
+   "score": 15,
+   "type": "证明",
+   "subjects": [
+    "数学分析"
+   ],
+   "topics": [
+    "递推数列",
+    "压缩映射",
+    "数学归纳法",
+    "不动点"
+   ],
+   "difficulty": 2,
+   "statement": "设 $x\\in[0,1]$，$y_1=\\dfrac x2$，$y_{n+1}=\\dfrac{x-y_n^2}{2}\\ (n\\geqslant1)$。证明：$\\displaystyle\\lim_{n\\to+\\infty}y_n$ 存在并求其值。",
+   "answer": "$\\displaystyle\\lim_{n\\to\\infty}y_n=-1+\\sqrt{1+x}$",
+   "solution": "由归纳法易证 $0\\leqslant y_n\\leqslant x\\leqslant1$（若 $0\\leqslant y_n\\leqslant x\\leqslant1$，则 $0\\leqslant\\frac{x-x^2}{2}\\leqslant y_{n+1}\\leqslant\\frac x2\\leqslant x$）。记 $A=-1+\\sqrt{1+x}$，它是 $A=\\dfrac{x-A^2}{2}$ 的非负根，且 $0\\leqslant A\\leqslant\\sqrt2-1$。于是\n$$|y_{n+1}-A|=\\frac{|A^2-y_n^2|}{2}=\\frac{A+y_n}{2}|y_n-A|\\leqslant\\frac{\\sqrt2-1+1}{2}|y_n-A|=\\frac{|y_n-A|}{\\sqrt2},$$\n归纳得 $|y_n-A|\\leqslant\\dfrac{|y_1-A|}{2^{\\frac{n-1}2}}\\to0$。故 $\\lim\\limits_{n\\to\\infty}y_n=-1+\\sqrt{1+x}$。\n\n（官方另给出三种方法：法 I 证明 $y_{n+4}-y_{n+2}$ 与 $y_{n+2}-y_n$ 同号，得奇偶子列单调收敛，再证两极限相等；法 II 对上下极限 $L,\\ell$ 用 $L=\\frac{x-\\ell^2}2,\\ \\ell=\\frac{x-L^2}2$ 证 $L=\\ell$；法 III 由 $0\\leqslant y_n\\leqslant\\frac x2$ 得 $|y_{n+2}-y_{n+1}|\\leqslant\\frac12|y_{n+1}-y_n|$，从而为 Cauchy 列。）",
+   "solutionSource": "官方"
+  },
+  {
+   "no": "六",
+   "score": 20,
+   "type": "计算",
+   "subjects": [
+    "数学分析"
+   ],
+   "topics": [
+    "数项级数",
+    "绝对收敛",
+    "条件收敛",
+    "Cauchy准则",
+    "分段函数积分"
+   ],
+   "difficulty": 4,
+   "statement": "设 $a>1$。在 $[0,+\\infty)$ 上定义函数 $f$：\n$$f(x)=\\begin{cases}-1,&x\\in[0,a),\\\\(-1)^{k+1},&x\\in[a^k,a^{k+1}),\\ k\\geqslant1.\\end{cases}$$\n定义 $a_n=\\displaystyle\\int_0^nf(x)\\,\\mathrm dx$。求 $A\\equiv\\left\\{\\beta\\in\\mathbb R\\,\\middle|\\,\\sum_{n=1}^\\infty\\frac{a_n}{n^\\beta}\\text{ 绝对收敛}\\right\\}$ 以及 $B\\equiv\\left\\{\\beta\\in\\mathbb R\\,\\middle|\\,\\sum_{n=1}^\\infty\\frac{a_n}{n^\\beta}\\text{ 收敛}\\right\\}$。",
+   "answer": "$A=B=(2,+\\infty)$",
+   "solution": "**计算 $a_n$。** 设 $n\\in[a^k,a^{k+1})$，$k\\geqslant3$（即 $n\\geqslant a^3$），逐段积分并对几何级数求和：\n$$a_n=-a+\\sum_{\\ell=1}^{k-1}(-1)^{\\ell+1}(a^{\\ell+1}-a^\\ell)+(-1)^{k+1}(n-a^k)=-\\frac{2a}{1+a}+(-1)^k\\left(\\frac{2a^{k+1}}{(1+a)n}-1\\right)n.$$\n由 $a^k\\leqslant n<a^{k+1}$ 得 $-\\dfrac{a-1}{1+a}\\leqslant\\dfrac{2a^{k+1}}{(1+a)n}-1\\leqslant\\dfrac{a-1}{1+a}$，于是 $|a_n|\\leqslant\\dfrac{2a}{1+a}+\\dfrac{(a-1)n}{1+a}\\leqslant an$（$n$ 充分大）。故 $\\beta>2$ 时 $\\sum\\frac{|a_n|}{n^\\beta}$ 收敛，$(2,+\\infty)\\subseteq A\\subseteq B$。\n\n**$\\beta\\leqslant2$ 时不收敛。** 取偶数 $k=2j$ 充分大，考虑满足\n$$\\frac{4a^{2j+1}}{a+3}\\leqslant n<a^{2j+1}\\tag{1}$$\n的整数 $n$（它们都在 $[a^{2j},a^{2j+1})$ 内，因 $\\frac{4a}{a+3}>1$），个数 $N_j\\geqslant a^{2j+1}-\\dfrac{4a^{2j+1}}{a+3}-2\\geqslant\\dfrac{(a-1)a^{2j}}{4}$（$j$ 充分大）。对这些 $n$，\n$$-\\frac{a_n}{n^2}=\\frac1{n^2}\\left[\\frac{2a}{1+a}+\\left(1-\\frac{2a^{2j+1}}{(1+a)n}\\right)n\\right]\\geqslant\\frac1n\\left(1-\\frac{2}{1+a}\\cdot\\frac{a+3}{4}\\right)=\\frac{a-1}{2(1+a)n}\\geqslant\\frac{a-1}{2(1+a)a^{2j+1}},$$\n特别地 $a_n<0$。于是当 $\\beta\\leqslant2$ 时\n$$-\\sum_{n\\text{ 满足 }(1)}\\frac{a_n}{n^\\beta}\\geqslant\\sum_{n\\text{ 满足 }(1)}\\frac{-a_n}{n^2}\\geqslant N_j\\cdot\\frac{a-1}{2(1+a)a^{2j+1}}\\geqslant\\frac{(a-1)^2}{8(1+a)a}>0.$$\n这些片段的下标 $\\to\\infty$ 而片段和不趋于零，由 Cauchy 准则 $\\sum\\frac{a_n}{n^\\beta}$ 不收敛（自然也不绝对收敛）。所以 $A=B=(2,+\\infty)$。\n（注：原解答在题干中用 $\\beta$、在解答中用 $\\alpha$ 表示指数，此处统一为 $\\beta$。）",
+   "solutionSource": "官方"
+  }
+ ]
+}

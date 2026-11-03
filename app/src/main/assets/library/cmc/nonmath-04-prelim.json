@@ -1,0 +1,217 @@
+{
+ "id": "cmc-nonmath-04-prelim",
+ "title": "第四届全国大学生数学竞赛初赛（非数学类）",
+ "year": 2012,
+ "track": "非数学类",
+ "round": "初赛",
+ "paper": "",
+ "durationMin": 150,
+ "totalScore": 100,
+ "source": {
+  "question": "2012年第四届全国初赛-非数学类试卷.pdf",
+  "solution": "04-第四届全国初赛-非数学类试题参考解答.pdf"
+ },
+ "problems": [
+  {
+   "no": "一(1)",
+   "score": 6,
+   "type": "计算",
+   "subjects": [
+    "高等数学"
+   ],
+   "topics": [
+    "数列极限",
+    "Stolz定理",
+    "对数"
+   ],
+   "difficulty": 2,
+   "statement": "求极限 $\\displaystyle\\lim_{n\\to\\infty}(n!)^{\\frac1{n^2}}$。",
+   "answer": "$1$",
+   "solution": "因为 $(n!)^{\\frac1{n^2}}=e^{\\frac1{n^2}\\ln(n!)}$，而\n$$\\frac1{n^2}\\ln(n!)\\leqslant\\frac1n\\left(\\frac{\\ln1}1+\\frac{\\ln2}2+\\cdots+\\frac{\\ln n}n\\right),\\quad\\text{且}\\ \\lim_{n\\to\\infty}\\frac{\\ln n}n=0,$$\n所以 $\\displaystyle\\lim_{n\\to\\infty}\\frac1n\\left(\\frac{\\ln1}1+\\frac{\\ln2}2+\\cdots+\\frac{\\ln n}n\\right)=0$，即 $\\displaystyle\\lim_{n\\to\\infty}\\frac1{n^2}\\ln(n!)=0\\Rightarrow\\lim_{n\\to\\infty}(n!)^{\\frac1{n^2}}=1$。",
+   "solutionSource": "官方"
+  },
+  {
+   "no": "一(2)",
+   "score": 6,
+   "type": "计算",
+   "subjects": [
+    "高等数学"
+   ],
+   "topics": [
+    "平面束",
+    "平面垂直",
+    "空间直线"
+   ],
+   "difficulty": 1,
+   "statement": "求通过直线 $L:\\begin{cases}2x+y-3z+2=0,\\\\5x+5y-4z+3=0\\end{cases}$ 的两个相互垂直的平面 $\\pi_1,\\pi_2$，使其中一个平面过点 $(4,-3,1)$。",
+   "answer": "$\\pi_1:3x+4y-z+1=0$，$\\pi_2:x-2y-5z+3=0$",
+   "solution": "过直线 $L$ 的平面束方程为 $\\lambda(2x+y-3z+2)+\\mu(5x+5y-4z+3)=0$，即\n$$(2\\lambda+5\\mu)x+(\\lambda+5\\mu)y-(3\\lambda+4\\mu)z+2\\lambda+3\\mu=0.$$\n若平面 $\\pi_1$ 过点 $(4,-3,1)$，代入得 $\\lambda+\\mu=0$，即 $\\mu=-\\lambda$，从而 $\\pi_1$ 的方程为 $3x+4y-z+1=0$。\n\n若平面束中的平面 $\\pi_2$ 与 $\\pi_1$ 垂直，则 $3(2\\lambda+5\\mu)+4(\\lambda+5\\mu)+1\\cdot(3\\lambda+4\\mu)=0$，解得 $\\lambda=-3\\mu$，从而平面 $\\pi_2$ 的方程为 $x-2y-5z+3=0$。",
+   "solutionSource": "官方"
+  },
+  {
+   "no": "一(3)",
+   "score": 6,
+   "type": "计算",
+   "subjects": [
+    "高等数学"
+   ],
+   "topics": [
+    "偏导数",
+    "复合函数求导",
+    "偏微分方程"
+   ],
+   "difficulty": 2,
+   "statement": "已知函数 $z=u(x,y)e^{ax+by}$，且 $\\dfrac{\\partial^2u}{\\partial x\\partial y}=0$，确定常数 $a,b$，使函数 $z=z(x,y)$ 满足方程 $\\dfrac{\\partial^2z}{\\partial x\\partial y}-\\dfrac{\\partial z}{\\partial x}-\\dfrac{\\partial z}{\\partial y}+z=0$。",
+   "answer": "$a=b=1$",
+   "solution": "$$\\frac{\\partial z}{\\partial x}=e^{ax+by}\\left[\\frac{\\partial u}{\\partial x}+au(x,y)\\right],\\quad\\frac{\\partial z}{\\partial y}=e^{ax+by}\\left[\\frac{\\partial u}{\\partial y}+bu(x,y)\\right],$$\n$$\\frac{\\partial^2z}{\\partial x\\partial y}=e^{ax+by}\\left[b\\frac{\\partial u}{\\partial x}+a\\frac{\\partial u}{\\partial y}+abu(x,y)\\right],$$\n$$\\frac{\\partial^2z}{\\partial x\\partial y}-\\frac{\\partial z}{\\partial x}-\\frac{\\partial z}{\\partial y}+z=e^{ax+by}\\left[(b-1)\\frac{\\partial u}{\\partial x}+(a-1)\\frac{\\partial u}{\\partial y}+(ab-a-b+1)u(x,y)\\right].$$\n若使上式等于 $0$，只有 $(b-1)\\dfrac{\\partial u}{\\partial x}+(a-1)\\dfrac{\\partial u}{\\partial y}+(ab-a-b+1)u(x,y)=0$，由此可得 $a=b=1$。",
+   "solutionSource": "官方"
+  },
+  {
+   "no": "一(4)",
+   "score": 6,
+   "type": "计算",
+   "subjects": [
+    "高等数学"
+   ],
+   "topics": [
+    "曲线积分与路径无关",
+    "一阶线性微分方程",
+    "反函数"
+   ],
+   "difficulty": 2,
+   "statement": "设 $u=u(x)$ 连续可微，$u(2)=1$，且 $\\displaystyle\\int_L(x+2y)u\\,\\mathrm dx+(x+u^3)u\\,\\mathrm dy$ 在右半平面上与路径无关，求 $u(x)$。",
+   "answer": "$u(x)=\\left(\\dfrac x2\\right)^{1/3}$",
+   "solution": "由 $\\dfrac{\\partial[(x+2y)u]}{\\partial y}=\\dfrac{\\partial[u(x+u^3)]}{\\partial x}$，得 $(x+4u^3)u'=u$，即\n$$\\frac{\\mathrm dx}{\\mathrm du}-\\frac1ux=4u^2.$$\n这是一个一阶线性微分方程，于是由公式有通解\n$$x=e^{\\ln u}\\left(\\int4u^2e^{-\\ln u}\\,\\mathrm du+C\\right)=u\\left(\\int4u\\,\\mathrm du+C\\right)=u(2u^2+C).$$\n由 $u(2)=1$ 得 $C=0$，所以 $u=\\left(\\dfrac x2\\right)^{1/3}$。",
+   "solutionSource": "官方"
+  },
+  {
+   "no": "一(5)",
+   "score": 6,
+   "type": "计算",
+   "subjects": [
+    "高等数学"
+   ],
+   "topics": [
+    "积分估计",
+    "函数极限",
+    "夹逼"
+   ],
+   "difficulty": 2,
+   "statement": "求极限 $\\displaystyle\\lim_{x\\to+\\infty}\\sqrt[3]x\\int_x^{x+1}\\frac{\\sin t}{\\sqrt{t+\\cos t}}\\,\\mathrm dt$。",
+   "answer": "$0$",
+   "solution": "因为当 $x>1$ 时，\n$$\\left|\\sqrt[3]x\\int_x^{x+1}\\frac{\\sin t}{\\sqrt{t+\\cos t}}\\,\\mathrm dt\\right|\\leqslant\\sqrt[3]x\\int_x^{x+1}\\frac{\\mathrm dt}{\\sqrt{t-1}}\\leqslant2\\sqrt[3]x\\left(\\sqrt x-\\sqrt{x-1}\\right)=\\frac{2\\sqrt[3]x}{\\sqrt x+\\sqrt{x-1}}\\to0\\ (x\\to+\\infty),$$\n所以 $\\displaystyle\\lim_{x\\to+\\infty}\\sqrt[3]x\\int_x^{x+1}\\frac{\\sin t}{\\sqrt{t+\\cos t}}\\,\\mathrm dt=0$。",
+   "solutionSource": "官方"
+  },
+  {
+   "no": "二",
+   "score": 10,
+   "type": "计算",
+   "subjects": [
+    "高等数学"
+   ],
+   "topics": [
+    "反常积分",
+    "分部积分",
+    "等比级数",
+    "夹逼准则"
+   ],
+   "difficulty": 3,
+   "statement": "计算 $\\displaystyle\\int_0^{+\\infty}e^{-2x}|\\sin x|\\,\\mathrm dx$。",
+   "answer": "$\\dfrac15\\cdot\\dfrac{e^{2\\pi}+1}{e^{2\\pi}-1}$",
+   "solution": "由于\n$$\\int_0^{n\\pi}e^{-2x}|\\sin x|\\,\\mathrm dx=\\sum_{k=1}^n\\int_{(k-1)\\pi}^{k\\pi}e^{-2x}|\\sin x|\\,\\mathrm dx=\\sum_{k=1}^n\\int_{(k-1)\\pi}^{k\\pi}(-1)^{k-1}e^{-2x}\\sin x\\,\\mathrm dx,$$\n应用分部积分法，有\n$$\\int_{(k-1)\\pi}^{k\\pi}(-1)^{k-1}e^{-2x}\\sin x\\,\\mathrm dx=\\frac15e^{-2k\\pi}\\left(1+e^{2\\pi}\\right),$$\n所以有\n$$\\int_0^{n\\pi}e^{-2x}|\\sin x|\\,\\mathrm dx=\\frac15\\left(1+e^{2\\pi}\\right)\\sum_{k=1}^ne^{-2k\\pi}=\\frac15\\left(1+e^{2\\pi}\\right)\\frac{e^{-2\\pi}-e^{-2(n+1)\\pi}}{1-e^{-2\\pi}}.$$\n当 $n\\pi\\leqslant x\\leqslant(n+1)\\pi$ 时，\n$$\\int_0^{n\\pi}e^{-2x}|\\sin x|\\,\\mathrm dx\\leqslant\\int_0^xe^{-2x}|\\sin x|\\,\\mathrm dx\\leqslant\\int_0^{(n+1)\\pi}e^{-2x}|\\sin x|\\,\\mathrm dx.$$\n当 $n\\to\\infty$，由两边夹法则，得\n$$\\int_0^\\infty e^{-2x}|\\sin x|\\,\\mathrm dx=\\lim_{x\\to\\infty}\\int_0^xe^{-2x}|\\sin x|\\,\\mathrm dx=\\frac15\\cdot\\frac{e^{2\\pi}+1}{e^{2\\pi}-1}.$$\n【注】如果最后不用夹逼准则，而直接用 $\\displaystyle\\int_0^\\infty=\\lim_{n\\to\\infty}\\int_0^{n\\pi}$，需要先说明 $\\displaystyle\\int_0^\\infty e^{-2x}|\\sin x|\\,\\mathrm dx$ 收敛。",
+   "solutionSource": "官方"
+  },
+  {
+   "no": "三",
+   "score": 10,
+   "type": "计算",
+   "subjects": [
+    "高等数学"
+   ],
+   "topics": [
+    "泰勒公式",
+    "近似计算",
+    "误差估计"
+   ],
+   "difficulty": 2,
+   "statement": "求方程 $x^2\\sin\\dfrac1x=2x-501$ 的近似解，精确到 $0.001$。",
+   "answer": "$x\\approx501$",
+   "solution": "由泰勒公式 $\\sin t=t-\\dfrac{\\sin(\\theta t)}2t^2\\ (0<\\theta<1)$。令 $t=\\dfrac1x$ 得\n$$\\sin\\frac1x=\\frac1x-\\frac{\\sin\\left(\\frac\\theta x\\right)}2\\left(\\frac1x\\right)^2,$$\n代入原方程，得\n$$x-\\frac12\\sin\\left(\\frac\\theta x\\right)=2x-501,\\quad\\text{即}\\quad x=501-\\frac12\\sin\\left(\\frac\\theta x\\right).$$\n由此知 $x>500$，$0<\\dfrac\\theta x<\\dfrac1{500}$，所以有\n$$|x-501|=\\frac12\\left|\\sin\\left(\\frac\\theta x\\right)\\right|\\leqslant\\frac12\\cdot\\frac\\theta x<\\frac1{1000}=0.001,$$\n即当 $x=501$ 即为满足题设条件的解。",
+   "solutionSource": "官方"
+  },
+  {
+   "no": "四",
+   "score": 12,
+   "type": "计算",
+   "subjects": [
+    "高等数学"
+   ],
+   "topics": [
+    "切线",
+    "泰勒公式",
+    "函数极限",
+    "导数定义"
+   ],
+   "difficulty": 3,
+   "statement": "设函数 $y=f(x)$ 二阶可导，且 $f''(x)>0$，$f(0)=0$，$f'(0)=0$。求 $\\displaystyle\\lim_{x\\to0}\\frac{x^3f(u)}{f(x)\\sin^3u}$，其中 $u$ 是曲线 $y=f(x)$ 上点 $P(x,f(x))$ 处切线在 $x$ 轴上的截距。",
+   "answer": "$2$",
+   "solution": "$y=f(x)$ 上点 $P(x,f(x))$ 处切线方程为 $Y-f(x)=f'(x)(X-x)$。令 $Y=0$，$X=x-\\dfrac{f(x)}{f'(x)}$，由此得 $u=x-\\dfrac{f(x)}{f'(x)}$，且有\n$$\\lim_{x\\to0}u=\\lim_{x\\to0}\\left[x-\\frac{f(x)}{f'(x)}\\right]=-\\lim_{x\\to0}\\frac{\\frac{f(x)-f(0)}x}{\\frac{f'(x)-f'(0)}x}=-\\frac{f'(0)}{f''(0)}=0.$$\n由 $f(x)$ 在 $x=0$ 处的二阶泰勒公式，\n$$f(x)=f(0)+f'(0)x+\\frac{f''(0)}2x^2+o(x^2)=\\frac{f''(0)}2x^2+o(x^2),$$\n可得\n$$\\lim_{x\\to0}\\frac ux=1-\\lim_{x\\to0}\\frac{f(x)}{xf'(x)}=1-\\lim_{x\\to0}\\frac{\\frac{f''(0)}2x^2+o(x^2)}{xf'(x)}=1-\\frac12\\lim_{x\\to0}\\frac{f''(0)+o(1)}{\\frac{f'(x)-f'(0)}x}=1-\\frac12\\cdot\\frac{f''(0)}{f''(0)}=\\frac12.$$\n于是\n$$\\lim_{x\\to0}\\frac{x^3f(u)}{f(x)\\sin^3u}=\\lim_{x\\to0}\\frac{x^3\\left(\\frac{f''(0)}2u^2+o(u^2)\\right)}{u^3\\left(\\frac{f''(0)}2x^2+o(x^2)\\right)}=\\lim_{x\\to0}\\frac xu=2.$$",
+   "solutionSource": "官方"
+  },
+  {
+   "no": "五",
+   "score": 12,
+   "type": "计算",
+   "subjects": [
+    "高等数学"
+   ],
+   "topics": [
+    "定积分估计",
+    "换元积分",
+    "最佳常数"
+   ],
+   "difficulty": 3,
+   "statement": "求最小实数 $C$，使得满足 $\\displaystyle\\int_0^1|f(x)|\\,\\mathrm dx=1$ 的连续的函数 $f(x)$ 都有 $\\displaystyle\\int_0^1f\\left(\\sqrt x\\right)\\mathrm dx\\leqslant C$。",
+   "answer": "$C=2$",
+   "solution": "由于\n$$\\int_0^1\\left|f\\left(\\sqrt x\\right)\\right|\\mathrm dx=\\int_0^1|f(t)|\\,2t\\,\\mathrm dt\\leqslant2\\int_0^1|f(t)|\\,\\mathrm dt=2,$$\n取 $f_n(x)=(n+1)x^n$，则有 $\\displaystyle\\int_0^1|f_n(x)|\\,\\mathrm dx=\\int_0^1f_n(x)\\,\\mathrm dx=1$，而\n$$\\int_0^1f_n\\left(\\sqrt x\\right)\\mathrm dx=2\\int_0^1tf_n(t)\\,\\mathrm dt=2\\cdot\\frac{n+1}{n+2}=2\\left(1-\\frac1{n+2}\\right)\\to2\\ (n\\to\\infty).$$\n因此最小的实数为 $C=2$。",
+   "solutionSource": "官方"
+  },
+  {
+   "no": "六",
+   "score": 12,
+   "type": "计算",
+   "subjects": [
+    "高等数学"
+   ],
+   "topics": [
+    "三重积分",
+    "含参积分求导",
+    "柱坐标",
+    "球坐标"
+   ],
+   "difficulty": 3,
+   "statement": "设 $f(x)$ 为连续函数，$t>0$。$\\Omega$ 是由抛物面 $z=x^2+y^2$ 和球面 $x^2+y^2+z^2=t^2\\ (t>0)$ 所围成起来的部分。定义 $F(t)=\\displaystyle\\iiint_\\Omega f(x^2+y^2+z^2)\\,\\mathrm dV$，求 $F'(t)$。",
+   "answer": "$F'(t)=\\pi tf(t^2)\\left(2t+1-\\sqrt{1+4t^2}\\right)$",
+   "solution": "**解法一** 记 $g=g(t)=\\dfrac{\\sqrt{1+4t^2}-1}2$，则 $\\Omega$ 在 $xOy$ 面上的投影为 $x^2+y^2\\leqslant g$。在曲线 $S:\\begin{cases}z=x^2+y^2,\\\\x^2+y^2+z^2=t^2\\end{cases}$ 上任取一点 $(x,y,z)$，则原点到该点的射线和 $z$ 轴的夹角为 $\\theta_t=\\arccos\\dfrac zt=\\arccos\\dfrac gt$。\n\n取 $\\Delta t>0$，则 $\\theta_t>\\theta_{t+\\Delta t}$。对于固定的 $t>0$，考虑积分差 $F(t+\\Delta t)-F(t)$，这是一个在厚度为 $\\Delta t$ 的球壳上的积分。原点到球壳边缘上的点的射线和 $z$ 轴的夹角在 $\\theta_t,\\theta_{t+\\Delta t}$ 之间。用球坐标计算积分，由积分的连续性可知，存在 $\\alpha=\\alpha(\\Delta t)$，$\\theta_{t+\\Delta t}\\leqslant\\alpha\\leqslant\\theta_t$ 使得\n$$F(t+\\Delta t)-F(t)=\\int_0^{2\\pi}\\mathrm d\\varphi\\int_0^\\alpha\\mathrm d\\theta\\int_t^{t+\\Delta t}f(r^2)r^2\\sin\\theta\\,\\mathrm dr,$$\n即 $F(t+\\Delta t)-F(t)=2\\pi(1-\\cos\\alpha)\\displaystyle\\int_t^{t+\\Delta t}f(r^2)r^2\\,\\mathrm dr$。当 $\\Delta t\\to0^+$，\n$$\\cos\\alpha\\to\\cos\\theta_t=\\frac{g(t)}t,\\qquad\\frac1{\\Delta t}\\int_t^{t+\\Delta t}f(r^2)r^2\\,\\mathrm dr\\to t^2f(t^2).$$\n故 $F(t)$ 的右导数为\n$$2\\pi\\left(1-\\frac{g(t)}t\\right)t^2f(t^2)=\\pi\\left(2t+1-\\sqrt{1+4t^2}\\right)tf(t^2).$$\n当 $\\Delta t<0$，考虑 $F(t+\\Delta t)-F(t)$ 可得到同样的左导数，因此\n$$F'(t)=\\pi\\left(2t+1-\\sqrt{1+4t^2}\\right)tf(t^2).$$\n\n**解法二** 令 $x=r\\cos\\theta,\\ y=r\\sin\\theta,\\ z=z$，则区域 $\\Omega$ 表示为\n$$\\Omega:0\\leqslant\\theta\\leqslant2\\pi,\\ 0\\leqslant r\\leqslant a,\\ r^2\\leqslant z\\leqslant\\sqrt{t^2-r^2},$$\n其中 $a$ 满足 $a^2+a^4=t^2$，$a=\\sqrt{\\dfrac{\\sqrt{1+4t^2}-1}2}$，有\n$$F(t)=\\int_0^{2\\pi}\\mathrm d\\theta\\int_0^ar\\,\\mathrm dr\\int_{r^2}^{\\sqrt{t^2-r^2}}f(r^2+z^2)\\,\\mathrm dz=2\\pi\\int_0^a\\left[\\int_{r^2}^{\\sqrt{t^2-r^2}}f(r^2+z^2)\\,\\mathrm dz\\right]r\\,\\mathrm dr.$$\n从而有\n$$F'(t)=2\\pi\\left[a\\int_{a^2}^{\\sqrt{t^2-a^2}}f(a^2+z^2)\\,\\mathrm dz\\,\\frac{\\mathrm da}{\\mathrm dt}+\\int_0^arf(r^2+t^2-r^2)\\frac t{\\sqrt{t^2-r^2}}\\,\\mathrm dr\\right].$$\n注意到 $\\sqrt{t^2-a^2}=a^2$，第一个积分为 $0$，所以有\n$$F'(t)=2\\pi tf(t^2)\\int_0^a\\frac r{\\sqrt{t^2-r^2}}\\,\\mathrm dr=-\\pi tf(t^2)\\int_0^a\\frac{\\mathrm d(t^2-r^2)}{\\sqrt{t^2-r^2}},$$\n所以 $F'(t)=\\pi tf(t^2)\\left(2t+1-\\sqrt{1+4t^2}\\right)$。\n\n（注：原解答写 $a=\\dfrac{\\sqrt{1+4t^2}-1}2$，那是 $a^2$ 的值，此处笔误，已改正。）",
+   "solutionSource": "官方"
+  },
+  {
+   "no": "七",
+   "score": 14,
+   "type": "证明",
+   "subjects": [
+    "高等数学"
+   ],
+   "topics": [
+    "正项级数",
+    "比较判别法",
+    "部分和有界"
+   ],
+   "difficulty": 3,
+   "statement": "设 $\\displaystyle\\sum_{n=1}^\\infty a_n$ 和 $\\displaystyle\\sum_{n=1}^\\infty b_n$ 为正项级数，\n\n(1) 若 $\\displaystyle\\lim_{n\\to\\infty}\\left(\\frac{a_n}{a_{n+1}b_n}-\\frac1{b_{n+1}}\\right)>0$，则 $\\displaystyle\\sum_{n=1}^\\infty a_n$ 收敛；\n\n(2) 若 $\\displaystyle\\lim_{n\\to\\infty}\\left(\\frac{a_n}{a_{n+1}b_n}-\\frac1{b_{n+1}}\\right)<0$ 且 $\\displaystyle\\sum_{n=1}^\\infty b_n$ 发散，则 $\\displaystyle\\sum_{n=1}^\\infty a_n$ 发散。",
+   "answer": "",
+   "solution": "(1) 设 $\\displaystyle\\lim_{n\\to\\infty}\\left(\\frac{a_n}{a_{n+1}b_n}-\\frac1{b_{n+1}}\\right)=2\\delta>\\delta>0$，则存在 $N\\in\\mathbf N$，对于任意的 $n\\geqslant N$ 时，\n$$\\frac{a_n}{a_{n+1}b_n}-\\frac1{b_{n+1}}>\\delta,\\quad\\frac{a_n}{b_n}-\\frac{a_{n+1}}{b_{n+1}}>\\delta a_{n+1},\\quad a_{n+1}<\\frac1\\delta\\left(\\frac{a_n}{b_n}-\\frac{a_{n+1}}{b_{n+1}}\\right),$$\n$$\\sum_{n=N}^ma_{n+1}<\\frac1\\delta\\sum_{n=N}^m\\left(\\frac{a_n}{b_n}-\\frac{a_{n+1}}{b_{n+1}}\\right)\\leqslant\\frac1\\delta\\left(\\frac{a_N}{b_N}-\\frac{a_{m+1}}{b_{m+1}}\\right)\\leqslant\\frac1\\delta\\cdot\\frac{a_N}{b_N},$$\n因而 $\\sum a_n$ 的部分和有上界，从而 $\\sum a_n$ 收敛。\n\n(2) 若 $\\displaystyle\\lim_{n\\to\\infty}\\left(\\frac{a_n}{a_{n+1}b_n}-\\frac1{b_{n+1}}\\right)<\\delta<0$，则存在 $N\\in\\mathbf N$，对于任意的 $n\\geqslant N$ 时，$\\dfrac{a_n}{a_{n+1}}<\\dfrac{b_n}{b_{n+1}}$，有\n$$a_{n+1}>\\frac{b_{n+1}}{b_n}a_n>\\cdots>\\frac{b_{n+1}}{b_n}\\cdot\\frac{b_n}{b_{n-1}}\\cdots\\frac{b_{N+1}}{b_N}a_N=\\frac{a_N}{b_N}b_{n+1},$$\n于是由 $\\sum b_n$ 发散，得到 $\\sum a_n$ 发散。",
+   "solutionSource": "官方"
+  }
+ ]
+}

@@ -1,0 +1,196 @@
+{
+ "id": "cmc-nonmath-05-prelim",
+ "title": "第五届全国大学生数学竞赛初赛（非数学类）",
+ "year": 2013,
+ "track": "非数学类",
+ "round": "初赛",
+ "paper": "",
+ "durationMin": 150,
+ "totalScore": 100,
+ "source": {
+  "question": "2013年第五届全国初赛-非数学类试卷.pdf",
+  "solution": "05-第五届全国初赛-非数学类试题参考解答.pdf"
+ },
+ "problems": [
+  {
+   "no": "一(1)",
+   "score": 6,
+   "type": "计算",
+   "subjects": [
+    "高等数学"
+   ],
+   "topics": [
+    "数列极限",
+    "重要极限"
+   ],
+   "difficulty": 2,
+   "statement": "求极限 $\\displaystyle\\lim_{n\\to\\infty}\\left(1+\\sin\\pi\\sqrt{1+4n^2}\\right)^n$。",
+   "answer": "$e^{\\frac\\pi4}$",
+   "solution": "由周期性，$\\sin\\left(\\pi\\sqrt{1+4n^2}\\right)=\\sin\\left(\\pi\\sqrt{1+4n^2}-2n\\pi\\right)=\\sin\\dfrac{\\pi}{\\sqrt{1+4n^2}+2n}$。于是\n$$\\text{原式}=\\exp\\left[\\lim_{n\\to\\infty}n\\ln\\left(1+\\sin\\frac{\\pi}{\\sqrt{1+4n^2}+2n}\\right)\\right]=\\exp\\left[\\lim_{n\\to\\infty}\\frac{n\\pi}{\\sqrt{1+4n^2}+2n}\\right]=e^{\\frac\\pi4}.$$",
+   "solutionSource": "官方"
+  },
+  {
+   "no": "一(2)",
+   "score": 6,
+   "type": "证明",
+   "subjects": [
+    "高等数学"
+   ],
+   "topics": [
+    "反常积分",
+    "绝对收敛",
+    "比较判别法"
+   ],
+   "difficulty": 1,
+   "statement": "证明广义积分 $\\displaystyle\\int_0^{+\\infty}\\frac{\\sin x}{x}\\,\\mathrm dx$ 不是绝对收敛的。",
+   "answer": "",
+   "solution": "记 $a_n=\\displaystyle\\int_{n\\pi}^{(n+1)\\pi}\\frac{|\\sin x|}{x}\\,\\mathrm dx$，只要证 $\\sum_{n=0}^\\infty a_n$ 发散。因为\n$$a_n\\geqslant\\frac{1}{(n+1)\\pi}\\int_{n\\pi}^{(n+1)\\pi}|\\sin x|\\,\\mathrm dx=\\frac{2}{(n+1)\\pi},$$\n而 $\\sum\\frac{2}{(n+1)\\pi}$ 发散，由比较判别法 $\\sum a_n$ 发散，即 $\\int_0^{+\\infty}\\frac{\\sin x}{x}\\,\\mathrm dx$ 不绝对收敛。",
+   "solutionSource": "官方"
+  },
+  {
+   "no": "一(3)",
+   "score": 6,
+   "type": "计算",
+   "subjects": [
+    "高等数学"
+   ],
+   "topics": [
+    "隐函数求导",
+    "极值"
+   ],
+   "difficulty": 2,
+   "statement": "设 $y=y(x)$ 由 $x^3+3x^2y-2y^3=2$ 所确定，求 $y(x)$ 的极值。",
+   "answer": "极大值 $y(0)=-1$，极小值 $y(-2)=1$",
+   "solution": "两边对 $x$ 求导：$3x^2+6xy+3x^2y'-6y^2y'=0$，得 $y'=\\dfrac{x(x+2y)}{2y^2-x^2}$。令 $y'=0$ 得 $x=0$ 或 $x=-2y$，代入原方程得驻点 $x=0,y=-1$ 与 $x=-2,y=1$。又\n$$y''=\\frac{(2y^2-x^2)(2x+2y+2xy')-(x^2+2xy)(4yy'-2x)}{(2y^2-x^2)^2},$$\n在驻点处（$y'=0$，分子第二项为 0）得 $y''\\big|_{(0,-1)}=-1<0$，$y''\\big|_{(-2,1)}=1>0$。所以 $y(0)=-1$ 为极大值，$y(-2)=1$ 为极小值。",
+   "solutionSource": "官方"
+  },
+  {
+   "no": "一(4)",
+   "score": 6,
+   "type": "计算",
+   "subjects": [
+    "高等数学"
+   ],
+   "topics": [
+    "切线",
+    "定积分求面积"
+   ],
+   "difficulty": 1,
+   "statement": "过曲线 $y=\\sqrt[3]{x}\\ (x\\geqslant0)$ 上的点 $A$ 作切线，使该切线与曲线及 $x$ 轴所围成的平面图形的面积为 $\\dfrac34$。求点 $A$ 的坐标。",
+   "answer": "$A(1,1)$",
+   "solution": "设切点 $A(t,\\sqrt[3]t)$，切线为 $y-\\sqrt[3]t=\\dfrac{1}{3\\sqrt[3]{t^2}}(x-t)$，令 $y=0$ 得与 $x$ 轴交点 $x_0=-2t$。所求面积等于三角形 $Ax_0t$ 的面积减去曲边梯形 $OtA$ 的面积：\n$$S=\\frac12\\sqrt[3]t\\cdot3t-\\int_0^t\\sqrt[3]x\\,\\mathrm dx=\\frac34t\\sqrt[3]t=\\frac34\\ \\Rightarrow\\ t=1.$$\n所以 $A$ 的坐标为 $(1,1)$。",
+   "solutionSource": "官方"
+  },
+  {
+   "no": "二",
+   "score": 12,
+   "type": "计算",
+   "subjects": [
+    "高等数学"
+   ],
+   "topics": [
+    "定积分",
+    "对称性",
+    "区间再现"
+   ],
+   "difficulty": 2,
+   "statement": "计算定积分 $I=\\displaystyle\\int_{-\\pi}^{\\pi}\\frac{x\\sin x\\cdot\\arctan e^x}{1+\\cos^2x}\\,\\mathrm dx$。",
+   "answer": "$\\dfrac{\\pi^3}{8}$",
+   "solution": "把 $[-\\pi,0]$ 上的积分作代换 $x\\to-x$，与 $[0,\\pi]$ 上的合并：\n$$I=\\int_0^\\pi\\left(\\arctan e^{-x}+\\arctan e^x\\right)\\frac{x\\sin x}{1+\\cos^2x}\\,\\mathrm dx=\\frac\\pi2\\int_0^\\pi\\frac{x\\sin x}{1+\\cos^2x}\\,\\mathrm dx,$$\n这里用了 $\\arctan e^{-x}+\\arctan e^x=\\frac\\pi2$。再由代换 $x=\\pi-u$ 得 $\\displaystyle\\int_0^\\pi\\frac{x\\sin x}{1+\\cos^2x}\\,\\mathrm dx=\\frac\\pi2\\int_0^\\pi\\frac{\\sin x}{1+\\cos^2x}\\,\\mathrm dx$，于是\n$$I=\\left(\\frac\\pi2\\right)^2\\int_0^\\pi\\frac{\\sin x}{1+\\cos^2x}\\,\\mathrm dx=-\\left(\\frac\\pi2\\right)^2\\arctan(\\cos x)\\Big|_0^\\pi=\\frac{\\pi^3}{8}.$$",
+   "solutionSource": "官方"
+  },
+  {
+   "no": "三",
+   "score": 12,
+   "type": "证明",
+   "subjects": [
+    "高等数学"
+   ],
+   "topics": [
+    "正项级数",
+    "比较判别法",
+    "洛必达法则",
+    "导数定义"
+   ],
+   "difficulty": 2,
+   "statement": "设 $f(x)$ 在 $x=0$ 处存在二阶导数 $f''(0)$，且 $\\displaystyle\\lim_{x\\to0}\\frac{f(x)}{x}=0$。证明：级数 $\\displaystyle\\sum_{n=1}^\\infty\\left|f\\left(\\frac1n\\right)\\right|$ 收敛。",
+   "answer": "",
+   "solution": "$f$ 在 $0$ 处连续，且 $f(0)=\\lim\\limits_{x\\to0}\\dfrac{f(x)}{x}\\cdot x=0$，$f'(0)=\\lim\\limits_{x\\to0}\\dfrac{f(x)-f(0)}{x}=0$。由洛必达法则及导数定义，\n$$\\lim_{x\\to0}\\frac{f(x)}{x^2}=\\lim_{x\\to0}\\frac{f'(x)}{2x}=\\lim_{x\\to0}\\frac{f'(x)-f'(0)}{2(x-0)}=\\frac12f''(0).$$\n所以 $\\lim\\limits_{n\\to\\infty}\\dfrac{\\left|f\\left(\\frac1n\\right)\\right|}{1/n^2}=\\dfrac12|f''(0)|$。由于 $\\sum\\frac1{n^2}$ 收敛，由比较判别法 $\\sum\\left|f\\left(\\frac1n\\right)\\right|$ 收敛。",
+   "solutionSource": "官方"
+  },
+  {
+   "no": "四",
+   "score": 10,
+   "type": "证明",
+   "subjects": [
+    "高等数学"
+   ],
+   "topics": [
+    "定积分估计",
+    "反函数",
+    "换元积分"
+   ],
+   "difficulty": 2,
+   "statement": "设 $|f(x)|\\leqslant\\pi$，$f'(x)\\geqslant m>0\\ (a\\leqslant x\\leqslant b)$，证明：$\\left|\\displaystyle\\int_a^b\\sin f(x)\\,\\mathrm dx\\right|\\leqslant\\dfrac2m$。",
+   "answer": "",
+   "solution": "由 $f'(x)\\geqslant m>0$，$f$ 在 $[a,b]$ 上严格单增，有反函数 $\\varphi$。记 $A=f(a),B=f(b)$，则 $0<\\varphi'(y)=\\dfrac1{f'(x)}\\leqslant\\dfrac1m$，且 $-\\pi\\leqslant A<B\\leqslant\\pi$。令 $x=\\varphi(y)$：\n$$\\left|\\int_a^b\\sin f(x)\\,\\mathrm dx\\right|=\\left|\\int_A^B\\varphi'(y)\\sin y\\,\\mathrm dy\\right|\\leqslant\\int_0^\\pi\\frac{\\sin y}{m}\\,\\mathrm dy=\\frac2m.$$\n（最后一步：$\\sin y$ 在 $[A,0]$ 上非正、在 $[0,B]$ 上非负，两部分符号相反，绝对值不超过其中较大者，而每部分都不超过 $\\frac1m\\int_0^\\pi\\sin y\\,\\mathrm dy$。）",
+   "solutionSource": "官方"
+  },
+  {
+   "no": "五",
+   "score": 14,
+   "type": "计算",
+   "subjects": [
+    "高等数学"
+   ],
+   "topics": [
+    "第二型曲面积分",
+    "高斯公式",
+    "三重积分",
+    "最值"
+   ],
+   "difficulty": 3,
+   "statement": "设 $\\Sigma$ 是一个光滑封闭曲面，方向朝外，给定第二型的曲面积分\n$$I=\\iint_\\Sigma(x^3-x)\\,\\mathrm dy\\,\\mathrm dz+(2y^3-y)\\,\\mathrm dz\\,\\mathrm dx+(3z^3-z)\\,\\mathrm dx\\,\\mathrm dy.$$\n试确定曲面 $\\Sigma$，使得积分 $I$ 的值最小，并求该最小值。",
+   "answer": "$\\Sigma$ 为椭球面 $x^2+2y^2+3z^2=1$（外侧），最小值 $-\\dfrac{4\\sqrt6}{15}\\pi$",
+   "solution": "设 $\\Sigma$ 围成的立体为 $V$，由高斯公式\n$$I=\\iiint_V(3x^2+6y^2+9z^2-3)\\,\\mathrm dV=3\\iiint_V(x^2+2y^2+3z^2-1)\\,\\mathrm dV.$$\n要使 $I$ 最小，$V$ 应恰为被积函数非正的全部区域，即 $V=\\{(x,y,z)\\mid x^2+2y^2+3z^2\\leqslant1\\}$，$\\Sigma$ 为该椭球面。作变换 $x=u,\\ y=\\frac{v}{\\sqrt2},\\ z=\\frac{w}{\\sqrt3}$，$\\dfrac{\\partial(x,y,z)}{\\partial(u,v,w)}=\\dfrac1{\\sqrt6}$，\n$$I=\\frac{3}{\\sqrt6}\\iiint_{u^2+v^2+w^2\\leqslant1}(u^2+v^2+w^2-1)\\,\\mathrm dV=\\frac3{\\sqrt6}\\int_0^{2\\pi}\\mathrm d\\varphi\\int_0^\\pi\\mathrm d\\theta\\int_0^1(r^2-1)r^2\\sin\\theta\\,\\mathrm dr=-\\frac{4\\sqrt6}{15}\\pi.$$",
+   "solutionSource": "官方"
+  },
+  {
+   "no": "六",
+   "score": 14,
+   "type": "计算",
+   "subjects": [
+    "高等数学"
+   ],
+   "topics": [
+    "第二型曲线积分",
+    "坐标变换",
+    "含参极限"
+   ],
+   "difficulty": 3,
+   "statement": "设 $I_a(r)=\\displaystyle\\oint_C\\frac{y\\,\\mathrm dx-x\\,\\mathrm dy}{(x^2+y^2)^a}$，其中 $a$ 为常数，曲线 $C$ 为椭圆 $x^2+xy+y^2=r^2$，取正向。求极限 $\\displaystyle\\lim_{r\\to+\\infty}I_a(r)$。",
+   "answer": "$a>1$ 时为 $0$；$a<1$ 时为 $-\\infty$；$a=1$ 时为 $-2\\pi$",
+   "solution": "作旋转变换 $x=\\dfrac{u-v}{\\sqrt2},\\ y=\\dfrac{u+v}{\\sqrt2}$，$C$ 变为 $uOv$ 平面上取正向的 $\\Gamma:\\frac32u^2+\\frac12v^2=r^2$，且 $x^2+y^2=u^2+v^2$，$y\\,\\mathrm dx-x\\,\\mathrm dy=v\\,\\mathrm du-u\\,\\mathrm dv$。再令 $u=\\sqrt{\\frac23}\\,r\\cos\\theta,\\ v=\\sqrt2\\,r\\sin\\theta$，则 $v\\,\\mathrm du-u\\,\\mathrm dv=-\\frac{2}{\\sqrt3}r^2\\,\\mathrm d\\theta$，\n$$I_a(r)=-\\frac{2r^{2(1-a)}}{\\sqrt3}\\int_0^{2\\pi}\\frac{\\mathrm d\\theta}{\\left(\\frac23\\cos^2\\theta+2\\sin^2\\theta\\right)^a}=-\\frac{2r^{2(1-a)}}{\\sqrt3}J_a,\\quad0<J_a<+\\infty.$$\n因此 $a>1$ 时极限为 $0$，$a<1$ 时为 $-\\infty$。当 $a=1$ 时 $J_1=\\displaystyle\\int_0^{2\\pi}\\frac{\\mathrm d\\theta}{\\frac23\\cos^2\\theta+2\\sin^2\\theta}=\\sqrt3\\pi$，极限为 $-2\\pi$。\n（注：原解答此处把 $r^{2(1-a)}$ 写成 $r^2$，为笔误，已改正。）",
+   "solutionSource": "官方"
+  },
+  {
+   "no": "七",
+   "score": 14,
+   "type": "计算",
+   "subjects": [
+    "高等数学"
+   ],
+   "topics": [
+    "数项级数",
+    "调和数",
+    "阿贝尔变换",
+    "裂项求和"
+   ],
+   "difficulty": 3,
+   "statement": "判断级数 $\\displaystyle\\sum_{n=1}^\\infty\\frac{1+\\frac12+\\cdots+\\frac1n}{(n+1)(n+2)}$ 的敛散性，若收敛，求其和。",
+   "answer": "收敛，和为 $1$",
+   "solution": "(1) 记 $a_n=1+\\frac12+\\cdots+\\frac1n$，则 $0<a_n<1+\\int_1^n\\frac{\\mathrm dx}{x}=1+\\ln n<\\sqrt n$（$n$ 充分大），故通项 $<\\dfrac{\\sqrt n}{(n+1)(n+2)}<\\dfrac1{n^{3/2}}$，级数收敛。\n\n(2) 部分和用裂项与阿贝尔变换：\n$$S_n=\\sum_{k=1}^n a_k\\left(\\frac1{k+1}-\\frac1{k+2}\\right)=\\frac12a_1+\\sum_{k=2}^n\\frac{a_k-a_{k-1}}{k+1}-\\frac{a_n}{n+2}=\\frac12+\\sum_{k=2}^n\\frac1{k(k+1)}-\\frac{a_n}{n+2}=1-\\frac1{n+1}-\\frac{a_n}{n+2}.$$\n由 $0<\\dfrac{a_n}{n+2}<\\dfrac{1+\\ln n}{n+2}\\to0$，得 $S=\\lim S_n=1$。\n（注：原解答此处求和写作 $\\frac1{1\\cdot2}+\\cdots+\\frac1{n(n-1)}$ 并得 $1-\\frac1n-\\frac{a_n}{n+2}$，为笔误，已改正；极限不受影响。）",
+   "solutionSource": "官方"
+  }
+ ]
+}

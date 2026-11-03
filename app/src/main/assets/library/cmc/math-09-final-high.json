@@ -1,0 +1,252 @@
+{
+ "id": "cmc-math-09-final-high",
+ "title": "第九届全国大学生数学竞赛决赛（数学类高年级组（三、四年级））",
+ "year": 2018,
+ "track": "数学类",
+ "round": "决赛",
+ "paper": "high",
+ "durationMin": 180,
+ "totalScore": 100,
+ "source": {
+  "question": "2018年03月-数学类三、四年级-第九届全国决赛试卷.pdf",
+  "solution": "2018年03月-数学类三、四年级参考解答-第九届全国决赛试卷.pdf"
+ },
+ "problems": [
+  {
+   "no": "一(1)",
+   "score": 5,
+   "type": "填空",
+   "subjects": [
+    "高等代数"
+   ],
+   "topics": [
+    "分块矩阵",
+    "秩",
+    "特征值"
+   ],
+   "difficulty": 2,
+   "statement": "设实方阵 $H_1=\\begin{pmatrix}0&1\\\\1&0\\end{pmatrix}$，$H_{n+1}=\\begin{pmatrix}H_n&I\\\\I&H_n\\end{pmatrix}$，$n\\geqslant1$，其中 $I$ 是与 $H_n$ 同阶的单位方阵，则 $\\operatorname{rank}(H_4)=$______。",
+   "answer": "$10$",
+   "solution": "令 $P=\\begin{pmatrix}I&I\\\\I&-I\\end{pmatrix}$，则 $P^{-1}H_{n+1}P=\\begin{pmatrix}H_n+I&0\\\\0&H_n-I\\end{pmatrix}$，所以 $H_{n+1}$ 的特征值为 $H_n$ 的特征值分别加减 $1$。$H_n$ 均为实对称阵，秩等于非零特征值个数（计重数）。\n$H_1:\\pm1$；$H_2:2,0,0,-2$；$H_3:3,1,1,1,-1,-1,-1,-3$；$H_4:4,2,2,2,0^{(6)},-2,-2,-2,-4$。$H_4$ 是 16 阶，零特征值 6 重，故 $\\operatorname{rank}(H_4)=10$。",
+   "solutionSource": "编写"
+  },
+  {
+   "no": "一(2)",
+   "score": 5,
+   "type": "填空",
+   "subjects": [
+    "数学分析"
+   ],
+   "topics": [
+    "函数极限",
+    "等价无穷小"
+   ],
+   "difficulty": 1,
+   "statement": "$\\displaystyle\\lim_{x\\to0}\\frac{\\ln(1+\\tan x)-\\ln(1+\\sin x)}{x^3}=$______。",
+   "answer": "$\\dfrac12$",
+   "solution": "$\\ln(1+\\tan x)-\\ln(1+\\sin x)=\\ln\\left(1+\\dfrac{\\tan x-\\sin x}{1+\\sin x}\\right)\\sim\\tan x-\\sin x=\\tan x(1-\\cos x)\\sim\\dfrac{x^3}{2}$，故极限为 $\\dfrac12$。",
+   "solutionSource": "编写"
+  },
+  {
+   "no": "一(3)",
+   "score": 5,
+   "type": "填空",
+   "subjects": [
+    "数学分析"
+   ],
+   "topics": [
+    "第二型曲线积分",
+    "势函数",
+    "与路径无关"
+   ],
+   "difficulty": 2,
+   "statement": "设 $\\Gamma$ 为空间曲线 $\\begin{cases}x=\\pi\\sin(t/2)\\\\y=t-\\sin t\\\\z=\\sin2t\\end{cases}$，$t:0\\to\\pi$，则第二型曲线积分\n$$\\int_\\Gamma e^{\\sin x}(\\cos x\\cos y\\,\\mathrm{d}x-\\sin y\\,\\mathrm{d}y)+\\cos z\\,\\mathrm{d}z$$\n则为______。",
+   "answer": "$-2$",
+   "solution": "被积式是 $\\varphi(x,y,z)=e^{\\sin x}\\cos y+\\sin z$ 的全微分。起点 $t=0$ 为 $(0,0,0)$，终点 $t=\\pi$ 为 $(\\pi,\\pi,0)$，积分 $=\\varphi(\\pi,\\pi,0)-\\varphi(0,0,0)=-1-1=-2$。",
+   "solutionSource": "编写"
+  },
+  {
+   "no": "一(4)",
+   "score": 5,
+   "type": "填空",
+   "subjects": [
+    "高等代数"
+   ],
+   "topics": [
+    "二次型",
+    "正交变换",
+    "特征值"
+   ],
+   "difficulty": 1,
+   "statement": "设二次型 $f(x_1,\\dots,x_n)=(x_1,\\dots,x_n)A\\begin{pmatrix}x_1\\\\x_2\\\\\\vdots\\\\x_n\\end{pmatrix}$ 的矩阵 $A$ 为 $\\begin{pmatrix}1&a&a&\\cdots&a\\\\a&1&a&\\cdots&a\\\\\\vdots&\\vdots&\\vdots&\\vdots&\\vdots\\\\a&\\cdots&a&1&a\\\\a&a&\\cdots&a&1\\end{pmatrix}$，其中 $n>1,\\ a\\in\\mathbb{R}$，则 $f$ 在正交变换下的标准形为______。",
+   "answer": "$\\big(1+(n-1)a\\big)y_1^2+(1-a)\\left(y_2^2+\\cdots+y_n^2\\right)$",
+   "solution": "$A=(1-a)I+aJ$，$J$ 为全 1 矩阵，其特征值为 $n$（一重）和 $0$（$n-1$ 重）。故 $A$ 的特征值为 $1+(n-1)a$ 与 $1-a$（$n-1$ 重），标准形为 $\\big(1+(n-1)a\\big)y_1^2+(1-a)\\sum_{i=2}^ny_i^2$。",
+   "solutionSource": "编写"
+  },
+  {
+   "no": "二",
+   "score": 15,
+   "type": "证明",
+   "subjects": [
+    "解析几何"
+   ],
+   "topics": [
+    "椭球面",
+    "切锥面",
+    "极平面"
+   ],
+   "difficulty": 2,
+   "statement": "在空间直角坐标系下，设有椭球面\n$$S:\\frac{x^2}{a^2}+\\frac{y^2}{b^2}+\\frac{z^2}{c^2}=1,\\quad a,b,c>0$$\n及 $S$ 外部一点 $A(x_0,y_0,z_0)$，过 $A$ 点且与 $S$ 相切的所有直线构成锥面 $\\Sigma$。证明：存在平面 $\\Pi$，使得交线 $S\\cap\\Sigma=S\\cap\\Pi$；同时求出平面 $\\Pi$ 的方程。",
+   "answer": "$\\Pi:\\dfrac{x_0x}{a^2}+\\dfrac{y_0y}{b^2}+\\dfrac{z_0z}{c^2}=1$（$A$ 关于 $S$ 的极平面）",
+   "solution": "$S$ 在点 $Q=(x_1,y_1,z_1)\\in S$ 处的切平面为 $\\dfrac{x_1x}{a^2}+\\dfrac{y_1y}{b^2}+\\dfrac{z_1z}{c^2}=1$。过 $Q$ 的直线与 $S$ 相切当且仅当它在该切平面内，所以直线 $AQ$ 与 $S$ 相切当且仅当 $A$ 在 $Q$ 处的切平面上，即\n$$\\frac{x_0x_1}{a^2}+\\frac{y_0y_1}{b^2}+\\frac{z_0z_1}{c^2}=1\\iff Q\\in\\Pi.$$\n由于椭球面严格凸，每条切线与 $S$ 只交于切点，所以 $S\\cap\\Sigma$ 恰为所有切点之集，即 $S\\cap\\Sigma=S\\cap\\Pi$。$A$ 在 $S$ 外保证 $\\Pi$ 与 $S$ 相交于一条非退化的椭圆。",
+   "solutionSource": "编写"
+  },
+  {
+   "no": "三",
+   "score": 15,
+   "type": "证明",
+   "subjects": [
+    "高等代数"
+   ],
+   "topics": [
+    "幂零矩阵",
+    "迹",
+    "同时上三角化",
+    "交换子"
+   ],
+   "difficulty": 4,
+   "statement": "设 $A,B,C$ 均为 $n$ 阶复方阵，且满足\n$$AB-BA=C,\\quad AC=CA,\\quad BC=CB.$$\n(1) 证明：$C$ 是幂零方阵；\n\n(2) 证明：$A,B,C$ 同时相似于上三角阵；\n\n(3) 若 $C\\neq0$，求 $n$ 的最小值。",
+   "answer": "(3) $n_{\\min}=3$。",
+   "solution": "**(1)** 对 $k\\geqslant1$，因 $C^{k-1}$ 与 $A$ 可交换，\n$$\\operatorname{tr}(C^k)=\\operatorname{tr}(C^{k-1}AB)-\\operatorname{tr}(C^{k-1}BA)=\\operatorname{tr}(C^{k-1}AB)-\\operatorname{tr}(AC^{k-1}B)=0.$$\n由 Newton 公式，$C$ 的特征值的各次幂和全为 $0$ 推出特征值全为 $0$，故 $C$ 幂零。\n**(2)** 先证 $A,B,C$ 有公共特征向量。$V=\\ker C\\neq0$（$C$ 幂零），且 $V$ 是 $A,B$ 不变子空间。取 $A|_V$ 的特征值 $\\lambda$，$W=\\{v\\in V:Av=\\lambda v\\}\\neq0$。对 $w\\in W$：$Bw\\in V$ 且 $A(Bw)=BAw+Cw=\\lambda Bw$，故 $W$ 是 $B$ 不变的，$B|_W$ 有特征向量 $v$，它是 $A,B,C$ 的公共特征向量（$Cv=0$）。\n再对 $n$ 归纳：在商空间 $\\mathbb{C}^n/\\langle v\\rangle$ 上诱导的 $\\bar A,\\bar B,\\bar C$ 满足同样关系，由归纳假设可同时上三角化；把 $v$ 与提升的基合起来，即得使 $A,B,C$ 同时为上三角的基。\n**(3)** $n=1$ 时 $C=AB-BA=0$。$n=2$ 时，由 (2) 设 $A,B,C$ 均为上三角，$C$ 幂零非零，故 $C=cE_{12}\\ (c\\neq0)$。与 $E_{12}$ 可交换的上三角阵形如 $\\alpha I+\\beta E_{12}$，故 $A,B$ 都属于交换代数 $\\operatorname{span}\\{I,E_{12}\\}$，$AB-BA=0$，矛盾。$n=3$ 时取 $A=E_{12},\\ B=E_{23}$，则 $C=AB-BA=E_{13}\\neq0$，且 $AC=CA=0$，$BC=CB=0$。故 $n$ 的最小值为 3。",
+   "solutionSource": "编写"
+  },
+  {
+   "no": "四",
+   "score": 20,
+   "type": "证明",
+   "subjects": [
+    "数学分析"
+   ],
+   "topics": [
+    "积分不等式",
+    "微分中值",
+    "导函数"
+   ],
+   "difficulty": 3,
+   "statement": "设 $f(x)$ 在 $[0,1]$ 上有二阶连续导函数，且 $f(0)f(1)\\geqslant0$。求证：\n$$\\int_0^1|f'(x)|\\,\\mathrm{d}x\\leqslant2\\int_0^1|f(x)|\\,\\mathrm{d}x+\\int_0^1|f''(x)|\\,\\mathrm{d}x.$$",
+   "answer": "",
+   "solution": "记 $M=2\\displaystyle\\int_0^1|f|\\,\\mathrm{d}x$。\n**断言：存在 $y\\in[0,1]$ 使 $|f'(y)|\\leqslant M$。** 否则由 $f'$ 连续，$f'$ 恒 $>M$ 或恒 $<-M$。设 $f'>M\\geqslant0$（另一情形对 $-f$ 同理）。由 $f(0)f(1)\\geqslant0$，必有 $f(0)\\geqslant0$ 或 $f(1)\\leqslant0$：\n- 若 $f(0)\\geqslant0$，则 $x>0$ 时 $f(x)=f(0)+\\int_0^xf'>Mx\\geqslant0$，于是 $\\int_0^1|f|>\\frac M2=\\int_0^1|f|$，矛盾；\n- 若 $f(1)\\leqslant0$，则 $x<1$ 时 $f(x)=f(1)-\\int_x^1f'<-M(1-x)$，同样得 $\\int_0^1|f|>\\frac M2$，矛盾。\n**结论：** 对任意 $x\\in[0,1]$，$f'(x)=f'(y)+\\int_y^xf''(t)\\,\\mathrm{d}t$，故 $|f'(x)|\\leqslant M+\\int_0^1|f''|$。在 $[0,1]$ 上积分即得\n$$\\int_0^1|f'|\\,\\mathrm{d}x\\leqslant2\\int_0^1|f|\\,\\mathrm{d}x+\\int_0^1|f''|\\,\\mathrm{d}x.$$",
+   "solutionSource": "编写"
+  },
+  {
+   "no": "五",
+   "score": 10,
+   "type": "证明",
+   "subjects": [
+    "抽象代数"
+   ],
+   "topics": [
+    "中心",
+    "换位子",
+    "幂零类2"
+   ],
+   "difficulty": 3,
+   "statement": "（选做题：第五至十题任选三题）设 $G$ 为群，且满足：$\\forall x,y\\in G,\\ (xy)^2=(yx)^2$。证明：$\\forall x,y\\in G$，元素 $xyx^{-1}y^{-1}$ 的阶不超过 $2$。",
+   "answer": "",
+   "solution": "**平方属于中心。** 任取 $u,g\\in G$，令 $h=g^{-1}u$，则 $gh=u$，$hg=g^{-1}ug$。由条件 $u^2=(gh)^2=(hg)^2=g^{-1}u^2g$，所以每个平方元都在中心 $Z(G)$ 中。\n**换位子属于中心。** 在 $G/Z(G)$ 中每个元素的平方为单位元，故 $G/Z(G)$ 是 Abel 群，从而 $[x,y]:=xyx^{-1}y^{-1}\\in Z(G)$。\n**双线性。** 换位子都在中心时，$[x_1x_2,y]=x_1[x_2,y]yx_1^{-1}y^{-1}=[x_2,y][x_1,y]$。于是\n$$[x,y]^2=[x^2,y]=x^2yx^{-2}y^{-1}=e,$$\n因为 $x^2$ 在中心。故 $xyx^{-1}y^{-1}$ 的阶为 1 或 2。",
+   "solutionSource": "编写"
+  },
+  {
+   "no": "六",
+   "score": 10,
+   "type": "证明",
+   "subjects": [
+    "实变函数"
+   ],
+   "topics": [
+    "L2空间",
+    "Fatou引理",
+    "依范数收敛"
+   ],
+   "difficulty": 3,
+   "statement": "（选做题：第五至十题任选三题）设 $E\\subset\\mathbb{R}^n$ 为可测集满足 $m(E)<\\infty$。设 $f,f_k\\in L^2(E)$，在 $E$ 上几乎处处有 $f_k\\to f$，且\n$$\\limsup_{k\\to\\infty}\\int_E|f_k(t)|^2\\,\\mathrm{d}t\\leqslant\\int_E|f(t)|^2\\,\\mathrm{d}t<\\infty.$$\n求证：\n$$\\lim_{k\\to\\infty}\\int_E|f_k(t)-f(t)|^2\\,\\mathrm{d}t=0.$$",
+   "answer": "",
+   "solution": "令 $g_k=2|f_k|^2+2|f|^2-|f_k-f|^2\\geqslant0$，则 $g_k\\to4|f|^2$ a.e.。由 Fatou 引理\n$$4\\int_E|f|^2\\leqslant\\liminf_{k\\to\\infty}\\int_Eg_k=2\\int_E|f|^2+\\liminf_{k\\to\\infty}\\left(2\\int_E|f_k|^2-\\int_E|f_k-f|^2\\right)$$\n$$\\leqslant2\\int_E|f|^2+2\\limsup_{k\\to\\infty}\\int_E|f_k|^2-\\limsup_{k\\to\\infty}\\int_E|f_k-f|^2\\leqslant4\\int_E|f|^2-\\limsup_{k\\to\\infty}\\int_E|f_k-f|^2.$$\n因 $\\int_E|f|^2<\\infty$，得 $\\limsup\\limits_{k\\to\\infty}\\int_E|f_k-f|^2\\leqslant0$，即所证。",
+   "solutionSource": "编写"
+  },
+  {
+   "no": "七",
+   "score": 10,
+   "type": "计算",
+   "subjects": [
+    "微分几何"
+   ],
+   "topics": [
+    "测地线",
+    "可展曲面",
+    "柱面",
+    "最短线"
+   ],
+   "difficulty": 3,
+   "statement": "（选做题：第五至十题任选三题）已知椭圆柱面 $S$：\n$$r(u,v)=\\{a\\cos u,b\\sin u,v\\},\\quad-\\pi\\leqslant u\\leqslant\\pi,\\quad-\\infty<v<+\\infty$$\n(1) 求 $S$ 上任意测地线的方程；\n\n(2) 设 $a=b$。取\n$$P=(a,0,0),\\ Q=(a\\cos u_0,a\\sin u_0,v_0)\\ (-\\pi<u_0<\\pi,-\\infty<v_0<+\\infty).$$\n写出 $S$ 上连接 $P,Q$ 两点的最短曲线的方程。",
+   "answer": "(1) 直母线 $u=u_0$，以及 $v=k\\,s(u)+c$，其中 $s(u)=\\displaystyle\\int_0^u\\sqrt{a^2\\sin^2t+b^2\\cos^2t}\\,\\mathrm{d}t$（$k=0$ 为水平截线）；(2) $r(u)=\\left(a\\cos u,a\\sin u,\\dfrac{v_0}{u_0}u\\right)$，$u$ 介于 $0$ 与 $u_0$ 之间（$u_0=0$ 时为直线段 $u=0$，$v$ 从 $0$ 到 $v_0$）。",
+   "solution": "**(1)** $r_u=(-a\\sin u,b\\cos u,0)$，$r_v=(0,0,1)$，第一基本形式 $\\mathrm{d}s^2=(a^2\\sin^2u+b^2\\cos^2u)\\mathrm{d}u^2+\\mathrm{d}v^2$。令\n$$s(u)=\\int_0^u\\sqrt{a^2\\sin^2t+b^2\\cos^2t}\\,\\mathrm{d}t,$$\n则 $\\mathrm{d}s^2=\\mathrm{d}s^2_{(s)}+\\mathrm{d}v^2$，即 $(s,v)$ 是使 $S$ 局部等距于平面的坐标（柱面可展）。测地线是等距不变的，对应平面上的直线 $\\alpha s+\\beta v+\\gamma=0$。故 $S$ 上的测地线为：直母线 $u=u_0$（$\\beta=0$），以及\n$$v=k\\int_0^u\\sqrt{a^2\\sin^2t+b^2\\cos^2t}\\,\\mathrm{d}t+c\\quad(k,c\\ \\text{为常数}),$$\n$k=0$ 时为水平椭圆截线。\n**(2)** $a=b$ 时 $s=au$。沿母线 $u=\\pm\\pi$ 剪开展平为带形 $\\{(au,v):-\\pi<u<\\pi\\}$，$P\\mapsto(0,0)$，$Q\\mapsto(au_0,v_0)$。绕另一侧的连接曲线展开后对应水平距离 $a(2\\pi-|u_0|)>a|u_0|$，因此最短曲线是展开图中的直线段，长 $\\sqrt{a^2u_0^2+v_0^2}$。其方程（$u_0\\neq0$）为\n$$r(u)=\\left(a\\cos u,\\ a\\sin u,\\ \\frac{v_0}{u_0}u\\right),\\quad u\\ \\text{从}\\ 0\\ \\text{到}\\ u_0;$$\n$u_0=0$ 时为直母线段 $r=(a,0,v)$，$v$ 从 $0$ 到 $v_0$。",
+   "solutionSource": "编写"
+  },
+  {
+   "no": "八",
+   "score": 10,
+   "type": "证明",
+   "subjects": [
+    "数值分析"
+   ],
+   "topics": [
+    "共轭梯度法",
+    "A-共轭",
+    "Krylov子空间",
+    "有限步终止"
+   ],
+   "difficulty": 3,
+   "statement": "（选做题：第五至十题任选三题）推导求解线性方程组的共梯度法的计算格式，并证明该格式经有限步迭代后收敛。",
+   "answer": "格式见解答；对 $n$ 阶对称正定方程组，至多 $n$ 步得到精确解（不计舍入误差）。",
+   "solution": "设 $A$ 为 $n$ 阶对称正定阵，解 $Ax=b$ 等价于极小化 $\\varphi(x)=\\frac12x^TAx-b^Tx$，$\\nabla\\varphi=-r$，$r=b-Ax$。\n**推导。** 从 $x_k$ 沿方向 $p_k$ 作精确线搜索：$\\varphi(x_k+\\alpha p_k)$ 对 $\\alpha$ 求导为零得 $\\alpha_k=\\dfrac{r_k^Tp_k}{p_k^TAp_k}$。方向取为当前残量与上一方向的组合 $p_{k+1}=r_{k+1}+\\beta_kp_k$，要求 $p_{k+1}^TAp_k=0$（$A$-共轭），得 $\\beta_k=-\\dfrac{r_{k+1}^TAp_k}{p_k^TAp_k}$。利用下面的正交关系可化简为常用格式：\n$$\\begin{aligned}&x_0\\ \\text{任取},\\ r_0=b-Ax_0,\\ p_0=r_0;\\\\&\\alpha_k=\\frac{r_k^Tr_k}{p_k^TAp_k},\\quad x_{k+1}=x_k+\\alpha_kp_k,\\quad r_{k+1}=r_k-\\alpha_kAp_k;\\\\&\\beta_k=\\frac{r_{k+1}^Tr_{k+1}}{r_k^Tr_k},\\quad p_{k+1}=r_{k+1}+\\beta_kp_k.\\end{aligned}$$\n**正交性（归纳证明）。** 只要 $r_0,\\dots,r_k\\neq0$，就有 $r_i^Tr_j=0$、$p_i^TAp_j=0\\ (i\\neq j\\leqslant k)$，且 $r_i^Tp_i=r_i^Tr_i$。设对 $k$ 成立：\n- $r_{k+1}^Tr_j=r_k^Tr_j-\\alpha_kp_k^TAr_j$；$j<k$ 时 $r_j=p_j-\\beta_{j-1}p_{j-1}$，两项均为 $0$；$j=k$ 时 $p_k^TAr_k=p_k^TAp_k$，由 $\\alpha_k$ 的定义得 $0$。\n- $p_{k+1}^TAp_j=r_{k+1}^TAp_j+\\beta_kp_k^TAp_j$；$j<k$ 时 $Ap_j=(r_j-r_{j+1})/\\alpha_j$，与 $r_{k+1}$ 正交，第二项为 $0$；$j=k$ 时 $r_{k+1}^TAp_k=-r_{k+1}^Tr_{k+1}/\\alpha_k$，与 $\\beta_kp_k^TAp_k=r_{k+1}^Tr_{k+1}/\\alpha_k$ 相消。\n（这也说明 $\\alpha_k,\\beta_k$ 两种写法一致。）\n**有限步终止。** $r_0,r_1,\\dots$ 中非零者在 $\\mathbb{R}^n$ 中两两正交，至多 $n$ 个，所以存在 $m\\leqslant n$ 使 $r_m=0$，即 $x_m=A^{-1}b$。",
+   "solutionSource": "编写"
+  },
+  {
+   "no": "九",
+   "score": 10,
+   "type": "证明",
+   "subjects": [
+    "复变函数"
+   ],
+   "topics": [
+    "Blaschke乘积",
+    "最大模原理",
+    "有理函数"
+   ],
+   "difficulty": 3,
+   "statement": "（选做题：第五至十题任选三题）设函数 $f(z)$ 在单位圆 $|z|<1$ 内解析，在其边界上连续。若在 $|z|=1$ 上 $|f(z)|=1$。证明 $f(z)$ 为有理函数。",
+   "answer": "",
+   "solution": "$f\\not\\equiv0$。由连续性，存在 $r<1$ 使 $r\\leqslant|z|\\leqslant1$ 时 $|f(z)|>\\frac12$，所以 $f$ 的零点都在紧集 $|z|\\leqslant r$ 中，只有有限个，记为 $a_1,\\dots,a_m$（计重数）。令\n$$B(z)=\\prod_{j=1}^m\\frac{z-a_j}{1-\\bar a_jz}$$\n（无零点时 $B\\equiv1$），它在 $|z|\\leqslant1$ 上解析，$|z|=1$ 时 $|B|=1$。$g=f/B$ 在 $|z|<1$ 内解析且无零点，在闭圆盘上连续，边界上 $|g|=1$。由最大模原理 $|g|\\leqslant1$；同理对 $1/g$ 得 $|g|\\geqslant1$。故 $|g|\\equiv1$，$g$ 为常数 $e^{i\\theta}$，从而 $f=e^{i\\theta}B$ 是有理函数（有限 Blaschke 乘积）。",
+   "solutionSource": "编写"
+  },
+  {
+   "no": "十",
+   "score": 10,
+   "type": "计算",
+   "subjects": [
+    "概率论"
+   ],
+   "topics": [
+    "次序统计量",
+    "联合密度",
+    "卷积"
+   ],
+   "difficulty": 3,
+   "statement": "（选做题：第五至十题任选三题）设 $X_1,X_2,\\cdots,X_n$ 是独立同分布的随机变量，其有共同的分布函数 $F(x)$ 和密度函数 $f(x)$。现对随机变量 $X_1,X_2,\\cdots,X_n$ 按大小顺序重新排列为 $X_{n1}\\leqslant X_{n2}\\leqslant\\cdots\\leqslant X_{nn}$。\n\n(1) 求随机变量 $(X_{n1},X_{nn})$ 的联合概率密度函数 $f_{1n}(x,y)$；\n\n(2) 如果 $X_i\\ (i=1,2,\\cdots,n)$ 服从区间 $[0,1]$ 上的均匀分布，求随机变量 $U=X_{nn}+X_{n1}$ 的密度函数 $f_U(u)$。",
+   "answer": "(1) $f_{1n}(x,y)=n(n-1)\\left[F(y)-F(x)\\right]^{n-2}f(x)f(y)\\ (x<y)$，否则为 $0$；(2) $f_U(u)=\\dfrac n2u^{n-1}\\ (0<u\\leqslant1)$，$\\dfrac n2(2-u)^{n-1}\\ (1<u<2)$，其余为 $0$。",
+   "solution": "**(1)** 对 $x<y$，$P(X_{n1}>x,\\ X_{nn}\\leqslant y)=\\left[F(y)-F(x)\\right]^n$，而 $P(X_{nn}\\leqslant y)=F(y)^n$，故联合分布函数 $F_{1n}(x,y)=F(y)^n-\\left[F(y)-F(x)\\right]^n$。求混合偏导：\n$$f_{1n}(x,y)=\\frac{\\partial^2F_{1n}}{\\partial x\\partial y}=n(n-1)\\left[F(y)-F(x)\\right]^{n-2}f(x)f(y),\\quad x<y,$$\n$x\\geqslant y$ 时为 $0$。\n**(2)** 均匀分布时 $f_{1n}(x,y)=n(n-1)(y-x)^{n-2}$，$0\\leqslant x<y\\leqslant1$。$f_U(u)=\\int f_{1n}(x,u-x)\\,\\mathrm{d}x$，积分范围 $\\max(0,u-1)\\leqslant x<\\frac u2$：\n- $0<u\\leqslant1$：$\\displaystyle\\int_0^{u/2}n(n-1)(u-2x)^{n-2}\\mathrm{d}x=\\frac n2u^{n-1}$；\n- $1<u<2$：$\\displaystyle\\int_{u-1}^{u/2}n(n-1)(u-2x)^{n-2}\\mathrm{d}x=\\frac n2(2-u)^{n-1}$；\n- 其余 $f_U(u)=0$。",
+   "solutionSource": "编写"
+  }
+ ]
+}

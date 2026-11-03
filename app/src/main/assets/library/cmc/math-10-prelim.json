@@ -1,0 +1,129 @@
+{
+ "id": "cmc-math-10-prelim",
+ "title": "第十届全国大学生数学竞赛初赛（数学类）",
+ "year": 2018,
+ "track": "数学类",
+ "round": "初赛",
+ "paper": "",
+ "durationMin": 150,
+ "totalScore": 100,
+ "source": {
+  "question": "2018年01-试题-第十届全国初赛-数学类试卷.pdf",
+  "solution": "2018年02-参考解答-第十届全国初赛-数学类试卷.pdf"
+ },
+ "problems": [
+  {
+   "no": "一",
+   "score": 15,
+   "type": "计算",
+   "subjects": [
+    "解析几何"
+   ],
+   "topics": [
+    "马鞍面",
+    "直母线",
+    "平面平行"
+   ],
+   "difficulty": 2,
+   "statement": "在空间直角坐标系中，设马鞍面 $S$ 的方程为 $x^2-y^2=2z$。设 $\\sigma$ 为平面 $z=\\alpha x+\\beta y+\\gamma$，其中 $\\alpha,\\beta,\\gamma$ 为给定常数。求马鞍面 $S$ 上点 $P$ 的坐标，使得过 $P$ 且落在马鞍面 $S$ 上的直线均平行于平面 $\\sigma$。",
+   "answer": "$P=\\left(\\alpha,-\\beta,\\dfrac12\\left(\\alpha^2-\\beta^2\\right)\\right)$",
+   "solution": "设所求 $P$ 点坐标为 $P=(a,b,c)$，满足 $a^2-b^2=2c$，则过点 $P$ 的直线可以表示为\n$$\\ell=\\ell(t)=(a,b,c)+t(u,v,w),\\quad u^2+v^2+w^2\\neq0,\\ t\\in\\mathbb R.$$\n直线 $\\ell(t)$ 落在马鞍面 $S$ 上，得到\n$$\\left(u^2-v^2\\right)t^2+2(au-bv-w)t=0,\\ t\\in\\mathbb R\\ \\Longrightarrow\\ au-bv=w,\\ u^2-v^2=0.$$\n于是有 $v=\\varepsilon u$，$w=(a-\\varepsilon b)u$，$\\varepsilon=\\pm1$。于是，过点 $P$ 恰有两条直线落在马鞍面 $S$ 上，为\n$$\\ell_1=\\ell_1(t)=(a,b,c)+tu(1,1,a-b),\\qquad\\ell_2=\\ell_2(t)=(a,b,c)+tu(1,-1,a+b).$$\n这两条直线的方向向量 $(1,1,a-b),(1,-1,a+b)$ 均平行于平面 $\\sigma$，而平面 $\\sigma$ 的法向量为 $(\\alpha,\\beta,-1)$。于是得到 $\\alpha+\\beta=a-b$，$\\alpha-\\beta=a+b$，由此得\n$$a=\\alpha,\\quad b=-\\beta,\\quad c=\\frac12\\left(\\alpha^2-\\beta^2\\right).$$\n所以所求 $P$ 点的坐标为 $P=\\left(\\alpha,-\\beta,\\dfrac12\\left(\\alpha^2-\\beta^2\\right)\\right)$。",
+   "solutionSource": "官方"
+  },
+  {
+   "no": "二",
+   "score": 15,
+   "type": "计算",
+   "subjects": [
+    "高等代数"
+   ],
+   "topics": [
+    "二次型",
+    "规范形",
+    "正定矩阵",
+    "对角占优"
+   ],
+   "difficulty": 2,
+   "statement": "$A=(a_{ij})_{n\\times n}$ 为 $n$ 阶实方阵，满足\n\n1) $a_{11}=a_{22}=\\cdots=a_{nn}=a>0$；\n\n2) 对每个 $i\\ (i=1,2,\\cdots,n)$，有 $\\displaystyle\\sum_{j=1}^n|a_{ij}|+\\sum_{j=1}^n|a_{ji}|<4a$。\n\n求 $f(x_1,\\cdots,x_n)=(x_1,\\cdots,x_n)A\\begin{pmatrix}x_1\\\\\\vdots\\\\x_n\\end{pmatrix}$ 的规范形。",
+   "answer": "$y_1^2+y_2^2+\\cdots+y_n^2$",
+   "solution": "$f=(x_1,\\cdots,x_n)\\dfrac{A+A^T}2\\begin{pmatrix}x_1\\\\\\vdots\\\\x_n\\end{pmatrix}$。令 $B=(b_{ij})=\\dfrac{A+A^T}2$，则 $B$ 为实对称矩阵且\n$$b_{11}=b_{22}=\\cdots=b_{nn}=a,\\qquad\\sum_{j=1}^n|b_{ij}|=\\sum_{j=1}^n\\left|\\frac{a_{ij}}2+\\frac{a_{ji}}2\\right|<2a,$$\n结果 $b_{ii}>\\displaystyle\\sum_{j\\neq i}|b_{ij}|$。\n\n若 $\\lambda$ 为 $B$ 的特征值，$\\alpha=\\begin{pmatrix}x_1\\\\\\vdots\\\\x_n\\end{pmatrix}$ 为关于 $\\lambda$ 的非零特征向量，记 $|x_i|=\\max\\limits_{1\\leqslant j\\leqslant n}|x_j|>0$。由于 $B\\alpha=\\lambda\\alpha$，\n$$\\lambda=\\frac{\\sum_{j=1}^nb_{ij}x_j}{x_i}\\geqslant a-\\sum_{j\\neq i}|b_{ij}|>0.$$\n所以 $B$ 为正定矩阵，$f$ 的规范形为 $y_1^2+\\cdots+y_n^2$。",
+   "solutionSource": "官方"
+  },
+  {
+   "no": "三",
+   "score": 20,
+   "type": "证明",
+   "subjects": [
+    "高等代数"
+   ],
+   "topics": [
+    "整矩阵",
+    "行列式",
+    "伴随矩阵",
+    "多项式零点"
+   ],
+   "difficulty": 3,
+   "statement": "元素皆为整数的矩阵称为整矩阵。设 $n$ 阶方阵 $A,B$ 皆为整矩阵。\n\n1) 证明以下两条等价：i) $A$ 可逆且 $A^{-1}$ 仍为整矩阵；ii) $A$ 的行列式的绝对值为 $1$；\n\n2) 若又知 $A,A-2B,A-4B,\\cdots,A-2nB,A-2(n+1)B,\\cdots,A-2(n+n)B$ 皆可逆，且它们的逆矩阵皆为整矩阵。证明：$A+B$ 可逆。",
+   "answer": "",
+   "solution": "1) i) $\\Rightarrow$ ii)：由 $AA^{-1}=I$ 知 $|A|\\cdot|A^{-1}|=1$。注意到 $|A|,|A^{-1}|$ 均为整数，所以 $A$ 的行列式的绝对值为 $1$。\n\nii) $\\Rightarrow$ i)：由 $AA^*=|A|I$ 可知 $A^{-1}=A^*/|A|$，而 $A^*$ 为整矩阵，$|A|=\\pm1$，即可知 i) 成立。\n\n2) 考虑多项式 $p(x)=|A-xB|^2$（次数不超过 $2n$），则由已知条件及 1) 得 $p(0),p(2),p(4),\\dots,p(4n)$ 的值皆为 $1$。结果多项式 $q(x)=p(x)-1$ 有超过 $2n$ 个零点，从而得出 $q(x)\\equiv0$，即 $p(x)\\equiv1$。特别地，$p(-1)=|A+B|^2=1$，所以 $A+B$ 可逆。",
+   "solutionSource": "官方"
+  },
+  {
+   "no": "四",
+   "score": 15,
+   "type": "证明",
+   "subjects": [
+    "数学分析"
+   ],
+   "topics": [
+    "洛必达法则",
+    "微分不等式",
+    "单调性",
+    "无穷阶零点"
+   ],
+   "difficulty": 3,
+   "statement": "设 $f(x)$ 在 $[0,1]$ 上连续可微，在 $x=0$ 处有任意阶导数，$f^{(n)}(0)=0\\ (\\forall n\\geqslant0)$，且存在常数 $C>0$ 使得\n$$|xf'(x)|\\leqslant C|f(x)|,\\quad\\forall x\\in[0,1].$$\n证明：(1) $\\displaystyle\\lim_{x\\to0^+}\\frac{f(x)}{x^n}=0\\ (\\forall n\\geqslant0)$；(2) 在 $[0,1]$ 上成立 $f(x)\\equiv0$。",
+   "answer": "",
+   "solution": "(1) 由假设，对任何 $m\\geqslant0$，$f(x)$ 在零点附近有 $m+1$ 阶导数，从而 $f^{(m)}(x)$ 在 $x=0$ 连续，因此 $\\displaystyle\\lim_{x\\to0^+}\\frac{f(x)}{x^0}=f(0)=0$。对于 $n\\geqslant1$，利用洛必达法则，\n$$\\lim_{x\\to0^+}\\frac{f(x)}{x^n}=\\lim_{x\\to0^+}\\frac{f'(x)}{nx^{n-1}}=\\cdots=\\lim_{x\\to0^+}\\frac{f^{(n)}(x)}{n!}=0.$$\n\n(2) $xf(x)f'(x)\\leqslant x|f(x)||f'(x)|\\leqslant C|f(x)|^2,\\ \\forall x\\in[0,1]$，从而\n$$\\left(\\frac{f^2(x)}{x^{2C}}\\right)'=\\frac{2\\left(xf(x)f'(x)-Cf^2(x)\\right)}{x^{2C+1}}\\leqslant0,\\quad\\forall x\\in(0,1].$$\n因此 $\\dfrac{f^2(x)}{x^{2C}}$ 在 $(0,1]$ 上单调减少，从而 $\\dfrac{f^2(x)}{x^{2C}}\\leqslant\\left(\\dfrac{f(t)}{t^C}\\right)^2,\\ \\forall0<t<x\\leqslant1$。所以由 (1)，\n$$\\frac{f^2(x)}{x^{2C}}\\leqslant\\lim_{t\\to0^+}\\left(\\frac{f(t)}{t^C}\\right)^2=0,\\quad\\forall x\\in(0,1].$$\n因此 $f(x)\\equiv0$。",
+   "solutionSource": "官方"
+  },
+  {
+   "no": "五",
+   "score": 15,
+   "type": "证明",
+   "subjects": [
+    "数学分析"
+   ],
+   "topics": [
+    "正项级数",
+    "级数发散",
+    "对数不等式",
+    "比较判别法"
+   ],
+   "difficulty": 3,
+   "statement": "设 $\\{a_n\\},\\{b_n\\}$ 是两个数列，$a_n>0\\ (n\\geqslant0)$，$\\displaystyle\\sum_{n=1}^\\infty b_n$ 绝对收敛，且\n$$\\frac{a_n}{a_{n+1}}\\leqslant1+\\frac1n+\\frac1{n\\ln n}+b_n,\\quad n\\geqslant2.$$\n求证：(1) $\\dfrac{a_n}{a_{n+1}}<\\dfrac{n+1}n\\cdot\\dfrac{\\ln(n+1)}{\\ln n}+b_n\\ (n\\geqslant2)$；(2) $\\displaystyle\\sum_{n=1}^\\infty a_n$ 发散。",
+   "answer": "",
+   "solution": "(1) 因为 $\\ln\\left(1+\\dfrac1n\\right)>\\dfrac1{n+1}\\ (n\\geqslant2)$，所以根据条件，有\n$$\\begin{aligned}\\frac{a_n}{a_{n+1}}&\\leqslant1+\\frac1n+\\frac{n+1}{n\\ln n}\\cdot\\frac1{n+1}+b_n<1+\\frac1n+\\frac{n+1}{n\\ln n}\\ln\\left(1+\\frac1n\\right)+b_n\\\\&=\\frac{n+1}n\\cdot\\frac{\\ln(n+1)}{\\ln n}+b_n.\\end{aligned}$$\n\n(2) **思路一** 令 $c_n=(n\\ln n)a_n$，$d_n=\\dfrac{n\\ln n}{(n+1)\\ln(n+1)}|b_n|$，则有 $\\dfrac{c_n}{c_{n+1}}<1+d_n$。取对数得\n$$\\ln c_n-\\ln c_{n+1}<\\ln(1+d_n)\\leqslant d_n,$$\n于是 $\\ln c_2-\\ln c_n<\\displaystyle\\sum_{k=2}^{n-1}d_k\\ (n\\geqslant3)$。由于 $0\\leqslant d_n<|b_n|$，从 $\\sum b_n$ 绝对收敛，可知 $\\sum d_n$ 收敛，所以由上式可知存在常数 $c$，使得\n$$c\\leqslant\\ln c_n,\\ n\\geqslant3,\\quad\\text{即}\\quad a_n\\geqslant\\frac{e^c}{n\\ln n},\\ n\\geqslant3.$$\n所以 $\\displaystyle\\sum_{n=1}^\\infty a_n$ 发散。\n\n**思路二** 由条件可得\n$$\\ln\\frac{a_n}{a_{n+1}}\\leqslant\\ln\\left(1+\\frac1n+\\frac1{n\\ln n}+|b_n|\\right)\\leqslant\\frac1n+\\frac1{n\\ln n}+|b_n|.$$\n从 $3$ 到 $n$ 求和，然后利用积分的性质可知存在常数 $C>0$，使得\n$$\\ln\\frac{a_3}{a_{n+1}}\\leqslant\\sum_{k=3}^n\\left(\\frac1k+\\frac1{k\\ln k}+|b_k|\\right)\\leqslant C+\\ln n+\\ln\\ln n.$$\n于是 $a_{n+1}\\geqslant\\dfrac{a_3e^{-C}}{n\\ln n}$。所以 $\\displaystyle\\sum_{n=1}^\\infty a_n$ 发散。\n\n（注：原解答此处笔误，已改正：思路二末尾 $a_3e^C$ 应为 $a_3e^{-C}$。）",
+   "solutionSource": "官方"
+  },
+  {
+   "no": "六",
+   "score": 20,
+   "type": "证明",
+   "subjects": [
+    "数学分析"
+   ],
+   "topics": [
+    "Hölder条件",
+    "牛顿-莱布尼茨公式",
+    "不等式",
+    "导数估计"
+   ],
+   "difficulty": 3,
+   "statement": "设 $f:\\mathbb R\\to(0,+\\infty)$ 是一可微函数，且对所有 $x,y\\in\\mathbb R$，有 $|f'(x)-f'(y)|\\leqslant|x-y|^\\alpha$，其中 $\\alpha\\in(0,1]$ 是常数。求证：对所有 $x\\in\\mathbb R$，有\n$$|f'(x)|^{\\frac{\\alpha+1}\\alpha}<\\frac{\\alpha+1}\\alpha f(x).$$",
+   "answer": "",
+   "solution": "对固定的 $x\\in\\mathbb R$，若 $f'(x)=0$，则成立。若 $f'(x)<0$，则 $h=\\left(-f'(x)\\right)^{\\frac1\\alpha}>0$。根据牛顿-莱布尼兹公式和条件，得\n$$\\begin{aligned}0<f(x+h)&=f(x)+\\int_x^{x+h}f'(t)\\,\\mathrm dt=f(x)+\\int_x^{x+h}\\left(f'(t)-f'(x)\\right)\\mathrm dt+f'(x)h\\\\&\\leqslant f(x)+\\int_x^{x+h}(t-x)^\\alpha\\,\\mathrm dt+f'(x)h=f(x)+\\frac1{\\alpha+1}h^{\\alpha+1}+f'(x)h.\\end{aligned}$$\n故 $\\dfrac1{\\alpha+1}h^{\\alpha+1}+f'(x)h+f(x)>0$。将 $h=\\left(-f'(x)\\right)^{\\frac1\\alpha}$ 代入，得\n$$|f'(x)|^{\\frac{\\alpha+1}\\alpha}<\\frac{\\alpha+1}\\alpha f(x).$$\n若 $f'(x)>0$，记 $h=\\left(f'(x)\\right)^{\\frac1\\alpha}$。根据牛顿-莱布尼兹公式和条件，得\n$$\\begin{aligned}0<f(x-h)&=-\\int_{x-h}^xf'(t)\\,\\mathrm dt+f(x)=\\int_{x-h}^x\\left(f'(x)-f'(t)\\right)\\mathrm dt-f'(x)h+f(x)\\\\&\\leqslant\\int_{x-h}^x(x-t)^\\alpha\\,\\mathrm dt-f'(x)h+f(x)=\\frac1{\\alpha+1}h^{\\alpha+1}-f'(x)h+f(x).\\end{aligned}$$\n将 $h=\\left(f'(x)\\right)^{\\frac1\\alpha}$ 代入上式仍得 $\\left(f'(x)\\right)^{\\frac{\\alpha+1}\\alpha}<\\dfrac{\\alpha+1}\\alpha f(x)$。\n\n总之，始终有 $|f'(x)|^{\\frac{\\alpha+1}\\alpha}<\\dfrac{\\alpha+1}\\alpha f(x)$。证毕。",
+   "solutionSource": "官方"
+  }
+ ]
+}

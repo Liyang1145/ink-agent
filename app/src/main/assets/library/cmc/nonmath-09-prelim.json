@@ -1,0 +1,193 @@
+{
+ "id": "cmc-nonmath-09-prelim",
+ "title": "第九届全国大学生数学竞赛初赛（非数学类）",
+ "year": 2017,
+ "track": "非数学类",
+ "round": "初赛",
+ "paper": "",
+ "durationMin": 150,
+ "totalScore": 100,
+ "source": {
+  "question": "2017年-第九届全国初赛-非数学类试卷.pdf",
+  "solution": "09-第九届全国初赛-非数学类试题参考解答.pdf"
+ },
+ "problems": [
+  {
+   "no": "一(1)",
+   "score": 7,
+   "type": "填空",
+   "subjects": [
+    "高等数学"
+   ],
+   "topics": [
+    "积分方程",
+    "一阶线性微分方程"
+   ],
+   "difficulty": 2,
+   "statement": "已知可导函数 $f(x)$ 满足 $f(x)\\cos x+2\\displaystyle\\int_0^xf(t)\\sin t\\,\\mathrm dt=x+1$，则 $f(x)=$ ______。",
+   "answer": "$\\cos x+\\sin x$",
+   "solution": "令 $x=0$ 得 $f(0)=1$。两边求导：$f'(x)\\cos x-f(x)\\sin x+2f(x)\\sin x=1$，即\n$$f'(x)+f(x)\\tan x=\\sec x.$$\n由一阶线性方程通解公式\n$$f(x)=e^{-\\int\\tan x\\,\\mathrm dx}\\left(\\int\\sec x\\,e^{\\int\\tan x\\,\\mathrm dx}\\,\\mathrm dx+C\\right)=\\cos x\\left(\\int\\frac{\\mathrm dx}{\\cos^2x}+C\\right)=\\sin x+C\\cos x,$$\n由 $f(0)=1$ 得 $C=1$，故 $f(x)=\\cos x+\\sin x$。",
+   "solutionSource": "官方"
+  },
+  {
+   "no": "一(2)",
+   "score": 7,
+   "type": "填空",
+   "subjects": [
+    "高等数学"
+   ],
+   "topics": [
+    "数列极限",
+    "三角函数周期性"
+   ],
+   "difficulty": 1,
+   "statement": "极限 $\\displaystyle\\lim_{n\\to\\infty}\\sin^2\\left(\\pi\\sqrt{n^2+n}\\right)=$ ______。",
+   "answer": "$1$",
+   "solution": "由 $\\sin^2(x-n\\pi)=\\sin^2x$，\n$$\\sin^2\\left(\\pi\\sqrt{n^2+n}\\right)=\\sin^2\\left(\\pi\\left(\\sqrt{n^2+n}-n\\right)\\right)=\\sin^2\\frac{n\\pi}{\\sqrt{n^2+n}+n}\\to\\sin^2\\frac\\pi2=1.$$",
+   "solutionSource": "官方"
+  },
+  {
+   "no": "一(3)",
+   "score": 7,
+   "type": "填空",
+   "subjects": [
+    "高等数学"
+   ],
+   "topics": [
+    "多元复合函数",
+    "二阶偏导数"
+   ],
+   "difficulty": 1,
+   "statement": "设 $w=f(u,v)$ 具有二阶连续偏导数，且 $u=x-cy,\\ v=x+cy$，其中 $c$ 为非零常数，则 $w_{xx}-\\dfrac1{c^2}w_{yy}=$ ______。",
+   "answer": "$4f_{uv}$",
+   "solution": "$w_x=f_u+f_v$，$w_y=-cf_u+cf_v$。再求导：\n$$w_{xx}=f_{uu}+2f_{uv}+f_{vv},\\qquad w_{yy}=c^2\\left(f_{uu}-2f_{uv}+f_{vv}\\right).$$\n所以 $w_{xx}-\\dfrac1{c^2}w_{yy}=4f_{uv}$。",
+   "solutionSource": "官方"
+  },
+  {
+   "no": "一(4)",
+   "score": 7,
+   "type": "填空",
+   "subjects": [
+    "高等数学"
+   ],
+   "topics": [
+    "函数极限",
+    "泰勒公式"
+   ],
+   "difficulty": 1,
+   "statement": "设 $f(x)$ 具有二阶连续导数，且 $f(0)=f'(0)=0,\\ f''(0)=6$，则 $\\displaystyle\\lim_{x\\to0}\\frac{f(\\sin^2x)}{x^4}=$ ______。",
+   "answer": "$3$",
+   "solution": "由带佩亚诺余项的泰勒公式 $f(x)=\\dfrac{f''(0)}{2}x^2+o(x^2)=3x^2+o(x^2)$，故 $f(\\sin^2x)=3\\sin^4x+o(\\sin^4x)$，\n$$\\lim_{x\\to0}\\frac{f(\\sin^2x)}{x^4}=\\lim_{x\\to0}\\frac{3\\sin^4x+o(\\sin^4x)}{x^4}=3.$$\n（也可用洛必达法则。）",
+   "solutionSource": "官方"
+  },
+  {
+   "no": "一(5)",
+   "score": 7,
+   "type": "填空",
+   "subjects": [
+    "高等数学"
+   ],
+   "topics": [
+    "不定积分",
+    "换元积分",
+    "分部积分"
+   ],
+   "difficulty": 2,
+   "statement": "不定积分 $I=\\displaystyle\\int\\frac{e^{-\\sin x}\\sin2x}{(1-\\sin x)^2}\\,\\mathrm dx=$ ______。",
+   "answer": "$\\dfrac{2e^{-\\sin x}}{1-\\sin x}+C$",
+   "solution": "令 $t=\\sin x$，则 $I=2\\displaystyle\\int\\frac{te^{-t}}{(1-t)^2}\\,\\mathrm dt$。由于\n$$\\frac{\\mathrm d}{\\mathrm dt}\\left(\\frac{e^{-t}}{1-t}\\right)=\\frac{-e^{-t}(1-t)+e^{-t}}{(1-t)^2}=\\frac{te^{-t}}{(1-t)^2},$$\n得 $\\displaystyle\\int\\frac{te^{-t}}{(1-t)^2}\\,\\mathrm dt=\\frac{e^{-t}}{1-t}+C$，所以 $I=\\dfrac{2e^{-\\sin x}}{1-\\sin x}+C$。\n（官方解答通过拆项 $te^{-t}=e^{-t}-(1-t)e^{-t}$ 并对 $\\int\\frac{e^{-t}}{1-t}\\mathrm dt$ 分部积分得到同一结果。）",
+   "solutionSource": "官方"
+  },
+  {
+   "no": "一(6)",
+   "score": 7,
+   "type": "填空",
+   "subjects": [
+    "高等数学"
+   ],
+   "topics": [
+    "三重积分",
+    "截面法",
+    "球面坐标"
+   ],
+   "difficulty": 2,
+   "statement": "记曲面 $z^2=x^2+y^2$ 和 $z=\\sqrt{4-x^2-y^2}$ 围成的空间区域为 $V$，则三重积分 $\\displaystyle\\iiint_Vz\\,\\mathrm dx\\,\\mathrm dy\\,\\mathrm dz=$ ______。",
+   "answer": "$2\\pi$",
+   "solution": "两曲面交线为 $x^2+y^2=2,\\ z=\\sqrt2$。用截面法，以 $z=\\sqrt2$ 分为上下两部分：\n$$\\iiint_Vz\\,\\mathrm dV=\\int_0^{\\sqrt2}z\\cdot\\pi z^2\\,\\mathrm dz+\\int_{\\sqrt2}^2z\\cdot\\pi(4-z^2)\\,\\mathrm dz=\\pi+\\pi=2\\pi.$$\n或用球面坐标：$\\displaystyle\\int_0^{2\\pi}\\mathrm d\\theta\\int_0^{\\frac\\pi4}\\mathrm d\\varphi\\int_0^2\\rho\\cos\\varphi\\cdot\\rho^2\\sin\\varphi\\,\\mathrm d\\rho=2\\pi\\cdot\\frac14\\cdot4=2\\pi$。",
+   "solutionSource": "官方"
+  },
+  {
+   "no": "二",
+   "score": 14,
+   "type": "证明",
+   "subjects": [
+    "高等数学"
+   ],
+   "topics": [
+    "二元函数极值",
+    "方向导数",
+    "黑塞矩阵",
+    "正定二次型"
+   ],
+   "difficulty": 3,
+   "statement": "设二元函数 $f(x,y)$ 在平面上有连续的二阶偏导数，对任意角度 $\\alpha$，定义一元函数 $g_\\alpha(t)=f(t\\cos\\alpha,t\\sin\\alpha)$。若对任何 $\\alpha$ 都有 $\\dfrac{\\mathrm dg_\\alpha(0)}{\\mathrm dt}=0$ 且 $\\dfrac{\\mathrm d^2g_\\alpha(0)}{\\mathrm dt^2}>0$，证明：$f(0,0)$ 是 $f(x,y)$ 的极小值。",
+   "answer": "",
+   "solution": "由链式法则 $g_\\alpha'(0)=f_x(0,0)\\cos\\alpha+f_y(0,0)\\sin\\alpha=\\nabla f(0,0)\\cdot(\\cos\\alpha,\\sin\\alpha)$。它对一切 $\\alpha$ 为零，故 $\\nabla f(0,0)=\\mathbf 0$，$(0,0)$ 是驻点。\n\n再求导：\n$$g_\\alpha''(0)=(\\cos\\alpha,\\sin\\alpha)\\begin{pmatrix}f_{xx}&f_{xy}\\\\f_{xy}&f_{yy}\\end{pmatrix}_{(0,0)}\\begin{pmatrix}\\cos\\alpha\\\\\\sin\\alpha\\end{pmatrix}>0.$$\n由 $\\alpha$ 的任意性，该二次型在所有单位向量（从而所有非零向量）上取正值，故实对称的黑塞矩阵正定。由二元函数极值的充分条件，$f(0,0)$ 是极小值。",
+   "solutionSource": "官方"
+  },
+  {
+   "no": "三",
+   "score": 14,
+   "type": "计算",
+   "subjects": [
+    "高等数学"
+   ],
+   "topics": [
+    "第二型曲线积分",
+    "参数方程",
+    "斯托克斯公式"
+   ],
+   "difficulty": 3,
+   "statement": "设曲线 $\\Gamma$ 为曲线 $x^2+y^2+z^2=1,\\ x+z=1,\\ x\\geqslant0,\\ y\\geqslant0,\\ z\\geqslant0$ 上从点 $A(1,0,0)$ 到点 $B(0,0,1)$ 的一段。求曲线积分 $I=\\displaystyle\\int_\\Gamma y\\,\\mathrm dx+z\\,\\mathrm dy+x\\,\\mathrm dz$。",
+   "answer": "$\\dfrac12-\\dfrac{\\sqrt2}{4}\\pi$",
+   "solution": "**解法一（参数化）** 由 $z=1-x$ 代入球面得 $2x^2-2x+y^2=0$，即 $4\\left(x-\\frac12\\right)^2+2y^2=1$。取\n$$x=\\frac12+\\frac12\\cos t,\\quad y=\\frac{\\sqrt2}{2}\\sin t,\\quad z=\\frac12-\\frac12\\cos t,\\quad t:0\\to\\pi.$$\n代入得\n$$I=\\int_0^\\pi\\left[-\\frac{\\sqrt2}4\\sin^2t+\\frac{\\sqrt2}{4}\\cos t-\\frac{\\sqrt2}4\\cos^2t+\\frac14\\sin t+\\frac14\\sin t\\cos t\\right]\\mathrm dt=\\int_0^\\pi\\left[-\\frac{\\sqrt2}{4}+\\frac{\\sqrt2}4\\cos t+\\frac14\\sin t+\\frac14\\sin t\\cos t\\right]\\mathrm dt=\\frac12-\\frac{\\sqrt2}{4}\\pi.$$\n\n**解法二（斯托克斯公式）** 记 $\\Gamma_1$ 为 $B$ 到 $A$ 的直线段，$\\displaystyle\\int_{\\Gamma_1}=\\int_0^1t\\,\\mathrm d(1-t)=-\\frac12$。设 $\\Gamma+\\Gamma_1$ 围成平面区域 $\\Sigma$，由斯托克斯公式\n$$I+\\int_{\\Gamma_1}=-\\iint_\\Sigma\\mathrm dy\\,\\mathrm dz+\\mathrm dz\\,\\mathrm dx+\\mathrm dx\\,\\mathrm dy=-\\iint_\\Sigma\\mathrm dy\\,\\mathrm dz+\\mathrm dx\\,\\mathrm dy,$$\n（$\\Sigma$ 在 $zx$ 面投影面积为零）。$\\Gamma$ 在 $xy$ 面的投影为半个椭圆 $\\dfrac{(x-1/2)^2}{(1/2)^2}+\\dfrac{y^2}{(1/\\sqrt2)^2}=1$，面积 $\\dfrac{\\pi}{4\\sqrt2}$，同理 $yz$ 面投影面积也为 $\\dfrac\\pi{4\\sqrt2}$。故 $I=\\dfrac12-\\dfrac{\\pi}{2\\sqrt2}$。",
+   "solutionSource": "官方"
+  },
+  {
+   "no": "四",
+   "score": 15,
+   "type": "证明",
+   "subjects": [
+    "高等数学"
+   ],
+   "topics": [
+    "定积分不等式",
+    "交换积分次序",
+    "二重积分"
+   ],
+   "difficulty": 3,
+   "statement": "设函数 $f(x)>0$ 且在实轴上连续，若对任意实数 $t$，有 $\\displaystyle\\int_{-\\infty}^{+\\infty}e^{-|t-x|}f(x)\\,\\mathrm dx\\leqslant1$。证明：$\\forall a,b$，$a<b$，有 $\\displaystyle\\int_a^bf(x)\\,\\mathrm dx\\leqslant\\frac{b-a+2}{2}$。",
+   "answer": "",
+   "solution": "由 $f>0$，对任意 $t$ 有 $\\displaystyle\\int_a^be^{-|t-x|}f(x)\\,\\mathrm dx\\leqslant1$。对 $t$ 在 $[a,b]$ 上积分并交换积分次序：\n$$\\int_a^bf(x)\\left[\\int_a^be^{-|t-x|}\\,\\mathrm dt\\right]\\mathrm dx\\leqslant b-a.$$\n而 $\\displaystyle\\int_a^be^{-|t-x|}\\,\\mathrm dt=\\int_a^xe^{t-x}\\,\\mathrm dt+\\int_x^be^{x-t}\\,\\mathrm dt=2-e^{a-x}-e^{x-b}$，故\n$$2\\int_a^bf\\,\\mathrm dx\\leqslant b-a+\\int_a^be^{a-x}f(x)\\,\\mathrm dx+\\int_a^be^{x-b}f(x)\\,\\mathrm dx.$$\n又 $x\\in[a,b]$ 时 $e^{a-x}=e^{-|x-a|}$，由条件（取 $t=a$）$\\displaystyle\\int_a^be^{a-x}f\\,\\mathrm dx\\leqslant\\int_{-\\infty}^{+\\infty}e^{-|x-a|}f\\,\\mathrm dx\\leqslant1$；同理（取 $t=b$）$\\displaystyle\\int_a^be^{x-b}f\\,\\mathrm dx\\leqslant1$。所以 $\\displaystyle\\int_a^bf(x)\\,\\mathrm dx\\leqslant\\frac{b-a}{2}+1=\\frac{b-a+2}2$。",
+   "solutionSource": "官方"
+  },
+  {
+   "no": "五",
+   "score": 15,
+   "type": "证明",
+   "subjects": [
+    "高等数学"
+   ],
+   "topics": [
+    "数列极限",
+    "Stolz定理",
+    "子列"
+   ],
+   "difficulty": 3,
+   "statement": "设 $\\{a_n\\}$ 为一个数列，$p$ 为固定的正整数，若 $\\displaystyle\\lim_{n\\to\\infty}(a_{n+p}-a_n)=\\lambda$。证明：$\\displaystyle\\lim_{n\\to\\infty}\\frac{a_n}{n}=\\frac\\lambda p$。",
+   "answer": "",
+   "solution": "对 $i=0,1,\\cdots,p-1$，记 $A_n^{(i)}=a_{(n+1)p+i}-a_{np+i}$，由题设 $\\lim\\limits_{n\\to\\infty}A_n^{(i)}=\\lambda$，于是由算术平均（Cauchy 命题）\n$$\\lim_{n\\to\\infty}\\frac{A_1^{(i)}+A_2^{(i)}+\\cdots+A_n^{(i)}}{n}=\\lambda.$$\n而 $A_1^{(i)}+\\cdots+A_n^{(i)}=a_{(n+1)p+i}-a_{p+i}$，所以\n$$\\lim_{n\\to\\infty}\\frac{a_{(n+1)p+i}}{(n+1)p+i}=\\lim_{n\\to\\infty}\\frac{a_{(n+1)p+i}-a_{p+i}}{n}\\cdot\\frac{n}{(n+1)p+i}=\\frac\\lambda p.$$\n正整数 $m$ 按 $m=np+i$ 中 $i$ 的取值分成 $p$ 个子列，每个子列上 $\\dfrac{a_m}{m}\\to\\dfrac\\lambda p$，故 $\\lim\\limits_{m\\to\\infty}\\dfrac{a_m}{m}=\\dfrac\\lambda p$。",
+   "solutionSource": "官方"
+  }
+ ]
+}

@@ -1,0 +1,192 @@
+{
+ "id": "cmc-nonmath-08-prelim",
+ "title": "第八届全国大学生数学竞赛初赛（非数学类）",
+ "year": 2016,
+ "track": "非数学类",
+ "round": "初赛",
+ "paper": "",
+ "durationMin": 150,
+ "totalScore": 100,
+ "source": {
+  "question": "2016年-第八届全国初赛-非数学类试卷.pdf",
+  "solution": "08-第八届全国初赛-非数学类试题参考解答.pdf"
+ },
+ "problems": [
+  {
+   "no": "一(1)",
+   "score": 6,
+   "type": "填空",
+   "subjects": [
+    "高等数学"
+   ],
+   "topics": [
+    "幂指函数极限",
+    "导数定义"
+   ],
+   "difficulty": 1,
+   "statement": "若 $f(x)$ 在点 $x=a$ 处可导，且 $f(a)\\neq0$，则 $\\lim\\limits_{n\\to+\\infty}\\left[\\dfrac{f(a+1/n)}{f(a)}\\right]^n=$\\_\\_\\_\\_\\_\\_。",
+   "answer": "$e^{\\frac{f'(a)}{f(a)}}$",
+   "solution": "转化为 $\\lim\\limits_{x\\to0^+}\\Big(\\dfrac{f(a+x)}{f(a)}\\Big)^{1/x}$。由 $f(a+x)=f(a)+f'(a)x+o(x)$，\n$$\\Big(\\frac{f(a+x)}{f(a)}\\Big)^{1/x}=\\Big[1+\\frac{f'(a)}{f(a)}x+o(x)\\Big]^{1/x}\\to e^{\\frac{f'(a)}{f(a)}}.$$",
+   "solutionSource": "官方"
+  },
+  {
+   "no": "一(2)",
+   "score": 6,
+   "type": "填空",
+   "subjects": [
+    "高等数学"
+   ],
+   "topics": [
+    "导数定义",
+    "等价无穷小"
+   ],
+   "difficulty": 2,
+   "statement": "若 $f(1)=0$，$f'(1)$ 存在，则极限 $I=\\lim\\limits_{x\\to0}\\dfrac{f(\\sin^2x+\\cos x)\\tan3x}{\\left(e^{x^2}-1\\right)\\sin x}=$\\_\\_\\_\\_\\_\\_。",
+   "answer": "$\\dfrac32f'(1)$",
+   "solution": "由等价无穷小，\n$$I=3\\lim_{x\\to0}\\frac{f(\\sin^2x+\\cos x)-f(1)}{\\sin^2x+\\cos x-1}\\cdot\\frac{\\sin^2x+\\cos x-1}{x^2}=3f'(1)\\Big(1-\\frac12\\Big)=\\frac32f'(1).$$",
+   "solutionSource": "官方"
+  },
+  {
+   "no": "一(3)",
+   "score": 6,
+   "type": "填空",
+   "subjects": [
+    "高等数学"
+   ],
+   "topics": [
+    "复合函数偏导",
+    "可分离变量方程"
+   ],
+   "difficulty": 2,
+   "statement": "设 $f(x)$ 有连续导数，且 $f(1)=2$。记 $z=f\\left(e^xy^2\\right)$，若 $\\dfrac{\\partial z}{\\partial x}=z$，$f(x)$ 在 $x>0$ 的表达式为\\_\\_\\_\\_\\_\\_。",
+   "answer": "$f(x)=2x$",
+   "solution": "$\\dfrac{\\partial z}{\\partial x}=f'(e^xy^2)e^xy^2=f(e^xy^2)$。令 $u=e^xy^2>0$，得 $uf'(u)=f(u)$，即 $(\\ln f(u))'=(\\ln u)'$，$f(u)=Cu$。由 $f(1)=2$ 得 $C=2$，故 $x>0$ 时 $f(x)=2x$。",
+   "solutionSource": "官方"
+  },
+  {
+   "no": "一(4)",
+   "score": 6,
+   "type": "填空",
+   "subjects": [
+    "高等数学"
+   ],
+   "topics": [
+    "麦克劳林公式",
+    "高阶导数"
+   ],
+   "difficulty": 1,
+   "statement": "设 $f(x)=e^x\\sin2x$，则 $f^{(4)}(0)=$\\_\\_\\_\\_\\_\\_。",
+   "answer": "$-24$",
+   "solution": "$f(x)=\\Big[1+x+\\dfrac{x^2}{2!}+\\dfrac{x^3}{3!}+o(x^3)\\Big]\\Big[2x-\\dfrac{(2x)^3}{3!}+o(x^4)\\Big]$，$x^4$ 项系数为 $-\\dfrac{8}{6}+\\dfrac{2}{6}=-1$，故 $\\dfrac{f^{(4)}(0)}{4!}=-1$，$f^{(4)}(0)=-24$。",
+   "solutionSource": "官方"
+  },
+  {
+   "no": "一(5)",
+   "score": 6,
+   "type": "填空",
+   "subjects": [
+    "高等数学"
+   ],
+   "topics": [
+    "切平面",
+    "曲面法向量"
+   ],
+   "difficulty": 1,
+   "statement": "曲面 $z=\\dfrac{x^2}{2}+y^2$ 平行于平面 $2x+2y-z=0$ 的切平面方程为\\_\\_\\_\\_\\_\\_。",
+   "answer": "$2x+2y-z=3$",
+   "solution": "令 $F=\\dfrac{x^2}2+y^2-z$，法向量 $(x,2y,-1)\\parallel(2,2,-1)$，得 $x=2,\\ y=1$，$z=3$。切平面为 $2(x-2)+2(y-1)-(z-3)=0$，即 $2x+2y-z=3$。",
+   "solutionSource": "官方"
+  },
+  {
+   "no": "二",
+   "score": 14,
+   "type": "证明",
+   "subjects": [
+    "高等数学"
+   ],
+   "topics": [
+    "积分不等式",
+    "单调性",
+    "辅助函数"
+   ],
+   "difficulty": 2,
+   "statement": "设 $f(x)$ 在 $[0,1]$ 上可导，$f(0)=0$，且当 $x\\in(0,1)$，$0<f'(x)<1$。试证：当 $a\\in(0,1)$ 时，有\n$$\\left(\\int_0^af(x)\\,\\mathrm{d}x\\right)^2>\\int_0^af^3(x)\\,\\mathrm{d}x.$$",
+   "answer": "",
+   "solution": "令 $F(x)=\\Big(\\displaystyle\\int_0^xf(t)\\,\\mathrm{d}t\\Big)^2-\\int_0^xf^3(t)\\,\\mathrm{d}t$，则\n$$F'(x)=f(x)\\Big(2\\int_0^xf(t)\\,\\mathrm{d}t-f^2(x)\\Big).$$\n由 $f(0)=0$，$f'>0$ 知 $x\\in(0,1)$ 时 $f(x)>0$。令 $g(x)=2\\displaystyle\\int_0^xf(t)\\,\\mathrm{d}t-f^2(x)$，$g(0)=0$，\n$$g'(x)=2f(x)\\big[1-f'(x)\\big]>0,$$\n故 $g(x)>0$（$x>0$），从而 $F'(x)>0$，$F$ 单调增，$F(a)>F(0)=0$，即得结论。",
+   "solutionSource": "官方"
+  },
+  {
+   "no": "三",
+   "score": 14,
+   "type": "计算",
+   "subjects": [
+    "高等数学"
+   ],
+   "topics": [
+    "三重积分",
+    "换元法",
+    "椭球",
+    "对称性"
+   ],
+   "difficulty": 2,
+   "statement": "某物体所在的空间区域为 $\\Omega:x^2+y^2+2z^2\\leqslant x+y+2z$，密度函数为 $x^2+y^2+z^2$，求质量\n$$M=\\iiint_\\Omega\\left(x^2+y^2+z^2\\right)\\mathrm{d}x\\,\\mathrm{d}y\\,\\mathrm{d}z.$$",
+   "answer": "$M=\\dfrac{5\\sqrt2\\,\\pi}{6}$",
+   "solution": "配方：$\\big(x-\\frac12\\big)^2+\\big(y-\\frac12\\big)^2+2\\big(z-\\frac12\\big)^2\\leqslant1$。令 $u=x-\\frac12,\\ v=y-\\frac12,\\ w=\\sqrt2\\big(z-\\frac12\\big)$，区域化为单位球 $u^2+v^2+w^2\\leqslant1$，雅可比行列式 $\\Big|\\dfrac{\\partial(x,y,z)}{\\partial(u,v,w)}\\Big|=\\dfrac1{\\sqrt2}$。被积函数\n$$x^2+y^2+z^2=u^2+u+v^2+v+\\frac{w^2}2+\\frac w{\\sqrt2}+\\frac34.$$\n由对称性奇次项积分为 0，\n$$M=\\frac1{\\sqrt2}\\iiint\\Big(u^2+v^2+\\frac{w^2}2\\Big)\\mathrm{d}V+\\frac3{4\\sqrt2}\\cdot\\frac{4\\pi}3.$$\n由轮换对称性 $\\iiint\\big(u^2+v^2+\\frac{w^2}2\\big)\\mathrm{d}V=\\dfrac56\\iiint(u^2+v^2+w^2)\\mathrm{d}V=\\dfrac56\\cdot\\dfrac{4\\pi}5=\\dfrac{2\\pi}3$。故\n$$M=\\frac{2\\pi}{3\\sqrt2}+\\frac{\\pi}{\\sqrt2}=\\frac{\\sqrt2\\pi}3+\\frac{\\sqrt2\\pi}2=\\frac{5\\sqrt2\\,\\pi}6.$$",
+   "solutionSource": "官方"
+  },
+  {
+   "no": "四",
+   "score": 14,
+   "type": "证明",
+   "subjects": [
+    "高等数学"
+   ],
+   "topics": [
+    "定积分定义",
+    "黎曼和误差",
+    "中值定理"
+   ],
+   "difficulty": 3,
+   "statement": "设函数 $f(x)$ 在闭区间 $[0,1]$ 上具有连续导数，$f(0)=0$，$f(1)=1$。证明：\n$$\\lim_{n\\to\\infty}n\\left(\\int_0^1f(x)\\,\\mathrm{d}x-\\frac1n\\sum_{k=1}^nf\\left(\\frac kn\\right)\\right)=-\\frac12.$$",
+   "answer": "",
+   "solution": "取 $x_k=\\dfrac kn$，则\n$$n\\Big(\\int_0^1f\\,\\mathrm{d}x-\\frac1n\\sum_{k=1}^nf(x_k)\\Big)=n\\sum_{k=1}^n\\int_{x_{k-1}}^{x_k}\\big[f(x)-f(x_k)\\big]\\mathrm{d}x.$$\n由中值定理 $f(x)-f(x_k)=f'(\\xi)(x-x_k)$，而 $x-x_k\\leqslant0$ 不变号，由积分中值定理存在 $\\eta_k\\in[x_{k-1},x_k]$ 使\n$$\\int_{x_{k-1}}^{x_k}\\big[f(x)-f(x_k)\\big]\\mathrm{d}x=f'(\\eta_k)\\int_{x_{k-1}}^{x_k}(x-x_k)\\,\\mathrm{d}x=-\\frac12f'(\\eta_k)(x_k-x_{k-1})^2.$$\n于是原式 $=-\\dfrac12\\displaystyle\\sum_{k=1}^nf'(\\eta_k)\\frac1n\\to-\\frac12\\int_0^1f'(x)\\,\\mathrm{d}x=-\\frac12\\big[f(1)-f(0)\\big]=-\\frac12$。",
+   "solutionSource": "官方"
+  },
+  {
+   "no": "五",
+   "score": 14,
+   "type": "证明",
+   "subjects": [
+    "高等数学"
+   ],
+   "topics": [
+    "拉格朗日中值定理",
+    "介值定理",
+    "变上限积分"
+   ],
+   "difficulty": 2,
+   "statement": "设函数 $f(x)$ 在区间 $[0,1]$ 上连续，且 $I=\\displaystyle\\int_0^1f(x)\\,\\mathrm{d}x\\neq0$。证明：在 $(0,1)$ 内存在不同的两点 $x_1,x_2$，使得 $\\dfrac1{f(x_1)}+\\dfrac1{f(x_2)}=\\dfrac2I$。",
+   "answer": "",
+   "solution": "令 $F(x)=\\dfrac1I\\displaystyle\\int_0^xf(t)\\,\\mathrm{d}t$，$F(0)=0,\\ F(1)=1$。由介值定理存在 $\\xi\\in(0,1)$ 使 $F(\\xi)=\\frac12$。在 $[0,\\xi]$、$[\\xi,1]$ 上分别用拉格朗日中值定理：存在 $x_1\\in(0,\\xi)$，$x_2\\in(\\xi,1)$，\n$$\\frac{f(x_1)}I=F'(x_1)=\\frac{1/2}{\\xi},\\qquad\\frac{f(x_2)}I=F'(x_2)=\\frac{1/2}{1-\\xi}.$$\n于是 $\\dfrac I{f(x_1)}+\\dfrac I{f(x_2)}=2\\xi+2(1-\\xi)=2$，即得结论（且 $x_1\\neq x_2$）。",
+   "solutionSource": "官方"
+  },
+  {
+   "no": "六",
+   "score": 14,
+   "type": "证明",
+   "subjects": [
+    "高等数学"
+   ],
+   "topics": [
+    "傅里叶级数",
+    "周期函数",
+    "无理数"
+   ],
+   "difficulty": 3,
+   "statement": "设 $f(x)$ 在 $(-\\infty,+\\infty)$ 上可导，且 $f(x)=f(x+2)=f\\left(x+\\sqrt3\\right)$，用傅里叶（Fourier）级数理论证明 $f(x)$ 为常数。",
+   "answer": "",
+   "solution": "$f$ 以 2 为周期，其傅里叶系数\n$$a_n=\\int_{-1}^1f(x)\\cos n\\pi x\\,\\mathrm{d}x,\\qquad b_n=\\int_{-1}^1f(x)\\sin n\\pi x\\,\\mathrm{d}x.$$\n利用 $f(x)=f(x+\\sqrt3)$，令 $t=x+\\sqrt3$，并利用 $f(t)\\cos n\\pi t$ 等以 2 为周期（积分区间可平移回 $[-1,1]$），记 $\\theta=\\sqrt3n\\pi$：\n$$a_n=\\int_{-1+\\sqrt3}^{1+\\sqrt3}f(t)\\cos n\\pi(t-\\sqrt3)\\,\\mathrm{d}t=a_n\\cos\\theta+b_n\\sin\\theta,$$\n同理 $b_n=b_n\\cos\\theta-a_n\\sin\\theta$。这是关于 $(a_n,b_n)$ 的齐次方程组，系数行列式为 $(1-\\cos\\theta)^2+\\sin^2\\theta=2-2\\cos\\theta$。由于 $\\sqrt3$ 是无理数，$\\theta$ 不是 $2\\pi$ 的整数倍，行列式非零，故 $a_n=b_n=0$（$n\\geqslant1$）。\n\n$f$ 可导，其傅里叶级数处处收敛于 $f(x)$，所以 $f(x)=\\dfrac{a_0}2$ 为常数。",
+   "solutionSource": "官方"
+  }
+ ]
+}

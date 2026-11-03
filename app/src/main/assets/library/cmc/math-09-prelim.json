@@ -1,0 +1,130 @@
+{
+ "id": "cmc-math-09-prelim",
+ "title": "第九届全国大学生数学竞赛初赛（数学类）",
+ "year": 2017,
+ "track": "数学类",
+ "round": "初赛",
+ "paper": "",
+ "durationMin": 150,
+ "totalScore": 100,
+ "source": {
+  "question": "2017年01-试题-第九届全国初赛-数学类试卷.pdf",
+  "solution": "2017年02-参考解答-第九届全国初赛-数学类试卷.pdf"
+ },
+ "problems": [
+  {
+   "no": "一",
+   "score": 15,
+   "type": "计算",
+   "subjects": [
+    "解析几何"
+   ],
+   "topics": [
+    "单叶双曲面",
+    "平面截线",
+    "抛物线",
+    "法向量"
+   ],
+   "difficulty": 3,
+   "statement": "在空间直角坐标系中，设单叶双曲面 $\\Gamma$ 的方程为 $x^2+y^2-z^2=1$。设 $P$ 为空间中的平面，它交 $\\Gamma$ 于一抛物线 $C$。求该平面 $P$ 的法线与 $z$-轴的夹角。",
+   "answer": "$\\dfrac{\\pi}{4}$ 或 $\\dfrac{3\\pi}{4}$。",
+   "solution": "设抛物线 $C$ 的顶点为 $X_0=(x_0,y_0,z_0)$。取平面 $P$ 上 $X_0$ 处相互正交的两单位向量 $\\alpha=(\\alpha_1,\\alpha_2,\\alpha_3)$ 和 $\\beta=(\\beta_1,\\beta_2,\\beta_3)$，使 $\\beta$ 是 $C$ 在平面 $P$ 上的对称轴方向，则 $C$ 的参数方程为\n$$X(t)=X_0+t\\alpha+\\lambda t^2\\beta,\\quad t\\in\\mathbb R,$$\n$\\lambda\\neq0$ 为常数。代入 $x^2+y^2-z^2=1$，得对任意 $t$ 成立的恒等式\n$$\\lambda^2(\\beta_1^2+\\beta_2^2-\\beta_3^2)t^4+2\\lambda(\\alpha_1\\beta_1+\\alpha_2\\beta_2-\\alpha_3\\beta_3)t^3+A_1t^2+A_2t+A_3=0,$$\n其中 $A_1,A_2,A_3$ 是与 $X_0,\\alpha,\\beta$ 有关的常数。故\n$$\\beta_1^2+\\beta_2^2-\\beta_3^2=0,\\qquad\\alpha_1\\beta_1+\\alpha_2\\beta_2-\\alpha_3\\beta_3=0.$$\n又 $\\alpha,\\beta$ 为正交单位向量：$|\\alpha|=|\\beta|=1$，$\\alpha\\cdot\\beta=0$。于是\n$$\\beta_1^2+\\beta_2^2=\\beta_3^2=\\frac12,\\quad\\alpha_1\\beta_1+\\alpha_2\\beta_2=0,\\quad\\alpha_3=0,\\quad\\alpha_1^2+\\alpha_2^2=1,$$\n从而 $\\alpha=(\\alpha_1,\\alpha_2,0)$，$\\beta=\\Big(-\\dfrac{\\varepsilon}{\\sqrt2}\\alpha_2,\\dfrac{\\varepsilon}{\\sqrt2}\\alpha_1,\\beta_3\\Big)$，$\\varepsilon=\\pm1$。平面 $P$ 的单位法向量 $n=\\alpha\\times\\beta=\\Big(A,B,\\dfrac{\\varepsilon}{\\sqrt2}\\Big)$，它与 $z$ 轴方向 $e=(0,0,1)$ 的夹角满足 $\\cos\\theta=n\\cdot e=\\pm\\dfrac1{\\sqrt2}$，所以夹角为 $\\dfrac\\pi4$ 或 $\\dfrac{3\\pi}4$。",
+   "solutionSource": "官方"
+  },
+  {
+   "no": "二",
+   "score": 15,
+   "type": "证明",
+   "subjects": [
+    "数学分析"
+   ],
+   "topics": [
+    "正项级数",
+    "Cauchy 收敛准则",
+    "单调数列",
+    "反例"
+   ],
+   "difficulty": 3,
+   "statement": "设 $\\{a_n\\}$ 是递增数列，$a_1>1$。求证：级数 $\\displaystyle\\sum_{n=1}^{\\infty}\\frac{a_{n+1}-a_n}{a_n\\ln a_{n+1}}$ 收敛的充分必要条件是 $\\{a_n\\}$ 有界。又问级数通项分母中的 $a_n$ 是否可以换成 $a_{n+1}$？",
+   "answer": "不能换成 $a_{n+1}$，例如 $a_n=e^{n^2}$ 无界，但 $\\displaystyle\\sum\\frac{a_{n+1}-a_n}{a_{n+1}\\ln a_{n+1}}$ 收敛。",
+   "solution": "**充分性** 若 $a_n\\leqslant M$，则\n$$\\sum_{n=1}^m\\frac{a_{n+1}-a_n}{a_n\\ln a_{n+1}}\\leqslant\\sum_{n=1}^m\\frac{a_{n+1}-a_n}{a_1\\ln a_1}=\\frac{a_{m+1}-a_1}{a_1\\ln a_1}\\leqslant\\frac{M}{a_1\\ln a_1},$$\n故级数收敛。\n\n**必要性** 记 $b_n=\\ln a_n>0$，递增。由\n$$b_{n+1}-b_n=\\ln\\Big(1+\\frac{a_{n+1}-a_n}{a_n}\\Big)\\leqslant\\frac{a_{n+1}-a_n}{a_n}$$\n得 $\\dfrac{b_{n+1}-b_n}{b_{n+1}}\\leqslant\\dfrac{a_{n+1}-a_n}{a_n\\ln a_{n+1}}$，故 $\\sum\\dfrac{b_{n+1}-b_n}{b_{n+1}}$ 收敛。由 Cauchy 收敛准则，存在 $m$，使对一切自然数 $p$，\n$$\\frac12>\\sum_{n=m}^{m+p}\\frac{b_{n+1}-b_n}{b_{n+1}}\\geqslant\\sum_{n=m}^{m+p}\\frac{b_{n+1}-b_n}{b_{m+p+1}}=1-\\frac{b_m}{b_{m+p+1}},$$\n即 $b_{m+p+1}<2b_m$。由 $p$ 任意知 $\\{b_n\\}$ 有界，从而 $\\{a_n\\}$ 有界。\n\n**分母不能换成 $a_{n+1}$** 例如 $a_n=e^{n^2}$ 无界，但\n$$\\frac{a_{n+1}-a_n}{a_{n+1}\\ln a_{n+1}}<\\frac{1}{(n+1)^2},$$\n级数 $\\displaystyle\\sum\\frac{a_{n+1}-a_n}{a_{n+1}\\ln a_{n+1}}$ 收敛。",
+   "solutionSource": "官方"
+  },
+  {
+   "no": "三",
+   "score": 15,
+   "type": "证明",
+   "subjects": [
+    "高等代数"
+   ],
+   "topics": [
+    "矩阵群",
+    "迹",
+    "特征值",
+    "幂等",
+    "有限群"
+   ],
+   "difficulty": 3,
+   "statement": "设 $\\Gamma=\\{W_1,W_2,\\dots,W_r\\}$ 为 $r$ 个各不相同的可逆的 $n$ 阶复方阵构成的集合。若该集合关于矩阵乘法封闭（即 $\\forall M,N\\in\\Gamma$，有 $MN\\in\\Gamma$）。证明：$\\displaystyle\\sum_{i=1}^rW_i=0$ 当且仅当 $\\displaystyle\\sum_{i=1}^r\\operatorname{tr}(W_i)=0$，其中 $\\operatorname{tr}(W_i)$ 表示 $W_i$ 的迹。",
+   "answer": "",
+   "solution": "**必要性** 由迹的线性直接得到。\n\n**充分性** 对可逆矩阵 $W\\in\\Gamma$，$WW_1,\\dots,WW_r$ 各不相同且都属于 $\\Gamma$，故 $W\\Gamma=\\Gamma,\\ \\forall W\\in\\Gamma$。\n\n记 $S=\\sum_{i=1}^rW_i$，则 $WS=S,\\ \\forall W\\in\\Gamma$，进而 $S^2=\\sum_iW_iS=rS$，即 $S^2-rS=0$。若 $\\lambda$ 为 $S$ 的特征值，则 $\\lambda^2-r\\lambda=0$，即 $\\lambda=0$ 或 $r$。\n\n由 $\\operatorname{tr}S=\\sum\\operatorname{tr}(W_i)=0$ 且特征值只能取 $0$ 或 $r>0$，知 $S$ 的特征值全为 $0$，因此 $S-rI$ 可逆。由 $S(S-rI)=S^2-rS=0$，右乘 $(S-rI)^{-1}$ 得 $S=0$。",
+   "solutionSource": "官方"
+  },
+  {
+   "no": "四",
+   "score": 20,
+   "type": "证明",
+   "subjects": [
+    "高等代数"
+   ],
+   "topics": [
+    "反对称矩阵",
+    "分块矩阵",
+    "逆矩阵",
+    "反证法"
+   ],
+   "difficulty": 4,
+   "statement": "给定非零实数 $a$ 及实 $n$ 阶反对称矩阵 $A$（即 $A$ 的转置 $A^{\\mathrm T}$ 等于 $-A$）。记矩阵有序对集合 $T$ 为：$$T=\\big\\{(X,Y)\\mid X\\in\\mathbb R^{n\\times n},\\ Y\\in\\mathbb R^{n\\times n},\\ XY=aI+A\\big\\},$$ 其中 $I$ 为 $n$ 阶单位阵，$\\mathbb R^{n\\times n}$ 为所有实 $n$ 阶方阵构成的集合。证明：任取 $T$ 中的两元：$(X,Y)$ 和 $(M,N)$，必有 $XN+Y^{\\mathrm T}M^{\\mathrm T}\\neq0$。",
+   "answer": "",
+   "solution": "反证。若 $XN+Y^{\\mathrm T}M^{\\mathrm T}=0$，转置得 $N^{\\mathrm T}X^{\\mathrm T}+MY=0$。另外，由 $(X,Y)\\in T$ 及 $A^{\\mathrm T}=-A$ 得 $XY+(XY)^{\\mathrm T}=2aI$，即 $XY+Y^{\\mathrm T}X^{\\mathrm T}=2aI$；类似地 $MN+N^{\\mathrm T}M^{\\mathrm T}=2aI$。因此\n$$\\begin{pmatrix}X&Y^{\\mathrm T}\\\\M&N^{\\mathrm T}\\end{pmatrix}\\begin{pmatrix}Y&N\\\\X^{\\mathrm T}&M^{\\mathrm T}\\end{pmatrix}=2a\\begin{pmatrix}I&0\\\\0&I\\end{pmatrix}.$$\n由于 $a\\neq0$，两个方阵互逆，交换次序也成立：\n$$\\frac1{2a}\\begin{pmatrix}Y&N\\\\X^{\\mathrm T}&M^{\\mathrm T}\\end{pmatrix}\\begin{pmatrix}X&Y^{\\mathrm T}\\\\M&N^{\\mathrm T}\\end{pmatrix}=\\begin{pmatrix}I&0\\\\0&I\\end{pmatrix}.$$\n比较 $(1,2)$ 块得 $YY^{\\mathrm T}+NN^{\\mathrm T}=0$，所以 $Y=0,\\ N=0$，导致 $XY=0$，与 $XY=aI+A\\neq0$（$aI+A$ 的对角元为 $a\\neq0$）矛盾。",
+   "solutionSource": "官方"
+  },
+  {
+   "no": "五",
+   "score": 15,
+   "type": "计算",
+   "subjects": [
+    "数学分析"
+   ],
+   "topics": [
+    "定积分定义",
+    "Riemann 和误差",
+    "Taylor 公式",
+    "渐近展开"
+   ],
+   "difficulty": 3,
+   "statement": "设 $f(x)=\\arctan x$，$A$ 为常数。若 $$B=\\lim_{n\\to\\infty}\\left(\\sum_{k=1}^nf\\Big(\\frac kn\\Big)-An\\right)$$ 存在，求 $A,B$。",
+   "answer": "$A=\\dfrac\\pi4-\\dfrac{\\ln2}2$，$B=\\dfrac\\pi8$。",
+   "solution": "由定积分的定义（$B$ 存在必须 $A=\\lim\\frac1n\\sum f(\\frac kn)$）：\n$$A=\\lim_{n\\to\\infty}\\frac1n\\sum_{k=1}^nf\\Big(\\frac kn\\Big)=\\int_0^1\\arctan x\\,\\mathrm dx=x\\arctan x\\Big|_0^1-\\int_0^1\\frac{x}{1+x^2}\\,\\mathrm dx=\\frac\\pi4-\\frac{\\ln2}2.$$\n对 $x\\in\\big(\\frac{k-1}n,\\frac kn\\big)$，由 Taylor 公式，存在 $\\xi_{n,k}$ 使\n$$f(x)=f\\Big(\\frac kn\\Big)+f'\\Big(\\frac kn\\Big)\\Big(x-\\frac kn\\Big)+\\frac{f''(\\xi_{n,k})}{2}\\Big(x-\\frac kn\\Big)^2.$$\n于是，记 $M=\\frac12\\max\\limits_{[0,1]}|f''|$，\n$$\\left|\\sum_{k=1}^nf\\Big(\\frac kn\\Big)-nA+\\sum_{k=1}^nn\\int_{\\frac{k-1}n}^{\\frac kn}f'\\Big(\\frac kn\\Big)\\Big(x-\\frac kn\\Big)\\mathrm dx\\right|\\leqslant M\\sum_{k=1}^nn\\int_{\\frac{k-1}n}^{\\frac kn}\\Big(x-\\frac kn\\Big)^2\\mathrm dx=\\frac{M}{3n}.$$\n因此\n$$B=-\\lim_{n\\to\\infty}\\sum_{k=1}^nn\\int_{\\frac{k-1}n}^{\\frac kn}f'\\Big(\\frac kn\\Big)\\Big(x-\\frac kn\\Big)\\mathrm dx=\\lim_{n\\to\\infty}\\frac1{2n}\\sum_{k=1}^nf'\\Big(\\frac kn\\Big)=\\frac12\\int_0^1f'(x)\\,\\mathrm dx=\\frac{f(1)-f(0)}{2}=\\frac\\pi8.$$\n（官方另给两种思路：在 $x$ 处展开估计误差，或以 $\\big(\\frac{k-1/2}n,\\frac{k+1/2}n\\big)$ 为小区间，结果相同。）",
+   "solutionSource": "官方"
+  },
+  {
+   "no": "六",
+   "score": 20,
+   "type": "计算",
+   "subjects": [
+    "数学分析"
+   ],
+   "topics": [
+    "Laplace 方法",
+    "积分极限",
+    "函数幂的积分渐近"
+   ],
+   "difficulty": 4,
+   "statement": "设 $f(x)=1-x^2+x^3\\ (x\\in[0,1])$，计算以下极限并说明理由：$$\\lim_{n\\to\\infty}\\frac{\\displaystyle\\int_0^1f^n(x)\\ln(x+2)\\,\\mathrm dx}{\\displaystyle\\int_0^1f^n(x)\\,\\mathrm dx}.$$",
+   "answer": "$\\ln2$",
+   "solution": "$f$ 连续，且 $f(x)=1-x^2(1-x)$，于是 $0<f(x)<1=f(0)=f(1),\\ \\forall x\\in(0,1)$。\n\n任取 $\\delta\\in\\big(0,\\frac12\\big)$，有 $\\eta=\\eta_\\delta\\in(0,\\delta)$ 使 $m_\\eta\\equiv\\min\\limits_{[0,\\eta]}f>M_\\delta\\equiv\\max\\limits_{[\\delta,1-\\delta]}f$。\n\n**第一步：质量集中在 $0$ 附近。** 当 $n\\geqslant\\frac1{\\delta^2}$ 时：在 $[1-\\delta,1]$ 上作代换 $x\\to1-x$，有 $f(1-x)=1-x(1-x)^2\\leqslant1-\\frac x4\\ (x\\leqslant\\delta)$；在 $[0,\\delta]$ 上 $f(x)\\geqslant1-x^2$。于是\n$$0\\leqslant\\frac{\\int_\\delta^1f^n}{\\int_0^\\delta f^n}\\leqslant\\frac{\\int_0^\\delta(1-\\frac x4)^n\\mathrm dx}{\\int_0^{1/\\sqrt n}(1-\\frac{x}{\\sqrt n})^n\\mathrm dx}+\\frac{(1-2\\delta)M_\\delta^n}{\\eta m_\\eta^n}=\\frac{\\frac4{n+1}\\Big[1-\\big(1-\\frac\\delta4\\big)^{n+1}\\Big]}{\\frac{\\sqrt n}{n+1}\\Big[1-\\big(1-\\frac1n\\big)^{n+1}\\Big]}+\\frac{1-2\\delta}{\\eta}\\Big(\\frac{M_\\delta}{m_\\eta}\\Big)^n,$$\n（这里用了 $x\\leqslant\\frac1{\\sqrt n}$ 时 $1-x^2\\geqslant1-\\frac{x}{\\sqrt n}$），故 $\\lim\\limits_{n\\to\\infty}\\dfrac{\\int_\\delta^1f^n\\,\\mathrm dx}{\\int_0^\\delta f^n\\,\\mathrm dx}=0$。\n\n**第二步。** 对 $\\varepsilon\\in\\big(0,\\ln\\frac54\\big)$，取 $\\delta=2(e^\\varepsilon-1)$，则 $\\delta\\in\\big(0,\\frac12\\big)$，$\\ln\\frac{2+\\delta}2=\\varepsilon$。由第一步，存在 $N$，当 $n\\geqslant N$ 时 $\\dfrac{\\int_\\delta^1f^n}{\\int_0^\\delta f^n}\\leqslant\\varepsilon$。从而\n$$\\left|\\frac{\\int_0^1f^n(x)\\ln(x+2)\\,\\mathrm dx}{\\int_0^1f^n\\,\\mathrm dx}-\\ln2\\right|=\\frac{\\int_0^1f^n\\ln\\frac{x+2}2\\,\\mathrm dx}{\\int_0^1f^n\\,\\mathrm dx}\\leqslant\\ln\\frac{\\delta+2}2+\\frac{\\ln\\frac32\\int_\\delta^1f^n}{\\int_0^\\delta f^n}\\leqslant\\varepsilon(1+\\ln2).$$\n因此所求极限为 $\\ln2$。",
+   "solutionSource": "官方"
+  }
+ ]
+}

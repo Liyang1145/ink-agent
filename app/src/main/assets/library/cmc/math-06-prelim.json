@@ -1,0 +1,129 @@
+{
+ "id": "cmc-math-06-prelim",
+ "title": "第六届全国大学生数学竞赛初赛（数学类）",
+ "year": 2014,
+ "track": "数学类",
+ "round": "初赛",
+ "paper": "",
+ "durationMin": 150,
+ "totalScore": 100,
+ "source": {
+  "question": "2014年01-试题-第六届全国初赛-数学类试卷.pdf",
+  "solution": "2014年02-参考答案-第六届全国初赛-数学类试卷.pdf"
+ },
+ "problems": [
+  {
+   "no": "一",
+   "score": 15,
+   "type": "计算",
+   "subjects": [
+    "解析几何"
+   ],
+   "topics": [
+    "异面直线",
+    "公垂线",
+    "混合积",
+    "轨迹方程"
+   ],
+   "difficulty": 2,
+   "statement": "已知空间的两条直线：\n$$l_1:\\frac{x-4}1=\\frac{y-3}{-2}=\\frac{z-8}1,\\qquad l_2:\\frac{x+1}7=\\frac{y+1}{-6}=\\frac{z+1}1,$$\n1) 证明 $l_1$ 和 $l_2$ 异面；\n\n2) 求 $l_1$ 和 $l_2$ 公垂线的标准方程；\n\n3) 求连接 $l_1$ 上任一点和 $l_2$ 上的任一点线段中点的轨迹的一般方程。",
+   "answer": "2) $\\dfrac{x+1}4=\\dfrac{y+1}6=\\dfrac{z+1}8$；3) $4x+6y+8z-40=0$。",
+   "solution": "(1) $l_1$ 上有点 $r_1=(4,3,8)$，方向向量为 $v_1=(1,-2,1)$；$l_2$ 上有点 $r_2=(-1,-1,-1)$，方向向量为 $v_2=(7,-6,1)$。又\n$$(r_1-r_2,v_1,v_2)=\\begin{vmatrix}5&4&9\\\\1&-2&1\\\\7&-6&1\\end{vmatrix}\\neq0,$$\n所以 $l_1$ 和 $l_2$ 异面。\n\n(2) $l_1$ 上任一点 $P_1=r_1+t_1v_1$ 与 $l_2$ 上的任一点 $P_2=r_2+t_2v_2$ 的连线的方向向量为\n$$\\overrightarrow{P_1P_2}=r_2-r_1+t_2v_2-t_1v_1=(-5+7t_2-t_1,\\ -4-6t_2+2t_1,\\ -9+t_2-t_1).$$\n公垂线的方向向量为\n$$v=v_1\\times v_2=\\begin{vmatrix}i&j&k\\\\1&-2&1\\\\7&-6&1\\end{vmatrix}=(4,6,8).$$\n由于 $\\overrightarrow{P_1P_2}\\parallel v$，所以 $(-5+7t_2-t_1):(-4-6t_2+2t_1):(-9+t_2-t_1)=4:6:8$，得 $t_1=-1,\\ t_2=0$，故 $r_2+0v_2=(-1,-1,-1)$ 在公垂线上，从而公垂线的标准方程为\n$$\\frac{x+1}4=\\frac{y+1}6=\\frac{z+1}8.$$\n\n(3) $P_1=r_1+t_1v_1$，$P_2=r_2+t_2v_2$ 的中点为\n$$\\frac12\\left(3+t_1+7t_2,\\ 2-2t_1-6t_2,\\ 7+t_1+t_2\\right).$$\n因此中点的轨迹为一个平面，平面的法向量为 $v=v_1\\times v_2=(4,6,8)$。又 $\\frac12(3,2,7)$ 在平面上，故轨迹的方程为 $4x+6y+8z-40=0$。",
+   "solutionSource": "官方"
+  },
+  {
+   "no": "二",
+   "score": 15,
+   "type": "证明",
+   "subjects": [
+    "数学分析"
+   ],
+   "topics": [
+    "积分中值",
+    "介值定理",
+    "数列极限",
+    "单调函数"
+   ],
+   "difficulty": 2,
+   "statement": "设 $f\\in C[0,1]$ 是非负的严格单调增函数。\n\n1) 证明：对任意 $n\\in N$，存在唯一的 $x_n\\in[0,1]$，使得 $\\left(f(x_n)\\right)^n=\\displaystyle\\int_0^1\\left(f(x)\\right)^n\\mathrm dx$。\n\n2) 证明：$\\displaystyle\\lim_{n\\to\\infty}x_n=1$。",
+   "answer": "",
+   "solution": "1) $f(0)^n\\leqslant\\displaystyle\\int_0^1\\left(f(x)\\right)^n\\mathrm dx\\leqslant f(1)^n$，由连续函数的介值性质得到 $x_n$ 的存在性。由于 $f$ 是严格单调函数，所以 $x_n$ 是唯一的。\n\n2) 对于任意小的 $\\varepsilon>0$，由于 $f$ 的非负性和单调性，\n$$\\left(f(x_n)\\right)^n\\geqslant\\int_{1-\\varepsilon}^1\\left(f(x)\\right)^n\\mathrm dx\\geqslant\\varepsilon\\left(f(1-\\varepsilon)\\right)^n,$$\n故 $f(x_n)\\geqslant\\sqrt[n]\\varepsilon\\,f(1-\\varepsilon)$，从而 $\\displaystyle\\liminf_{n\\to\\infty}f(x_n)\\geqslant f(1-\\varepsilon)$。由 $f$ 的单调性，$\\displaystyle\\liminf_{n\\to\\infty}x_n\\geqslant1-\\varepsilon$。由 $\\varepsilon$ 的任意性，有 $\\displaystyle\\lim_{n\\to\\infty}x_n=1$。",
+   "solutionSource": "官方"
+  },
+  {
+   "no": "三",
+   "score": 15,
+   "type": "证明",
+   "subjects": [
+    "高等代数"
+   ],
+   "topics": [
+    "线性无关",
+    "函数空间",
+    "行列式",
+    "数学归纳法"
+   ],
+   "difficulty": 3,
+   "statement": "设 $V$ 为闭区间 $[0,1]$ 上全体实函数构成的实向量空间，其中向量加法和纯量乘法均为通常的。$f_1,\\cdots,f_n\\in V$。证明以下两条等价：\n\n1) $f_1,\\cdots,f_n$ 线性无关；\n\n2) $\\exists a_1,\\cdots,a_n\\in[0,1]$ 使得 $\\det\\left[f_i(a_j)\\right]\\neq0$，$\\det$ 为求行列式。",
+   "answer": "",
+   "solution": "**2) $\\Rightarrow$ 1)**：考虑方程 $\\lambda_1f_1+\\cdots+\\lambda_nf_n=0$。将 $a_1,\\cdots,a_n$ 分别代入，得\n$$\\begin{cases}\\lambda_1f_1(a_1)+\\cdots+\\lambda_nf_n(a_1)=0,\\\\\\cdots\\cdots\\\\\\lambda_1f_1(a_n)+\\cdots+\\lambda_nf_n(a_n)=0.\\end{cases}$$\n注意到上述方程组的系数矩阵为 $\\left(f_i(a_j)\\right)^T$，因此由 $\\det\\left[f_i(a_j)\\right]\\neq0$ 直接知道 $\\lambda_1=\\cdots=\\lambda_n=0$。\n\n**1) $\\Rightarrow$ 2)**：用归纳法。首先，$n=1$ 时显然成立（$f_1\\neq0$，取 $a_1$ 使 $f_1(a_1)\\neq0$）。\n\n其次，设 $n=k$ 时结论成立，则 $n=k+1$ 时，由 $f_1,\\cdots,f_{k+1}$ 线性无关知，$f_1,\\cdots,f_k$ 线性无关。因此 $\\exists a_1,\\cdots,a_k\\in[0,1]$ 使得 $\\det\\left[f_i(a_j)\\right]_{k\\times k}\\neq0$。观察函数\n$$F(x)=\\det\\begin{pmatrix}f_1(a_1)&\\cdots&f_1(a_k)&f_1(x)\\\\\\vdots&&\\vdots&\\vdots\\\\f_k(a_1)&\\cdots&f_k(a_k)&f_k(x)\\\\f_{k+1}(a_1)&\\cdots&f_{k+1}(a_k)&f_{k+1}(x)\\end{pmatrix}.$$\n按最后一列展开得 $F(x)=\\lambda_1f_1(x)+\\cdots+\\lambda_kf_k(x)+\\lambda_{k+1}f_{k+1}(x)$，其中 $\\lambda_1,\\cdots,\\lambda_{k+1}$ 均为常量。注意到 $\\lambda_{k+1}=\\det\\left[f_i(a_j)\\right]_{k\\times k}\\neq0$，由 $f_1,\\cdots,f_{k+1}$ 线性无关知 $F(x)$ 不恒为 $0$，从而 $\\exists a_{k+1}\\in[0,1]$ 使得 $F(a_{k+1})\\neq0$。亦即 $a_1,\\cdots,a_{k+1}\\in[0,1]$，$\\det\\left[f_i(a_j)\\right]\\neq0$。证毕。",
+   "solutionSource": "官方"
+  },
+  {
+   "no": "四",
+   "score": 15,
+   "type": "证明",
+   "subjects": [
+    "数学分析"
+   ],
+   "topics": [
+    "微分不等式",
+    "微分中值定理",
+    "单调性",
+    "最佳常数"
+   ],
+   "difficulty": 3,
+   "statement": "设 $f(x)$ 在 $R$ 上有二阶导函数，$f(x),f'(x),f''(x)$ 均大于零，假设存在正数 $a,b$，使得 $f''(x)\\leqslant af(x)+bf'(x)$ 对于一切 $x\\in R$ 成立。\n\n(1) 求证：$\\displaystyle\\lim_{x\\to-\\infty}f'(x)=0$；\n\n(2) 求证：存在常数 $c$ 使得 $f'(x)\\leqslant cf(x)$；\n\n(3) 求使上面不等式成立的最小常数 $c$。",
+   "answer": "(3) $c=\\dfrac{b+\\sqrt{b^2+4a}}2$",
+   "solution": "(1) 由条件知 $f,f'$ 是单调递增的正函数，因此 $\\displaystyle\\lim_{x\\to-\\infty}f(x)$，$\\displaystyle\\lim_{x\\to-\\infty}f'(x)$ 都存在。根据微分中值定理，对任意的 $x$，存在 $\\theta_x\\in(0,1)$ 使得\n$$f(x+1)-f(x)=f'(x+\\theta_x)>f'(x)>0.$$\n上式左边当 $x\\to-\\infty$ 时极限为 $0$，因而 $\\displaystyle\\lim_{x\\to-\\infty}f'(x)=0$。\n\n(2)(3) 设 $c=\\dfrac{b+\\sqrt{b^2+4a}}2$，则 $c>b>0$，且 $\\dfrac a{b-c}=-c$。于是根据条件有\n$$f''(x)-cf'(x)\\leqslant(b-c)f'(x)+af(x)=(b-c)\\left(f'(x)-cf(x)\\right).$$\n这说明函数 $e^{-(b-c)x}\\left(f'(x)-cf(x)\\right)$ 是单调递减的。注意到该函数当 $x\\to-\\infty$ 时极限为 $0$，因此 $f'(x)-cf(x)\\leqslant0$，即 $f'(x)\\leqslant cf(x)$。\n\n常数 $c$ 是最佳的，这是因为对函数 $f(x)=e^{cx}$ 有 $f''(x)=af(x)+bf'(x)$，且 $f'(x)=cf(x)$。",
+   "solutionSource": "官方"
+  },
+  {
+   "no": "五",
+   "score": 20,
+   "type": "证明",
+   "subjects": [
+    "高等代数"
+   ],
+   "topics": [
+    "矩阵方程",
+    "幂零矩阵",
+    "矩阵多项式"
+   ],
+   "difficulty": 4,
+   "statement": "设 $m$ 为给定的正整数。证明：对任何的正整数 $n,l$，存在 $m$ 阶方阵 $X$ 使得\n$$X^n+X^l=I+\\begin{pmatrix}1&0&0&\\cdots&0&0\\\\2&1&0&\\cdots&0&0\\\\3&2&1&\\cdots&0&0\\\\\\vdots&\\vdots&\\vdots&\\ddots&\\vdots&\\vdots\\\\m-1&m-2&m-3&\\cdots&1&0\\\\m&m-1&m-2&\\cdots&2&1\\end{pmatrix}.$$",
+   "answer": "",
+   "solution": "(1) 令 $H=\\begin{pmatrix}0&&&\\\\1&\\ddots&&\\\\&\\ddots&\\ddots&\\\\&&1&0\\end{pmatrix}$（$m$ 阶，$H^m=0$），则所求的方程变为\n$$X^n+X^l=2I+2H+3H^2+\\cdots+mH^{m-1}.$$\n\n(2) 考察形如\n$$X=\\begin{pmatrix}1&0&0&\\cdots&0&0\\\\a_1&1&0&\\cdots&0&0\\\\a_2&a_1&1&\\cdots&0&0\\\\\\vdots&\\vdots&\\vdots&\\ddots&\\vdots&\\vdots\\\\a_{m-2}&a_{m-3}&a_{m-4}&\\cdots&1&0\\\\a_{m-1}&a_{m-2}&a_{m-3}&\\cdots&a_1&1\\end{pmatrix}$$\n的矩阵 $X$，则有 $X=I+a_1H+a_2H^2+\\cdots+a_{m-1}H^{m-1}$，\n$$\\begin{aligned}X^n&=\\left(I+a_1H+a_2H^2+\\cdots+a_{m-1}H^{m-1}\\right)^n\\\\&=I+(na_1)H+\\left(na_2+f_1(a_1)\\right)H^2+\\cdots+\\left(na_{m-1}+f_{m-2}(a_1,\\cdots,a_{m-2})\\right)H^{m-1},\\end{aligned}$$\n其中 $f_1(a_1)$ 由 $a_1$ 确定，$\\cdots$，$f_{m-2}(a_1,\\cdots,a_{m-2})$ 由 $a_1,\\cdots,a_{m-2}$ 确定。类似地，有\n$$X^l=I+(la_1)H+\\left(la_2+g_1(a_1)\\right)H^2+\\cdots+\\left(la_{m-1}+g_{m-2}(a_1,\\cdots,a_{m-2})\\right)H^{m-1}.$$\n\n(3) 观察下列方程组\n$$\\begin{cases}(n+l)a_1=2,\\\\(n+l)a_2+\\left(f_1(a_1)+g_1(a_1)\\right)=3,\\\\\\cdots\\cdots\\\\(n+l)a_{m-1}+\\left(f_{m-2}(a_1,\\cdots,a_{m-2})+g_{m-2}(a_1,\\cdots,a_{m-2})\\right)=m.\\end{cases}$$\n可依次解出 $a_1,a_2,\\cdots,a_{m-1}$，即该方程组有解，此时 $X^n+X^l=2I+2H+\\cdots+mH^{m-1}$。命题得证。\n\n（注：原解答此处笔误，已改正：原文矩阵 $X$ 写到 $a_m$、$f_{m-1}(a_1,\\cdots,a_{m-1})$，对 $m$ 阶矩阵应只到 $a_{m-1}$、$f_{m-2}(a_1,\\cdots,a_{m-2})$。）",
+   "solutionSource": "官方"
+  },
+  {
+   "no": "六",
+   "score": 20,
+   "type": "证明",
+   "subjects": [
+    "数学分析"
+   ],
+   "topics": [
+    "数列极限",
+    "下极限",
+    "级数发散",
+    "Raabe型判别"
+   ],
+   "difficulty": 4,
+   "statement": "设 $\\alpha\\in(0,1)$，$\\{a_n\\}$ 是正数列且满足\n$$\\liminf_{n\\to\\infty}n^\\alpha\\left(\\frac{a_n}{a_{n+1}}-1\\right)=\\lambda\\in(0,+\\infty).$$\n求证：$\\displaystyle\\lim_{n\\to\\infty}n^ka_n=0$，其中 $k>0$。",
+   "answer": "",
+   "solution": "由条件可知从某项开始 $\\{a_n\\}$ 单调递减。因此 $\\displaystyle\\lim_{n\\to\\infty}a_n=a\\geqslant0$。\n\n若 $a>0$，则当 $n$ 充分大时，\n$$\\frac{a_n-a_{n+1}}{1/n^\\alpha}=n^\\alpha\\left(\\frac{a_n}{a_{n+1}}-1\\right)a_{n+1}>\\frac{\\lambda a}2>0.$$\n因为 $\\displaystyle\\sum_{n=1}^\\infty\\frac1{n^\\alpha}$ 发散，所以 $\\displaystyle\\sum_{n=1}^\\infty(a_n-a_{n+1})$ 也发散。但此级数显然收敛到 $a_1-a$。这是矛盾！所以应有 $a=0$。\n\n令 $b_n=n^ka_n$，则有\n$$n^\\alpha\\left(\\frac{b_n}{b_{n+1}}-1\\right)=\\left(\\frac n{n+1}\\right)^k\\left[n^\\alpha\\left(\\frac{a_n}{a_{n+1}}-1\\right)-n^\\alpha\\left(\\left(1+\\frac1n\\right)^k-1\\right)\\right].$$\n因为 $\\left(1+\\dfrac1n\\right)^k-1\\sim\\dfrac kn\\ (n\\to\\infty)$，而 $\\alpha<1$，故 $n^\\alpha\\left(\\left(1+\\frac1n\\right)^k-1\\right)\\to0$。所以由上式及条件可得\n$$\\liminf_{n\\to\\infty}n^\\alpha\\left(\\frac{b_n}{b_{n+1}}-1\\right)=\\lambda.$$\n因此对 $\\{b_n\\}$ 应用开始所证，可得 $\\displaystyle\\lim_{n\\to\\infty}b_n=0$，即 $\\displaystyle\\lim_{n\\to\\infty}n^ka_n=0$。",
+   "solutionSource": "官方"
+  }
+ ]
+}

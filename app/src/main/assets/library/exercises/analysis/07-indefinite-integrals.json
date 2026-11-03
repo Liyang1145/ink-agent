@@ -1,0 +1,277 @@
+{
+ "id": "ex-analysis-07",
+ "title": "数学分析 · 不定积分",
+ "subject": "数学分析",
+ "chapter": 7,
+ "problems": [
+  {
+   "no": "1",
+   "type": "计算",
+   "subjects": [
+    "数学分析"
+   ],
+   "topics": [
+    "分部积分"
+   ],
+   "difficulty": 1,
+   "statement": "求 $\\displaystyle\\int xe^x\\,\\mathrm{d}x$。",
+   "answer": "$(x-1)e^x+C$",
+   "solution": "$$\\int xe^x\\,\\mathrm{d}x=\\int x\\,\\mathrm{d}(e^x)=xe^x-\\int e^x\\,\\mathrm{d}x=(x-1)e^x+C.$$",
+   "solutionSource": "编写",
+   "source": "经典题"
+  },
+  {
+   "no": "2",
+   "type": "计算",
+   "subjects": [
+    "数学分析"
+   ],
+   "topics": [
+    "三角函数积分",
+    "换元积分"
+   ],
+   "difficulty": 1,
+   "statement": "求 $\\displaystyle\\int\\tan^3x\\,\\mathrm{d}x$。",
+   "answer": "$\\dfrac12\\tan^2x+\\ln|\\cos x|+C$",
+   "solution": "$\\tan^3x=\\tan x(\\sec^2x-1)$，\n$$\\int\\tan^3x\\,\\mathrm{d}x=\\int\\tan x\\,\\mathrm{d}(\\tan x)-\\int\\tan x\\,\\mathrm{d}x=\\dfrac12\\tan^2x+\\ln|\\cos x|+C.$$",
+   "solutionSource": "编写",
+   "source": "经典题"
+  },
+  {
+   "no": "3",
+   "type": "计算",
+   "subjects": [
+    "数学分析"
+   ],
+   "topics": [
+    "分部积分",
+    "反三角函数"
+   ],
+   "difficulty": 1,
+   "statement": "求 $\\displaystyle\\int\\arctan x\\,\\mathrm{d}x$。",
+   "answer": "$x\\arctan x-\\dfrac12\\ln(1+x^2)+C$",
+   "solution": "$$\\int\\arctan x\\,\\mathrm{d}x=x\\arctan x-\\int\\dfrac{x}{1+x^2}\\,\\mathrm{d}x=x\\arctan x-\\dfrac12\\ln(1+x^2)+C.$$",
+   "solutionSource": "编写",
+   "source": "经典题"
+  },
+  {
+   "no": "4",
+   "type": "计算",
+   "subjects": [
+    "数学分析"
+   ],
+   "topics": [
+    "三角换元"
+   ],
+   "difficulty": 2,
+   "statement": "设 $a>0$，求 $\\displaystyle\\int\\sqrt{a^2-x^2}\\,\\mathrm{d}x$。",
+   "answer": "$\\dfrac x2\\sqrt{a^2-x^2}+\\dfrac{a^2}2\\arcsin\\dfrac xa+C$",
+   "solution": "令 $x=a\\sin t$，$t\\in\\left[-\\dfrac\\pi2,\\dfrac\\pi2\\right]$，则 $\\sqrt{a^2-x^2}=a\\cos t$，$\\mathrm{d}x=a\\cos t\\,\\mathrm{d}t$：\n$$\\int a^2\\cos^2t\\,\\mathrm{d}t=\\dfrac{a^2}2\\left(t+\\sin t\\cos t\\right)+C=\\dfrac{a^2}2\\arcsin\\dfrac xa+\\dfrac x2\\sqrt{a^2-x^2}+C.$$",
+   "solutionSource": "编写",
+   "source": "经典题"
+  },
+  {
+   "no": "5",
+   "type": "计算",
+   "subjects": [
+    "数学分析"
+   ],
+   "topics": [
+    "分部积分",
+    "循环积分"
+   ],
+   "difficulty": 2,
+   "statement": "设 $a,b$ 不全为零，求 $\\displaystyle\\int e^{ax}\\cos bx\\,\\mathrm{d}x$。",
+   "answer": "$\\dfrac{e^{ax}(a\\cos bx+b\\sin bx)}{a^2+b^2}+C$",
+   "solution": "记 $I=\\int e^{ax}\\cos bx\\,\\mathrm{d}x$，$J=\\int e^{ax}\\sin bx\\,\\mathrm{d}x$。不妨 $a\\ne0$，分部积分：\n$$I=\\dfrac1ae^{ax}\\cos bx+\\dfrac ba J,\\qquad J=\\dfrac1ae^{ax}\\sin bx-\\dfrac baI.$$\n代入消去 $J$：$I=\\dfrac1ae^{ax}\\cos bx+\\dfrac{b}{a^2}e^{ax}\\sin bx-\\dfrac{b^2}{a^2}I$，解得\n$$I=\\dfrac{e^{ax}(a\\cos bx+b\\sin bx)}{a^2+b^2}+C.$$\n（$a=0$ 时公式给出 $\\dfrac{\\sin bx}{b}$，同样正确。）可直接求导验证。",
+   "solutionSource": "编写",
+   "source": "经典题"
+  },
+  {
+   "no": "6",
+   "type": "计算",
+   "subjects": [
+    "数学分析"
+   ],
+   "topics": [
+    "有理函数积分",
+    "部分分式"
+   ],
+   "difficulty": 3,
+   "statement": "求 $\\displaystyle\\int\\dfrac{\\mathrm{d}x}{x^3+1}$。",
+   "answer": "$\\dfrac13\\ln|x+1|-\\dfrac16\\ln(x^2-x+1)+\\dfrac1{\\sqrt3}\\arctan\\dfrac{2x-1}{\\sqrt3}+C$",
+   "solution": "$x^3+1=(x+1)(x^2-x+1)$。设\n$$\\dfrac1{x^3+1}=\\dfrac A{x+1}+\\dfrac{Bx+C}{x^2-x+1},$$\n比较系数得 $A=\\dfrac13$，$B=-\\dfrac13$，$C=\\dfrac23$。而\n$$\\dfrac{-\\frac13x+\\frac23}{x^2-x+1}=-\\dfrac16\\cdot\\dfrac{2x-1}{x^2-x+1}+\\dfrac12\\cdot\\dfrac{1}{\\left(x-\\frac12\\right)^2+\\frac34}.$$\n逐项积分：\n$$\\int\\dfrac{\\mathrm{d}x}{x^3+1}=\\dfrac13\\ln|x+1|-\\dfrac16\\ln(x^2-x+1)+\\dfrac{1}{\\sqrt3}\\arctan\\dfrac{2x-1}{\\sqrt3}+C.$$",
+   "solutionSource": "编写",
+   "source": "经典题"
+  },
+  {
+   "no": "7",
+   "type": "计算",
+   "subjects": [
+    "数学分析"
+   ],
+   "topics": [
+    "万能代换",
+    "三角有理式"
+   ],
+   "difficulty": 2,
+   "statement": "求 $\\displaystyle\\int\\dfrac{\\mathrm{d}x}{1+\\sin x+\\cos x}$。",
+   "answer": "$\\ln\\left|1+\\tan\\dfrac x2\\right|+C$",
+   "solution": "令 $t=\\tan\\dfrac x2$，则 $\\sin x=\\dfrac{2t}{1+t^2}$，$\\cos x=\\dfrac{1-t^2}{1+t^2}$，$\\mathrm{d}x=\\dfrac{2\\,\\mathrm{d}t}{1+t^2}$，\n$$1+\\sin x+\\cos x=\\dfrac{2+2t}{1+t^2},\\qquad\\int\\dfrac{\\mathrm{d}x}{1+\\sin x+\\cos x}=\\int\\dfrac{\\mathrm{d}t}{1+t}=\\ln\\left|1+\\tan\\dfrac x2\\right|+C.$$",
+   "solutionSource": "编写",
+   "source": "经典题"
+  },
+  {
+   "no": "8",
+   "type": "计算",
+   "subjects": [
+    "数学分析"
+   ],
+   "topics": [
+    "三角有理式",
+    "对偶积分"
+   ],
+   "difficulty": 2,
+   "statement": "求 $\\displaystyle\\int\\dfrac{\\sin x}{\\sin x+\\cos x}\\,\\mathrm{d}x$。",
+   "answer": "$\\dfrac x2-\\dfrac12\\ln|\\sin x+\\cos x|+C$",
+   "solution": "令 $I=\\int\\dfrac{\\sin x}{\\sin x+\\cos x}\\,\\mathrm{d}x$，$J=\\int\\dfrac{\\cos x}{\\sin x+\\cos x}\\,\\mathrm{d}x$。则\n$$I+J=x+C_1,\\qquad J-I=\\int\\dfrac{\\mathrm{d}(\\sin x+\\cos x)}{\\sin x+\\cos x}=\\ln|\\sin x+\\cos x|+C_2.$$\n故 $I=\\dfrac x2-\\dfrac12\\ln|\\sin x+\\cos x|+C$。",
+   "solutionSource": "编写",
+   "source": "经典题"
+  },
+  {
+   "no": "9",
+   "type": "计算",
+   "subjects": [
+    "数学分析"
+   ],
+   "topics": [
+    "根式代换"
+   ],
+   "difficulty": 2,
+   "statement": "求 $\\displaystyle\\int\\dfrac{\\mathrm{d}x}{1+\\sqrt[3]{x+1}}$。",
+   "answer": "$\\dfrac32t^2-3t+3\\ln|1+t|+C$，$t=\\sqrt[3]{x+1}$",
+   "solution": "令 $t=\\sqrt[3]{x+1}$，$x=t^3-1$，$\\mathrm{d}x=3t^2\\,\\mathrm{d}t$：\n$$\\int\\dfrac{3t^2}{1+t}\\,\\mathrm{d}t=3\\int\\left(t-1+\\dfrac1{1+t}\\right)\\mathrm{d}t=\\dfrac32t^2-3t+3\\ln|1+t|+C,$$\n其中 $t=\\sqrt[3]{x+1}$。",
+   "solutionSource": "编写",
+   "source": "经典题"
+  },
+  {
+   "no": "10",
+   "type": "计算",
+   "subjects": [
+    "数学分析"
+   ],
+   "topics": [
+    "递推公式",
+    "分部积分"
+   ],
+   "difficulty": 2,
+   "statement": "求 $\\displaystyle\\int\\dfrac{\\mathrm{d}x}{(x^2+1)^2}$。",
+   "answer": "$\\dfrac{x}{2(x^2+1)}+\\dfrac12\\arctan x+C$",
+   "solution": "记 $I_n=\\int\\dfrac{\\mathrm{d}x}{(x^2+1)^n}$。对 $I_1$ 分部积分：\n$$I_1=\\dfrac{x}{x^2+1}+\\int\\dfrac{2x^2}{(x^2+1)^2}\\,\\mathrm{d}x=\\dfrac{x}{x^2+1}+2I_1-2I_2,$$\n故\n$$I_2=\\dfrac{x}{2(x^2+1)}+\\dfrac12I_1=\\dfrac{x}{2(x^2+1)}+\\dfrac12\\arctan x+C.$$",
+   "solutionSource": "编写",
+   "source": "经典题"
+  },
+  {
+   "no": "11",
+   "type": "证明",
+   "subjects": [
+    "数学分析"
+   ],
+   "topics": [
+    "递推公式",
+    "分部积分"
+   ],
+   "difficulty": 3,
+   "statement": "设 $I_n=\\displaystyle\\int\\sin^nx\\,\\mathrm{d}x$（$n\\ge2$）。证明递推公式\n$$I_n=-\\dfrac{\\sin^{n-1}x\\cos x}{n}+\\dfrac{n-1}{n}I_{n-2},$$\n并由此求 $\\displaystyle\\int\\sin^4x\\,\\mathrm{d}x$。",
+   "answer": "$\\displaystyle\\int\\sin^4x\\,\\mathrm{d}x=-\\dfrac{\\sin^3x\\cos x}{4}-\\dfrac{3\\sin x\\cos x}{8}+\\dfrac{3x}{8}+C$",
+   "solution": "$$I_n=-\\int\\sin^{n-1}x\\,\\mathrm{d}(\\cos x)=-\\sin^{n-1}x\\cos x+(n-1)\\int\\sin^{n-2}x\\cos^2x\\,\\mathrm{d}x.$$\n用 $\\cos^2x=1-\\sin^2x$：$I_n=-\\sin^{n-1}x\\cos x+(n-1)I_{n-2}-(n-1)I_n$，移项得递推式。\n\n$n=4$：$I_4=-\\dfrac{\\sin^3x\\cos x}{4}+\\dfrac34I_2$，$I_2=-\\dfrac{\\sin x\\cos x}{2}+\\dfrac x2+C$，所以\n$$\\int\\sin^4x\\,\\mathrm{d}x=-\\dfrac{\\sin^3x\\cos x}4-\\dfrac{3\\sin x\\cos x}{8}+\\dfrac{3x}8+C.$$",
+   "solutionSource": "编写",
+   "source": "经典题"
+  },
+  {
+   "no": "12",
+   "type": "计算",
+   "subjects": [
+    "数学分析"
+   ],
+   "topics": [
+    "凑微分",
+    "有理函数积分"
+   ],
+   "difficulty": 3,
+   "statement": "求 $\\displaystyle\\int\\dfrac{x^2+1}{x^4+1}\\,\\mathrm{d}x$。",
+   "answer": "$\\dfrac1{\\sqrt2}\\arctan\\dfrac{x^2-1}{\\sqrt2\\,x}+C$（在 $x>0$ 与 $x<0$ 上分别成立）",
+   "solution": "当 $x\\ne0$ 时，分子分母同除以 $x^2$：\n$$\\int\\dfrac{1+\\frac1{x^2}}{x^2+\\frac1{x^2}}\\,\\mathrm{d}x=\\int\\dfrac{\\mathrm{d}\\left(x-\\frac1x\\right)}{\\left(x-\\frac1x\\right)^2+2}=\\dfrac1{\\sqrt2}\\arctan\\dfrac{x-\\frac1x}{\\sqrt2}+C=\\dfrac{1}{\\sqrt2}\\arctan\\dfrac{x^2-1}{\\sqrt2\\,x}+C.$$\n该表达式在 $x=0$ 处无定义，故在 $(-\\infty,0)$、$(0,+\\infty)$ 上分别成立（两侧常数可以不同；若要在 $\\mathbb{R}$ 上得到连续原函数，需适当调整常数）。",
+   "solutionSource": "编写",
+   "source": "经典题"
+  },
+  {
+   "no": "13",
+   "type": "计算",
+   "subjects": [
+    "数学分析"
+   ],
+   "topics": [
+    "凑微分",
+    "乘积求导的逆用"
+   ],
+   "difficulty": 3,
+   "statement": "求 $\\displaystyle\\int e^x\\dfrac{1+\\sin x}{1+\\cos x}\\,\\mathrm{d}x$。",
+   "answer": "$e^x\\tan\\dfrac x2+C$",
+   "solution": "由半角公式\n$$\\dfrac{1+\\sin x}{1+\\cos x}=\\dfrac{1}{2\\cos^2\\frac x2}+\\dfrac{2\\sin\\frac x2\\cos\\frac x2}{2\\cos^2\\frac x2}=\\dfrac12\\sec^2\\dfrac x2+\\tan\\dfrac x2.$$\n注意 $\\left(\\tan\\dfrac x2\\right)'=\\dfrac12\\sec^2\\dfrac x2$，被积函数正是 $e^x\\left(g+g'\\right)$ 的形式（$g=\\tan\\frac x2$），而 $(e^xg)'=e^x(g+g')$，故\n$$\\int e^x\\dfrac{1+\\sin x}{1+\\cos x}\\,\\mathrm{d}x=e^x\\tan\\dfrac x2+C.$$",
+   "solutionSource": "编写",
+   "source": "经典题"
+  },
+  {
+   "no": "14",
+   "type": "计算",
+   "subjects": [
+    "数学分析"
+   ],
+   "topics": [
+    "凑微分",
+    "乘积求导的逆用"
+   ],
+   "difficulty": 3,
+   "statement": "求 $\\displaystyle\\int\\dfrac{xe^x}{(1+x)^2}\\,\\mathrm{d}x$。",
+   "answer": "$\\dfrac{e^x}{1+x}+C$",
+   "solution": "$\\dfrac{x}{(1+x)^2}=\\dfrac{1}{1+x}-\\dfrac1{(1+x)^2}$，令 $g=\\dfrac1{1+x}$，$g'=-\\dfrac1{(1+x)^2}$，被积函数为 $e^x(g+g')=(e^xg)'$，故\n$$\\int\\dfrac{xe^x}{(1+x)^2}\\,\\mathrm{d}x=\\dfrac{e^x}{1+x}+C.$$",
+   "solutionSource": "编写",
+   "source": "经典题"
+  },
+  {
+   "no": "15",
+   "type": "计算",
+   "subjects": [
+    "数学分析"
+   ],
+   "topics": [
+    "三角有理式",
+    "换元积分"
+   ],
+   "difficulty": 4,
+   "statement": "求 $\\displaystyle\\int\\dfrac{\\mathrm{d}x}{\\sin^6x+\\cos^6x}$。",
+   "answer": "$\\arctan(\\tan x-\\cot x)+C$（在每个区间 $\\left(\\dfrac{k\\pi}2,\\dfrac{(k+1)\\pi}2\\right)$ 内）",
+   "solution": "令 $t=\\tan x$（先在 $\\left(0,\\dfrac\\pi2\\right)$ 内讨论），$\\sin^6x+\\cos^6x=\\cos^6x\\,(t^6+1)$，$\\cos^2x=\\dfrac1{1+t^2}$，$\\mathrm{d}x=\\dfrac{\\mathrm{d}t}{1+t^2}$：\n$$\\int\\dfrac{(1+t^2)^3}{1+t^6}\\cdot\\dfrac{\\mathrm{d}t}{1+t^2}=\\int\\dfrac{(1+t^2)^2}{(1+t^2)(t^4-t^2+1)}\\,\\mathrm{d}t=\\int\\dfrac{1+t^2}{t^4-t^2+1}\\,\\mathrm{d}t.$$\n同除 $t^2$：\n$$\\int\\dfrac{1+\\frac1{t^2}}{t^2+\\frac1{t^2}-1}\\,\\mathrm{d}t=\\int\\dfrac{\\mathrm{d}\\left(t-\\frac1t\\right)}{\\left(t-\\frac1t\\right)^2+1}=\\arctan\\left(t-\\dfrac1t\\right)+C.$$\n即 $\\arctan(\\tan x-\\cot x)+C=-\\arctan(2\\cot2x)+C$，在每个不含 $\\dfrac{k\\pi}2$ 的区间内成立；求导可验证在这些区间上导数等于被积函数。\n\n（另法：$\\sin^6x+\\cos^6x=1-\\dfrac34\\sin^22x$。）",
+   "solutionSource": "编写",
+   "source": "经典题"
+  },
+  {
+   "no": "16",
+   "type": "计算",
+   "subjects": [
+    "数学分析"
+   ],
+   "topics": [
+    "根式代换",
+    "有理函数积分"
+   ],
+   "difficulty": 5,
+   "statement": "求 $\\displaystyle\\int\\sqrt{\\tan x}\\,\\mathrm{d}x$（$0<x<\\dfrac\\pi2$）。",
+   "answer": "$\\dfrac1{\\sqrt2}\\arctan\\dfrac{\\tan x-1}{\\sqrt{2\\tan x}}+\\dfrac{1}{2\\sqrt2}\\ln\\dfrac{\\tan x-\\sqrt{2\\tan x}+1}{\\tan x+\\sqrt{2\\tan x}+1}+C$",
+   "solution": "令 $t=\\sqrt{\\tan x}>0$，$x=\\arctan t^2$，$\\mathrm{d}x=\\dfrac{2t\\,\\mathrm{d}t}{1+t^4}$，\n$$\\int\\sqrt{\\tan x}\\,\\mathrm{d}x=\\int\\dfrac{2t^2}{1+t^4}\\,\\mathrm{d}t=\\int\\dfrac{t^2+1}{t^4+1}\\,\\mathrm{d}t+\\int\\dfrac{t^2-1}{t^4+1}\\,\\mathrm{d}t.$$\n第一个积分（同除 $t^2$，凑 $\\mathrm{d}(t-\\frac1t)$）：\n$$\\int\\dfrac{\\mathrm{d}\\left(t-\\frac1t\\right)}{\\left(t-\\frac1t\\right)^2+2}=\\dfrac1{\\sqrt2}\\arctan\\dfrac{t^2-1}{\\sqrt2\\,t}.$$\n第二个积分（凑 $\\mathrm{d}(t+\\frac1t)$）：\n$$\\int\\dfrac{\\mathrm{d}\\left(t+\\frac1t\\right)}{\\left(t+\\frac1t\\right)^2-2}=\\dfrac1{2\\sqrt2}\\ln\\left|\\dfrac{t+\\frac1t-\\sqrt2}{t+\\frac1t+\\sqrt2}\\right|=\\dfrac{1}{2\\sqrt2}\\ln\\dfrac{t^2-\\sqrt2t+1}{t^2+\\sqrt2t+1}.$$\n代回 $t^2=\\tan x$，$\\sqrt2t=\\sqrt{2\\tan x}$，得答案。（可求导验证。）",
+   "solutionSource": "编写",
+   "source": "经典题"
+  }
+ ]
+}

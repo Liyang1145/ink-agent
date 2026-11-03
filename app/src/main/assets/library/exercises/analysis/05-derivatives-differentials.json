@@ -1,0 +1,278 @@
+{
+ "id": "ex-analysis-05",
+ "title": "数学分析 · 导数与微分",
+ "subject": "数学分析",
+ "chapter": 5,
+ "problems": [
+  {
+   "no": "1",
+   "type": "计算",
+   "subjects": [
+    "数学分析"
+   ],
+   "topics": [
+    "导数定义"
+   ],
+   "difficulty": 1,
+   "statement": "用导数的定义求 $f(x)=\\sqrt x$ 在 $x>0$ 处的导数。",
+   "answer": "$\\dfrac{1}{2\\sqrt x}$",
+   "solution": "$$f'(x)=\\lim_{h\\to0}\\dfrac{\\sqrt{x+h}-\\sqrt x}{h}=\\lim_{h\\to0}\\dfrac{1}{\\sqrt{x+h}+\\sqrt x}=\\dfrac1{2\\sqrt x}.$$",
+   "solutionSource": "编写",
+   "source": "经典题"
+  },
+  {
+   "no": "2",
+   "type": "计算",
+   "subjects": [
+    "数学分析"
+   ],
+   "topics": [
+    "分段函数",
+    "可导性"
+   ],
+   "difficulty": 1,
+   "statement": "设 $f(x)=\\begin{cases}x^2,&x\\le1,\\\\ax+b,&x>1.\\end{cases}$ 求 $a,b$ 使 $f$ 在 $x=1$ 处可导。",
+   "answer": "$a=2$，$b=-1$",
+   "solution": "可导必连续：$f(1+0)=a+b=f(1)=1$。\n\n左导数 $f'_-(1)=\\lim_{h\\to0^-}\\dfrac{(1+h)^2-1}{h}=2$；右导数 $f'_+(1)=\\lim_{h\\to0^+}\\dfrac{a(1+h)+b-1}{h}=\\lim_{h\\to0^+}\\dfrac{ah}{h}=a$（用到 $a+b=1$）。令 $a=2$，得 $b=-1$。",
+   "solutionSource": "编写",
+   "source": "经典题"
+  },
+  {
+   "no": "3",
+   "type": "计算",
+   "subjects": [
+    "数学分析"
+   ],
+   "topics": [
+    "对数求导法"
+   ],
+   "difficulty": 1,
+   "statement": "求 $y=x^x$（$x>0$）的导数。",
+   "answer": "$y'=x^x(\\ln x+1)$",
+   "solution": "$\\ln y=x\\ln x$，两边对 $x$ 求导：$\\dfrac{y'}{y}=\\ln x+1$，故 $y'=x^x(\\ln x+1)$。",
+   "solutionSource": "编写",
+   "source": "经典题"
+  },
+  {
+   "no": "4",
+   "type": "计算",
+   "subjects": [
+    "数学分析"
+   ],
+   "topics": [
+    "隐函数求导"
+   ],
+   "difficulty": 1,
+   "statement": "设 $y=y(x)$ 由 $x^3+y^3-3axy=0$ 确定，求 $y'$。",
+   "answer": "$y'=\\dfrac{ay-x^2}{y^2-ax}$（$y^2\\ne ax$）",
+   "solution": "两边对 $x$ 求导：$3x^2+3y^2y'-3a(y+xy')=0$，整理得 $(y^2-ax)y'=ay-x^2$，故 $y'=\\dfrac{ay-x^2}{y^2-ax}$。",
+   "solutionSource": "编写",
+   "source": "经典题"
+  },
+  {
+   "no": "5",
+   "type": "证明",
+   "subjects": [
+    "数学分析"
+   ],
+   "topics": [
+    "导数",
+    "奇偶性",
+    "周期性"
+   ],
+   "difficulty": 1,
+   "statement": "设 $f$ 在 $\\mathbb{R}$ 上可导。证明：（1）若 $f$ 为偶函数，则 $f'$ 为奇函数；（2）若 $f$ 以 $T$ 为周期，则 $f'$ 也以 $T$ 为周期。",
+   "answer": "",
+   "solution": "（1）对 $f(-x)=f(x)$ 两边求导（链式法则）：$-f'(-x)=f'(x)$，即 $f'(-x)=-f'(x)$。\n\n（2）$f'(x+T)=\\lim_{h\\to0}\\dfrac{f(x+T+h)-f(x+T)}h=\\lim_{h\\to0}\\dfrac{f(x+h)-f(x)}h=f'(x)$。",
+   "solutionSource": "编写",
+   "source": "经典题"
+  },
+  {
+   "no": "6",
+   "type": "计算",
+   "subjects": [
+    "数学分析"
+   ],
+   "topics": [
+    "微分",
+    "近似计算"
+   ],
+   "difficulty": 1,
+   "statement": "利用微分求 $\\sqrt[3]{1.02}$ 的近似值。",
+   "answer": "$\\approx1.0067$",
+   "solution": "令 $f(x)=\\sqrt[3]{x}$，$f'(1)=\\dfrac13$。由 $f(1+\\Delta x)\\approx f(1)+f'(1)\\Delta x$，\n$$\\sqrt[3]{1.02}\\approx1+\\dfrac13\\times0.02\\approx1.0067.$$\n（精确值约为 $1.00662$。）",
+   "solutionSource": "编写",
+   "source": "经典题"
+  },
+  {
+   "no": "7",
+   "type": "证明",
+   "subjects": [
+    "数学分析"
+   ],
+   "topics": [
+    "导数定义",
+    "导函数的连续性"
+   ],
+   "difficulty": 2,
+   "statement": "设 $f(x)=\\begin{cases}x^2\\sin\\dfrac1x,&x\\ne0,\\\\0,&x=0.\\end{cases}$ 证明 $f$ 在 $\\mathbb{R}$ 上可导，但 $f'$ 在 $x=0$ 处不连续。",
+   "answer": "",
+   "solution": "$x\\ne0$ 时 $f'(x)=2x\\sin\\dfrac1x-\\cos\\dfrac1x$。在 $x=0$ 处，\n$$f'(0)=\\lim_{h\\to0}\\dfrac{h^2\\sin\\frac1h}{h}=\\lim_{h\\to0}h\\sin\\dfrac1h=0.$$\n当 $x\\to0$ 时 $2x\\sin\\dfrac1x\\to0$，而 $\\cos\\dfrac1x$ 无极限（取 $x_n=\\dfrac1{2n\\pi}$ 与 $\\dfrac1{(2n+1)\\pi}$ 分别得 $1$ 与 $-1$），故 $\\lim_{x\\to0}f'(x)$ 不存在，$f'$ 在 $0$ 处（第二类）间断。",
+   "solutionSource": "编写",
+   "source": "经典题"
+  },
+  {
+   "no": "8",
+   "type": "证明",
+   "subjects": [
+    "数学分析"
+   ],
+   "topics": [
+    "导数定义",
+    "可导的充要条件"
+   ],
+   "difficulty": 2,
+   "statement": "设 $f(x)=|x-a|\\varphi(x)$，其中 $\\varphi$ 在 $x=a$ 处连续。证明 $f$ 在 $x=a$ 可导当且仅当 $\\varphi(a)=0$。",
+   "answer": "",
+   "solution": "$f(a)=0$，\n$$f'_+(a)=\\lim_{h\\to0^+}\\dfrac{h\\varphi(a+h)}{h}=\\varphi(a),\\qquad f'_-(a)=\\lim_{h\\to0^-}\\dfrac{-h\\varphi(a+h)}{h}=-\\varphi(a).$$\n可导 $\\iff\\varphi(a)=-\\varphi(a)\\iff\\varphi(a)=0$，此时 $f'(a)=0$。",
+   "solutionSource": "编写",
+   "source": "经典题"
+  },
+  {
+   "no": "9",
+   "type": "计算",
+   "subjects": [
+    "数学分析"
+   ],
+   "topics": [
+    "参数方程求导",
+    "二阶导数"
+   ],
+   "difficulty": 2,
+   "statement": "设摆线 $x=a(t-\\sin t)$，$y=a(1-\\cos t)$（$a>0$，$0<t<2\\pi$），求 $\\dfrac{\\mathrm{d}y}{\\mathrm{d}x}$ 与 $\\dfrac{\\mathrm{d}^2y}{\\mathrm{d}x^2}$。",
+   "answer": "$\\dfrac{\\mathrm{d}y}{\\mathrm{d}x}=\\cot\\dfrac t2$，$\\dfrac{\\mathrm{d}^2y}{\\mathrm{d}x^2}=-\\dfrac{1}{4a\\sin^4\\frac t2}$",
+   "solution": "$$\\dfrac{\\mathrm{d}y}{\\mathrm{d}x}=\\dfrac{a\\sin t}{a(1-\\cos t)}=\\dfrac{2\\sin\\frac t2\\cos\\frac t2}{2\\sin^2\\frac t2}=\\cot\\dfrac t2.$$\n$$\\dfrac{\\mathrm{d}^2y}{\\mathrm{d}x^2}=\\dfrac{\\frac{\\mathrm{d}}{\\mathrm{d}t}\\left(\\cot\\frac t2\\right)}{\\frac{\\mathrm{d}x}{\\mathrm{d}t}}=\\dfrac{-\\frac12\\csc^2\\frac t2}{a(1-\\cos t)}=\\dfrac{-\\frac12\\csc^2\\frac t2}{2a\\sin^2\\frac t2}=-\\dfrac{1}{4a\\sin^4\\frac t2}.$$",
+   "solutionSource": "编写",
+   "source": "经典题"
+  },
+  {
+   "no": "10",
+   "type": "计算",
+   "subjects": [
+    "数学分析"
+   ],
+   "topics": [
+    "高阶导数",
+    "Leibniz公式"
+   ],
+   "difficulty": 2,
+   "statement": "求 $y=x^2e^x$ 的 $n$ 阶导数。",
+   "answer": "$y^{(n)}=e^x\\big(x^2+2nx+n(n-1)\\big)$",
+   "solution": "由 Leibniz 公式，$(x^2)'=2x$，$(x^2)''=2$，更高阶为 $0$，$(e^x)^{(k)}=e^x$：\n$$y^{(n)}=x^2e^x+\\binom n1 2x\\,e^x+\\binom n2\\cdot2\\,e^x=e^x\\big(x^2+2nx+n(n-1)\\big).$$",
+   "solutionSource": "编写",
+   "source": "经典题"
+  },
+  {
+   "no": "11",
+   "type": "计算",
+   "subjects": [
+    "数学分析"
+   ],
+   "topics": [
+    "导数定义",
+    "重要极限"
+   ],
+   "difficulty": 3,
+   "statement": "设 $f$ 在 $x=a$ 处可导且 $f(a)\\ne0$，求 $\\displaystyle\\lim_{n\\to\\infty}\\left(\\dfrac{f\\left(a+\\frac1n\\right)}{f(a)}\\right)^n$。",
+   "answer": "$e^{\\frac{f'(a)}{f(a)}}$",
+   "solution": "可导必连续，$\\dfrac{f(a+1/n)}{f(a)}\\to1$，$n$ 充分大时为正。记 $u_n=\\dfrac{f(a+1/n)-f(a)}{f(a)}\\to0$，则\n$$n\\ln(1+u_n)=\\dfrac{\\ln(1+u_n)}{u_n}\\cdot nu_n,\\qquad nu_n=\\dfrac{1}{f(a)}\\cdot\\dfrac{f(a+\\frac1n)-f(a)}{\\frac1n}\\to\\dfrac{f'(a)}{f(a)}.$$\n（$u_n=0$ 时相应项直接为 $0$。）故所求极限为 $e^{f'(a)/f(a)}$。",
+   "solutionSource": "编写",
+   "source": "经典题"
+  },
+  {
+   "no": "12",
+   "type": "计算",
+   "subjects": [
+    "数学分析"
+   ],
+   "topics": [
+    "函数方程",
+    "导数定义"
+   ],
+   "difficulty": 3,
+   "statement": "设 $f$ 在 $\\mathbb{R}$ 上有定义，对任意 $x,y$ 满足 $f(x+y)=f(x)+f(y)+2xy$，且 $f'(0)=1$。求 $f(x)$。",
+   "answer": "$f(x)=x^2+x$",
+   "solution": "令 $x=y=0$ 得 $f(0)=0$。对任意 $x$，\n$$\\dfrac{f(x+h)-f(x)}{h}=\\dfrac{f(h)+2xh}{h}=\\dfrac{f(h)-f(0)}{h}+2x\\to f'(0)+2x=1+2x.$$\n故 $f$ 处处可导，$f'(x)=1+2x$，结合 $f(0)=0$ 得 $f(x)=x^2+x$（容易验证它满足方程）。",
+   "solutionSource": "编写",
+   "source": "经典题"
+  },
+  {
+   "no": "13",
+   "type": "计算",
+   "subjects": [
+    "数学分析"
+   ],
+   "topics": [
+    "Leibniz公式",
+    "Legendre多项式"
+   ],
+   "difficulty": 3,
+   "statement": "设 $P_n(x)=\\dfrac{1}{2^nn!}\\dfrac{\\mathrm{d}^n}{\\mathrm{d}x^n}(x^2-1)^n$（Legendre 多项式），求 $P_n(1)$ 与 $P_n(-1)$。",
+   "answer": "$P_n(1)=1$，$P_n(-1)=(-1)^n$",
+   "solution": "$(x^2-1)^n=(x-1)^n(x+1)^n$。由 Leibniz 公式\n$$\\dfrac{\\mathrm{d}^n}{\\mathrm{d}x^n}\\big[(x-1)^n(x+1)^n\\big]=\\sum_{k=0}^n\\binom nk\\big[(x-1)^n\\big]^{(k)}\\big[(x+1)^n\\big]^{(n-k)}.$$\n当 $k<n$ 时 $[(x-1)^n]^{(k)}$ 含因子 $(x-1)$，在 $x=1$ 处为 $0$；$k=n$ 项为 $n!\\,(x+1)^n$。故 $P_n(1)=\\dfrac{n!\\,2^n}{2^nn!}=1$。\n\n同理在 $x=-1$ 处只剩 $(x-1)^n\\cdot n!$ 一项，$P_n(-1)=\\dfrac{(-2)^nn!}{2^nn!}=(-1)^n$。",
+   "solutionSource": "编写",
+   "source": "经典题"
+  },
+  {
+   "no": "14",
+   "type": "计算",
+   "subjects": [
+    "数学分析"
+   ],
+   "topics": [
+    "高阶导数",
+    "递推关系"
+   ],
+   "difficulty": 4,
+   "statement": "设 $y=\\arctan x$，求 $y^{(n)}(0)$。",
+   "answer": "$y^{(2m)}(0)=0$，$y^{(2m+1)}(0)=(-1)^m(2m)!$",
+   "solution": "由 $(1+x^2)y'=1$，两边求 $n$ 阶导（$n\\ge1$），用 Leibniz 公式：\n$$(1+x^2)y^{(n+1)}+2nx\\,y^{(n)}+n(n-1)y^{(n-1)}=0.$$\n令 $x=0$：$y^{(n+1)}(0)=-n(n-1)y^{(n-1)}(0)$。\n\n初值 $y(0)=0$，$y'(0)=1$。偶数阶：$y^{(2)}(0)=-1\\cdot0\\cdot y(0)=0$，递推得一切偶数阶为 $0$。奇数阶：$y^{(2m+1)}(0)=-2m(2m-1)y^{(2m-1)}(0)$，故\n$$y^{(2m+1)}(0)=(-1)^m(2m)!.$$\n（与展开式 $\\arctan x=\\sum(-1)^m\\dfrac{x^{2m+1}}{2m+1}$ 一致：$\\dfrac{(2m)!}{(2m+1)!}=\\dfrac1{2m+1}$。）",
+   "solutionSource": "编写",
+   "source": "经典题"
+  },
+  {
+   "no": "15",
+   "type": "证明",
+   "subjects": [
+    "数学分析"
+   ],
+   "topics": [
+    "导数定义",
+    "差分"
+   ],
+   "difficulty": 4,
+   "statement": "设 $f$ 在 $x=0$ 的某邻域内有定义，在 $x=0$ 处连续，且 $\\displaystyle\\lim_{x\\to0}\\dfrac{f(2x)-f(x)}{x}=A$。证明 $f'(0)$ 存在且等于 $A$。",
+   "answer": "",
+   "solution": "任给 $\\varepsilon>0$，存在 $\\delta>0$，当 $0<|t|<\\delta$ 时 $|f(2t)-f(t)-At|<\\varepsilon|t|$。\n\n对 $0<|x|<\\delta$ 及正整数 $n$，在上式中依次取 $t=\\dfrac{x}{2^k}$（$k=1,\\dots,n$）并相加：\n$$\\left|f(x)-f\\left(\\dfrac x{2^n}\\right)-A\\sum_{k=1}^n\\dfrac x{2^k}\\right|\\le\\sum_{k=1}^n\\left|f\\left(\\dfrac{x}{2^{k-1}}\\right)-f\\left(\\dfrac x{2^k}\\right)-A\\dfrac x{2^k}\\right|<\\varepsilon|x|\\sum_{k=1}^n\\dfrac1{2^k}<\\varepsilon|x|.$$\n令 $n\\to\\infty$，由 $f$ 在 $0$ 处连续，$f(x/2^n)\\to f(0)$，$\\sum\\dfrac{x}{2^k}\\to x$，得\n$$|f(x)-f(0)-Ax|\\le\\varepsilon|x|,\\quad 0<|x|<\\delta.$$\n即 $\\left|\\dfrac{f(x)-f(0)}{x}-A\\right|\\le\\varepsilon$，故 $f'(0)=A$。\n\n注：连续性不可去掉，例如 $f(x)=\\begin{cases}1,&x\\ne0\\\\0,&x=0\\end{cases}$ 满足极限条件（$A=0$）但不可导。",
+   "solutionSource": "编写",
+   "source": "经典题"
+  },
+  {
+   "no": "16",
+   "type": "证明",
+   "subjects": [
+    "数学分析"
+   ],
+   "topics": [
+    "导数定义",
+    "反例构造"
+   ],
+   "difficulty": 5,
+   "statement": "设 $f$ 在 $x_0$ 处可导，$\\alpha_n<x_0<\\beta_n$，且 $\\alpha_n\\to x_0$，$\\beta_n\\to x_0$。\n（1）证明 $\\displaystyle\\lim_{n\\to\\infty}\\dfrac{f(\\beta_n)-f(\\alpha_n)}{\\beta_n-\\alpha_n}=f'(x_0)$；\n（2）举例说明，若只假设 $\\alpha_n<\\beta_n$ 且都趋于 $x_0$（不要求 $x_0$ 夹在中间），结论可能不成立。",
+   "answer": "",
+   "solution": "（1）令 $\\lambda_n=\\dfrac{\\beta_n-x_0}{\\beta_n-\\alpha_n}\\in(0,1)$，则\n$$\\dfrac{f(\\beta_n)-f(\\alpha_n)}{\\beta_n-\\alpha_n}=\\lambda_n\\dfrac{f(\\beta_n)-f(x_0)}{\\beta_n-x_0}+(1-\\lambda_n)\\dfrac{f(x_0)-f(\\alpha_n)}{x_0-\\alpha_n}.$$\n两个差商都 $\\to f'(x_0)$，记它们为 $f'(x_0)+\\varepsilon_n$ 与 $f'(x_0)+\\eta_n$，则上式 $=f'(x_0)+\\lambda_n\\varepsilon_n+(1-\\lambda_n)\\eta_n$，而 $|\\lambda_n\\varepsilon_n+(1-\\lambda_n)\\eta_n|\\le|\\varepsilon_n|+|\\eta_n|\\to0$。\n\n（2）取 $f(x)=x^2\\sin\\dfrac1x$（$f(0)=0$），$x_0=0$，$f'(0)=0$。令\n$$\\beta_n=\\dfrac1{2n\\pi+\\frac\\pi2},\\qquad\\alpha_n=\\dfrac1{2n\\pi+\\frac{3\\pi}2},$$\n则 $0<\\alpha_n<\\beta_n\\to0$，$f(\\beta_n)=\\beta_n^2$，$f(\\alpha_n)=-\\alpha_n^2$，\n$$\\beta_n-\\alpha_n=\\dfrac{\\pi}{\\left(2n\\pi+\\frac\\pi2\\right)\\left(2n\\pi+\\frac{3\\pi}2\\right)}\\sim\\dfrac{1}{4\\pi n^2},\\qquad\\beta_n^2+\\alpha_n^2\\sim\\dfrac{2}{4\\pi^2n^2}.$$\n所以 $\\dfrac{f(\\beta_n)-f(\\alpha_n)}{\\beta_n-\\alpha_n}=\\dfrac{\\beta_n^2+\\alpha_n^2}{\\beta_n-\\alpha_n}\\to\\dfrac{2}{\\pi}\\ne0=f'(0)$。",
+   "solutionSource": "编写",
+   "source": "经典题"
+  }
+ ]
+}

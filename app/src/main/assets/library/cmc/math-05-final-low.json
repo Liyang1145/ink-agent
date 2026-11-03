@@ -1,0 +1,131 @@
+{
+ "id": "cmc-math-05-final-low",
+ "title": "第五届全国大学生数学竞赛决赛（数学类低年级组（一、二年级））",
+ "year": 2014,
+ "track": "数学类",
+ "round": "决赛",
+ "paper": "low",
+ "durationMin": 180,
+ "totalScore": 100,
+ "source": {
+  "question": "2014年03月-数学类一、二年级-第五届全国决赛试卷.pdf",
+  "solution": "2014年03月-数学类一、二年级参考解答-第五届全国决赛试卷.pdf"
+ },
+ "problems": [
+  {
+   "no": "一",
+   "score": 15,
+   "type": "证明",
+   "subjects": [
+    "解析几何"
+   ],
+   "topics": [
+    "抛物面",
+    "切线",
+    "切点轨迹",
+    "极平面"
+   ],
+   "difficulty": 2,
+   "statement": "设 $S$ 为 $\\mathbb R^3$ 中的抛物面 $z=\\dfrac12(x^2+y^2)$，$P=(a,b,c)$ 为 $S$ 外一固定点，满足 $a^2+b^2>2c$。过 $P$ 作 $S$ 的所有切线。证明：这些切线的切点落在同一张平面上。",
+   "answer": "",
+   "solution": "设 $l$ 是过 $P$ 的一条切线，方向向量 $V=(u,v,w)$，切点 $Q=P+tV=(a+tu,b+tv,c+tw)$，其中 $t$ 是方程\n$$(u^2+v^2)t^2+2(au+bv-w)t+(a^2+b^2-2c)=0$$\n的唯一重根（由 $2(c+tw)=(a+tu)^2+(b+tv)^2$ 化得）。于是判别式为零：$(au+bv-w)^2=(u^2+v^2)(a^2+b^2-2c)$，且\n$$t=\\frac{w-au-bv}{u^2+v^2}=\\frac{a^2+b^2-2c}{w-au-bv}.$$\n从而切点 $Q=(X,Y,Z)$ 满足\n$$aX+bY-Z=(a^2+b^2-c)+t(au+bv-w)=(a^2+b^2-c)-(a^2+b^2-2c)=c.$$\n所以所有切点落在平面 $ax+by-z=c$ 上。",
+   "solutionSource": "官方"
+  },
+  {
+   "no": "二",
+   "score": 15,
+   "type": "计算",
+   "subjects": [
+    "高等代数"
+   ],
+   "topics": [
+    "特征值",
+    "几何重数",
+    "可对角化",
+    "二次型",
+    "正交变换标准形"
+   ],
+   "difficulty": 2,
+   "statement": "设实二次型 $f(x_1,x_2,x_3,x_4)=x^TAx$，其中\n$$x=\\begin{pmatrix}x_1\\\\x_2\\\\x_3\\\\x_4\\end{pmatrix},\\quad A=\\begin{pmatrix}2&a_0&2&-2\\\\a&0&b&c\\\\d&e&0&f\\\\g&h&k&4\\end{pmatrix},$$\n$a_0,a,b,c,d,e,f,g,h,k$ 皆为实数。已知 $\\lambda_1=2$ 是 $A$ 的一个几何重数为 3 的特征值。试回答以下问题：\n\n(1) $A$ 能否相似于对角矩阵；若能，请给出证明；若不能，请给出例子；\n\n(2) 当 $a_0=2$ 时，试求 $f(x_1,x_2,x_3,x_4)$ 在正交变换下的标准型。",
+   "answer": "(1) 能；(2) $2y_1^2+2y_2^2+(1+2\\sqrt3)y_3^2+(1-2\\sqrt3)y_4^2$",
+   "solution": "**(1)** 几何重数不超过代数重数，故 $\\lambda_1=2$ 的代数重数至少为 3。由 $\\operatorname{tr}A=6$ 为特征值之和，若代数重数为 4 则迹为 8，矛盾；故 $\\lambda_1$ 的代数重数为 3，另一特征值 $\\lambda_2=6-3\\cdot2=0$，代数重数为 1。于是 $A$ 有 4 个线性无关的特征向量，可对角化。\n\n**(2)** 几何重数为 3 意味着 $\\operatorname{rank}(A-2E)=1$，其中\n$$A-2E=\\begin{pmatrix}0&2&2&-2\\\\a&-2&b&c\\\\d&e&-2&f\\\\g&h&k&2\\end{pmatrix}.$$\n各行与第一行成比例，得 $a=0,b=-2,c=2$；$d=0,e=-2,f=2$；$g=0,h=-2,k=-2$。于是\n$$A=\\begin{pmatrix}2&2&2&-2\\\\0&0&-2&2\\\\0&-2&0&2\\\\0&-2&-2&4\\end{pmatrix},\\qquad f=x^TBx,\\ B=\\frac{A+A^T}2=\\begin{pmatrix}2&1&1&-1\\\\1&0&-2&0\\\\1&-2&0&0\\\\-1&0&0&4\\end{pmatrix}.$$\n$B$ 的特征值为 $2$（二重）、$1\\pm2\\sqrt3$。故正交变换下的标准型为\n$$2y_1^2+2y_2^2+(1+2\\sqrt3)y_3^2+(1-2\\sqrt3)y_4^2.$$",
+   "solutionSource": "官方"
+  },
+  {
+   "no": "三",
+   "score": 15,
+   "type": "证明",
+   "subjects": [
+    "高等代数"
+   ],
+   "topics": [
+    "可交换矩阵",
+    "特征值互异",
+    "范德蒙德行列式",
+    "矩阵空间的基"
+   ],
+   "difficulty": 3,
+   "statement": "设 $n$ 阶实方阵\n$$A=\\begin{pmatrix}a_1&b_1&0&\\cdots&0\\\\ *&\\ddots&\\ddots&\\ddots&0\\\\ *&\\ddots&\\ddots&\\ddots&0\\\\ *&\\ddots&\\ddots&\\ddots&b_{n-1}\\\\ *&\\cdots&\\cdots&\\cdots&a_n\\end{pmatrix}$$\n有 $n$ 个线性无关的特征向量，$b_1,\\cdots,b_{n-1}$ 均不为 0。记 $W=\\{X\\in\\mathbb R^{n\\times n}\\mid XA=AX\\}$。证明：$W$ 是实数域 $\\mathbb R$ 上的向量空间，且 $I,A,\\cdots,A^{n-1}$ 为其一组基，其中 $I$ 为 $n$ 阶单位阵。",
+   "answer": "",
+   "solution": "**(1) 特征值互异。** $A$ 有 $n$ 个线性无关的特征向量，故可对角化，其特征值均为实数（由题意特征向量在实空间中）。对任一特征值 $\\lambda_0$，$A-\\lambda_0I$ 删去第一列和最后一行所得 $n-1$ 阶子式为下三角阵，对角元为 $b_1,\\cdots,b_{n-1}\\neq0$，故 $\\operatorname{rank}(A-\\lambda_0I)=n-1$，几何重数为 1；由可对角化知代数重数也为 1。于是 $A$ 有 $n$ 个互不相同的特征值 $\\lambda_1,\\cdots,\\lambda_n$。\n\n**(2) $\\dim W=n$。** $W$ 对加法与数乘封闭，是向量空间。设 $A=PDP^{-1}$，$D=\\operatorname{diag}(\\lambda_1,\\cdots,\\lambda_n)$，则 $XA=AX\\iff (P^{-1}XP)D=D(P^{-1}XP)$。故 $X\\mapsto P^{-1}XP$ 是 $W$ 到 $V=\\{Y\\mid YD=DY\\}$ 的线性同构。由 $\\lambda_i$ 互异，$YD=DY$ 当且仅当 $Y$ 为对角阵，所以 $\\dim W=\\dim V=n$。\n\n**(3)** 显然 $I,A,\\cdots,A^{n-1}\\in W$。若 $x_0I+x_1A+\\cdots+x_{n-1}A^{n-1}=0$，作用于各特征向量得\n$$x_0+x_1\\lambda_j+\\cdots+x_{n-1}\\lambda_j^{n-1}=0,\\quad j=1,\\cdots,n,$$\n系数行列式为范德蒙德行列式，因 $\\lambda_j$ 互异而非零，故 $x_0=\\cdots=x_{n-1}=0$。所以 $I,A,\\cdots,A^{n-1}$ 线性无关，构成 $W$ 的一组基。\n\n（注：原解答中“rand”为笔误，应为 rank，已改正。）",
+   "solutionSource": "官方"
+  },
+  {
+   "no": "四",
+   "score": 15,
+   "type": "证明",
+   "subjects": [
+    "常微分方程",
+    "数学分析"
+   ],
+   "topics": [
+    "微分不等式",
+    "比较定理",
+    "反证法"
+   ],
+   "difficulty": 2,
+   "statement": "设 $f(x,y)$ 为 $[a,b]\\times\\mathbb R$ 上关于 $y$ 单调下降的二元函数。设 $y=y(x)$，$z=z(x)$ 是可微函数，且满足：\n$$y'=f(x,y),\\quad z'\\leqslant f(x,z),\\quad x\\in[a,b].$$\n已知 $z(a)\\leqslant y(a)$。求证：$z(x)\\leqslant y(x)$，$x\\in[a,b]$。",
+   "answer": "",
+   "solution": "反证。设存在 $x_0\\in[a,b]$ 使 $z(x_0)>y(x_0)$。令 $M=\\{x\\in[a,b]\\mid z(x)>y(x)\\}$，它是 $[a,b]$ 的非空（相对）开子集，且 $a\\notin M$。取 $x_0$ 所在的 $M$ 的连通分支 $(\\alpha,\\beta)$（或 $(\\alpha,\\beta]$），则\n$$y(\\alpha)=z(\\alpha),\\qquad z(x)>y(x),\\ x\\in(\\alpha,\\beta).$$\n在 $(\\alpha,\\beta)$ 上，由 $f$ 关于 $y$ 递减，\n$$z'(x)-y'(x)\\leqslant f(x,z(x))-f(x,y(x))\\leqslant0,$$\n故 $z-y$ 在 $[\\alpha,\\beta)$ 上单调不增，$z(x)-y(x)\\leqslant z(\\alpha)-y(\\alpha)=0$，与 $z>y$ 矛盾。",
+   "solutionSource": "官方"
+  },
+  {
+   "no": "五",
+   "score": 20,
+   "type": "证明",
+   "subjects": [
+    "数学分析"
+   ],
+   "topics": [
+    "积分不等式",
+    "变上限积分",
+    "单调性"
+   ],
+   "difficulty": 3,
+   "statement": "设 $f(x)$ 是 $[0,+\\infty)$ 上非负可导函数，\n$$f(0)=0,\\quad f'(x)\\leqslant\\frac12.$$\n假设 $\\displaystyle\\int_0^{+\\infty}f(x)\\,\\mathrm{d}x$ 收敛。求证：对于任意 $\\alpha>1$，$\\displaystyle\\int_0^{+\\infty}f^\\alpha(x)\\,\\mathrm{d}x$ 也收敛，并且\n$$\\int_0^{+\\infty}f^\\alpha(x)\\,\\mathrm{d}x\\leqslant\\left(\\int_0^{+\\infty}f(x)\\,\\mathrm{d}x\\right)^\\beta,\\quad\\beta=\\frac{\\alpha+1}2.$$",
+   "answer": "",
+   "solution": "令 $g(t)=\\left(\\displaystyle\\int_0^tf(x)\\,\\mathrm{d}x\\right)^\\beta-\\int_0^tf^\\alpha(x)\\,\\mathrm{d}x$，则\n$$g'(t)=f(t)\\left[\\beta\\left(\\int_0^tf(x)\\,\\mathrm{d}x\\right)^{\\beta-1}-f^{\\alpha-1}(t)\\right].$$\n注意 $\\alpha-1=2(\\beta-1)$，只需证 $\\beta^{\\frac1{\\beta-1}}\\int_0^tf\\,\\mathrm{d}x\\geqslant f^2(t)$。令\n$$h(t)=\\beta^{\\frac1{\\beta-1}}\\int_0^tf(x)\\,\\mathrm{d}x-f^2(t),\\qquad h'(t)=f(t)\\left[\\beta^{\\frac1{\\beta-1}}-2f'(t)\\right].$$\n由 $\\beta>1$ 有 $\\beta^{\\frac1{\\beta-1}}>1\\geqslant2f'(t)$，故 $h'\\geqslant0$，又 $h(0)=0$，得 $h\\geqslant0$，从而 $g'\\geqslant0$。由 $g(0)=0$ 得 $g(t)\\geqslant0$，即\n$$\\int_0^tf^\\alpha(x)\\,\\mathrm{d}x\\leqslant\\left(\\int_0^tf(x)\\,\\mathrm{d}x\\right)^\\beta.$$\n左边关于 $t$ 单调有界，故收敛；令 $t\\to+\\infty$ 即得所证。",
+   "solutionSource": "官方"
+  },
+  {
+   "no": "六",
+   "score": 20,
+   "type": "计算",
+   "subjects": [
+    "数学分析",
+    "高等代数"
+   ],
+   "topics": [
+    "多项式实根",
+    "罗尔定理",
+    "导数的根",
+    "极值问题"
+   ],
+   "difficulty": 5,
+   "statement": "对多项式 $f(x)$，记 $\\mathrm d(f)$ 表示其最大和最小实根之间的距离。设 $n\\geqslant2$ 为自然数。求最大实数 $C$，使得对任意所有根都是实数的 $n$ 次多项式 $f(x)$，都有\n$$\\mathrm d(f')\\geqslant C\\,\\mathrm d(f).$$",
+   "answer": "$C_{\\max}=\\sqrt{1-\\dfrac2n}$",
+   "solution": "答案 $C_{\\max}=\\sqrt{1-\\frac2n}$。不妨设 $f$ 首一，最小实根为 0，最大实根为 $a$：\n$$f(x)=(x-x_1)(x-x_2)\\cdots(x-x_n),\\quad0=x_1\\leqslant x_2\\leqslant\\cdots\\leqslant x_n=a.$$\n\n**引理** 若存在 $2\\leqslant k,m\\leqslant n-1$ 使 $x_k<x_m$，取 $x_k<x_k'\\leqslant x_m'<x_m$ 且 $x_k+x_m=x_k'+x_m'$，令 $f_1$ 为把 $x_k,x_m$ 换成 $x_k',x_m'$（其余根不变）所得多项式，则 $\\mathrm d(f_1')\\leqslant\\mathrm d(f')$。\n\n证明：$f(x)=f_1(x)-\\delta F(x)$，其中 $F(x)=\\dfrac{f_1(x)}{(x-x_k')(x-x_m')}$，$\\delta=x_k'x_m'-x_kx_m>0$。设 $\\alpha,\\beta$ 分别为 $f_1'$ 的最大、最小实根，则 $f_1(\\alpha)\\leqslant0$，$f_1(\\beta)(-1)^n\\leqslant0$，且由罗尔定理 $\\alpha\\geqslant x_m$，$\\beta\\leqslant x_k$。计算得\n$$f'(\\alpha)=\\delta\\frac{2\\alpha-x_k'-x_m'}{(\\alpha-x_k')^2(\\alpha-x_m')^2}f_1(\\alpha),$$\n于是 $f'(\\alpha)f_1(\\alpha)\\geqslant0$，故 $f'(\\alpha)\\leqslant0$，说明 $f'$ 的最大实根 $\\geqslant\\alpha$；同理 $f'$ 的最小实根 $\\leqslant\\beta$。引理得证。\n\n反复应用引理，可把中间 $n-2$ 个根都“压缩”到它们的平均值 $b=\\dfrac{x_2+\\cdots+x_{n-1}}{n-2}$，得 $g(x)=x(x-a)(x-b)^{n-2}$，且 $\\mathrm d(f')\\geqslant\\mathrm d(g')$。而\n$$g'(x)=(x-b)^{n-3}\\left(nx^2-\\big((n-1)a+2b\\big)x+ab\\right),$$\n$$\\mathrm d(g')=\\sqrt{a^2-\\frac{2a^2}{n}+\\left(\\frac{a-2b}{n}\\right)^2}\\geqslant\\sqrt{1-\\frac2n}\\,a.$$\n故 $C_{\\max}\\geqslant\\sqrt{1-\\frac2n}$；又当 $f(x)=x(x-a)\\left(x-\\frac a2\\right)^{n-2}$ 时 $\\mathrm d(f')=\\sqrt{1-\\frac2n}\\,\\mathrm d(f)$，所以 $C_{\\max}=\\sqrt{1-\\frac2n}$。",
+   "solutionSource": "官方"
+  }
+ ]
+}

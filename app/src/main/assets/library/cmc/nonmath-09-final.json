@@ -1,0 +1,250 @@
+{
+ "id": "cmc-nonmath-09-final",
+ "title": "第九届全国大学生数学竞赛决赛（非数学类）",
+ "year": 2018,
+ "track": "非数学类",
+ "round": "决赛",
+ "paper": "",
+ "durationMin": 180,
+ "totalScore": 100,
+ "source": {
+  "question": "2018年03-非数学类-第九届全国决赛试卷.pdf",
+  "solution": "2018年03-非数学类参考解答-第九届全国决赛试卷.pdf"
+ },
+ "problems": [
+  {
+   "no": "一(1)",
+   "score": 6,
+   "type": "填空",
+   "subjects": [
+    "高等数学"
+   ],
+   "topics": [
+    "函数极限",
+    "等价无穷小"
+   ],
+   "difficulty": 1,
+   "statement": "极限 $\\displaystyle\\lim_{x\\to0}\\frac{\\tan x-\\sin x}{x\\ln(1+\\sin^2x)}=$______。",
+   "answer": "$\\dfrac12$",
+   "solution": "$\\tan x-\\sin x=\\tan x(1-\\cos x)\\sim\\dfrac{x^3}{2}$，$x\\ln(1+\\sin^2x)\\sim x^3$，故极限为 $\\dfrac12$。（官方仅给答案，此处补充简要过程）",
+   "solutionSource": "官方"
+  },
+  {
+   "no": "一(2)",
+   "score": 6,
+   "type": "填空",
+   "subjects": [
+    "高等数学",
+    "解析几何"
+   ],
+   "topics": [
+    "平面方程",
+    "法向量",
+    "向量积"
+   ],
+   "difficulty": 1,
+   "statement": "设一平面过原点和点 $(6,-3,2)$，且与平面 $4x-y+2z=8$ 垂直，则此平面方程为______。",
+   "answer": "$2x+2y-3z=0$",
+   "solution": "所求平面的法向量垂直于 $(6,-3,2)$ 与 $(4,-1,2)$，取 $(6,-3,2)\\times(4,-1,2)=(-4,-4,6)\\parallel(2,2,-3)$，又过原点，故平面为 $2x+2y-3z=0$。（官方仅给答案，此处补充简要过程）",
+   "solutionSource": "官方"
+  },
+  {
+   "no": "一(3)",
+   "score": 6,
+   "type": "填空",
+   "subjects": [
+    "高等数学"
+   ],
+   "topics": [
+    "全微分",
+    "原函数"
+   ],
+   "difficulty": 1,
+   "statement": "设函数 $f(x,y)$ 具有一阶连续偏导数，满足 $\\mathrm{d}f(x,y)=ye^y\\,\\mathrm{d}x+x(1+y)e^y\\,\\mathrm{d}y$ 及 $f(0,0)=0$，则 $f(x,y)=$______。",
+   "answer": "$xye^y$",
+   "solution": "由 $\\mathrm{d}(xye^y)=ye^y\\,\\mathrm{d}x+x(e^y+ye^y)\\,\\mathrm{d}y$ 及 $f(0,0)=0$，得 $f(x,y)=xye^y$。（官方仅给答案，此处补充简要过程）",
+   "solutionSource": "官方"
+  },
+  {
+   "no": "一(4)",
+   "score": 6,
+   "type": "填空",
+   "subjects": [
+    "高等数学",
+    "常微分方程"
+   ],
+   "topics": [
+    "积分方程",
+    "一阶线性微分方程"
+   ],
+   "difficulty": 2,
+   "statement": "满足 $\\dfrac{\\mathrm{d}u(t)}{\\mathrm{d}t}=u(t)+\\displaystyle\\int_0^1u(t)\\,\\mathrm{d}t$ 及 $u(0)=1$ 的可微函数 $u(t)=$______。",
+   "answer": "$\\dfrac{2e^t-e+1}{3-e}$",
+   "solution": "记 $K=\\displaystyle\\int_0^1u(t)\\,\\mathrm{d}t$，则 $u'=u+K$，$u(0)=1$，解得 $u=(1+K)e^t-K$。代入 $K=\\displaystyle\\int_0^1u\\,\\mathrm{d}t=(1+K)(e-1)-K$，得 $K=\\dfrac{e-1}{3-e}$，所以 $u(t)=\\dfrac{2e^t-e+1}{3-e}$。（官方仅给答案，此处补充简要过程）",
+   "solutionSource": "官方"
+  },
+  {
+   "no": "一(5)",
+   "score": 6,
+   "type": "填空",
+   "subjects": [
+    "线性代数"
+   ],
+   "topics": [
+    "行列式",
+    "矩阵行列式引理",
+    "对数"
+   ],
+   "difficulty": 3,
+   "statement": "设 $a,b,c,d$ 是互不相同的正实数，$x,y,z,w$ 是实数，满足 $a^x=bcd$，$b^y=cda$，$c^z=dab$，$d^w=abc$，则行列式\n$$\\begin{vmatrix}-x&1&1&1\\\\1&-y&1&1\\\\1&1&-z&1\\\\1&1&1&-w\\end{vmatrix}=\\underline{\\qquad}.$$",
+   "answer": "$0$",
+   "solution": "记 $L=\\ln(abcd)$。由 $x\\ln a=\\ln(bcd)$ 得 $1+x=\\dfrac{L}{\\ln a}$，同理 $1+y=\\dfrac{L}{\\ln b}$，$1+z=\\dfrac{L}{\\ln c}$，$1+w=\\dfrac{L}{\\ln d}$（若 $a=1$ 等使分母为 $0$ 的情形可类似处理）。行列式的矩阵为 $J-D$，其中 $J$ 为全 $1$ 矩阵，$D=\\operatorname{diag}(1+x,1+y,1+z,1+w)$。当 $D$ 可逆时\n$$\\det(J-D)=\\det(-D)\\left(1-\\sum\\frac{1}{d_i}\\right)=\\det(-D)\\left(1-\\frac{\\ln a+\\ln b+\\ln c+\\ln d}{L}\\right)=0.$$\n（官方仅给答案 $0$，此处补充过程）",
+   "solutionSource": "编写"
+  },
+  {
+   "no": "二",
+   "score": 11,
+   "type": "证明",
+   "subjects": [
+    "高等数学"
+   ],
+   "topics": [
+    "介值定理",
+    "差商",
+    "辅助函数"
+   ],
+   "difficulty": 3,
+   "statement": "设函数 $f(x)$ 在区间 $(0,1)$ 内连续，且存在两两互异的点 $x_1,x_2,x_3,x_4\\in(0,1)$，使得\n$$\\alpha=\\frac{f(x_1)-f(x_2)}{x_1-x_2}<\\frac{f(x_3)-f(x_4)}{x_3-x_4}=\\beta.$$\n证明：对任意 $\\lambda\\in(\\alpha,\\beta)$，存在互异的点 $x_5,x_6\\in(0,1)$，使得 $\\lambda=\\dfrac{f(x_5)-f(x_6)}{x_5-x_6}$。（注：原试卷此处 $\\alpha$ 印作 $a$，已改正）",
+   "answer": "",
+   "solution": "由差商关于两点对称，不妨设 $x_1<x_2$，$x_3<x_4$（原解答写作 $x_1<x_2<x_3<x_4$，实际只需这两点）。考虑辅助函数\n$$F(t)=\\frac{f\\left[(1-t)x_2+tx_4\\right]-f\\left[(1-t)x_1+tx_3\\right]}{(1-t)(x_2-x_1)+t(x_4-x_3)},$$\n分母在 $[0,1]$ 上恒正，故 $F(t)$ 在闭区间 $[0,1]$ 上连续，且 $F(0)=\\alpha<\\lambda<\\beta=F(1)$。根据连续函数介值定理，存在 $t_0\\in(0,1)$，使得 $F(t_0)=\\lambda$。令\n$$x_5=(1-t_0)x_1+t_0x_3,\\qquad x_6=(1-t_0)x_2+t_0x_4,$$\n则 $x_5,x_6\\in(0,1)$，$x_5<x_6$，且 $\\lambda=F(t_0)=\\dfrac{f(x_5)-f(x_6)}{x_5-x_6}$。",
+   "solutionSource": "官方"
+  },
+  {
+   "no": "三",
+   "score": 11,
+   "type": "证明",
+   "subjects": [
+    "高等数学"
+   ],
+   "topics": [
+    "拉格朗日中值定理",
+    "介值定理",
+    "辅助函数"
+   ],
+   "difficulty": 3,
+   "statement": "设函数 $f(x)$ 在区间 $[0,1]$ 上连续且 $\\displaystyle\\int_0^1f(x)\\,\\mathrm{d}x\\ne0$，证明：在区间 $[0,1]$ 上存在三个不同的点 $x_1,x_2,x_3$，使得\n$$\\frac\\pi8\\int_0^1f(x)\\,\\mathrm{d}x=\\left[\\frac{1}{1+x_1^2}\\int_0^{x_1}f(t)\\,\\mathrm{d}t+f(x_1)\\arctan x_1\\right]x_3=\\left[\\frac{1}{1+x_2^2}\\int_0^{x_2}f(t)\\,\\mathrm{d}t+f(x_2)\\arctan x_2\\right](1-x_3).$$",
+   "answer": "",
+   "solution": "令 $F(x)=\\dfrac4\\pi\\cdot\\dfrac{\\arctan x\\displaystyle\\int_0^xf(t)\\,\\mathrm{d}t}{\\displaystyle\\int_0^1f(t)\\,\\mathrm{d}t}$，则 $F(0)=0$，$F(1)=1$，且 $F(x)$ 在 $[0,1]$ 上可导。根据介值定理，存在点 $x_3\\in(0,1)$，使得 $F(x_3)=\\dfrac12$。\n再分别在区间 $[0,x_3]$，$[x_3,1]$ 上利用拉格朗日中值定理：存在 $x_1\\in(0,x_3)$，使得 $F(x_3)-F(0)=F'(x_1)(x_3-0)$，即\n$$\\frac\\pi8\\int_0^1f(x)\\,\\mathrm{d}x=\\left[\\frac1{1+x_1^2}\\int_0^{x_1}f(t)\\,\\mathrm{d}t+f(x_1)\\arctan x_1\\right]x_3;$$\n且存在 $x_2\\in(x_3,1)$，使得 $F(1)-F(x_3)=F'(x_2)(1-x_3)$，即\n$$\\frac\\pi8\\int_0^1f(x)\\,\\mathrm{d}x=\\left[\\frac1{1+x_2^2}\\int_0^{x_2}f(t)\\,\\mathrm{d}t+f(x_2)\\arctan x_2\\right](1-x_3).$$",
+   "solutionSource": "官方"
+  },
+  {
+   "no": "四",
+   "score": 12,
+   "type": "计算",
+   "subjects": [
+    "高等数学"
+   ],
+   "topics": [
+    "数列极限",
+    "定积分定义",
+    "等价无穷小",
+    "Stirling型极限"
+   ],
+   "difficulty": 3,
+   "statement": "求极限：$\\displaystyle\\lim_{n\\to\\infty}\\left[\\sqrt[n+1]{(n+1)!}-\\sqrt[n]{n!}\\right]$。",
+   "answer": "$\\dfrac1e$",
+   "solution": "注意到 $\\sqrt[n+1]{(n+1)!}-\\sqrt[n]{n!}=n\\left[\\dfrac{\\sqrt[n+1]{(n+1)!}}{\\sqrt[n]{n!}}-1\\right]\\cdot\\dfrac{\\sqrt[n]{n!}}{n}$。而\n$$\\lim_{n\\to\\infty}\\frac{\\sqrt[n]{n!}}{n}=e^{\\lim\\limits_{n\\to\\infty}\\frac1n\\sum_{k=1}^n\\ln\\frac kn}=e^{\\int_0^1\\ln x\\,\\mathrm{d}x}=\\frac1e.$$\n又\n$$\\frac{\\sqrt[n+1]{(n+1)!}}{\\sqrt[n]{n!}}=\\sqrt[(n+1)n]{\\frac{[(n+1)!]^n}{(n!)^{n+1}}}=\\sqrt[(n+1)n]{\\frac{(n+1)^{n+1}}{(n+1)!}}=e^{-\\frac1n\\cdot\\frac1{n+1}\\sum_{k=1}^{n+1}\\ln\\frac{k}{n+1}}.$$\n利用等价无穷小替换 $e^x-1\\sim x\\ (x\\to0)$，得\n$$\\lim_{n\\to\\infty}n\\left[\\frac{\\sqrt[n+1]{(n+1)!}}{\\sqrt[n]{n!}}-1\\right]=-\\lim_{n\\to\\infty}\\frac1{n+1}\\sum_{k=1}^{n+1}\\ln\\frac{k}{n+1}=-\\int_0^1\\ln x\\,\\mathrm{d}x=1.$$\n所以所求极限为 $1\\cdot\\dfrac1e=\\dfrac1e$。",
+   "solutionSource": "官方"
+  },
+  {
+   "no": "五(1)",
+   "score": 6,
+   "type": "证明",
+   "subjects": [
+    "线性代数"
+   ],
+   "topics": [
+    "二次型",
+    "正定矩阵",
+    "顺序主子式"
+   ],
+   "difficulty": 2,
+   "statement": "设 $x=(x_1,x_2,\\cdots,x_n)^T\\in\\mathbb R^n$，定义 $H(x)=\\displaystyle\\sum_{i=1}^nx_i^2-\\sum_{i=1}^{n-1}x_ix_{i+1}$，$n\\ge2$。证明：对任一非零 $x\\in\\mathbb R^n$，$H(x)>0$。",
+   "answer": "",
+   "solution": "二次型 $H(x)$ 的矩阵为三对角矩阵\n$$A=\\begin{pmatrix}1&-\\frac12&&&\\\\-\\frac12&1&-\\frac12&&\\\\&\\ddots&\\ddots&\\ddots&\\\\&&-\\frac12&1&-\\frac12\\\\&&&-\\frac12&1\\end{pmatrix}.$$\n$A$ 实对称，其任意 $k$ 阶顺序主子式 $\\Delta_k$ 满足递推 $\\Delta_k=\\Delta_{k-1}-\\dfrac14\\Delta_{k-2}$，$\\Delta_1=1,\\ \\Delta_2=\\dfrac34$，可得 $\\Delta_k=\\dfrac{k+1}{2^k}>0$，所以 $A$ 正定，结论成立。",
+   "solutionSource": "官方"
+  },
+  {
+   "no": "五(2)",
+   "score": 6,
+   "type": "计算",
+   "subjects": [
+    "线性代数"
+   ],
+   "topics": [
+    "二次型",
+    "条件最值",
+    "分块矩阵",
+    "合同变换"
+   ],
+   "difficulty": 3,
+   "statement": "设 $x=(x_1,x_2,\\cdots,x_n)^T\\in\\mathbb R^n$，定义 $H(x)=\\displaystyle\\sum_{i=1}^nx_i^2-\\sum_{i=1}^{n-1}x_ix_{i+1}$，$n\\ge2$。求 $H(x)$ 满足条件 $x_n=1$ 的最小值。",
+   "answer": "$1-\\alpha^TA_{n-1}^{-1}\\alpha=\\dfrac{n+1}{2n}$",
+   "solution": "对 $A$ 作分块 $A=\\begin{pmatrix}A_{n-1}&\\alpha\\\\\\alpha^T&1\\end{pmatrix}$，其中 $\\alpha=\\left(0,\\cdots,0,-\\dfrac12\\right)^T\\in\\mathbb R^{n-1}$。取可逆矩阵 $P=\\begin{pmatrix}I_{n-1}&-A_{n-1}^{-1}\\alpha\\\\0&1\\end{pmatrix}$，则\n$$P^TAP=\\begin{pmatrix}A_{n-1}&0\\\\0&1-\\alpha^TA_{n-1}^{-1}\\alpha\\end{pmatrix}=\\begin{pmatrix}A_{n-1}&0\\\\0&a\\end{pmatrix},\\quad a=1-\\alpha^TA_{n-1}^{-1}\\alpha.$$\n记 $x=P(x_0,1)^T$，其中 $x_0\\in\\mathbb R^{n-1}$（$P$ 不改变最后一个分量，故 $x_n=1$ 的 $x$ 恰好都可这样表示），则\n$$H(x)=x^TAx=(x_0^T,1)\\begin{pmatrix}A_{n-1}&0\\\\0&a\\end{pmatrix}\\begin{pmatrix}x_0\\\\1\\end{pmatrix}=x_0^TA_{n-1}x_0+a.$$\n因为 $A_{n-1}$ 正定，所以 $H(x)\\ge a$，当 $x=P(0,1)^T$ 时 $H(x)=a$。因此 $H(x)$ 满足条件 $x_n=1$ 的最小值为 $a$。\n进一步，$a=\\dfrac{\\det A}{\\det A_{n-1}}=\\dfrac{\\Delta_n}{\\Delta_{n-1}}=\\dfrac{(n+1)/2^n}{n/2^{n-1}}=\\dfrac{n+1}{2n}$（此具体数值为补充计算，官方解答止于 $a=1-\\alpha^TA_{n-1}^{-1}\\alpha$）。",
+   "solutionSource": "官方"
+  },
+  {
+   "no": "六",
+   "score": 12,
+   "type": "证明",
+   "subjects": [
+    "高等数学"
+   ],
+   "topics": [
+    "格林公式",
+    "柯西-施瓦茨不等式",
+    "二重积分估计"
+   ],
+   "difficulty": 4,
+   "statement": "设函数 $f(x,y)$ 在区域 $D=\\{(x,y)\\mid x^2+y^2\\le a^2\\}$ 上具有一阶连续偏导数，且满足\n$$f(x,y)\\big|_{x^2+y^2=a^2}=a^2\\quad\\text{以及}\\quad\\max_{(x,y)\\in D}\\left[\\left(\\frac{\\partial f}{\\partial x}\\right)^2+\\left(\\frac{\\partial f}{\\partial y}\\right)^2\\right]=a^2,$$\n其中 $a>0$。证明：$\\left|\\displaystyle\\iint_Df(x,y)\\,\\mathrm{d}x\\,\\mathrm{d}y\\right|\\le\\dfrac43\\pi a^4$。",
+   "answer": "",
+   "solution": "在格林公式 $\\displaystyle\\oint_CP\\,\\mathrm{d}x+Q\\,\\mathrm{d}y=\\iint_D\\left(\\frac{\\partial Q}{\\partial x}-\\frac{\\partial P}{\\partial y}\\right)\\mathrm{d}x\\,\\mathrm{d}y$ 中（$C$ 为圆周 $x^2+y^2=a^2$，逆时针），分别取 $P=yf(x,y),\\ Q=0$ 和 $P=0,\\ Q=xf(x,y)$，可得\n$$\\iint_Df\\,\\mathrm{d}x\\,\\mathrm{d}y=-\\oint_Cyf\\,\\mathrm{d}x-\\iint_Dy\\frac{\\partial f}{\\partial y}\\,\\mathrm{d}x\\,\\mathrm{d}y,\\qquad\\iint_Df\\,\\mathrm{d}x\\,\\mathrm{d}y=\\oint_Cxf\\,\\mathrm{d}y-\\iint_Dx\\frac{\\partial f}{\\partial x}\\,\\mathrm{d}x\\,\\mathrm{d}y.$$\n两式相加，并利用 $C$ 上 $f=a^2$，得\n$$\\iint_Df\\,\\mathrm{d}x\\,\\mathrm{d}y=\\frac{a^2}{2}\\oint_C-y\\,\\mathrm{d}x+x\\,\\mathrm{d}y-\\frac12\\iint_D\\left(x\\frac{\\partial f}{\\partial x}+y\\frac{\\partial f}{\\partial y}\\right)\\mathrm{d}x\\,\\mathrm{d}y=I_1+I_2.$$\n对 $I_1$ 再次利用格林公式，$I_1=\\dfrac{a^2}{2}\\cdot2\\displaystyle\\iint_D\\mathrm{d}x\\,\\mathrm{d}y=\\pi a^4$。对 $I_2$ 的被积函数利用柯西不等式，得\n$$|I_2|\\le\\frac12\\iint_D\\sqrt{x^2+y^2}\\sqrt{\\left(\\frac{\\partial f}{\\partial x}\\right)^2+\\left(\\frac{\\partial f}{\\partial y}\\right)^2}\\,\\mathrm{d}x\\,\\mathrm{d}y\\le\\frac a2\\iint_D\\sqrt{x^2+y^2}\\,\\mathrm{d}x\\,\\mathrm{d}y=\\frac a2\\cdot\\frac{2\\pi a^3}{3}=\\frac13\\pi a^4.$$\n因此 $\\left|\\displaystyle\\iint_Df(x,y)\\,\\mathrm{d}x\\,\\mathrm{d}y\\right|\\le\\pi a^4+\\dfrac13\\pi a^4=\\dfrac43\\pi a^4$。",
+   "solutionSource": "官方"
+  },
+  {
+   "no": "七(1)",
+   "score": 6,
+   "type": "证明",
+   "subjects": [
+    "高等数学"
+   ],
+   "topics": [
+    "正项级数",
+    "比较判别法",
+    "p级数"
+   ],
+   "difficulty": 2,
+   "statement": "设 $0<a_n<1$，$n=1,2,\\cdots$，且 $\\displaystyle\\lim_{n\\to\\infty}\\frac{\\ln\\frac1{a_n}}{\\ln n}=q$（有限或 $+\\infty$）。证明：当 $q>1$ 时，级数 $\\displaystyle\\sum_{n=1}^\\infty a_n$ 收敛；当 $q<1$ 时，级数 $\\displaystyle\\sum_{n=1}^\\infty a_n$ 发散。",
+   "answer": "",
+   "solution": "若 $q>1$，则存在 $p\\in\\mathbb R$，使得 $q>p>1$。根据极限性质，$\\exists N\\in\\mathbb Z^+$，使得对于任意 $n>N$，有 $\\dfrac{\\ln\\frac1{a_n}}{\\ln n}>p$，即 $a_n<\\dfrac1{n^p}$。而 $p>1$ 时级数 $\\displaystyle\\sum\\frac1{n^p}$ 收敛，所以 $\\displaystyle\\sum a_n$ 收敛。\n若 $q<1$，则存在 $p\\in\\mathbb R$，使得 $q<p<1$。$\\exists N\\in\\mathbb Z^+$，使得对于任意 $n>N$，有 $\\dfrac{\\ln\\frac1{a_n}}{\\ln n}<p$，即 $a_n>\\dfrac1{n^p}$，而 $p<1$ 时级数 $\\displaystyle\\sum\\frac1{n^p}$ 发散，所以 $\\displaystyle\\sum a_n$ 发散。",
+   "solutionSource": "官方"
+  },
+  {
+   "no": "七(2)",
+   "score": 6,
+   "type": "解答",
+   "subjects": [
+    "高等数学"
+   ],
+   "topics": [
+    "正项级数",
+    "反例"
+   ],
+   "difficulty": 2,
+   "statement": "设 $0<a_n<1$，$n=1,2,\\cdots$，且 $\\displaystyle\\lim_{n\\to\\infty}\\frac{\\ln\\frac1{a_n}}{\\ln n}=q$（有限或 $+\\infty$）。讨论 $q=1$ 时级数 $\\displaystyle\\sum_{n=1}^\\infty a_n$ 的敛散性并阐明理由。",
+   "answer": "可能收敛，也可能发散。",
+   "solution": "当 $q=1$ 时，级数 $\\displaystyle\\sum a_n$ 可能收敛，也可能发散。例如：$a_n=\\dfrac1n$ 满足条件（$\\dfrac{\\ln n}{\\ln n}=1$），但级数 $\\displaystyle\\sum a_n$ 发散；又如 $a_n=\\dfrac{1}{n\\ln^2n}\\ (n\\ge2)$ 满足条件（$\\dfrac{\\ln n+2\\ln\\ln n}{\\ln n}\\to1$），但级数 $\\displaystyle\\sum a_n$ 收敛。",
+   "solutionSource": "官方"
+  }
+ ]
+}

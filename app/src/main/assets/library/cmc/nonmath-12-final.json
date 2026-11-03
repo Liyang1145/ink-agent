@@ -1,0 +1,217 @@
+{
+ "id": "cmc-nonmath-12-final",
+ "title": "第十二届全国大学生数学竞赛决赛（非数学类）",
+ "year": 2021,
+ "track": "非数学类",
+ "round": "决赛",
+ "paper": "",
+ "durationMin": 180,
+ "totalScore": 100,
+ "source": {
+  "question": "12-final-nonmath.pdf",
+  "solution": "12-final-nonmath.pdf"
+ },
+ "problems": [
+  {
+   "no": "一(1)",
+   "score": 6,
+   "type": "填空",
+   "subjects": [
+    "高等数学"
+   ],
+   "topics": [
+    "定积分定义",
+    "数列极限",
+    "分部积分"
+   ],
+   "difficulty": 2,
+   "statement": "极限 $\\lim\\limits_{n\\to\\infty}\\displaystyle\\sum_{k=1}^n\\frac k{n^2}\\sin^2\\left(1+\\frac kn\\right)=$\\_\\_\\_\\_\\_\\_\\_\\_。",
+   "answer": "$\\dfrac18(2-2\\sin4-\\cos4+\\cos2)$",
+   "solution": "由定积分定义，\n$$\\lim_{n\\to\\infty}\\sum_{k=1}^n\\frac k{n^2}\\sin^2\\left(1+\\frac kn\\right)=\\int_0^1x\\sin^2(1+x)\\,\\mathrm dx=\\frac18(2-2\\sin4-\\cos4+\\cos2).$$\n（计算：$\\sin^2(1+x)=\\frac12-\\frac12\\cos(2+2x)$，分部积分即得。）",
+   "solutionSource": "官方"
+  },
+  {
+   "no": "一(2)",
+   "score": 6,
+   "type": "填空",
+   "subjects": [
+    "高等数学"
+   ],
+   "topics": [
+    "方向导数",
+    "偏导数"
+   ],
+   "difficulty": 1,
+   "statement": "设 $P_0(1,1,-1)$，$P_1(2,-1,0)$ 为空间的两点，则函数 $u=xyz+e^{xyz}$ 在点 $P_0$ 处沿 $\\overrightarrow{P_0P_1}$ 方向的方向导数为\\_\\_\\_\\_\\_\\_\\_\\_。",
+   "answer": "$\\dfrac2{\\sqrt6}\\left(1+e^{-1}\\right)$",
+   "solution": "$\\overrightarrow{P_0P_1}$ 方向的单位向量 $\\vec l=\\frac1{\\sqrt6}(1,-2,1)$。\n$$u_x\\big|_{P_0}=yz(1+e^{xyz})\\big|_{P_0}=-(1+e^{-1}),\\quad u_y\\big|_{P_0}=-(1+e^{-1}),\\quad u_z\\big|_{P_0}=xy(1+e^{xyz})\\big|_{P_0}=1+e^{-1},$$\n因此\n$$\\frac{\\partial u}{\\partial l}\\Big|_{P_0}=\\frac1{\\sqrt6}\\left[-(1+e^{-1})+2(1+e^{-1})+(1+e^{-1})\\right]=\\frac2{\\sqrt6}(1+e^{-1}).$$",
+   "solutionSource": "官方"
+  },
+  {
+   "no": "一(3)",
+   "score": 6,
+   "type": "填空",
+   "subjects": [
+    "高等数学"
+   ],
+   "topics": [
+    "第一型曲线积分",
+    "轮换对称性"
+   ],
+   "difficulty": 2,
+   "statement": "记空间曲线 $\\Gamma:\\begin{cases}x^2+y^2+z^2=a^2\\\\x+y+z=0\\end{cases}\\ (a>0)$，则积分 $\\displaystyle\\oint_\\Gamma(1+x)^2\\,\\mathrm ds=$\\_\\_\\_\\_\\_\\_\\_\\_。",
+   "answer": "$2\\pi a\\left(1+\\dfrac{a^2}3\\right)$",
+   "solution": "利用轮换对称性，\n$$\\oint_\\Gamma(1+x)^2\\,\\mathrm ds=\\oint_\\Gamma\\mathrm ds+\\frac23\\oint_\\Gamma(x+y+z)\\,\\mathrm ds+\\frac13\\oint_\\Gamma(x^2+y^2+z^2)\\,\\mathrm ds=\\left(1+\\frac{a^2}3\\right)\\oint_\\Gamma\\mathrm ds=2\\pi a\\left(1+\\frac{a^2}3\\right).$$\n（$\\Gamma$ 是过球心的大圆，长度 $2\\pi a$。）",
+   "solutionSource": "官方"
+  },
+  {
+   "no": "一(4)",
+   "score": 6,
+   "type": "填空",
+   "subjects": [
+    "线性代数"
+   ],
+   "topics": [
+    "伴随矩阵",
+    "矩阵方程",
+    "逆矩阵"
+   ],
+   "difficulty": 2,
+   "statement": "设矩阵 $A$ 的伴随矩阵 $A^*=\\begin{pmatrix}1&&\\\\&16&\\\\&&1\\end{pmatrix}$，且 $|A|>0$，$ABA^{-1}=BA^{-1}+3I$，其中 $I$ 为单位矩阵，则 $B=$\\_\\_\\_\\_\\_\\_\\_\\_。",
+   "answer": "$\\begin{pmatrix}4&&\\\\&-1&\\\\&&4\\end{pmatrix}$",
+   "solution": "由 $AA^*=|A|I$ 及 $|A^*|=16=|A|^2$，得 $|A|=4$。对 $ABA^{-1}=BA^{-1}+3I$ 两边左乘 $A^{-1}$、右乘 $A$，得 $B=A^{-1}B+3I$，即 $(I-A^{-1})B=3I$，所以\n$$B=3(I-A^{-1})^{-1}=3\\left(I-\\frac14A^*\\right)^{-1}=\\begin{pmatrix}4&&\\\\&-1&\\\\&&4\\end{pmatrix}.$$",
+   "solutionSource": "官方"
+  },
+  {
+   "no": "一(5)",
+   "score": 6,
+   "type": "填空",
+   "subjects": [
+    "高等数学"
+   ],
+   "topics": [
+    "多元函数极值",
+    "均值不等式",
+    "驻点"
+   ],
+   "difficulty": 2,
+   "statement": "函数 $u=x_1+\\dfrac{x_2}{x_1}+\\dfrac{x_3}{x_2}+\\dfrac2{x_3}\\ (x_i>0,\\ i=1,2,3)$ 的所有极值点为\\_\\_\\_\\_\\_\\_\\_\\_。",
+   "answer": "唯一极值点 $\\left(2^{\\frac14},2^{\\frac12},2^{\\frac34}\\right)$（极小值点，极小值 $4\\sqrt[4]2$）",
+   "solution": "由均值不等式 $u(x_1,x_2,x_3)\\geqslant4\\sqrt[4]{x_1\\cdot\\frac{x_2}{x_1}\\cdot\\frac{x_3}{x_2}\\cdot\\frac2{x_3}}=4\\sqrt[4]2$。另一方面\n$$\\frac{\\partial u}{\\partial x_1}=1-\\frac{x_2}{x_1^2},\\quad\\frac{\\partial u}{\\partial x_2}=\\frac1{x_1}-\\frac{x_3}{x_2^2},\\quad\\frac{\\partial u}{\\partial x_3}=\\frac1{x_2}-\\frac2{x_3^2}.$$\n令其全为 $0$，解得 $u$ 在定义域内的唯一驻点 $P_0\\left(2^{\\frac14},2^{\\frac12},2^{\\frac34}\\right)$，且 $u(P_0)=4\\sqrt[4]2$ 为最小值，这是唯一的极值。故唯一极值点为 $\\left(2^{\\frac14},2^{\\frac12},2^{\\frac34}\\right)$。\n\n【注】也可用 Hessian 矩阵正定的充分条件判断 $P_0$ 为极小值点。",
+   "solutionSource": "官方"
+  },
+  {
+   "no": "二",
+   "score": 12,
+   "type": "计算",
+   "subjects": [
+    "高等数学"
+   ],
+   "topics": [
+    "函数极限",
+    "导数定义",
+    "对数求导",
+    "等价无穷小"
+   ],
+   "difficulty": 2,
+   "statement": "求极限：$\\lim\\limits_{x\\to0}\\dfrac{\\sqrt{\\dfrac{1+x}{1-x}}\\cdot\\sqrt[4]{\\dfrac{1+2x}{1-2x}}\\cdot\\sqrt[6]{\\dfrac{1+3x}{1-3x}}\\cdots\\sqrt[2n]{\\dfrac{1+nx}{1-nx}}-1}{3\\pi\\arcsin x-(x^2+1)\\arctan^3x}$，其中 $n$ 为正整数。",
+   "answer": "$\\dfrac n{3\\pi}$",
+   "solution": "令 $f(x)=\\sqrt{\\frac{1+x}{1-x}}\\cdot\\sqrt[4]{\\frac{1+2x}{1-2x}}\\cdots\\sqrt[2n]{\\frac{1+nx}{1-nx}}$，则 $f(0)=1$，且\n$$\\ln f(x)=\\sum_{k=1}^n\\frac1{2k}\\ln\\frac{1+kx}{1-kx},\\qquad\\frac{f'(x)}{f(x)}=\\sum_{k=1}^n\\frac1{2k}\\left(\\frac k{1+kx}+\\frac k{1-kx}\\right),$$\n所以 $f'(0)=\\sum\\limits_{k=1}^n1=n$。注意到 $\\lim\\limits_{x\\to0}\\frac{\\arcsin x}x=\\lim\\limits_{x\\to0}\\frac{\\arctan x}x=1$，因此\n$$\\text{原式}=\\lim_{x\\to0}\\frac{x}{3\\pi\\arcsin x-(x^2+1)\\arctan^3x}\\cdot\\frac{f(x)-f(0)}{x-0}=\\frac1{3\\pi}\\cdot n=\\frac n{3\\pi}.$$",
+   "solutionSource": "官方"
+  },
+  {
+   "no": "三",
+   "score": 12,
+   "type": "计算",
+   "subjects": [
+    "高等数学"
+   ],
+   "topics": [
+    "幂级数",
+    "收敛域",
+    "Leibniz判别法",
+    "收敛半径"
+   ],
+   "difficulty": 2,
+   "statement": "求幂级数 $\\displaystyle\\sum_{n=1}^\\infty\\left[1-n\\ln\\left(1+\\frac1n\\right)\\right]x^n$ 的收敛域。",
+   "answer": "$[-1,1)$",
+   "solution": "记 $a_n=1-n\\ln\\left(1+\\frac1n\\right)$。当 $n\\to\\infty$ 时 $a_n\\sim\\dfrac1{2n}$，所以\n$$R=\\lim_{n\\to\\infty}\\frac{a_n}{a_{n+1}}=\\lim_{n\\to\\infty}\\frac{n+1}n=1.$$\n在 $x=1$ 处，$\\sum a_n$ 与 $\\sum\\frac1{2n}$ 同敛散，发散。\n\n在 $x=-1$ 处：考虑 $f(x)=x\\ln\\left(1+\\frac1x\\right)\\ (x\\geqslant1)$，利用 $a>0$ 时 $\\ln(1+a)>\\frac a{1+a}$，得\n$$f'(x)=\\ln\\left(1+\\frac1x\\right)-\\frac1{1+x}>0,$$\n$f$ 在 $[1,+\\infty)$ 上递增，故 $a_n-a_{n+1}=f(n+1)-f(n)>0$，$\\{a_n\\}$ 单调递减趋于 $0$。由 Leibniz 判别法 $\\sum(-1)^na_n$ 收敛。\n\n因此收敛域为 $[-1,1)$。",
+   "solutionSource": "官方"
+  },
+  {
+   "no": "四",
+   "score": 12,
+   "type": "证明",
+   "subjects": [
+    "高等数学"
+   ],
+   "topics": [
+    "Rolle定理",
+    "辅助函数",
+    "中值定理"
+   ],
+   "difficulty": 3,
+   "statement": "设函数 $f(x)$ 在 $[a,b]$ 上连续，在 $(a,b)$ 内二阶可导，且\n$$f(a)=f(b)=0,\\qquad\\int_a^bf(x)\\,\\mathrm dx=0.$$\n(1) 证明：存在互不相同的点 $x_1,x_2\\in(a,b)$，使得 $f'(x_i)=f(x_i)$，$i=1,2$；\n\n(2) 证明：存在 $\\xi\\in(a,b)$，$\\xi\\neq x_i$，$i=1,2$，使得 $f''(\\xi)=f(\\xi)$。",
+   "answer": "",
+   "solution": "(1) 令 $F(x)=e^{-x}\\displaystyle\\int_a^xf(t)\\,\\mathrm dt$，则 $F(a)=F(b)=0$。由 Rolle 定理，存在 $x_0\\in(a,b)$ 使 $F'(x_0)=0$，即 $f(x_0)=\\displaystyle\\int_a^{x_0}f(t)\\,\\mathrm dt$。\n\n再令 $G(x)=f(x)-\\displaystyle\\int_a^xf(t)\\,\\mathrm dt$，则 $G(a)=G(x_0)=G(b)=0$。对 $G$ 分别在 $[a,x_0]$ 与 $[x_0,b]$ 上用 Rolle 定理，存在 $x_1\\in(a,x_0)$，$x_2\\in(x_0,b)$ 使 $G'(x_1)=G'(x_2)=0$，即 $f'(x_i)=f(x_i)$，$i=1,2$，且 $x_1\\neq x_2$。\n\n(2) 令 $\\varphi(x)=e^x\\left[f'(x)-f(x)\\right]$，则 $\\varphi(x_1)=\\varphi(x_2)=0$，且\n$$\\varphi'(x)=e^x\\left[f'(x)-f(x)\\right]+e^x\\left[f''(x)-f'(x)\\right]=e^x\\left[f''(x)-f(x)\\right].$$\n对 $\\varphi$ 在 $[x_1,x_2]$ 上用 Rolle 定理，存在 $\\xi\\in(x_1,x_2)$ 使 $\\varphi'(\\xi)=0$，即 $f''(\\xi)=f(\\xi)$，显然 $\\xi\\neq x_i$，$i=1,2$。",
+   "solutionSource": "官方"
+  },
+  {
+   "no": "五",
+   "score": 12,
+   "type": "证明",
+   "subjects": [
+    "线性代数"
+   ],
+   "topics": [
+    "实对称矩阵",
+    "正交对角化",
+    "矩阵方根",
+    "矩阵多项式",
+    "同时对角化"
+   ],
+   "difficulty": 3,
+   "statement": "设 $A$ 是 $n$ 阶实对称矩阵，证明：\n\n(1) 存在实对称矩阵 $B$，使得 $B^{2021}=A$，且 $AB=BA$；\n\n(2) 存在一个多项式 $p(x)$，使得上述矩阵 $B=p(A)$；\n\n(3) 上述矩阵 $B$ 是唯一的。",
+   "answer": "",
+   "solution": "(1) 存在正交矩阵 $Q$ 使 $A=QDQ^{\\mathrm T}$，$D=\\operatorname{diag}(\\lambda_1,\\ldots,\\lambda_n)$，$\\lambda_i$ 为 $A$ 的特征值。令 $B=QD^{\\frac1{2021}}Q^{\\mathrm T}$，其中 $D^{\\frac1{2021}}=\\operatorname{diag}\\left(\\lambda_1^{\\frac1{2021}},\\ldots,\\lambda_n^{\\frac1{2021}}\\right)$（实的奇次方根），则 $B$ 实对称，$B^{2021}=QDQ^{\\mathrm T}=A$，且\n$$AB=QDD^{\\frac1{2021}}Q^{\\mathrm T}=QD^{\\frac1{2021}}DQ^{\\mathrm T}=BA.$$\n\n(2) 设 $\\lambda_1,\\ldots,\\lambda_s$ 是 $A$ 的所有两两互异的特征值。由待定系数法（Vandermonde 行列式非零，Cramer 法则），存在多项式 $p(x)$（次数 $\\leqslant s-1$）使 $p(\\lambda_i)=\\lambda_i^{\\frac1{2021}}\\ (i=1,\\ldots,s)$。于是 $p(D)=D^{\\frac1{2021}}$，\n$$p(A)=Qp(D)Q^{\\mathrm T}=QD^{\\frac1{2021}}Q^{\\mathrm T}=B.$$\n\n(3) 设另有实对称矩阵 $C$ 使 $C^{2021}=A$，则 $B=p(A)=p(C^{2021})$，从而 $BC=p(C^{2021})C=Cp(C^{2021})=CB$。$B,C$ 都可对角化且可交换，故可同时对角化：存在可逆实矩阵 $T$ 及实对角阵 $D_1,D_2$ 使 $B=TD_1T^{-1}$，$C=TD_2T^{-1}$。由 $C^{2021}=A=B^{2021}$ 得 $D_2^{2021}=D_1^{2021}$，而实数的 $2021$ 次方根唯一，故 $D_2=D_1$，$C=B$。\n\n（注：原解答 (2) 中多项式写成首一 $s$ 次形式，次数应为不超过 $s-1$ 的插值多项式，已按此叙述。）",
+   "solutionSource": "官方"
+  },
+  {
+   "no": "六",
+   "score": 12,
+   "type": "证明",
+   "subjects": [
+    "高等数学"
+   ],
+   "topics": [
+    "幂级数求和",
+    "不等式",
+    "数学归纳法",
+    "均值不等式"
+   ],
+   "difficulty": 3,
+   "statement": "设 $A_n(x,y)=\\displaystyle\\sum_{k=0}^nx^{n-k}y^k$，其中 $0<x,y<1$，证明：\n$$\\frac2{2-x-y}\\leqslant\\sum_{n=0}^\\infty\\frac{A_n(x,y)}{n+1}\\leqslant\\frac12\\left(\\frac1{1-x}+\\frac1{1-y}\\right).$$",
+   "answer": "",
+   "solution": "**方法 1.** 当 $x=y$ 时，$\\sum\\limits_{n=0}^\\infty\\frac{A_n(x,x)}{n+1}=\\sum\\limits_{n=0}^\\infty x^n=\\frac1{1-x}$，等号成立。\n\n当 $x\\neq y$ 时，由对称性可设 $0<x<y<1$。因为\n$$\\sum_{n=0}^\\infty\\frac{A_n(x,y)}{n+1}=\\sum_{n=0}^\\infty\\frac{1}{n+1}\\cdot\\frac{y^{n+1}-x^{n+1}}{y-x}=\\frac1{y-x}\\sum_{n=1}^\\infty\\frac{y^n-x^n}n=\\frac1{y-x}\\ln\\frac{1-x}{1-y},$$\n不等式化为\n$$\\frac2{2-x-y}\\leqslant\\frac1{y-x}\\ln\\frac{1-x}{1-y}\\leqslant\\frac12\\left(\\frac1{1-x}+\\frac1{1-y}\\right).\\tag{1}$$\n对 $0\\leqslant t<1$，\n$$\\frac12\\ln\\frac{1+t}{1-t}=\\sum_{n=0}^\\infty\\frac{t^{2n+1}}{2n+1},\\qquad\\frac12\\left(\\frac1{1-t}+\\frac1{1+t}\\right)=\\sum_{n=0}^\\infty t^{2n},$$\n所以 $t\\leqslant\\dfrac12\\ln\\dfrac{1+t}{1-t}\\leqslant\\dfrac t2\\left(\\dfrac1{1-t}+\\dfrac1{1+t}\\right)$。令 $t=\\dfrac{y-x}{2-x-y}\\in(0,1)$，则 $\\frac{1+t}{1-t}=\\frac{1-x}{1-y}$，代入即得 (1)。\n\n**方法 2.** 由 $\\frac2{2-x-y}=\\sum\\limits_{n=0}^\\infty\\left(\\frac{x+y}2\\right)^n$，$\\frac1{1-x}=\\sum\\limits_{n=0}^\\infty x^n$，只需证对任意 $n\\geqslant0$，\n$$\\left(\\frac{x+y}2\\right)^n\\leqslant\\frac{A_n(x,y)}{n+1}\\leqslant\\frac12(x^n+y^n).$$\n对 $n$ 归纳，$n=0,1$ 显然。设对 $n=p$ 成立。由 $A_{p+1}=x^{p+1}+yA_p=y^{p+1}+xA_p$，\n$$A_{p+1}(x,y)=\\frac12(x^{p+1}+y^{p+1})+\\frac{p+1}2(x+y)\\frac{A_p(x,y)}{p+1}.\\tag{2}$$\n由归纳假设及 $(x+y)(x^p+y^p)\\leqslant2(x^{p+1}+y^{p+1})$，得 $A_{p+1}\\leqslant\\frac{p+2}2(x^{p+1}+y^{p+1})$；另一方面由 (2)、归纳假设及 $\\frac12(x^{p+1}+y^{p+1})\\geqslant\\left(\\frac{x+y}2\\right)^{p+1}$，\n$$A_{p+1}(x,y)\\geqslant\\left(\\frac{x+y}2\\right)^{p+1}+\\frac{p+1}2(x+y)\\left(\\frac{x+y}2\\right)^p=(p+2)\\left(\\frac{x+y}2\\right)^{p+1}.$$\n故不等式对任意 $n\\geqslant0$ 成立。\n\n（注：原解答方法 2 中把 $A_n(x,y)$ 误写为 $A_n(x,x)$，已改正。）",
+   "solutionSource": "官方"
+  },
+  {
+   "no": "七",
+   "score": 10,
+   "type": "证明",
+   "subjects": [
+    "高等数学"
+   ],
+   "topics": [
+    "积分不等式",
+    "单调函数",
+    "辅助函数"
+   ],
+   "difficulty": 3,
+   "statement": "设 $f(x)$，$g(x)$ 是 $[0,1]\\to[0,1]$ 的连续函数，且 $f(x)$ 单调增加，求证：\n$$\\int_0^1f\\big(g(x)\\big)\\,\\mathrm dx\\leqslant\\int_0^1f(x)\\,\\mathrm dx+\\int_0^1g(x)\\,\\mathrm dx.$$",
+   "answer": "",
+   "solution": "令 $F(x)=f(x)-x$，则问题转化为证明\n$$\\int_0^1\\big[F(g(x))-F(x)\\big]\\,\\mathrm dx\\leqslant\\int_0^1x\\,\\mathrm dx=\\frac12.$$\n由于 $F(g(x))\\leqslant\\max F$，只需证明 $\\max F-\\displaystyle\\int_0^1F(x)\\,\\mathrm dx\\leqslant\\frac12$。\n\n记 $\\max F(x)=F(x_0)=a$。由 $0\\leqslant f\\leqslant1$，$-x\\leqslant F(x)\\leqslant1-x$，$a\\leqslant1$。因 $f$ 单调增加，当 $x\\in[x_0,1]$ 时 $f(x)\\geqslant f(x_0)$，即 $F(x)+x\\geqslant a+x_0$。所以\n$$\\int_0^1F(x)\\,\\mathrm dx\\geqslant\\int_0^{x_0}(-x)\\,\\mathrm dx+\\int_{x_0}^1(a+x_0-x)\\,\\mathrm dx=a-\\frac12+x_0(1-x_0)\\geqslant a-\\frac12=\\max F-\\frac12.$$",
+   "solutionSource": "官方"
+  }
+ ]
+}

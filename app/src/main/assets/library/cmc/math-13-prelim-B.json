@@ -1,0 +1,127 @@
+{
+ "id": "cmc-math-13-prelim-B",
+ "title": "第十三届全国大学生数学竞赛初赛（数学B类）",
+ "year": 2021,
+ "track": "数学类",
+ "round": "初赛",
+ "paper": "B",
+ "durationMin": 150,
+ "totalScore": 100,
+ "source": {
+  "question": "13-prelim-math-B.pdf",
+  "solution": "13-prelim-math-B.pdf"
+ },
+ "problems": [
+  {
+   "no": "一",
+   "score": 15,
+   "type": "计算",
+   "subjects": [
+    "解析几何"
+   ],
+   "topics": [
+    "切锥面",
+    "球面",
+    "极平面"
+   ],
+   "difficulty": 2,
+   "statement": "设球面 $S:x^2+y^2+z^2=1$，求以点 $M_0(0,0,a)\\ (a\\in\\mathbb{R},\\ |a|>1)$ 为顶点的与 $S$ 相切的锥面方程。",
+   "answer": "$(a^2-1)(x^2+y^2)=(z-a)^2$",
+   "solution": "过 $M_0$ 的直线与 $S$ 相切于 $Q=(x_1,y_1,z_1)$，当且仅当 $M_0$ 在 $Q$ 处的切平面 $x_1x+y_1y+z_1z=1$ 上，即 $az_1=1$。所以切点构成圆\n$$C:\\ z=\\frac1a,\\quad x^2+y^2=1-\\frac1{a^2}.$$\n锥面由 $M_0$ 与 $C$ 上点的连线组成。设 $M=(x,y,z)$（$z\\neq a$）在锥面上，直线 $M_0M$ 上的点 $M_0+s(M-M_0)$ 落在平面 $z=\\frac1a$ 时 $s=\\dfrac{1/a-a}{z-a}=-\\dfrac{a^2-1}{a(z-a)}$，此时交点为 $(sx,sy,\\frac1a)$，在 $C$ 上当且仅当\n$$s^2(x^2+y^2)=\\frac{a^2-1}{a^2}\\iff\\frac{(a^2-1)^2(x^2+y^2)}{a^2(z-a)^2}=\\frac{a^2-1}{a^2}\\iff(a^2-1)(x^2+y^2)=(z-a)^2.$$\n连同顶点，所求锥面为 $(a^2-1)(x^2+y^2)-(z-a)^2=0$。\n（也可设母线方向 $(l,m,n)$，代入球面方程令判别式为零得 $(a^2-1)(l^2+m^2)=n^2$，再消去参数。）",
+   "solutionSource": "编写"
+  },
+  {
+   "no": "二",
+   "score": 15,
+   "type": "证明",
+   "subjects": [
+    "偏微分方程",
+    "数学分析"
+   ],
+   "topics": [
+    "极值原理",
+    "椭圆型方程",
+    "Laplace算子"
+   ],
+   "difficulty": 3,
+   "statement": "设 $B\\subset\\mathbb{R}^n\\ (n\\geqslant2)$ 是单位开球，函数 $u,v$ 在 $\\overline B$ 上连续，在 $B$ 内二阶连续可导，满足\n$$\\begin{cases}-\\Delta u-(1-u^2-v^2)u=0,&x\\in B,\\\\-\\Delta v-(1-u^2-v^2)v=0,&x\\in B,\\\\u(x)=v(x)=0,&x\\in\\partial B,\\end{cases}$$\n其中，$x=(x_1,x_2,\\dots,x_n)$，$\\Delta u=\\dfrac{\\partial^2u}{\\partial x_1^2}+\\dfrac{\\partial^2u}{\\partial x_2^2}+\\cdots+\\dfrac{\\partial^2u}{\\partial x_n^2}$，$\\partial B$ 表示 $B$ 的边界。证明：$u^2(x)+v^2(x)\\leqslant1\\ (\\forall x\\in\\overline B)$。",
+   "answer": "",
+   "solution": "令 $w=u^2+v^2$，它在 $\\overline B$ 上连续、在 $B$ 内 $C^2$，边界上 $w=0$。计算\n$$\\Delta w=2(u\\Delta u+v\\Delta v)+2\\left(|\\nabla u|^2+|\\nabla v|^2\\right)=-2(1-w)w+2\\left(|\\nabla u|^2+|\\nabla v|^2\\right).$$\n设 $w$ 在 $\\overline B$ 上的最大值 $w(x_1)>1$。则 $x_1\\notin\\partial B$（边界上 $w=0$），故 $x_1\\in B$ 为内部最大值点，$\\Delta w(x_1)\\leqslant0$。但此时\n$$\\Delta w(x_1)\\geqslant2\\big(w(x_1)-1\\big)w(x_1)>0,$$\n矛盾。所以 $\\max_{\\overline B}w\\leqslant1$，即 $u^2+v^2\\leqslant1$。",
+   "solutionSource": "编写"
+  },
+  {
+   "no": "三",
+   "score": 15,
+   "type": "证明",
+   "subjects": [
+    "高等代数"
+   ],
+   "topics": [
+    "Vieta定理",
+    "实根",
+    "均值不等式",
+    "整系数多项式"
+   ],
+   "difficulty": 3,
+   "statement": "设 $f(x)=x^{2021}+a_{2020}x^{2020}+a_{2019}x^{2019}+\\cdots+a_2x^2+a_1x+a_0$ 为整系数多项式，$a_0\\neq0$。设对任意 $0\\leqslant k\\leqslant2020$ 有 $|a_k|\\leqslant40$，证明：$f(x)=0$ 的根不可能全为实数。",
+   "answer": "",
+   "solution": "设根为 $x_1,\\dots,x_{2021}$，由 $a_0\\neq0$ 知 $x_i\\neq0$。反设全为实数，则 $x_i^2>0$，由均值不等式\n$$\\sum x_i^2\\geqslant2021\\left(\\prod x_i^2\\right)^{\\frac1{2021}},\\quad\\sum\\frac1{x_i^2}\\geqslant2021\\left(\\prod x_i^2\\right)^{-\\frac1{2021}},$$\n相乘得 $\\displaystyle\\sum x_i^2\\cdot\\sum\\frac1{x_i^2}\\geqslant2021^2$。\n另一方面由 Vieta 定理，$\\sum x_i=-a_{2020}$，$\\sum_{i<j}x_ix_j=a_{2019}$，故 $\\sum x_i^2=a_{2020}^2-2a_{2019}\\leqslant40^2+80=1680$。$\\frac1{x_i}$ 是 $x^{2021}f\\left(\\frac1x\\right)=a_0x^{2021}+a_1x^{2020}+a_2x^{2019}+\\cdots+1$ 的根，故\n$$\\sum\\frac1{x_i^2}=\\frac{a_1^2}{a_0^2}-\\frac{2a_2}{a_0}\\leqslant a_1^2+2|a_2|\\leqslant1680$$\n（用了 $|a_0|\\geqslant1$，$a_0$ 为非零整数）。于是 $\\sum x_i^2\\sum\\frac1{x_i^2}\\leqslant1680^2<2021^2$，矛盾。",
+   "solutionSource": "编写"
+  },
+  {
+   "no": "四",
+   "score": 20,
+   "type": "证明",
+   "subjects": [
+    "高等代数"
+   ],
+   "topics": [
+    "行列式",
+    "组合估计",
+    "展开式"
+   ],
+   "difficulty": 3,
+   "statement": "设 $R=\\{0,1,-1\\}$，$S$ 为 $R$ 上的 3 阶行列式全体，即 $S=\\{\\det(a_{ij})_{3\\times3}\\mid a_{ij}\\in R\\}$。证明：$S=\\{-4,-3,-2,-1,0,1,2,3,4\\}$。",
+   "answer": "",
+   "solution": "**每个值都取到。** \n$$\\det O=0,\\quad\\det I=1,\\quad\\begin{vmatrix}1&1&0\\\\-1&1&0\\\\0&0&1\\end{vmatrix}=2,\\quad\\begin{vmatrix}1&1&0\\\\-1&1&1\\\\0&-1&1\\end{vmatrix}=3,\\quad\\begin{vmatrix}1&1&1\\\\1&-1&1\\\\1&1&-1\\end{vmatrix}=4.$$\n交换两行行列式变号，得到 $-1,-2,-3,-4$。\n**$|\\det|\\leqslant4$。** 按定义 $\\det(a_{ij})=\\sum_{\\sigma\\in S_3}\\operatorname{sgn}\\sigma\\,a_{1\\sigma(1)}a_{2\\sigma(2)}a_{3\\sigma(3)}$ 共六项，每项属于 $\\{0,\\pm1\\}$，且每个元素 $a_{ij}$ 恰出现在两项中。\n- 若某个 $a_{ij}=0$，则至少两项为 $0$，$|\\det|\\leqslant4$。\n- 若所有 $a_{ij}=\\pm1$，六项乘积为 $\\left(\\prod\\operatorname{sgn}\\sigma\\right)\\prod_{i,j}a_{ij}^2=-1$（三个奇置换），所以六项不能全同号，至少一项 $+1$、一项 $-1$ 相互抵消，$|\\det|\\leqslant4$。\n故 $S=\\{-4,-3,\\dots,3,4\\}$。",
+   "solutionSource": "编写"
+  },
+  {
+   "no": "五",
+   "score": 15,
+   "type": "证明",
+   "subjects": [
+    "数学分析"
+   ],
+   "topics": [
+    "交错级数",
+    "Leibniz判别法",
+    "比较判别法"
+   ],
+   "difficulty": 2,
+   "statement": "设函数 $f$ 在 $[-1,1]$ 内有定义，在 $x=0$ 的某邻域内连续可导，且 $\\displaystyle\\lim_{x\\to0}\\frac{f(x)}{x}=a>0$。证明：级数 $\\displaystyle\\sum_{n=1}^\\infty(-1)^nf\\left(\\frac1n\\right)$ 收敛，$\\displaystyle\\sum_{n=1}^\\infty f\\left(\\frac1n\\right)$ 发散。",
+   "answer": "",
+   "solution": "由极限存在且 $f$ 在 $0$ 处连续得 $f(0)=\\lim f(x)=0$，于是 $f'(0)=\\lim\\limits_{x\\to0}\\dfrac{f(x)}{x}=a>0$。由 $f'$ 在 $0$ 附近连续，存在 $\\delta>0$ 使 $[0,\\delta]$ 上 $f'>0$，$f$ 严格增，从而 $f(x)>f(0)=0\\ (0<x\\leqslant\\delta)$。\n当 $n>\\frac1\\delta$ 时，$f\\left(\\frac1n\\right)>0$ 单调递减且趋于 $0$，由 Leibniz 判别法 $\\sum(-1)^nf\\left(\\frac1n\\right)$ 收敛（前有限项不影响）。\n又 $\\dfrac{f(1/n)}{1/n}\\to a>0$，而 $\\sum\\frac1n$ 发散，由比较判别法的极限形式 $\\sum f\\left(\\frac1n\\right)$ 发散。",
+   "solutionSource": "编写"
+  },
+  {
+   "no": "六",
+   "score": 20,
+   "type": "证明",
+   "subjects": [
+    "数学分析"
+   ],
+   "topics": [
+    "凸函数",
+    "函数项级数",
+    "Cauchy-Schwarz不等式",
+    "中值定理逆问题"
+   ],
+   "difficulty": 3,
+   "statement": "设 $f(x)=\\ln\\displaystyle\\sum_{n=1}^\\infty\\frac{e^{nx}}{n^2}$。证明函数 $f$ 在 $(-\\infty,0)$ 内为严格凸的，并且对任意 $\\xi\\in(-\\infty,0)$，存在 $x_1,x_2\\in(-\\infty,0)$ 使得\n$$f'(\\xi)=\\frac{f(x_2)-f(x_1)}{x_2-x_1}.$$\n（称 $(a,b)$ 内的函数 $S$ 为严格凸的，如果对任何 $\\alpha\\in(0,1)$，以及 $x,y\\in(a,b)$，$x\\neq y$ 成立 $S(\\alpha x+(1-\\alpha)y)<\\alpha S(x)+(1-\\alpha)S(y)$。）",
+   "answer": "",
+   "solution": "**严格凸。** 令 $g(x)=\\sum\\frac{e^{nx}}{n^2}>0$。在每个 $(-\\infty,-\\varepsilon]$ 上 $\\sum e^{nx}$、$\\sum\\frac{e^{nx}}{n}$ 一致收敛，可逐项求导：$g'=\\sum\\frac{e^{nx}}{n}$，$g''=\\sum e^{nx}$。$f=\\ln g$，\n$$f''=\\frac{gg''-g'^2}{g^2}.$$\n由 Cauchy–Schwarz 不等式，$g'^2=\\left(\\sum e^{nx/2}\\cdot\\frac{e^{nx/2}}{n}\\right)^2\\leqslant\\sum e^{nx}\\cdot\\sum\\frac{e^{nx}}{n^2}=g''g$，且两序列 $\\left(e^{nx/2}\\right)$ 与 $\\left(e^{nx/2}/n\\right)$ 不成比例，故严格不等，$f''>0$，$f$ 在 $(-\\infty,0)$ 内严格凸。\n**割线斜率。** 固定 $\\xi<0$，令 $h(x)=f(x)-f'(\\xi)x$，则 $h''=f''>0$，$h'(\\xi)=0$，所以 $h$ 在 $(-\\infty,\\xi]$ 严格减、在 $[\\xi,0)$ 严格增，$\\xi$ 是严格最小值点。任取 $a<\\xi<b<0$，则 $h(a),h(b)>h(\\xi)$；取 $c\\in\\big(h(\\xi),\\min\\{h(a),h(b)\\}\\big)$，由介值定理存在 $x_1\\in(a,\\xi)$、$x_2\\in(\\xi,b)$ 使 $h(x_1)=h(x_2)=c$。于是 $f(x_2)-f(x_1)=f'(\\xi)(x_2-x_1)$，即\n$$f'(\\xi)=\\frac{f(x_2)-f(x_1)}{x_2-x_1}.$$",
+   "solutionSource": "编写"
+  }
+ ]
+}

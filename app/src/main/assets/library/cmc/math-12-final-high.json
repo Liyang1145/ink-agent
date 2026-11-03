@@ -1,0 +1,263 @@
+{
+ "id": "cmc-math-12-final-high",
+ "title": "第十二届全国大学生数学竞赛决赛（数学类高年级组）",
+ "year": 2021,
+ "track": "数学类",
+ "round": "决赛",
+ "paper": "high",
+ "durationMin": 180,
+ "totalScore": 100,
+ "source": {
+  "question": "12-final-math-high-b.pdf",
+  "solution": "12-final-math-high-b.pdf"
+ },
+ "problems": [
+  {
+   "no": "一(1)",
+   "score": 5,
+   "type": "填空",
+   "subjects": [
+    "数学分析"
+   ],
+   "topics": [
+    "三重积分",
+    "球体",
+    "对称性"
+   ],
+   "difficulty": 1,
+   "statement": "设 $\\Omega:(x-2)^2+(y-3)^2+(z-4)^2\\leqslant1$，则积分 $\\displaystyle\\iiint_\\Omega(x^2+2y^2+3z^2)\\,\\mathrm dx\\,\\mathrm dy\\,\\mathrm dz=$ ______。",
+   "answer": "$\\dfrac{1424\\pi}{15}$",
+   "solution": "平移 $x=2+u,\\ y=3+v,\\ z=4+w$，$\\Omega$ 变为单位球 $B$。由对称性，一次项积分为 $0$，且 $\\displaystyle\\iiint_Bu^2=\\iiint_Bv^2=\\iiint_Bw^2=\\frac13\\iiint_B(u^2+v^2+w^2)=\\frac{4\\pi}{15}$。于是\n$$\\iiint_\\Omega(x^2+2y^2+3z^2)=(4+2\\cdot9+3\\cdot16)\\cdot\\frac{4\\pi}3+(1+2+3)\\cdot\\frac{4\\pi}{15}=\\frac{1400\\pi}{15}+\\frac{24\\pi}{15}=\\frac{1424\\pi}{15}.$$",
+   "solutionSource": "编写"
+  },
+  {
+   "no": "一(2)",
+   "score": 5,
+   "type": "填空",
+   "subjects": [
+    "数学分析"
+   ],
+   "topics": [
+    "Stolz 定理",
+    "积分渐近",
+    "L'Hospital 法则"
+   ],
+   "difficulty": 2,
+   "statement": "设 $x_n=\\displaystyle\\sum_{k=1}^n\\frac{e^{k^2}}{k}$，$y_n=\\displaystyle\\int_0^ne^{x^2}\\,\\mathrm dx$，则 $\\displaystyle\\lim_{n\\to\\infty}\\frac{x_n}{y_n}=$ ______。",
+   "answer": "$2$",
+   "solution": "$y_n$ 严格递增趋于 $+\\infty$，由 Stolz 定理\n$$\\lim_{n\\to\\infty}\\frac{x_n}{y_n}=\\lim_{n\\to\\infty}\\frac{e^{n^2}/n}{\\int_{n-1}^ne^{x^2}\\,\\mathrm dx}.$$\n由 L'Hospital 法则，$\\displaystyle\\lim_{t\\to+\\infty}\\frac{\\int_{t-1}^te^{x^2}\\,\\mathrm dx}{e^{t^2}/(2t)}=\\lim_{t\\to+\\infty}\\frac{e^{t^2}-e^{(t-1)^2}}{e^{t^2}\\big(1-\\frac1{2t^2}\\big)}=1$，故 $\\int_{n-1}^ne^{x^2}\\,\\mathrm dx\\sim\\dfrac{e^{n^2}}{2n}$，所求极限为 $2$。",
+   "solutionSource": "编写"
+  },
+  {
+   "no": "一(3)",
+   "score": 5,
+   "type": "填空",
+   "subjects": [
+    "高等代数"
+   ],
+   "topics": [
+    "Jordan 标准形",
+    "幂零矩阵",
+    "秩"
+   ],
+   "difficulty": 2,
+   "statement": "矩阵 $\\begin{pmatrix}1&0&1&0&0\\\\0&1&0&1&0\\\\0&0&1&0&1\\\\0&0&0&1&0\\\\0&0&0&0&1\\end{pmatrix}$ 的 Jordan 标准型为 ______。",
+   "answer": "$\\begin{pmatrix}1&1&&&\\\\&1&1&&\\\\&&1&&\\\\&&&1&1\\\\&&&&1\\end{pmatrix}$，即 $J_3(1)\\oplus J_2(1)$。",
+   "solution": "记矩阵为 $I+N$，$N=E_{13}+E_{24}+E_{35}$，则 $N^2=E_{15}$，$N^3=0$。$\\operatorname{rank}N=3$，$\\operatorname{rank}N^2=1$。特征值 $1$ 的 Jordan 块个数为 $5-\\operatorname{rank}N=2$；阶数 $\\geqslant2$ 的块数为 $\\operatorname{rank}N-\\operatorname{rank}N^2=2$；阶数 $\\geqslant3$ 的块数为 $\\operatorname{rank}N^2-\\operatorname{rank}N^3=1$。故 Jordan 标准形为 $J_3(1)\\oplus J_2(1)$。",
+   "solutionSource": "编写"
+  },
+  {
+   "no": "一(4)",
+   "score": 5,
+   "type": "填空",
+   "subjects": [
+    "高等代数"
+   ],
+   "topics": [
+    "对称矩阵",
+    "排列",
+    "迹",
+    "奇偶性"
+   ],
+   "difficulty": 2,
+   "statement": "设 $A$ 为 2021 阶对称矩阵，$A$ 的每一行均为 $1,2,\\dots,2021$ 的一个排列。则 $A$ 的迹 $\\operatorname{tr}A=$ ______。",
+   "answer": "$1011\\times2021$",
+   "solution": "每个数 $k\\in\\{1,\\dots,2021\\}$ 在每一行恰出现一次，故在 $A$ 中共出现 $2021$ 次（奇数次）。由对称性，$k$ 在非对角位置的出现成对出现，故 $k$ 在对角线上出现奇数次，至少一次。对角线只有 $2021$ 个位置，故每个 $k$ 在对角线上恰出现一次，\n$$\\operatorname{tr}A=1+2+\\cdots+2021=1011\\times2021.$$",
+   "solutionSource": "编写"
+  },
+  {
+   "no": "二",
+   "score": 15,
+   "type": "计算",
+   "subjects": [
+    "解析几何"
+   ],
+   "topics": [
+    "旋转曲面",
+    "环面",
+    "圆锥面",
+    "相切"
+   ],
+   "difficulty": 3,
+   "statement": "给定 $yOz$ 平面上的圆 $C:\\ y=\\sqrt3+\\cos\\theta,\\ z=1+\\sin\\theta\\ (\\theta\\in[0,2\\pi])$。\n\n1. 求 $C$ 绕 $z$ 轴旋转所得到的环面 $S$ 的隐式方程。\n\n2. 设 $z_0\\geqslant0$，以 $M(0,0,z_0)$ 为顶点的两个锥面 $S_1$ 和 $S_2$ 的半顶角之差为 $\\pi/3$，且均与环面 $S$ 相切（每条母线都与环面相切），求 $z_0$ 和 $S_1,S_2$ 的隐式方程。",
+   "answer": "1. $(x^2+y^2+(z-1)^2+2)^2=12(x^2+y^2)$；2. $z_0=0$ 时 $S_1:z=\\sqrt{3(x^2+y^2)}$，$S_2:z=0$；$z_0=2$ 时 $S_1:z=2-\\sqrt{3(x^2+y^2)}$，$S_2:z=2$。",
+   "solution": "**1.** 消去 $\\theta$，$C:\\ (y-\\sqrt3)^2+(z-1)^2=1,\\ x=0$。绕 $z$ 轴旋转，以 $\\pm\\sqrt{x^2+y^2}$ 代 $y$：\n$$\\big(\\pm\\sqrt{x^2+y^2}-\\sqrt3\\big)^2+(z-1)^2=1,$$\n化简得 $S:\\ \\big(x^2+y^2+(z-1)^2+2\\big)^2=12(x^2+y^2)$。\n\n**2.** 只需在 $yOz$ 平面内考虑。圆心 $O'(0,\\sqrt3,1)$，半径 $1$；设 $M=(0,0,t)$，过 $M$ 作圆 $C$ 的两条切线，切点 $A,B$。两锥面的半顶角之差为 $\\frac\\pi3$，即两条切线夹角 $\\angle AMB=\\frac\\pi3$，故 $\\angle O'MA=\\angle O'MB=\\frac\\pi6$，从而 $MO'=\\dfrac{1}{\\sin(\\pi/6)}=2$，即 $3+(t-1)^2=4$，得 $t=0$ 或 $t=2$。\n\n当 $t=0$：$M(0,0,0)$，切点 $A\\big(0,\\frac{\\sqrt3}2,\\frac32\\big)$，$B(0,\\sqrt3,0)$。母线 $MA:\\ x=0,\\ \\sqrt3y-z=0$，绕 $z$ 轴得 $S_1:\\ z=\\sqrt{3(x^2+y^2)}$；母线 $MB:\\ x=0,\\ z=0$，得 $S_2:\\ z=0$。\n\n当 $t=2$：$M(0,0,2)$，切点 $A\\big(0,\\frac{\\sqrt3}2,\\frac12\\big)$，$B(0,\\sqrt3,2)$。母线 $x=0,\\ \\sqrt3y+z-2=0$ 与 $x=0,\\ z=2$，对应锥面 $S_1':\\ z=2-\\sqrt{3(x^2+y^2)}$ 与 $S_2':\\ z=2$。",
+   "solutionSource": "官方"
+  },
+  {
+   "no": "三",
+   "score": 15,
+   "type": "证明",
+   "subjects": [
+    "高等代数"
+   ],
+   "topics": [
+    "可对角化",
+    "核与像",
+    "直和分解",
+    "秩"
+   ],
+   "difficulty": 3,
+   "statement": "设 $n$ 阶复方阵 $A_1,\\dots,A_{2n}$ 均相似于对角阵，$\\mathbb C^n$ 表示复 $n$ 维列向量空间。证明：\n\n1. $\\mathbb C^n=\\ker A_k\\oplus\\operatorname{Im}A_k$。这里 $\\ker A_k=\\{\\alpha\\mid A_k\\alpha=0,\\ \\alpha\\in\\mathbb C^n\\}$，$\\operatorname{Im}A_k=\\{A_k\\beta\\mid\\beta\\in\\mathbb C^n\\}\\ (k=1,\\dots,2n)$。\n\n2. 若对所有的 $k<j$ 皆有 $A_kA_j=0\\ (k,j=1,2,\\dots,2n)$，则 $A_1,\\dots,A_{2n}$ 中至少有 $n$ 个矩阵为零矩阵。",
+   "answer": "",
+   "solution": "**1.** 由 $A_k$ 可对角化，取特征向量基 $p_1^{(k)},\\dots,p_n^{(k)}$，其中 $p_1^{(k)},\\dots,p_t^{(k)}$ 属于特征值 $0$，其余属于非零特征值 $\\lambda_{t+1}^{(k)},\\dots,\\lambda_n^{(k)}$。由 $0$ 的几何重数等于代数重数 $t$，$\\ker A_k=\\operatorname{span}\\{p_1^{(k)},\\dots,p_t^{(k)}\\}$。对 $y=\\sum a_ip_i^{(k)}$，$A_ky=\\sum_{i>t}a_i\\lambda_i^{(k)}p_i^{(k)}$，且非零特征值可逆缩放，故 $\\operatorname{Im}A_k=\\operatorname{span}\\{p_{t+1}^{(k)},\\dots,p_n^{(k)}\\}$。因此 $\\mathbb C^n=\\ker A_k\\oplus\\operatorname{Im}A_k$。\n\n**2.** 由 $A_1A_2=0$ 得 $\\operatorname{Im}A_2\\subseteq\\ker A_1$。对 $u\\in\\ker A_1$，按 $\\mathbb C^n=\\ker A_2\\oplus\\operatorname{Im}A_2$ 写 $u=u_1+u_2$，则 $u_1=u-u_2\\in\\ker A_1\\cap\\ker A_2$，故\n$$\\ker A_1=(\\ker A_1\\cap\\ker A_2)\\oplus\\operatorname{Im}A_2,\\qquad\\mathbb C^n=(\\ker A_1\\cap\\ker A_2)\\oplus\\operatorname{Im}A_2\\oplus\\operatorname{Im}A_1.$$\n再由 $A_1A_3=A_2A_3=0$ 知 $\\operatorname{Im}A_3\\subseteq\\ker A_1\\cap\\ker A_2$，同理分解 $\\ker A_1\\cap\\ker A_2=(\\ker A_1\\cap\\ker A_2\\cap\\ker A_3)\\oplus\\operatorname{Im}A_3$。依次进行得\n$$\\mathbb C^n=\\Big(\\bigcap_{k=1}^{2n}\\ker A_k\\Big)\\oplus\\operatorname{Im}A_{2n}\\oplus\\cdots\\oplus\\operatorname{Im}A_1,$$\n从而 $\\sum_{k=1}^{2n}\\operatorname{rank}A_k\\leqslant n$。故 $2n$ 个矩阵中至多 $n$ 个非零，即至少有 $n$ 个为零矩阵。",
+   "solutionSource": "官方"
+  },
+  {
+   "no": "四",
+   "score": 20,
+   "type": "证明",
+   "subjects": [
+    "数学分析"
+   ],
+   "topics": [
+    "凹函数",
+    "反常积分发散",
+    "折线函数构造",
+    "极限"
+   ],
+   "difficulty": 5,
+   "statement": "称实函数 $f$ 满足条件 $(P)$：若 $f$ 在 $[0,1]$ 上非负连续，$f(1)>f(0)=0$，$\\displaystyle\\int_0^1\\frac1{f(x)}\\,\\mathrm dx=+\\infty$，且对任何 $x_1,x_2\\in[0,1]$ 成立 $f\\Big(\\dfrac{x_1+x_2}2\\Big)\\geqslant\\dfrac{f(x_1)+f(x_2)}2$。\n\n1. 令 $c>0$，对于 $f_1(x)=cx$ 和 $f_2(x)=\\sqrt x$，分别验证 $f_1,f_2$ 是否满足条件 $(P)$，并计算 $\\displaystyle\\lim_{x\\to0^+}\\big(f_1(x)-xf_1'(x)\\big)^me^{f_1'(x)}$ 和 $\\displaystyle\\lim_{x\\to0^+}\\big(f_2(x)-xf_2'(x)\\big)^me^{f_2'(x)}$。\n\n2. 证明：$\\forall m\\geqslant1$，存在满足条件 $(P)$ 的函数 $f$ 以及趋于零的正数列 $\\{x_n\\}$，使得 $f$ 在每一点 $x_n$ 可导，且 $\\displaystyle\\lim_{n\\to+\\infty}\\big(f(x_n)-x_nf'(x_n)\\big)^me^{f'(x_n)}=+\\infty$。",
+   "answer": "1. $f_1$ 满足 $(P)$，$f_2$ 不满足（$\\int_0^1\\frac{\\mathrm dx}{\\sqrt x}<\\infty$）；第一个极限为 $0$，第二个为 $+\\infty$。",
+   "solution": "注意 $f(x)-xf'(x)=-x^2\\Big(\\dfrac{f(x)}x\\Big)'$。\n\n**1.** $f_1,f_2$ 在 $[0,1]$ 上非负连续，$f_i(1)>f_i(0)=0$，且 $f_1''=0$，$f_2''=-\\frac14x^{-3/2}<0$，均为凹函数。由于 $\\int_0^1\\frac{\\mathrm dx}{cx}=+\\infty$，$\\int_0^1\\frac{\\mathrm dx}{\\sqrt x}<+\\infty$，故 $f_1$ 满足 $(P)$ 而 $f_2$ 不满足。又 $f_1-xf_1'\\equiv0$，第一个极限为 $0$；\n$$\\lim_{x\\to0^+}\\big(f_2-xf_2'\\big)^me^{f_2'}=\\lim_{x\\to0^+}\\Big(\\frac{\\sqrt x}2\\Big)^me^{\\frac1{2\\sqrt x}}=+\\infty.$$\n\n**2.** 受 1 启发，取 $(0,1]$ 中严格递减趋于 $0$ 的点列 $\\{a_n\\}$（$a_0=1$），令 $f(0)=0$，$f$ 的图像为依次连接 $(a_n,\\sqrt{a_n})$ 的折线：\n$$f(x)=\\sqrt{a_{n+1}}+k_n(x-a_{n+1}),\\ x\\in(a_{n+1},a_n],\\qquad k_n=\\frac{\\sqrt{a_n}-\\sqrt{a_{n+1}}}{a_n-a_{n+1}}=\\frac1{\\sqrt{a_n}+\\sqrt{a_{n+1}}}.$$\n$k_n$ 随 $n$ 递增，故 $f$ 是凹的、连续、非负，$f(1)=1>0$。在每段上\n$$\\int_{a_{n+1}}^{a_n}\\frac{\\mathrm dx}{f(x)}=\\frac1{k_n}\\ln\\frac{f(a_n)}{f(a_{n+1})}=\\frac1{2k_n}\\ln\\frac{a_n}{a_{n+1}}\\geqslant\\frac{\\sqrt{a_n}}2\\ln\\frac{a_n}{a_{n+1}}.$$\n取 $a_{n+1}=a_ne^{-\\frac2{n\\sqrt{a_n}}}$，则 $0<a_{n+1}<a_n$，每段积分 $\\geqslant\\frac1n$，故 $\\int_0^1\\frac{\\mathrm dx}{f}=+\\infty$。（$a_n\\to0$：否则 $a_n\\downarrow a>0$，$\\ln\\frac{a_1}{a_{n+1}}=\\sum\\frac2{k\\sqrt{a_k}}\\geqslant\\sum\\frac2{k}\\to\\infty$，矛盾。）所以 $f$ 满足 $(P)$。\n\n另一方面，在 $(a_{n+1},a_n)$ 内 $f'=k_n\\geqslant\\dfrac1{2\\sqrt{a_n}}$，且\n$$f(x)-xf'(x)=\\sqrt{a_{n+1}}-k_na_{n+1}=\\frac{\\sqrt{a_n}\\sqrt{a_{n+1}}}{\\sqrt{a_n}+\\sqrt{a_{n+1}}}\\geqslant\\frac{\\sqrt{a_{n+1}}}2=\\frac{\\sqrt{a_n}e^{-\\frac1{n\\sqrt{a_n}}}}2.$$\n任取 $x_n\\in(a_{n+1},a_n)$，则\n$$\\big(f(x_n)-x_nf'(x_n)\\big)^me^{f'(x_n)}\\geqslant\\Big(\\frac{\\sqrt{a_n}}2\\Big)^me^{\\big(\\frac12-\\frac mn\\big)\\frac1{\\sqrt{a_n}}}\\to+\\infty\\quad(n\\to\\infty).$$",
+   "solutionSource": "官方"
+  },
+  {
+   "no": "五",
+   "score": 10,
+   "type": "证明",
+   "subjects": [
+    "实变函数"
+   ],
+   "topics": [
+    "L^2 收敛",
+    "Fatou 引理",
+    "Egorov 定理",
+    "积分绝对连续性"
+   ],
+   "difficulty": 3,
+   "statement": "设 $\\{f_n(x)\\}_{n\\geqslant1}$ 是 $\\mathbb R$ 上可测函数列，$f_n^2,f^2\\in\\mathcal L(\\mathbb R)\\ (\\forall n\\geqslant1)$，且对 $\\mathcal L$-a.e. $x\\in\\mathbb R$，$\\displaystyle\\lim_{n\\to\\infty}f_n(x)=f(x)$。若 $\\displaystyle\\lim_{n\\to\\infty}\\int_{\\mathbb R}|f_n(x)|^2\\,\\mathrm dm=\\int_{\\mathbb R}|f(x)|^2\\,\\mathrm dm$，则 $\\displaystyle\\lim_{n\\to\\infty}\\int_{\\mathbb R}|f_n(x)-f(x)|^2\\,\\mathrm dm=0$。",
+   "answer": "",
+   "solution": "**官方思路（Egorov 定理）** 由 $f^2\\in\\mathcal L(\\mathbb R)$，$\\forall\\varepsilon>0$，取 $n_\\varepsilon$ 与 $\\delta>0$ 使 $\\int_{\\mathbb R\\setminus[-n_\\varepsilon,n_\\varepsilon]}|f|^2<\\varepsilon$，且 $mE<\\delta$ 时 $\\int_E|f|^2<\\varepsilon$。由 Egorov 定理，存在 $E_\\varepsilon\\subseteq[-n_\\varepsilon,n_\\varepsilon]$，$mE_\\varepsilon<\\delta$，使 $f_n$ 在 $E_1=[-n_\\varepsilon,n_\\varepsilon]\\setminus E_\\varepsilon$ 上一致收敛于 $f$。于是 $\\int_{E_1}|f_n-f|^2\\to0$，由 Minkowski 不等式 $\\int_{E_1}|f_n|^2\\to\\int_{E_1}|f|^2$。结合 $\\int_{\\mathbb R}|f_n|^2\\to\\int_{\\mathbb R}|f|^2$ 得 $\\limsup\\int_{\\mathbb R\\setminus E_1}|f_n|^2=\\int_{\\mathbb R\\setminus E_1}|f|^2<2\\varepsilon$，从而\n$$\\limsup_{n\\to\\infty}\\int_{\\mathbb R}|f_n-f|^2\\leqslant\\limsup\\int_{E_1}|f_n-f|^2+2\\limsup\\int_{\\mathbb R\\setminus E_1}\\big(|f_n|^2+|f|^2\\big)\\leqslant8\\varepsilon.$$\n由 $\\varepsilon$ 任意得结论。\n\n**另证（Fatou 引理）** $g_n=2|f_n|^2+2|f|^2-|f_n-f|^2\\geqslant0$，且 $g_n\\to4|f|^2$ a.e.。由 Fatou 引理\n$$4\\int|f|^2\\leqslant\\liminf_{n\\to\\infty}\\int g_n=4\\int|f|^2-\\limsup_{n\\to\\infty}\\int|f_n-f|^2,$$\n故 $\\limsup\\int|f_n-f|^2\\leqslant0$。（官方还给出利用弱收敛 $\\int f_ng\\to\\int fg$ 的方法。）",
+   "solutionSource": "官方"
+  },
+  {
+   "no": "六",
+   "score": 10,
+   "type": "证明",
+   "subjects": [
+    "复变函数"
+   ],
+   "topics": [
+    "Rouché 定理",
+    "Hurwitz 定理",
+    "内闭一致收敛",
+    "单叶函数"
+   ],
+   "difficulty": 3,
+   "statement": "设函数列 $\\{f_n(z)\\}$ 在区域 $G$ 上解析，且在 $G$ 中内闭一致收敛于函数 $f(z)$。证明：\n\n1. 若 $f(z)$ 不恒为零，$l$ 是 $G$ 内可求长的简单闭曲线，其内部属于 $G$，且不经过 $f(z)$ 的零点。则存在正整数 $N$，使得当 $n\\geqslant N$ 时，在 $l$ 的内部 $f_n(z)$ 和 $f(z)$ 有相同个数的零点；\n\n2. 若 $\\{f_n(z)\\}$ 在区域 $G$ 内还是单叶的，$f(z)$ 不为常数，则 $f(z)$ 在 $G$ 内单叶解析。",
+   "answer": "",
+   "solution": "**1.** 由 Weierstrass 定理，$f$ 在 $G$ 内解析。因 $f$ 在 $l$ 上不为零，$m=\\min\\limits_{z\\in l}|f(z)|>0$。$\\{f_n\\}$ 在 $l$ 上一致收敛于 $f$，故存在 $N$，当 $n\\geqslant N$ 时在 $l$ 上 $|f_n(z)-f(z)|<m\\leqslant|f(z)|$。由 Rouché 定理，在 $l$ 的内部 $f_n$ 与 $f$ 有相同个数的零点。\n\n**2.** 反证。若 $f$ 不单叶，则有 $z_1\\neq z_2$ 使 $f(z_1)=f(z_2)$。令 $F_n(z)=f_n(z)-f_n(z_1)$，则 $\\{F_n\\}$ 内闭一致收敛于不恒为零的解析函数 $F(z)=f(z)-f(z_1)$（$f$ 非常数）。在 $G$ 内分别以 $z_1,z_2$ 为心作互不相交、彼此外离的小圆 $C_1:|z-z_1|=r_1$，$C_2:|z-z_2|=r_2$，使其上无 $F$ 的零点。由 1，$n$ 充分大时 $F_n$ 在 $C_1,C_2$ 内部各至少有一个零点 $z_1^*,z_2^*$，即 $f_n(z_1^*)=f_n(z_2^*)=f_n(z_1)$，与 $f_n$ 单叶矛盾。（注：原解答此处 $C_2$ 写作 $|z-z_1|=r_2$、$F_n$ 中 $f_n(z_1)$ 漏写下标，以及结论中 $f(z_1^*)$ 应为 $f_n(z_1^*)$，均为笔误，已改正。）",
+   "solutionSource": "官方"
+  },
+  {
+   "no": "七",
+   "score": 10,
+   "type": "证明",
+   "subjects": [
+    "抽象代数"
+   ],
+   "topics": [
+    "多项式环",
+    "可逆元",
+    "幂零元",
+    "素理想",
+    "Zorn 引理"
+   ],
+   "difficulty": 3,
+   "statement": "设 $R$ 为有单位元的交换环，$R[x]$ 是 $R$ 上的一元多项式环，$$f(x)=a_0+a_1x+\\cdots+a_nx^n\\in R[x].$$ 证明：$f(x)$ 在环 $R[x]$ 中可逆当且仅当 $a_0$ 在 $R$ 中可逆且 $a_1,\\dots,a_n$ 均为 $R$ 中的幂零元。",
+   "answer": "",
+   "solution": "**充分性** 记 $b_i=a_0^{-1}a_i$，$g(x)=b_1x+\\cdots+b_nx^n$，则 $f=a_0(1+g)$。取 $N$ 使 $a_i^N=0\\ (1\\leqslant i\\leqslant n)$，则 $b_i^N=0$。$g^{nN}$ 的展开式中每项系数形如 $\\dfrac{(nN)!}{k_1!\\cdots k_n!}b_1^{k_1}\\cdots b_n^{k_n}$，$k_1+\\cdots+k_n=nN$，必有某 $k_j\\geqslant N$，故 $g^{nN}=0$。于是\n$$f\\cdot a_0^{-1}\\big(1-g+g^2-\\cdots+(-1)^{nN-1}g^{nN-1}\\big)=1+(-1)^{nN-1}g^{nN}=1,$$\n$f$ 可逆。\n\n**引理** 若 $a\\in R$ 不是幂零元，则存在素理想 $P$ 使 $a\\notin P$。令 $S=\\{I\\mid I\\text{ 是 }R\\text{ 的理想且 }I\\cap\\{a,a^2,\\dots\\}=\\varnothing\\}$，$(0)\\in S$。$S$ 按包含关系成偏序集，链的并仍在 $S$ 中，由 Zorn 引理 $S$ 有极大元 $P$，$a\\notin P$。若 $u,v\\notin P$ 但 $uv\\in P$，由极大性 $(u)+P,(v)+P\\notin S$，故有 $a^s=uy+p_1$，$a^t=vz+p_2$（$p_1,p_2\\in P$），相乘得 $a^{s+t}=(uv)yz+uyp_2+p_1vz+p_1p_2\\in P$，矛盾。故 $P$ 为素理想。\n\n**必要性** 设 $fh=1$，比较常数项 $a_0h_0=1$，$a_0$ 可逆。任取素理想 $P$，在自然同态 $R\\to\\overline R=R/P$ 下 $\\bar f\\bar h=\\bar1$，$\\bar f$ 是整环 $\\overline R$ 上的可逆多项式，次数比较给出 $\\bar f=\\bar a_0$，即 $a_i\\in P\\ (1\\leqslant i\\leqslant n)$。于是 $a_i$ 属于所有素理想，由引理 $a_i$ 为幂零元。",
+   "solutionSource": "官方"
+  },
+  {
+   "no": "八",
+   "score": 10,
+   "type": "计算",
+   "subjects": [
+    "微分几何"
+   ],
+   "topics": [
+    "平均曲率",
+    "极小曲面",
+    "Scherk 曲面",
+    "第一第二基本形式"
+   ],
+   "difficulty": 3,
+   "statement": "设 $S:\\ r=(x,y,h(x,y))$ 为三维欧氏空间中的光滑曲面，$h(x,y)$ 是关于 $x,y$ 的光滑函数。\n\n1. 求 $S$ 的平均曲率的表达式。\n\n2. 设 $S$ 为极小曲面，当 $h(x,y)=f(x)+g(y)$ 时，求 $h(x,y)$ 的表达式，其中函数 $f,g$ 均为光滑函数。",
+   "answer": "1. $H=\\dfrac{h_{xx}(1+h_y^2)-2h_xh_yh_{xy}+h_{yy}(1+h_x^2)}{2(1+h_x^2+h_y^2)^{3/2}}$；2. $h=ax+by+c$（平面），或 $h(x,y)=\\dfrac1c\\ln\\dfrac{\\cos(cy+b)}{\\cos(cx+d)}+e$（Scherk 曲面，$c\\neq0$）。",
+   "solution": "**1.** $r_x=(1,0,h_x)$，$r_y=(0,1,h_y)$，$r_{xx}=(0,0,h_{xx})$，$r_{xy}=(0,0,h_{xy})$，$r_{yy}=(0,0,h_{yy})$，单位法向 $n=\\dfrac{(-h_x,-h_y,1)}{\\sqrt{1+h_x^2+h_y^2}}$。\n$$E=1+h_x^2,\\ F=h_xh_y,\\ G=1+h_y^2,\\quad L=\\frac{h_{xx}}{\\sqrt{1+h_x^2+h_y^2}},\\ M=\\frac{h_{xy}}{\\sqrt{1+h_x^2+h_y^2}},\\ N=\\frac{h_{yy}}{\\sqrt{1+h_x^2+h_y^2}}.$$\n$$H=\\frac{LG-2FM+EN}{2(EG-F^2)}=\\frac{h_{xx}(1+h_y^2)-2h_xh_yh_{xy}+h_{yy}(1+h_x^2)}{2(1+h_x^2+h_y^2)^{3/2}}.$$\n（注：原解答分母指数误作 $\\frac23$，应为 $\\frac32$，已改正。）\n\n**2.** $h=f(x)+g(y)$ 时 $h_{xy}=0$，$H=0$ 化为 $f''(1+g'^2)+g''(1+f'^2)=0$，即\n$$\\frac{f''(x)}{1+f'(x)^2}=-\\frac{g''(y)}{1+g'(y)^2}=c\\ (\\text{常数}).$$\n若 $c=0$，$f,g$ 均为一次函数，$h=ax+by+e$，$S$ 为平面。若 $c\\neq0$，$\\arctan f'=cx+d$，$f=-\\dfrac1c\\ln\\cos(cx+d)+e_1$；同理 $g=\\dfrac1c\\ln\\cos(cy+b)+e_2$。故\n$$h(x,y)=\\frac1c\\ln\\frac{\\cos(cy+b)}{\\cos(cx+d)}+e,$$\n即 Scherk 曲面。",
+   "solutionSource": "官方"
+  },
+  {
+   "no": "九",
+   "score": 10,
+   "type": "证明",
+   "subjects": [
+    "概率论"
+   ],
+   "topics": [
+    "弱大数定律",
+    "中心极限定理",
+    "Lyapunov 条件",
+    "Chebyshev 不等式",
+    "依概率收敛"
+   ],
+   "difficulty": 3,
+   "statement": "设有一列盒子，已知第 $k$ 个盒子中有 $k$ 个球，其中 1 个是红球，另外 $k-1$ 个是白球。现从前 $n$ 个盒子中各取一球，记 $S_n$ 表示取出的 $n$ 个球中红球的个数。证明：\n\n1. $\\dfrac{S_n}{\\ln(n)}$ 依概率收敛于 1；\n\n2. $\\dfrac{S_n-\\ln(n)}{\\sqrt{\\ln(n)}}$ 依分布收敛于标准正态分布 $N(0,1)$；\n\n3. 对任意 $r>0$，$\\displaystyle\\lim_{n\\to\\infty}E\\Big(\\frac{|S_n-\\ln(n)|^r}{\\ln^r(n)+|S_n-\\ln(n)|^r}\\Big)=0$。",
+   "answer": "",
+   "solution": "记 $X_k=1$（第 $k$ 个盒子取出红球）或 $0$，则 $X_k$ 独立，$X_k\\sim B\\big(1,\\frac1k\\big)$，$S_n=\\sum_{k=1}^nX_k$，\n$$ES_n=\\sum_{k=1}^n\\frac1k,\\qquad\\operatorname{Var}(S_n)=\\sum_{k=1}^n\\Big(\\frac1k-\\frac1{k^2}\\Big),\\qquad\\ln n+\\frac1n\\leqslant ES_n\\leqslant\\ln n+1.$$\n\n**1.** 由 Chebyshev 不等式\n$$P\\Big(\\Big|\\frac{S_n}{\\ln n}-1\\Big|\\geqslant\\varepsilon\\Big)\\leqslant\\frac{E(S_n-\\ln n)^2}{\\varepsilon^2\\ln^2n}=\\frac{\\operatorname{Var}(S_n)+(ES_n-\\ln n)^2}{\\varepsilon^2\\ln^2n}\\leqslant\\frac{\\ln n+1+1}{\\varepsilon^2\\ln^2n}\\to0.$$\n\n**2.** $\\dfrac{S_n-\\ln n}{\\sqrt{\\ln n}}=\\dfrac{S_n-ES_n}{\\sqrt{\\ln n}}+\\dfrac{ES_n-\\ln n}{\\sqrt{\\ln n}}$，后项 $\\to0$；又 $\\operatorname{Var}(S_n)/\\ln n\\to1$，只需证 $\\dfrac{S_n-ES_n}{\\sqrt{\\operatorname{Var}(S_n)}}\\xrightarrow{d}N(0,1)$。验证 Lyapunov 条件：\n$$\\sum_{k=1}^nE(X_k-EX_k)^4=\\sum_{k=1}^n\\Big[\\Big(1-\\frac1k\\Big)^4\\frac1k+\\frac1{k^4}\\Big(1-\\frac1k\\Big)\\Big]\\leqslant\\sum_{k=1}^n\\frac2k,$$\n故 $\\dfrac{1}{(\\operatorname{Var}S_n)^2}\\sum E(X_k-EX_k)^4\\to0$。（或验证 Lindeberg 条件：$|X_k-EX_k|\\leqslant1$，而 $\\operatorname{Var}(S_n)\\to\\infty$，$n$ 充分大时示性函数全为 $0$。）\n\n**3.** 记 $Y_n=\\dfrac{S_n-\\ln n}{\\ln n}$，则被积量为 $\\varphi(Y_n)=\\dfrac{|Y_n|^r}{1+|Y_n|^r}$。$\\varphi$ 连续有界（$0\\leqslant\\varphi<1$），$\\varphi(0)=0$，由 1，$Y_n\\xrightarrow{P}0$，故对任意 $\\varepsilon\\in(0,1)$，\n$$E\\varphi(Y_n)\\leqslant\\varphi(\\varepsilon)+P(|Y_n|\\geqslant\\varepsilon)\\to\\varphi(\\varepsilon)\\leqslant\\varepsilon^r,$$\n从而极限为 $0$。（官方解答亦由依概率收敛与有界收敛得到。）",
+   "solutionSource": "官方"
+  },
+  {
+   "no": "十",
+   "score": 10,
+   "type": "解答",
+   "subjects": [
+    "数值分析"
+   ],
+   "topics": [
+    "线性多步法",
+    "局部截断误差",
+    "Milne-Simpson 公式",
+    "零稳定性",
+    "收敛性"
+   ],
+   "difficulty": 3,
+   "statement": "考虑求解常微分方程初值问题 $$\\begin{cases}y'=f(x,y),\\\\y(x_0)=y_0\\end{cases}$$ 的下列数值格式： $$y_n+a_1y_{n-1}+a_2y_{n-2}=h(b_0f_n+b_1f_{n-1}+b_2f_{n-2}),$$ 其中 $a_1,a_2,b_0,b_1,b_2$ 为常数，$f_j=f(x_j,y_j),\\ j=n-2,n-1,n$。\n\n1. 确定常数 $a_1,a_2,b_0,b_1,b_2$，使得上述数值格式具有尽可能高阶的精度；\n\n2. 分析上一步得到的数值格式的稳定性与收敛性。",
+   "answer": "1. $a_1=0,\\ a_2=-1,\\ b_0=\\dfrac13,\\ b_1=\\dfrac43,\\ b_2=\\dfrac13$（Milne-Simpson 公式），4 阶精度；2. 第一特征多项式 $\\rho(\\zeta)=\\zeta^2-1$ 的根 $\\pm1$ 为单根，满足根条件，格式零稳定；又相容，故收敛。",
+   "solution": "定义 $L(y(x))=y(x)+a_1y(x-h)+a_2y(x-2h)-h\\big(b_0y'(x)+b_1y'(x-h)+b_2y'(x-2h)\\big)$。在 $x$ 处 Taylor 展开：\n$$L(y(x))=\\sum_{j=0}^kd_j\\frac{(-h)^j}{j!}y^{(j)}(x)+O(h^{k+1}),$$\n$$d_0=1+a_1+a_2,\\quad d_1=-(a_1+2a_2+b_0+b_1+b_2)\\ \\text{（对应 }hy'\\text{ 项）},\\quad d_j=a_1+2^ja_2+jb_1+2^{j-1}jb_2\\ (j\\geqslant2).$$\n令 $d_0=d_1=d_2=d_3=d_4=0$：\n$$1+a_1+a_2=0,\\ a_1+2a_2+b_0+b_1+b_2=0,\\ a_1+4a_2+2b_1+4b_2=0,\\ a_1+8a_2+3b_1+12b_2=0,\\ a_1+16a_2+4b_1+32b_2=0,$$\n解得 $a_1=0,\\ a_2=-1,\\ b_0=b_2=\\dfrac13,\\ b_1=\\dfrac43$，即\n$$y_n=y_{n-2}+\\frac h3\\big(f_n+4f_{n-1}+f_{n-2}\\big).$$\n此时 $d_5=-32+\\frac{20}3+\\frac{80}3=\\frac43\\neq0$，局部截断误差主项为 $-\\frac{h^5}{90}y^{(5)}$ 量级，格式为 4 阶（5 个参数所能达到的最高阶）。\n\n**2.** 第一特征多项式 $\\rho(\\zeta)=\\zeta^2-1$，根 $\\zeta=\\pm1$ 均在单位圆上且为单根，满足根条件，格式零稳定；又阶数 $\\geqslant1$ 即相容。由 Dahlquist 等价定理（相容 + 零稳定 $\\Leftrightarrow$ 收敛），格式收敛。（由于 $\\rho$ 有两个模为 1 的根，该格式只是弱稳定的，绝对稳定区间退化。）",
+   "solutionSource": "官方"
+  }
+ ]
+}

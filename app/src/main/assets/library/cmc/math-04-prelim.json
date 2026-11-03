@@ -1,0 +1,146 @@
+{
+ "id": "cmc-math-04-prelim",
+ "title": "第四届全国大学生数学竞赛初赛（数学类）",
+ "year": 2012,
+ "track": "数学类",
+ "round": "初赛",
+ "paper": "",
+ "durationMin": 150,
+ "totalScore": 100,
+ "source": {
+  "question": "2012年01-试题-第四届全国初赛-数学类试卷.pdf",
+  "solution": "2012年02-参考解答-第四届全国初赛-数学类试卷.pdf"
+ },
+ "problems": [
+  {
+   "no": "一",
+   "score": 15,
+   "type": "计算",
+   "subjects": [
+    "解析几何"
+   ],
+   "topics": [
+    "切锥面",
+    "椭圆抛物面",
+    "判别式"
+   ],
+   "difficulty": 2,
+   "statement": "设 $\\Gamma$ 为椭圆抛物面 $z=3x^2+4y^2+1$。从原点作 $\\Gamma$ 的切锥面。求切锥面的方程。",
+   "answer": "$z^2=4(3x^2+4y^2)$",
+   "solution": "设 $(x,y,z)\\ne0$ 在切锥面上，则过原点与该点的直线 $\\{t(x,y,z)\\}$ 与 $\\Gamma$ 相切，即关于 $t$ 的方程\n$$tz=(3x^2+4y^2)t^2+1$$\n有重根，判别式为零：$z^2-4(3x^2+4y^2)=0$。这就是切锥面方程 $z^2=12x^2+16y^2$。",
+   "solutionSource": "编写"
+  },
+  {
+   "no": "二",
+   "score": 15,
+   "type": "证明",
+   "subjects": [
+    "数学分析",
+    "解析几何"
+   ],
+   "topics": [
+    "抛物线",
+    "弓形面积",
+    "最值"
+   ],
+   "difficulty": 3,
+   "statement": "设 $\\Gamma$ 为抛物线，$P$ 是与焦点位于抛物线同侧的一点。过 $P$ 的直线 $L$ 与 $\\Gamma$ 围成的有界区域的面积记作 $A(L)$。证明：$A(L)$ 取最小值当且仅当 $P$ 恰为 $L$ 被 $\\Gamma$ 所截出的线段的中点。",
+   "answer": "",
+   "solution": "取坐标使 $\\Gamma:y=x^2$，$P=(x_0,y_0)$，$y_0>x_0^2$。过 $P$ 的非竖直直线 $L:y=k(x-x_0)+y_0$（竖直线不围成有界区域）与 $\\Gamma$ 交于 $x_1<x_2$，它们是 $x^2-kx+kx_0-y_0=0$ 的两根，$x_1+x_2=k$，$x_1x_2=kx_0-y_0$。\n弓形面积\n$$A(L)=\\int_{x_1}^{x_2}\\big(k(x-x_0)+y_0-x^2\\big)\\mathrm{d}x=\\int_{x_1}^{x_2}(x-x_1)(x_2-x)\\,\\mathrm{d}x=\\frac16(x_2-x_1)^3.$$\n而\n$$(x_2-x_1)^2=k^2-4kx_0+4y_0=(k-2x_0)^2+4(y_0-x_0^2)\\ge4(y_0-x_0^2),$$\n等号当且仅当 $k=2x_0$，即 $x_1+x_2=2x_0$，也就是 $P$ 为弦的中点（$P$ 在 $L$ 上，横坐标为两端点横坐标的平均值即为中点）。故 $A(L)$ 取最小值当且仅当 $P$ 为截线段中点。",
+   "solutionSource": "编写"
+  },
+  {
+   "no": "三",
+   "score": 10,
+   "type": "证明",
+   "subjects": [
+    "数学分析"
+   ],
+   "topics": [
+    "反常积分",
+    "比较判别法",
+    "单调函数"
+   ],
+   "difficulty": 3,
+   "statement": "设 $f\\in C^1[0,+\\infty)$，$f(0)>0$，$f'(x)\\ge0,\\ \\forall x\\in[0,+\\infty)$。已知 $\\displaystyle\\int_0^{+\\infty}\\frac{1}{f(x)+f'(x)}\\mathrm{d}x<+\\infty$，求证 $\\displaystyle\\int_0^{+\\infty}\\frac{1}{f(x)}\\mathrm{d}x<+\\infty$。",
+   "answer": "",
+   "solution": "由 $f'\\ge0$，$f(x)\\ge f(0)>0$。对 $N>0$，\n$$0\\le\\int_0^N\\frac{\\mathrm{d}x}{f}-\\int_0^N\\frac{\\mathrm{d}x}{f+f'}=\\int_0^N\\frac{f'}{f(f+f')}\\mathrm{d}x\\le\\int_0^N\\frac{f'}{f^2}\\mathrm{d}x=\\frac1{f(0)}-\\frac1{f(N)}\\le\\frac1{f(0)}.$$\n故 $\\displaystyle\\int_0^N\\frac{\\mathrm{d}x}{f}\\le\\int_0^{+\\infty}\\frac{\\mathrm{d}x}{f+f'}+\\frac1{f(0)}$ 对一切 $N$ 成立，被积函数为正，故 $\\int_0^{+\\infty}\\frac{\\mathrm{d}x}{f}$ 收敛。",
+   "solutionSource": "编写"
+  },
+  {
+   "no": "四",
+   "score": 10,
+   "type": "证明",
+   "subjects": [
+    "高等代数"
+   ],
+   "topics": [
+    "正定矩阵",
+    "行列式",
+    "特征值",
+    "二次型"
+   ],
+   "difficulty": 3,
+   "statement": "设 $A,B,C$ 均为 $n$ 阶正定矩阵，$P(t)=At^2+Bt+C$，$f(t)=\\det P(t)$，其中 $t$ 为未定元，$\\det P(t)$ 表示 $P(t)$ 的行列式。若 $\\lambda$ 是 $f(t)$ 的根，试证明：$\\operatorname{Re}(\\lambda)<0$，这里 $\\operatorname{Re}(\\lambda)$ 表示 $\\lambda$ 的实部。",
+   "answer": "",
+   "solution": "$f(\\lambda)=0$ 说明 $P(\\lambda)$ 奇异，存在复向量 $\\xi\\ne0$ 使 $P(\\lambda)\\xi=0$。左乘 $\\bar\\xi^T$ 得\n$$a\\lambda^2+b\\lambda+c=0,\\qquad a=\\bar\\xi^TA\\xi,\\ b=\\bar\\xi^TB\\xi,\\ c=\\bar\\xi^TC\\xi.$$\n由于 $A,B,C$ 实对称正定，$a,b,c$ 都是正实数。实系数二次方程 $a\\lambda^2+b\\lambda+c=0$ 的根：若为实根，由韦达定理两根之和 $-b/a<0$、之积 $c/a>0$，两根都为负；若为共轭复根，实部为 $-\\dfrac{b}{2a}<0$。故 $\\operatorname{Re}\\lambda<0$。",
+   "solutionSource": "编写"
+  },
+  {
+   "no": "五",
+   "score": 10,
+   "type": "计算",
+   "subjects": [
+    "数学分析"
+   ],
+   "topics": [
+    "幂级数",
+    "系数求和",
+    "二项式展开"
+   ],
+   "difficulty": 3,
+   "statement": "已知 $\\dfrac{(1+x)^n}{(1-x)^3}=\\displaystyle\\sum_{i=0}^\\infty a_ix^i,\\ |x|<1$，$n$ 为正整数，求 $\\displaystyle\\sum_{i=0}^{n-1}a_i$。",
+   "answer": "$\\displaystyle\\sum_{i=0}^{n-1}a_i=\\frac{n(n+2)(n+7)}{3}\\,2^{n-4}$",
+   "solution": "部分和 $\\sum_{i=0}^{n-1}a_i$ 等于 $\\dfrac{(1+x)^n}{(1-x)^4}$ 中 $x^{n-1}$ 的系数。写 $(1+x)^n=\\big(2-(1-x)\\big)^n=\\sum_{k=0}^n\\binom nk2^{n-k}(-1)^k(1-x)^k$，则\n$$\\frac{(1+x)^n}{(1-x)^4}=\\sum_{k=0}^n\\binom nk2^{n-k}(-1)^k(1-x)^{k-4}.$$\n$k\\ge4$ 的项是次数 $k-4\\le n-4$ 的多项式，不含 $x^{n-1}$；$k\\le3$ 时 $(1-x)^{-(4-k)}$ 中 $x^{n-1}$ 的系数为 $\\binom{n+2-k}{3-k}$。于是\n$$\\sum_{i=0}^{n-1}a_i=2^n\\binom{n+2}3-n2^{n-1}\\binom{n+1}2+\\binom n2 2^{n-2}n-\\binom n32^{n-3}=\\frac{n(n+2)(n+7)}3\\,2^{n-4}.$$\n（可验算：$n=1,2,3$ 时分别为 $1,6,25$。）",
+   "solutionSource": "编写"
+  },
+  {
+   "no": "六",
+   "score": 15,
+   "type": "证明",
+   "subjects": [
+    "数学分析"
+   ],
+   "topics": [
+    "导数介值性",
+    "单调性",
+    "黎曼和估计"
+   ],
+   "difficulty": 4,
+   "statement": "设 $f:[0,1]\\to\\mathbb R$ 可微，$f(0)=f(1)$，$\\displaystyle\\int_0^1f(x)\\,\\mathrm{d}x=0$ 且 $f'(x)\\ne1,\\ \\forall x\\in[0,1]$。求证：对于任意正整数 $n$，有 $$\\Big|\\sum_{k=0}^{n-1}f\\Big(\\frac kn\\Big)\\Big|<\\frac12.$$\n\n（注：原题印作“$f(0)=f(10,\\int_0^1\\cdots$”，为“$f(0)=f(1)$，$\\int_0^1\\cdots$”之笔误，已改正。）",
+   "answer": "",
+   "solution": "由 $f(0)=f(1)$ 及 Rolle 定理，存在 $c$ 使 $f'(c)=0<1$。导函数具有介值性（Darboux），而 $f'\\ne1$，故 $f'(x)<1$ 恒成立。令 $g(x)=f(x)-x$，则 $g'<0$，$g$ 严格递减，且 $\\int_0^1g=-\\frac12$。\n由严格递减，在 $[\\frac kn,\\frac{k+1}n]$ 上 $g(\\frac{k+1}n)<g(x)<g(\\frac kn)$（除端点），积分求和：\n$$\\frac1n\\sum_{k=1}^{n}g\\Big(\\frac kn\\Big)<\\int_0^1g=-\\frac12<\\frac1n\\sum_{k=0}^{n-1}g\\Big(\\frac kn\\Big).$$\n而 $g(1)=f(1)-1=g(0)-1$，故左式 $=\\frac1n\\sum_{k=0}^{n-1}g(\\frac kn)-\\frac1n$。记 $S=\\sum_{k=0}^{n-1}g(\\frac kn)$，得 $-\\frac n2<S<-\\frac n2+1$。又\n$$\\sum_{k=0}^{n-1}f\\Big(\\frac kn\\Big)=S+\\sum_{k=0}^{n-1}\\frac kn=S+\\frac{n-1}2\\in\\Big(-\\frac12,\\frac12\\Big).$$",
+   "solutionSource": "编写"
+  },
+  {
+   "no": "七",
+   "score": 25,
+   "type": "证明",
+   "subjects": [
+    "高等代数"
+   ],
+   "topics": [
+    "矩阵方程",
+    "线性表示",
+    "相似",
+    "合同",
+    "惯性指数"
+   ],
+   "difficulty": 3,
+   "statement": "已知实矩阵 $A=\\begin{pmatrix}2&2\\\\2&a\\end{pmatrix}$，$B=\\begin{pmatrix}4&b\\\\3&1\\end{pmatrix}$。证明：\n\n(1) 矩阵方程 $AX=B$ 有解但 $BY=A$ 无解的充要条件是 $a\\ne2,\\ b=\\dfrac43$；\n\n(2) $A$ 相似于 $B$ 的充要条件是 $a=3,\\ b=\\dfrac23$；\n\n(3) $A$ 合同于 $B$ 的充要条件是 $a<2,\\ b=3$。\n\n（注：原题印作“重要条件”，为“充要条件”之笔误，已改正。）",
+   "answer": "",
+   "solution": "**(1)** $AX=B$ 有解 $\\iff$ $B$ 的列可由 $A$ 的列线性表示 $\\iff\\operatorname{rank}A=\\operatorname{rank}(A,B)$。行变换 $(A,B)\\to\\begin{pmatrix}2&2&4&b\\\\0&a-2&-1&1-b\\end{pmatrix}$：若 $a=2$，第二行为 $(0,0,-1,1-b)$，秩增加，无解；若 $a\\ne2$，$A$ 可逆，有解。\n$BY=A$ 无解 $\\iff$ $\\operatorname{rank}B<\\operatorname{rank}(B,A)$。由于 $\\operatorname{rank}(B,A)\\le2$，需 $\\operatorname{rank}B=1$，即 $\\det B=4-3b=0$，$b=\\frac43$；此时 $B$ 的列空间由 $(4,3)^T$ 张成，而当 $a\\ne2$ 时 $A$ 可逆，$(B,A)$ 秩为 $2$，确实无解。反之，若 $b\\ne\\frac43$，$B$ 可逆，$BY=A$ 有解。综上，条件为 $a\\ne2,\\ b=\\frac43$。\n\n**(2)** 必要性：相似矩阵迹与行列式相同：$2+a=5$，$2a-4=4-3b$，得 $a=3,\\ b=\\frac23$。充分性：此时两矩阵特征多项式均为 $\\lambda^2-5\\lambda+2$，有两个不同实根，于是都相似于同一对角阵，从而 $A\\sim B$。\n\n**(3)** 必要性：$A$ 对称，与之合同的 $B=C^TAC$ 也对称，故 $b=3$。此时 $B$ 的二次型 $4x_1^2+6x_1x_2+x_2^2=(3x_1+x_2)^2-5x_1^2$，正、负惯性指数均为 $1$。实对称阵合同 $\\iff$ 惯性指数相同，故需 $A$ 也为一正一负，即 $\\det A=2a-4<0$，$a<2$。充分性：$a<2,\\ b=3$ 时两者惯性指数都为 $(1,1)$，故合同。",
+   "solutionSource": "编写"
+  }
+ ]
+}

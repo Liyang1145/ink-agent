@@ -1,0 +1,193 @@
+{
+ "id": "cmc-nonmath-03-prelim",
+ "title": "第三届全国大学生数学竞赛初赛（非数学类）",
+ "year": 2011,
+ "track": "非数学类",
+ "round": "初赛",
+ "paper": "",
+ "durationMin": 150,
+ "totalScore": 100,
+ "source": {
+  "question": "2011年第三届全国初赛-非数学类试卷.pdf",
+  "solution": "03-第三届全国初赛-非数学类试题参考解答.pdf"
+ },
+ "problems": [
+  {
+   "no": "一(1)",
+   "score": 6,
+   "type": "计算",
+   "subjects": [
+    "高等数学"
+   ],
+   "topics": [
+    "函数极限",
+    "等价无穷小"
+   ],
+   "difficulty": 2,
+   "statement": "求 $\\displaystyle\\lim_{x\\to0}\\frac{(1+x)^{\\frac2x}-e^2\\left(1-\\ln(1+x)\\right)}{x}$。",
+   "answer": "$0$",
+   "solution": "因为 $\\dfrac{(1+x)^{\\frac2x}-e^2(1-\\ln(1+x))}{x}=\\dfrac{e^{\\frac2x\\ln(1+x)}-e^2}{x}+\\dfrac{e^2\\ln(1+x)}{x}$，且 $\\displaystyle\\lim_{x\\to0}\\frac{e^2\\ln(1+x)}{x}=e^2$，\n$$\\lim_{x\\to0}\\frac{e^{\\frac2x\\ln(1+x)}-e^2}{x}=e^2\\lim_{x\\to0}\\frac{e^{\\frac2x\\ln(1+x)-2}-1}{x}=e^2\\lim_{x\\to0}\\frac{\\frac2x\\ln(1+x)-2}{x}=2e^2\\lim_{x\\to0}\\frac{\\ln(1+x)-x}{x^2}=2e^2\\lim_{x\\to0}\\frac{\\frac{1}{1+x}-1}{2x}=-e^2.$$\n所以原极限 $=-e^2+e^2=0$。\n【注】也可用洛必达法则或带皮亚诺余项的麦克劳林公式。",
+   "solutionSource": "官方"
+  },
+  {
+   "no": "一(2)",
+   "score": 6,
+   "type": "计算",
+   "subjects": [
+    "高等数学"
+   ],
+   "topics": [
+    "数列极限",
+    "三角恒等式"
+   ],
+   "difficulty": 2,
+   "statement": "设 $a_n=\\cos\\dfrac{\\theta}{2}\\cdot\\cos\\dfrac{\\theta}{2^2}\\cdot\\cdots\\cdot\\cos\\dfrac{\\theta}{2^n}$，求 $\\displaystyle\\lim_{n\\to\\infty}a_n$。",
+   "answer": "$\\theta=0$ 时为 $1$；$\\theta\\ne0$ 时为 $\\dfrac{\\sin\\theta}{\\theta}$。",
+   "solution": "若 $\\theta=0$，则 $\\displaystyle\\lim_{n\\to\\infty}a_n=1$。\n若 $\\theta\\neq0$，当 $n$ 充分大使 $0<\\left|\\dfrac{\\theta}{2^n}\\right|<\\dfrac{\\pi}{2}$ 时，反复利用 $2\\sin t\\cos t=\\sin 2t$：\n$$a_n=\\cos\\frac{\\theta}{2}\\cdots\\cos\\frac{\\theta}{2^n}\\cdot\\sin\\frac{\\theta}{2^n}\\cdot\\frac{1}{\\sin\\frac{\\theta}{2^n}}=\\frac{\\sin\\theta}{2^n\\sin\\frac{\\theta}{2^n}}.$$\n从而 $\\displaystyle\\lim_{n\\to\\infty}a_n=\\lim_{n\\to\\infty}\\frac{\\sin\\theta}{2^n\\sin\\frac{\\theta}{2^n}}=\\frac{\\sin\\theta}{\\theta}$。",
+   "solutionSource": "官方"
+  },
+  {
+   "no": "一(3)",
+   "score": 6,
+   "type": "计算",
+   "subjects": [
+    "高等数学"
+   ],
+   "topics": [
+    "二重积分",
+    "符号函数"
+   ],
+   "difficulty": 2,
+   "statement": "求 $\\displaystyle\\iint_D\\operatorname{sgn}(xy-1)\\,\\mathrm{d}x\\,\\mathrm{d}y$，其中 $D=\\{(x,y)\\mid 0\\le x\\le2,\\ 0\\le y\\le2\\}$。",
+   "answer": "$2-4\\ln2$",
+   "solution": "设 $D_1=\\left\\{(x,y)\\mid 0\\le x\\le\\dfrac12,\\ 0\\le y\\le2\\right\\}$，$D_2=\\left\\{(x,y)\\mid \\dfrac12\\le x\\le2,\\ 0\\le y\\le\\dfrac1x\\right\\}$，$D_3=\\left\\{(x,y)\\mid\\dfrac12\\le x\\le2,\\ \\dfrac1x\\le y\\le2\\right\\}$。则\n$$\\iint_{D_1\\cup D_2}\\mathrm{d}x\\,\\mathrm{d}y=1+\\int_{\\frac12}^2\\frac{\\mathrm{d}x}{x}=1+2\\ln2,\\qquad \\iint_{D_3}\\mathrm{d}x\\,\\mathrm{d}y=3-2\\ln2,$$\n$$\\iint_D\\operatorname{sgn}(xy-1)\\,\\mathrm{d}x\\,\\mathrm{d}y=\\iint_{D_3}\\mathrm{d}x\\,\\mathrm{d}y-\\iint_{D_1\\cup D_2}\\mathrm{d}x\\,\\mathrm{d}y=2-4\\ln2.$$",
+   "solutionSource": "官方"
+  },
+  {
+   "no": "一(4)",
+   "score": 6,
+   "type": "计算",
+   "subjects": [
+    "高等数学"
+   ],
+   "topics": [
+    "幂级数",
+    "和函数",
+    "逐项积分"
+   ],
+   "difficulty": 2,
+   "statement": "求级数 $\\displaystyle\\sum_{n=1}^{\\infty}\\frac{2n-1}{2^n}x^{2n-2}$ 的和函数，并求级数 $\\displaystyle\\sum_{n=1}^{\\infty}\\frac{2n-1}{2^{2n-1}}$ 的和。",
+   "answer": "$S(x)=\\dfrac{2+x^2}{(2-x^2)^2}$，$x\\in(-\\sqrt2,\\sqrt2)$；$\\displaystyle\\sum_{n=1}^\\infty\\frac{2n-1}{2^{2n-1}}=\\frac{10}{9}$。",
+   "solution": "令 $S(x)=\\displaystyle\\sum_{n=1}^{\\infty}\\frac{2n-1}{2^n}x^{2n-2}$，收敛区间为 $(-\\sqrt2,\\sqrt2)$。对 $x\\in(-\\sqrt2,\\sqrt2)$，\n$$\\int_0^xS(t)\\,\\mathrm{d}t=\\sum_{n=1}^\\infty\\int_0^x\\frac{2n-1}{2^n}t^{2n-2}\\,\\mathrm{d}t=\\sum_{n=1}^\\infty\\frac{x^{2n-1}}{2^n}=\\frac x2\\sum_{n=1}^\\infty\\left(\\frac{x^2}{2}\\right)^{n-1}=\\frac{x}{2-x^2}.$$\n所以 $S(x)=\\left(\\dfrac{x}{2-x^2}\\right)'=\\dfrac{2+x^2}{(2-x^2)^2}$，$x\\in(-\\sqrt2,\\sqrt2)$。于是\n$$\\sum_{n=1}^\\infty\\frac{2n-1}{2^{2n-1}}=\\sum_{n=1}^\\infty\\frac{2n-1}{2^n}\\left(\\frac{1}{\\sqrt2}\\right)^{2n-2}=S\\left(\\frac{1}{\\sqrt2}\\right)=\\frac{10}{9}.$$",
+   "solutionSource": "官方"
+  },
+  {
+   "no": "二(1)",
+   "score": 8,
+   "type": "证明",
+   "subjects": [
+    "高等数学"
+   ],
+   "topics": [
+    "数列极限",
+    "Cesàro平均",
+    "ε-N语言"
+   ],
+   "difficulty": 2,
+   "statement": "设 $\\{a_n\\}_{n=0}^{\\infty}$ 为数列，$a$ 为有限数，求证：如果 $\\displaystyle\\lim_{n\\to\\infty}a_n=a$，则 $\\displaystyle\\lim_{n\\to\\infty}\\frac{a_1+a_2+\\cdots+a_n}{n}=a$。",
+   "answer": "",
+   "solution": "由 $\\displaystyle\\lim_{n\\to\\infty}a_n=a$，$\\exists M>0$ 使 $|a_n|\\le M$，且 $\\forall\\varepsilon>0$，$\\exists N_1\\in\\mathbb N$，当 $n>N_1$ 时 $|a_n-a|<\\dfrac{\\varepsilon}{2}$。又 $\\exists N_2>N_1$，当 $n>N_2$ 时 $\\dfrac{N_1(M+|a|)}{n}<\\dfrac{\\varepsilon}{2}$。于是当 $n>N_2$ 时\n$$\\left|\\frac{a_1+a_2+\\cdots+a_n}{n}-a\\right|\\le\\frac{N_1(M+|a|)}{n}+\\frac{n-N_1}{n}\\cdot\\frac{\\varepsilon}{2}<\\varepsilon,$$\n所以 $\\displaystyle\\lim_{n\\to\\infty}\\frac{a_1+\\cdots+a_n}{n}=a$。",
+   "solutionSource": "官方"
+  },
+  {
+   "no": "二(2)",
+   "score": 8,
+   "type": "证明",
+   "subjects": [
+    "高等数学"
+   ],
+   "topics": [
+    "数列极限",
+    "Cesàro平均",
+    "子列"
+   ],
+   "difficulty": 3,
+   "statement": "设 $\\{a_n\\}_{n=0}^{\\infty}$ 为数列，$\\lambda$ 为有限数，求证：如果存在正整数 $p$，使得 $\\displaystyle\\lim_{n\\to\\infty}(a_{n+p}-a_n)=\\lambda$，则 $\\displaystyle\\lim_{n\\to\\infty}\\frac{a_n}{n}=\\frac{\\lambda}{p}$。",
+   "answer": "",
+   "solution": "对于 $i=0,1,\\cdots,p-1$，令 $A_n^{(i)}=a_{(n+1)p+i}-a_{np+i}$，易知 $\\{A_n^{(i)}\\}$ 为 $\\{a_{n+p}-a_n\\}$ 的子列。由 $\\displaystyle\\lim_{n\\to\\infty}(a_{n+p}-a_n)=\\lambda$ 知 $\\displaystyle\\lim_{n\\to\\infty}A_n^{(i)}=\\lambda$，由第 1 问得\n$$\\lim_{n\\to\\infty}\\frac{A_1^{(i)}+A_2^{(i)}+\\cdots+A_n^{(i)}}{n}=\\lambda.$$\n而 $A_1^{(i)}+\\cdots+A_n^{(i)}=a_{(n+1)p+i}-a_{p+i}$，所以 $\\displaystyle\\lim_{n\\to\\infty}\\frac{a_{(n+1)p+i}-a_{p+i}}{n}=\\lambda$。由 $\\displaystyle\\lim_{n\\to\\infty}\\frac{a_{p+i}}{n}=0$ 知 $\\displaystyle\\lim_{n\\to\\infty}\\frac{a_{(n+1)p+i}}{n}=\\lambda$，从而\n$$\\lim_{n\\to\\infty}\\frac{a_{(n+1)p+i}}{(n+1)p+i}=\\lim_{n\\to\\infty}\\frac{n}{(n+1)p+i}\\cdot\\frac{a_{(n+1)p+i}}{n}=\\frac{\\lambda}{p}.$$\n对任意 $m\\in\\mathbb N$，存在 $n,i\\in\\mathbb N$（$0\\le i\\le p-1$）使 $m=np+i$，且当 $m\\to\\infty$ 时 $n\\to\\infty$，这 $p$ 个子列覆盖整个数列，所以 $\\displaystyle\\lim_{m\\to\\infty}\\frac{a_m}{m}=\\frac{\\lambda}{p}$。",
+   "solutionSource": "官方"
+  },
+  {
+   "no": "三",
+   "score": 15,
+   "type": "证明",
+   "subjects": [
+    "高等数学"
+   ],
+   "topics": [
+    "泰勒公式",
+    "介值定理",
+    "中值问题"
+   ],
+   "difficulty": 2,
+   "statement": "设函数 $f(x)$ 在闭区间 $[-1,1]$ 上具有连续的三阶导数，且 $f(-1)=0$，$f(1)=1$，$f'(0)=0$，求证：在开区间 $(-1,1)$ 内至少存在一点 $x_0$，使得 $f'''(x_0)=3$。",
+   "answer": "",
+   "solution": "由麦克劳林公式，$f(x)=f(0)+\\dfrac{1}{2!}f''(0)x^2+\\dfrac{1}{3!}f'''(\\eta)x^3$，$\\eta$ 介于 $0$ 和 $x$ 之间，$x\\in[-1,1]$。分别取 $x=1,\\,x=-1$，得\n$$1=f(1)=f(0)+\\frac{1}{2!}f''(0)+\\frac{1}{3!}f'''(\\eta_1),\\quad 0<\\eta_1<1,$$\n$$0=f(-1)=f(0)+\\frac{1}{2!}f''(0)-\\frac{1}{3!}f'''(\\eta_2),\\quad -1<\\eta_2<0.$$\n两式相减，得 $f'''(\\eta_1)+f'''(\\eta_2)=6$。\n由于 $f'''(x)$ 在 $[\\eta_2,\\eta_1]$ 上连续，有最大值 $M$ 和最小值 $m$，从而 $m\\le\\dfrac{f'''(\\eta_1)+f'''(\\eta_2)}{2}\\le M$。由介值定理，至少存在一点 $x_0\\in[\\eta_2,\\eta_1]\\subset(-1,1)$，使得\n$$f'''(x_0)=\\frac{f'''(\\eta_1)+f'''(\\eta_2)}{2}=3.$$",
+   "solutionSource": "官方"
+  },
+  {
+   "no": "四",
+   "score": 15,
+   "type": "计算",
+   "subjects": [
+    "高等数学"
+   ],
+   "topics": [
+    "定积分的物理应用",
+    "引力",
+    "反常积分"
+   ],
+   "difficulty": 2,
+   "statement": "在平面上，有一条从点 $(a,0)$ 向右的射线，线密度为 $\\rho$。在点 $(0,h)$ 处（其中 $h>0$）有一质量为 $m$ 的质点。求射线对该质点的引力。",
+   "answer": "$F_x=\\dfrac{Gm\\rho}{\\sqrt{h^2+a^2}}$（指向 $x$ 轴正向），$|F_y|=\\dfrac{Gm\\rho}{h}\\left(1-\\dfrac{a}{\\sqrt{h^2+a^2}}\\right)$（指向 $y$ 轴负向），$G$ 为引力常数。",
+   "solution": "在 $x$ 轴的 $x$ 处取一小段 $\\mathrm{d}x$，其质量为 $\\rho\\,\\mathrm{d}x$，到质点的距离为 $\\sqrt{h^2+x^2}$，这一小段与质点的引力是 $\\mathrm{d}F=\\dfrac{Gm\\rho\\,\\mathrm{d}x}{h^2+x^2}$（其中 $G$ 为引力常数），则\n$$F_x=\\int_a^{+\\infty}\\frac{Gm\\rho x\\,\\mathrm{d}x}{(h^2+x^2)^{3/2}}=\\frac{Gm\\rho}{2}\\int_a^{+\\infty}\\frac{\\mathrm{d}(x^2)}{(h^2+x^2)^{3/2}}=-Gm\\rho\\,(h^2+x^2)^{-1/2}\\Big|_a^{+\\infty}=\\frac{Gm\\rho}{\\sqrt{h^2+a^2}}.$$\n类似地（令 $x=h\\tan t$），\n$$F_y=\\int_a^{+\\infty}\\frac{Gm\\rho h\\,\\mathrm{d}x}{(h^2+x^2)^{3/2}}=\\int_{\\arctan\\frac ah}^{\\frac{\\pi}{2}}\\frac{Gm\\rho h^2\\sec^2t}{h^3\\sec^3t}\\,\\mathrm{d}t=\\frac{Gm\\rho}{h}\\int_{\\arctan\\frac ah}^{\\frac\\pi2}\\cos t\\,\\mathrm{d}t=\\frac{Gm\\rho}{h}\\left(1-\\sin\\arctan\\frac ah\\right).$$\n所求引力向量为 $\\vec F=(F_x,F_y)$，其中 $\\sin\\arctan\\dfrac ah=\\dfrac{a}{\\sqrt{h^2+a^2}}$；$F_y$ 为竖直分量的大小，方向指向射线一侧（$y$ 轴负向）。",
+   "solutionSource": "官方"
+  },
+  {
+   "no": "五",
+   "score": 15,
+   "type": "证明",
+   "subjects": [
+    "高等数学"
+   ],
+   "topics": [
+    "隐函数求导",
+    "多元复合函数",
+    "二阶偏导数"
+   ],
+   "difficulty": 2,
+   "statement": "设 $z=z(x,y)$ 是由方程 $F\\left(z+\\dfrac1x,\\ z-\\dfrac1y\\right)=0$ 确定的隐函数，且具有连续的二阶偏导数，求证：\n$$x^2\\frac{\\partial z}{\\partial x}-y^2\\frac{\\partial z}{\\partial y}=1\\quad\\text{和}\\quad x^3\\frac{\\partial^2z}{\\partial x^2}+xy(x-y)\\frac{\\partial^2z}{\\partial x\\partial y}-y^3\\frac{\\partial^2z}{\\partial y^2}+2=0.$$",
+   "answer": "",
+   "solution": "记 $u=z+\\dfrac1x$，$v=z-\\dfrac1y$。对方程两边分别关于 $x,y$ 求导：\n$$\\frac{\\partial z}{\\partial x}F_u'-\\frac{1}{x^2}F_u'+\\frac{\\partial z}{\\partial x}F_v'=0,\\qquad F_u'\\frac{\\partial z}{\\partial y}+F_v'\\frac{\\partial z}{\\partial y}+F_v'\\frac{1}{y^2}=0.$$\n由此 $\\dfrac{\\partial z}{\\partial x}=\\dfrac{F_u'}{x^2(F_u'+F_v')}$，$\\dfrac{\\partial z}{\\partial y}=\\dfrac{-F_v'}{y^2(F_u'+F_v')}$，所以 $x^2\\dfrac{\\partial z}{\\partial x}-y^2\\dfrac{\\partial z}{\\partial y}=1$。\n对该式再分别关于 $x,y$ 求导，有\n$$2x\\frac{\\partial z}{\\partial x}+x^2\\frac{\\partial^2z}{\\partial x^2}-y^2\\frac{\\partial^2z}{\\partial y\\partial x}=0,\\qquad x^2\\frac{\\partial^2z}{\\partial x\\partial y}-2y\\frac{\\partial z}{\\partial y}-y^2\\frac{\\partial^2z}{\\partial y^2}=0.$$\n第一个等式乘以 $x$，第二个等式乘以 $y$，相加并利用第一个结论 $2\\left(x^2\\dfrac{\\partial z}{\\partial x}-y^2\\dfrac{\\partial z}{\\partial y}\\right)=2$，可得\n$$x^3\\frac{\\partial^2z}{\\partial x^2}+xy(x-y)\\frac{\\partial^2z}{\\partial x\\partial y}-y^3\\frac{\\partial^2z}{\\partial y^2}+2=0.$$",
+   "solutionSource": "官方"
+  },
+  {
+   "no": "六",
+   "score": 15,
+   "type": "证明",
+   "subjects": [
+    "高等数学"
+   ],
+   "topics": [
+    "第一型曲面积分",
+    "球面",
+    "微元法"
+   ],
+   "difficulty": 3,
+   "statement": "设函数 $f(x)$ 连续，$a,b,c$ 为常数，$\\Sigma$ 是单位球面 $x^2+y^2+z^2=1$。记第一型曲面积分 $I=\\displaystyle\\iint_\\Sigma f(ax+by+cz)\\,\\mathrm{d}S$。求证：\n$$I=2\\pi\\int_{-1}^1f\\left(\\sqrt{a^2+b^2+c^2}\\,u\\right)\\mathrm{d}u.$$",
+   "answer": "",
+   "solution": "$\\Sigma$ 的面积为 $4\\pi$。当 $a,b,c$ 都为零时，等式显然成立。当它们不全为 $0$ 时，原点到平面 $ax+by+cz+d=0$ 的距离是 $\\dfrac{|d|}{\\sqrt{a^2+b^2+c^2}}$。\n设平面 $P_u:\\ u=\\dfrac{ax+by+cz}{\\sqrt{a^2+b^2+c^2}}$，其中 $u$ 固定，则 $|u|$ 是原点到平面 $P_u$ 的距离，从而 $-1\\le u\\le1$。两平面 $P_u$ 和 $P_{u+\\mathrm{d}u}$ 截单位球面 $\\Sigma$ 所得的部分上，被积函数取值为 $f\\left(\\sqrt{a^2+b^2+c^2}\\,u\\right)$。这部分摊开可以看成一个细长条，长为 $2\\pi\\sqrt{1-u^2}$，宽为 $\\dfrac{\\mathrm{d}u}{\\sqrt{1-u^2}}$，面积为 $2\\pi\\,\\mathrm{d}u$，故\n$$I=2\\pi\\int_{-1}^1f\\left(\\sqrt{a^2+b^2+c^2}\\,u\\right)\\mathrm{d}u.$$\n（严格写法：作正交变换使新坐标轴 $u$ 沿 $(a,b,c)$ 方向，曲面积分不变，$I=\\displaystyle\\iint_\\Sigma f\\left(\\sqrt{a^2+b^2+c^2}\\,u\\right)\\mathrm{d}S$，再用球面坐标即得。）",
+   "solutionSource": "官方"
+  }
+ ]
+}

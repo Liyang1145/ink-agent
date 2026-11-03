@@ -1,0 +1,132 @@
+{
+ "id": "cmc-math-14-prelim-bu2-A",
+ "title": "第十四届全国大学生数学竞赛初赛第二次补赛（数学A类）",
+ "year": 2022,
+ "track": "数学类",
+ "round": "初赛第二次补赛",
+ "paper": "A",
+ "durationMin": 150,
+ "totalScore": 100,
+ "source": {
+  "question": "14-bu2-math-A.pdf",
+  "solution": "14-bu2-math-A.pdf"
+ },
+ "problems": [
+  {
+   "no": "一",
+   "score": 15,
+   "type": "计算",
+   "subjects": [
+    "解析几何"
+   ],
+   "topics": [
+    "单叶双曲面",
+    "直母线",
+    "平面平行"
+   ],
+   "difficulty": 2,
+   "statement": "在空间直角坐标系中设单叶双曲面 $S$ 的方程为 $x^2+y^2-z^2=1$。求 $S$ 上所有可能的点 $P=(a,b,c)$，使得过 $P$ 点且落在 $S$ 上的两条直线均平行于平面 $x+y-z=0$。",
+   "answer": "$P=\\pm(1,1,1)$",
+   "solution": "设过 $P=(a,b,c)$ 且落在 $S$ 上的两条直线的方向向量为\n$$v_1=(\\alpha_1,\\beta_1,\\gamma_1),\\quad v_2=(\\alpha_2,\\beta_2,\\gamma_2),\\quad v_1\\times v_2\\neq0.\\tag{1}$$\n直线 $(x,y,z)=(a,b,c)+(\\alpha_i,\\beta_i,\\gamma_i)t\\ (t\\in\\mathbb R)$ 整体落在 $S$ 上，代入方程并利用 $a^2+b^2-c^2=1$ 得\n$$2(a\\alpha_i+b\\beta_i-c\\gamma_i)t+(\\alpha_i^2+\\beta_i^2-\\gamma_i^2)t^2=0,\\quad\\forall t\\in\\mathbb R,\\ i=1,2,$$\n因此\n$$a\\alpha_1+b\\beta_1-c\\gamma_1=0,\\qquad a\\alpha_2+b\\beta_2-c\\gamma_2=0.\\tag{2}$$\n由 (1)(2)，$(a,b,-c)\\perp v_1$，$(a,b,-c)\\perp v_2$。又 $v_1,v_2$ 平行于平面 $x+y-z=0$，其法向量 $(1,1,-1)\\perp v_1,v_2$。由于 $v_1,v_2$ 线性无关，$(a,b,-c)=\\lambda(1,1,-1)$，即 $(a,b,c)=\\lambda(1,1,1)$。由 $P$ 在 $S$ 上，$a^2+b^2-c^2=\\lambda^2=1$，$\\lambda=\\pm1$。故 $P=(a,b,c)=\\pm(1,1,1)$。",
+   "solutionSource": "官方"
+  },
+  {
+   "no": "二",
+   "score": 15,
+   "type": "证明",
+   "subjects": [
+    "数学分析"
+   ],
+   "topics": [
+    "Cantor集",
+    "三进制展开",
+    "单射",
+    "聚点",
+    "数列平均值"
+   ],
+   "difficulty": 3,
+   "statement": "设 $\\Gamma=\\{\\{x_n\\}\\mid x_n=0,2\\}$，即 $\\Gamma$ 为全体各项为 $0$ 或 $2$ 的数列构成的集合。对于任何 $x=\\{x_n\\}\\in\\Gamma$，令\n$$\\Pi(x)=\\sum_{n=1}^\\infty\\frac{x_n}{3^n},\\qquad f(x)=\\varlimsup_{n\\to+\\infty}\\frac{x_1+x_2+\\cdots+x_n}n.$$\n证明：1. $\\Pi$ 是单射；2. 集合 $\\Pi(\\Gamma)$ 中的每一点均为 $\\Pi(\\Gamma)$ 的聚点；3. $f(\\Gamma)=[0,2]$。",
+   "answer": "",
+   "solution": "1. 设 $\\{x_n\\}\\neq\\{y_n\\}\\in\\Gamma$，$k$ 是使 $x_\\ell\\neq y_\\ell$ 的最小下标 $\\ell$，则 $|x_k-y_k|=2$，且 $x_n=y_n\\ (n<k)$。于是\n$$\\left|\\Pi(\\{x_n\\})-\\Pi(\\{y_n\\})\\right|\\geqslant\\frac2{3^k}-\\sum_{n=k+1}^\\infty\\frac{|x_n-y_n|}{3^n}\\geqslant\\frac2{3^k}-\\sum_{n=k+1}^\\infty\\frac2{3^n}=\\frac1{3^k}>0,$$\n故 $\\Pi$ 是单射。\n\n2. 任取 $x=\\{x_n\\}\\in\\Gamma$，记 $A=\\Pi(x)$。对每个 $k$，令 $z^{(k)}\\in\\Gamma$ 为把 $x$ 的第 $k$ 项在 $0,2$ 间互换、其余项不变所得的数列，则 $z^{(k)}\\neq x$，由 1 知 $\\Pi(z^{(k)})\\neq A$，且 $\\left|\\Pi(z^{(k)})-A\\right|=\\dfrac2{3^k}\\to0$。故 $A$ 是 $\\Pi(\\Gamma)$ 的聚点。（官方解答用前 $n$ 项部分和加上一个远处的单项构造逼近点，思路相同。）\n\n3. 显然 $f(\\Gamma)\\subseteq[0,2]$。任取 $\\alpha\\in[0,2]$，记 $S_n=\\sum\\limits_{k=1}^nx_k$，取 $x_1=0$，依次令\n$$x_{n+1}=\\begin{cases}0,&S_n\\geqslant n\\alpha,\\\\2,&S_n<n\\alpha.\\end{cases}$$\n则 $\\{x_n\\}\\in\\Gamma$。归纳证明 $(n-1)\\alpha\\leqslant S_n\\leqslant(n-1)\\alpha+2$：$n=1$ 时 $S_1=0$ 成立；若对 $n$ 成立，当 $S_n\\geqslant n\\alpha$ 时 $n\\alpha\\leqslant S_{n+1}=S_n\\leqslant n\\alpha+2$；当 $S_n<n\\alpha$ 时 $n\\alpha<S_n+2=S_{n+1}\\leqslant n\\alpha+2$。因此 $\\lim\\limits_{n\\to\\infty}\\dfrac{S_n}n=\\alpha$，即 $f(\\{x_n\\})=\\alpha$。故 $f(\\Gamma)=[0,2]$。",
+   "solutionSource": "官方"
+  },
+  {
+   "no": "三",
+   "score": 15,
+   "type": "证明",
+   "subjects": [
+    "高等代数"
+   ],
+   "topics": [
+    "极小多项式",
+    "互素",
+    "中国剩余定理",
+    "数学归纳法",
+    "准对角矩阵"
+   ],
+   "difficulty": 3,
+   "statement": "设 $n\\geqslant2$，$A_1,A_2,\\cdots,A_n$ 为数域 $K$ 上的方阵，它们的极小多项式两两互素。证明：给定数域 $K$ 上的任意多项式 $f_1(x),f_2(x),\\cdots,f_n(x)\\in K[x]$，存在多项式 $f(x)\\in K[x]$ 使得对所有 $i=1,2,\\cdots,n$ 有 $f(A_i)=f_i(A_i)$。",
+   "answer": "",
+   "solution": "记 $A_i$ 的极小多项式为 $p_i(x)$，对 $n$ 归纳。\n\n$n=2$ 时，$p_1,p_2$ 互素，存在 $u,v\\in K[x]$ 使 $up_1+vp_2=1$。两边乘以 $f_1-f_2$ 并移项得\n$$u(f_2-f_1)p_1+f_1=v(f_1-f_2)p_2+f_2.$$\n令 $f$ 为此公共值，由 $p_1(A_1)=0$，$p_2(A_2)=0$，得 $f(A_1)=f_1(A_1)$，$f(A_2)=f_2(A_2)$。\n\n设结论对 $n=k$ 成立，即存在 $g\\in K[x]$ 使 $g(A_j)=f_j(A_j)\\ (1\\leqslant j\\leqslant k)$。对 $n=k+1$，令 $B=\\operatorname{diag}(A_1,\\ldots,A_k)$（准对角矩阵）。$B$ 的极小多项式整除 $p_1p_2\\cdots p_k$，与 $p_{k+1}$ 互素。对 $B$ 与 $A_{k+1}$ 用 $n=2$ 的结论，存在 $f\\in K[x]$ 使 $f(B)=g(B)$ 且 $f(A_{k+1})=f_{k+1}(A_{k+1})$。由 $f(B)=\\operatorname{diag}(f(A_1),\\ldots,f(A_k))$，得 $f(A_j)=g(A_j)=f_j(A_j)\\ (1\\leqslant j\\leqslant k)$。由归纳法结论成立。",
+   "solutionSource": "官方"
+  },
+  {
+   "no": "四",
+   "score": 20,
+   "type": "证明",
+   "subjects": [
+    "高等代数"
+   ],
+   "topics": [
+    "矩阵空间",
+    "维数公式",
+    "子空间交",
+    "等价标准形"
+   ],
+   "difficulty": 3,
+   "statement": "设 $A,B$ 都是秩为 $r$ 的 $n$ 阶不可逆实矩阵，$I$ 和 $J$ 是集合 $\\{1,2,\\cdots,n\\}$ 的两个 $r+1$ 元子集。用 $\\mathbb R^{n\\times n}$ 表示所有 $n$ 阶实矩阵构成的集合，令\n$$V=\\left\\{C=(c_{ij})_{n\\times n}\\in\\mathbb R^{n\\times n}\\mid c_{ij}=0\\ \\text{若}\\ i\\notin I\\ \\text{或}\\ j\\notin J\\right\\}.$$\n证明：存在 $0\\neq C\\in V$ 使得 $ACB=0$。",
+   "answer": "",
+   "solution": "$\\mathbb R^{n\\times n}$ 是 $n^2$ 维线性空间，$V$ 是其子空间，$\\dim V=(r+1)^2$。\n\n由 $A,B$ 秩为 $r$，存在可逆矩阵 $P_1,Q_1,P_2,Q_2$ 使\n$$A=P_1\\begin{pmatrix}I_r&0\\\\0&0\\end{pmatrix}Q_1,\\qquad B=P_2\\begin{pmatrix}I_r&0\\\\0&0\\end{pmatrix}Q_2.$$\n令 $W=\\{X\\in\\mathbb R^{n\\times n}\\mid AXB=0\\}$，它是子空间。记 $Y=Q_1XP_2=\\begin{pmatrix}B_1&B_2\\\\B_3&B_4\\end{pmatrix}$（$B_1$ 为 $r\\times r$），则\n$$AXB=P_1\\begin{pmatrix}I_r&0\\\\0&0\\end{pmatrix}Y\\begin{pmatrix}I_r&0\\\\0&0\\end{pmatrix}Q_2=P_1\\begin{pmatrix}B_1&0\\\\0&0\\end{pmatrix}Q_2,$$\n所以 $AXB=0\\iff B_1=0$，即\n$$W=\\left\\{Q_1^{-1}\\begin{pmatrix}0&B_2\\\\B_3&B_4\\end{pmatrix}P_2^{-1}\\ \\middle|\\ B_2,B_3,B_4\\ \\text{任意}\\right\\},\\qquad\\dim W=n^2-r^2.$$\n由于\n$$\\dim V+\\dim W=(r+1)^2+n^2-r^2>n^2=\\dim\\mathbb R^{n\\times n},$$\n由维数公式 $\\dim(V\\cap W)>0$，存在 $0\\neq C\\in V\\cap W$，即 $C\\in V$，$C\\neq0$ 且 $ACB=0$。",
+   "solutionSource": "官方"
+  },
+  {
+   "no": "五",
+   "score": 15,
+   "type": "证明",
+   "subjects": [
+    "数学分析"
+   ],
+   "topics": [
+    "Darboux定理",
+    "积分中值定理",
+    "Rolle定理",
+    "零点"
+   ],
+   "difficulty": 3,
+   "statement": "设 $f$ 与 $g$ 在 $[a,b]$ 上可导，且对任何 $x\\in[a,b]$，$g'(x)\\neq0$。又 $\\displaystyle\\int_a^bf(x)\\,\\mathrm dx=\\int_a^bf(x)g(x)\\,\\mathrm dx=0$。证明：存在 $\\xi\\in(a,b)$ 使得 $f'(\\xi)=0$。",
+   "answer": "",
+   "solution": "**法 I.** 由导函数的 Darboux 定理，$g'$ 在 $(a,b)$ 内恒正或恒负，不妨设恒正，则 $g$ 在 $[a,b]$ 上严格单增。由 $\\int_a^bf=0$ 及中值定理，存在 $\\xi_1\\in(a,b)$ 使 $f(\\xi_1)=0$。\n\n断言 $f$ 在 $(a,b)$ 内至少有两个零点。否则结合介值定理，$f$ 在 $(a,\\xi_1)$ 与 $(\\xi_1,b)$ 内分别保持定号且符号相反（若同号则与 $\\int_a^bf=0$ 矛盾）。不妨设 $f$ 在 $(a,\\xi_1)$ 内恒正、在 $(\\xi_1,b)$ 内恒负，则 $f(x)\\big(g(x)-g(\\xi_1)\\big)$ 在 $(a,\\xi_1)\\cup(\\xi_1,b)$ 内恒负，于是\n$$\\int_a^bf(x)g(x)\\,\\mathrm dx=\\int_a^bf(x)\\big(g(x)-g(\\xi_1)\\big)\\,\\mathrm dx<0,$$\n矛盾。故 $f$ 在 $(a,b)$ 内至少有两个零点，由 Rolle 定理存在 $\\xi\\in(a,b)$ 使 $f'(\\xi)=0$。\n\n**法 II.** 令 $F(x)=\\int_a^xf(t)\\,\\mathrm dt$，$F(a)=F(b)=0$。为避开 $g'$ 的 Riemann 可积性问题，考虑\n$$G(x)=g(x)F(x)-\\int_a^xf(t)g(t)\\,\\mathrm dt,\\quad x\\in[a,b].$$\n$G$ 可微，$G(a)=G(b)=0$，$G'(x)=g'(x)F(x)$。由 Rolle 定理存在 $\\xi_1\\in(a,b)$ 使 $g'(\\xi_1)F(\\xi_1)=0$，故 $F(\\xi_1)=0$。再由 Rolle 定理，存在 $\\xi_2\\in(a,\\xi_1)$，$\\xi_3\\in(\\xi_1,b)$ 使 $F'(\\xi_2)=F'(\\xi_3)=0$，进而存在 $\\xi\\in(\\xi_2,\\xi_3)$ 使 $F''(\\xi)=0$，即 $f'(\\xi)=0$。\n\n【注】若直接写 $0=\\int_a^bfg=-\\int_a^bFg'$，需注意 $g'$ 未必 Riemann 可积；由于 $g'$ 定号，在 Lebesgue 积分意义下该推导成立，须加以说明。若用积分第二中值定理得到 $\\xi_1\\in[a,b]$，还需说明为何可取 $\\xi_1\\in(a,b)$。",
+   "solutionSource": "官方"
+  },
+  {
+   "no": "六",
+   "score": 20,
+   "type": "证明",
+   "subjects": [
+    "数学分析"
+   ],
+   "topics": [
+    "Diophantine逼近",
+    "Dirichlet定理",
+    "Thomae型函数",
+    "可微性",
+    "Liouville数"
+   ],
+   "difficulty": 4,
+   "statement": "设 $A=\\left\\{\\sqrt{\\dfrac mn}\\ \\middle|\\ m,n\\ \\text{为正整数}\\right\\}\\setminus\\mathbb Q$，$x_0=\\displaystyle\\sum_{n=0}^\\infty\\frac1{10^{n!}}$。对于 $x>0$，定义\n$$f(x)=\\begin{cases}0,&x\\ \\text{为无理数},\\\\\\dfrac1{q^\\alpha},&x=\\dfrac pq\\ \\text{为既约分数}.\\end{cases}$$\n证明：1. 对任何 $x\\in A$，存在常数 $M_x>0$ 使得对任何既约分数 $\\dfrac pq$ 都有 $\\left|x-\\dfrac pq\\right|\\geqslant\\dfrac{M_x}{q^2}$；2. $f$ 在 $A$ 中每个点可微的充要条件是 $\\alpha>2$；3. 对任何 $\\alpha$，函数 $f$ 在 $x_0$ 处均不可微。",
+   "answer": "",
+   "solution": "以下设 $x=\\sqrt{\\frac mn}\\in A$，$\\frac mn$ 既约。\n\n1. 证明对任何正的既约分数 $\\frac pq$，\n$$\\left|\\sqrt{\\frac mn}-\\frac pq\\right|\\geqslant\\frac1{3q^2\\sqrt{mn}},\\tag{1}$$\n即取 $M_x=\\frac1{3\\sqrt{mn}}$。若 $\\left|\\sqrt{\\frac mn}-\\frac pq\\right|\\geqslant\\frac1{\\sqrt{mn}}$，(1) 显然成立。若 $\\left|\\sqrt{\\frac mn}-\\frac pq\\right|<\\frac1{\\sqrt{mn}}$，则 $\\frac pq\\leqslant\\sqrt{\\frac mn}+\\frac1{\\sqrt{mn}}\\leqslant2\\sqrt{\\frac mn}$。因 $x$ 为无理数，整数 $mq^2-np^2\\neq0$，故\n$$\\left|\\sqrt{\\frac mn}-\\frac pq\\right|=\\frac{\\left|\\frac mn-\\frac{p^2}{q^2}\\right|}{\\sqrt{\\frac mn}+\\frac pq}\\geqslant\\frac{\\left|mq^2-np^2\\right|}{3nq^2\\sqrt{\\frac mn}}\\geqslant\\frac1{3q^2\\sqrt{mn}}.$$\n\n2. **充分性.** 由 1，对任何 $t>0$：$t$ 无理时 $f(t)-f(x)=0$；$t=\\frac pq$ 既约时 $|t-x|\\geqslant\\frac{M_x}{q^2}$，从而\n$$|f(t)-f(x)|=\\frac1{q^\\alpha}\\leqslant\\frac1{M_x^{\\alpha/2}}|t-x|^{\\frac\\alpha2}.$$\n由 $\\alpha>2$ 得 $\\lim\\limits_{t\\to x}\\left|\\frac{f(t)-f(x)}{t-x}\\right|=0$，$f$ 在 $x$ 处可微且导数为 $0$。\n\n**必要性.** 证明更强的结论：$\\alpha\\leqslant2$ 时 $f$ 在任一无理点 $x$ 处不可微。由 Dirichlet 定理，存在无穷多个既约分数 $\\frac pq$（$q$ 可任意大）满足 $\\left|x-\\frac pq\\right|<\\frac1{q^2}$，对这些分数\n$$\\left|\\frac{f(x)-f(p/q)}{x-p/q}\\right|=\\frac1{q^\\alpha\\left|x-\\frac pq\\right|}>q^{2-\\alpha}\\geqslant1,$$\n而沿无理点差商为 $0$，故 $f$ 在 $x$ 处不可微。\n\n3. 易见 $x_0$ 为无理数。对 $n\\geqslant2$，令 $t_n=\\sum\\limits_{k=0}^n\\frac1{10^{k!}}=\\frac{p_n}{q_n}$（既约），则 $q_n=10^{n!}$（分子末位为 $1$）。又\n$$x_0-t_n=\\sum_{k=n+1}^\\infty\\frac1{10^{k!}}\\leqslant\\frac2{10^{(n+1)!}},$$\n因此\n$$\\left|\\frac{f(t_n)-f(x_0)}{t_n-x_0}\\right|=\\frac{10^{-\\alpha n!}}{x_0-t_n}\\geqslant\\frac{10^{-\\alpha n!}}{2\\times10^{-(n+1)!}}=\\frac{10^{(n+1-\\alpha)n!}}2\\to+\\infty\\quad(n\\to\\infty).$$\n从而无论 $\\alpha$ 为何值，$f$ 在 $x_0$ 处均不可微。",
+   "solutionSource": "官方"
+  }
+ ]
+}

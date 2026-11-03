@@ -1,0 +1,222 @@
+{
+ "id": "cmc-math-05-final-high",
+ "title": "第五届全国大学生数学竞赛决赛（数学类高年级组（三、四年级））",
+ "year": 2014,
+ "track": "数学类",
+ "round": "决赛",
+ "paper": "high",
+ "durationMin": 180,
+ "totalScore": 100,
+ "source": {
+  "question": "2014年03月-数学类三、四年级-第五届全国决赛试卷.pdf",
+  "solution": "2014年03月-数学类三、四年级参考解答-第五届全国决赛试卷.pdf"
+ },
+ "problems": [
+  {
+   "no": "一",
+   "score": 15,
+   "type": "证明",
+   "subjects": [
+    "解析几何"
+   ],
+   "topics": [
+    "抛物面",
+    "切线",
+    "切平面",
+    "极平面"
+   ],
+   "difficulty": 2,
+   "statement": "设 $S$ 为 $\\mathbb{R}^3$ 中的抛物面 $z=\\dfrac12(x^2+y^2)$，$P=(a,b,c)$ 为 $S$ 外一固定点，满足 $a^2+b^2>2c$。过 $P$ 作 $S$ 的所有切线。证明：这些切线的切点落在同一张平面上。",
+   "answer": "",
+   "solution": "设切点为 $Q=(x_0,y_0,z_0)\\in S$，$z_0=\\frac12(x_0^2+y_0^2)$。$S$ 在 $Q$ 处的切平面为\n$$z-z_0=x_0(x-x_0)+y_0(y-y_0),\\quad\\text{即}\\quad z=x_0x+y_0y-z_0.$$\n过 $Q$ 的直线与 $S$ 相切当且仅当它落在该切平面内。因此直线 $PQ$ 是切线当且仅当 $P$ 在 $Q$ 处的切平面上：$c=ax_0+by_0-z_0$。\n于是所有切点都满足 $ax+by-z=c$，落在同一张平面 $\\Pi:\\ ax+by-z=c$ 上。\n另一方面，$\\Pi$ 与 $S$ 的交线满足 $(x-a)^2+(y-b)^2=a^2+b^2-2c>0$，是一个非退化的圆（的投影），其上每一点 $Q$ 都满足上面的条件，所以切点集恰为 $\\Pi\\cap S$，条件 $a^2+b^2>2c$ 保证它非空（$P$ 在 $S$ 外）。",
+   "solutionSource": "编写"
+  },
+  {
+   "no": "二",
+   "score": 15,
+   "type": "计算",
+   "subjects": [
+    "高等代数"
+   ],
+   "topics": [
+    "特征值",
+    "几何重数",
+    "可对角化",
+    "二次型标准形",
+    "正交变换"
+   ],
+   "difficulty": 3,
+   "statement": "设实二次型 $f(x_1,x_2,x_3,x_4)=x^TAx$，其中\n$$x=\\begin{pmatrix}x_1\\\\x_2\\\\x_3\\\\x_4\\end{pmatrix},\\quad A=\\begin{pmatrix}2&a_0&2&-2\\\\a&0&b&c\\\\d&e&0&f\\\\g&h&k&4\\end{pmatrix},$$\n$a_0,a,b,c,d,e,f,g,h,k$ 皆为实数。已知 $\\lambda_1=2$ 是 $A$ 的一个几何重数为 3 的特征值。试回答以下问题：\n\n(1) $A$ 能否相似于对角矩阵；若能，请给出证明；若不能，请给出例子；\n\n(2) 当 $a_0=2$ 时，试求 $f(x_1,x_2,x_3,x_4)$ 在正交变换下的标准型。",
+   "answer": "(1) 能，$A$ 的特征值为 $2,2,2,0$ 且可对角化；(2) $2y_1^2+2y_2^2+(1+2\\sqrt3)y_3^2+(1-2\\sqrt3)y_4^2$。",
+   "solution": "**(1)** 几何重数为 3 意味着 $\\operatorname{rank}(A-2E)=1$，可写 $A-2E=uv^T$（$u,v$ 为非零列向量）。秩 1 矩阵 $uv^T$ 的特征值为 $0$（至少三重）与 $v^Tu=\\operatorname{tr}(A-2E)=0-2-2+2=-2$。所以 $A$ 的特征值为 $2,2,2,0$。特征值 $0$ 为单根，几何重数为 1，而 $2$ 的几何重数为 3，几何重数之和为 4，故 $A$ 可相似于对角矩阵 $\\operatorname{diag}(2,2,2,0)$。\n**(2)** $\\operatorname{rank}(A-2E)=1$ 且第一行为 $(0,2,2,-2)\\neq0$，其余各行都是它的倍数。比较第 2,3,4 行中已知的对角位置元素 $-2,-2,2$，得倍数均为 $-1$，于是\n$$A=\\begin{pmatrix}2&2&2&-2\\\\0&0&-2&2\\\\0&-2&0&2\\\\0&-2&-2&4\\end{pmatrix}.$$\n二次型的矩阵是 $A$ 的对称部分\n$$B=\\frac{A+A^T}{2}=\\begin{pmatrix}2&1&1&-1\\\\1&0&-2&0\\\\1&-2&0&0\\\\-1&0&0&4\\end{pmatrix},$$\n其特征多项式 $|\\lambda E-B|=\\lambda^4-6\\lambda^3+\\lambda^2+36\\lambda-44=(\\lambda-2)^2(\\lambda^2-2\\lambda-11)$，特征值为 $2,2,1\\pm2\\sqrt3$。故在正交变换下标准型为\n$$2y_1^2+2y_2^2+(1+2\\sqrt3)y_3^2+(1-2\\sqrt3)y_4^2.$$",
+   "solutionSource": "编写"
+  },
+  {
+   "no": "三",
+   "score": 20,
+   "type": "证明",
+   "subjects": [
+    "数学分析"
+   ],
+   "topics": [
+    "反常积分",
+    "积分不等式",
+    "单调性"
+   ],
+   "difficulty": 3,
+   "statement": "设 $f(x)$ 是 $[0,+\\infty)$ 上非负可导函数，\n$$f(0)=0,\\quad f'(x)\\leqslant\\frac12.$$\n假设 $\\displaystyle\\int_0^{+\\infty}f(x)\\,\\mathrm{d}x$ 收敛。求证：对于任意 $\\alpha>1$，$\\displaystyle\\int_0^{+\\infty}f^\\alpha(x)\\,\\mathrm{d}x$ 也收敛，并且\n$$\\int_0^{+\\infty}f^\\alpha(x)\\,\\mathrm{d}x\\leqslant\\left(\\int_0^{+\\infty}f(x)\\,\\mathrm{d}x\\right)^\\beta,\\quad\\beta=\\frac{\\alpha+1}{2}.$$",
+   "answer": "",
+   "solution": "记 $G(t)=\\displaystyle\\int_0^tf(x)\\,\\mathrm{d}x$，注意 $\\beta>1$ 且 $\\alpha-1=2(\\beta-1)$。\n**第一步：$f^2(t)\\leqslant G(t)$。** 因 $(f^2)'=2ff'\\leqslant f=G'$ 且 $f^2(0)=G(0)=0$，积分即得。\n**第二步：** 令 $g(t)=G(t)^\\beta-\\displaystyle\\int_0^tf^\\alpha(x)\\,\\mathrm{d}x$，则\n$$g'(t)=f(t)\\left[\\beta G(t)^{\\beta-1}-\\left(f^2(t)\\right)^{\\beta-1}\\right]\\geqslant f(t)\\left[\\beta-1\\right]G(t)^{\\beta-1}\\geqslant0,$$\n其中用了第一步与 $\\beta-1>0$。又 $g(0)=0$，所以 $g(t)\\geqslant0$，即\n$$\\int_0^tf^\\alpha(x)\\,\\mathrm{d}x\\leqslant G(t)^\\beta\\leqslant\\left(\\int_0^{+\\infty}f(x)\\,\\mathrm{d}x\\right)^\\beta.$$\n左端关于 $t$ 单调增且有界，故 $\\int_0^{+\\infty}f^\\alpha\\mathrm{d}x$ 收敛，令 $t\\to+\\infty$ 得所证不等式。",
+   "solutionSource": "编写"
+  },
+  {
+   "no": "四",
+   "score": 20,
+   "type": "证明",
+   "subjects": [
+    "数学分析",
+    "高等代数"
+   ],
+   "topics": [
+    "多项式",
+    "实根",
+    "罗尔定理",
+    "极值问题"
+   ],
+   "difficulty": 5,
+   "statement": "对多项式 $f(x)$，记 $d(f)$ 表示其最大和最小实根之间的距离。设 $n\\geqslant2$ 为自然数。求最大实数 $C$，使得对任意所有根都是实数的 $n$ 次多项式 $f(x)$，都有\n$$d(f')\\geqslant C\\,d(f).$$",
+   "answer": "$C_{\\max}=\\sqrt{1-\\dfrac2n}$",
+   "solution": "不妨设 $f$ 首一，最小根为 $0$、最大根为 $a$：$f(x)=\\prod_{i=1}^n(x-x_i)$，$0=x_1\\leqslant x_2\\leqslant\\cdots\\leqslant x_n=a$。$n=2$ 时 $f'$ 只有一个根，$d(f')=0$，$C=0$ 与公式一致，以下设 $n\\geqslant3$。\n**引理（内部根“靠拢”不增大 $d(f')$）。** 设 $2\\leqslant k,m\\leqslant n-1$，$x_k<x_m$，取 $x_k<x_k'\\leqslant x_m'<x_m$ 且 $x_k'+x_m'=x_k+x_m$，其余根不变，得到 $f_1$。则 $d(f_1')\\leqslant d(f')$。\n证：记 $q(x)=(x-x_k')(x-x_m')$，$F=f_1/q$，$\\delta=x_k'x_m'-x_kx_m>0$（和固定时两数越接近积越大）。因 $(x-x_k)(x-x_m)=q(x)-\\delta$，有 $f=f_1-\\delta F$。设 $\\alpha$ 是 $f_1'$ 的最大实根，它位于 $f_1$ 的次大根与最大根 $a$ 之间，故 $\\alpha\\geqslant x_m'$、$f_1(\\alpha)\\leqslant0$，且 $q'(\\alpha)=2\\alpha-x_k'-x_m'\\geqslant0$。于是\n$$f'(\\alpha)=-\\delta F'(\\alpha)=\\delta\\frac{f_1(\\alpha)q'(\\alpha)}{q(\\alpha)^2}\\leqslant0$$\n（$q(\\alpha)=0$ 的情形可用连续性处理）。而 $f'(x)\\to+\\infty\\ (x\\to+\\infty)$，所以 $f'$ 有不小于 $\\alpha$ 的根。同理 $f'$ 有不大于 $f_1'$ 最小根的根。故 $d(f')\\geqslant d(f_1')$。\n**化归。** 令 $b=\\dfrac{x_2+\\cdots+x_{n-1}}{n-2}$。每次取一个小于 $b$ 和一个大于 $b$ 的内部根，按引理保持其和不变地靠拢，使其中一个恰等于 $b$；至多 $n-2$ 步后内部根全等于 $b$，得 $g(x)=x(x-a)(x-b)^{n-2}$，且 $d(f')\\geqslant d(g')$。\n**计算。** $g'(x)=(x-b)^{n-3}\\left[nx^2-\\big((n-1)a+2b\\big)x+ab\\right]$，二次因子两根之差为\n$$\\frac{\\sqrt{\\big((n-1)a+2b\\big)^2-4nab}}{n}=\\frac{\\sqrt{(n-1)^2a^2-4ab+4b^2}}{n}=\\frac{\\sqrt{(n-1)^2a^2-a^2+(a-2b)^2}}{n}\\geqslant\\frac{\\sqrt{n(n-2)}}{n}a.$$\n故 $d(f')\\geqslant d(g')\\geqslant\\sqrt{1-\\frac2n}\\,d(f)$。\n**取等。** $f(x)=x(x-a)\\left(x-\\frac a2\\right)^{n-2}$ 时 $d(f')=\\sqrt{1-\\frac2n}\\,a$。所以 $C_{\\max}=\\sqrt{1-\\dfrac2n}$。",
+   "solutionSource": "编写"
+  },
+  {
+   "no": "五",
+   "score": 15,
+   "type": "证明",
+   "subjects": [
+    "常微分方程"
+   ],
+   "topics": [
+    "微分不等式",
+    "比较定理"
+   ],
+   "difficulty": 2,
+   "statement": "设 $f(x,y)$ 为 $[a,b]\\times\\mathbb{R}$ 上关于 $y$ 单调下降的二元函数。设 $y=y(x)$，$z=z(x)$ 是可微函数，且满足：\n$$y'=f(x,y),\\quad z'\\leqslant f(x,z),\\quad x\\in[a,b].$$\n已知 $z(a)\\leqslant y(a)$。求证：$z(x)\\leqslant y(x)$，$x\\in[a,b]$。",
+   "answer": "",
+   "solution": "反证。设有 $x_0\\in(a,b]$ 使 $z(x_0)>y(x_0)$。令 $\\alpha=\\sup\\{x\\in[a,x_0]:z(x)\\leqslant y(x)\\}$，由连续性 $z(\\alpha)=y(\\alpha)$，且在 $(\\alpha,x_0]$ 上 $z>y$。在此区间上，由 $f$ 关于 $y$ 单调下降，\n$$\\big(z-y\\big)'=z'-y'\\leqslant f(x,z)-f(x,y)\\leqslant0,$$\n所以 $z-y$ 在 $[\\alpha,x_0]$ 上单调不增，$z(x_0)-y(x_0)\\leqslant z(\\alpha)-y(\\alpha)=0$，矛盾。",
+   "solutionSource": "编写"
+  },
+  {
+   "no": "六",
+   "score": 15,
+   "type": "证明",
+   "subjects": [
+    "复变函数"
+   ],
+   "topics": [
+    "最大模原理",
+    "分式线性变换",
+    "零点"
+   ],
+   "difficulty": 3,
+   "statement": "设 $D=\\{z\\in\\mathbb{C}:|z|<1\\}$ 是单位圆盘，非常数函数 $f(z)$ 在 $\\bar D$ 上解析，且当 $|z|=1$ 时，$|f(z)|=1$。证明：$f(D)=D$。",
+   "answer": "",
+   "solution": "**$f(D)\\subset D$：** 由最大模原理，非常数解析函数 $|f|$ 在 $D$ 内取不到最大值 $1$，故在 $D$ 内 $|f|<1$。\n**$f$ 在 $D$ 内有零点：** 否则 $1/f$ 在 $\\bar D$ 上解析，边界上模为 $1$，由最大模原理 $|1/f|\\leqslant1$，即 $|f|\\geqslant1$，与 $|f|<1$ 矛盾。\n**$D\\subset f(D)$：** 任取 $w\\in D$，令 $\\varphi_w(\\zeta)=\\dfrac{\\zeta-w}{1-\\bar w\\zeta}$，它把 $\\bar D$ 映为 $\\bar D$，把单位圆映为单位圆。$h=\\varphi_w\\circ f$ 在 $\\bar D$ 上解析（因 $|f|\\leqslant1$，$1-\\bar wf\\neq0$）、非常数、在 $|z|=1$ 上 $|h|=1$。由上一段，$h$ 在 $D$ 内有零点 $z_0$，即 $f(z_0)=w$。\n所以 $f(D)=D$。",
+   "solutionSource": "编写"
+  },
+  {
+   "no": "七",
+   "score": 15,
+   "type": "证明",
+   "subjects": [
+    "实变函数"
+   ],
+   "topics": [
+    "上极限集",
+    "下极限集",
+    "控制收敛定理",
+    "Lebesgue积分"
+   ],
+   "difficulty": 3,
+   "statement": "设 $E_k$ 是一列可测集，$f\\in L\\left(\\bigcup_{k=1}^\\infty E_k\\right)$。\n\n1) 令 $A=\\varlimsup\\limits_{k\\to\\infty}E_k$，证明 $\\displaystyle\\int_Af(x)\\,\\mathrm{d}m=\\lim_{n\\to\\infty}\\int_{\\bigcup_{k=n}^\\infty E_k}f(x)\\,\\mathrm{d}m$。\n\n2) 令 $B=\\varliminf\\limits_{k\\to\\infty}E_k$，证明 $\\displaystyle\\int_Bf(x)\\,\\mathrm{d}m=\\lim_{n\\to\\infty}\\int_{\\bigcap_{k=n}^\\infty E_k}f(x)\\,\\mathrm{d}m$。\n\n3) 如果 $\\{E_k\\}$ 是单调的，求证：$\\lim\\limits_{k\\to\\infty}E_k=E$ 存在，且有\n$$\\int_Ef(x)\\,\\mathrm{d}m=\\lim_{k\\to\\infty}\\int_{E_k}f(x)\\,\\mathrm{d}m.$$",
+   "answer": "",
+   "solution": "记 $E^*=\\bigcup_{k\\geqslant1}E_k$，把 $f$ 在 $E^*$ 外补定义为 $0$，则 $f\\in L(\\mathbb{R})$。\n**1)** 令 $F_n=\\bigcup_{k\\geqslant n}E_k$，则 $F_n$ 单调递减，$A=\\bigcap_nF_n$，从而 $\\chi_{F_n}\\to\\chi_A$ 逐点成立。$|f\\chi_{F_n}|\\leqslant|f|\\in L$，由控制收敛定理\n$$\\int_{F_n}f\\,\\mathrm{d}m=\\int f\\chi_{F_n}\\mathrm{d}m\\to\\int f\\chi_A\\,\\mathrm{d}m=\\int_Af\\,\\mathrm{d}m.$$\n**2)** 令 $G_n=\\bigcap_{k\\geqslant n}E_k$，则 $G_n$ 单调递增，$B=\\bigcup_nG_n$，$\\chi_{G_n}\\to\\chi_B$ 逐点成立；同样由控制收敛定理得结论。\n**3)** 若 $E_k\\uparrow$，则 $\\bigcup_{k\\geqslant n}E_k=E^*$，$\\bigcap_{k\\geqslant n}E_k=E_n$，故 $\\varlimsup E_k=\\varliminf E_k=E^*=:E$，由 2) 得 $\\int_Ef=\\lim\\int_{E_n}f$。若 $E_k\\downarrow$，则 $\\bigcup_{k\\geqslant n}E_k=E_n$，$\\varlimsup E_k=\\varliminf E_k=\\bigcap_kE_k=:E$，由 1) 得结论。",
+   "solutionSource": "编写"
+  },
+  {
+   "no": "八",
+   "score": 15,
+   "type": "计算",
+   "subjects": [
+    "微分几何"
+   ],
+   "topics": [
+    "旋转曲面",
+    "主曲率",
+    "抛物线",
+    "第一第二基本形式"
+   ],
+   "difficulty": 3,
+   "statement": "设 $\\Gamma$ 是三维欧氏空间中一张平面上的一条抛物线，$l$ 是 $\\Gamma$ 的准线。将 $\\Gamma$ 绕其准线 $l$ 旋转一周，得到旋转曲面 $S$。求 $S$ 的两个主曲率的比值。",
+   "answer": "两个主曲率之比恒为 $-2$（或按另一排序为 $-\\dfrac12$）。",
+   "solution": "取准线 $l$ 为 $z$ 轴，$\\Gamma$ 在 $xOz$ 平面内，焦点 $(2p,0,0)$，顶点 $(p,0,0)$。抛物线上点到焦点距离等于到准线距离 $x$：$(x-2p)^2+z^2=x^2$，即 $x=f(z)=p+\\dfrac{z^2}{4p}$。\n$S$：$r(z,\\theta)=(f(z)\\cos\\theta,f(z)\\sin\\theta,z)$。经计算\n$$E=f^2,\\ F=0,\\ G=1+f'^2;\\qquad L=-\\frac{f}{\\sqrt{1+f'^2}},\\ M=0,\\ N=\\frac{f''}{\\sqrt{1+f'^2}}.$$\n由于 $F=M=0$，参数曲线即曲率线，主曲率 $k_1=\\dfrac LE=-\\dfrac{1}{f\\sqrt{1+f'^2}}$（纬圆方向），$k_2=\\dfrac NG=\\dfrac{f''}{(1+f'^2)^{3/2}}$（经线方向）。所以\n$$\\frac{k_1}{k_2}=-\\frac{1+f'^2}{ff''}.$$\n代入 $f'=\\dfrac{z}{2p}$，$f''=\\dfrac1{2p}$，$1+f'^2=\\dfrac{4p^2+z^2}{4p^2}$，$ff''=\\dfrac{4p^2+z^2}{8p^2}$，得 $\\dfrac{k_1}{k_2}=-2$，与点无关（交换顺序则为 $-\\frac12$）。",
+   "solutionSource": "编写"
+  },
+  {
+   "no": "九",
+   "score": 15,
+   "type": "计算",
+   "subjects": [
+    "概率论"
+   ],
+   "topics": [
+    "几何分布",
+    "数学期望",
+    "集券问题"
+   ],
+   "difficulty": 2,
+   "statement": "一只盒子中装有标上 1 到 $N$ 的 $N$ 张票券，有放回地一张一张的抽取，若我们想收集 $r$ 张不同的票券，则要期望抽多少次才能得到它们？当然假设取得每张票券是等可能的，各次抽取是独立的。",
+   "answer": "$N\\left(\\dfrac1N+\\dfrac1{N-1}+\\cdots+\\dfrac1{N-r+1}\\right)$",
+   "solution": "设已收集到 $i-1$ 张不同票券后，为得到第 $i$ 张新票券所需的抽取次数为 $\\xi_i$。此时每次抽到新票券的概率为 $p_i=\\dfrac{N-i+1}{N}$，各次独立，故 $\\xi_i$ 服从参数 $p_i$ 的几何分布，$E\\xi_i=\\dfrac1{p_i}=\\dfrac{N}{N-i+1}$。总次数为 $\\xi_1+\\cdots+\\xi_r$，\n$$E(\\xi_1+\\cdots+\\xi_r)=\\sum_{i=1}^r\\frac{N}{N-i+1}=N\\left(\\frac1N+\\frac1{N-1}+\\cdots+\\frac1{N-r+1}\\right).$$\n特别地，$r=N$ 时为 $N\\left(1+\\frac12+\\cdots+\\frac1N\\right)\\approx N\\ln N$；$N$ 为偶数、$r=\\frac N2$ 时约为 $N\\ln2$。",
+   "solutionSource": "编写"
+  },
+  {
+   "no": "十",
+   "score": 15,
+   "type": "证明",
+   "subjects": [
+    "抽象代数"
+   ],
+   "topics": [
+    "换位子",
+    "换位子群",
+    "Abel群",
+    "Itô定理"
+   ],
+   "difficulty": 4,
+   "statement": "设群 $G=AB$，其中 $A,B$ 均为 $G$ 的 Abel 子群，且 $AB=BA$。$\\forall g_1,g_2\\in G$，用 $[g_1,g_2]$ 表示换位子，即 $[g_1,g_2]=g_1g_2g_1^{-1}g_2^{-1}$，$G'$ 表示 $G$ 的换位子群（即由 $G$ 的换位子所生成的子群）。证明：\n\n(a) $\\forall a,x\\in A,\\ \\forall b,y\\in B$ 有下式成立：\n$$\\left[x^{-1},y^{-1}\\right][a,b]\\left[x^{-1},y^{-1}\\right]^{-1}=[a,b].$$\n\n(b) $G'$ 为 Abel 群。",
+   "answer": "",
+   "solution": "记 $g^h=h^{-1}gh$，$K=\\{[a,b]:a\\in A,b\\in B\\}$。注意 $a^{-1}b^{-1}ab=[a^{-1},b^{-1}]\\in K$。\n**关键计算。** 设 $a,a_1\\in A$，$b,b_1\\in B$。由 $G=BA$ 写 $b_1^{-1}ab_1=b_2a_2$，由 $G=AB$ 写 $a_1^{-1}ba_1=a_3b_3$（$a_i\\in A,b_i\\in B$）。利用 $A,B$ 交换：\n$$\\left(a^{-1}b^{-1}ab\\right)^{b_1}=(b_2a_2)^{-1}b^{-1}(b_2a_2)b=a_2^{-1}b^{-1}a_2b,$$\n$$\\left(a_2^{-1}b^{-1}a_2b\\right)^{a_1}=a_2^{-1}(a_3b_3)^{-1}a_2(a_3b_3)=a_2^{-1}b_3^{-1}a_2b_3.$$\n另一顺序：$\\left(a^{-1}b^{-1}ab\\right)^{a_1}=a^{-1}b_3^{-1}ab_3$，再以 $b_1$ 共轭得 $a_2^{-1}b_3^{-1}a_2b_3$。所以\n$$c^{b_1a_1}=c^{a_1b_1},\\quad c=a^{-1}b^{-1}ab.$$\n（同时看出：$K$ 中元素被 $A$ 或 $B$ 中元素共轭后仍在 $K$ 中。）\n**(a)** $c^{b_1a_1}=c^{a_1b_1}$ 等价于 $(a_1b_1)(b_1a_1)^{-1}=a_1b_1a_1^{-1}b_1^{-1}$ 与 $c$ 可交换。取 $a_1=x^{-1}$，$b_1=y^{-1}$，$a\\to a^{-1}$，$b\\to b^{-1}$，即 $[x^{-1},y^{-1}]$ 与 $[a,b]$ 可交换，这就是所证等式。\n**(b)** 令 $H=\\langle K\\rangle$。由 (a)，$K$ 中元素两两可交换（$[x^{-1},y^{-1}]$ 取遍 $K$），故 $H$ 是 Abel 群。由关键计算，$K$ 在 $A$、$B$ 的共轭下封闭，而 $G=AB$，故 $H\\trianglelefteq G$。在 $G/H$ 中，$A,B$ 的像都是交换的且彼此交换（$[a,b]\\in H$），而它们生成 $G/H$，所以 $G/H$ 为 Abel 群，从而 $G'\\subseteq H$。又 $H\\subseteq G'$ 显然，故 $G'=H$ 为 Abel 群。",
+   "solutionSource": "编写"
+  },
+  {
+   "no": "十一",
+   "score": 15,
+   "type": "证明",
+   "subjects": [
+    "数值分析"
+   ],
+   "topics": [
+    "Chebyshev多项式",
+    "正交多项式",
+    "最佳一致逼近",
+    "极小零偏差"
+   ],
+   "difficulty": 3,
+   "statement": "给定多项式序列\n$$T_0(x)=1,\\quad T_1(x)=x,\\quad T_{n+1}(x)=2xT_n(x)-T_{n-1}(x),\\ n=1,2,\\cdots$$\n求证：(1) 当 $x\\in[-1,1]$ 时，$T_n(x)=\\cos(n\\arccos x)$。\n\n(2) 设 $C[-1,1]$ 是区间 $[-1,1]$ 上连续函数构成的内积空间，其中内积定义为\n$$\\langle f,g\\rangle:=\\int_{-1}^1\\frac{f(x)g(x)}{\\sqrt{1-x^2}}\\,\\mathrm{d}x,$$\n则 $T_n(x)$ 是该内积空间的正交多项式，即当 $n\\neq m$ 时，$\\langle T_n(x),T_m(x)\\rangle=0$。\n\n(3) 设 $P(x)$ 是次数为 $n$ 的首项系数为 1 的多项式，求证：$\\|P(x)\\|_\\infty\\geqslant\\dfrac1{2^{n-1}}$ 且等号成立当且仅当 $P(x)=\\dfrac1{2^{n-1}}T_n(x)$，这里 $\\|P(x)\\|_\\infty=\\max\\limits_{x\\in[-1,1]}|P(x)|$。",
+   "answer": "",
+   "solution": "**(1)** 令 $x=\\cos\\theta$，$\\theta\\in[0,\\pi]$，$C_n=\\cos n\\theta$。$C_0=1$，$C_1=x$，且 $\\cos(n+1)\\theta+\\cos(n-1)\\theta=2\\cos\\theta\\cos n\\theta$，即 $C_{n+1}=2xC_n-C_{n-1}$。与 $T_n$ 同初值同递推，归纳得 $T_n(x)=\\cos(n\\arccos x)$。\n**(2)** 令 $x=\\cos\\theta$，$\\mathrm{d}x/\\sqrt{1-x^2}=-\\mathrm{d}\\theta$：\n$$\\langle T_n,T_m\\rangle=\\int_0^\\pi\\cos n\\theta\\cos m\\theta\\,\\mathrm{d}\\theta=\\frac12\\int_0^\\pi\\left[\\cos(n+m)\\theta+\\cos(n-m)\\theta\\right]\\mathrm{d}\\theta=0\\quad(n\\neq m).$$\n**(3)** 由递推，$T_n$ 首项系数为 $2^{n-1}$，$\\tilde T_n=2^{1-n}T_n$ 首一且 $\\|\\tilde T_n\\|_\\infty=2^{1-n}$。在 $x_k=\\cos\\frac{k\\pi}{n}$（$k=0,\\dots,n$，$x_0>x_1>\\cdots>x_n$）处 $\\tilde T_n(x_k)=(-1)^k2^{1-n}$。\n设首一 $P$ 满足 $\\|P\\|_\\infty\\leqslant2^{1-n}$，令 $Q=\\tilde T_n-P$，$\\deg Q\\leqslant n-1$，且 $(-1)^kQ(x_k)=2^{1-n}-(-1)^kP(x_k)\\geqslant0$。\n- 若 $\\|P\\|_\\infty<2^{1-n}$，则 $(-1)^kQ(x_k)>0$，$Q$ 在 $n+1$ 个点处严格变号，至少有 $n$ 个零点，故 $Q\\equiv0$，矛盾。这证明 $\\|P\\|_\\infty\\geqslant2^{1-n}$。\n- 若 $\\|P\\|_\\infty=2^{1-n}$：当内节点 $x_k\\ (1\\leqslant k\\leqslant n-1)$ 处 $Q(x_k)=0$ 时，$(-1)^kP$ 在内点 $x_k$ 取到其最大值 $2^{1-n}$，故 $P'(x_k)=0$；又 $T_n'(x_k)=0$，从而 $x_k$ 是 $Q$ 的至少二重零点。据此按重数计数，相邻节点间“非严格变号”的每一段都贡献至少一个零点，且落在节点上的零点按二重计入，不会重复漏算，于是 $Q$ 至少有 $n$ 个零点（计重数），而 $\\deg Q\\leqslant n-1$，故 $Q\\equiv0$，即 $P=\\dfrac1{2^{n-1}}T_n$。\n反之 $P=\\dfrac1{2^{n-1}}T_n$ 时显然取等。",
+   "solutionSource": "编写"
+  }
+ ]
+}

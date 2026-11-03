@@ -1,0 +1,261 @@
+{
+ "id": "ex-analysis-03",
+ "title": "数学分析 · 函数极限",
+ "subject": "数学分析",
+ "chapter": 3,
+ "problems": [
+  {
+   "no": "1",
+   "type": "证明",
+   "subjects": [
+    "数学分析"
+   ],
+   "topics": [
+    "ε-δ定义"
+   ],
+   "difficulty": 1,
+   "statement": "用 $\\varepsilon$-$\\delta$ 定义证明 $\\displaystyle\\lim_{x\\to2}x^2=4$。",
+   "answer": "",
+   "solution": "$|x^2-4|=|x-2|\\,|x+2|$。限制 $|x-2|<1$，则 $1<x<3$，$|x+2|<5$，从而 $|x^2-4|<5|x-2|$。\n\n任给 $\\varepsilon>0$，取 $\\delta=\\min\\left\\{1,\\dfrac\\varepsilon5\\right\\}$，当 $0<|x-2|<\\delta$ 时 $|x^2-4|<5\\delta\\le\\varepsilon$。",
+   "solutionSource": "编写",
+   "source": "经典题"
+  },
+  {
+   "no": "2",
+   "type": "计算",
+   "subjects": [
+    "数学分析"
+   ],
+   "topics": [
+    "有理化",
+    "重要极限"
+   ],
+   "difficulty": 1,
+   "statement": "求下列极限：\n（1）$\\displaystyle\\lim_{x\\to0}\\dfrac{\\sqrt{1+x}-1}{x}$；（2）$\\displaystyle\\lim_{x\\to0}\\dfrac{1-\\cos x}{x^2}$。",
+   "answer": "（1）$\\dfrac12$；（2）$\\dfrac12$",
+   "solution": "（1）分子有理化：\n$$\\dfrac{\\sqrt{1+x}-1}{x}=\\dfrac{1}{\\sqrt{1+x}+1}\\to\\dfrac12.$$\n（2）由 $1-\\cos x=2\\sin^2\\dfrac x2$，\n$$\\dfrac{1-\\cos x}{x^2}=\\dfrac12\\left(\\dfrac{\\sin\\frac x2}{\\frac x2}\\right)^2\\to\\dfrac12.$$",
+   "solutionSource": "编写",
+   "source": "经典题"
+  },
+  {
+   "no": "3",
+   "type": "计算",
+   "subjects": [
+    "数学分析"
+   ],
+   "topics": [
+    "重要极限",
+    "幂指函数"
+   ],
+   "difficulty": 2,
+   "statement": "求下列极限：\n（1）$\\displaystyle\\lim_{x\\to\\infty}\\left(1+\\dfrac2x\\right)^x$；（2）$\\displaystyle\\lim_{x\\to0}(\\cos x)^{\\frac{1}{x^2}}$。",
+   "answer": "（1）$e^2$；（2）$e^{-\\frac12}$",
+   "solution": "（1）$\\left(1+\\dfrac2x\\right)^x=\\left[\\left(1+\\dfrac2x\\right)^{\\frac x2}\\right]^2\\to e^2$。\n\n（2）$(\\cos x)^{1/x^2}=\\exp\\left(\\dfrac{\\ln(1+(\\cos x-1))}{x^2}\\right)$。当 $x\\to0$ 时 $\\ln(1+u)\\sim u$，$u=\\cos x-1\\sim-\\dfrac{x^2}2$，故指数 $\\to-\\dfrac12$，极限为 $e^{-1/2}$。",
+   "solutionSource": "编写",
+   "source": "经典题"
+  },
+  {
+   "no": "4",
+   "type": "计算",
+   "subjects": [
+    "数学分析"
+   ],
+   "topics": [
+    "等价无穷小"
+   ],
+   "difficulty": 2,
+   "statement": "求 $\\displaystyle\\lim_{x\\to0}\\dfrac{\\tan x-\\sin x}{x^3}$。",
+   "answer": "$\\dfrac12$",
+   "solution": "$$\\tan x-\\sin x=\\tan x\\,(1-\\cos x),$$\n而 $x\\to0$ 时 $\\tan x\\sim x$，$1-\\cos x\\sim\\dfrac{x^2}2$，故\n$$\\lim_{x\\to0}\\dfrac{\\tan x-\\sin x}{x^3}=\\lim_{x\\to0}\\dfrac{x\\cdot\\frac{x^2}{2}}{x^3}=\\dfrac12.$$\n注意不能把分子中的 $\\tan x,\\sin x$ 分别换成 $x$（那样会得到错误的 $0$）。",
+   "solutionSource": "编写",
+   "source": "经典题"
+  },
+  {
+   "no": "5",
+   "type": "证明",
+   "subjects": [
+    "数学分析"
+   ],
+   "topics": [
+    "Heine归结原则"
+   ],
+   "difficulty": 2,
+   "statement": "证明 $\\displaystyle\\lim_{x\\to+\\infty}\\sin x$ 不存在。",
+   "answer": "",
+   "solution": "取 $x_n=2n\\pi\\to+\\infty$，$\\sin x_n=0\\to0$；取 $y_n=2n\\pi+\\dfrac\\pi2\\to+\\infty$，$\\sin y_n=1\\to1$。两个趋于 $+\\infty$ 的数列对应的函数值数列极限不同，由 Heine 归结原则，$\\lim_{x\\to+\\infty}\\sin x$ 不存在。",
+   "solutionSource": "编写",
+   "source": "经典题"
+  },
+  {
+   "no": "6",
+   "type": "计算",
+   "subjects": [
+    "数学分析"
+   ],
+   "topics": [
+    "幂指函数",
+    "洛必达法则"
+   ],
+   "difficulty": 2,
+   "statement": "求 $\\displaystyle\\lim_{x\\to0^+}x^x$。",
+   "answer": "$1$",
+   "solution": "$x^x=e^{x\\ln x}$。令 $x=e^{-t}$，$t\\to+\\infty$，则 $x\\ln x=-te^{-t}=-\\dfrac{t}{e^t}\\to0$（因 $e^t>\\dfrac{t^2}{2}$，$0<\\dfrac t{e^t}<\\dfrac2t$）。由指数函数的连续性，$x^x\\to e^0=1$。",
+   "solutionSource": "编写",
+   "source": "经典题"
+  },
+  {
+   "no": "7",
+   "type": "证明",
+   "subjects": [
+    "数学分析"
+   ],
+   "topics": [
+    "单调函数",
+    "单侧极限",
+    "确界"
+   ],
+   "difficulty": 2,
+   "statement": "设 $f$ 在 $(a,b)$ 上单调递增，$x_0\\in(a,b)$。证明 $f(x_0+0)$ 与 $f(x_0-0)$ 都存在，且\n$$f(x_0-0)=\\sup_{a<x<x_0}f(x)\\le f(x_0)\\le\\inf_{x_0<x<b}f(x)=f(x_0+0).$$",
+   "answer": "",
+   "solution": "数集 $\\{f(x):x_0<x<b\\}$ 非空且有下界 $f(x_0)$，记 $A=\\inf_{x_0<x<b}f(x)\\ge f(x_0)$。任给 $\\varepsilon>0$，存在 $x_1\\in(x_0,b)$ 使 $f(x_1)<A+\\varepsilon$。令 $\\delta=x_1-x_0$，当 $x_0<x<x_0+\\delta$ 时，由单调性\n$$A\\le f(x)\\le f(x_1)<A+\\varepsilon,$$\n故 $f(x_0+0)=A$。左极限同理：$\\{f(x):a<x<x_0\\}$ 有上界 $f(x_0)$，其上确界即 $f(x_0-0)$。",
+   "solutionSource": "编写",
+   "source": "经典题"
+  },
+  {
+   "no": "8",
+   "type": "计算",
+   "subjects": [
+    "数学分析"
+   ],
+   "topics": [
+    "重要极限",
+    "幂指函数"
+   ],
+   "difficulty": 3,
+   "statement": "设 $a,b>0$，求 $\\displaystyle\\lim_{x\\to0}\\left(\\dfrac{a^x+b^x}{2}\\right)^{\\frac1x}$。",
+   "answer": "$\\sqrt{ab}$",
+   "solution": "记 $u(x)=\\dfrac{a^x+b^x}{2}-1\\to0$。则\n$$\\dfrac1x\\ln\\dfrac{a^x+b^x}2=\\dfrac{\\ln(1+u)}{u}\\cdot\\dfrac{u}{x},\\qquad\\dfrac ux=\\dfrac12\\left(\\dfrac{a^x-1}{x}+\\dfrac{b^x-1}{x}\\right)\\to\\dfrac{\\ln a+\\ln b}{2}.$$\n（用到 $\\dfrac{a^x-1}x\\to\\ln a$。）又 $\\dfrac{\\ln(1+u)}u\\to1$（$u=0$ 时该因子按 $1$ 理解），故指数趋于 $\\ln\\sqrt{ab}$，极限为 $\\sqrt{ab}$。",
+   "solutionSource": "编写",
+   "source": "经典题"
+  },
+  {
+   "no": "9",
+   "type": "证明",
+   "subjects": [
+    "数学分析"
+   ],
+   "topics": [
+    "Cauchy收敛准则",
+    "Heine归结原则"
+   ],
+   "difficulty": 3,
+   "statement": "(函数极限的 Cauchy 准则，充分性) 设 $f$ 在 $x_0$ 的某去心邻域内有定义，且对任意 $\\varepsilon>0$，存在 $\\delta>0$，使对任意 $x',x''\\in U^\\circ(x_0;\\delta)$ 都有 $|f(x')-f(x'')|<\\varepsilon$。证明 $\\displaystyle\\lim_{x\\to x_0}f(x)$ 存在。",
+   "answer": "",
+   "solution": "任取数列 $x_n\\to x_0$，$x_n\\ne x_0$。对给定 $\\varepsilon$ 的 $\\delta$，存在 $N$ 使 $n>N$ 时 $0<|x_n-x_0|<\\delta$，于是 $m,n>N$ 时 $|f(x_m)-f(x_n)|<\\varepsilon$，即 $\\{f(x_n)\\}$ 是 Cauchy 列，收敛。\n\n极限与数列选取无关：若 $x_n\\to x_0$，$y_n\\to x_0$（都不等于 $x_0$），交错合成 $x_1,y_1,x_2,y_2,\\dots$ 仍趋于 $x_0$，其函数值数列收敛，故 $\\lim f(x_n)=\\lim f(y_n)$。设公共极限为 $A$。\n\n最后，由 Heine 归结原则（对一切趋于 $x_0$ 的数列 $f(x_n)\\to A$）得 $\\lim_{x\\to x_0}f(x)=A$。也可直接验证：在条件中令 $x''=y_n\\to x_0$ 得 $|f(x')-A|\\le\\varepsilon$ 对 $x'\\in U^\\circ(x_0;\\delta)$ 成立。",
+   "solutionSource": "编写",
+   "source": "经典题"
+  },
+  {
+   "no": "10",
+   "type": "计算",
+   "subjects": [
+    "数学分析"
+   ],
+   "topics": [
+    "等价无穷小",
+    "无穷小的阶"
+   ],
+   "difficulty": 3,
+   "statement": "当 $x\\to0$ 时，$\\sqrt{1+\\tan x}-\\sqrt{1+\\sin x}$ 与 $cx^k$ 是等价无穷小，求常数 $c$ 与 $k$。",
+   "answer": "$c=\\dfrac14$，$k=3$",
+   "solution": "$$\\sqrt{1+\\tan x}-\\sqrt{1+\\sin x}=\\dfrac{\\tan x-\\sin x}{\\sqrt{1+\\tan x}+\\sqrt{1+\\sin x}}.$$\n分母 $\\to2$，分子 $\\tan x-\\sin x=\\tan x(1-\\cos x)\\sim\\dfrac{x^3}{2}$，所以原式 $\\sim\\dfrac{x^3}{4}$，即 $c=\\dfrac14$，$k=3$。",
+   "solutionSource": "编写",
+   "source": "经典题"
+  },
+  {
+   "no": "11",
+   "type": "计算",
+   "subjects": [
+    "数学分析"
+   ],
+   "topics": [
+    "等价无穷小",
+    "反正切差公式"
+   ],
+   "difficulty": 3,
+   "statement": "设 $a\\ne0$，求 $\\displaystyle\\lim_{n\\to\\infty}n^2\\left(\\arctan\\dfrac an-\\arctan\\dfrac a{n+1}\\right)$。",
+   "answer": "$a$",
+   "solution": "当 $n$ 充分大时 $uv>-1$（其中 $u=\\dfrac an$，$v=\\dfrac a{n+1}$），且 $u-v$ 很小，有 $\\arctan u-\\arctan v=\\arctan\\dfrac{u-v}{1+uv}$。这里\n$$\\dfrac{u-v}{1+uv}=\\dfrac{\\frac{a}{n(n+1)}}{1+\\frac{a^2}{n(n+1)}}=\\dfrac{a}{n(n+1)+a^2}\\to0.$$\n由 $\\arctan t\\sim t$（$t\\to0$），\n$$n^2\\left(\\arctan\\dfrac an-\\arctan\\dfrac a{n+1}\\right)\\sim\\dfrac{an^2}{n(n+1)+a^2}\\to a.$$",
+   "solutionSource": "编写",
+   "source": "经典题"
+  },
+  {
+   "no": "12",
+   "type": "计算",
+   "subjects": [
+    "数学分析"
+   ],
+   "topics": [
+    "函数极限",
+    "三角函数的周期性"
+   ],
+   "difficulty": 3,
+   "statement": "求 $\\displaystyle\\lim_{n\\to\\infty}\\sin^2\\left(\\pi\\sqrt{n^2+n}\\right)$。",
+   "answer": "$1$",
+   "solution": "由 $\\sin^2(t-n\\pi)=\\sin^2t$，\n$$\\sin^2\\left(\\pi\\sqrt{n^2+n}\\right)=\\sin^2\\left(\\pi(\\sqrt{n^2+n}-n)\\right)=\\sin^2\\dfrac{n\\pi}{\\sqrt{n^2+n}+n}.$$\n而 $\\dfrac{n}{\\sqrt{n^2+n}+n}=\\dfrac1{\\sqrt{1+1/n}+1}\\to\\dfrac12$，由连续性极限为 $\\sin^2\\dfrac\\pi2=1$。",
+   "solutionSource": "编写",
+   "source": "经典题"
+  },
+  {
+   "no": "13",
+   "type": "证明",
+   "subjects": [
+    "数学分析"
+   ],
+   "topics": [
+    "单调函数",
+    "函数极限"
+   ],
+   "difficulty": 3,
+   "statement": "设 $f$ 在 $(0,+\\infty)$ 上单调递增且恒正，且 $\\displaystyle\\lim_{x\\to+\\infty}\\dfrac{f(2x)}{f(x)}=1$。证明对任意 $a>0$，$\\displaystyle\\lim_{x\\to+\\infty}\\dfrac{f(ax)}{f(x)}=1$。",
+   "answer": "",
+   "solution": "（1）$a\\ge1$：取正整数 $k$ 使 $2^k\\ge a$。由单调性\n$$1\\le\\dfrac{f(ax)}{f(x)}\\le\\dfrac{f(2^kx)}{f(x)}=\\prod_{j=1}^{k}\\dfrac{f(2^jx)}{f(2^{j-1}x)}.$$\n每个因子当 $x\\to+\\infty$ 时 $\\to1$（因 $2^{j-1}x\\to+\\infty$），有限个之积 $\\to1$。由夹逼准则 $\\dfrac{f(ax)}{f(x)}\\to1$。\n\n（2）$0<a<1$：令 $y=ax\\to+\\infty$，则 $\\dfrac{f(ax)}{f(x)}=\\left(\\dfrac{f(y/a)}{f(y)}\\right)^{-1}$，而 $\\dfrac1a>1$，由（1）括号内 $\\to1$，故结论成立。",
+   "solutionSource": "编写",
+   "source": "经典题"
+  },
+  {
+   "no": "14",
+   "type": "证明",
+   "subjects": [
+    "数学分析"
+   ],
+   "topics": [
+    "函数极限",
+    "ε-δ定义"
+   ],
+   "difficulty": 4,
+   "statement": "设 $f$ 在 $[0,+\\infty)$ 上有定义，且在每个有限区间上有界。若 $\\displaystyle\\lim_{x\\to+\\infty}\\big(f(x+1)-f(x)\\big)=A$，证明 $\\displaystyle\\lim_{x\\to+\\infty}\\dfrac{f(x)}{x}=A$。",
+   "answer": "",
+   "solution": "任给 $\\varepsilon>0$，存在 $X>0$，当 $x\\ge X$ 时 $|f(x+1)-f(x)-A|<\\varepsilon$。设 $|f|\\le M$ 于 $[X,X+1]$。\n\n对 $x\\ge X+1$，记 $n=[x-X]\\ge1$，$t=x-X-n\\in[0,1)$，则 $x=X+t+n$，\n$$f(x)=f(X+t)+\\sum_{k=0}^{n-1}\\big[f(X+t+k+1)-f(X+t+k)\\big]=f(X+t)+nA+n\\theta\\varepsilon,\\quad|\\theta|\\le1.$$\n于是\n$$\\left|\\dfrac{f(x)}x-A\\right|\\le\\dfrac Mx+\\left|\\dfrac nx-1\\right||A|+\\dfrac nx\\varepsilon.$$\n因 $x-X-1<n\\le x-X$，$\\dfrac nx\\to1$，所以 $\\varlimsup_{x\\to+\\infty}\\left|\\dfrac{f(x)}x-A\\right|\\le\\varepsilon$。由 $\\varepsilon$ 任意得结论。",
+   "solutionSource": "编写",
+   "source": "经典题"
+  },
+  {
+   "no": "15",
+   "type": "计算",
+   "subjects": [
+    "数学分析"
+   ],
+   "topics": [
+    "Taylor展开",
+    "复合函数的极限"
+   ],
+   "difficulty": 5,
+   "statement": "求 $\\displaystyle\\lim_{x\\to0}\\dfrac{\\sin(\\tan x)-\\tan(\\sin x)}{x^7}$。",
+   "answer": "$-\\dfrac1{30}$",
+   "solution": "用 Maclaurin 展开（均到 $x^7$）：\n$$\\tan x=x+\\dfrac{x^3}3+\\dfrac{2x^5}{15}+\\dfrac{17x^7}{315}+o(x^7),\\qquad\\sin x=x-\\dfrac{x^3}6+\\dfrac{x^5}{120}-\\dfrac{x^7}{5040}+o(x^7).$$\n将 $t=\\tan x$ 代入 $\\sin t=t-\\dfrac{t^3}6+\\dfrac{t^5}{120}-\\dfrac{t^7}{5040}+o(t^7)$，逐项展开并合并得\n$$\\sin(\\tan x)=x+\\dfrac{x^3}6-\\dfrac{x^5}{40}-\\dfrac{55x^7}{1008}+o(x^7).$$\n同样将 $s=\\sin x$ 代入 $\\tan s=s+\\dfrac{s^3}3+\\dfrac{2s^5}{15}+\\dfrac{17s^7}{315}+o(s^7)$，得\n$$\\tan(\\sin x)=x+\\dfrac{x^3}6-\\dfrac{x^5}{40}-\\dfrac{107x^7}{5040}+o(x^7).$$\n两式前三项完全相同，差为\n$$\\left(-\\dfrac{55}{1008}+\\dfrac{107}{5040}\\right)x^7+o(x^7)=\\dfrac{-275+107}{5040}x^7+o(x^7)=-\\dfrac{x^7}{30}+o(x^7).$$\n故极限为 $-\\dfrac1{30}$。\n\n注：此题说明 $\\sin$ 与 $\\tan$ 的复合\"几乎可交换\"，差到 $7$ 阶才出现；若用洛必达法则需求导 $7$ 次，Taylor 展开是正确途径。",
+   "solutionSource": "编写",
+   "source": "经典题"
+  }
+ ]
+}

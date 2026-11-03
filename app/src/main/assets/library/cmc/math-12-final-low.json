@@ -1,0 +1,185 @@
+{
+ "id": "cmc-math-12-final-low",
+ "title": "第十二届全国大学生数学竞赛决赛（数学类低年级组）",
+ "year": 2021,
+ "track": "数学类",
+ "round": "决赛",
+ "paper": "low",
+ "durationMin": 180,
+ "totalScore": 100,
+ "source": {
+  "question": "12-final-math-low.pdf",
+  "solution": "12-final-math-low.pdf"
+ },
+ "problems": [
+  {
+   "no": "一(1)",
+   "score": 5,
+   "type": "填空",
+   "subjects": [
+    "数学分析"
+   ],
+   "topics": [
+    "三重积分",
+    "平移变换",
+    "对称性"
+   ],
+   "difficulty": 1,
+   "statement": "设 $\\Omega:(x-2)^2+(y-3)^2+(z-4)^2\\leqslant1$，则积分 $\\displaystyle\\iiint_\\Omega(x^2+2y^2+3z^2)\\,\\mathrm dx\\,\\mathrm dy\\,\\mathrm dz=$ ______。",
+   "answer": "$\\dfrac{1424\\pi}{15}$",
+   "solution": "令 $x=2+u,\\ y=3+v,\\ z=4+w$，$B$ 为单位球。一次项由对称性积分为零，故\n$$\\iiint_\\Omega=(4+2\\cdot9+3\\cdot16)|B|+\\iiint_B(u^2+2v^2+3w^2)\\,\\mathrm dV=70\\cdot\\frac{4\\pi}3+6\\cdot\\frac13\\iiint_Br^2\\,\\mathrm dV=\\frac{280\\pi}{3}+2\\cdot\\frac{4\\pi}{5}=\\frac{1424\\pi}{15}.$$",
+   "solutionSource": "编写"
+  },
+  {
+   "no": "一(2)",
+   "score": 5,
+   "type": "填空",
+   "subjects": [
+    "数学分析"
+   ],
+   "topics": [
+    "Stolz定理",
+    "数列极限",
+    "积分估计"
+   ],
+   "difficulty": 2,
+   "statement": "设 $x_n=\\displaystyle\\sum_{k=1}^n\\frac{e^{k^2}}{k}$，$y_n=\\displaystyle\\int_0^ne^{x^2}\\,\\mathrm dx$，则 $\\displaystyle\\lim_{n\\to\\infty}\\frac{x_n}{y_n}=$ ______。",
+   "answer": "$2$",
+   "solution": "$y_n\\uparrow+\\infty$，由 Stolz 定理只需求 $\\displaystyle\\lim_{n\\to\\infty}\\frac{e^{n^2}/n}{\\int_{n-1}^ne^{x^2}\\,\\mathrm dx}$。由洛必达法则 $\\displaystyle\\int_{n-1}^{n}e^{x^2}\\,\\mathrm dx\\sim\\int_0^ne^{x^2}\\,\\mathrm dx\\sim\\frac{e^{n^2}}{2n}$（因 $\\int_0^{n-1}e^{x^2}\\mathrm dx\\sim\\frac{e^{(n-1)^2}}{2(n-1)}=o\\left(\\frac{e^{n^2}}{2n}\\right)$），故极限为 $2$。",
+   "solutionSource": "编写"
+  },
+  {
+   "no": "一(3)",
+   "score": 5,
+   "type": "填空",
+   "subjects": [
+    "高等代数"
+   ],
+   "topics": [
+    "Jordan标准形",
+    "幂零矩阵",
+    "秩"
+   ],
+   "difficulty": 2,
+   "statement": "矩阵 $\\begin{pmatrix}1&0&1&0&0\\\\0&1&0&1&0\\\\0&0&1&0&1\\\\0&0&0&1&0\\\\0&0&0&0&1\\end{pmatrix}$ 的 Jordan 标准型为 ______。",
+   "answer": "$\\begin{pmatrix}1&1&&&\\\\&1&1&&\\\\&&1&&\\\\&&&1&1\\\\&&&&1\\end{pmatrix}$，即 $J_3(1)\\oplus J_2(1)$",
+   "solution": "特征值全为 $1$。记 $N=A-I$，其非零元为 $N_{13}=N_{24}=N_{35}=1$，$\\operatorname{rank}N=3$；$N^2$ 仅有 $(N^2)_{15}=1$，$\\operatorname{rank}N^2=1$；$N^3=0$。Jordan 块个数为 $5-3=2$，最大块阶数为 $3$，故标准型为 $J_3(1)\\oplus J_2(1)$。",
+   "solutionSource": "编写"
+  },
+  {
+   "no": "一(4)",
+   "score": 5,
+   "type": "填空",
+   "subjects": [
+    "高等代数"
+   ],
+   "topics": [
+    "对称矩阵",
+    "迹",
+    "组合计数",
+    "奇偶性"
+   ],
+   "difficulty": 2,
+   "statement": "设 $A$ 为 2021 阶对称矩阵，$A$ 的每一行均为 $1,2,\\ldots,2021$ 的一个排列。则 $A$ 的迹 $\\operatorname{tr}A=$ ______。",
+   "answer": "$1011\\times2021$",
+   "solution": "每个数 $v$ 在每行出现一次，共出现 $2021$ 次（奇数）。由对称性，$v$ 在非对角位置的出现成对，故 $v$ 在对角线上出现奇数次，至少一次。对角线只有 2021 个位置，恰好容纳 $1,\\ldots,2021$ 各一次，所以 $\\operatorname{tr}A=1+2+\\cdots+2021=1011\\times2021$。",
+   "solutionSource": "编写"
+  },
+  {
+   "no": "二",
+   "score": 15,
+   "type": "计算",
+   "subjects": [
+    "解析几何"
+   ],
+   "topics": [
+    "旋转曲面",
+    "环面",
+    "锥面",
+    "相切"
+   ],
+   "difficulty": 3,
+   "statement": "给定 $yOz$ 平面上的圆 $C:y=\\sqrt3+\\cos\\theta,\\ z=1+\\sin\\theta\\ (\\theta\\in[0,2\\pi])$。\n\n1. 求 $C$ 绕 $z$ 轴旋转所得到的环面 $S$ 的隐式方程。\n\n2. 设 $z_0\\geqslant0$，以 $M(0,0,z_0)$ 为顶点的两个锥面 $S_1$ 和 $S_2$ 的半顶角之差为 $\\pi/3$，且均与环面 $S$ 相切（每条母线都与环面相切），求 $z_0$ 和 $S_1,S_2$ 的隐式方程。",
+   "answer": "1. $\\left(x^2+y^2+(z-1)^2+2\\right)^2=12(x^2+y^2)$；2. $z_0=0$ 时 $S_1:z=\\sqrt{3(x^2+y^2)}$，$S_2:z=0$；$z_0=2$ 时 $S_1:z=2-\\sqrt{3(x^2+y^2)}$，$S_2:z=2$。",
+   "solution": "1. $C$：$(y-\\sqrt3)^2+(z-1)^2=1,\\ x=0$。绕 $z$ 轴旋转，$y$ 换成 $\\pm\\sqrt{x^2+y^2}$：$\\left(\\pm\\sqrt{x^2+y^2}-\\sqrt3\\right)^2+(z-1)^2=1$，化简得\n$$S:\\ \\left(x^2+y^2+(z-1)^2+2\\right)^2=12(x^2+y^2).$$\n\n2. 在 $yOz$ 平面内考虑：圆心 $O'(0,\\sqrt3,1)$，半径 1，$M=(0,0,t)$。锥面每条母线与环面相切，等价于在 $yOz$ 平面内过 $M$ 的母线与圆 $C$ 相切。设两条切线的切点为 $A,B$，两锥面半顶角之差为 $\\frac\\pi3$ 即两切线夹角 $\\angle AMB=\\frac\\pi3$，故 $\\angle O'MA=\\angle O'MB=\\frac\\pi6$，$|MO'|=\\dfrac{1}{\\sin\\frac\\pi6}=2$，即 $3+(t-1)^2=4$，得 $t=0$ 或 $t=2$。\n\n$t=0$：$M=(0,0,0)$，切点 $A\\left(0,\\frac{\\sqrt3}2,\\frac32\\right)$，$B(0,\\sqrt3,0)$。母线 $MA:\\ x=0,\\ \\sqrt3y-z=0$，绕 $z$ 轴得 $S_1:z=\\sqrt{3(x^2+y^2)}$（半顶角 $\\frac\\pi6$）；母线 $MB$ 为 $y$ 轴，得 $S_2:z=0$（半顶角 $\\frac\\pi2$）。\n\n$t=2$：$M=(0,0,2)$，切点 $A\\left(0,\\frac{\\sqrt3}2,\\frac12\\right)$，$B(0,\\sqrt3,2)$。母线 $x=0,\\ \\sqrt3y+z-2=0$ 与 $x=0,\\ z=2$，对应 $S_1:z=2-\\sqrt{3(x^2+y^2)}$，$S_2:z=2$。",
+   "solutionSource": "官方"
+  },
+  {
+   "no": "三",
+   "score": 15,
+   "type": "证明",
+   "subjects": [
+    "高等代数"
+   ],
+   "topics": [
+    "可对角化",
+    "核与像",
+    "直和分解",
+    "秩"
+   ],
+   "difficulty": 3,
+   "statement": "设 $n$ 阶复方阵 $A_1,\\ldots,A_{2n}$ 均相似于对角阵，$\\mathbb C^n$ 表示复 $n$ 维列向量空间。证明：\n\n1. $\\mathbb C^n=\\ker A_k\\oplus\\operatorname{Im}A_k$。这里 $\\ker A_k=\\{\\alpha\\mid A_k\\alpha=0,\\ \\alpha\\in\\mathbb C^n\\}$，$\\operatorname{Im}A_k=\\{A_k\\beta\\mid\\beta\\in\\mathbb C^n\\}\\ (k=1,\\ldots,2n)$。\n\n2. 若对所有的 $k<j$ 皆有 $A_kA_j=0\\ (k,j=1,2,\\ldots,2n)$，则 $A_1,\\ldots,A_{2n}$ 中至少有 $n$ 个矩阵为零矩阵。",
+   "answer": "",
+   "solution": "1. $A_k$ 可对角化，取特征向量基 $p_1,\\ldots,p_n$，其中 $p_1,\\ldots,p_t$ 属于特征值 0，$p_{t+1},\\ldots,p_n$ 属于非零特征值 $\\lambda_{t+1},\\ldots,\\lambda_n$。则 $\\ker A_k=\\operatorname{span}\\{p_1,\\ldots,p_t\\}$（若维数大于 $t$，则 0 的代数重数大于 $t$，矛盾）；对 $y=\\sum a_ip_i$ 有 $A_ky=\\sum_{i>t}a_i\\lambda_ip_i$，故 $\\operatorname{Im}A_k=\\operatorname{span}\\{p_{t+1},\\ldots,p_n\\}$。所以 $\\mathbb C^n=\\ker A_k\\oplus\\operatorname{Im}A_k$。\n\n2. 由 $A_1A_2=0$ 得 $\\operatorname{Im}A_2\\subseteq\\ker A_1$。对 $u\\in\\ker A_1$，按 $\\mathbb C^n=\\ker A_2\\oplus\\operatorname{Im}A_2$ 写 $u=u_1+u_2$，则 $u_1=u-u_2\\in\\ker A_1\\cap\\ker A_2$，故 $\\ker A_1=(\\ker A_1\\cap\\ker A_2)\\oplus\\operatorname{Im}A_2$，从而\n$$\\mathbb C^n=(\\ker A_1\\cap\\ker A_2)\\oplus\\operatorname{Im}A_2\\oplus\\operatorname{Im}A_1.$$\n再由 $A_1A_3=A_2A_3=0$ 得 $\\operatorname{Im}A_3\\subseteq\\ker A_1\\cap\\ker A_2$，同理分解 $\\ker A_1\\cap\\ker A_2=(\\ker A_1\\cap\\ker A_2\\cap\\ker A_3)\\oplus\\operatorname{Im}A_3$。依次进行得\n$$\\mathbb C^n=(\\ker A_1\\cap\\cdots\\cap\\ker A_{2n})\\oplus\\operatorname{Im}A_1\\oplus\\cdots\\oplus\\operatorname{Im}A_{2n}.$$\n取维数：$n=\\dim\\left(\\bigcap\\ker A_k\\right)+\\operatorname{rank}A_1+\\cdots+\\operatorname{rank}A_{2n}$。因此 $2n$ 个秩中至多 $n$ 个非零，即至少有 $n$ 个 $A_k$ 为零矩阵。",
+   "solutionSource": "官方"
+  },
+  {
+   "no": "四",
+   "score": 20,
+   "type": "证明",
+   "subjects": [
+    "数学分析"
+   ],
+   "topics": [
+    "凹函数",
+    "反常积分",
+    "构造反例",
+    "折线函数"
+   ],
+   "difficulty": 5,
+   "statement": "称实函数 $f$ 满足条件 $(P)$：若 $f$ 在 $[0,1]$ 上非负连续，$f(1)>f(0)=0$，$\\displaystyle\\int_0^1\\frac{1}{f(x)}\\,\\mathrm dx=+\\infty$，且对任何 $x_1,x_2\\in[0,1]$ 成立 $f\\left(\\dfrac{x_1+x_2}{2}\\right)\\geqslant\\dfrac{f(x_1)+f(x_2)}{2}$。\n\n1. 令 $c>0$，对于 $f_1(x)=cx$ 和 $f_2(x)=\\sqrt x$，分别验证 $f_1,f_2$ 是否满足条件 $(P)$，并计算 $\\displaystyle\\lim_{x\\to0^+}\\left(f_1(x)-xf_1'(x)\\right)^me^{f_1'(x)}$ 和 $\\displaystyle\\lim_{x\\to0^+}\\left(f_2(x)-xf_2'(x)\\right)^me^{f_2'(x)}$。\n\n2. 证明：$\\forall m\\geqslant1$，存在满足条件 $(P)$ 的函数 $f$ 以及趋于零的正数列 $\\{x_n\\}$，使得 $f$ 在每一点 $x_n$ 可导，且 $\\displaystyle\\lim_{n\\to+\\infty}\\left(f(x_n)-x_nf'(x_n)\\right)^me^{f'(x_n)}=+\\infty$。",
+   "answer": "1. $f_1$ 满足 $(P)$，极限为 $0$；$f_2$ 不满足 $(P)$，极限为 $+\\infty$。2. 见解答（折线构造）。",
+   "solution": "注意 $f(x)-xf'(x)=-x^2\\left(\\dfrac{f(x)}{x}\\right)'$。\n\n1. $f_1,f_2$ 在 $[0,1]$ 上非负连续，$f_i(1)>f_i(0)=0$；$f_1''=0$，$f_2''=-\\frac14x^{-3/2}<0$，二者都是凹函数（满足中点凹性）。$\\int_0^1\\frac{\\mathrm dx}{cx}=+\\infty$，而 $\\int_0^1\\frac{\\mathrm dx}{\\sqrt x}=2<+\\infty$，所以 $f_1$ 满足 $(P)$，$f_2$ 不满足。又 $f_1-xf_1'\\equiv0$，第一个极限为 $0$；$f_2-xf_2'=\\frac{\\sqrt x}2$，$f_2'=\\frac1{2\\sqrt x}$，第二个极限 $=\\lim\\limits_{x\\to0^+}\\left(\\frac{\\sqrt x}2\\right)^me^{\\frac1{2\\sqrt x}}=+\\infty$。\n\n2. 仿照 $\\sqrt x$ 与 $cx$ 构造折线。取严格单减趋于零的 $\\{a_n\\}$，$a_0=1$，令 $f(0)=0$，在 $(a_{n+1},a_n]$ 上\n$$f(x)=\\sqrt{a_{n+1}}+k_n(x-a_{n+1}),\\qquad k_n=\\frac{\\sqrt{a_n}-\\sqrt{a_{n+1}}}{a_n-a_{n+1}}=\\frac1{\\sqrt{a_n}+\\sqrt{a_{n+1}}},$$\n即依次连接点 $(a_n,\\sqrt{a_n})$ 的折线。斜率 $k_n$ 随 $x$ 减小而增大，故 $f$ 凹、连续、非负，$f(1)=1>0=f(0)$。又\n$$\\int_{a_{n+1}}^{a_n}\\frac{\\mathrm dx}{f(x)}=\\frac1{k_n}\\ln\\frac{f(a_n)}{f(a_{n+1})}=\\frac1{2k_n}\\ln\\frac{a_n}{a_{n+1}}\\geqslant\\frac{\\sqrt{a_n}}{2}\\ln\\frac{a_n}{a_{n+1}}.$$取 $a_{n+1}=a_ne^{-\\frac{2}{n\\sqrt{a_n}}}$，则 $0<a_{n+1}<a_n$，且每段积分 $\\geqslant\\dfrac1n$，于是 $\\int_0^1\\frac{\\mathrm dx}{f}=+\\infty$（由此 $\\sum\\frac{2}{n\\sqrt{a_n}}=+\\infty$ 也保证 $a_n\\to0$），$f$ 满足 $(P)$。\n\n在 $(a_{n+1},a_n)$ 内 $f'(x)=k_n\\geqslant\\dfrac1{2\\sqrt{a_n}}$，且\n$$f(x)-xf'(x)=\\frac{\\sqrt{a_n}\\sqrt{a_{n+1}}}{\\sqrt{a_n}+\\sqrt{a_{n+1}}}\\geqslant\\frac{\\sqrt{a_{n+1}}}{2}=\\frac{\\sqrt{a_n}\\,e^{-\\frac1{n\\sqrt{a_n}}}}{2}.$$\n任取 $x_n\\in(a_{n+1},a_n)$，则\n$$\\left(f(x_n)-x_nf'(x_n)\\right)^me^{f'(x_n)}\\geqslant\\left(\\frac{\\sqrt{a_n}}2\\right)^me^{\\frac1{2\\sqrt{a_n}}-\\frac{m}{n\\sqrt{a_n}}}\\to+\\infty\\quad(n>4m\\text{ 后指数}\\geqslant\\tfrac1{4\\sqrt{a_n}}).$$",
+   "solutionSource": "官方"
+  },
+  {
+   "no": "五",
+   "score": 15,
+   "type": "解答",
+   "subjects": [
+    "数学分析"
+   ],
+   "topics": [
+    "数列极限",
+    "三角函数",
+    "复指数",
+    "Stolz定理",
+    "充要条件"
+   ],
+   "difficulty": 5,
+   "statement": "设 $\\alpha,\\beta,\\alpha_1,\\alpha_2,\\beta_1,\\beta_2$ 和 $A$ 均为实数。回答以下问题：\n\n1. $\\displaystyle\\lim_{n\\to\\infty}\\sin(n\\alpha+\\beta)=A$ 成立的充要条件是什么？\n\n2. $\\displaystyle\\lim_{n\\to\\infty}\\left(\\sin(n\\alpha_1+\\beta_1)+\\sin(n\\alpha_2+\\beta_2)\\right)=0$ 成立的充要条件是什么？",
+   "answer": "1. $\\sin\\alpha=0,\\ \\sin\\beta=A,\\ \\sin(\\alpha+\\beta)=A$；等价地：$\\alpha=2k\\pi$ 且 $A=\\sin\\beta$，或 $A=0,\\ \\alpha=k\\pi,\\ \\beta=j\\pi$。\n2. 以下三者之一成立（同余均 $\\bmod 2\\pi$）：(i) $\\alpha_2\\equiv\\alpha_1,\\ \\beta_2\\equiv\\beta_1+\\pi$；(ii) $\\alpha_2\\equiv-\\alpha_1,\\ \\beta_2\\equiv-\\beta_1$；(iii) $\\alpha_1,\\alpha_2,\\beta_1,\\beta_2$ 都是 $\\pi$ 的整数倍。",
+   "solution": "**1.** 由 $\\sin((n+2)\\alpha+\\beta)-\\sin(n\\alpha+\\beta)=2\\sin\\alpha\\cos((n+1)\\alpha+\\beta)\\to0$ 得 $\\sin\\alpha\\cos(n\\alpha+\\beta)\\to0$；同理（对上式再差分）$\\sin^2\\alpha\\sin(n\\alpha+\\beta)\\to0$。若 $\\sin\\alpha\\neq0$，则 $\\sin(n\\alpha+\\beta)\\to0$ 且 $\\cos(n\\alpha+\\beta)\\to0$，与 $\\sin^2+\\cos^2=1$ 矛盾。故 $\\sin\\alpha=0$，$\\alpha=k\\pi$，$\\sin(n\\alpha+\\beta)=(-1)^{nk}\\sin\\beta$。看偶数项与奇数项得 $\\sin\\beta=A$，$\\sin(\\alpha+\\beta)=A$。反之显然充分。等价表述：$\\alpha=2k\\pi,\\ A=\\sin\\beta$；或 $\\alpha$ 为 $\\pi$ 的奇数倍，此时 $-\\sin\\beta=\\sin\\beta=A$，即 $A=0,\\ \\beta=j\\pi$。\n\n**2.** 同样差分得\n$$\\sin\\alpha_1\\cos(n\\alpha_1+\\beta_1)+\\sin\\alpha_2\\cos(n\\alpha_2+\\beta_2)\\to0,\\tag{6}$$\n$$\\sin^2\\alpha_1\\sin(n\\alpha_1+\\beta_1)+\\sin^2\\alpha_2\\sin(n\\alpha_2+\\beta_2)\\to0.\\tag{7}$$\n条件式乘 $\\sin^2\\alpha_2$ 减 (7) 得 $(\\sin^2\\alpha_2-\\sin^2\\alpha_1)\\sin(n\\alpha_1+\\beta_1)\\to0$，而由 1 知 $\\sin(n\\alpha_1+\\beta_1)\\to0$ 仅当 $\\alpha_1,\\beta_1\\in\\pi\\mathbb Z$ 时成立。\n\n情形 A：$\\sin\\alpha_1=\\sin\\alpha_2=0$。则和为 $(-1)^{nk_1}\\sin\\beta_1+(-1)^{nk_2}\\sin\\beta_2$（$\\alpha_i=k_i\\pi$）。$k_1,k_2$ 同奇偶时条件为 $\\sin\\beta_1+\\sin\\beta_2=0$，即 $\\beta_2\\equiv\\beta_1+\\pi$ 或 $\\beta_2\\equiv-\\beta_1$（此时 $\\alpha_2\\equiv\\alpha_1\\equiv-\\alpha_1$，归入 (i)(ii)）；奇偶不同时条件为 $\\sin\\beta_1=\\sin\\beta_2=0$，即 (iii)。\n\n情形 B：$\\sin^2\\alpha_1=\\sin^2\\alpha_2\\neq0$，$\\sin\\alpha_2=\\pm\\sin\\alpha_1$。由 (6)(7) 得 $\\sin(n\\alpha_1+\\beta_1)+\\sin(n\\alpha_2+\\beta_2)\\to0$ 且 $\\cos(n\\alpha_1+\\beta_1)\\pm\\cos(n\\alpha_2+\\beta_2)\\to0$，两式平方和趋于零：\n$$2\\pm2\\cos\\left(n(\\alpha_1\\mp\\alpha_2)+(\\beta_1\\mp\\beta_2)\\right)\\to0.$$\n由 1，这要求 $\\alpha_1\\mp\\alpha_2\\equiv0$，且 $1\\pm\\cos(\\beta_1\\mp\\beta_2)=0$。取上号：$\\alpha_2\\equiv\\alpha_1$，$\\beta_2\\equiv\\beta_1+\\pi$，即 (i)；取下号：$\\alpha_2\\equiv-\\alpha_1$，$\\cos(\\beta_1+\\beta_2)=1$，$\\beta_2\\equiv-\\beta_1$，即 (ii)。\n\n反之，(i) 时两项恰为 $\\sin x+\\sin(x+\\pi)=0$；(ii) 时为 $\\sin x+\\sin(-x)=0$；(iii) 时两项均为 $0$。故 (i)(ii)(iii) 之一即为充要条件。\n\n（注：官方参考答案\"法 I\"开头的汇总式写作 $\\cos(\\alpha_1\\pm\\alpha_2)=1$，与推导中的 $\\alpha_1\\mp\\alpha_2\\equiv0$ 正负号配对相反，且漏掉 $\\sin\\alpha_1=\\sin\\alpha_2=0$ 的情形；\"法 II\"的情形 2 写 $\\beta_i\\in(p+\\frac12)\\pi$、情形 4 写 $\\beta_2=-\\beta_1+(2p+1)\\pi$，代入验证不成立（应分别为 $\\beta_i\\in\\pi\\mathbb Z$ 与 $\\beta_2\\equiv-\\beta_1$）。此处按正确推导重写。官方另给出\"法 II\"：把条件写成 $\\sum C_je^{in\\lambda_j}\\to0$，用 Stolz 平均证明 $e^{i\\lambda_j}$ 必两两配对相等，再逐情形讨论。）",
+   "solutionSource": "编写"
+  },
+  {
+   "no": "六",
+   "score": 15,
+   "type": "证明",
+   "subjects": [
+    "常微分方程"
+   ],
+   "topics": [
+    "可分离变量方程",
+    "解的整体存在性",
+    "解的非唯一性",
+    "Peano现象"
+   ],
+   "difficulty": 4,
+   "statement": "设 $g$ 为 $\\mathbb R$ 上恒正的连续函数，对于正整数 $n$ 以及 $x_0,y_0\\in\\mathbb R$，考虑微分方程\n$$\\begin{cases}y'(x)=y^{\\frac1{2n+1}}(x)g(x),\\\\y(x_0)=y_0.\\end{cases}\\tag{1}$$\n证明：1. 方程 (1) 有定义在整个 $\\mathbb R$ 上的解（称为全局解）；\n\n2. 若 $y_0=0$，则方程 (1) 有无穷多个全局解；\n\n3. 若 $y=y(x)$ 是方程 (1) 的解，则 $y$ 在 $\\mathbb R$ 上非负，或在 $\\mathbb R$ 上非正。",
+   "answer": "",
+   "solution": "**1.** 若 $y_0=0$，$y\\equiv0$ 是全局解。若 $y_0\\neq0$，由于 $y$ 是解当且仅当 $-y$ 是解，不妨设 $y_0>0$。在 $y\\neq0$ 处分离变量得\n$$y^{\\frac{2n}{2n+1}}(x)=y_0^{\\frac{2n}{2n+1}}+G(x),\\qquad G(x)=\\frac{2n}{2n+1}\\int_{x_0}^xg(t)\\,\\mathrm dt.$$\n$G$ 严格单增，$G(x_0)=0$，记 $\\alpha=\\lim\\limits_{x\\to-\\infty}G(x)\\in[-\\infty,0)$。\n\n情形 I：$\\alpha+y_0^{\\frac{2n}{2n+1}}\\geqslant0$。此时 $y_0^{\\frac{2n}{2n+1}}+G(x)>0$ 恒成立，$y(x)=\\left(y_0^{\\frac{2n}{2n+1}}+G(x)\\right)^{\\frac{2n+1}{2n}}$ 即为全局解。\n\n情形 II：$\\alpha+y_0^{\\frac{2n}{2n+1}}<0$。存在唯一 $\\gamma\\in(-\\infty,x_0)$ 使 $G(\\gamma)+y_0^{\\frac{2n}{2n+1}}=0$，取\n$$y(x)=\\begin{cases}\\left(y_0^{\\frac{2n}{2n+1}}+G(x)\\right)^{\\frac{2n+1}{2n}},&x>\\gamma,\\\\0,&x\\leqslant\\gamma.\\end{cases}$$\n在 $\\gamma$ 处右导数 $y'_+(\\gamma)=g(\\gamma)\\lim\\limits_{x\\to\\gamma^+}\\left(y_0^{\\frac{2n}{2n+1}}+G(x)\\right)^{\\frac1{2n}}=0$（由洛必达法则），与左导数一致，故 $y$ 在 $\\mathbb R$ 上可导且满足方程，为全局解。\n\n**2.** 由 1 的构造，对任意 $\\gamma\\geqslant x_0$，\n$$y(x)=\\begin{cases}\\left(\\dfrac{2n}{2n+1}\\displaystyle\\int_\\gamma^xg(t)\\,\\mathrm dt\\right)^{\\frac{2n+1}{2n}},&x>\\gamma,\\\\0,&x\\leqslant\\gamma\\end{cases}$$\n都是 $y_0=0$ 时 (1) 的全局解，有无穷多个。\n\n**3.** 设 $y$ 是 (1) 在区间 $I$ 上的解，则\n$$\\left(y^2(x)\\right)'=2y(x)y'(x)=2y^{\\frac{2n+2}{2n+1}}(x)g(x)\\geqslant0,$$\n$y^2$ 在 $I$ 上单调增加。若 $y$ 在 $a<b$ 处异号，由介值定理有 $c\\in(a,b)$ 使 $y(c)=0$，则 $y^2(a)>0=y^2(c)$，与单调性矛盾。故 $y$ 在 $I$ 上非负或非正。\n（注：原解答此处\"$y'(0)=0$\"应为\"$y'(\\gamma)=0$\"，为笔误，已改正。）",
+   "solutionSource": "官方"
+  }
+ ]
+}

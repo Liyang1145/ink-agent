@@ -1,0 +1,200 @@
+{
+ "id": "cmc-nonmath-16-prelim-A",
+ "title": "第十六届全国大学生数学竞赛初赛（非数学A类）",
+ "year": 2024,
+ "track": "非数学类",
+ "round": "初赛",
+ "paper": "A",
+ "durationMin": 150,
+ "totalScore": 100,
+ "source": {
+  "question": "16-prelim-nonmath-A.pdf",
+  "solution": "16-prelim-nonmath-A.pdf"
+ },
+ "problems": [
+  {
+   "no": "一(1)",
+   "score": 6,
+   "type": "填空",
+   "subjects": [
+    "高等数学"
+   ],
+   "topics": [
+    "定积分",
+    "分部积分"
+   ],
+   "difficulty": 1,
+   "statement": "$\\displaystyle\\int_0^1\\ln(1+x^2)\\,\\mathrm dx=$\\_\\_\\_\\_\\_\\_\\_\\_。",
+   "answer": "$\\ln2-2+\\dfrac\\pi2$",
+   "solution": "$$\\int\\ln(1+x^2)\\,\\mathrm dx=x\\ln(1+x^2)-\\int\\frac{2x^2}{1+x^2}\\,\\mathrm dx=x\\ln(1+x^2)-2x+2\\arctan x+C.$$\n故原式等于 $\\ln2-2+\\dfrac\\pi2$。",
+   "solutionSource": "官方"
+  },
+  {
+   "no": "一(2)",
+   "score": 6,
+   "type": "填空",
+   "subjects": [
+    "高等数学"
+   ],
+   "topics": [
+    "二重积分",
+    "极坐标",
+    "泰勒展开",
+    "函数极限"
+   ],
+   "difficulty": 1,
+   "statement": "设 $D:x^2+y^2\\leqslant r^2$，其中 $r>0$。则\n$$\\lim_{r\\to0^+}\\frac{\\iint_D\\left(e^{x^2+y^2}-1\\right)\\mathrm dx\\,\\mathrm dy}{r^4}=\\underline{\\qquad\\qquad}.$$",
+   "answer": "$\\dfrac\\pi2$",
+   "solution": "利用极坐标变换 $x=\\rho\\cos\\theta,\\ y=\\rho\\sin\\theta$，则\n$$\\iint_D\\left(e^{x^2+y^2}-1\\right)\\mathrm dx\\,\\mathrm dy=2\\pi\\int_0^r\\left(e^{\\rho^2}-1\\right)\\rho\\,\\mathrm d\\rho=\\pi\\left(e^{r^2}-1-r^2\\right).$$\n注意，$r\\to0^+$ 时，$e^{r^2}-1-r^2=\\dfrac{r^4}2+o(r^4)$，故原式 $=\\dfrac\\pi2$。",
+   "solutionSource": "官方"
+  },
+  {
+   "no": "一(3)",
+   "score": 6,
+   "type": "填空",
+   "subjects": [
+    "高等数学"
+   ],
+   "topics": [
+    "多元复合函数求导",
+    "二阶偏导数"
+   ],
+   "difficulty": 1,
+   "statement": "已知函数 $z=f\\left(xy,e^{x+y}\\right)$，且 $f(x,y)$ 具有二阶连续偏导数。则 $\\dfrac{\\partial^2z}{\\partial x\\partial y}=$\\_\\_\\_\\_\\_\\_\\_\\_。",
+   "answer": "$xyf_{11}+(x+y)e^{x+y}f_{12}+e^{2(x+y)}f_{22}+f_1+e^{x+y}f_2$",
+   "solution": "$$\\begin{aligned}z_x&=yf_1+e^{x+y}f_2,\\\\z_{xy}&=\\left(xf_{11}+e^{x+y}f_{12}\\right)y+f_1+\\left(xf_{21}+e^{x+y}f_{22}\\right)e^{x+y}+e^{x+y}f_2\\\\&=xyf_{11}+(x+y)e^{x+y}f_{12}+e^{2(x+y)}f_{22}+f_1+e^{x+y}f_2.\\end{aligned}$$",
+   "solutionSource": "官方"
+  },
+  {
+   "no": "一(4)",
+   "score": 6,
+   "type": "填空",
+   "subjects": [
+    "高等数学"
+   ],
+   "topics": [
+    "投影直线",
+    "平面束",
+    "方向向量"
+   ],
+   "difficulty": 2,
+   "statement": "直线 $L:\\dfrac{x-1}1=\\dfrac y1=\\dfrac{z-1}{-1}$ 在平面 $\\pi:x-y+2z-1=0$ 上的投影直线 $L_0$ 的单位方向向量为\\_\\_\\_\\_\\_\\_\\_\\_。",
+   "answer": "$\\pm\\left(-\\dfrac4{\\sqrt{21}},-\\dfrac2{\\sqrt{21}},\\dfrac1{\\sqrt{21}}\\right)$",
+   "solution": "直线 $L$ 的一般式方程为 $\\begin{cases}x-y-1=0,\\\\y+z-1=0.\\end{cases}$ 这样，过 $L$ 的平面束方程为\n$$x-y-1+\\lambda(y+z-1)=0,\\quad\\text{即}\\quad x+(\\lambda-1)y+\\lambda z-1-\\lambda=0,$$\n其中 $\\lambda$ 为参数。平面的法向量为 $(1,\\lambda-1,\\lambda)$。此法向量与平面 $\\pi$ 的法向量垂直当且仅当 $(1,\\lambda-1,\\lambda)\\cdot(1,-1,2)=0$，即 $\\lambda=-2$。从而，过 $L$ 且与平面 $\\pi$ 垂直的平面为 $x-3y-2z+1=0$。于是，投影直线 $L_0$ 的方程为\n$$\\begin{cases}x-3y-2z+1=0,\\\\x-y+2z-1=0.\\end{cases}$$\n由此，$L_0$ 的方向向量为 $(-4,-2,1)$。故单位方向向量为 $\\pm\\left(-\\dfrac4{\\sqrt{21}},-\\dfrac2{\\sqrt{21}},\\dfrac1{\\sqrt{21}}\\right)$。\n\n注：单位方向向量有两个，得到一个即可。",
+   "solutionSource": "官方"
+  },
+  {
+   "no": "一(5)",
+   "score": 6,
+   "type": "填空",
+   "subjects": [
+    "高等数学"
+   ],
+   "topics": [
+    "第二型曲线积分",
+    "Green公式",
+    "挖洞法"
+   ],
+   "difficulty": 2,
+   "statement": "设 $L$ 为圆周 $x^2+y^2=9$，取逆时针方向，则第二型曲线积分\n$$\\int_L\\frac{-y}{4x^2+y^2}\\,\\mathrm dx+\\frac x{4x^2+y^2}\\,\\mathrm dy=\\underline{\\qquad\\qquad}.$$",
+   "answer": "$\\pi$",
+   "solution": "记 $P=\\dfrac{-y}{4x^2+y^2}$，$Q=\\dfrac x{4x^2+y^2}$，$L_1:4x^2+y^2=4$，取顺时针方向。在 $L$ 与 $L_1$ 所围成的环状区域内 $P,Q$ 都是连续可微的且 $Q_x-P_y\\equiv0$。根据 Green 公式，\n$$\\int_{L+L_1}P\\,\\mathrm dx+Q\\,\\mathrm dy=0.$$\n故\n$$\\int_LP\\,\\mathrm dx+Q\\,\\mathrm dy=\\int_{-L_1}P\\,\\mathrm dx+Q\\,\\mathrm dy=\\frac14\\int_{-L_1}-y\\,\\mathrm dx+x\\,\\mathrm dy.$$\n再由 Green 公式，\n$$\\frac14\\int_{-L_1}-y\\,\\mathrm dx+x\\,\\mathrm dy=\\frac14\\iint_D2\\,\\mathrm dx\\,\\mathrm dy=\\frac12\\sigma(D)=\\pi,$$\n其中 $D:4x^2+y^2\\leqslant4$，$\\sigma(D)=2\\pi$ 为 $D$ 的面积。",
+   "solutionSource": "官方"
+  },
+  {
+   "no": "二",
+   "score": 14,
+   "type": "计算",
+   "subjects": [
+    "高等数学"
+   ],
+   "topics": [
+    "一阶微分方程",
+    "伯努利方程",
+    "全微分",
+    "积分因子"
+   ],
+   "difficulty": 2,
+   "statement": "求微分方程 $(x^3-y^2)\\,\\mathrm dx+(x^2y+xy)\\,\\mathrm dy=0$ 的通解。",
+   "answer": "$\\left(\\dfrac{1+x}x\\right)^2y^2+(1+x)^2=C$，即 $(1+x)\\sqrt{x^2+y^2}=Cx$。",
+   "solution": "**解法1** 设 $u=y^2$，则原方程化为\n$$\\frac{\\mathrm du}{\\mathrm dx}=\\frac{2u}{x(1+x)}-\\frac{2x^2}{x+1}.$$\n这个线性方程的通解为\n$$\\left(\\frac{1+x}x\\right)^2u+(1+x)^2=C,\\quad\\text{即}\\quad\\left(\\frac{1+x}x\\right)^2y^2+(1+x)^2=C.$$\n\n**解法2** 原方程可化为\n$$x\\,\\mathrm dx+y\\,\\mathrm dy+y\\frac{x\\,\\mathrm dy-y\\,\\mathrm dx}{x^2}=0,\\quad\\text{即}\\quad\\frac12\\mathrm d(x^2+y^2)+y\\,\\mathrm d\\left(\\frac yx\\right)=0.$$\n两边同时除以 $\\sqrt{x^2+y^2}$，得\n$$\\frac12\\cdot\\frac{\\mathrm d(x^2+y^2)}{\\sqrt{x^2+y^2}}+\\frac1{\\sqrt{1+\\left(\\frac yx\\right)^2}}\\cdot\\frac yx\\cdot\\mathrm d\\left(\\frac yx\\right)=0,$$\n即\n$$\\mathrm d\\left(\\sqrt{x^2+y^2}\\right)+\\mathrm d\\left(\\sqrt{1+\\left(\\frac yx\\right)^2}\\right)=0.$$\n故\n$$\\sqrt{x^2+y^2}+\\frac{\\sqrt{x^2+y^2}}x=C,\\quad\\text{即}\\quad(1+x)\\sqrt{x^2+y^2}=Cx.$$\n\n**解法3** 将原方程化为 $x\\,\\mathrm dx+y\\,\\mathrm dy+y\\dfrac{x\\,\\mathrm dy-y\\,\\mathrm dx}{x^2}=0$，即\n$$\\frac12\\mathrm d(x^2+y^2)+y\\,\\mathrm d\\left(\\frac yx\\right)=0.$$\n令 $x=r\\cos\\theta,\\ y=r\\sin\\theta$，则 $r=\\sqrt{x^2+y^2}$，$\\tan\\theta=\\dfrac yx$，方程化为\n$$\\frac12\\mathrm dr^2+r\\sin\\theta\\,\\mathrm d\\tan\\theta=0,\\qquad\\mathrm dr+\\sec\\theta\\tan\\theta\\,\\mathrm d\\theta=0.$$\n积分得 $r+\\sec\\theta=C$。换回原变量，得原方程的通解为\n$$\\sqrt{x^2+y^2}+\\frac{\\sqrt{x^2+y^2}}x=C.$$",
+   "solutionSource": "官方"
+  },
+  {
+   "no": "三",
+   "score": 14,
+   "type": "计算",
+   "subjects": [
+    "高等数学"
+   ],
+   "topics": [
+    "连续性",
+    "洛必达法则",
+    "单调性",
+    "最值"
+   ],
+   "difficulty": 2,
+   "statement": "设函数\n$$f(x)=\\begin{cases}\\dfrac1{\\ln(1+x)}-\\dfrac1x,&0<x\\leqslant1,\\\\k,&x=0.\\end{cases}$$\n(1) 求常数 $k$ 的值，使得 $f(x)$ 在区间 $[0,1]$ 上连续；\n\n(2) 对 (1) 中 $k$ 的值，求函数 $f(x)$ 的最小值 $\\lambda$ 与最大值 $\\mu$。",
+   "answer": "(1) $k=\\dfrac12$；(2) $\\lambda=\\dfrac1{\\ln2}-1$，$\\mu=\\dfrac12$。",
+   "solution": "(1)\n$$\\lim_{x\\to0^+}f(x)=\\lim_{x\\to0^+}\\frac{x-\\ln(1+x)}{x\\ln(1+x)}=\\lim_{x\\to0^+}\\frac{x-\\ln(1+x)}{x^2}=\\lim_{x\\to0^+}\\frac{1-\\frac1{1+x}}{2x}=\\lim_{x\\to0^+}\\frac1{2(1+x)}=\\frac12.$$\n令 $k=\\dfrac12$，则 $\\displaystyle\\lim_{x\\to0^+}f(x)=f(0)=\\frac12$。所以 $f(x)$ 在 $[0,1]$ 上连续。\n\n(2) 易知，$f(x)$ 在 $(0,1)$ 内可导，且\n$$f'(x)=-\\frac1{(1+x)\\ln^2(1+x)}+\\frac1{x^2}=\\frac{g(x)}{x^2(1+x)\\ln^2(1+x)},$$\n其中 $g(x)=(1+x)\\ln^2(1+x)-x^2$。因为 $g'(x)=\\ln^2(1+x)+2\\ln(1+x)-2x$，且\n$$g''(x)=\\frac{2\\ln(1+x)}{1+x}+\\frac2{1+x}-2=\\frac{2\\ln(1+x)-2x}{1+x}<0\\quad(0<x\\leqslant1),$$\n所以 $g'(x)$ 在 $[0,1]$ 上单调递减，故当 $0<x\\leqslant1$ 时，$g'(x)<g'(0)=0$。这又推出 $g(x)$ 在 $[0,1]$ 上单调递减，故当 $0<x\\leqslant1$ 时，$g(x)<g(0)=0$。从而 $f'(x)<0\\ (0<x\\leqslant1)$，又可推出 $f(x)$ 在 $[0,1]$ 上单调递减。因此，\n$$\\min_{0\\leqslant x\\leqslant1}f(x)=f(1)=\\frac1{\\ln2}-1,\\qquad\\max_{0\\leqslant x\\leqslant1}f(x)=f(0)=\\frac12.$$\n于是，函数 $f(x)$ 的最小值 $\\lambda=\\dfrac1{\\ln2}-1$，最大值 $\\mu=\\dfrac12$。",
+   "solutionSource": "官方"
+  },
+  {
+   "no": "四",
+   "score": 14,
+   "type": "计算",
+   "subjects": [
+    "高等数学"
+   ],
+   "topics": [
+    "第二型曲面积分",
+    "Gauss公式",
+    "补面法",
+    "球坐标"
+   ],
+   "difficulty": 2,
+   "statement": "求曲面积分 $I=\\displaystyle\\iint_S(x^2-x)\\,\\mathrm dy\\,\\mathrm dz+(y^2-y)\\,\\mathrm dz\\,\\mathrm dx+(z^2-z)\\,\\mathrm dx\\,\\mathrm dy$，其中 $S$ 是上半球面 $x^2+y^2+z^2=R^2\\ (z\\geqslant0)$ 的上侧。",
+   "answer": "$\\dfrac{\\pi R^4}2-2\\pi R^3$",
+   "solution": "**解法1** 记 $\\Sigma=\\{(x,y,z)\\mid z=0,\\ x^2+y^2\\leqslant R^2\\}$，取下侧。由 Gauss 公式知\n$$\\iint_{S+\\Sigma}(x^2-x)\\,\\mathrm dy\\,\\mathrm dz+(y^2-y)\\,\\mathrm dz\\,\\mathrm dx+(z^2-z)\\,\\mathrm dx\\,\\mathrm dy=\\iiint_\\Omega\\left(2(x+y+z)-3\\right)\\mathrm dx\\,\\mathrm dy\\,\\mathrm dz,$$\n其中 $\\Omega=\\{(x,y,z)\\mid z\\geqslant0,\\ x^2+y^2+z^2\\leqslant R^2\\}$。由于\n$$\\iint_\\Sigma(x^2-x)\\,\\mathrm dy\\,\\mathrm dz+(y^2-y)\\,\\mathrm dz\\,\\mathrm dx+(z^2-z)\\,\\mathrm dx\\,\\mathrm dy=0,$$\n所以 $I=\\displaystyle\\iiint_\\Omega\\left(2(x+y+z)-3\\right)\\mathrm dx\\,\\mathrm dy\\,\\mathrm dz$。由对称性，\n$$I=\\iiint_\\Omega(2z-3)\\,\\mathrm dx\\,\\mathrm dy\\,\\mathrm dz.$$\n用球坐标变换 $x=r\\cos\\theta\\sin\\varphi,\\ y=r\\sin\\theta\\sin\\varphi,\\ z=r\\cos\\varphi$，得\n$$I=\\int_0^{2\\pi}\\mathrm d\\theta\\int_0^{\\frac\\pi2}\\mathrm d\\varphi\\int_0^R(2r\\cos\\varphi-3)r^2\\sin\\varphi\\,\\mathrm dr=2\\pi\\left(\\frac{R^4}4-R^3\\right).$$\n注：最后一步直接利用直角坐标计算也可以。\n\n**解法2** $S$ 的参数方程为\n$$x=R\\cos\\theta\\sin\\varphi,\\ y=R\\sin\\theta\\sin\\varphi,\\ z=R\\cos\\varphi,\\quad\\left(0\\leqslant\\varphi\\leqslant\\frac\\pi2,\\ 0\\leqslant\\theta\\leqslant2\\pi\\right).$$\n曲面 $S$ 上的点 $(x,y,z)$ 处的单位法向为 $\\dfrac{(x,y,z)}R$。故\n$$\\begin{aligned}I&=\\iint_S(x^2-x,y^2-y,z^2-z)\\cdot\\frac{(x,y,z)}R\\,\\mathrm dS=\\frac1R\\iint_S\\left[x^3+y^3+z^3-(x^2+y^2+z^2)\\right]\\mathrm dS\\\\&=\\frac1R\\iint_S\\left[x^3+y^3+z^3-R^2\\right]\\mathrm dS.\\end{aligned}$$\n由对称性可知 $\\displaystyle\\iint_Sx^3\\,\\mathrm dS=\\iint_Sy^3\\,\\mathrm dS=0$。故\n$$\\begin{aligned}I&=\\frac1R\\iint_Sz^3\\,\\mathrm dS-R\\iint_S\\mathrm dS=\\frac1R\\iint_Sz^3\\,\\mathrm dS-2\\pi R^3=\\frac1R\\iint_{\\substack{0\\leqslant\\varphi\\leqslant\\frac\\pi2\\\\0\\leqslant\\theta\\leqslant2\\pi}}(R\\cos\\varphi)^3R^2\\sin\\varphi\\,\\mathrm d\\varphi\\,\\mathrm d\\theta-2\\pi R^3\\\\&=2\\pi R^4\\int_0^{\\frac\\pi2}\\cos^3\\varphi\\sin\\varphi\\,\\mathrm d\\varphi-2\\pi R^3=2\\pi R^4\\cdot\\frac14-2\\pi R^3=\\frac{\\pi R^4}2-2\\pi R^3.\\end{aligned}$$",
+   "solutionSource": "官方"
+  },
+  {
+   "no": "五",
+   "score": 14,
+   "type": "证明",
+   "subjects": [
+    "高等数学"
+   ],
+   "topics": [
+    "Lipschitz条件",
+    "导数估计",
+    "积分不等式"
+   ],
+   "difficulty": 3,
+   "statement": "设 $f(x)$ 是 $(-\\infty,+\\infty)$ 上具有连续导数的非负函数，且存在 $M>0$ 使得对任意的 $x,y\\in(-\\infty,+\\infty)$，有 $|f'(x)-f'(y)|\\leqslant M|x-y|$。证明：对于任意实数 $x$，恒有 $\\left(f'(x)\\right)^2\\leqslant2Mf(x)$。",
+   "answer": "",
+   "solution": "任取 $x\\in(-\\infty,+\\infty)$，对任意 $h\\in(-\\infty,+\\infty)$，且 $h\\neq0$，恒有\n$$0\\leqslant f(x+h)=f(x)+\\int_0^hf'(x+t)\\,\\mathrm dt=f(x)+\\int_0^h\\left(f'(x+t)-f'(x)\\right)\\mathrm dt+f'(x)h.$$\n取 $h$ 使得 $hf'(x)\\leqslant0$，则\n$$-f'(x)h\\leqslant f(x)+\\int_0^h\\left(f'(x+t)-f'(x)\\right)\\mathrm dt\\leqslant f(x)+M\\frac{h^2}2,$$\n$$|f'(x)|\\leqslant\\frac{f(x)}{|h|}+M\\frac{|h|}2.$$\n取 $|h|=\\sqrt{\\dfrac{2f(x)}M}$，即得所证不等式 $\\left(f'(x)\\right)^2\\leqslant2Mf(x)$。（若 $f(x)=0$，在上式中令 $|h|\\to0^+$ 即得 $f'(x)=0$，结论亦成立。）",
+   "solutionSource": "官方"
+  },
+  {
+   "no": "六",
+   "score": 14,
+   "type": "证明",
+   "subjects": [
+    "高等数学"
+   ],
+   "topics": [
+    "级数收敛",
+    "积分估计",
+    "交错级数",
+    "取整函数",
+    "部分和"
+   ],
+   "difficulty": 4,
+   "statement": "证明：级数 $\\displaystyle\\sum_{n=1}^\\infty\\sum_{k=1}^\\infty\\frac{(-1)^{[\\sqrt n]}}{n^2+k^2}$ 收敛，其中 $[x]$ 表示不超过 $x$ 的最大整数。",
+   "answer": "",
+   "solution": "对于任意固定的 $n$ 和 $N$，有\n$$\\sum_{k=1}^N\\frac1{k^2+n^2}\\leqslant\\sum_{k=1}^N\\int_{k-1}^k\\frac{\\mathrm dy}{y^2+n^2}=\\int_0^N\\frac{\\mathrm dy}{y^2+n^2}=\\frac1n\\arctan\\frac Nn,$$\n$$\\sum_{k=1}^N\\frac1{k^2+n^2}\\geqslant\\sum_{k=1}^N\\int_k^{k+1}\\frac{\\mathrm dy}{y^2+n^2}=\\int_1^{N+1}\\frac{\\mathrm dy}{y^2+n^2}=\\frac1n\\left(\\arctan\\frac{N+1}n-\\arctan\\frac1n\\right).$$\n$$\\left|\\sum_{k=1}^N\\frac1{k^2+n^2}-\\frac\\pi{2n}\\right|\\leqslant\\frac\\pi{2n}-\\frac1n\\left(\\arctan\\frac{N+1}n-\\arctan\\frac1n\\right).$$\n令 $N\\to\\infty$，即有\n$$\\left|\\sum_{k=1}^\\infty\\frac1{k^2+n^2}-\\frac\\pi{2n}\\right|\\leqslant\\frac1n\\arctan\\frac1n.$$\n注意到\n$$\\sum_{n=1}^\\infty\\left|\\sum_{k=1}^\\infty\\frac{(-1)^{[\\sqrt n]}}{n^2+k^2}-\\frac\\pi2\\cdot\\frac{(-1)^{[\\sqrt n]}}n\\right|=\\sum_{n=1}^\\infty\\left|\\sum_{k=1}^\\infty\\frac1{k^2+n^2}-\\frac\\pi{2n}\\right|\\leqslant\\sum_{n=1}^\\infty\\frac1n\\arctan\\frac1n<+\\infty,$$\n即 $\\displaystyle\\sum_{n=1}^\\infty\\left(\\sum_{k=1}^\\infty\\frac{(-1)^{[\\sqrt n]}}{n^2+k^2}-\\frac\\pi2\\cdot\\frac{(-1)^{[\\sqrt n]}}n\\right)$ 绝对收敛，从而收敛。由此，级数 $\\displaystyle\\sum_{n=1}^\\infty\\sum_{k=1}^\\infty\\frac{(-1)^{[\\sqrt n]}}{n^2+k^2}$ 与级数 $\\displaystyle\\sum_{n=1}^\\infty\\frac\\pi2\\cdot\\frac{(-1)^{[\\sqrt n]}}n$ 同敛散。以下只需证级数 $\\displaystyle\\sum_{n=1}^\\infty\\frac{(-1)^{[\\sqrt n]}}n$ 收敛。\n\n记 $S_n$ 为级数 $\\displaystyle\\sum_{n=1}^\\infty\\frac{(-1)^{[\\sqrt n]}}n$ 的前 $n$ 项部分和，则有\n$$S_{n^2}=\\sum_{m=1}^{n-1}\\sum_{k=m^2}^{(m+1)^2-1}\\frac{(-1)^{[\\sqrt k]}}k+\\frac{(-1)^n}{n^2}=\\sum_{m=1}^{n-1}(-1)^mC_m+\\frac{(-1)^n}{n^2},\\qquad C_m=\\sum_{k=m^2}^{(m+1)^2-1}\\frac1k.$$\n由 $C_m<m\\cdot\\dfrac1{m^2}+\\dfrac1{m^2+m}\\cdot(m+1)=\\dfrac2m$ 知，$C_m\\to0\\ (m\\to\\infty)$。此外，\n$$C_m>(m+1)\\cdot\\frac1{m^2+m}+\\frac1{m^2+2m}\\cdot m>\\frac2{m+1}>C_{m+1},$$\n从而 $C_m$ 单调递减，级数 $\\displaystyle\\sum_{m=1}^\\infty(-1)^mC_m$ 收敛，$S_{n^2}$ 收敛。\n\n对于其它的 $N$，存在 $n$ 使得\n$$n^2\\leqslant N<(n+1)^2,\\qquad|S_N-S_{n^2}|\\leqslant C_n<\\frac2n\\to0\\ (N\\to\\infty).$$\n故级数 $\\displaystyle\\sum_{n=1}^\\infty\\frac{(-1)^{[\\sqrt n]}}n$ 收敛，证毕。",
+   "solutionSource": "官方"
+  }
+ ]
+}

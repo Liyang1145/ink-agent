@@ -1,0 +1,130 @@
+{
+ "id": "cmc-math-07-prelim",
+ "title": "第七届全国大学生数学竞赛初赛（数学类）",
+ "year": 2015,
+ "track": "数学类",
+ "round": "初赛",
+ "paper": "",
+ "durationMin": 150,
+ "totalScore": 100,
+ "source": {
+  "question": "2015年01-试题-第七届全国初赛-数学类试卷.pdf",
+  "solution": "2015年02-参考解答-第七届全国初赛-数学类试卷.pdf"
+ },
+ "problems": [
+  {
+   "no": "一",
+   "score": 15,
+   "type": "计算",
+   "subjects": [
+    "解析几何"
+   ],
+   "topics": [
+    "异面直线",
+    "公垂线",
+    "向量"
+   ],
+   "difficulty": 2,
+   "statement": "设 $L_1$ 和 $L_2$ 是空间中两异面直线。设在标准直角坐标系下直线 $L_1$ 过坐标为 $a$ 的点，以单位向量 $v$ 为直线方向；直线 $L_2$ 过坐标为 $b$ 的点，以单位向量 $w$ 为直线方向；\n\n1) 证明：存在唯一点 $P\\in L_1$ 和 $Q\\in L_2$ 使得两点连线 $PQ$ 同时垂直于 $L_1$ 和 $L_2$；\n\n2) 求 $P$ 点和 $Q$ 点的坐标（用 $a,b,v,w$ 表示）。",
+   "answer": "$P=a+\\dfrac{(b-a)\\cdot\\big(v-(v\\cdot w)w\\big)}{1-(v\\cdot w)^2}v$，$Q=b-\\dfrac{(b-a)\\cdot\\big(w-(v\\cdot w)v\\big)}{1-(v\\cdot w)^2}w$。",
+   "solution": "**1)** 存在性：过 $L_2$ 上一点和线性无关向量 $v,w$ 作平面 $\\sigma$，则 $L_2\\subset\\sigma$，$L_1\\parallel\\sigma$。过 $L_1$ 作平面 $\\tau\\perp\\sigma$，记两平面交线为 $L_1^*$，$L_1^*$ 与 $L_2$ 交于 $Q$；过 $Q$ 作 $\\sigma$ 的法线交 $L_1$ 于 $P$，则 $PQ$ 同时垂直于 $L_1,L_2$。\n\n唯一性：设 $X=P+sv\\in L_1$，$Y=Q+tw\\in L_2$ 也使 $XY$ 同时垂直于 $L_1,L_2$，则 $\\overrightarrow{XY}=\\overrightarrow{PQ}-sv+tw$ 垂直于 $v,w$，故\n$$-s+(v\\cdot w)t=0,\\qquad -s(v\\cdot w)+t=0.$$\n由于 $(v\\cdot w)^2<1$（$v,w$ 不平行），得 $s=t=0$，即 $X=P,\\ Y=Q$。\n\n**2)** 设 $P=a+sv$，$Q=b+tw$。由 $\\overrightarrow{PQ}=(b-a)-sv+tw$ 垂直于 $v$ 与 $w$：\n$$(b-a)\\cdot v-s+t(v\\cdot w)=0,\\qquad(b-a)\\cdot w-s(v\\cdot w)+t=0.$$\n解得\n$$s=\\frac{(b-a)\\cdot\\big(v-(v\\cdot w)w\\big)}{1-(v\\cdot w)^2},\\qquad t=-\\frac{(b-a)\\cdot\\big(w-(v\\cdot w)v\\big)}{1-(v\\cdot w)^2},$$\n从而\n$$P=a+\\frac{(b-a)\\cdot\\big(v-(v\\cdot w)w\\big)}{1-(v\\cdot w)^2}v,\\qquad Q=b-\\frac{(b-a)\\cdot\\big(w-(v\\cdot w)v\\big)}{1-(v\\cdot w)^2}w.$$\n（注：原解答此处 $t$ 与 $Q$ 的表达式漏了负号，已改正。可用 $a=0,v=e_1,b=(0,5,1),w=e_2$ 验证：应得 $Q=(0,0,1)$。）",
+   "solutionSource": "官方"
+  },
+  {
+   "no": "二",
+   "score": 20,
+   "type": "计算",
+   "subjects": [
+    "高等代数"
+   ],
+   "topics": [
+    "迹",
+    "特征值",
+    "Newton 恒等式",
+    "特征多项式",
+    "行列式"
+   ],
+   "difficulty": 3,
+   "statement": "$A$ 为 4 阶复方阵，它满足关于迹的关系式 $\\operatorname{tr}A^i=i,\\ i=1,2,3,4$。求 $A$ 的行列式。",
+   "answer": "$|A|=\\dfrac{1}{24}$",
+   "solution": "记 $A$ 的 4 个特征值为 $\\lambda_1,\\dots,\\lambda_4$，特征多项式 $p(\\lambda)=\\prod(\\lambda-\\lambda_i)=\\lambda^4+a_3\\lambda^3+a_2\\lambda^2+a_1\\lambda+a_0$，则\n$$a_3=-\\sum\\lambda_i,\\quad a_2=\\sum_{i<j}\\lambda_i\\lambda_j,\\quad a_1=-\\sum_{i<j<k}\\lambda_i\\lambda_j\\lambda_k,\\quad a_0=|A|=\\lambda_1\\lambda_2\\lambda_3\\lambda_4.$$\n由于迹在相似变换下不变，由 Jordan 标准形（或 Schur 分解）有 $\\sum_i\\lambda_i^k=k\\ (k=1,2,3,4)$。\n\n由 $k=1,2$ 得 $a_3=-1$，$a_2=\\dfrac{1^2-2}{2}=-\\dfrac12$。将 $\\big(\\sum\\lambda_i\\big)^3$ 展开并利用 $k=1,2,3$ 的关系：\n$$1=3+3\\cdot2-3\\cdot3-6a_1\\ \\Big(\\text{即 }1=\\textstyle\\sum\\lambda_i^3+3\\sum\\lambda_i^2\\sum\\lambda_j-3\\sum\\lambda_i^3-6a_1\\Big),$$\n得 $a_1=-\\dfrac16$。于是 $p(\\lambda)=\\lambda^4-\\lambda^3-\\dfrac12\\lambda^2-\\dfrac16\\lambda+a_0$。将 $p(\\lambda_i)=0\\ (i=1,\\dots,4)$ 相加：\n$$4-3-\\frac12\\times2-\\frac16\\times1+4a_0=0\\ \\Rightarrow\\ a_0=\\frac1{24},$$\n即 $|A|=\\dfrac1{24}$。",
+   "solutionSource": "官方"
+  },
+  {
+   "no": "三",
+   "score": 15,
+   "type": "证明",
+   "subjects": [
+    "高等代数"
+   ],
+   "topics": [
+    "矩阵方程",
+    "Sylvester 方程",
+    "特征多项式",
+    "Hamilton-Cayley 定理"
+   ],
+   "difficulty": 3,
+   "statement": "设 $A$ 为 $n$ 阶方阵，其 $n$ 个特征值皆为偶数。试证明关于 $X$ 的矩阵方程 $$X+AX-XA^2=0$$ 只有零解。",
+   "answer": "",
+   "solution": "设 $C=I+A$，$B=A^2$。$A$ 的特征值为 $\\lambda_1,\\dots,\\lambda_n$，则 $B$ 的特征值为 $\\lambda_i^2$（皆为偶数），$C$ 的特征值为 $\\mu_i=\\lambda_i+1$（皆为奇数），$C$ 的特征多项式 $p_C(\\lambda)=\\prod_i(\\lambda-\\mu_i)$。\n\n若 $X$ 为方程的解，则 $CX=XB$，进而 $C^kX=XB^k$ 对一切 $k$ 成立。由 Hamilton-Cayley 定理\n$$0=p_C(C)X=Xp_C(B)=X(B-\\mu_1I)\\cdots(B-\\mu_nI).$$\n由于 $B$ 的特征值皆为偶数而 $\\mu_i$ 皆为奇数，$B-\\mu_iI$ 皆可逆，故 $X=0$。",
+   "solutionSource": "官方"
+  },
+  {
+   "no": "四",
+   "score": 15,
+   "type": "证明",
+   "subjects": [
+    "数学分析"
+   ],
+   "topics": [
+    "递推数列",
+    "无穷乘积",
+    "数列极限存在性"
+   ],
+   "difficulty": 3,
+   "statement": "数列 $\\{a_n\\}$ 满足关系式 $a_{n+1}=a_n+\\dfrac{n}{a_n}$，$a_1>0$。求证：$\\displaystyle\\lim_{n\\to\\infty}n(a_n-n)$ 存在。",
+   "answer": "",
+   "solution": "$a_2=a_1+\\dfrac1{a_1}\\geqslant2$。若 $a_n\\geqslant n$，则\n$$a_{n+1}-(n+1)=\\Big(1-\\frac1{a_n}\\Big)(a_n-n)\\geqslant0,$$\n故 $a_n\\geqslant n\\ (n\\geqslant2)$，且 $a_n-n$ 单调递减。\n\n令 $b_n=n(a_n-n)$，则\n$$b_{n+1}=(n+1)\\Big(a_n+\\frac n{a_n}-n-1\\Big)=(n+1)(a_n-n)\\Big(1-\\frac1{a_n}\\Big)=\\Big(1+\\frac1n\\Big)\\Big(1-\\frac1{a_n}\\Big)b_n=(1+R_n)b_n,$$\n其中 $R_n=\\dfrac{a_n-n}{na_n}-\\dfrac1{na_n}$，从而 $b_n=b_2\\prod\\limits_{k=2}^{n-1}(1+R_k)$。由 $a_n\\geqslant n$ 及 $0\\leqslant a_n-n\\leqslant a_2-2$，\n$$|R_n|\\leqslant\\frac{a_n-n}{na_n}+\\frac1{na_n}\\leqslant\\frac{1+|a_2-2|}{n^2},\\quad n\\geqslant2.$$\n故 $\\sum|R_k|$ 收敛，且 $1+R_k=\\big(1+\\frac1k\\big)\\big(1-\\frac1{a_k}\\big)>0$，无穷乘积 $\\prod\\limits_{k=2}^{\\infty}(1+R_k)$ 收敛，于是 $\\lim\\limits_{n\\to\\infty}n(a_n-n)$ 存在。",
+   "solutionSource": "官方"
+  },
+  {
+   "no": "五",
+   "score": 15,
+   "type": "证明",
+   "subjects": [
+    "数学分析",
+    "常微分方程"
+   ],
+   "topics": [
+    "Volterra 积分方程",
+    "逐次逼近",
+    "一致收敛",
+    "一阶线性微分方程"
+   ],
+   "difficulty": 3,
+   "statement": "设 $f(x)$ 是 $[0,+\\infty)$ 上有界连续函数，$h(x)$ 是 $[0,+\\infty)$ 上连续函数，且 $$\\int_0^{+\\infty}|h(t)|\\,\\mathrm dt=a<1.$$ 构造函数序列： $$g_0(x)=f(x),\\quad g_n(x)=f(x)+\\int_0^xh(t)g_{n-1}(t)\\,\\mathrm dt,\\quad n=1,2,\\dots\\tag{1}$$ 求证：$\\{g_n(x)\\}$ 收敛于一个连续函数，并求极限函数。",
+   "answer": "极限函数 $g(x)=f(x)+e^{H(x)}\\displaystyle\\int_0^xe^{-H(t)}h(t)f(t)\\,\\mathrm dt$，其中 $H(x)=\\displaystyle\\int_0^xh(t)\\,\\mathrm dt$。",
+   "solution": "记 $M=\\sup|f(x)|$，则 $|g_0|\\leqslant M$。若 $|g_{n-1}|\\leqslant(1+a+\\cdots+a^{n-1})M$，由 (1)\n$$|g_n(x)|\\leqslant M+\\int_0^{+\\infty}|h(t)|(1+\\cdots+a^{n-1})M\\,\\mathrm dt=(1+a+\\cdots+a^n)M,$$\n故 $|g_n|\\leqslant\\dfrac{1-a^{n+1}}{1-a}M$，一致有界。又由 (1)\n$$g_n(x)-g_{n-1}(x)=\\int_0^xh(t)\\big[g_{n-1}(t)-g_{n-2}(t)\\big]\\,\\mathrm dt,$$\n得 $\\sup|g_n-g_{n-1}|\\leqslant a\\sup|g_{n-1}-g_{n-2}|\\leqslant\\cdots\\leqslant a^{n-1}\\sup|g_1-g_0|\\leqslant a^nM$。由于 $a\\in[0,1)$，级数 $\\sum(g_n-g_{n-1})$ 在 $[0,+\\infty)$ 上一致收敛，即 $\\{g_n\\}$ 一致收敛，极限函数 $g$ 连续。在 (1) 两边取极限：\n$$g(x)=f(x)+\\int_0^xh(t)g(t)\\,\\mathrm dt.\\tag{2}$$\n记 $\\varphi(x)=\\displaystyle\\int_0^xh(t)g(t)\\,\\mathrm dt$，$H(x)=\\displaystyle\\int_0^xh(t)\\,\\mathrm dt$，则 $\\varphi'=hg$，由 (2) 得 $\\varphi'-h\\varphi=hf$，即 $\\big[e^{-H}\\varphi\\big]'=e^{-H}hf$。积分得 $\\varphi(x)=e^{H(x)}\\displaystyle\\int_0^xe^{-H(t)}h(t)f(t)\\,\\mathrm dt$，代入 (2)：\n$$g(x)=f(x)+e^{H(x)}\\int_0^xe^{-H(t)}h(t)f(t)\\,\\mathrm dt.$$",
+   "solutionSource": "官方"
+  },
+  {
+   "no": "六",
+   "score": 20,
+   "type": "证明",
+   "subjects": [
+    "数学分析"
+   ],
+   "topics": [
+    "积分方程",
+    "单调性",
+    "常数函数",
+    "微分不等式"
+   ],
+   "difficulty": 4,
+   "statement": "设 $f(x)$ 是 $\\mathbb R$ 上有下界或者有上界的连续函数且存在正数 $a$ 使得 $$f(x)+a\\int_{x-1}^xf(t)\\,\\mathrm dt\\ \\text{为常数。}$$ 求证：$f(x)$ 必为常数。",
+   "answer": "",
+   "solution": "不妨设 $f$ 有下界（否则考虑 $-f$）。设 $m=\\inf\\limits_{x\\in\\mathbb R}f(x)$，$g(x)=f(x)-m$，则 $g$ 为非负连续函数，且\n$$A=g(x)+a\\int_{x-1}^xg(t)\\,\\mathrm dt\\tag{1}$$\n为非负常数。由 (1) 知 $g$ 可微，且 $g'(x)+a\\big(g(x)-g(x-1)\\big)=0$，于是\n$$\\big[e^{ax}g(x)\\big]'=ae^{ax}g(x-1)\\geqslant0,$$\n即 $e^{ax}g(x)$ 递增。由 (1)\n$$A=g(x)+a\\int_{x-1}^xe^{at}g(t)e^{-at}\\,\\mathrm dt\\leqslant g(x)+ae^{ax}g(x)\\int_{x-1}^xe^{-at}\\,\\mathrm dt=g(x)+e^{ax}g(x)\\big(e^{-a(x-1)}-e^{-ax}\\big)=e^ag(x),$$\n故 $g(x)\\geqslant Ae^{-a}$。而 $g$ 的下确界为 0，因此 $A=0$。再由 (1)（两项均非负）知 $g\\equiv0$，即 $f(x)\\equiv m$ 为常数。",
+   "solutionSource": "官方"
+  }
+ ]
+}

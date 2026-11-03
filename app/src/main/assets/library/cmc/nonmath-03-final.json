@@ -1,0 +1,194 @@
+{
+ "id": "cmc-nonmath-03-final",
+ "title": "第三届全国大学生数学竞赛决赛（非数学类）",
+ "year": 2012,
+ "track": "非数学类",
+ "round": "决赛",
+ "paper": "",
+ "durationMin": 180,
+ "totalScore": 100,
+ "source": {
+  "question": "2012年03月-非数学类-第三届全国决赛试卷.pdf",
+  "solution": "2012年03月-非数学类参考解答-第三届全国决赛试卷.pdf"
+ },
+ "problems": [
+  {
+   "no": "一(1)",
+   "score": 6,
+   "type": "计算",
+   "subjects": [
+    "高等数学"
+   ],
+   "topics": [
+    "函数极限",
+    "泰勒公式"
+   ],
+   "difficulty": 1,
+   "statement": "求 $\\displaystyle\\lim_{x\\to0}\\frac{\\sin^2x-x^2\\cos^2x}{x^2\\sin^2x}$。",
+   "answer": "$\\dfrac23$",
+   "solution": "分母 $x^2\\sin^2x\\sim x^4$。由 $\\sin^2x=x^2-\\dfrac{x^4}{3}+o(x^4)$，$x^2\\cos^2x=x^2-x^4+o(x^4)$，分子 $=\\dfrac23x^4+o(x^4)$，故极限为 $\\dfrac23$。\n（或分解为 $\\dfrac{\\sin x+x\\cos x}{x}\\cdot\\dfrac{\\sin x-x\\cos x}{x^3}\\to2\\cdot\\dfrac13$。）",
+   "solutionSource": "编写"
+  },
+  {
+   "no": "一(2)",
+   "score": 6,
+   "type": "计算",
+   "subjects": [
+    "高等数学"
+   ],
+   "topics": [
+    "函数极限",
+    "泰勒公式"
+   ],
+   "difficulty": 2,
+   "statement": "求 $\\displaystyle\\lim_{x\\to+\\infty}\\left[\\left(x^3+\\frac x2-\\tan\\frac1x\\right)e^{\\frac1x}-\\sqrt{1+x^6}\\right]$。",
+   "answer": "$+\\infty$",
+   "solution": "令 $t=\\dfrac1x\\to0^+$，原式 $=\\dfrac{1}{t^3}\\left[\\left(1+\\dfrac{t^2}{2}-t^3\\tan t\\right)e^t-\\sqrt{1+t^6}\\right]$。\n由 $e^t=1+t+\\dfrac{t^2}{2}+O(t^3)$，$\\sqrt{1+t^6}=1+O(t^6)$，$t^3\\tan t\\,e^t=O(t^4)$，方括号内 $=t+t^2+O(t^3)$，所以原式 $=\\dfrac1{t^2}+\\dfrac1t+O(1)\\to+\\infty$。",
+   "solutionSource": "编写"
+  },
+  {
+   "no": "一(3)",
+   "score": 6,
+   "type": "计算",
+   "subjects": [
+    "高等数学"
+   ],
+   "topics": [
+    "隐函数求导",
+    "二阶偏导数"
+   ],
+   "difficulty": 2,
+   "statement": "设函数 $f(x,y)$ 有二阶连续偏导数，满足 $f_y\\neq0$ 且\n$$f_x^2f_{yy}-2f_xf_yf_{xy}+f_y^2f_{xx}=0,$$\n$y=y(x,z)$ 是由方程 $z=f(x,y)$ 所确定的函数，求 $\\dfrac{\\partial^2y}{\\partial x^2}$。",
+   "answer": "$\\dfrac{\\partial^2y}{\\partial x^2}=0$",
+   "solution": "在 $z=f(x,y(x,z))$ 中视 $z$ 为常数，对 $x$ 求导两次：\n$$0=f_x+f_y\\frac{\\partial y}{\\partial x},\\qquad0=f_{xx}+2f_{xy}\\frac{\\partial y}{\\partial x}+f_{yy}\\left(\\frac{\\partial y}{\\partial x}\\right)^2+f_y\\frac{\\partial^2y}{\\partial x^2}.$$\n由第一式 $\\dfrac{\\partial y}{\\partial x}=-\\dfrac{f_x}{f_y}$，代入第二式并乘 $f_y^2$：\n$$f_y^3\\frac{\\partial^2y}{\\partial x^2}=-\\left(f_y^2f_{xx}-2f_xf_yf_{xy}+f_x^2f_{yy}\\right)=0,$$\n故 $\\dfrac{\\partial^2y}{\\partial x^2}=0$。",
+   "solutionSource": "编写"
+  },
+  {
+   "no": "一(4)",
+   "score": 6,
+   "type": "计算",
+   "subjects": [
+    "高等数学"
+   ],
+   "topics": [
+    "不定积分",
+    "分部积分"
+   ],
+   "difficulty": 2,
+   "statement": "求不定积分 $I=\\displaystyle\\int\\left(1+x-\\frac1x\\right)e^{x+\\frac1x}\\,\\mathrm{d}x$。",
+   "answer": "$xe^{x+\\frac1x}+C$",
+   "solution": "注意 $\\left(xe^{x+\\frac1x}\\right)'=e^{x+\\frac1x}+x\\left(1-\\dfrac1{x^2}\\right)e^{x+\\frac1x}=\\left(1+x-\\dfrac1x\\right)e^{x+\\frac1x}$，故 $I=xe^{x+\\frac1x}+C$。\n（等价地：把 $\\int x\\left(1-\\frac1{x^2}\\right)e^{x+\\frac1x}\\mathrm{d}x$ 分部积分，与 $\\int e^{x+\\frac1x}\\mathrm{d}x$ 相消。）",
+   "solutionSource": "编写"
+  },
+  {
+   "no": "一(5)",
+   "score": 6,
+   "type": "计算",
+   "subjects": [
+    "高等数学"
+   ],
+   "topics": [
+    "曲面面积",
+    "旋转抛物面",
+    "圆锥面"
+   ],
+   "difficulty": 2,
+   "statement": "求曲面 $x^2+y^2=az$ 和 $z=2a-\\sqrt{x^2+y^2}\\ (a>0)$ 所围立体的表面积。",
+   "answer": "$\\pi a^2\\left(\\dfrac{5\\sqrt5-1}{6}+\\sqrt2\\right)$",
+   "solution": "两曲面交线：$r^2=a(2a-r)$，得 $r=a$，$z=a$，在 $xOy$ 面投影区域为 $D:x^2+y^2\\leqslant a^2$。\n抛物面部分：$\\mathrm{d}S=\\sqrt{1+\\dfrac{4r^2}{a^2}}\\,\\mathrm{d}\\sigma$，\n$$S_1=2\\pi\\int_0^a\\sqrt{1+\\frac{4r^2}{a^2}}\\,r\\,\\mathrm{d}r=2\\pi\\cdot\\frac{a^2}{12}\\left(5\\sqrt5-1\\right)=\\frac{\\pi a^2(5\\sqrt5-1)}{6}.$$\n锥面部分：$\\mathrm{d}S=\\sqrt2\\,\\mathrm{d}\\sigma$，$S_2=\\sqrt2\\pi a^2$。合计 $S=\\pi a^2\\left(\\dfrac{5\\sqrt5-1}{6}+\\sqrt2\\right)$。",
+   "solutionSource": "编写"
+  },
+  {
+   "no": "二",
+   "score": 13,
+   "type": "证明",
+   "subjects": [
+    "高等数学"
+   ],
+   "topics": [
+    "反常积分敛散性",
+    "比较判别法",
+    "级数"
+   ],
+   "difficulty": 4,
+   "statement": "讨论 $\\displaystyle\\int_0^{+\\infty}\\frac{x}{\\cos^2x+x^\\alpha\\sin^2x}\\,\\mathrm{d}x$ 的敛散性，其中 $\\alpha$ 是一个实常数。",
+   "answer": "当且仅当 $\\alpha>4$ 时收敛。",
+   "solution": "记 $f(x)=\\dfrac{x}{\\cos^2x+x^\\alpha\\sin^2x}>0$（$0$ 附近无瑕点），只需看 $+\\infty$ 处。\n**$\\alpha\\leqslant2$：** 当 $x>1$，若 $\\alpha\\leqslant0$，分母 $\\leqslant2$，$f(x)\\geqslant\\dfrac x2$；若 $0<\\alpha\\leqslant2$，分母 $\\leqslant2x^\\alpha$，$f(x)\\geqslant\\dfrac{x^{1-\\alpha}}{2}$ 且 $1-\\alpha\\geqslant-1$。均发散。\n**$\\alpha>2$：** 由于 $f>0$，积分收敛当且仅当 $\\sum a_n$ 收敛，$a_n=\\displaystyle\\int_{n\\pi}^{(n+1)\\pi}f(x)\\mathrm{d}x$。在 $[n\\pi,(n+1)\\pi]$ 上\n$$\\frac{n\\pi}{1+((n+1)\\pi)^\\alpha\\sin^2x}\\leqslant f(x)\\leqslant\\frac{(n+1)\\pi}{1+(n\\pi)^\\alpha\\sin^2x}.$$\n对 $b>0$，令 $t=\\tan x$ 得 $\\displaystyle\\int_{n\\pi}^{(n+1)\\pi}\\frac{\\mathrm{d}x}{1+b\\sin^2x}=2\\int_0^{+\\infty}\\frac{\\mathrm{d}t}{1+(1+b)t^2}=\\frac{\\pi}{\\sqrt{1+b}}$。因此存在常数 $0<A_1\\leqslant A_2$ 使 $\\dfrac{A_1}{n^{\\alpha/2-1}}\\leqslant a_n\\leqslant\\dfrac{A_2}{n^{\\alpha/2-1}}$，$\\sum a_n$ 收敛 $\\iff\\dfrac\\alpha2-1>1\\iff\\alpha>4$。\n综上，积分当 $\\alpha>4$ 时收敛，否则发散。",
+   "solutionSource": "编写"
+  },
+  {
+   "no": "三",
+   "score": 13,
+   "type": "证明",
+   "subjects": [
+    "高等数学"
+   ],
+   "topics": [
+    "泰勒级数",
+    "罗尔定理",
+    "无穷次可微"
+   ],
+   "difficulty": 4,
+   "statement": "设 $f(x)$ 在 $(-\\infty,+\\infty)$ 上无穷次可微，并且满足：存在 $M>0$，使得\n$$\\left|f^{(k)}(x)\\right|\\leqslant M,\\ \\forall x\\in(-\\infty,+\\infty)\\ (k=1,2,\\cdots)$$\n且 $f\\left(\\dfrac1{2^n}\\right)=0\\ (n=1,2,\\cdots)$。求证：在 $(-\\infty,+\\infty)$ 上 $f(x)\\equiv0$。",
+   "answer": "",
+   "solution": "**第一步：$f^{(k)}(0)=0$ 对一切 $k\\geqslant0$。** 由连续性 $f(0)=\\lim f(2^{-n})=0$。\n归纳：设 $f^{(k)}$ 在一列严格单调趋于 $0$ 的点 $x^{(k)}_n\\downarrow0$ 处为零（$k=0$ 时取 $x^{(0)}_n=2^{-n}$）。则 $f^{(k)}(0)=0$；在每个区间 $[x^{(k)}_{n+1},x^{(k)}_n]$ 上用罗尔定理得 $\\xi_n\\in(x^{(k)}_{n+1},x^{(k)}_n)$ 使 $f^{(k+1)}(\\xi_n)=0$，这些 $\\xi_n$ 严格递减趋于 $0$，于是 $f^{(k+1)}(0)=\\lim f^{(k+1)}(\\xi_n)=0$，归纳完成。\n**第二步：** 对任意 $x$ 与 $n$，由带拉格朗日余项的泰勒公式\n$$|f(x)|=\\left|\\sum_{k=0}^{n-1}\\frac{f^{(k)}(0)}{k!}x^k+\\frac{f^{(n)}(\\theta x)}{n!}x^n\\right|\\leqslant\\frac{M|x|^n}{n!}\\to0\\ (n\\to\\infty),$$\n故 $f(x)\\equiv0$。",
+   "solutionSource": "编写"
+  },
+  {
+   "no": "四",
+   "score": 16,
+   "type": "计算",
+   "subjects": [
+    "高等数学"
+   ],
+   "topics": [
+    "转动惯量",
+    "二重积分",
+    "广义极坐标",
+    "最值"
+   ],
+   "difficulty": 4,
+   "statement": "设 $D$ 为椭圆 $\\dfrac{x^2}{a^2}+\\dfrac{y^2}{b^2}\\leqslant1\\ (a>b>0)$，面密度为 $\\rho$ 的均质薄板；$l$ 为通过椭圆焦点 $(-c,0)$（其中 $c^2=a^2-b^2$）垂直于薄板的旋转轴。\n\n(1) 求薄板 $D$ 绕 $l$ 旋转的转动惯量 $J$；\n\n(2) 对于固定的转动惯量，讨论椭圆薄板的面积是否有最大值和最小值。",
+   "answer": "(1) $J=\\dfrac{\\pi ab\\rho}{4}\\left(5a^2-3b^2\\right)$；(2) 面积既无最大值也无最小值，$0<S<\\sqrt{\\dfrac{2\\pi J}{\\rho}}$。",
+   "solution": "**(1)** $J=\\rho\\displaystyle\\iint_D\\left[(x+c)^2+y^2\\right]\\mathrm{d}\\sigma$。由对称性 $\\iint_Dx\\,\\mathrm{d}\\sigma=0$，又 $\\iint_Dx^2\\mathrm{d}\\sigma=\\dfrac{\\pi a^3b}{4}$，$\\iint_Dy^2\\mathrm{d}\\sigma=\\dfrac{\\pi ab^3}{4}$（用 $x=at\\cos\\varphi,\\ y=bt\\sin\\varphi$ 计算），所以\n$$J=\\rho\\left[\\frac{\\pi ab(a^2+b^2)}{4}+\\pi ab(a^2-b^2)\\right]=\\frac{\\pi ab\\rho}{4}\\left(5a^2-3b^2\\right).$$\n**(2)** 记 $k=\\dfrac ba\\in(0,1)$，则 $J=\\dfrac{\\pi\\rho}{4}a^4k(5-3k^2)$，面积 $S=\\pi ab=\\pi a^2k$，于是\n$$S^2=\\pi^2a^4k^2=\\frac{4\\pi J}{\\rho}\\cdot\\frac{k}{5-3k^2}.$$\n函数 $\\dfrac{k}{5-3k^2}$ 在 $(0,1)$ 上严格递增，值域为 $\\left(0,\\dfrac12\\right)$。故 $J$ 固定时 $S$ 的取值范围是 $\\left(0,\\sqrt{\\dfrac{2\\pi J}{\\rho}}\\right)$：上界仅在 $a=b$（圆，不满足 $a>b$）时达到，下界在 $k\\to0$ 时趋近。所以面积既无最大值也无最小值。",
+   "solutionSource": "编写"
+  },
+  {
+   "no": "五",
+   "score": 12,
+   "type": "计算",
+   "subjects": [
+    "高等数学"
+   ],
+   "topics": [
+    "格林公式",
+    "隐函数偏导数",
+    "曲线积分"
+   ],
+   "difficulty": 3,
+   "statement": "设连续可微函数 $z=z(x,y)$ 由方程 $F(xz-y,x-yz)=0$（其中 $F(u,v)$ 有连续偏导数）唯一确定，$L$ 为正向单位圆周，试求：\n$$I=\\oint_L\\left(xz^2+2yz\\right)\\mathrm{d}y-\\left(2xz+yz^2\\right)\\mathrm{d}x.$$",
+   "answer": "$I=2\\pi$",
+   "solution": "记 $Q=xz^2+2yz$，$P=-(2xz+yz^2)$，则\n$$\\frac{\\partial Q}{\\partial x}-\\frac{\\partial P}{\\partial y}=2z^2+2(xz+y)z_x+2(x+yz)z_y.$$\n对 $F(xz-y,x-yz)=0$ 分别对 $x,y$ 求偏导：\n$$z_x=-\\frac{zF_u+F_v}{xF_u-yF_v},\\qquad z_y=\\frac{F_u+zF_v}{xF_u-yF_v}.$$\n代入并整理分子：$-(xz+y)(zF_u+F_v)+(x+yz)(F_u+zF_v)=(1-z^2)(xF_u-yF_v)$，故\n$$(xz+y)z_x+(x+yz)z_y=1-z^2,\\qquad\\frac{\\partial Q}{\\partial x}-\\frac{\\partial P}{\\partial y}=2.$$\n由格林公式 $I=\\displaystyle\\iint_{x^2+y^2\\leqslant1}2\\,\\mathrm{d}x\\mathrm{d}y=2\\pi$。",
+   "solutionSource": "编写"
+  },
+  {
+   "no": "六",
+   "score": 16,
+   "type": "证明",
+   "subjects": [
+    "高等数学",
+    "常微分方程"
+   ],
+   "topics": [
+    "一阶线性微分方程",
+    "含参积分极限",
+    "ε-δ"
+   ],
+   "difficulty": 3,
+   "statement": "(1) 求解微分方程 $\\begin{cases}\\dfrac{\\mathrm{d}y}{\\mathrm{d}x}-xy=xe^{x^2},\\\\ y(0)=1.\\end{cases}$\n\n(2) 如 $y=f(x)$ 为上述方程的解，证明：\n$$\\lim_{n\\to\\infty}\\int_0^1\\frac{nf(x)}{n^2x^2+1}\\,\\mathrm{d}x=\\frac\\pi2.$$",
+   "answer": "(1) $y=e^{x^2}$；(2) 见解答。",
+   "solution": "**(1)** 一阶线性方程，通解\n$$y=e^{\\frac{x^2}{2}}\\left[\\int xe^{x^2}e^{-\\frac{x^2}{2}}\\mathrm{d}x+C\\right]=e^{\\frac{x^2}2}\\left(e^{\\frac{x^2}2}+C\\right)=e^{x^2}+Ce^{\\frac{x^2}2}.$$\n由 $y(0)=1$ 得 $C=0$，$y=e^{x^2}$。\n**(2)** 写 $\\displaystyle\\int_0^1\\frac{ne^{x^2}}{n^2x^2+1}\\mathrm{d}x=\\int_0^1\\frac{n}{n^2x^2+1}\\mathrm{d}x+\\int_0^1\\frac{n\\left(e^{x^2}-1\\right)}{n^2x^2+1}\\mathrm{d}x$。第一项 $=\\arctan n\\to\\dfrac\\pi2$。\n对第二项，任给 $\\varepsilon>0$，取 $\\delta\\in(0,1)$ 使 $0<x<\\delta$ 时 $0\\leqslant e^{x^2}-1<\\dfrac\\varepsilon\\pi$，则\n$$0\\leqslant\\int_0^1\\frac{n(e^{x^2}-1)}{n^2x^2+1}\\mathrm{d}x\\leqslant\\frac\\varepsilon\\pi\\arctan(n\\delta)+(e-1)\\frac{n}{n^2\\delta^2+1}<\\frac\\varepsilon2+(e-1)\\frac{n}{n^2\\delta^2+1},$$\n而 $\\dfrac{n}{n^2\\delta^2+1}\\to0$，故 $n$ 充分大时第二项 $<\\varepsilon$，即第二项 $\\to0$。所以原极限为 $\\dfrac\\pi2$。",
+   "solutionSource": "编写"
+  }
+ ]
+}

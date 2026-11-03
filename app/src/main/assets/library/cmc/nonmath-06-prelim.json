@@ -1,0 +1,192 @@
+{
+ "id": "cmc-nonmath-06-prelim",
+ "title": "第六届全国大学生数学竞赛初赛（非数学类）",
+ "year": 2014,
+ "track": "非数学类",
+ "round": "初赛",
+ "paper": "",
+ "durationMin": 150,
+ "totalScore": 100,
+ "source": {
+  "question": "2014年第六届全国初赛-非数学类试卷.pdf",
+  "solution": "06-第六届全国初赛-非数学类试题参考解答.pdf"
+ },
+ "problems": [
+  {
+   "no": "一(1)",
+   "score": 6,
+   "type": "填空",
+   "subjects": [
+    "常微分方程"
+   ],
+   "topics": [
+    "常系数线性方程",
+    "特征方程"
+   ],
+   "difficulty": 1,
+   "statement": "已知 $y_1=e^x$ 和 $y_2=xe^x$ 是齐次二阶常系数线性微分方程的解，则该微分方程是\\_\\_\\_\\_\\_\\_。",
+   "answer": "$y''-2y'+y=0$",
+   "solution": "由解的形式知特征方程有二重根 $r=1$，特征方程为 $(r-1)^2=0$，故所求方程为 $y''-2y'+y=0$。",
+   "solutionSource": "官方"
+  },
+  {
+   "no": "一(2)",
+   "score": 6,
+   "type": "填空",
+   "subjects": [
+    "高等数学"
+   ],
+   "topics": [
+    "切平面",
+    "曲面法向量"
+   ],
+   "difficulty": 1,
+   "statement": "设有曲面 $S:z=x^2+2y^2$ 和平面 $\\pi:2x+2y+z=0$，则与 $\\pi$ 平行的 $S$ 的切平面方程是\\_\\_\\_\\_\\_\\_。",
+   "answer": "$2x+2y+z+\\dfrac32=0$",
+   "solution": "设切点 $P_0(x_0,y_0,z_0)$，法向量 $(-2x_0,-4y_0,1)$ 应与 $(2,2,1)$ 平行，得 $x_0=-1,\\ y_0=-\\dfrac12$，$z_0=x_0^2+2y_0^2=\\dfrac32$。切平面为 $2(x+1)+2\\big(y+\\frac12\\big)+\\big(z-\\frac32\\big)=0$，即\n$$2x+2y+z+\\frac32=0.$$",
+   "solutionSource": "官方"
+  },
+  {
+   "no": "一(3)",
+   "score": 6,
+   "type": "填空",
+   "subjects": [
+    "高等数学"
+   ],
+   "topics": [
+    "隐函数求导",
+    "变上限积分"
+   ],
+   "difficulty": 1,
+   "statement": "设 $y=y(x)$ 由 $x=\\displaystyle\\int_1^{y-x}\\sin^2\\left(\\frac{\\pi t}{4}\\right)\\mathrm{d}t$ 所确定，则 $\\left.\\dfrac{\\mathrm{d}y}{\\mathrm{d}x}\\right|_{x=0}=$\\_\\_\\_\\_\\_\\_。",
+   "answer": "$3$",
+   "solution": "$x=0$ 时积分为 0，得 $y(0)=1$。两边对 $x$ 求导：\n$$1=\\sin^2\\Big(\\frac{\\pi}{4}(y-x)\\Big)(y'-1)\\ \\Longrightarrow\\ y'=\\csc^2\\Big(\\frac{\\pi}{4}(y-x)\\Big)+1,$$\n代入 $x=0,\\ y=1$ 得 $y'(0)=2+1=3$。",
+   "solutionSource": "官方"
+  },
+  {
+   "no": "一(4)",
+   "score": 6,
+   "type": "填空",
+   "subjects": [
+    "高等数学"
+   ],
+   "topics": [
+    "数列极限",
+    "裂项求和"
+   ],
+   "difficulty": 1,
+   "statement": "设 $x_n=\\displaystyle\\sum_{k=1}^n\\frac{k}{(k+1)!}$，则 $\\lim\\limits_{n\\to\\infty}x_n=$\\_\\_\\_\\_\\_\\_。",
+   "answer": "$1$",
+   "solution": "$\\dfrac{k}{(k+1)!}=\\dfrac1{k!}-\\dfrac1{(k+1)!}$，故 $x_n=1-\\dfrac1{(n+1)!}\\to1$。",
+   "solutionSource": "官方"
+  },
+  {
+   "no": "一(5)",
+   "score": 6,
+   "type": "填空",
+   "subjects": [
+    "高等数学"
+   ],
+   "topics": [
+    "幂指函数极限",
+    "等价无穷小"
+   ],
+   "difficulty": 2,
+   "statement": "已知 $\\lim\\limits_{x\\to0}\\left(1+x+\\dfrac{f(x)}{x}\\right)^{\\frac1x}=e^3$，则 $\\lim\\limits_{x\\to0}\\dfrac{f(x)}{x^2}=$\\_\\_\\_\\_\\_\\_。",
+   "answer": "$2$",
+   "solution": "由条件 $\\lim\\limits_{x\\to0}\\dfrac1x\\ln\\Big(1+x+\\dfrac{f(x)}{x}\\Big)=3$，记 $\\dfrac1x\\ln\\Big(1+x+\\dfrac{f(x)}{x}\\Big)=3+\\alpha$，$\\alpha\\to0$。则\n$$\\frac{f(x)}{x^2}=\\frac{e^{3x+\\alpha x}-1}{x}-1\\to3-1=2.$$",
+   "solutionSource": "官方"
+  },
+  {
+   "no": "二",
+   "score": 12,
+   "type": "计算",
+   "subjects": [
+    "高等数学"
+   ],
+   "topics": [
+    "定积分",
+    "绝对值积分",
+    "换元"
+   ],
+   "difficulty": 2,
+   "statement": "设 $n$ 为正整数，计算 $I=\\displaystyle\\int_{e^{-2n\\pi}}^1\\left|\\frac{\\mathrm{d}}{\\mathrm{d}x}\\cos\\left(\\ln\\frac1x\\right)\\right|\\mathrm{d}x$。",
+   "answer": "$I=4n$",
+   "solution": "$\\cos\\big(\\ln\\frac1x\\big)=\\cos(\\ln x)$，其导数为 $-\\sin(\\ln x)\\cdot\\dfrac1x$，故\n$$I=\\int_{e^{-2n\\pi}}^1|\\sin(\\ln x)|\\frac{\\mathrm{d}x}{x}\\overset{u=\\ln x}{=}\\int_{-2n\\pi}^0|\\sin u|\\,\\mathrm{d}u=\\int_0^{2n\\pi}|\\sin t|\\,\\mathrm{d}t=4n\\int_0^{\\pi/2}\\sin t\\,\\mathrm{d}t=4n.$$",
+   "solutionSource": "官方"
+  },
+  {
+   "no": "三",
+   "score": 14,
+   "type": "证明",
+   "subjects": [
+    "高等数学"
+   ],
+   "topics": [
+    "泰勒公式",
+    "导数估计"
+   ],
+   "difficulty": 2,
+   "statement": "设函数 $f(x)$ 在 $[0,1]$ 上有二阶导数，且有正常数 $A,B$ 使得 $|f(x)|\\leqslant A$，$|f''(x)|\\leqslant B$，证明：对于任意 $x\\in[0,1]$，有 $|f'(x)|\\leqslant2A+\\dfrac B2$。",
+   "answer": "",
+   "solution": "在 $x$ 处展开到 $0$ 和 $1$：\n$$f(0)=f(x)-f'(x)x+\\frac{f''(\\xi)}2x^2,\\qquad f(1)=f(x)+f'(x)(1-x)+\\frac{f''(\\eta)}2(1-x)^2,$$\n$\\xi\\in(0,x)$，$\\eta\\in(x,1)$。两式相减得\n$$f'(x)=f(1)-f(0)-\\frac{f''(\\eta)}2(1-x)^2+\\frac{f''(\\xi)}2x^2,$$\n故 $|f'(x)|\\leqslant2A+\\dfrac B2\\big[(1-x)^2+x^2\\big]\\leqslant2A+\\dfrac B2$，因为 $(1-x)^2+x^2$ 在 $[0,1]$ 上最大值为 1。",
+   "solutionSource": "官方"
+  },
+  {
+   "no": "四",
+   "score": 14,
+   "type": "计算",
+   "subjects": [
+    "高等数学"
+   ],
+   "topics": [
+    "球缺体积",
+    "球冠面积",
+    "高斯公式",
+    "第二型曲面积分"
+   ],
+   "difficulty": 3,
+   "statement": "(1) 设一球缺高为 $h$，所在球半径为 $R$。证明该球缺的体积为 $\\dfrac\\pi3(3R-h)h^2$，球冠的面积为 $2\\pi Rh$。\n\n(2) 设球体 $(x-1)^2+(y-1)^2+(z-1)^2\\leqslant12$ 被平面 $P:x+y+z=6$ 所截的小球缺为 $\\Omega$。记球缺上的球冠为 $\\Sigma$，方向指向球外，求第二型曲面积分\n$$I=\\iint_\\Sigma x\\,\\mathrm{d}y\\,\\mathrm{d}z+y\\,\\mathrm{d}z\\,\\mathrm{d}x+z\\,\\mathrm{d}x\\,\\mathrm{d}y.$$",
+   "answer": "(2) $I=33\\sqrt3\\,\\pi$",
+   "solution": "**(1)** 设球为 $x^2+y^2+z^2\\leqslant R^2$，球缺为 $R-h\\leqslant z\\leqslant R$ 部分，对应圆锥半顶角 $\\alpha$（$\\cos\\alpha=\\frac{R-h}R$）。按截面积分：\n$$V=\\int_{R-h}^R\\pi(R^2-z^2)\\,\\mathrm{d}z=\\frac\\pi3(3R-h)h^2.$$\n球面面积元 $\\mathrm{d}S=R^2\\sin\\theta\\,\\mathrm{d}\\theta\\,\\mathrm{d}\\varphi$，球冠面积\n$$\\int_0^{2\\pi}\\mathrm{d}\\varphi\\int_0^\\alpha R^2\\sin\\theta\\,\\mathrm{d}\\theta=2\\pi R^2(1-\\cos\\alpha)=2\\pi Rh.$$\n\n**(2)** 记球缺底面圆为 $P_1$，取指向球缺外的法向，$J=\\iint_{P_1}x\\,\\mathrm{d}y\\,\\mathrm{d}z+y\\,\\mathrm{d}z\\,\\mathrm{d}x+z\\,\\mathrm{d}x\\,\\mathrm{d}y$。由高斯公式 $I+J=\\iiint_\\Omega3\\,\\mathrm{d}V=3V(\\Omega)$。\n\n$P_1$ 上外法向单位向量为 $-\\frac1{\\sqrt3}(1,1,1)$，故 $J=-\\dfrac1{\\sqrt3}\\iint_{P_1}(x+y+z)\\,\\mathrm{d}S=-\\dfrac6{\\sqrt3}\\sigma(P_1)=-2\\sqrt3\\,\\sigma(P_1)$。\n\n球心 $(1,1,1)$ 到平面距离 $\\sqrt3$，$R=2\\sqrt3$，故底面圆心 $Q(2,2,2)$，顶点 $D(3,3,3)$，$h=|QD|=\\sqrt3$，$\\sigma(P_1)=\\pi(R^2-3)=9\\pi$。于是\n$$I=3V(\\Omega)+2\\sqrt3\\,\\sigma(P_1)=3\\cdot\\frac\\pi3(3R-h)h^2+2\\sqrt3\\pi(2Rh-h^2)=15\\sqrt3\\pi+18\\sqrt3\\pi=33\\sqrt3\\,\\pi.$$",
+   "solutionSource": "官方"
+  },
+  {
+   "no": "五",
+   "score": 15,
+   "type": "计算",
+   "subjects": [
+    "高等数学"
+   ],
+   "topics": [
+    "积分中值",
+    "数列极限",
+    "单调函数",
+    "幂平均"
+   ],
+   "difficulty": 3,
+   "statement": "设 $f$ 在 $[a,b]$ 上非负连续，严格单增，且存在 $x_n\\in[a,b]$ 使得\n$$\\big[f(x_n)\\big]^n=\\frac1{b-a}\\int_a^b\\big[f(x)\\big]^n\\mathrm{d}x,$$\n求 $\\lim\\limits_{n\\to\\infty}x_n$。",
+   "answer": "$\\lim\\limits_{n\\to\\infty}x_n=b$",
+   "solution": "**先设 $a=0,b=1$**，证 $x_n\\to1$。对 $0<\\varepsilon<1$，只需证 $n$ 充分大时 $f^n(1-\\varepsilon)<f^n(x_n)=\\int_0^1f^n(x)\\,\\mathrm{d}x$（再由严格单增得 $x_n>1-\\varepsilon$）。\n\n取 $c=1-\\dfrac\\varepsilon2$，则 $f(1-\\varepsilon)<f(c)$，$\\Big[\\dfrac{f(1-\\varepsilon)}{f(c)}\\Big]^n\\to0$，故 $n$ 充分大时 $\\Big[\\dfrac{f(1-\\varepsilon)}{f(c)}\\Big]^n<\\dfrac\\varepsilon2=1-c$，从而\n$$f^n(1-\\varepsilon)<f^n(c)(1-c)\\leqslant\\int_c^1f^n(x)\\,\\mathrm{d}x\\leqslant\\int_0^1f^n(x)\\,\\mathrm{d}x=f^n(x_n).$$\n故 $1-\\varepsilon<x_n\\leqslant1$，$x_n\\to1$。\n\n**一般情形** 令 $F(t)=f(a+t(b-a))$，它在 $[0,1]$ 上非负连续严格单增，由上存在 $t_n\\to1$ 使 $F^n(t_n)=\\int_0^1F^n(t)\\,\\mathrm{d}t$，即 $x_n=a+t_n(b-a)$ 满足条件（由严格单增，$x_n$ 唯一），且 $x_n\\to a+(b-a)=b$。",
+   "solutionSource": "官方"
+  },
+  {
+   "no": "六",
+   "score": 15,
+   "type": "计算",
+   "subjects": [
+    "高等数学"
+   ],
+   "topics": [
+    "定积分定义",
+    "黎曼和误差",
+    "数列极限"
+   ],
+   "difficulty": 3,
+   "statement": "设 $A_n=\\dfrac{n}{n^2+1}+\\dfrac{n}{n^2+2^2}+\\cdots+\\dfrac{n}{n^2+n^2}$，求 $\\lim\\limits_{n\\to\\infty}n\\left(\\dfrac\\pi4-A_n\\right)$。",
+   "answer": "$\\dfrac14$",
+   "solution": "令 $f(x)=\\dfrac1{1+x^2}$，$x_i=\\dfrac in$，则 $A_n=\\dfrac1n\\displaystyle\\sum_{i=1}^nf(x_i)\\to\\int_0^1f(x)\\,\\mathrm{d}x=\\frac\\pi4$，且\n$$J_n:=n\\Big(\\frac\\pi4-A_n\\Big)=n\\sum_{i=1}^n\\int_{x_{i-1}}^{x_i}\\big[f(x)-f(x_i)\\big]\\mathrm{d}x=n\\sum_{i=1}^n\\int_{x_{i-1}}^{x_i}f'(\\zeta_i)(x-x_i)\\,\\mathrm{d}x$$\n（拉格朗日中值，$\\zeta_i$ 依赖于 $x$）。记 $m_i,M_i$ 为 $f'$ 在 $[x_{i-1},x_i]$ 上的最小、最大值，由介值性存在 $\\eta_i\\in(x_{i-1},x_i)$ 使\n$$\\int_{x_{i-1}}^{x_i}f'(\\zeta_i)(x-x_i)\\,\\mathrm{d}x=-f'(\\eta_i)\\frac{(x_i-x_{i-1})^2}2.$$\n于是\n$$J_n=-\\frac1{2n}\\sum_{i=1}^nf'(\\eta_i)\\to-\\frac12\\int_0^1f'(x)\\,\\mathrm{d}x=-\\frac12\\big[f(1)-f(0)\\big]=\\frac14.$$",
+   "solutionSource": "官方"
+  }
+ ]
+}

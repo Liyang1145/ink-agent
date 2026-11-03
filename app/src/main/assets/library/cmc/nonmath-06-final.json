@@ -1,0 +1,217 @@
+{
+ "id": "cmc-nonmath-06-final",
+ "title": "第六届全国大学生数学竞赛决赛（非数学类）",
+ "year": 2015,
+ "track": "非数学类",
+ "round": "决赛",
+ "paper": "",
+ "durationMin": 180,
+ "totalScore": 100,
+ "source": {
+  "question": "2015年03月-非数学类-第六届全国决赛试卷.pdf",
+  "solution": "2015年03月-非数学类参考解答-第六届全国决赛试卷.pdf"
+ },
+ "problems": [
+  {
+   "no": "一(1)",
+   "score": 5,
+   "type": "填空",
+   "subjects": [
+    "高等数学"
+   ],
+   "topics": [
+    "洛必达法则",
+    "变上限积分",
+    "极限"
+   ],
+   "difficulty": 2,
+   "statement": "极限 $\\displaystyle\\lim_{x\\to\\infty}\\frac{\\Big(\\int_0^xe^{u^2}\\,\\mathrm{d}u\\Big)^2}{\\int_0^xe^{2u^2}\\,\\mathrm{d}u}=$______。",
+   "answer": "$0$",
+   "solution": "两次用洛必达法则：\n$$\\lim\\frac{2e^{x^2}\\int_0^xe^{u^2}\\mathrm{d}u}{e^{2x^2}}=\\lim\\frac{2\\int_0^xe^{u^2}\\mathrm{d}u}{e^{x^2}}=\\lim\\frac{2e^{x^2}}{2xe^{x^2}}=0.$$",
+   "solutionSource": "编写"
+  },
+  {
+   "no": "一(2)",
+   "score": 5,
+   "type": "填空",
+   "subjects": [
+    "高等数学"
+   ],
+   "topics": [
+    "可降阶微分方程",
+    "初值问题"
+   ],
+   "difficulty": 2,
+   "statement": "设实数 $a\\ne0$，微分方程 $\\begin{cases}y''-ay'^2=0,\\\\ y(0)=0,\\ y'(0)=-1\\end{cases}$ 的解为______。",
+   "answer": "$y=-\\dfrac1a\\ln(ax+1)$",
+   "solution": "令 $p=y'$，则 $p'=ap^2$，$-\\dfrac1p=ax+C_1$。由 $p(0)=-1$ 得 $C_1=1$，$y'=-\\dfrac{1}{ax+1}$，积分并用 $y(0)=0$ 得 $y=-\\dfrac1a\\ln(ax+1)$。",
+   "solutionSource": "编写"
+  },
+  {
+   "no": "一(3)",
+   "score": 5,
+   "type": "填空",
+   "subjects": [
+    "线性代数"
+   ],
+   "topics": [
+    "矩阵幂",
+    "幂零矩阵",
+    "二项式展开"
+   ],
+   "difficulty": 2,
+   "statement": "设 $A=\\begin{pmatrix}\\lambda&0&0\\\\0&\\lambda&0\\\\-1&1&\\lambda\\end{pmatrix}$，则 $A^{50}=$______。",
+   "answer": "$\\begin{pmatrix}\\lambda^{50}&0&0\\\\0&\\lambda^{50}&0\\\\-50\\lambda^{49}&50\\lambda^{49}&\\lambda^{50}\\end{pmatrix}$",
+   "solution": "$A=\\lambda E+B$，$B=\\begin{pmatrix}0&0&0\\\\0&0&0\\\\-1&1&0\\end{pmatrix}$，$B^2=0$ 且与 $\\lambda E$ 可交换，故 $A^{50}=\\lambda^{50}E+50\\lambda^{49}B$。",
+   "solutionSource": "编写"
+  },
+  {
+   "no": "一(4)",
+   "score": 5,
+   "type": "填空",
+   "subjects": [
+    "高等数学"
+   ],
+   "topics": [
+    "不定积分",
+    "凑微分",
+    "有理函数积分"
+   ],
+   "difficulty": 2,
+   "statement": "不定积分 $I=\\displaystyle\\int\\frac{x^2+1}{x^4+1}\\mathrm{d}x=$______。",
+   "answer": "$\\dfrac{1}{\\sqrt2}\\arctan\\dfrac{x^2-1}{\\sqrt2\\,x}+C$（或 $\\dfrac1{\\sqrt2}\\big[\\arctan(\\sqrt2x-1)+\\arctan(\\sqrt2x+1)\\big]+C$）",
+   "solution": "分子分母同除 $x^2$：$I=\\displaystyle\\int\\frac{1+\\frac1{x^2}}{\\left(x-\\frac1x\\right)^2+2}\\mathrm{d}x=\\int\\frac{\\mathrm{d}\\left(x-\\frac1x\\right)}{\\left(x-\\frac1x\\right)^2+2}=\\frac1{\\sqrt2}\\arctan\\frac{x-\\frac1x}{\\sqrt2}+C$。",
+   "solutionSource": "编写"
+  },
+  {
+   "no": "一(5)",
+   "score": 5,
+   "type": "填空",
+   "subjects": [
+    "高等数学"
+   ],
+   "topics": [
+    "曲线积分",
+    "格林公式"
+   ],
+   "difficulty": 2,
+   "statement": "设曲线积分 $I=\\displaystyle\\oint_L\\frac{x\\,\\mathrm{d}y-y\\,\\mathrm{d}x}{|x|+|y|}$，其中 $L$ 是以 $(1,0),(0,1),(-1,0),(0,-1)$ 为顶点的正方形的边界曲线，方向为逆时针方向，则 $I=$______。",
+   "answer": "$4$",
+   "solution": "在 $L$ 上 $|x|+|y|=1$，故 $I=\\oint_Lx\\,\\mathrm{d}y-y\\,\\mathrm{d}x$。由格林公式，$I=\\iint_D2\\,\\mathrm{d}\\sigma=2\\cdot2=4$（正方形面积为 $2$）。",
+   "solutionSource": "编写"
+  },
+  {
+   "no": "一(6)",
+   "score": 5,
+   "type": "填空",
+   "subjects": [
+    "高等数学"
+   ],
+   "topics": [
+    "二重积分",
+    "极限",
+    "几何平均",
+    "洛必达法则"
+   ],
+   "difficulty": 3,
+   "statement": "设 $D$ 是平面上由光滑闭曲线围成的有界区域，其面积为 $A>0$，函数 $f(x,y)$ 在该区域及其边界上连续，函数 $f(x,y)$ 在 $D$ 上连续且 $f(x,y)>0$。记 $$J_n=\\left(\\frac1A\\iint_Df^{1/n}(x,y)\\,\\mathrm{d}\\sigma\\right)^n,$$ 则 $\\displaystyle\\lim_{n\\to+\\infty}J_n=$______。",
+   "answer": "$\\exp\\left\\{\\dfrac1A\\displaystyle\\iint_D\\ln f(x,y)\\,\\mathrm{d}\\sigma\\right\\}$",
+   "solution": "令 $F(t)=\\dfrac1A\\iint_Df^t\\,\\mathrm{d}\\sigma$，$F(0)=1$。由于 $f$ 在闭区域上连续且为正，$\\ln f$ 有界，可在积分号下求导，$F'(0)=\\dfrac1A\\iint_D\\ln f\\,\\mathrm{d}\\sigma$。于是\n$$\\lim_{n\\to\\infty}J_n=\\lim_{t\\to0^+}\\exp\\frac{\\ln F(t)}{t}=\\exp\\frac{F'(0)}{F(0)}=\\exp\\Big\\{\\frac1A\\iint_D\\ln f\\,\\mathrm{d}\\sigma\\Big\\}.$$",
+   "solutionSource": "编写"
+  },
+  {
+   "no": "二",
+   "score": 12,
+   "type": "证明",
+   "subjects": [
+    "高等数学"
+   ],
+   "topics": [
+    "方向导数",
+    "梯度",
+    "单位根求和"
+   ],
+   "difficulty": 2,
+   "statement": "设 $\\vec l_j,\\ j=1,2,\\cdots,n$ 是平面上点 $P_0$ 处的 $n\\ge2$ 个方向向量，相邻两个向量之间的夹角为 $\\dfrac{2\\pi}{n}$。若函数 $f(x,y)$ 在点 $P_0$ 有连续偏导，证明：$\\displaystyle\\sum_{j=1}^n\\frac{\\partial f(P_0)}{\\partial\\vec l_j}=0$。",
+   "answer": "",
+   "solution": "设 $\\vec l_j=(\\cos(\\theta+\\frac{2\\pi j}{n}),\\sin(\\theta+\\frac{2\\pi j}{n}))$ 为单位向量。$f$ 在 $P_0$ 可微，故 $\\dfrac{\\partial f(P_0)}{\\partial\\vec l_j}=\\nabla f(P_0)\\cdot\\vec l_j$，从而\n$$\\sum_{j=1}^n\\frac{\\partial f(P_0)}{\\partial\\vec l_j}=\\nabla f(P_0)\\cdot\\sum_{j=1}^n\\vec l_j.$$\n而 $\\sum_{j=1}^n\\vec l_j$ 对应复数 $e^{i\\theta}\\sum_{j=1}^n e^{2\\pi ij/n}=0$（$n\\ge2$ 时 $n$ 次单位根之和为零），故和为 $0$。",
+   "solutionSource": "编写"
+  },
+  {
+   "no": "三",
+   "score": 14,
+   "type": "证明",
+   "subjects": [
+    "线性代数"
+   ],
+   "topics": [
+    "矩阵相似",
+    "矩阵等价",
+    "可逆矩阵"
+   ],
+   "difficulty": 2,
+   "statement": "设 $A_1,A_2,B_1,B_2$ 均为 $n$ 阶方阵，其中 $A_2,B_2$ 可逆。证明：存在可逆矩阵 $P,Q$ 使得 $PA_iQ=B_i\\ (i=1,2)$ 成立的充要条件是 $A_1A_2^{-1}$ 和 $B_1B_2^{-1}$ 相似。",
+   "answer": "",
+   "solution": "**必要性：** 若 $PA_iQ=B_i$，则 $B_2^{-1}=Q^{-1}A_2^{-1}P^{-1}$，于是 $B_1B_2^{-1}=PA_1QQ^{-1}A_2^{-1}P^{-1}=P(A_1A_2^{-1})P^{-1}$，二者相似。\n\n**充分性：** 设 $B_1B_2^{-1}=P(A_1A_2^{-1})P^{-1}$，$P$ 可逆。令 $Q=A_2^{-1}P^{-1}B_2$（可逆）。则 $PA_2Q=B_2$，且\n$$PA_1Q=PA_1A_2^{-1}P^{-1}B_2=B_1B_2^{-1}B_2=B_1.$$",
+   "solutionSource": "编写"
+  },
+  {
+   "no": "四",
+   "score": 14,
+   "type": "计算",
+   "subjects": [
+    "高等数学"
+   ],
+   "topics": [
+    "数项级数",
+    "裂项求和",
+    "递推数列"
+   ],
+   "difficulty": 3,
+   "statement": "设 $p>0$，$x_1=\\dfrac14$，$x_{n+1}^p=x_n^p+x_n^{2p}\\ (n=1,2,\\cdots)$。证明：$\\displaystyle\\sum_{n=1}^\\infty\\frac{1}{1+x_n^p}$ 收敛并求其和。",
+   "answer": "收敛，和为 $4^p$。",
+   "solution": "记 $y_n=x_n^p>0$，则 $y_{n+1}=y_n(1+y_n)$，故\n$$\\frac1{y_n}-\\frac1{y_{n+1}}=\\frac{y_{n+1}-y_n}{y_ny_{n+1}}=\\frac{y_n^2}{y_n\\cdot y_n(1+y_n)}=\\frac1{1+y_n}.$$\n部分和 $S_N=\\dfrac1{y_1}-\\dfrac1{y_{N+1}}$。$\\{y_n\\}$ 严格递增；若有界，则收敛到 $L\\ge y_1>0$ 且 $L=L+L^2$，矛盾。故 $y_n\\to+\\infty$，$S_N\\to\\dfrac1{y_1}=4^p$。级数收敛，和为 $4^p$。",
+   "solutionSource": "编写"
+  },
+  {
+   "no": "五",
+   "score": 15,
+   "type": "计算",
+   "subjects": [
+    "高等数学"
+   ],
+   "topics": [
+    "傅里叶级数",
+    "巴塞尔问题",
+    "反常积分",
+    "级数求和"
+   ],
+   "difficulty": 3,
+   "statement": "(1) 展 $[-\\pi,\\pi)$ 上的函数 $f(x)=|x|$ 成傅里叶级数，并证明 $\\displaystyle\\sum_{k=1}^\\infty\\frac1{k^2}=\\frac{\\pi^2}6$。\n\n(2) 求积分 $I=\\displaystyle\\int_0^{+\\infty}\\frac{u}{1+e^u}\\,\\mathrm{d}u$ 的值。",
+   "answer": "(1) $|x|=\\dfrac\\pi2-\\dfrac4\\pi\\displaystyle\\sum_{k=1}^\\infty\\frac{\\cos(2k-1)x}{(2k-1)^2}$；(2) $I=\\dfrac{\\pi^2}{12}$。",
+   "solution": "**(1)** $f$ 为偶函数，$b_n=0$，$a_0=\\frac2\\pi\\int_0^\\pi x\\,\\mathrm{d}x=\\pi$，\n$$a_n=\\frac2\\pi\\int_0^\\pi x\\cos nx\\,\\mathrm{d}x=\\frac{2}{\\pi n^2}\\big((-1)^n-1\\big),$$\n即 $a_{2k}=0$，$a_{2k-1}=-\\frac{4}{\\pi(2k-1)^2}$。$f$ 连续且分段光滑（周期延拓后连续），故\n$$|x|=\\frac\\pi2-\\frac4\\pi\\sum_{k=1}^\\infty\\frac{\\cos(2k-1)x}{(2k-1)^2},\\quad x\\in[-\\pi,\\pi].$$\n令 $x=0$ 得 $\\sum_{k\\ge1}\\frac1{(2k-1)^2}=\\frac{\\pi^2}8$。记 $S=\\sum\\frac1{k^2}$，则 $S=\\frac{\\pi^2}8+\\frac S4$，$S=\\frac{\\pi^2}6$。\n\n**(2)** $\\dfrac{u}{1+e^u}=ue^{-u}\\sum_{n\\ge0}(-1)^ne^{-nu}=\\sum_{n\\ge1}(-1)^{n-1}ue^{-nu}$（$u>0$）。部分和被 $ue^{-u}$ 控制（交错级数部分和不超过首项），逐项积分合法：\n$$I=\\sum_{n=1}^\\infty(-1)^{n-1}\\int_0^{+\\infty}ue^{-nu}\\mathrm{d}u=\\sum_{n=1}^\\infty\\frac{(-1)^{n-1}}{n^2}=S-2\\cdot\\frac{S}{4}=\\frac{\\pi^2}{12}.$$",
+   "solutionSource": "编写"
+  },
+  {
+   "no": "六",
+   "score": 15,
+   "type": "证明",
+   "subjects": [
+    "高等数学",
+    "线性代数"
+   ],
+   "topics": [
+    "广义二重积分",
+    "夹逼",
+    "二次型",
+    "正交变换",
+    "负定"
+   ],
+   "difficulty": 4,
+   "statement": "设 $f(x,y)$ 为 $\\mathbb R^2$ 上的非负的连续函数，若 $$I=\\lim_{t\\to+\\infty}\\iint_{x^2+y^2\\le t^2}f(x,y)\\,\\mathrm{d}\\sigma$$ 存在极限，则称广义积分 $\\iint_{\\mathbb R^2}f(x,y)\\,\\mathrm{d}\\sigma$ 收敛于 $I$。\n\n(1) 设 $f(x,y)$ 为 $\\mathbb R^2$ 上的非负的连续函数，若 $\\iint_{\\mathbb R^2}f(x,y)\\,\\mathrm{d}\\sigma$ 收敛于 $I$，证明极限 $\\displaystyle\\lim_{t\\to+\\infty}\\iint_{-t\\le x,y\\le t}f(x,y)\\,\\mathrm{d}\\sigma$ 存在且收敛于 $I$。\n\n(2) 设 $\\iint_{\\mathbb R^2}e^{ax^2+2bxy+cy^2}\\,\\mathrm{d}\\sigma$ 收敛于 $I$，实二次型 $ax^2+2bxy+cy^2$ 在正交变换下的标准二次型为 $\\lambda_1u^2+\\lambda_2v^2$。证明 $\\lambda_1,\\lambda_2$ 都小于零。",
+   "answer": "",
+   "solution": "**(1)** 记 $D_t$ 为半径 $t$ 的圆盘，$S_t=[-t,t]^2$，则 $D_t\\subset S_t\\subset D_{\\sqrt2t}$。由 $f\\ge0$，\n$$\\iint_{D_t}f\\le\\iint_{S_t}f\\le\\iint_{D_{\\sqrt2t}}f.$$\n令 $t\\to+\\infty$，两端都趋于 $I$，由夹逼得 $\\lim\\iint_{S_t}f=I$。\n\n**(2)** 设正交变换 $(x,y)^T=T(u,v)^T$。正交变换保持圆盘 $D_t$ 与面积元，故 $\\iint_{D_t}e^{ax^2+2bxy+cy^2}\\mathrm{d}\\sigma=\\iint_{u^2+v^2\\le t^2}e^{\\lambda_1u^2+\\lambda_2v^2}\\mathrm{d}u\\mathrm{d}v$，于是 $g(u,v)=e^{\\lambda_1u^2+\\lambda_2v^2}$ 在 $\\mathbb R^2$ 上的广义积分也收敛于 $I$。由 (1)，\n$$\\iint_{[-t,t]^2}g=\\Big(\\int_{-t}^te^{\\lambda_1u^2}\\mathrm{d}u\\Big)\\Big(\\int_{-t}^te^{\\lambda_2v^2}\\mathrm{d}v\\Big)\\to I.$$\n若 $\\lambda_1\\ge0$，则 $t\\ge1$ 时第一个因子 $\\ge2t$，第二个因子 $\\ge\\int_{-1}^1e^{\\lambda_2v^2}\\mathrm{d}v>0$，乘积 $\\to+\\infty$，矛盾。故 $\\lambda_1<0$，同理 $\\lambda_2<0$。",
+   "solutionSource": "编写"
+  }
+ ]
+}

@@ -1,0 +1,255 @@
+{
+ "id": "cmc-math-11-final-high",
+ "title": "第十一届全国大学生数学竞赛决赛（数学类高年级组）",
+ "year": 2020,
+ "track": "数学类",
+ "round": "决赛",
+ "paper": "high",
+ "durationMin": 180,
+ "totalScore": 100,
+ "source": {
+  "question": "11-final-math-high.pdf",
+  "solution": "11-final-math-high.pdf"
+ },
+ "problems": [
+  {
+   "no": "一(1)",
+   "score": 5,
+   "type": "填空",
+   "subjects": [
+    "数学分析"
+   ],
+   "topics": [
+    "数列极限",
+    "定积分定义",
+    "乘积取对数"
+   ],
+   "difficulty": 2,
+   "statement": "$\\displaystyle\\lim_{n\\to+\\infty}\\left(\\prod_{k=n}^{3n-1}k\\right)^{\\frac1{2n}}\\sin\\frac1n=$\\_\\_\\_\\_\\_\\_。",
+   "answer": "$\\dfrac{3\\sqrt3}{e}$",
+   "solution": "由 $\\sin\\frac1n\\sim\\frac1n$，只需求 $\\Big(\\prod_{k=n}^{3n-1}\\frac kn\\Big)^{\\frac1{2n}}$ 的极限。取对数：\n$$\\frac1{2n}\\sum_{k=n}^{3n-1}\\ln\\frac kn\\to\\frac12\\int_1^3\\ln x\\,\\mathrm{d}x=\\frac12(3\\ln3-2),$$\n故极限为 $e^{\\frac32\\ln3-1}=\\dfrac{3\\sqrt3}e$。",
+   "solutionSource": "编写"
+  },
+  {
+   "no": "一(2)",
+   "score": 5,
+   "type": "填空",
+   "subjects": [
+    "数学分析"
+   ],
+   "topics": [
+    "分部积分",
+    "换元"
+   ],
+   "difficulty": 1,
+   "statement": "已知 $f$ 在区间 $(-1,3)$ 内有二阶连续导数，$f(0)=12$，$f(2)=2f'(2)+8$，则 $\\displaystyle\\int_0^1xf''(2x)\\,\\mathrm{d}x=$\\_\\_\\_\\_\\_\\_。",
+   "answer": "$1$",
+   "solution": "令 $t=2x$：\n$$\\int_0^1xf''(2x)\\,\\mathrm{d}x=\\frac14\\int_0^2tf''(t)\\,\\mathrm{d}t=\\frac14\\Big[2f'(2)-f(2)+f(0)\\Big]=\\frac14(-8+12)=1.$$",
+   "solutionSource": "编写"
+  },
+  {
+   "no": "一(3)",
+   "score": 5,
+   "type": "填空",
+   "subjects": [
+    "解析几何",
+    "高等代数"
+   ],
+   "topics": [
+    "二次曲面分类",
+    "二次型特征值"
+   ],
+   "difficulty": 2,
+   "statement": "在三维空间的直角坐标系中，方程 $2x^2+y^2+z^2+2xy-2xz=1$ 表示的二次曲面类型是\\_\\_\\_\\_\\_\\_。",
+   "answer": "椭圆柱面",
+   "solution": "二次型矩阵 $\\begin{pmatrix}2&1&-1\\\\1&1&0\\\\-1&0&1\\end{pmatrix}$ 的特征多项式为 $\\lambda^3-4\\lambda^2+3\\lambda=\\lambda(\\lambda-1)(\\lambda-3)$，正交变换后方程化为 $x'^2+3y'^2=1$，是椭圆柱面。",
+   "solutionSource": "编写"
+  },
+  {
+   "no": "一(4)",
+   "score": 5,
+   "type": "填空",
+   "subjects": [
+    "高等代数"
+   ],
+   "topics": [
+    "奇异值分解",
+    "奇异值"
+   ],
+   "difficulty": 2,
+   "statement": "在矩阵 $A=\\begin{pmatrix}1&-2&0\\\\1&0&1\\\\0&2&1\\end{pmatrix}$ 的奇异值分解 $A=U\\Lambda V$ 中（其中 $U,V$ 为正交方阵，$\\Lambda$ 为对角阵），$\\Lambda=$\\_\\_\\_\\_\\_\\_。",
+   "answer": "$\\Lambda=\\begin{pmatrix}3&0&0\\\\0&\\sqrt3&0\\\\0&0&0\\end{pmatrix}$",
+   "solution": "$A^TA=\\begin{pmatrix}2&-2&1\\\\-2&8&2\\\\1&2&2\\end{pmatrix}$，迹为 12，二阶主子式之和为 27，$\\det A=0$，故特征多项式为 $\\lambda(\\lambda^2-12\\lambda+27)=\\lambda(\\lambda-9)(\\lambda-3)$。奇异值为 $3,\\sqrt3,0$。",
+   "solutionSource": "编写"
+  },
+  {
+   "no": "二",
+   "score": 15,
+   "type": "证明",
+   "subjects": [
+    "解析几何"
+   ],
+   "topics": [
+    "单叶双曲面",
+    "直母线",
+    "异面直线",
+    "公垂线"
+   ],
+   "difficulty": 3,
+   "statement": "考虑单叶双曲面 $S:x^2-y^2+z^2=1$。\n\n1. 证明：$S$ 上同一族直母线中任意两条不同的直母线是异面直线；\n\n2. 设 $S$ 上同一族直母线中的两条直母线分别经过 $M_1(1,1,1)$ 与 $M_2(2,2,1)$ 两点。求这两条直母线的公垂线方程以及这两条直母线之间的距离。",
+   "answer": "公垂线：$\\begin{cases}6x+y-z=6\\\\27x-5y-14z=30\\end{cases}$；距离 $d=\\dfrac{2\\sqrt{19}}{19}$。",
+   "solution": "**1.** 由 $(x+y)(x-y)=(1+z)(1-z)$ 得两族直母线（$\\lambda,\\mu$ 不全为零，$u,v$ 不全为零）：\n$$\\text{(I)}\\ \\begin{cases}\\lambda(x+y)=\\mu(1+z)\\\\\\mu(x-y)=\\lambda(1-z)\\end{cases}\\qquad\\text{(II)}\\ \\begin{cases}u(x+y)=v(1-z)\\\\v(x-y)=u(1+z)\\end{cases}$$\n取第 (I) 族中两条 $L_1(\\lambda_1:\\mu_1)$，$L_2(\\lambda_2:\\mu_2)$，$\\lambda_1\\mu_2\\neq\\lambda_2\\mu_1$。把四个方程联立，系数增广矩阵（含常数项）的行列式\n$$\\begin{vmatrix}\\lambda_1&\\lambda_1&-\\mu_1&-\\mu_1\\\\\\mu_1&-\\mu_1&\\lambda_1&-\\lambda_1\\\\\\lambda_2&\\lambda_2&-\\mu_2&-\\mu_2\\\\\\mu_2&-\\mu_2&\\lambda_2&-\\lambda_2\\end{vmatrix}=4(\\lambda_1\\mu_2-\\mu_1\\lambda_2)^2\\neq0,$$\n故四个平面方程无公共解且两直线不平行（任意三个方程系数矩阵满秩可验证），$L_1,L_2$ 异面。第 (II) 族同理，行列式为 $-4(u_1v_2-u_2v_1)^2\\neq0$。\n\n**2.** 把 $M_1,M_2$ 代入第 (II) 族，得到的是同一条直母线 $z=1,\\ x=y$，不符合\"两条直母线\"，故只需考虑第 (I) 族。\n\n过 $M_1$：$\\lambda=\\mu$，得 $L_3:\\begin{cases}x+y-z-1=0\\\\x-y+z-1=0\\end{cases}$，方向 $\\vec s_3=(0,1,1)$。\n\n过 $M_2$：$\\mu=2\\lambda$，得 $L_4:\\begin{cases}x+y-2z-2=0\\\\2x-2y+z-1=0\\end{cases}$，方向 $\\vec s_4=(3,5,4)$。\n\n公垂线方向 $\\vec n=\\vec s_3\\times\\vec s_4=(-1,3,-3)$。过 $L_3$ 且含 $\\vec n$ 的平面法向 $\\vec s_3\\times\\vec n=(-6,-1,1)$，平面为 $6x+y-z=6$；过 $L_4$ 且含 $\\vec n$ 的平面法向 $\\vec s_4\\times\\vec n=(-27,5,14)$，平面为 $27x-5y-14z=30$。公垂线即这两个平面的交线。\n\n距离\n$$d=\\frac{|\\overrightarrow{M_1M_2}\\cdot\\vec n|}{|\\vec n|}=\\frac{|(1,1,0)\\cdot(-1,3,-3)|}{\\sqrt{19}}=\\frac{2}{19}\\sqrt{19}.$$\n（公垂线与 $L_3,L_4$ 的交点为 $\\frac1{19}(19,-3,-3)$ 与 $\\frac1{19}(17,3,-9)$，两点距离同样为 $\\frac2{19}\\sqrt{19}$。）",
+   "solutionSource": "官方"
+  },
+  {
+   "no": "三",
+   "score": 15,
+   "type": "证明",
+   "subjects": [
+    "高等代数"
+   ],
+   "topics": [
+    "正交投影",
+    "行列式",
+    "分块矩阵",
+    "半正定矩阵"
+   ],
+   "difficulty": 4,
+   "statement": "设 $V$ 是有限维欧氏空间，$V_1,V_2$ 是 $V$ 的非平凡子空间且 $V=V_1\\oplus V_2$。设 $p_1,p_2$ 分别是 $V$ 到 $V_1,V_2$ 的正交投影，$\\varphi=p_1+p_2$，用 $\\det\\varphi$ 表示线性变换 $\\varphi$ 的行列式。证明：$0<\\det\\varphi\\leqslant1$ 且 $\\det\\varphi=1$ 的充要条件是 $V_1$ 与 $V_2$ 正交。",
+   "answer": "",
+   "solution": "设 $\\dim V_1=m,\\ \\dim V_2=n$。取 $V_1,V_2$ 各自的标准正交基合成 $V$ 的基，$\\varphi$ 的矩阵为\n$$A=\\begin{pmatrix}I_m&B\\\\C&I_n\\end{pmatrix},$$\n$B,C$ 分别是 $p_1|_{V_2}:V_2\\to V_1$ 与 $p_2|_{V_1}:V_1\\to V_2$ 的矩阵。\n\n对 $v_1\\in V_1,\\ v_2\\in V_2$，$\\langle p_2v_1,v_2\\rangle=\\langle v_1,v_2\\rangle=\\langle v_1,p_1v_2\\rangle$，故 $C=B^T$，$CB=B^TB$ 半正定，且它是 $p_2p_1|_{V_2}$ 的矩阵。\n\n设 $\\lambda$ 是 $p_2p_1|_{V_2}$ 的特征值，$v_2$ 为特征向量。因 $v_2\\notin V_1$，$\\|p_1v_2\\|<\\|v_2\\|$，于是\n$$0\\leqslant\\lambda\\|v_2\\|^2=\\langle p_2p_1v_2,v_2\\rangle=\\|p_1v_2\\|^2<\\|v_2\\|^2,$$\n即 $0\\leqslant\\lambda<1$。从而\n$$\\det\\varphi=\\det\\begin{pmatrix}I_m&B\\\\C&I_n\\end{pmatrix}=\\det(I_n-CB)=\\prod_\\lambda(1-\\lambda)\\in(0,1].$$\n$\\det\\varphi=1$ 当且仅当 $CB$ 的特征值全为 0，即 $B^TB=0$，即 $B=C=0$，等价于 $V_1\\perp V_2$。",
+   "solutionSource": "官方"
+  },
+  {
+   "no": "四",
+   "score": 20,
+   "type": "证明",
+   "subjects": [
+    "数学分析"
+   ],
+   "topics": [
+    "反函数",
+    "连续可微",
+    "奇函数",
+    "定积分换元"
+   ],
+   "difficulty": 3,
+   "statement": "证明：\n\n1. 函数方程 $x^3-3x=t$ 存在三个在闭区间 $[-2,2]$ 上连续，在开区间 $(-2,2)$ 内连续可微的解 $x=\\varphi_1(t)$，$x=\\varphi_2(t)$，$x=\\varphi_3(t)$ 满足：\n$$\\varphi_1(-t)=-\\varphi_3(t),\\quad\\varphi_2(-t)=-\\varphi_2(t),\\quad|t|\\leqslant2.$$\n\n2. 若 $f$ 是 $[-2,2]$ 上的连续偶函数，证明：$\\displaystyle\\int_1^2f(x^3-3x)\\,\\mathrm{d}x=\\int_0^1f(x^3-3x)\\,\\mathrm{d}x$。",
+   "answer": "",
+   "solution": "**1.** 记 $g(x)=x^3-3x$，奇函数，$g'(x)=3(x^2-1)$。$g$ 在 $[-2,-1]$、$[1,2]$ 上严格增，在 $[-1,1]$ 上严格减；$g(-2)=g(1)=-2$，$g(-1)=g(2)=2$。记 $g_1=g|_{[-2,-1]}$，$g_2=g|_{[-1,1]}$，$g_3=g|_{[1,2]}$，它们严格单调且值域都是 $[-2,2]$，故有反函数 $\\varphi_1,\\varphi_2,\\varphi_3$，定义在 $[-2,2]$ 上，值域依次为 $[-2,-1],[-1,1],[1,2]$。反函数连续；在开区间内 $g_i'\\neq0$，故 $\\varphi_i$ 在 $(-2,2)$ 内连续可微。\n\n由 $g$ 为奇函数：$-t=-g(\\varphi_3(t))=g(-\\varphi_3(t))$，且 $-\\varphi_3(t)\\in[-2,-1]$，故 $-\\varphi_3(t)=\\varphi_1(-t)$。同理 $-\\varphi_2(t)\\in[-1,1]$ 且 $g(-\\varphi_2(t))=-t$，得 $\\varphi_2(-t)=-\\varphi_2(t)$。\n\n**2.** 在 $[1,2]$ 上令 $x=\\varphi_3(t)$，在 $[0,1]$ 上令 $x=\\varphi_2(t)$（$t$ 从 $0$ 到 $-2$）：\n$$\\int_1^2f(x^3-3x)\\,\\mathrm{d}x=\\int_{-2}^2f(t)\\varphi_3'(t)\\,\\mathrm{d}t,\\qquad\\int_0^1f(x^3-3x)\\,\\mathrm{d}x=-\\int_{-2}^0f(t)\\varphi_2'(t)\\,\\mathrm{d}t.$$\n（端点处导数无界，按反常积分理解，收敛性由原积分换元保证。）\n\n由 $\\varphi_1+\\varphi_2+\\varphi_3=0$（三根之和为 0）得 $\\varphi_3'=-\\varphi_1'-\\varphi_2'$。由第 1 问，$\\varphi_1'(t)=\\varphi_3'(-t)$，$\\varphi_2'$ 为偶函数，再用 $f$ 为偶函数：\n$$\\int_{-2}^2f\\varphi_3'\\,\\mathrm{d}t=\\frac12\\int_{-2}^2f(t)\\big[\\varphi_3'(t)+\\varphi_3'(-t)\\big]\\mathrm{d}t=\\frac12\\int_{-2}^2f\\,(\\varphi_3'+\\varphi_1')\\,\\mathrm{d}t=-\\frac12\\int_{-2}^2f\\varphi_2'\\,\\mathrm{d}t=-\\int_{-2}^0f\\varphi_2'\\,\\mathrm{d}t.$$\n两边相等，证毕。",
+   "solutionSource": "编写"
+  },
+  {
+   "no": "五",
+   "score": 10,
+   "type": "证明",
+   "subjects": [
+    "实变函数"
+   ],
+   "topics": [
+    "几乎处处收敛",
+    "Cesàro 平均",
+    "单调收敛定理",
+    "一致有界"
+   ],
+   "difficulty": 4,
+   "statement": "设 $E\\subseteq\\mathbb R$ 是可测集，$\\{f_n\\}$ 是 $E$ 上一致有界的可测函数列。若\n$$\\sum_{N=1}^{\\infty}\\frac1N\\int_E\\Big|\\frac1N\\sum_{n=1}^Nf_n\\Big|^2\\mathrm{d}m<\\infty,$$\n证明：$\\dfrac1N\\displaystyle\\sum_{n=1}^Nf_n\\to0$，a.e. $x\\in E$。",
+   "answer": "",
+   "solution": "设 $|f_n|\\leqslant K$，记 $g_N=\\dfrac1N\\sum_{n=1}^Nf_n$，$|g_N|\\leqslant K$。由单调收敛定理，\n$$\\int_E\\sum_{N}\\frac1N|g_N|^2\\,\\mathrm{d}m=\\sum_N\\frac1N\\int_E|g_N|^2\\,\\mathrm{d}m<\\infty,$$\n故 $\\displaystyle\\sum_N\\frac1N|g_N(x)|^2<\\infty$ 对 a.e. $x\\in E$ 成立。固定这样的 $x$，证 $g_N(x)\\to0$。\n\n对 $N\\leqslant M\\leqslant(1+\\delta)N$，\n$$|g_M-g_N|=\\Big|\\Big(\\frac NM-1\\Big)g_N+\\frac1M\\sum_{N<n\\leqslant M}f_n\\Big|\\leqslant K\\frac{M-N}M+K\\frac{M-N}M\\leqslant2K\\delta.$$\n若 $g_N(x)\\not\\to0$，则存在 $\\varepsilon>0$ 及无穷多个 $N$ 使 $|g_N(x)|\\geqslant\\varepsilon$。取 $\\delta=\\dfrac\\varepsilon{4K}$，则对 $M\\in[N,(1+\\delta)N]$ 有 $|g_M(x)|\\geqslant\\dfrac\\varepsilon2$，于是\n$$\\sum_{N\\leqslant M\\leqslant(1+\\delta)N}\\frac1M|g_M(x)|^2\\geqslant\\frac{\\varepsilon^2}4\\sum_{N\\leqslant M\\leqslant(1+\\delta)N}\\frac1M\\geqslant\\frac{\\varepsilon^2}4\\cdot\\frac{\\delta N-1}{(1+\\delta)N},$$\n当 $N$ 大时它大于一个与 $N$ 无关的正数 $c$。可取无穷多个互不相交的这样的块，与级数收敛矛盾。故 $g_N(x)\\to0$ a.e.",
+   "solutionSource": "编写"
+  },
+  {
+   "no": "六",
+   "score": 10,
+   "type": "证明",
+   "subjects": [
+    "复变函数"
+   ],
+   "topics": [
+    "零点个数",
+    "最大模原理",
+    "解析函数"
+   ],
+   "difficulty": 3,
+   "statement": "设 $f(z)$ 在 $|z|\\leqslant R\\ (R>0)$ 内解析且满足 $|f(z)|\\leqslant M\\ (M>0)$，$f(0)\\neq0$。证明：$f(z)$ 在圆 $|z|\\leqslant R/3$ 内的零点个数（零点的重数计算在内）不超过 $\\dfrac1{\\ln2}\\ln\\dfrac{M}{|f(0)|}$。",
+   "answer": "",
+   "solution": "设 $z_1,\\dots,z_n$ 是 $f$ 在 $|z|\\leqslant R/3$ 内的零点（计重数），令\n$$g(z)=\\frac{f(z)}{\\prod_{i=1}^n\\big(1-\\frac z{z_i}\\big)},$$\n$g$ 在 $|z|\\leqslant R$ 内解析（可去奇点）。在 $|z|=R$ 上 $\\big|\\frac z{z_i}\\big|\\geqslant3$，故 $\\big|1-\\frac z{z_i}\\big|\\geqslant2$，$|g|\\leqslant2^{-n}M$。由最大模原理 $|g(0)|=|f(0)|\\leqslant2^{-n}M$，即 $2^n|f(0)|\\leqslant M$，取对数得 $n\\leqslant\\dfrac1{\\ln2}\\ln\\dfrac M{|f(0)|}$。",
+   "solutionSource": "官方"
+  },
+  {
+   "no": "七",
+   "score": 10,
+   "type": "证明",
+   "subjects": [
+    "抽象代数"
+   ],
+   "topics": [
+    "Sylow 定理",
+    "单群",
+    "群作用",
+    "交错群"
+   ],
+   "difficulty": 4,
+   "statement": "证明：180 阶群不是单群。",
+   "answer": "",
+   "solution": "反证，设 $G$ 是 180 阶单群，$180=2^2\\cdot3^2\\cdot5$。\n\n**Sylow 3-子群。** $n_3\\mid20$，$n_3\\equiv1\\pmod3$，$n_3>1$，故 $n_3\\in\\{4,10\\}$。若 $n_3=4$，$G$ 在 Sylow 3-子群上的共轭作用给出到 $S_4$ 的同态，由单性为单同态，$180\\leqslant24$，矛盾。故 $n_3=10$。\n\n**两个 Sylow 3-子群交平凡。** 否则设 $S\\neq T$，$D=S\\cap T$ 为 3 阶。9 阶群交换，故 $S,T\\leqslant N=N_G(D)$，$N$ 的 Sylow 3-子群个数 $n_3(N)>1$，且 $n_3(N)\\mid[N:S]$，$n_3(N)\\equiv1\\pmod3$，故 $n_3(N)\\geqslant4$ 且与 3 互素，从而 $|N|\\geqslant36$，$[G:N]\\leqslant5$。$G$ 在 $N$ 的左陪集上作用给出单同态 $G\\to S_{[G:N]}$，但 $180>5!$，矛盾。\n\n**Sylow 5-子群。** $n_5\\in\\{6,36\\}$。若 $n_5=36$，则 10 个 Sylow 3-子群与 36 个 Sylow 5-子群至少含 $10\\cdot8+36\\cdot4+1=225>180$ 个元素，矛盾。故 $n_5=6$。\n\n**嵌入 $S_6$。** 共轭作用给出单同态 $G\\hookrightarrow S_6$。若 $G$ 含奇置换，则 $G\\cap A_6$ 是 $G$ 的指数 2 正规子群，与单性矛盾；故 $G\\leqslant A_6$，$[A_6:G]=2$，$G$ 是 $A_6$ 的正规子群，与 $A_6$ 是单群矛盾。所以 180 阶群不是单群。",
+   "solutionSource": "官方"
+  },
+  {
+   "no": "八",
+   "score": 10,
+   "type": "证明",
+   "subjects": [
+    "微分几何"
+   ],
+   "topics": [
+    "等温坐标",
+    "第一基本形式",
+    "高斯曲率",
+    "积分因子"
+   ],
+   "difficulty": 4,
+   "statement": "设 $S:r=r(u,v)$ 为 $\\mathbb R^3$ 中的光滑曲面，其第一基本形式为 $(\\mathrm{d}s)^2=E(\\mathrm{d}u)^2+2F\\,\\mathrm{d}u\\,\\mathrm{d}v+G(\\mathrm{d}v)^2$，其中 $(u,v)$ 为曲面 $S$ 的参数，$r_u=\\dfrac{\\partial r}{\\partial u}$，$r_v=\\dfrac{\\partial r}{\\partial v}$，$E=r_u\\cdot r_u$，$F=r_u\\cdot r_v$，$G=r_v\\cdot r_v$。证明：\n\n1. 存在新的参数 $(u_1,v_1)$，使得 $S$ 的第一基本形式为 $(\\mathrm{d}s)^2=h(u_1,v_1)\\big[(\\mathrm{d}u_1)^2+(\\mathrm{d}v_1)^2\\big]$，其中 $h>0$ 为光滑函数。\n\n2. 如果曲面 $S$ 的第一基本形式满足 $(\\mathrm{d}s)^2=h(u,v)\\big[(\\mathrm{d}u)^2+(\\mathrm{d}v)^2\\big]$，则其高斯曲率 $K$ 可以表示为 $K=-\\dfrac1{2h}\\Delta\\log h$，其中 $h>0$ 为光滑函数，$\\Delta=\\dfrac{\\partial^2}{\\partial u^2}+\\dfrac{\\partial^2}{\\partial v^2}$ 表示拉普拉斯算子。",
+   "answer": "",
+   "solution": "**1.** 令 $l=EG-F^2>0$，则\n$$(\\mathrm{d}s)^2=\\frac1E\\big(E\\,\\mathrm{d}u+F\\,\\mathrm{d}v+i\\sqrt l\\,\\mathrm{d}v\\big)\\big(E\\,\\mathrm{d}u+F\\,\\mathrm{d}v-i\\sqrt l\\,\\mathrm{d}v\\big).$$\n由常微分方程理论（局部地）存在非零复积分因子 $\\lambda=p+iq$，使\n$$\\lambda\\big(E\\,\\mathrm{d}u+F\\,\\mathrm{d}v+i\\sqrt l\\,\\mathrm{d}v\\big)=\\mathrm{d}u_1+i\\,\\mathrm{d}v_1,$$\n取共轭得 $\\bar\\lambda(E\\,\\mathrm{d}u+F\\,\\mathrm{d}v-i\\sqrt l\\,\\mathrm{d}v)=\\mathrm{d}u_1-i\\,\\mathrm{d}v_1$。代入得\n$$(\\mathrm{d}s)^2=\\frac1{E|\\lambda|^2}\\big[(\\mathrm{d}u_1)^2+(\\mathrm{d}v_1)^2\\big],\\qquad h=\\frac1{E|\\lambda|^2}>0.$$\n比较实虚部，$\\dfrac{\\partial(u_1,v_1)}{\\partial(u,v)}=\\begin{vmatrix}pE&pF-q\\sqrt l\\\\qE&qF+p\\sqrt l\\end{vmatrix}=E\\sqrt l\\,|\\lambda|^2\\neq0$，故 $(u_1,v_1)$ 是（局部）可用的新参数。\n\n**2.** 正交参数（$F=0$）下高斯曲率公式\n$$K=-\\frac1{2\\sqrt{EG}}\\left[\\Big(\\frac{E_v}{\\sqrt{EG}}\\Big)_v+\\Big(\\frac{G_u}{\\sqrt{EG}}\\Big)_u\\right].$$\n令 $E=G=h$，得\n$$K=-\\frac1{2h}\\Big[\\Big(\\frac{h_v}h\\Big)_v+\\Big(\\frac{h_u}h\\Big)_u\\Big]=-\\frac1{2h}\\Delta\\log h.$$",
+   "solutionSource": "编写"
+  },
+  {
+   "no": "九",
+   "score": 10,
+   "type": "证明",
+   "subjects": [
+    "概率论"
+   ],
+   "topics": [
+    "大数定律",
+    "中心极限定理",
+    "截尾法",
+    "依概率收敛"
+   ],
+   "difficulty": 4,
+   "statement": "设 $\\{X_i\\}$ 是独立随机变量序列。\n\n1. 若 $\\{X_i\\}$ 服从大数定律且满足中心极限定理，即 $\\dfrac1n\\displaystyle\\sum_{i=1}^n(X_i-EX_i)\\xrightarrow{P}0$ 和 $\\dfrac{\\sum_{i=1}^n(X_i-EX_i)}{\\sqrt{\\sum_{k=1}^n\\operatorname{Var}(X_k)}}\\xrightarrow{D}N(0,1)$，则 $\\displaystyle\\lim_{n\\to\\infty}\\frac1{n^2}\\sum_{k=1}^n\\operatorname{Var}(X_k)=0$；\n\n2. 若 $\\{X_i\\}$ 同分布且满足 $\\displaystyle\\lim_{n\\to\\infty}nP(|X_1|\\geqslant n)=0$，则 $\\dfrac1n\\displaystyle\\sum_{i=1}^nX_i-\\mu_n$ 依概率收敛于 0，即 $\\dfrac1n\\displaystyle\\sum_{i=1}^nX_i-\\mu_n\\xrightarrow{P}0$，其中 $\\mu_n=E\\big[X_1I(|X_1|\\leqslant n)\\big]$，$I(A)$ 表示事件 $A$ 的示性函数。",
+   "answer": "",
+   "solution": "**1.** 记 $B_n^2=\\sum_{k=1}^n\\operatorname{Var}(X_k)$，$Z_n=\\dfrac{\\sum(X_i-EX_i)}{B_n}$。由大数定律，对任意 $\\varepsilon>0$，\n$$P\\Big(|Z_n|<\\frac{n\\varepsilon}{B_n}\\Big)=1-P\\Big(\\Big|\\frac1n\\sum(X_i-EX_i)\\Big|\\geqslant\\varepsilon\\Big)\\to1.$$\n若 $\\dfrac{n\\varepsilon}{B_n}$ 沿某子列有界（$\\leqslant C$），则沿该子列 $P(|Z_n|<C)\\to1$，与 $Z_n\\xrightarrow{D}N(0,1)$（$P(|Z|<C)<1$）矛盾。故 $\\dfrac{n\\varepsilon}{B_n}\\to\\infty$，即 $\\dfrac{B_n^2}{n^2}\\to0$。\n\n**2.** 记 $Y_{ni}=X_iI(|X_i|\\leqslant n)$，则\n$$\\frac1n\\sum_{i=1}^nX_i-\\mu_n=\\frac1n\\sum_{i=1}^n(Y_{ni}-\\mu_n)+\\frac1n\\sum_{i=1}^nX_iI(|X_i|>n).$$\n第二项：$P\\big(\\frac1n\\sum X_iI(|X_i|>n)\\neq0\\big)\\leqslant nP(|X_1|>n)\\to0$。\n\n第一项：$EY_{ni}=\\mu_n$，由切比雪夫不等式\n$$P\\Big(\\Big|\\frac1n\\sum_{i=1}^n(Y_{ni}-\\mu_n)\\Big|\\geqslant\\varepsilon\\Big)\\leqslant\\frac{E\\big[X_1^2I(|X_1|\\leqslant n)\\big]}{n\\varepsilon^2}.$$\n而 $E\\big[X_1^2I(|X_1|\\leqslant n)\\big]\\leqslant\\displaystyle\\int_0^n2tP(|X_1|>t)\\,\\mathrm{d}t$，由 $tP(|X_1|>t)\\to0$ 知 $\\dfrac1n\\displaystyle\\int_0^n2tP(|X_1|>t)\\,\\mathrm{d}t\\to0$。两项合并即得结论。",
+   "solutionSource": "官方"
+  },
+  {
+   "no": "十",
+   "score": 10,
+   "type": "证明",
+   "subjects": [
+    "数值分析"
+   ],
+   "topics": [
+    "Gauss-Seidel 迭代",
+    "正定矩阵",
+    "迭代收敛"
+   ],
+   "difficulty": 4,
+   "statement": "设 $A$ 是具有正对角元的非奇异对称矩阵。证明：若求解线性方程组 $Ax=b$ 的 Gauss-Seidel 迭代法对任意初始值都收敛，则 $A$ 为正定矩阵。",
+   "answer": "",
+   "solution": "写 $A=D-L-L^T$，$D=\\operatorname{diag}(a_{11},\\dots,a_{nn})$，$-L$ 为 $A$ 的严格下三角部分。Gauss-Seidel 迭代为\n$$(D-L)x_{k+1}=L^Tx_k+b.$$\n设对任意 $x_0$ 都收敛到解 $x^*$，记 $y_k=x_k-x^*$，则 $(D-L)y_{k+1}=L^Ty_k$，$y_k\\to0$。令 $\\varepsilon_k=y_k-y_{k+1}$，由 $D-L=A+L^T$ 得\n$$(D-L)\\varepsilon_k=Ay_k,\\qquad Ay_{k+1}=L^T\\varepsilon_k.$$\n于是\n$$y_k^TAy_k-y_{k+1}^TAy_{k+1}=y_k^T(D-L)\\varepsilon_k-y_{k+1}^TL^T\\varepsilon_k=\\varepsilon_k^TD\\varepsilon_k+\\varepsilon_k^T(D-L)y_{k+1}-\\varepsilon_k^TL^Ty_k=\\varepsilon_k^TD\\varepsilon_k\\geqslant0.$$\n若 $y_k\\neq0$，则 $\\varepsilon_k\\neq0$（否则 $Ay_k=0$，与 $A$ 非奇异矛盾），由 $D$ 正定得严格不等式 $y_k^TAy_k>y_{k+1}^TAy_{k+1}$。因此对任意 $y_0\\neq0$，\n$$y_0^TAy_0>y_1^TAy_1\\geqslant\\cdots\\geqslant\\lim_{k\\to\\infty}y_k^TAy_k=0.$$\n由于 $x_0$ 任意，$y_0$ 可取任意非零向量，故 $A$ 正定。",
+   "solutionSource": "官方"
+  }
+ ]
+}

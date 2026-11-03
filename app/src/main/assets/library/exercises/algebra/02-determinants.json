@@ -1,0 +1,279 @@
+{
+ "id": "ex-algebra-02",
+ "title": "高等代数 · 行列式",
+ "subject": "高等代数",
+ "chapter": 2,
+ "problems": [
+  {
+   "no": "1",
+   "type": "计算",
+   "subjects": [
+    "高等代数"
+   ],
+   "topics": [
+    "排列",
+    "逆序数"
+   ],
+   "difficulty": 1,
+   "statement": "求下列排列的逆序数：(1) $n\\,(n-1)\\cdots2\\,1$；(2) $1\\,3\\,5\\cdots(2n-1)\\,2\\,4\\,6\\cdots(2n)$。",
+   "answer": "都是 $\\dfrac{n(n-1)}{2}$",
+   "solution": "(1) 第 $k$ 个位置上的数 $n-k+1$ 比它后面的 $n-k$ 个数都大，逆序数为\n$$(n-1)+(n-2)+\\cdots+1+0=\\frac{n(n-1)}{2}.$$\n\n(2) 前一半奇数之间、后一半偶数之间都是顺序。偶数 $2k$ 前面比它大的数是奇数 $2k+1,2k+3,\\dots,2n-1$，共 $n-k$ 个。所以逆序数为\n$$\\sum_{k=1}^{n}(n-k)=\\frac{n(n-1)}{2}.$$",
+   "solutionSource": "编写",
+   "source": "经典题"
+  },
+  {
+   "no": "2",
+   "type": "计算",
+   "subjects": [
+    "高等代数"
+   ],
+   "topics": [
+    "行列式的定义",
+    "排列"
+   ],
+   "difficulty": 1,
+   "statement": "(1) 在 5 阶行列式中，项 $a_{13}a_{24}a_{32}a_{41}a_{55}$ 带什么符号？\n\n(2) 选择 $i,j$，使 $a_{1i}a_{23}a_{35}a_{4j}a_{52}$ 成为 5 阶行列式中带正号的项。",
+   "answer": "(1) 负号；(2) $i=1,\\ j=4$",
+   "solution": "行标已按自然顺序排列，符号由列标排列的奇偶性决定。\n\n(1) 列标排列 $3\\,4\\,2\\,1\\,5$：$3$ 前无数；$4$ 前无更大；$2$ 前有 $3,4$；$1$ 前有 $3,4,2$；$5$ 前无更大。逆序数 $0+0+2+3+0=5$，奇排列，该项带**负号**。\n\n(2) $\\{i,j\\}=\\{1,4\\}$。\n\n- $i=1,j=4$：排列 $1\\,3\\,5\\,4\\,2$，逆序数 $0+0+0+1+3=4$，偶排列，带正号；\n- $i=4,j=1$：排列 $4\\,3\\,5\\,1\\,2$，逆序数 $0+1+0+3+3=7$，奇排列，带负号。\n\n所以取 $i=1,j=4$。",
+   "solutionSource": "编写",
+   "source": "经典题"
+  },
+  {
+   "no": "3",
+   "type": "计算",
+   "subjects": [
+    "高等代数"
+   ],
+   "topics": [
+    "行列式的计算",
+    "化三角形"
+   ],
+   "difficulty": 1,
+   "statement": "计算\n$$D=\\begin{vmatrix}1&2&0&1\\\\2&-1&3&0\\\\0&1&1&-2\\\\3&0&2&1\\end{vmatrix}.$$",
+   "answer": "$16$",
+   "solution": "用第 1 行消去第 1 列：$r_2-2r_1$，$r_4-3r_1$，\n$$D=\\begin{vmatrix}1&2&0&1\\\\0&-5&3&-2\\\\0&1&1&-2\\\\0&-6&2&-2\\end{vmatrix}=\\begin{vmatrix}-5&3&-2\\\\1&1&-2\\\\-6&2&-2\\end{vmatrix}.$$\n交换前两行（变号），再消元：\n$$D=-\\begin{vmatrix}1&1&-2\\\\-5&3&-2\\\\-6&2&-2\\end{vmatrix}=-\\begin{vmatrix}1&1&-2\\\\0&8&-12\\\\0&8&-14\\end{vmatrix}=-\\big(8\\cdot(-14)-(-12)\\cdot8\\big)=16.$$",
+   "solutionSource": "编写",
+   "source": "经典题"
+  },
+  {
+   "no": "4",
+   "type": "证明",
+   "subjects": [
+    "高等代数"
+   ],
+   "topics": [
+    "反对称行列式",
+    "行列式的性质"
+   ],
+   "difficulty": 2,
+   "statement": "称满足 $a_{ij}=-a_{ji}$ 的行列式为反对称行列式。证明奇数阶反对称行列式等于零。",
+   "answer": "",
+   "solution": "设 $A=(a_{ij})$ 为 $n$ 阶，$A^{T}=-A$，$n$ 为奇数。由“转置不改变行列式”及“每行提出因子 $-1$”，\n$$|A|=|A^{T}|=|-A|=(-1)^n|A|=-|A|,$$\n所以 $2|A|=0$，$|A|=0$。$\\blacksquare$\n\n（注意偶数阶反对称行列式不一定为零，如 $\\begin{vmatrix}0&1\\\\-1&0\\end{vmatrix}=1$。）",
+   "solutionSource": "编写",
+   "source": "经典题"
+  },
+  {
+   "no": "5",
+   "type": "证明",
+   "subjects": [
+    "高等代数"
+   ],
+   "topics": [
+    "行列式的性质"
+   ],
+   "difficulty": 2,
+   "statement": "已知 $204,\\ 527,\\ 255$ 都能被 $17$ 整除。不计算行列式，证明\n$$D=\\begin{vmatrix}2&0&4\\\\5&2&7\\\\2&5&5\\end{vmatrix}$$\n能被 $17$ 整除。",
+   "answer": "",
+   "solution": "把第 1 列的 $100$ 倍、第 2 列的 $10$ 倍加到第 3 列，行列式不变：\n$$D=\\begin{vmatrix}2&0&204\\\\5&2&527\\\\2&5&255\\end{vmatrix}=17\\begin{vmatrix}2&0&12\\\\5&2&31\\\\2&5&15\\end{vmatrix}.$$\n右边的行列式元素都是整数，其值为整数，所以 $17\\mid D$。$\\blacksquare$（实际上 $D=34$。）",
+   "solutionSource": "编写",
+   "source": "经典题"
+  },
+  {
+   "no": "6",
+   "type": "计算",
+   "subjects": [
+    "高等代数"
+   ],
+   "topics": [
+    "代数余子式",
+    "按行展开"
+   ],
+   "difficulty": 2,
+   "statement": "设\n$$D=\\begin{vmatrix}3&0&4&0\\\\2&2&2&2\\\\0&-7&0&0\\\\5&3&-2&2\\end{vmatrix},$$\n$A_{4j}$、$M_{4j}$ 分别是第 4 行元素的代数余子式与余子式。求 $A_{41}+A_{42}+A_{43}+A_{44}$ 与 $M_{41}+M_{42}+M_{43}+M_{44}$。",
+   "answer": "$0$；$-28$",
+   "solution": "$A_{4j}$ 与第 4 行元素无关。$c_1A_{41}+c_2A_{42}+c_3A_{43}+c_4A_{44}$ 等于把 $D$ 的第 4 行换成 $(c_1,c_2,c_3,c_4)$ 所得的行列式。\n\n(1) 取 $(1,1,1,1)$：新行列式第 4 行与第 2 行成比例，故\n$$A_{41}+A_{42}+A_{43}+A_{44}=0.$$\n\n(2) $M_{4j}=(-1)^{4+j}A_{4j}$，所以 $\\sum_jM_{4j}=-A_{41}+A_{42}-A_{43}+A_{44}$，等于把第 4 行换成 $(-1,1,-1,1)$：\n$$\\begin{vmatrix}3&0&4&0\\\\2&2&2&2\\\\0&-7&0&0\\\\-1&1&-1&1\\end{vmatrix}.$$\n按第 3 行展开，只有 $a_{32}=-7$ 非零，代数余子式符号为 $(-1)^{3+2}=-1$：\n$$=(-7)\\cdot(-1)\\begin{vmatrix}3&4&0\\\\2&2&2\\\\-1&-1&1\\end{vmatrix}=7\\cdot\\big(3\\cdot4-4\\cdot4+0\\big)=7\\cdot(-4)=-28.$$\n（按第一行展开时，$3$ 与 $4$ 的余子式都是 $\\begin{vmatrix}2&2\\\\-1&1\\end{vmatrix}=4$。）",
+   "solutionSource": "编写",
+   "source": "经典题"
+  },
+  {
+   "no": "7",
+   "type": "计算",
+   "subjects": [
+    "高等代数"
+   ],
+   "topics": [
+    "爪形行列式"
+   ],
+   "difficulty": 2,
+   "statement": "设 $a_1a_2\\cdots a_n\\ne0$，计算 $n+1$ 阶行列式\n$$D=\\begin{vmatrix}a_0&1&1&\\cdots&1\\\\1&a_1&0&\\cdots&0\\\\1&0&a_2&\\cdots&0\\\\\\vdots&\\vdots&\\vdots&\\ddots&\\vdots\\\\1&0&0&\\cdots&a_n\\end{vmatrix}.$$",
+   "answer": "$a_1a_2\\cdots a_n\\left(a_0-\\sum_{j=1}^n\\dfrac1{a_j}\\right)$",
+   "solution": "对 $j=1,\\dots,n$，把第 $j+1$ 列乘以 $-\\dfrac1{a_j}$ 加到第 1 列。第 $j+1$ 行第 1 列的 $1$ 被消为 $0$，左上角变为 $a_0-\\sum_{j=1}^n\\dfrac1{a_j}$，行列式成为上三角形：\n$$D=\\begin{vmatrix}a_0-\\sum\\limits_{j=1}^n\\frac1{a_j}&1&\\cdots&1\\\\0&a_1&\\cdots&0\\\\\\vdots&&\\ddots&\\vdots\\\\0&0&\\cdots&a_n\\end{vmatrix}=a_1a_2\\cdots a_n\\left(a_0-\\sum_{j=1}^n\\frac1{a_j}\\right).$$",
+   "solutionSource": "编写",
+   "source": "经典题"
+  },
+  {
+   "no": "8",
+   "type": "计算",
+   "subjects": [
+    "高等代数"
+   ],
+   "topics": [
+    "加边法",
+    "爪形行列式"
+   ],
+   "difficulty": 2,
+   "statement": "计算 $n$ 阶行列式\n$$D_n=\\begin{vmatrix}1+a_1&1&\\cdots&1\\\\1&1+a_2&\\cdots&1\\\\\\vdots&\\vdots&\\ddots&\\vdots\\\\1&1&\\cdots&1+a_n\\end{vmatrix}.$$",
+   "answer": "$a_1a_2\\cdots a_n+\\sum_{i=1}^n\\prod_{j\\ne i}a_j$（$a_i$ 全不为零时即 $a_1\\cdots a_n\\left(1+\\sum\\dfrac1{a_i}\\right)$）",
+   "solution": "**加边**：添加第 1 行 $(1,1,\\dots,1)$ 与第 1 列 $(1,0,\\dots,0)^{T}$，行列式值不变（按第 1 列展开即回到 $D_n$）：\n$$D_n=\\begin{vmatrix}1&1&1&\\cdots&1\\\\0&1+a_1&1&\\cdots&1\\\\0&1&1+a_2&\\cdots&1\\\\\\vdots&&&\\ddots&\\\\0&1&1&\\cdots&1+a_n\\end{vmatrix}.$$\n第 $2,\\dots,n+1$ 行各减去第 1 行，化为爪形：\n$$D_n=\\begin{vmatrix}1&1&1&\\cdots&1\\\\-1&a_1&0&\\cdots&0\\\\-1&0&a_2&\\cdots&0\\\\\\vdots&&&\\ddots&\\\\-1&0&0&\\cdots&a_n\\end{vmatrix}.$$\n当 $a_1\\cdots a_n\\ne0$ 时，把第 $j+1$ 列乘 $\\dfrac1{a_j}$ 加到第 1 列，得\n$$D_n=a_1a_2\\cdots a_n\\left(1+\\sum_{i=1}^n\\frac1{a_i}\\right)=a_1a_2\\cdots a_n+\\sum_{i=1}^n\\prod_{j\\ne i}a_j.$$\n最后一个表达式两边都是 $a_1,\\dots,a_n$ 的多项式，且在 $a_1\\cdots a_n\\ne0$ 的无穷多点处相等，故对一切 $a_i$ 成立（也可直接按某个 $a_i=0$ 的情形验证）。",
+   "solutionSource": "编写",
+   "source": "经典题"
+  },
+  {
+   "no": "9",
+   "type": "计算",
+   "subjects": [
+    "高等代数"
+   ],
+   "topics": [
+    "三对角行列式",
+    "递推"
+   ],
+   "difficulty": 3,
+   "statement": "计算 $n$ 阶三对角行列式（空白处为 $0$）\n$$D_n=\\begin{vmatrix}2\\cos\\theta&1&&&\\\\1&2\\cos\\theta&1&&\\\\&1&2\\cos\\theta&\\ddots&\\\\&&\\ddots&\\ddots&1\\\\&&&1&2\\cos\\theta\\end{vmatrix}.$$",
+   "answer": "$D_n=\\dfrac{\\sin(n+1)\\theta}{\\sin\\theta}$（$\\sin\\theta\\ne0$）",
+   "solution": "按第 1 行展开（第二项再按第 1 列展开）得递推\n$$D_n=2\\cos\\theta\\,D_{n-1}-D_{n-2},\\qquad D_1=2\\cos\\theta,\\ D_2=4\\cos^2\\theta-1.$$\n约定 $D_0=1$，则递推对 $n\\ge2$ 成立。\n\n当 $\\sin\\theta\\ne0$ 时，断言 $D_n=\\dfrac{\\sin(n+1)\\theta}{\\sin\\theta}$。$n=0,1$ 时成立（$\\sin2\\theta=2\\sin\\theta\\cos\\theta$）。由和差化积\n$$\\sin(n+1)\\theta+\\sin(n-1)\\theta=2\\sin n\\theta\\cos\\theta,$$\n即 $\\dfrac{\\sin(n+1)\\theta}{\\sin\\theta}=2\\cos\\theta\\cdot\\dfrac{\\sin n\\theta}{\\sin\\theta}-\\dfrac{\\sin(n-1)\\theta}{\\sin\\theta}$，与递推相同，归纳即得。\n\n当 $\\theta=k\\pi$ 时，$2\\cos\\theta=2(-1)^k$，递推的特征根为二重根 $(-1)^k$，得 $D_n=(n+1)(-1)^{kn}$，恰是上式在 $\\theta\\to k\\pi$ 时的极限。",
+   "solutionSource": "编写",
+   "source": "经典题"
+  },
+  {
+   "no": "10",
+   "type": "计算",
+   "subjects": [
+    "高等代数"
+   ],
+   "topics": [
+    "范德蒙德行列式"
+   ],
+   "difficulty": 3,
+   "statement": "计算 $n$ 阶行列式（缺少 $x_i^{n-1}$ 这一列的“范德蒙德型”行列式）\n$$D=\\begin{vmatrix}1&x_1&x_1^2&\\cdots&x_1^{n-2}&x_1^{n}\\\\1&x_2&x_2^2&\\cdots&x_2^{n-2}&x_2^{n}\\\\\\vdots&\\vdots&\\vdots&&\\vdots&\\vdots\\\\1&x_n&x_n^2&\\cdots&x_n^{n-2}&x_n^{n}\\end{vmatrix}.$$",
+   "answer": "$\\left(\\sum_{i=1}^n x_i\\right)\\prod_{1\\le j<i\\le n}(x_i-x_j)$",
+   "solution": "引入变量 $y$，考虑 $n+1$ 阶范德蒙德行列式\n$$V(y)=\\begin{vmatrix}1&x_1&\\cdots&x_1^{n-1}&x_1^n\\\\\\vdots&\\vdots&&\\vdots&\\vdots\\\\1&x_n&\\cdots&x_n^{n-1}&x_n^n\\\\1&y&\\cdots&y^{n-1}&y^n\\end{vmatrix}=\\prod_{1\\le j<i\\le n}(x_i-x_j)\\cdot\\prod_{i=1}^n(y-x_i).$$\n一方面，按最后一行展开，$y^{n-1}$ 位于第 $n+1$ 行第 $n$ 列，其代数余子式为 $(-1)^{2n+1}D=-D$，所以 $V(y)$ 中 $y^{n-1}$ 的系数为 $-D$。\n\n另一方面，$\\prod_{i}(y-x_i)$ 中 $y^{n-1}$ 的系数为 $-(x_1+\\cdots+x_n)$。比较得\n$$D=(x_1+x_2+\\cdots+x_n)\\prod_{1\\le j<i\\le n}(x_i-x_j).$$",
+   "solutionSource": "编写",
+   "source": "经典题"
+  },
+  {
+   "no": "11",
+   "type": "计算",
+   "subjects": [
+    "高等代数"
+   ],
+   "topics": [
+    "拉普拉斯展开",
+    "递推"
+   ],
+   "difficulty": 3,
+   "statement": "计算 $2n$ 阶行列式（主对角线全为 $a$，副对角线全为 $b$，其余为 $0$）\n$$D_{2n}=\\begin{vmatrix}a&&&&&b\\\\&\\ddots&&&\\cdot^{\\cdot^{\\cdot}}&\\\\&&a&b&&\\\\&&b&a&&\\\\&\\cdot^{\\cdot^{\\cdot}}&&&\\ddots&\\\\b&&&&&a\\end{vmatrix}.$$",
+   "answer": "$(a^2-b^2)^n$",
+   "solution": "按第 $1$ 行与第 $2n$ 行用 Laplace 定理展开：这两行的非零元只在第 $1$ 列与第 $2n$ 列，所以只有一个二阶子式非零，\n$$D_{2n}=\\begin{vmatrix}a&b\\\\b&a\\end{vmatrix}\\cdot(-1)^{(1+2n)+(1+2n)}D_{2n-2}=(a^2-b^2)D_{2n-2},$$\n其中 $D_{2n-2}$ 是去掉第 $1,2n$ 行与列后剩下的同型行列式。又 $D_2=a^2-b^2$，所以\n$$D_{2n}=(a^2-b^2)^n.$$",
+   "solutionSource": "编写",
+   "source": "经典题"
+  },
+  {
+   "no": "12",
+   "type": "计算",
+   "subjects": [
+    "高等代数"
+   ],
+   "topics": [
+    "行列式的定义",
+    "多项式"
+   ],
+   "difficulty": 3,
+   "statement": "设\n$$f(x)=\\begin{vmatrix}x&2x&1&-1\\\\1&x&2&0\\\\2&1&x&1\\\\1&3&1&x\\end{vmatrix},$$\n求 $f(x)$ 中 $x^4$ 与 $x^3$ 的系数。",
+   "answer": "$x^4$ 系数 $1$，$x^3$ 系数 $-2$",
+   "solution": "含 $x$ 的元素只有 $a_{11}=x,\\ a_{12}=2x,\\ a_{22}=x,\\ a_{33}=x,\\ a_{44}=x$，且每个都是 $x$ 的一次式。一般项 $(-1)^{\\tau}a_{1j_1}a_{2j_2}a_{3j_3}a_{4j_4}$ 的次数等于取到的含 $x$ 元素的个数。\n\n**$x^4$**：四个因子都含 $x$。若第 1 行取 $a_{12}$，第 2 行唯一含 $x$ 的 $a_{22}$ 与它同列，不能再取，故第 1 行只能取 $a_{11}$，从而只有主对角线项 $x^4$，系数为 $1$。\n\n**$x^3$**：恰有三个因子含 $x$。若取的三个都是对角元，则剩下的那个因子也必在对角线上（固定三个位置的排列是恒等排列），得到的是 $x^4$ 项，不行。所以必须取 $a_{12}$，此时其余两个含 $x$ 的因子只能是 $a_{33},a_{44}$，第 2 行取第 1 列的 $a_{21}=1$。列标排列 $2\\,1\\,3\\,4$ 为奇排列，该项为\n$$-a_{12}a_{21}a_{33}a_{44}=-2x\\cdot1\\cdot x\\cdot x=-2x^3.$$\n所以 $x^4$ 系数为 $1$，$x^3$ 系数为 $-2$。（完整展开为 $f(x)=x^4-2x^3+4x^2+x+8$。）",
+   "solutionSource": "编写",
+   "source": "经典题"
+  },
+  {
+   "no": "13",
+   "type": "计算",
+   "subjects": [
+    "高等代数"
+   ],
+   "topics": [
+    "行列式的计算",
+    "拆分法",
+    "递推"
+   ],
+   "difficulty": 4,
+   "statement": "设 $a\\ne b$，计算 $n$ 阶行列式（主对角线为 $x$，上方全为 $a$，下方全为 $b$）\n$$D_n=\\begin{vmatrix}x&a&a&\\cdots&a\\\\b&x&a&\\cdots&a\\\\b&b&x&\\cdots&a\\\\\\vdots&\\vdots&\\vdots&\\ddots&\\vdots\\\\b&b&b&\\cdots&x\\end{vmatrix}.$$",
+   "answer": "$D_n=\\dfrac{a(x-b)^n-b(x-a)^n}{a-b}$",
+   "solution": "把最后一列写成 $(a,\\dots,a,a)^{T}+(0,\\dots,0,x-a)^{T}$，按列拆成两个行列式：\n$$D_n=D'+(x-a)D_{n-1},$$\n其中 $D'$ 的最后一列全为 $a$。在 $D'$ 中用前 $n-1$ 行各减去第 $n$ 行，第 $i$ 行（$i<n$）变为\n$$(\\underbrace{0,\\dots,0}_{i-1},\\ x-b,\\ a-b,\\dots,a-b,\\ 0),$$\n按最后一列展开（只剩第 $n$ 行的 $a$），余子式是对角线为 $x-b$ 的上三角行列式，故 $D'=a(x-b)^{n-1}$。于是\n$$D_n=a(x-b)^{n-1}+(x-a)D_{n-1}.\\tag{1}$$\n对 $D_n^{T}$ 做同样的推导（转置相当于交换 $a,b$），得\n$$D_n=b(x-a)^{n-1}+(x-b)D_{n-1}.\\tag{2}$$\n(1)$\\times(x-b)-$(2)$\\times(x-a)$ 消去 $D_{n-1}$：\n$$(a-b)D_n=a(x-b)^n-b(x-a)^n,$$\n$$D_n=\\frac{a(x-b)^n-b(x-a)^n}{a-b}.$$\n（$a=b$ 时取极限或直接计算得 $D_n=[x+(n-1)a](x-a)^{n-1}$。）",
+   "solutionSource": "编写",
+   "source": "经典题"
+  },
+  {
+   "no": "14",
+   "type": "证明",
+   "subjects": [
+    "高等代数"
+   ],
+   "topics": [
+    "行列式的性质",
+    "整除性"
+   ],
+   "difficulty": 4,
+   "statement": "设 $n\\ge2$，$n$ 阶行列式 $D$ 的每个元素都是 $1$ 或 $-1$。证明 $D$ 能被 $2^{n-1}$ 整除。",
+   "answer": "",
+   "solution": "对 $i=2,\\dots,n$ 作 $r_i-r_1$（行列式不变）。任意两个 $\\pm1$ 之差属于 $\\{0,2,-2\\}$，所以变换后第 $2,\\dots,n$ 行的每个元素 $a_{ij}-a_{1j}\\in\\{0,2,-2\\}$。\n\n从第 $2,\\dots,n$ 行各提出因子 $2$：\n$$D=2^{n-1}D_1,$$\n其中 $D_1$ 的元素都是整数，因而 $D_1$ 是整数。故 $2^{n-1}\\mid D$。$\\blacksquare$\n\n（例如 $n=3$ 时 $D\\in\\{0,\\pm4\\}$，可以验证 $|D|\\le4$ 能取到。）",
+   "solutionSource": "编写",
+   "source": "经典题"
+  },
+  {
+   "no": "15",
+   "type": "证明",
+   "subjects": [
+    "高等代数"
+   ],
+   "topics": [
+    "行列式的计算",
+    "组合数",
+    "递推"
+   ],
+   "difficulty": 5,
+   "statement": "设 $n$ 阶矩阵 $P_n=(p_{ij})$，$p_{ij}=\\dbinom{i+j-2}{i-1}$（$i,j=1,\\dots,n$），即\n$$P_4=\\begin{pmatrix}1&1&1&1\\\\1&2&3&4\\\\1&3&6&10\\\\1&4&10&20\\end{pmatrix}.$$\n证明 $\\det P_n=1$。",
+   "answer": "",
+   "solution": "约定 $\\dbinom{m}{k}=0$（$k<0$ 或 $k>m$），并利用 Pascal 公式 $\\dbinom{m}{k}-\\dbinom{m-1}{k-1}=\\dbinom{m-1}{k}$。\n\n**第一步（行变换）** 依次对 $i=n,n-1,\\dots,2$ 作 $r_i-r_{i-1}$（每次都用原来的第 $i-1$ 行，故从下往上做）。第 $i$ 行（$i\\ge2$）第 $j$ 列变为\n$$\\binom{i+j-2}{i-1}-\\binom{i+j-3}{i-2}=\\binom{i+j-3}{i-1}.$$\n第 1 行仍全为 $1$。\n\n**第二步（列变换）** 依次对 $j=n,\\dots,2$ 作 $c_j-c_{j-1}$。第 1 行变为 $(1,0,\\dots,0)$；对 $i\\ge2$，第 1 列元素为 $\\dbinom{i-2}{i-1}=0$；对 $i,j\\ge2$，\n$$\\binom{i+j-3}{i-1}-\\binom{i+j-4}{i-1}=\\binom{i+j-4}{i-2}=p_{i-1,j-1}.$$\n\n所以变换后的矩阵为 $\\begin{pmatrix}1&0\\\\0&P_{n-1}\\end{pmatrix}$，行列式不变，得 $\\det P_n=\\det P_{n-1}$。又 $\\det P_1=1$，归纳得 $\\det P_n=1$。$\\blacksquare$\n\n（例：$\\det P_4=1$ 可直接验证。）",
+   "solutionSource": "编写",
+   "source": "经典题（竞赛）"
+  },
+  {
+   "no": "16",
+   "type": "证明",
+   "subjects": [
+    "高等代数"
+   ],
+   "topics": [
+    "Cauchy行列式",
+    "行列式的计算"
+   ],
+   "difficulty": 5,
+   "statement": "设 $a_i+b_j\\ne0$（$1\\le i,j\\le n$）。证明 Cauchy 行列式公式\n$$C_n=\\det\\left(\\frac{1}{a_i+b_j}\\right)_{n\\times n}=\\frac{\\prod\\limits_{1\\le i<j\\le n}(a_j-a_i)(b_j-b_i)}{\\prod\\limits_{i=1}^n\\prod\\limits_{j=1}^n(a_i+b_j)}.$$\n并由此说明 Hilbert 矩阵 $\\left(\\dfrac1{i+j-1}\\right)_{n\\times n}$ 的行列式不为零。",
+   "answer": "",
+   "solution": "对 $n$ 归纳，$n=1$ 显然。\n\n**列变换** 对 $j<n$，第 $j$ 列减去第 $n$ 列：\n$$\\frac1{a_i+b_j}-\\frac1{a_i+b_n}=\\frac{b_n-b_j}{(a_i+b_j)(a_i+b_n)}.$$\n从第 $j$ 列（$j<n$）提出 $b_n-b_j$，从第 $i$ 行（所有 $i$）提出 $\\dfrac1{a_i+b_n}$。此时第 $j$ 列（$j<n$）元素为 $\\dfrac1{a_i+b_j}$，第 $n$ 列全为 $1$。\n\n**行变换** 对 $i<n$，第 $i$ 行减去第 $n$ 行：第 $n$ 列变为 $0$，第 $j$ 列（$j<n$）变为\n$$\\frac1{a_i+b_j}-\\frac1{a_n+b_j}=\\frac{a_n-a_i}{(a_i+b_j)(a_n+b_j)}.$$\n从第 $i$ 行（$i<n$）提出 $a_n-a_i$，从第 $j$ 列（$j<n$）提出 $\\dfrac1{a_n+b_j}$。此时左上 $(n-1)$ 阶块是 $\\left(\\dfrac1{a_i+b_j}\\right)_{i,j<n}$，第 $n$ 列为 $(0,\\dots,0,1)^{T}$。按第 $n$ 列展开：\n$$C_n=\\frac{\\prod_{j<n}(b_n-b_j)\\prod_{i<n}(a_n-a_i)}{\\prod_{i=1}^{n}(a_i+b_n)\\prod_{j<n}(a_n+b_j)}\\,C_{n-1}.$$\n分母恰好是所有含下标 $n$ 的因子 $a_i+b_j$（$i=n$ 或 $j=n$），分子恰好是所有含下标 $n$ 的差。由归纳假设即得所述公式。$\\blacksquare$\n\n**Hilbert 矩阵** 取 $a_i=i$，$b_j=j-1$，则 $a_i+b_j=i+j-1$。$a_i$ 两两不同、$b_j$ 两两不同，公式分子非零，故 Hilbert 行列式不为零（且为正）。",
+   "solutionSource": "编写",
+   "source": "经典题（Cauchy 行列式）"
+  }
+ ]
+}

@@ -1,0 +1,143 @@
+{
+ "id": "cmc-math-03-prelim",
+ "title": "第三届全国大学生数学竞赛初赛（数学类）",
+ "year": 2011,
+ "track": "数学类",
+ "round": "初赛",
+ "paper": "",
+ "durationMin": 150,
+ "totalScore": 100,
+ "source": {
+  "question": "2011年01-试题-第三届全国初赛-数学类试卷.pdf",
+  "solution": "2011年02-参考答案-第三届全国初赛-数学类试卷.pdf"
+ },
+ "problems": [
+  {
+   "no": "一",
+   "score": 15,
+   "type": "计算",
+   "subjects": [
+    "解析几何"
+   ],
+   "topics": [
+    "球面方程",
+    "四点共球"
+   ],
+   "difficulty": 1,
+   "statement": "已知四点 $(1,2,7),(4,3,3),(5,-1,6),(\\sqrt7,\\sqrt7,0)$。试求过这四点的球面方程。",
+   "answer": "$(x-1)^2+(y+1)^2+(z-3)^2=25$",
+   "solution": "设球心为 $(\\bar x,\\bar y,\\bar z)$，它到四点距离相等：\n$$(\\bar x-1)^2+(\\bar y-2)^2+(\\bar z-7)^2=(\\bar x-4)^2+(\\bar y-3)^2+(\\bar z-3)^2=(\\bar x-5)^2+(\\bar y+1)^2+(\\bar z-6)^2=(\\bar x-\\sqrt7)^2+(\\bar y-\\sqrt7)^2+\\bar z^2.$$\n展开相减得线性方程组\n$$\\begin{cases}3\\bar x+\\bar y-\\bar z=-10,\\\\4\\bar x-3\\bar y-\\bar z=4,\\\\(\\sqrt7-1)\\bar x+(\\sqrt7-2)\\bar y-7\\bar z=-20,\\end{cases}$$\n解得 $(\\bar x,\\bar y,\\bar z)=(1,-1,3)$，半径平方 $(1-1)^2+(-1-2)^2+(3-7)^2=25$。所求球面方程为\n$$(x-1)^2+(y+1)^2+(z-3)^2=25.$$",
+   "solutionSource": "官方"
+  },
+  {
+   "no": "二",
+   "score": 10,
+   "type": "证明",
+   "subjects": [
+    "数学分析"
+   ],
+   "topics": [
+    "积分不等式",
+    "均值不等式",
+    "积分中值"
+   ],
+   "difficulty": 2,
+   "statement": "设 $f_1,f_2,\\cdots,f_n$ 为 $[0,1]$ 上的非负连续函数，求证：存在 $\\xi\\in[0,1]$，使得\n$$\\prod_{k=1}^n f_k(\\xi)\\leqslant\\prod_{k=1}^n\\int_0^1 f_k(x)\\,\\mathrm{d}x.$$",
+   "answer": "",
+   "solution": "记 $a_k=\\displaystyle\\int_0^1 f_k(x)\\,\\mathrm{d}x$。若某个 $a_k=0$，则 $f_k\\equiv0$，结论平凡。\n\n设所有 $a_k>0$。由算术–几何平均不等式，\n$$\\int_0^1\\sqrt[n]{\\prod_{k=1}^n\\frac{f_k(x)}{a_k}}\\,\\mathrm{d}x\\leqslant\\int_0^1\\frac1n\\sum_{k=1}^n\\frac{f_k(x)}{a_k}\\,\\mathrm{d}x=1.$$\n被积函数连续，故存在 $\\xi\\in[0,1]$ 使 $\\sqrt[n]{\\prod_{k=1}^n\\dfrac{f_k(\\xi)}{a_k}}\\leqslant1$，即 $\\prod f_k(\\xi)\\leqslant\\prod a_k$。",
+   "solutionSource": "官方"
+  },
+  {
+   "no": "三",
+   "score": 15,
+   "type": "证明",
+   "subjects": [
+    "高等代数"
+   ],
+   "topics": [
+    "线性变换",
+    "与所有矩阵可交换",
+    "数量变换"
+   ],
+   "difficulty": 2,
+   "statement": "设 $F^n$ 是数域 $F$ 上的 $n$ 维列空间，$\\sigma:F^n\\to F^n$ 是一个线性变换。若\n$$\\forall A\\in M_n(F),\\quad\\sigma(A\\alpha)=A\\sigma(\\alpha)\\ (\\forall\\alpha\\in F^n),$$\n证明：$\\sigma=\\lambda\\cdot\\mathrm{id}_{F^n}$，其中 $\\lambda$ 是 $F$ 中的某个数，$\\mathrm{id}_{F^n}$ 表示恒同变换。",
+   "answer": "",
+   "solution": "设 $\\sigma$ 在标准基 $\\varepsilon_1,\\cdots,\\varepsilon_n$ 下的矩阵为 $B$，则 $\\sigma(\\alpha)=B\\alpha$。由条件 $BA\\alpha=AB\\alpha$ 对一切 $\\alpha$ 成立，故 $AB=BA$ 对一切 $A\\in M_n(F)$ 成立。\n\n设 $B=(b_{ij})$。取 $A=\\operatorname{diag}(1,\\cdots,1,c,1,\\cdots,1)$（$c\\neq0,1$ 位于第 $i$ 个位置），由 $AB=BA$ 得 $b_{ij}=b_{ji}=0\\ (j\\neq i)$，即 $B$ 为对角阵。再取 $A=I_n-E_{ii}-E_{jj}+E_{ij}+E_{ji}$（交换第 $i,j$ 个坐标），由 $AB=BA$ 得 $b_{ii}=b_{jj}$。取 $\\lambda=b_{11}$，则 $B=\\lambda I_n$，从而 $\\sigma=\\lambda\\cdot\\mathrm{id}_{F^n}$。\n\n（注：原试卷条件写作“$\\forall\\alpha\\in V$”，此处 $V$ 即 $F^n$。）",
+   "solutionSource": "官方"
+  },
+  {
+   "no": "四",
+   "score": 10,
+   "type": "计算",
+   "subjects": [
+    "数学分析"
+   ],
+   "topics": [
+    "三角函数最值",
+    "多元函数最值",
+    "辅助角"
+   ],
+   "difficulty": 3,
+   "statement": "对于 $\\triangle ABC$，求 $3\\sin A+4\\sin B+18\\sin C$ 的最大值。",
+   "answer": "$\\dfrac{35\\sqrt7}{4}$",
+   "solution": "考虑在闭包 $E=\\{(\\alpha,\\beta,\\gamma)\\mid\\alpha+\\beta+\\gamma=\\pi,\\ \\alpha,\\beta,\\gamma\\geqslant0\\}$ 上求最大值。由 $\\sin B=\\sin(A+C)$，\n$$3\\sin A+4\\sin B+18\\sin C=(3+4\\cos C)\\sin A+4\\sin C\\cos A+18\\sin C.$$\n对固定 $C$ 关于 $A\\in[0,\\pi-C]$ 取最大（可取到辅助角），得\n$$\\max=\\max_{0\\leqslant C\\leqslant\\pi}\\left(\\sqrt{(3+4\\cos C)^2+16\\sin^2C}+18\\sin C\\right)=\\max_{0\\leqslant C\\leqslant\\pi}\\left(\\sqrt{25+24\\cos C}+18\\sin C\\right).$$\n记 $f(C)=\\sqrt{25+24\\cos C}+18\\sin C$，易知 $f(C)\\geqslant f(\\pi-C)$ 对 $C\\in[0,\\frac\\pi2]$ 成立，只需在 $[0,\\frac\\pi2]$ 上讨论。\n$$f'(C)=18\\cos C-\\frac{12\\sin C}{\\sqrt{25+24\\cos C}},$$\n$f'(C)=0$ 化为 $(8\\cos C-1)(27\\cos^2C+32\\cos C+4)=0$，在 $[0,\\frac\\pi2]$ 内的解为 $C=\\arccos\\frac18$。于是\n$$\\max f=\\max\\left\\{f\\left(\\arccos\\tfrac18\\right),f(0),f\\left(\\tfrac\\pi2\\right)\\right\\}=\\max\\left\\{\\frac{35\\sqrt7}{4},7,23\\right\\}=\\frac{35\\sqrt7}{4}.$$\n而在 $E$ 的边界上（某角为 0）最大值为 22，小于 $\\frac{35\\sqrt7}4$，故所求最大值在三角形内部取到，为 $\\dfrac{35\\sqrt7}{4}$。",
+   "solutionSource": "官方"
+  },
+  {
+   "no": "五",
+   "score": 15,
+   "type": "证明",
+   "subjects": [
+    "数学分析"
+   ],
+   "topics": [
+    "数列极限",
+    "泰勒展开",
+    "构造数列"
+   ],
+   "difficulty": 4,
+   "statement": "对于任何实数 $\\alpha$，求证存在取值于 $\\{-1,1\\}$ 的数列 $\\{a_n\\}_{n\\geqslant1}$ 满足\n$$\\lim_{n\\to+\\infty}\\left(\\sum_{k=1}^n\\sqrt{n+a_k}-n^{\\frac32}\\right)=\\alpha.$$",
+   "answer": "",
+   "solution": "由泰勒展开，对 $x\\in[-\\frac12,\\frac12]$ 有 $\\sqrt{1+x}=1+\\dfrac x2-\\dfrac{x^2}{8(1+\\xi)^{3/2}}$，从而 $\\left|\\sqrt{1+x}-1-\\frac x2\\right|\\leqslant x^2$。于是 $n\\geqslant2$ 时对任意 $\\pm1$ 数列，\n$$\\left|\\sum_{k=1}^n\\sqrt{n+a_k}-n^{\\frac32}-\\sum_{k=1}^n\\frac{a_k}{2\\sqrt n}\\right|=\\sqrt n\\left|\\sum_{k=1}^n\\left(\\sqrt{1+\\frac{a_k}{n}}-1-\\frac{a_k}{2n}\\right)\\right|\\leqslant\\sqrt n\\sum_{k=1}^n\\frac{1}{n^2}=\\frac1{\\sqrt n}.$$\n因此只需构造 $\\pm1$ 数列使 $y_n:=\\dfrac1{\\sqrt n}\\sum_{k=1}^n a_k\\to2\\alpha$。\n\n取 $a_1=1$，并令 $a_{n+1}=1$（若 $\\sum_{k=1}^na_k<2\\alpha\\sqrt n$），$a_{n+1}=-1$（否则）。若 $y_n>2\\alpha$（此时 $a_{n+1}=-1$），\n$$y_{n+1}-y_n=\\frac{y_n\\sqrt n-1}{\\sqrt{n+1}}-y_n=-\\frac{\\sqrt{n+1}+\\sqrt n+y_n}{\\sqrt{n+1}(\\sqrt{n+1}+\\sqrt n)},$$\n由 $|y_n|\\leqslant\\sqrt n$ 知 $-\\frac{2}{\\sqrt{n+1}}<y_{n+1}-y_n<0$；同理 $y_n<2\\alpha$ 时 $0<y_{n+1}-y_n<\\frac2{\\sqrt{n+1}}$。于是：$y_{n+1}-2\\alpha$ 与 $y_n-2\\alpha$ 同号时 $|y_{n+1}-2\\alpha|\\leqslant|y_n-2\\alpha|$；异号时 $|y_{n+1}-2\\alpha|\\leqslant|y_{n+1}-y_n|\\leqslant\\frac2{\\sqrt{n+1}}$。总之\n$$|y_{n+1}-2\\alpha|\\leqslant\\max\\left\\{|y_n-2\\alpha|,\\frac2{\\sqrt{n+1}}\\right\\}.$$\n又 $y_n$ 不能从某项起始终在 $2\\alpha$ 一侧（否则 $\\sum a_k$ 一直单调变化 $\\pm1$，$y_n\\to\\pm\\infty$ 方向偏离，矛盾），故对任意 $N$ 存在 $m\\geqslant N$ 使 $y_{m+1}-2\\alpha,y_m-2\\alpha$ 异号，由上式递推得 $|y_k-2\\alpha|\\leqslant\\frac2{\\sqrt{m+1}}\\leqslant\\frac2{\\sqrt{N+1}}$ 对一切 $k>m$ 成立。因此 $y_n\\to2\\alpha$，所求极限为 $\\alpha$。",
+   "solutionSource": "官方"
+  },
+  {
+   "no": "六",
+   "score": 20,
+   "type": "证明",
+   "subjects": [
+    "高等代数"
+   ],
+   "topics": [
+    "Fitting分解",
+    "不变子空间",
+    "幂零矩阵",
+    "矩阵相似"
+   ],
+   "difficulty": 3,
+   "statement": "设 $A$ 是数域 $F$ 上的 $n$ 阶方阵。证明：$A$ 相似于 $\\begin{pmatrix}B&0\\\\0&C\\end{pmatrix}$，其中 $B$ 是可逆矩阵，$C$ 是幂零阵，即存在 $m$ 使得 $C^m=0$。",
+   "answer": "",
+   "solution": "设 $V$ 是 $F$ 上 $n$ 维线性空间，$\\sigma$ 在某组基下的矩阵为 $A$。只需证存在 $\\sigma$-不变子空间 $V_1,V_2$，$V=V_1\\oplus V_2$，且 $\\sigma|_{V_1}$ 可逆，$\\sigma|_{V_2}$ 幂零。\n\n子空间链 $\\operatorname{Ker}\\sigma\\subseteq\\operatorname{Ker}\\sigma^2\\subseteq\\cdots$ 必稳定，故存在 $m$ 使 $\\operatorname{Ker}\\sigma^m=\\operatorname{Ker}\\sigma^{2m}$。\n\n若 $\\alpha\\in\\operatorname{Ker}\\sigma^m\\cap\\operatorname{Im}\\sigma^m$，设 $\\alpha=\\sigma^m(\\beta)$，则 $\\sigma^{2m}(\\beta)=0$，故 $\\beta\\in\\operatorname{Ker}\\sigma^{2m}=\\operatorname{Ker}\\sigma^m$，$\\alpha=0$。由维数公式得 $V=\\operatorname{Ker}\\sigma^m\\oplus\\operatorname{Im}\\sigma^m$。\n\n两者都是 $\\sigma$-不变子空间；$\\sigma^m(\\operatorname{Ker}\\sigma^m)=0$，故 $\\sigma|_{\\operatorname{Ker}\\sigma^m}$ 幂零；$\\sigma(\\operatorname{Im}\\sigma^m)=\\operatorname{Im}\\sigma^{m+1}$，而由维数 $\\dim\\operatorname{Im}\\sigma^{m+1}=\\dim\\operatorname{Im}\\sigma^m$，故 $\\sigma|_{\\operatorname{Im}\\sigma^m}$ 满射从而可逆。取 $V_1=\\operatorname{Im}\\sigma^m$、$V_2=\\operatorname{Ker}\\sigma^m$ 的基合并为 $V$ 的基，$\\sigma$ 在该基下矩阵为 $\\begin{pmatrix}B&0\\\\0&C\\end{pmatrix}$，$B$ 可逆，$C$ 幂零。\n\n【注】若视 $F$ 为复数域直接用若尔当标准形证明，证明正确可给 10 分：把特征值非零的若尔当块组成 $B$，特征值为 0 的若尔当块组成 $C$ 即可。",
+   "solutionSource": "官方"
+  },
+  {
+   "no": "七",
+   "score": 15,
+   "type": "证明",
+   "subjects": [
+    "数学分析"
+   ],
+   "topics": [
+    "无穷积分",
+    "Dirichlet判别法",
+    "单调函数",
+    "含参积分"
+   ],
+   "difficulty": 4,
+   "statement": "设 $F(x)$ 是 $[0,+\\infty)$ 上的单调递减函数，$\\lim\\limits_{x\\to+\\infty}F(x)=0$，且\n$$\\lim_{n\\to+\\infty}\\int_0^{+\\infty}F(t)\\sin\\frac tn\\,\\mathrm{d}t=0.$$\n证明：(i) $\\lim\\limits_{x\\to+\\infty}xF(x)=0$；(ii) $\\lim\\limits_{x\\to0}\\displaystyle\\int_0^{+\\infty}F(t)\\sin(xt)\\,\\mathrm{d}t=0$。",
+   "answer": "",
+   "solution": "由 Dirichlet 判别法，对任意 $x\\in\\mathbb R$，$\\int_0^{+\\infty}F(t)\\sin(xt)\\,\\mathrm{d}t$ 收敛，记为 $f(x)$。注意 $F\\geqslant0$（递减趋于 0）。\n\n**(i)** 由 $F$ 单调递减，对 $k=0,1,2,\\cdots$，\n$$\\int_{2k\\pi}^{(2k+2)\\pi}F(nt)\\sin t\\,\\mathrm{d}t=\\int_0^\\pi\\big(F(2nk\\pi+nt)-F(2nk\\pi+2n\\pi-nt)\\big)\\sin t\\,\\mathrm{d}t\\geqslant0.$$\n故\n$$f\\left(\\tfrac1n\\right)=\\int_0^{+\\infty}nF(nt)\\sin t\\,\\mathrm{d}t\\geqslant\\int_0^{\\pi/2}n\\big(F(nt)-F(2n\\pi-nt)\\big)\\sin t\\,\\mathrm{d}t\\geqslant n\\left[F\\left(\\tfrac{n\\pi}2\\right)-F\\left(\\tfrac{3n\\pi}2\\right)\\right]\\geqslant0.$$\n由 $f(\\frac1n)\\to0$ 得 $n\\left[F(\\frac{n\\pi}2)-F(\\frac{3n\\pi}2)\\right]\\to0$。任给 $\\delta>0$，存在 $N$，$n>N$ 时 $n\\left[F(\\frac{n\\pi}2)-F(\\frac{3n\\pi}2)\\right]\\leqslant\\delta$。对 $n>N$（则 $3^kn>N$），望远镜求和\n$$0\\leqslant nF\\left(\\tfrac{n\\pi}2\\right)\\leqslant\\sum_{k=0}^m n\\left[F\\left(\\tfrac{3^kn\\pi}2\\right)-F\\left(\\tfrac{3^{k+1}n\\pi}2\\right)\\right]+nF\\left(\\tfrac{3^{m+1}n\\pi}2\\right)\\leqslant\\sum_{k=0}^m\\frac{\\delta}{3^k}+nF\\left(\\tfrac{3^{m+1}n\\pi}2\\right).$$\n令 $m\\to\\infty$ 得 $0\\leqslant nF(\\frac{n\\pi}2)\\leqslant\\frac{3\\delta}2$，故 $nF(\\frac{n\\pi}2)\\to0$。再由单调性，$x>\\frac\\pi2$ 时\n$$0\\leqslant xF(x)\\leqslant\\frac\\pi2\\left(\\left[\\tfrac{2x}\\pi\\right]+1\\right)F\\left(\\left[\\tfrac{2x}\\pi\\right]\\cdot\\tfrac\\pi2\\right),$$\n其中 $[s]$ 表示 $s$ 的整数部分，从而 $\\lim\\limits_{x\\to+\\infty}xF(x)=0$。\n\n**(ii)** 由 (i)，$xF(x)$ 在 $[0,+\\infty)$ 上有界，设上界为 $M$。当 $x>0$ 时，$f(x)=\\int_0^{+\\infty}x^{-1}F(t/x)\\sin t\\,\\mathrm{d}t$，同 (i) 的分段论证知 $\\int_\\pi^{+\\infty}\\leqslant0$ 而整体 $\\geqslant0$，故对任意 $\\varepsilon\\in(0,\\pi)$，\n$$0\\leqslant f(x)\\leqslant\\int_0^\\pi x^{-1}F(x^{-1}t)\\sin t\\,\\mathrm{d}t\\leqslant\\int_0^\\varepsilon\\frac tx F\\left(\\frac tx\\right)\\frac{\\sin t}{t}\\,\\mathrm{d}t+\\int_\\varepsilon^\\pi x^{-1}F(x^{-1}\\varepsilon)\\,\\mathrm{d}t\\leqslant M\\varepsilon+\\frac{\\pi}{\\varepsilon}\\cdot\\frac{\\varepsilon}{x}F\\left(\\frac\\varepsilon x\\right).$$\n由 (i)，$x\\to0^+$ 时末项趋于 0，故 $0\\leqslant\\varlimsup\\limits_{x\\to0^+}f(x)\\leqslant M\\varepsilon$，由 $\\varepsilon$ 任意得 $\\lim\\limits_{x\\to0^+}f(x)=0$。又 $f$ 是奇函数，故 $\\lim\\limits_{x\\to0}f(x)=0$。\n\n（注：(ii) 中 $[\\varepsilon,\\pi]$ 段的估计与原解答写法略异，思路相同。）",
+   "solutionSource": "官方"
+  }
+ ]
+}

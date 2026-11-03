@@ -1,0 +1,245 @@
+{
+ "id": "ex-analysis-04",
+ "title": "数学分析 · 函数的连续性",
+ "subject": "数学分析",
+ "chapter": 4,
+ "problems": [
+  {
+   "no": "1",
+   "type": "计算",
+   "subjects": [
+    "数学分析"
+   ],
+   "topics": [
+    "间断点分类"
+   ],
+   "difficulty": 1,
+   "statement": "求函数 $f(x)=\\dfrac{x^2-x}{|x|(x^2-1)}$ 的间断点并判断其类型。",
+   "answer": "$x=0$ 跳跃间断点；$x=1$ 可去间断点；$x=-1$ 第二类（无穷）间断点",
+   "solution": "$f$ 在 $x=0,\\pm1$ 处无定义，其余点处连续。当 $x\\ne0,\\pm1$ 时\n$$f(x)=\\dfrac{x(x-1)}{|x|(x-1)(x+1)}=\\dfrac{x}{|x|(x+1)}.$$\n- $x=0$：$f(0+0)=\\dfrac{1}{1}=1$，$f(0-0)=\\dfrac{-1}{1}=-1$，左右极限存在但不等，为跳跃间断点（第一类）。\n- $x=1$：$\\lim_{x\\to1}f(x)=\\dfrac12$ 存在，为可去间断点。\n- $x=-1$：$|f(x)|=\\dfrac{1}{|x+1|}\\to\\infty$，为第二类（无穷）间断点。",
+   "solutionSource": "编写",
+   "source": "经典题"
+  },
+  {
+   "no": "2",
+   "type": "证明",
+   "subjects": [
+    "数学分析"
+   ],
+   "topics": [
+    "零点存在定理",
+    "单调性"
+   ],
+   "difficulty": 1,
+   "statement": "证明方程 $x^3+x-1=0$ 在 $(0,1)$ 内有且仅有一个实根。",
+   "answer": "",
+   "solution": "令 $f(x)=x^3+x-1$，在 $[0,1]$ 上连续，$f(0)=-1<0$，$f(1)=1>0$，由零点存在定理存在根 $\\xi\\in(0,1)$。又 $f$ 在 $\\mathbb{R}$ 上严格递增（两个严格增函数之和），故根唯一。",
+   "solutionSource": "编写",
+   "source": "经典题"
+  },
+  {
+   "no": "3",
+   "type": "证明",
+   "subjects": [
+    "数学分析"
+   ],
+   "topics": [
+    "介值定理",
+    "不动点"
+   ],
+   "difficulty": 1,
+   "statement": "设 $f:[0,1]\\to[0,1]$ 连续。证明存在 $\\xi\\in[0,1]$ 使 $f(\\xi)=\\xi$。",
+   "answer": "",
+   "solution": "令 $g(x)=f(x)-x$，在 $[0,1]$ 上连续，$g(0)=f(0)\\ge0$，$g(1)=f(1)-1\\le0$。若有一端为 $0$ 即得不动点；否则 $g(0)>0>g(1)$，由零点存在定理存在 $\\xi\\in(0,1)$ 使 $g(\\xi)=0$。",
+   "solutionSource": "编写",
+   "source": "经典题"
+  },
+  {
+   "no": "4",
+   "type": "证明",
+   "subjects": [
+    "数学分析"
+   ],
+   "topics": [
+    "介值定理",
+    "最值定理"
+   ],
+   "difficulty": 2,
+   "statement": "设 $f$ 在 $[a,b]$ 上连续，$x_1,\\dots,x_n\\in[a,b]$。证明存在 $\\xi\\in[a,b]$ 使\n$$f(\\xi)=\\dfrac{f(x_1)+f(x_2)+\\cdots+f(x_n)}{n}.$$",
+   "answer": "",
+   "solution": "由最值定理 $f$ 在 $[a,b]$ 上取得最小值 $m=f(p)$ 与最大值 $M=f(q)$。显然\n$$m\\le\\dfrac{f(x_1)+\\cdots+f(x_n)}n\\le M.$$\n由介值定理，$f$ 在以 $p,q$ 为端点的闭区间上取遍 $[m,M]$ 中的每个值，故存在 $\\xi$ 使结论成立。",
+   "solutionSource": "编写",
+   "source": "经典题"
+  },
+  {
+   "no": "5",
+   "type": "证明",
+   "subjects": [
+    "数学分析"
+   ],
+   "topics": [
+    "一致连续"
+   ],
+   "difficulty": 2,
+   "statement": "证明：（1）$f(x)=\\sqrt x$ 在 $[0,+\\infty)$ 上一致连续；（2）$g(x)=x^2$ 在 $\\mathbb{R}$ 上不一致连续。",
+   "answer": "",
+   "solution": "（1）对 $x,y\\ge0$，有 $|\\sqrt x-\\sqrt y|\\le\\sqrt{|x-y|}$（不妨 $x\\ge y$，则 $(\\sqrt x-\\sqrt y)^2\\le(\\sqrt x-\\sqrt y)(\\sqrt x+\\sqrt y)=x-y$）。任给 $\\varepsilon>0$，取 $\\delta=\\varepsilon^2$，当 $|x-y|<\\delta$ 时 $|\\sqrt x-\\sqrt y|<\\varepsilon$。\n\n（2）取 $x_n=n+\\dfrac1n$，$y_n=n$，则 $|x_n-y_n|=\\dfrac1n\\to0$，但\n$$|g(x_n)-g(y_n)|=2+\\dfrac1{n^2}>2.$$\n取 $\\varepsilon_0=2$，对任意 $\\delta>0$ 都存在 $|x_n-y_n|<\\delta$ 而函数值之差 $\\ge\\varepsilon_0$，故不一致连续。",
+   "solutionSource": "编写",
+   "source": "经典题"
+  },
+  {
+   "no": "6",
+   "type": "证明",
+   "subjects": [
+    "数学分析"
+   ],
+   "topics": [
+    "一致连续"
+   ],
+   "difficulty": 2,
+   "statement": "证明 $f(x)=\\sin\\dfrac1x$ 在 $(0,1)$ 上连续但不一致连续。",
+   "answer": "",
+   "solution": "连续性由初等函数的连续性得到。取\n$$x_n=\\dfrac{1}{2n\\pi+\\frac\\pi2},\\qquad y_n=\\dfrac1{2n\\pi},$$\n都在 $(0,1)$ 中，$|x_n-y_n|\\to0$，而 $|f(x_n)-f(y_n)|=|1-0|=1$。取 $\\varepsilon_0=1$ 即知不一致连续。",
+   "solutionSource": "编写",
+   "source": "经典题"
+  },
+  {
+   "no": "7",
+   "type": "证明",
+   "subjects": [
+    "数学分析"
+   ],
+   "topics": [
+    "Riemann函数",
+    "连续性"
+   ],
+   "difficulty": 3,
+   "statement": "Riemann 函数定义为：在 $(0,1)$ 上，$x=\\dfrac pq$（$p,q$ 为互素正整数）时 $R(x)=\\dfrac1q$，$x$ 为无理数时 $R(x)=0$。证明 $R$ 在无理点连续，在有理点间断。",
+   "answer": "",
+   "solution": "先证：对任意 $x_0\\in(0,1)$，$\\lim_{x\\to x_0}R(x)=0$。任给 $\\varepsilon>0$，分母 $q\\le\\dfrac1\\varepsilon$ 的有理数在 $(0,1)$ 中只有有限个，它们中不等于 $x_0$ 的那些与 $x_0$ 的距离有正的最小值 $\\delta$。当 $0<|x-x_0|<\\delta$ 时，$x$ 或为无理数（$R(x)=0$），或为分母 $q>\\dfrac1\\varepsilon$ 的有理数（$R(x)<\\varepsilon$），总有 $|R(x)|<\\varepsilon$。\n\n于是：$x_0$ 为无理数时 $R(x_0)=0=\\lim R$，连续；$x_0=\\dfrac pq$ 时 $R(x_0)=\\dfrac1q\\ne0$，为可去间断点。",
+   "solutionSource": "编写",
+   "source": "经典题"
+  },
+  {
+   "no": "8",
+   "type": "证明",
+   "subjects": [
+    "数学分析"
+   ],
+   "topics": [
+    "一致连续",
+    "Cauchy收敛准则"
+   ],
+   "difficulty": 3,
+   "statement": "设 $f$ 在 $[a,+\\infty)$ 上连续，且 $\\displaystyle\\lim_{x\\to+\\infty}f(x)=A$ 存在有限。证明 $f$ 在 $[a,+\\infty)$ 上一致连续。",
+   "answer": "",
+   "solution": "任给 $\\varepsilon>0$。由 Cauchy 准则，存在 $X>a$，当 $x,y\\ge X$ 时 $|f(x)-f(y)|<\\varepsilon$。\n\n$f$ 在闭区间 $[a,X+1]$ 上连续，由 Cantor 定理一致连续：存在 $\\delta_1>0$，当 $x,y\\in[a,X+1]$，$|x-y|<\\delta_1$ 时 $|f(x)-f(y)|<\\varepsilon$。\n\n令 $\\delta=\\min\\{\\delta_1,1\\}$。若 $x,y\\in[a,+\\infty)$，$|x-y|<\\delta$，则或者 $x,y$ 都在 $[a,X+1]$ 中，或者 $x,y$ 都 $\\ge X$（因两者相距小于 $1$，若一个大于 $X+1$，另一个大于 $X$）。两种情形都有 $|f(x)-f(y)|<\\varepsilon$。",
+   "solutionSource": "编写",
+   "source": "经典题"
+  },
+  {
+   "no": "9",
+   "type": "证明",
+   "subjects": [
+    "数学分析"
+   ],
+   "topics": [
+    "Cauchy函数方程",
+    "连续性"
+   ],
+   "difficulty": 3,
+   "statement": "设 $f$ 在 $\\mathbb{R}$ 上连续，且对任意 $x,y$ 满足 $f(x+y)=f(x)+f(y)$。证明 $f(x)=cx$，其中 $c=f(1)$。",
+   "answer": "",
+   "solution": "令 $x=y=0$ 得 $f(0)=0$；令 $y=-x$ 得 $f(-x)=-f(x)$。归纳得 $f(nx)=nf(x)$（$n\\in\\mathbb{N}$），再由奇性对 $n\\in\\mathbb{Z}$ 成立。\n\n对有理数 $r=\\dfrac pq$（$q>0$）：$qf\\left(\\dfrac pq\\right)=f(p)=pf(1)$，故 $f(r)=cr$。\n\n对任意实数 $x$，取有理数列 $r_n\\to x$，由连续性 $f(x)=\\lim f(r_n)=\\lim cr_n=cx$。",
+   "solutionSource": "编写",
+   "source": "经典题"
+  },
+  {
+   "no": "10",
+   "type": "证明",
+   "subjects": [
+    "数学分析"
+   ],
+   "topics": [
+    "最值定理",
+    "连续函数"
+   ],
+   "difficulty": 2,
+   "statement": "设 $f$ 在 $\\mathbb{R}$ 上连续，且 $\\displaystyle\\lim_{x\\to\\pm\\infty}f(x)=+\\infty$。证明 $f$ 在 $\\mathbb{R}$ 上取得最小值。",
+   "answer": "",
+   "solution": "由条件，存在 $X>0$，当 $|x|>X$ 时 $f(x)>f(0)$。$f$ 在 $[-X,X]$ 上连续，取得最小值 $f(x_0)$，且 $f(x_0)\\le f(0)$。于是对 $|x|\\le X$，$f(x)\\ge f(x_0)$；对 $|x|>X$，$f(x)>f(0)\\ge f(x_0)$。故 $f(x_0)$ 是 $f$ 在 $\\mathbb{R}$ 上的最小值。",
+   "solutionSource": "编写",
+   "source": "经典题"
+  },
+  {
+   "no": "11",
+   "type": "证明",
+   "subjects": [
+    "数学分析"
+   ],
+   "topics": [
+    "介值定理",
+    "水平弦定理"
+   ],
+   "difficulty": 4,
+   "statement": "设 $f$ 在 $[0,1]$ 上连续，$f(0)=f(1)$，$n$ 为正整数。证明存在 $\\xi\\in\\left[0,1-\\dfrac1n\\right]$，使 $f\\left(\\xi+\\dfrac1n\\right)=f(\\xi)$。",
+   "answer": "",
+   "solution": "$n=1$ 时取 $\\xi=0$。设 $n\\ge2$，令 $g(x)=f\\left(x+\\dfrac1n\\right)-f(x)$，在 $\\left[0,1-\\dfrac1n\\right]$ 上连续，且\n$$\\sum_{k=0}^{n-1}g\\left(\\dfrac kn\\right)=\\sum_{k=0}^{n-1}\\left[f\\left(\\dfrac{k+1}n\\right)-f\\left(\\dfrac kn\\right)\\right]=f(1)-f(0)=0.$$\n若某个 $g\\left(\\dfrac kn\\right)=0$，结论已成立。否则这 $n$ 个数和为 $0$，必有一正一负，比如 $g\\left(\\dfrac in\\right)>0>g\\left(\\dfrac jn\\right)$，由零点存在定理，在 $\\dfrac in$ 与 $\\dfrac jn$ 之间存在 $\\xi$ 使 $g(\\xi)=0$。\n\n注：若 $h$ 不是某个 $\\dfrac1n$ 形式，结论可能不成立（Lévy 的水平弦定理）。",
+   "solutionSource": "编写",
+   "source": "经典题"
+  },
+  {
+   "no": "12",
+   "type": "证明",
+   "subjects": [
+    "数学分析"
+   ],
+   "topics": [
+    "介值定理",
+    "单调性"
+   ],
+   "difficulty": 4,
+   "statement": "设 $f$ 在区间 $I$ 上连续且为单射。证明 $f$ 在 $I$ 上严格单调。",
+   "answer": "",
+   "solution": "第一步：对 $I$ 中任意三点 $a<b<c$，$f(b)$ 必介于 $f(a)$ 与 $f(c)$ 之间。否则，不妨 $f(b)>\\max\\{f(a),f(c)\\}$，取 $y$ 满足 $\\max\\{f(a),f(c)\\}<y<f(b)$，由介值定理在 $(a,b)$ 与 $(b,c)$ 中各有一点取值 $y$，与单射矛盾。（$f(b)<\\min$ 的情形同理；由单射三个值互不相等。）\n\n第二步：反设 $f$ 不严格单调，则存在 $x_1<x_2$ 使 $f(x_1)<f(x_2)$，又存在 $x_3<x_4$ 使 $f(x_3)>f(x_4)$。令\n$$u(t)=(1-t)x_1+tx_3,\\quad v(t)=(1-t)x_2+tx_4,\\quad t\\in[0,1],$$\n则 $u(t)<v(t)$ 且 $u(t),v(t)\\in I$。函数 $\\varphi(t)=f(v(t))-f(u(t))$ 连续，$\\varphi(0)>0>\\varphi(1)$，故存在 $t_0$ 使 $f(v(t_0))=f(u(t_0))$，但 $u(t_0)\\ne v(t_0)$，与单射矛盾。\n\n（第二步实际已包含完整证明；第一步给出了另一种处理思路。）",
+   "solutionSource": "编写",
+   "source": "经典题"
+  },
+  {
+   "no": "13",
+   "type": "证明",
+   "subjects": [
+    "数学分析"
+   ],
+   "topics": [
+    "周期函数",
+    "连续性",
+    "下确界"
+   ],
+   "difficulty": 4,
+   "statement": "设 $f$ 是 $\\mathbb{R}$ 上连续的周期函数，且不是常数。证明 $f$ 有最小正周期。",
+   "answer": "",
+   "solution": "设 $T$ 为 $f$ 的全体正周期之集，非空，令 $\\tau=\\inf T\\ge0$。\n\n（1）$\\tau>0$：反设 $\\tau=0$，则存在正周期 $T_n\\to0$。任取 $x,y\\in\\mathbb{R}$，令 $k_n=\\left[\\dfrac{y-x}{T_n}\\right]$，则 $x+k_nT_n\\to y$，且 $f(x+k_nT_n)=f(x)$（整数倍的周期仍是周期）。由连续性 $f(y)=f(x)$，$f$ 为常数，矛盾。\n\n（2）$\\tau\\in T$：取周期 $T_n\\to\\tau$，对任意 $x$，$f(x+\\tau)=\\lim f(x+T_n)=f(x)$，故 $\\tau$ 是周期。\n\n所以 $\\tau$ 是最小正周期。",
+   "solutionSource": "编写",
+   "source": "经典题"
+  },
+  {
+   "no": "14",
+   "type": "证明",
+   "subjects": [
+    "数学分析"
+   ],
+   "topics": [
+    "介值定理",
+    "最值定理",
+    "反证法"
+   ],
+   "difficulty": 5,
+   "statement": "证明：不存在 $\\mathbb{R}$ 上的连续函数 $f$，使得它的每个函数值都恰好被取到两次（即对每个 $y\\in f(\\mathbb{R})$，方程 $f(x)=y$ 恰有两个解）。",
+   "answer": "",
+   "solution": "反设这样的 $f$ 存在。取 $a<b$ 使 $f(a)=f(b)=c$。在 $(a,b)$ 内 $f\\ne c$（否则 $c$ 被取三次），由介值定理 $f-c$ 在 $(a,b)$ 内不变号，不妨设 $f>c$ 于 $(a,b)$（否则考虑 $-f$）。\n\n$f$ 在 $[a,b]$ 上的最大值 $M>c$，在 $(a,b)$ 内某点取得。\n\n情形 1：$M$ 在 $(a,b)$ 内被取两次，于 $m_1<m_2$。$f$ 在 $[m_1,m_2]$ 上不恒为 $M$（否则 $M$ 被取无穷多次），取 $t\\in(m_1,m_2)$ 使 $f(t)<M$。取 $y$ 满足 $\\max\\{c,f(t)\\}<y<M$，由介值定理，$y$ 分别在 $(a,m_1)$，$(m_1,t)$，$(t,m_2)$，$(m_2,b)$ 中被取到，共至少 $4$ 次，矛盾。\n\n情形 2：$M$ 在 $[a,b]$ 中只取一次，于 $m\\in(a,b)$，另一次在 $p\\notin[a,b]$，不妨 $p>b$。取 $y\\in(c,M)$，则 $y$ 在 $(a,m)$、$(m,b)$ 中各被取一次；又 $f(b)=c<y<M=f(p)$，$y$ 在 $(b,p)$ 中再被取一次，共至少 $3$ 次，矛盾。（$p<a$ 时同理。）\n\n故这样的 $f$ 不存在。",
+   "solutionSource": "编写",
+   "source": "经典题"
+  }
+ ]
+}

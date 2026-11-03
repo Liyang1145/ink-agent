@@ -1,0 +1,129 @@
+{
+ "id": "cmc-math-11-prelim-A",
+ "title": "第十一届全国大学生数学竞赛初赛（数学A类）",
+ "year": 2019,
+ "track": "数学类",
+ "round": "初赛",
+ "paper": "A",
+ "durationMin": 150,
+ "totalScore": 100,
+ "source": {
+  "question": "11A-2019年第十一届全国大学生数学竞赛初赛数学专业(A类)试题.pdf",
+  "solution": "11A-2019年第十一届全国大学生数学竞赛初赛数学类（A卷）试题解答.pdf"
+ },
+ "problems": [
+  {
+   "no": "一",
+   "score": 15,
+   "type": "证明",
+   "subjects": [
+    "解析几何"
+   ],
+   "topics": [
+    "旋转椭球面",
+    "球面相切",
+    "轨迹",
+    "焦点"
+   ],
+   "difficulty": 2,
+   "statement": "空间中有两个圆球面 $B_1$ 和 $B_2$，$B_2$ 包含在 $B_1$ 所围球体的内部，两球面之间的闭区域为 $D$。设 $B$ 是含在 $D$ 中的一个圆球，它与球面 $B_1$ 和 $B_2$ 均相切。问：\n\n(i) $B$ 的球心轨迹构成的曲面 $S$ 是何种曲面；\n\n(ii) $B_1$ 的球心和 $B_2$ 的球心是曲面 $S$ 的何种点。\n\n证明你的论断。",
+   "answer": "(i) 旋转椭球面；(ii) $B_1,B_2$ 的球心是 $S$ 的两个焦点。",
+   "solution": "设 $B_1$ 的球心为 $O_1$，半径 $R_1$；$B_2$ 的球心为 $O_2$，半径 $R_2$。设 $B$ 是含在 $D$ 中、与 $B_1,B_2$ 均相切的球，球心 $P$，半径 $r$。$B$ 与 $B_1$ 内切，故 $PO_1=R_1-r$；$B$ 与 $B_2$ 外切，故 $PO_2=R_2+r$。于是\n$$PO_1+PO_2=R_1+R_2$$\n总是常数。\n\n设 $\\ell$ 是过 $O_1,O_2$ 的直线（若 $O_1=O_2$ 则取过球心的任一直线）。$B_1,B_2$ 以及区域 $D$ 在以 $\\ell$ 为轴的旋转下不变，$B$ 在这种旋转下仍与 $B_1,B_2$ 相切，其球心轨迹在旋转下是圆周。在每个过 $\\ell$ 的平面 $\\Sigma$ 上，由 $PO_1+PO_2=R_1+R_2$ 为常数，$P$ 的轨迹是以 $O_1,O_2$ 为焦点的椭圆。故 $S$ 为旋转椭球面，旋转轴为直线 $O_1O_2$，两球心 $O_1,O_2$ 为它的两个焦点。",
+   "solutionSource": "官方"
+  },
+  {
+   "no": "二",
+   "score": 15,
+   "type": "证明",
+   "subjects": [
+    "数学分析"
+   ],
+   "topics": [
+    "反证法",
+    "积分不等式",
+    "Gronwall 不等式",
+    "单调性"
+   ],
+   "difficulty": 3,
+   "statement": "设 $\\alpha>0$，$f(x)$ 在 $[0,1]$ 上非负，有二阶导函数，$f(0)=0$，且在 $[0,1]$ 上不恒为零。求证：存在 $\\xi\\in(0,1)$ 使得 $$\\xi f''(\\xi)+(\\alpha+1)f'(\\xi)>\\alpha f(\\xi).$$",
+   "answer": "",
+   "solution": "反证。若结论不对，则对一切 $x\\in[0,1)$ 有 $xf''(x)+(\\alpha+1)f'(x)\\leqslant\\alpha f(x)$。这说明函数 $xf'(x)+\\alpha f(x)-\\alpha\\displaystyle\\int_0^xf(u)\\,\\mathrm du$ 的导数非正，单调递减，而它在 $0$ 处为 $0$，故\n$$xf'(x)+\\alpha f(x)\\leqslant\\alpha\\int_0^xf(u)\\,\\mathrm du,\\quad x\\in[0,1].$$\n乘以 $x^{\\alpha-1}$：$\\big(x^\\alpha f(x)\\big)'\\leqslant\\alpha x^{\\alpha-1}\\displaystyle\\int_0^xf(u)\\,\\mathrm du$。在 $[0,x]$ 上积分，并利用 $f\\geqslant0$：\n$$x^\\alpha f(x)\\leqslant\\alpha\\int_0^xt^{\\alpha-1}\\Big(\\int_0^tf\\Big)\\mathrm dt\\leqslant\\alpha\\int_0^xt^{\\alpha-1}\\,\\mathrm dt\\int_0^xf(u)\\,\\mathrm du=x^\\alpha\\int_0^xf(u)\\,\\mathrm du,$$\n故 $f(x)\\leqslant\\displaystyle\\int_0^xf(u)\\,\\mathrm du$。记 $g(x)=\\displaystyle\\int_0^xf(u)\\,\\mathrm du$，则 $g'\\leqslant g$，即 $\\big(e^{-x}g(x)\\big)'\\leqslant0$，$e^{-x}g(x)$ 在 $[0,1]$ 上递减。由 $g(0)=0$ 得 $g\\leqslant0$；又 $f\\geqslant0$ 给出 $g\\geqslant0$，故 $g\\equiv0$，从而 $f\\equiv0$，与 $f$ 不恒为零矛盾。",
+   "solutionSource": "官方"
+  },
+  {
+   "no": "三",
+   "score": 15,
+   "type": "证明",
+   "subjects": [
+    "高等代数"
+   ],
+   "topics": [
+    "特征多项式",
+    "共轭矩阵",
+    "det(sI+AB)=det(sI+BA)",
+    "实系数多项式"
+   ],
+   "difficulty": 3,
+   "statement": "设 $A$ 为 $n$ 阶复方阵，$p(x)$ 为 $I-\\bar AA$ 的特征多项式，其中 $\\bar A$ 表示 $A$ 的共轭矩阵。证明：$p(x)$ 必为实系数多项式。",
+   "answer": "",
+   "solution": "记 $p(t)=\\det\\big(tI-(I-\\bar AA)\\big)=\\det\\big((t-1)I+\\bar AA\\big)$。对任何实数 $t$，\n$$\\overline{p(t)}=\\det\\big((t-1)I+A\\bar A\\big).\\tag{$*$}$$\n对任意方阵 $A,B$ 有 $\\det(sI+AB)=\\det(sI+BA)$：取可逆矩阵列 $B_k\\to B$（如 $B_k=B+\\frac1kI$，$k$ 充分大），则\n$$\\det(sI+AB_k)=\\det(sB_k^{-1}+A)\\det B_k=\\det B_k\\det(sB_k^{-1}+A)=\\det(sI+B_kA),$$\n令 $k\\to\\infty$ 即得。（也可由分块矩阵 $\\begin{pmatrix}I&B\\\\A&sI\\end{pmatrix}$ 的两种初等变换比较行列式得到。）\n\n以 $B=\\bar A$ 代入，由 $(*)$ 得 $\\overline{p(t)}=\\det\\big((t-1)I+A\\bar A\\big)=\\det\\big((t-1)I+\\bar AA\\big)=p(t)$ 对所有实数 $t$ 成立，故 $p$ 的系数都是实数。",
+   "solutionSource": "官方"
+  },
+  {
+   "no": "四",
+   "score": 20,
+   "type": "证明",
+   "subjects": [
+    "高等代数"
+   ],
+   "topics": [
+    "二次型",
+    "正定",
+    "合同对角化",
+    "向量空间维数"
+   ],
+   "difficulty": 3,
+   "statement": "已知 $f_1$ 为实 $n$ 元正定二次型。令 $$V=\\{f\\mid f\\text{ 为实 }n\\text{ 元二次型，满足：对任何实数 }k\\text{ 有 }kf+f_1\\text{ 属于恒号二次型}\\},$$ 这里恒号二次型为 0 二次型，正定二次型及负定二次型的总称。证明：$V$ 按照通常的二次型加法和数乘构成一个实向量空间，并求这个向量空间的维数。",
+   "answer": "$V=\\{kf_1\\mid k\\in\\mathbb R\\}$，维数为 $1$。",
+   "solution": "**证法 1** 设 $f\\in V$，$f$ 与 $f_1$ 的矩阵分别为 $A$ 和 $B$。由 $B$ 正定，存在可逆 $P$ 使\n$$B=PP^{\\mathrm T},\\qquad A=P\\operatorname{diag}(\\lambda_1,\\dots,\\lambda_n)P^{\\mathrm T}.$$\n则 $kf+f_1=(z_1,\\dots,z_n)P\\operatorname{diag}(k\\lambda_1+1,\\dots,k\\lambda_n+1)P^{\\mathrm T}(z_1,\\dots,z_n)^{\\mathrm T}$。\n\n断言 $\\lambda_1=\\cdots=\\lambda_n$。若 $\\lambda_1\\neq\\lambda_2$，总可取实数 $q$ 使 $(q\\lambda_1+1)(q\\lambda_2+1)<0$；再取两点使 $(z_1,\\dots,z_n)P=(1,0,\\dots,0)$ 及 $(0,1,0,\\dots,0)$，则 $qf+f_1$ 在这两点取值异号，不是恒号二次型，矛盾。\n\n故 $A=\\lambda B$，即 $f=\\lambda f_1$；反之 $kf_1$ 显然满足条件。于是 $V=\\{kf_1\\mid k\\in\\mathbb R\\}$，按通常运算构成实向量空间，维数为 $1$。\n\n**证法 2（要点）** $0\\in V$，$kf_1\\in V$。对非零 $f\\in V$：若某 $k$ 使 $kf+f_1\\equiv0$，则 $f=-\\frac1kf_1$；否则对一切 $k$，$kf+f_1$ 正定或负定。反证 $f,f_1$ 线性无关：取 $P_1$ 使 $f_1(P_1)>0$，令 $g=f_1(P_1)f-f(P_1)f_1\\neq0$，取 $P_2$ 使 $g(P_2)\\neq0$，就 $f(P_1)\\neq0$ 或 $f(P_2)\\neq0$ 分别取 $k=\\frac{f_1(P_1)}{-f(P_1)}$ 或 $k=-\\frac{f_1(P_2)}{f(P_2)}$，可得 $kf+f_1$ 在 $P_1,P_2$ 处一为零一非零（或异号），与恒号矛盾。故 $f$ 与 $f_1$ 线性相关，结论同上。",
+   "solutionSource": "官方"
+  },
+  {
+   "no": "五",
+   "score": 15,
+   "type": "证明",
+   "subjects": [
+    "数学分析"
+   ],
+   "topics": [
+    "递推不等式",
+    "数学归纳法",
+    "数列有界性"
+   ],
+   "difficulty": 3,
+   "statement": "设 $\\delta>0$，$\\alpha\\in(0,1)$，实数列 $\\{x_n\\}$ 满足 $$x_{n+1}=x_n\\Big(1-\\frac{h_n}{n^\\alpha}\\Big)+\\frac1{n^{\\alpha+\\delta}},\\quad n\\geqslant1,$$ 其中 $\\{h_n\\}$ 有正的上下界。证明：$\\{n^\\delta x_n\\}$ 有界。",
+   "answer": "",
+   "solution": "记 $c=\\inf\\limits_{n\\geqslant1}h_n>0$。由 $\\{h_n\\}$ 有界且 $\\alpha<1$，存在 $N\\geqslant1$，使当 $n\\geqslant N$ 时 $0<1-\\frac{h_n}{n^\\alpha}\\leqslant1-\\frac{c}{n^\\alpha}$，从而\n$$|x_{n+1}|\\leqslant\\Big(1-\\frac{c}{n^\\alpha}\\Big)|x_n|+\\frac1{n^{\\alpha+\\delta}},\\qquad\\text{且}\\quad\\frac\\delta n\\leqslant\\frac{c}{2n^\\alpha}.$$\n取 $C=\\max\\big(N^\\delta|x_N|,\\frac2c\\big)$，归纳证明 $n\\geqslant N$ 时 $|x_n|\\leqslant\\dfrac{C}{n^\\delta}$。$n=N$ 时成立。若对某 $n\\geqslant N$ 成立，则\n$$|x_{n+1}|-\\frac{C}{(n+1)^\\delta}\\leqslant\\Big(1-\\frac{c}{n^\\alpha}\\Big)\\frac{C}{n^\\delta}+\\frac1{n^{\\alpha+\\delta}}-\\frac{C}{(n+1)^\\delta}=C\\Big(\\frac1{n^\\delta}-\\frac1{(n+1)^\\delta}\\Big)-\\frac{Cc-1}{n^{\\alpha+\\delta}}$$\n$$\\leqslant\\frac{C\\delta}{n^{1+\\delta}}-\\frac{Cc-1}{n^{\\alpha+\\delta}}\\leqslant\\frac{Cc}{2n^{\\alpha+\\delta}}-\\frac{Cc-1}{n^{\\alpha+\\delta}}=-\\frac{Cc-2}{2n^{\\alpha+\\delta}}\\leqslant0$$\n（用了中值定理 $\\frac1{n^\\delta}-\\frac1{(n+1)^\\delta}\\leqslant\\frac{\\delta}{n^{1+\\delta}}$）。故 $n\\geqslant N$ 时 $|x_n|\\leqslant\\frac C{n^\\delta}$，$\\{n^\\delta x_n\\}$ 有界。",
+   "solutionSource": "官方"
+  },
+  {
+   "no": "六",
+   "score": 20,
+   "type": "解答",
+   "subjects": [
+    "数学分析"
+   ],
+   "topics": [
+    "凸函数",
+    "Jensen 不等式",
+    "值域",
+    "确界"
+   ],
+   "difficulty": 4,
+   "statement": "设 $f(x)=\\dfrac1{1+e^x}$。\n\n(i) 证明 $f(x)$ 是 $[0,+\\infty)$ 上的凸函数。进一步，证明当 $x,y\\geqslant0$ 时成立 $$f(x)+f(y)\\leqslant f(0)+f(x+y).$$\n\n(ii) 设 $n\\geqslant3$，试确定集合 $$E\\equiv\\left\\{\\sum_{k=1}^nf(x_k)\\ \\middle|\\ \\sum_{k=1}^nx_k=0,\\ x_1,\\dots,x_n\\in\\mathbb R\\right\\}.$$",
+   "answer": "(ii) $E=(1,n-1)$（开区间）。",
+   "solution": "**(i)** $f'(x)=-\\dfrac{e^x}{(1+e^x)^2}$，$f''(x)=\\dfrac{e^x(e^x-1)}{(1+e^x)^3}$。当 $x\\geqslant0$ 时 $f''\\geqslant0$，故 $f$ 在 $[0,+\\infty)$ 上凸，$f'$ 在其上递增。于是对 $x,y\\geqslant0$，\n$$f(x+y)-f(x)-f(y)+f(0)=\\int_0^y\\big(f'(t+x)-f'(t)\\big)\\,\\mathrm dt\\geqslant0.$$\n\n**(ii)** 由连续性，$E$ 是一个区间。注意 $f(x)+f(-x)=1$。设 $\\sum x_k=0$。若全为零，和为 $\\frac n2$。否则设负数个数为 $k$，非负数个数为 $m$，$m+k=n$，$1\\leqslant k\\leqslant n-1$。不妨 $x_1,\\dots,x_m\\geqslant0$，$x_{m+1},\\dots,x_n<0$，记 $y_j=-x_{m+j}>0$，$x=x_1+\\cdots+x_m=y_1+\\cdots+y_k$。由 (i) 反复使用得\n$$f(y_1)+\\cdots+f(y_k)\\leqslant(k-1)f(0)+f(x).$$\n又由凸性（Jensen）$\\sum_{j\\leqslant m}f(x_j)\\geqslant mf\\big(\\frac xm\\big)$，且 $mf\\big(\\frac xm\\big)-f(x)$ 在 $[0,+\\infty)$ 上严格递减（趋于 $0$），于是\n$$\\sum_{j=1}^nf(x_j)=\\sum_{j=1}^mf(x_j)+k-\\sum_{j=1}^kf(y_j)\\geqslant mf\\Big(\\frac xm\\Big)+k-\\big((k-1)f(0)+f(x)\\big)>k-\\frac{k-1}2=\\frac{k+1}2\\geqslant1.$$\n故 $\\inf E\\geqslant1$ 且 $1\\notin E$。另一方面取 $u>0$，$x_1=\\cdots=x_{n-1}=\\frac u{n-1}$，$x_n=-u$，则\n$$\\lim_{u\\to+\\infty}\\sum f(x_j)=\\lim_{u\\to+\\infty}\\Big((n-1)f\\Big(\\frac u{n-1}\\Big)+1-f(u)\\Big)=1,$$\n所以 $\\inf E=1$。由 $f(-x)=1-f(x)$ 得 $E=\\{n-z\\mid z\\in E\\}$，因此 $\\sup E=n-1$ 且 $n-1\\notin E$。所以 $E=(1,n-1)$。",
+   "solutionSource": "官方"
+  }
+ ]
+}

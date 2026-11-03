@@ -1,0 +1,196 @@
+{
+ "id": "cmc-nonmath-11-prelim",
+ "title": "第十一届全国大学生数学竞赛初赛（非数学类）",
+ "year": 2019,
+ "track": "非数学类",
+ "round": "初赛",
+ "paper": "",
+ "durationMin": 150,
+ "totalScore": 100,
+ "source": {
+  "question": "11-2019年第十一届全国大学生数学竞赛初赛非数学专业试题.pdf",
+  "solution": "11-2019年第十一届全国大学生数学竞赛初赛非数学试题解答.pdf"
+ },
+ "problems": [
+  {
+   "no": "一(1)",
+   "score": 6,
+   "type": "填空",
+   "subjects": [
+    "高等数学"
+   ],
+   "topics": [
+    "函数极限",
+    "等价无穷小"
+   ],
+   "difficulty": 2,
+   "statement": "$\\displaystyle\\lim_{x\\to0}\\frac{\\ln\\left(e^{\\sin x}+\\sqrt[3]{1-\\cos x}\\right)-\\sin x}{\\arctan\\left(4\\sqrt[3]{1-\\cos x}\\right)}=$ ______。",
+   "answer": "$\\dfrac14$",
+   "solution": "分子 $=\\ln\\left[1+e^{-\\sin x}\\sqrt[3]{1-\\cos x}\\right]\\sim e^{-\\sin x}\\sqrt[3]{1-\\cos x}$，分母 $\\sim4\\sqrt[3]{1-\\cos x}$（因 $\\sqrt[3]{1-\\cos x}\\to0$）。故原式 $=\\lim\\limits_{x\\to0}\\dfrac{e^{-\\sin x}}{4}=\\dfrac14$。\n（官方解答：用 $\\ln(1+u)\\sim u$ 把分子化为 $(e^{\\sin x}-1)+\\sqrt[3]{1-\\cos x}-\\sin x$，再用 $1-\\cos x\\sim\\frac{x^2}2$ 逐项求极限，得 $0+\\frac14-0=\\frac14$。）",
+   "solutionSource": "官方"
+  },
+  {
+   "no": "一(2)",
+   "score": 6,
+   "type": "填空",
+   "subjects": [
+    "高等数学"
+   ],
+   "topics": [
+    "隐函数",
+    "不定积分",
+    "参数化换元"
+   ],
+   "difficulty": 2,
+   "statement": "设隐函数 $y=y(x)$ 由方程 $y^2(x-y)=x^2$ 所确定，则 $\\displaystyle\\int\\frac{\\mathrm dx}{y^2}=$ ______。",
+   "answer": "$\\dfrac{3y}{x}-2\\ln\\left|\\dfrac yx\\right|+C$",
+   "solution": "令 $y=tx$，代入得 $x=\\dfrac1{t^2(1-t)}$，$y=\\dfrac1{t(1-t)}$，$\\mathrm dx=\\dfrac{-2+3t}{t^3(1-t)^2}\\,\\mathrm dt$。于是\n$$\\int\\frac{\\mathrm dx}{y^2}=\\int\\frac{-2+3t}{t}\\,\\mathrm dt=3t-2\\ln|t|+C=\\frac{3y}{x}-2\\ln\\left|\\frac yx\\right|+C.$$",
+   "solutionSource": "官方"
+  },
+  {
+   "no": "一(3)",
+   "score": 6,
+   "type": "填空",
+   "subjects": [
+    "高等数学"
+   ],
+   "topics": [
+    "定积分",
+    "分部积分",
+    "抵消技巧"
+   ],
+   "difficulty": 2,
+   "statement": "定积分 $\\displaystyle\\int_0^{\\frac\\pi2}\\frac{e^x(1+\\sin x)}{1+\\cos x}\\,\\mathrm dx=$ ______。",
+   "answer": "$e^{\\frac\\pi2}$",
+   "solution": "拆成 $\\displaystyle\\int_0^{\\frac\\pi2}\\frac{e^x}{1+\\cos x}\\,\\mathrm dx+\\int_0^{\\frac\\pi2}\\frac{\\sin x}{1+\\cos x}\\,\\mathrm de^x$，对第二项分部积分，注意 $\\left(\\dfrac{\\sin x}{1+\\cos x}\\right)'=\\dfrac1{1+\\cos x}$：\n$$\\int_0^{\\frac\\pi2}\\frac{\\sin x}{1+\\cos x}\\,\\mathrm de^x=\\frac{e^x\\sin x}{1+\\cos x}\\Big|_0^{\\frac\\pi2}-\\int_0^{\\frac\\pi2}\\frac{e^x}{1+\\cos x}\\,\\mathrm dx,$$\n两项积分抵消，原式 $=\\dfrac{e^x\\sin x}{1+\\cos x}\\Big|_0^{\\frac\\pi2}=e^{\\frac\\pi2}$。",
+   "solutionSource": "官方"
+  },
+  {
+   "no": "一(4)",
+   "score": 6,
+   "type": "填空",
+   "subjects": [
+    "高等数学"
+   ],
+   "topics": [
+    "全微分",
+    "原函数"
+   ],
+   "difficulty": 2,
+   "statement": "已知 $\\mathrm du(x,y)=\\dfrac{y\\,\\mathrm dx-x\\,\\mathrm dy}{3x^2-2xy+3y^2}$，则 $u(x,y)=$ ______。",
+   "answer": "$\\dfrac1{2\\sqrt2}\\arctan\\left[\\dfrac{3}{2\\sqrt2}\\left(\\dfrac xy-\\dfrac13\\right)\\right]+C$",
+   "solution": "分子分母同除以 $y^2$：\n$$\\mathrm du=\\frac{\\mathrm d\\left(\\frac xy\\right)}{3\\left(\\frac xy\\right)^2-2\\frac xy+3}=\\frac{\\mathrm d\\left(\\frac xy\\right)}{3\\left(\\frac xy-\\frac13\\right)^2+\\frac83}=\\frac1{2\\sqrt2}\\,\\mathrm d\\arctan\\left[\\frac3{2\\sqrt2}\\left(\\frac xy-\\frac13\\right)\\right],$$\n所以 $u(x,y)=\\dfrac1{2\\sqrt2}\\arctan\\left[\\dfrac3{2\\sqrt2}\\left(\\dfrac xy-\\dfrac13\\right)\\right]+C$。",
+   "solutionSource": "官方"
+  },
+  {
+   "no": "一(5)",
+   "score": 6,
+   "type": "填空",
+   "subjects": [
+    "高等数学"
+   ],
+   "topics": [
+    "曲面相切",
+    "法向量",
+    "拉格朗日乘数法"
+   ],
+   "difficulty": 2,
+   "statement": "设 $a,b,c,\\mu>0$，曲面 $xyz=\\mu$ 与曲面 $\\dfrac{x^2}{a^2}+\\dfrac{y^2}{b^2}+\\dfrac{z^2}{c^2}=1$ 相切，则 $\\mu=$ ______。",
+   "answer": "$\\dfrac{abc}{3\\sqrt3}$",
+   "solution": "切点处两曲面法向量平行：$yz=\\dfrac{2x}{a^2}\\lambda,\\ xz=\\dfrac{2y}{b^2}\\lambda,\\ xy=\\dfrac{2z}{c^2}\\lambda$。分别乘以 $x,y,z$ 得 $\\mu=2\\lambda\\dfrac{x^2}{a^2}=2\\lambda\\dfrac{y^2}{b^2}=2\\lambda\\dfrac{z^2}{c^2}$。三式相加并用椭球方程得 $3\\mu=2\\lambda$；三式相乘得 $\\mu^3=8\\lambda^3\\dfrac{x^2y^2z^2}{a^2b^2c^2}=\\dfrac{8\\lambda^3\\mu^2}{a^2b^2c^2}$，即 $\\mu=\\dfrac{8\\lambda^3}{a^2b^2c^2}$。联立解得 $\\mu=\\dfrac{abc}{3\\sqrt3}$。",
+   "solutionSource": "官方"
+  },
+  {
+   "no": "二",
+   "score": 14,
+   "type": "计算",
+   "subjects": [
+    "高等数学"
+   ],
+   "topics": [
+    "三重积分",
+    "球面坐标",
+    "对称性"
+   ],
+   "difficulty": 3,
+   "statement": "计算三重积分 $\\displaystyle\\iiint_\\Omega\\frac{xyz}{x^2+y^2}\\,\\mathrm dx\\,\\mathrm dy\\,\\mathrm dz$，其中 $\\Omega$ 是由曲面 $(x^2+y^2+z^2)^2=2xy$ 围成的区域在第一卦限部分。",
+   "answer": "$\\dfrac1{72}$",
+   "solution": "用球面坐标 $x=\\rho\\sin\\varphi\\cos\\theta,\\ y=\\rho\\sin\\varphi\\sin\\theta,\\ z=\\rho\\cos\\varphi$，曲面为 $\\rho=\\sqrt2\\sin\\varphi\\sqrt{\\sin\\theta\\cos\\theta}$，被积函数 $\\dfrac{xyz}{x^2+y^2}=\\rho\\cos\\varphi\\sin\\theta\\cos\\theta$。利用关于 $\\theta=\\frac\\pi4$ 的对称性：\n$$I=2\\int_0^{\\frac\\pi4}\\sin\\theta\\cos\\theta\\,\\mathrm d\\theta\\int_0^{\\frac\\pi2}\\sin\\varphi\\cos\\varphi\\,\\mathrm d\\varphi\\int_0^{\\sqrt2\\sin\\varphi\\sqrt{\\sin\\theta\\cos\\theta}}\\rho^3\\,\\mathrm d\\rho=2\\int_0^{\\frac\\pi4}\\sin^3\\theta\\cos^3\\theta\\,\\mathrm d\\theta\\int_0^{\\frac\\pi2}\\sin^5\\varphi\\cos\\varphi\\,\\mathrm d\\varphi$$\n$$=2\\cdot\\frac18\\int_0^{\\frac\\pi4}\\sin^32\\theta\\,\\mathrm d\\theta\\cdot\\frac16=\\frac1{48}\\int_0^{\\frac\\pi2}\\sin^3t\\,\\mathrm dt=\\frac1{48}\\cdot\\frac23=\\frac1{72}.$$",
+   "solutionSource": "官方"
+  },
+  {
+   "no": "三",
+   "score": 14,
+   "type": "证明",
+   "subjects": [
+    "高等数学"
+   ],
+   "topics": [
+    "拉格朗日中值定理",
+    "最值",
+    "递推"
+   ],
+   "difficulty": 2,
+   "statement": "设 $f(x)$ 在 $[0,+\\infty)$ 上可微，$f(0)=0$，且存在常数 $A>0$，使得 $|f'(x)|\\leqslant A|f(x)|$ 在 $[0,+\\infty)$ 上成立，试证明：在 $(0,+\\infty)$ 上有 $f(x)\\equiv0$。",
+   "answer": "",
+   "solution": "设 $x_0\\in\\left[0,\\frac1{2A}\\right]$ 使 $|f(x_0)|=\\max\\left\\{|f(x)|:x\\in\\left[0,\\frac1{2A}\\right]\\right\\}$。由中值定理\n$$|f(x_0)|=|f(0)+f'(\\xi)x_0|\\leqslant A|f(\\xi)|\\cdot\\frac1{2A}\\leqslant\\frac12|f(x_0)|,$$\n只能 $|f(x_0)|=0$，故在 $\\left[0,\\frac1{2A}\\right]$ 上 $f\\equiv0$。以 $\\frac1{2A}$ 为新起点重复上述论证，递推可得对一切 $x\\in\\left[\\frac{k-1}{2A},\\frac k{2A}\\right],\\ k=1,2,\\cdots$ 有 $f(x)=0$，即在 $(0,+\\infty)$ 上 $f\\equiv0$。",
+   "solutionSource": "官方"
+  },
+  {
+   "no": "四",
+   "score": 14,
+   "type": "计算",
+   "subjects": [
+    "高等数学"
+   ],
+   "topics": [
+    "第一型曲面积分",
+    "球面参数方程",
+    "截面法"
+   ],
+   "difficulty": 4,
+   "statement": "计算积分 $I=\\displaystyle\\int_0^{2\\pi}\\mathrm d\\phi\\int_0^\\pi e^{\\sin\\theta(\\cos\\phi-\\sin\\phi)}\\sin\\theta\\,\\mathrm d\\theta$。",
+   "answer": "$\\sqrt2\\pi\\left(e^{\\sqrt2}-e^{-\\sqrt2}\\right)$",
+   "solution": "用单位球面 $\\Sigma:x=\\sin\\theta\\cos\\phi,\\ y=\\sin\\theta\\sin\\phi,\\ z=\\cos\\theta$，$\\mathrm dS=\\sin\\theta\\,\\mathrm d\\theta\\,\\mathrm d\\phi$，所求积分化为第一型曲面积分 $I=\\displaystyle\\iint_\\Sigma e^{x-y}\\,\\mathrm dS$。\n\n用平面 $P_t:\\dfrac{x-y}{\\sqrt2}=t\\ (-1\\leqslant t\\leqslant1)$ 切割球面（$t$ 为平面到原点的距离），在 $P_t$ 与 $P_{t+\\mathrm dt}$ 之间的球带上被积函数为 $e^{\\sqrt2t}$。该球带近似圆台侧面，半径 $r_t=\\sqrt{1-t^2}$，斜高 $h_t=\\sqrt{\\mathrm dt^2+\\left(\\mathrm d\\sqrt{1-t^2}\\right)^2}=\\dfrac{\\mathrm dt}{\\sqrt{1-t^2}}$，面积 $2\\pi r_th_t=2\\pi\\,\\mathrm dt$（阿基米德球带定理）。于是\n$$I=\\int_{-1}^1e^{\\sqrt2t}\\cdot2\\pi\\,\\mathrm dt=\\frac{2\\pi}{\\sqrt2}e^{\\sqrt2t}\\Big|_{-1}^1=\\sqrt2\\pi\\left(e^{\\sqrt2}-e^{-\\sqrt2}\\right).$$",
+   "solutionSource": "官方"
+  },
+  {
+   "no": "五",
+   "score": 14,
+   "type": "证明",
+   "subjects": [
+    "高等数学"
+   ],
+   "topics": [
+    "多项式",
+    "幂级数展开",
+    "根值",
+    "数列极限"
+   ],
+   "difficulty": 4,
+   "statement": "设 $f(x)$ 是仅有正实根的多项式函数，满足 $\\dfrac{f'(x)}{f(x)}=-\\displaystyle\\sum_{n=0}^{+\\infty}c_nx^n$。证明：$c_n>0\\ (n\\geqslant0)$，极限 $\\displaystyle\\lim_{n\\to+\\infty}\\frac1{\\sqrt[n]{c_n}}$ 存在，且等于 $f(x)$ 的最小根。",
+   "answer": "",
+   "solution": "设 $f$ 的全部根为 $0<a_1<a_2<\\cdots<a_k$，重数分别为 $r_1,\\cdots,r_k\\geqslant1$，$f(x)=A(x-a_1)^{r_1}\\cdots(x-a_k)^{r_k}$。则\n$$-\\frac{f'(x)}{f(x)}=-\\sum_{i=1}^k\\frac{r_i}{x-a_i}=\\sum_{i=1}^k\\frac{r_i}{a_i}\\cdot\\frac1{1-\\frac x{a_i}}.$$\n当 $|x|<a_1$ 时展开为几何级数：$-\\dfrac{f'(x)}{f(x)}=\\displaystyle\\sum_{n=0}^\\infty\\left(\\frac{r_1}{a_1^{n+1}}+\\cdots+\\frac{r_k}{a_k^{n+1}}\\right)x^n$。由幂级数展开的唯一性\n$$c_n=\\frac{r_1}{a_1^{n+1}}+\\cdots+\\frac{r_k}{a_k^{n+1}}>0.$$\n又 $\\dfrac{c_n}{c_{n+1}}=a_1\\cdot\\dfrac{r_1+\\left(\\frac{a_1}{a_2}\\right)^{n+1}r_2+\\cdots+\\left(\\frac{a_1}{a_k}\\right)^{n+1}r_k}{r_1+\\left(\\frac{a_1}{a_2}\\right)^{n+2}r_2+\\cdots+\\left(\\frac{a_1}{a_k}\\right)^{n+2}r_k}\\to a_1$，即 $\\dfrac{c_{n+1}}{c_n}\\to\\dfrac1{a_1}$。于是由算术平均收敛定理\n$$\\ln\\sqrt[n]{c_n}=\\frac{\\ln c_1}{n}+\\frac1n\\left(\\ln\\frac{c_2}{c_1}+\\cdots+\\ln\\frac{c_n}{c_{n-1}}\\right)\\to\\ln\\frac1{a_1},$$\n故 $\\lim\\limits_{n\\to\\infty}\\dfrac1{\\sqrt[n]{c_n}}=a_1$，即 $f(x)$ 的最小根。",
+   "solutionSource": "官方"
+  },
+  {
+   "no": "六",
+   "score": 14,
+   "type": "证明",
+   "subjects": [
+    "高等数学"
+   ],
+   "topics": [
+    "可分离变量方程",
+    "单调有界",
+    "反证法",
+    "高斯积分"
+   ],
+   "difficulty": 3,
+   "statement": "设 $f(x)$ 在 $[0,+\\infty)$ 上具有连续导数，满足\n$$3\\left[3+f^2(x)\\right]f'(x)=2\\left[1+f^2(x)\\right]^2e^{-x^2},$$\n且 $f(0)\\leqslant1$。证明：存在常数 $M>0$，使得 $x\\in[0,+\\infty)$ 时，恒有 $|f(x)|\\leqslant M$。",
+   "answer": "",
+   "solution": "由方程知 $f'(x)>0$，$f$ 在 $[0,+\\infty)$ 上严格单增，故 $\\lim\\limits_{x\\to+\\infty}f(x)=L$（有限或 $+\\infty$）。只需证 $L\\neq+\\infty$。\n\n记 $y=f(x)$，分离变量积分 $\\displaystyle\\int\\frac{3+y^2}{(1+y^2)^2}\\,\\mathrm dy=\\frac23\\int e^{-x^2}\\,\\mathrm dx$ 得\n$$\\frac{y}{1+y^2}+2\\arctan y=\\frac23\\int_0^xe^{-t^2}\\,\\mathrm dt+C,\\qquad C=\\frac{f(0)}{1+f^2(0)}+2\\arctan f(0).$$\n若 $L=+\\infty$，令 $x\\to+\\infty$，由 $\\int_0^{+\\infty}e^{-t^2}\\mathrm dt=\\frac{\\sqrt\\pi}2$ 得 $\\pi=\\frac{\\sqrt\\pi}3+C$，即 $C=\\pi-\\dfrac{\\sqrt\\pi}{3}$。\n\n另一方面，$g(u)=\\dfrac{u}{1+u^2}+2\\arctan u$ 满足 $g'(u)=\\dfrac{3+u^2}{(1+u^2)^2}>0$，严格单增，故 $f(0)\\leqslant1$ 时 $C=g(f(0))\\leqslant g(1)=\\dfrac{1+\\pi}{2}$。但 $\\pi-\\dfrac{\\sqrt\\pi}3>\\dfrac{1+\\pi}2$，矛盾。所以 $L$ 有限，取 $M=\\max\\{|f(0)|,|L|\\}$ 即得 $|f(x)|\\leqslant M$。",
+   "solutionSource": "官方"
+  }
+ ]
+}

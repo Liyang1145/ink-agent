@@ -1,0 +1,193 @@
+{
+ "id": "cmc-nonmath-15-prelim-B",
+ "title": "第十五届全国大学生数学竞赛初赛（非数学B类）",
+ "year": 2023,
+ "track": "非数学类",
+ "round": "初赛",
+ "paper": "B",
+ "durationMin": 150,
+ "totalScore": 100,
+ "source": {
+  "question": "15-prelim-nonmath-B.pdf",
+  "solution": "15-prelim-nonmath-B.pdf"
+ },
+ "problems": [
+  {
+   "no": "一(1)",
+   "score": 6,
+   "type": "填空",
+   "subjects": [
+    "高等数学"
+   ],
+   "topics": [
+    "幂指函数极限",
+    "重要极限"
+   ],
+   "difficulty": 1,
+   "statement": "$\\lim\\limits_{x\\to\\infty}\\left(\\dfrac{x+3}{x+2}\\right)^{2x-1}=$\\_\\_\\_\\_\\_\\_。",
+   "answer": "$e^2$",
+   "solution": "$\\Big(\\dfrac{x+3}{x+2}\\Big)^{2x-1}=\\Big(1+\\dfrac1{x+2}\\Big)^{2(x+2)-5}\\to e^2$。",
+   "solutionSource": "官方"
+  },
+  {
+   "no": "一(2)",
+   "score": 6,
+   "type": "填空",
+   "subjects": [
+    "高等数学"
+   ],
+   "topics": [
+    "复合函数偏导",
+    "二阶混合偏导"
+   ],
+   "difficulty": 1,
+   "statement": "设 $z=f\\left(x^2-y^2,xy\\right)$，且 $f(u,v)$ 有连续的二阶偏导数，则 $\\dfrac{\\partial^2z}{\\partial x\\partial y}=$\\_\\_\\_\\_\\_\\_。",
+   "answer": "$f_2-4xyf_{11}+2\\left(x^2-y^2\\right)f_{12}+xyf_{22}$",
+   "solution": "$z_x=2xf_1+yf_2$，再对 $y$ 求导（$u_y=-2y,\\ v_y=x$，$f_{12}=f_{21}$）：\n$$z_{xy}=2x\\big(-2yf_{11}+xf_{12}\\big)+f_2+y\\big(-2yf_{21}+xf_{22}\\big)=f_2-4xyf_{11}+2(x^2-y^2)f_{12}+xyf_{22}.$$",
+   "solutionSource": "官方"
+  },
+  {
+   "no": "一(3)",
+   "score": 6,
+   "type": "填空",
+   "subjects": [
+    "高等数学"
+   ],
+   "topics": [
+    "曲线相切",
+    "隐函数求导"
+   ],
+   "difficulty": 1,
+   "statement": "设曲线 $y=\\ln(1+ax)+1$ 与曲线 $y=2xy^3+b$ 在 $(0,1)$ 处相切，则 $a+b=$\\_\\_\\_\\_\\_\\_。",
+   "answer": "$3$",
+   "solution": "第二条曲线过 $(0,1)$ 得 $b=1$；隐函数求导 $y'=2y^3+6xy^2y'$，在 $(0,1)$ 处 $y'=2$。第一条曲线在 $x=0$ 处斜率为 $a$，故 $a=2$，$a+b=3$。",
+   "solutionSource": "官方"
+  },
+  {
+   "no": "一(4)",
+   "score": 6,
+   "type": "填空",
+   "subjects": [
+    "高等数学"
+   ],
+   "topics": [
+    "隐函数求导"
+   ],
+   "difficulty": 1,
+   "statement": "设函数 $y=y(x)$ 由方程 $y=1+\\arctan(xy)$ 所决定，则 $y'(0)=$\\_\\_\\_\\_\\_\\_。",
+   "answer": "$1$",
+   "solution": "$x=0$ 时 $y=1$。求导得 $y'=\\dfrac{xy'+y}{1+x^2y^2}$，代入 $x=0,\\ y=1$ 得 $y'(0)=1$。",
+   "solutionSource": "官方"
+  },
+  {
+   "no": "一(5)",
+   "score": 6,
+   "type": "填空",
+   "subjects": [
+    "高等数学"
+   ],
+   "topics": [
+    "交换积分次序",
+    "二次积分"
+   ],
+   "difficulty": 1,
+   "statement": "计算 $\\displaystyle\\int_0^1\\mathrm{d}x\\int_x^{\\sqrt x}\\frac{\\cos y}{y}\\,\\mathrm{d}y=$\\_\\_\\_\\_\\_\\_。",
+   "answer": "$1-\\cos1$",
+   "solution": "区域为 $0\\leqslant y\\leqslant1,\\ y^2\\leqslant x\\leqslant y$，交换次序：\n$$\\int_0^1\\mathrm{d}y\\int_{y^2}^y\\frac{\\cos y}{y}\\,\\mathrm{d}x=\\int_0^1(1-y)\\cos y\\,\\mathrm{d}y=1-\\cos1.$$",
+   "solutionSource": "官方"
+  },
+  {
+   "no": "二",
+   "score": 14,
+   "type": "计算",
+   "subjects": [
+    "高等数学"
+   ],
+   "topics": [
+    "旋转体体积",
+    "定积分",
+    "二次函数最值"
+   ],
+   "difficulty": 2,
+   "statement": "设曲线 $y=3ax^2+2bx+\\ln c$ 经过 $(0,0)$ 点，且当 $0\\leqslant x\\leqslant1$ 时 $y\\geqslant0$。设该曲线与直线 $x=1$，$x$ 轴所围图形的平面图形 $D$ 的面积为 1。试求常数 $a,b,c$ 的值，使得 $D$ 绕 $x$ 轴一周后，所得旋转体的体积最小。",
+   "answer": "$a=-\\dfrac54,\\ b=\\dfrac94,\\ c=1$",
+   "solution": "过 $(0,0)$ 得 $\\ln c=0$，$c=1$。面积 $\\displaystyle\\int_0^1(3ax^2+2bx)\\,\\mathrm{d}x=a+b=1$。体积\n$$V=\\pi\\int_0^1(3ax^2+2bx)^2\\,\\mathrm{d}x=\\pi\\Big(\\frac95a^2+3ab+\\frac43b^2\\Big)=\\pi\\Big(\\frac2{15}a^2+\\frac13a+\\frac43\\Big)\\quad(b=1-a).$$\n$V'(a)=\\pi\\big(\\frac4{15}a+\\frac13\\big)=0$ 得 $a=-\\dfrac54$，此为最小值点，$b=\\dfrac94$，$c=1$。此时 $y=x\\big(\\frac92-\\frac{15}4x\\big)\\geqslant0$ 在 $[0,1]$ 上成立，满足条件。",
+   "solutionSource": "官方"
+  },
+  {
+   "no": "三",
+   "score": 14,
+   "type": "计算",
+   "subjects": [
+    "常微分方程"
+   ],
+   "topics": [
+    "变量代换",
+    "齐次方程",
+    "可分离变量方程"
+   ],
+   "difficulty": 3,
+   "statement": "解方程 $\\left(x^2+y^2+3\\right)\\dfrac{\\mathrm{d}y}{\\mathrm{d}x}=2x\\left(2y-\\dfrac{x^2}{y}\\right)$。",
+   "answer": "$\\left(y^2-2x^2-3\\right)^3=C\\left(y^2-x^2-1\\right)^2$",
+   "solution": "方程化为 $\\dfrac{y\\,\\mathrm{d}y}{x\\,\\mathrm{d}x}=\\dfrac{2(2y^2-x^2)}{x^2+y^2+3}$。令 $u=x^2,\\ v=y^2$：\n$$\\frac{\\mathrm{d}v}{\\mathrm{d}u}=\\frac{2(2v-u)}{u+v+3}.$$\n由 $2v-u=0,\\ u+v+3=0$ 得 $u=-2,\\ v=-1$。令 $U=u+2,\\ V=v+1$，化为齐次方程 $\\dfrac{\\mathrm{d}V}{\\mathrm{d}U}=\\dfrac{2(2V-U)}{U+V}$。再令 $W=\\dfrac VU$：\n$$U\\frac{\\mathrm{d}W}{\\mathrm{d}U}=-\\frac{W^2-3W+2}{W+1},\\qquad\\Big(\\frac{3}{W-2}-\\frac{2}{W-1}\\Big)\\mathrm{d}W=-\\frac{\\mathrm{d}U}U,$$\n积分得 $U(W-2)^3=C(W-1)^2$，即 $(V-2U)^3=C(V-U)^2$。回代得\n$$\\big(y^2-2x^2-3\\big)^3=C\\big(y^2-x^2-1\\big)^2.$$",
+   "solutionSource": "官方"
+  },
+  {
+   "no": "四",
+   "score": 14,
+   "type": "计算",
+   "subjects": [
+    "高等数学"
+   ],
+   "topics": [
+    "幂级数",
+    "收敛域",
+    "和函数",
+    "逐项求导"
+   ],
+   "difficulty": 2,
+   "statement": "求幂级数 $\\displaystyle\\sum_{n=1}^\\infty\\frac{(-1)^{n-1}x^{2n}}{n(2n-1)}$ 的收敛域及和函数。",
+   "answer": "收敛域 $[-1,1]$；$S(x)=2x\\arctan x-\\ln\\left(1+x^2\\right)$，$x\\in[-1,1]$。",
+   "solution": "$\\lim\\sqrt[n]{\\frac1{n(2n-1)}}=1$，收敛半径为 1；$x=\\pm1$ 时级数 $\\sum\\frac{(-1)^{n-1}}{n(2n-1)}$ 绝对收敛，故收敛域为 $[-1,1]$。\n\n在 $(-1,1)$ 内逐项求导两次：\n$$\\frac12S''(x)=\\sum_{n=1}^\\infty(-1)^{n-1}x^{2n-2}=\\frac1{1+x^2}.$$\n由 $S(0)=S'(0)=0$，$S'(x)=2\\arctan x$，\n$$S(x)=2\\int_0^x\\arctan s\\,\\mathrm{d}s=2x\\arctan x-\\ln(1+x^2).$$\n由和函数在收敛域上的连续性（Abel 定理），该式在 $[-1,1]$ 上成立。",
+   "solutionSource": "官方"
+  },
+  {
+   "no": "五",
+   "score": 14,
+   "type": "证明",
+   "subjects": [
+    "高等数学"
+   ],
+   "topics": [
+    "零点定理",
+    "罗尔定理",
+    "辅助函数",
+    "积分因子"
+   ],
+   "difficulty": 2,
+   "statement": "设 $f(x)$ 在 $[0,1]$ 上可导且 $f(0)>0$，$f(1)>0$，$\\displaystyle\\int_0^1f(x)\\,\\mathrm{d}x=0$。证明：\n\n(1) $f(x)$ 在 $[0,1]$ 上至少有两个零点；\n\n(2) 在 $(0,1)$ 内至少存在一点 $\\xi$，使得 $f'(\\xi)+3f^3(\\xi)=0$。",
+   "answer": "",
+   "solution": "**(1)** 存在 $x_0\\in(0,1)$ 使 $f(x_0)<0$：否则 $f\\geqslant0$ 且连续、不恒为零（$f(0)>0$），则 $\\int_0^1f>0$，矛盾。在 $[0,x_0]$、$[x_0,1]$ 上分别用零点定理，得 $\\xi_1\\in(0,x_0)$，$\\xi_2\\in(x_0,1)$ 使 $f(\\xi_1)=f(\\xi_2)=0$。\n\n**(2)** 令 $F(x)=f(x)\\exp\\Big(\\displaystyle\\int_0^x3f^2(s)\\,\\mathrm{d}s\\Big)$，则 $F(\\xi_1)=F(\\xi_2)=0$。由罗尔定理存在 $\\xi\\in(\\xi_1,\\xi_2)\\subset(0,1)$ 使 $F'(\\xi)=0$，而\n$$F'(x)=\\big(f'(x)+3f^3(x)\\big)\\exp\\Big(\\int_0^x3f^2(s)\\,\\mathrm{d}s\\Big),$$\n故 $f'(\\xi)+3f^3(\\xi)=0$。",
+   "solutionSource": "官方"
+  },
+  {
+   "no": "六",
+   "score": 14,
+   "type": "证明",
+   "subjects": [
+    "高等数学"
+   ],
+   "topics": [
+    "积分不等式",
+    "分部积分",
+    "柯西-施瓦茨不等式",
+    "等号成立条件"
+   ],
+   "difficulty": 3,
+   "statement": "设 $f(x)$ 在 $[0,1]$ 上有连续的导数且 $f(0)=0$。求证：\n$$\\int_0^1f^2(x)\\,\\mathrm{d}x\\leqslant4\\int_0^1(1-x)^2|f'(x)|^2\\,\\mathrm{d}x,$$\n并求使上式成为等式的 $f(x)$。",
+   "answer": "等号仅当 $f(x)\\equiv0$ 时成立。",
+   "solution": "分部积分（边界项 $(x-1)f^2(x)\\big|_0^1=0$，因 $f(0)=0$）：\n$$\\int_0^1f^2\\,\\mathrm{d}x=\\Big[(x-1)f^2\\Big]_0^1-\\int_0^1(x-1)\\cdot2ff'\\,\\mathrm{d}x=2\\int_0^1(1-x)f'(x)f(x)\\,\\mathrm{d}x.$$\n由 Cauchy 积分不等式，\n$$\\int_0^1f^2\\,\\mathrm{d}x\\leqslant2\\Big(\\int_0^1(1-x)^2f'^2\\,\\mathrm{d}x\\Big)^{\\frac12}\\Big(\\int_0^1f^2\\,\\mathrm{d}x\\Big)^{\\frac12},$$\n两边平方并约去 $\\int_0^1f^2\\,\\mathrm{d}x$（若为 0 则显然）得所证不等式。\n\n等号成立时存在常数 $c$ 使 $(1-x)f'(x)=cf(x)$，于是在 $(0,1)$ 上\n$$\\big((1-x)^cf(x)\\big)'=(1-x)^{c-1}\\big((1-x)f'(x)-cf(x)\\big)=0,$$\n$f(x)=d(1-x)^{-c}$。令 $x\\to0^+$ 由 $f(0)=0$ 得 $d=0$，故 $f\\equiv0$。即等号仅对 $f(x)=0$ 成立。",
+   "solutionSource": "官方"
+  }
+ ]
+}

@@ -1,0 +1,196 @@
+{
+ "id": "cmc-nonmath-10-prelim",
+ "title": "第十届全国大学生数学竞赛初赛（非数学类）",
+ "year": 2018,
+ "track": "非数学类",
+ "round": "初赛",
+ "paper": "",
+ "durationMin": 150,
+ "totalScore": 100,
+ "source": {
+  "question": "2018年-第十届全国初赛-非数学类试卷.pdf",
+  "solution": "10-第十届全国初赛-非数学类试题参考解答.pdf"
+ },
+ "problems": [
+  {
+   "no": "一(1)",
+   "score": 6,
+   "type": "填空",
+   "subjects": [
+    "高等数学"
+   ],
+   "topics": [
+    "数列极限",
+    "夹逼准则"
+   ],
+   "difficulty": 1,
+   "statement": "设 $\\alpha\\in(0,1)$，则 $\\lim\\limits_{n\\to+\\infty}\\left[(n+1)^\\alpha-n^\\alpha\\right]=$\\_\\_\\_\\_\\_\\_。",
+   "answer": "$0$",
+   "solution": "因 $\\big(1+\\frac1n\\big)^\\alpha<1+\\frac1n$，\n$$0<(n+1)^\\alpha-n^\\alpha=n^\\alpha\\Big[\\Big(1+\\frac1n\\Big)^\\alpha-1\\Big]<\\frac{n^\\alpha}{n}=\\frac1{n^{1-\\alpha}}\\to0,$$\n由夹逼准则极限为 0。",
+   "solutionSource": "官方"
+  },
+  {
+   "no": "一(2)",
+   "score": 6,
+   "type": "填空",
+   "subjects": [
+    "高等数学"
+   ],
+   "topics": [
+    "参数方程求导",
+    "隐函数",
+    "切线方程"
+   ],
+   "difficulty": 1,
+   "statement": "若曲线 $y=y(x)$ 由 $\\begin{cases}x=t+\\cos t\\\\e^y+ty+\\sin t=1\\end{cases}$ 确定，则此曲线在 $t=0$ 对应点处的切线方程为\\_\\_\\_\\_\\_\\_。",
+   "answer": "$y=-x+1$",
+   "solution": "$t=0$ 时 $x=1$，$e^y=1$ 即 $y=0$。对 $t$ 求导：$x'(t)=1-\\sin t$，$e^yy'+y+ty'+\\cos t=0$。代入 $t=0,y=0$ 得 $x'(0)=1$，$y'(0)=-1$，故切线斜率 $-1$，切线 $y=-(x-1)$，即 $y=-x+1$。",
+   "solutionSource": "官方"
+  },
+  {
+   "no": "一(3)",
+   "score": 6,
+   "type": "填空",
+   "subjects": [
+    "高等数学"
+   ],
+   "topics": [
+    "不定积分",
+    "分部积分",
+    "三角代换"
+   ],
+   "difficulty": 2,
+   "statement": "$\\displaystyle\\int\\frac{\\ln\\left(x+\\sqrt{1+x^2}\\right)}{\\left(1+x^2\\right)^{3/2}}\\mathrm{d}x=$\\_\\_\\_\\_\\_\\_。",
+   "answer": "$\\dfrac{x}{\\sqrt{1+x^2}}\\ln\\left(x+\\sqrt{1+x^2}\\right)-\\dfrac12\\ln\\left(1+x^2\\right)+C$",
+   "solution": "注意 $\\Big(\\dfrac{x}{\\sqrt{1+x^2}}\\Big)'=\\dfrac1{(1+x^2)^{3/2}}$，$\\big(\\ln(x+\\sqrt{1+x^2})\\big)'=\\dfrac1{\\sqrt{1+x^2}}$，分部积分：\n$$\\int\\ln\\big(x+\\sqrt{1+x^2}\\big)\\,\\mathrm{d}\\frac{x}{\\sqrt{1+x^2}}=\\frac{x}{\\sqrt{1+x^2}}\\ln\\big(x+\\sqrt{1+x^2}\\big)-\\int\\frac{x}{1+x^2}\\,\\mathrm{d}x,$$\n得结果。（也可令 $x=\\tan t$，化为 $\\int\\ln(\\sec t+\\tan t)\\,\\mathrm{d}(\\sin t)$ 计算。）",
+   "solutionSource": "官方"
+  },
+  {
+   "no": "一(4)",
+   "score": 6,
+   "type": "填空",
+   "subjects": [
+    "高等数学"
+   ],
+   "topics": [
+    "函数极限",
+    "麦克劳林公式"
+   ],
+   "difficulty": 2,
+   "statement": "$\\lim\\limits_{x\\to0}\\dfrac{1-\\cos x\\sqrt{\\cos2x}\\sqrt[3]{\\cos3x}}{x^2}=$\\_\\_\\_\\_\\_\\_。",
+   "answer": "$3$",
+   "solution": "由\n$$\\cos x=1-\\frac{x^2}2+o(x^2),\\quad(\\cos2x)^{\\frac12}=1-x^2+o(x^2),\\quad(\\cos3x)^{\\frac13}=1-\\frac{3x^2}2+o(x^2),$$\n得 $\\cos x\\sqrt{\\cos2x}\\sqrt[3]{\\cos3x}=1-3x^2+o(x^2)$，极限为 3。\n\n（或拆项：原式 $=\\dfrac12+\\lim\\dfrac{1-\\cos2x}{2x^2}+\\lim\\dfrac{1-\\cos3x}{3x^2}=\\dfrac12+1+\\dfrac32=3$。）",
+   "solutionSource": "官方"
+  },
+  {
+   "no": "二",
+   "score": 8,
+   "type": "计算",
+   "subjects": [
+    "高等数学"
+   ],
+   "topics": [
+    "曲线积分与路径无关",
+    "可分离变量方程"
+   ],
+   "difficulty": 2,
+   "statement": "设函数 $f(t)$ 在 $t\\neq0$ 时一阶连续可导，且 $f(1)=0$，求函数 $f\\left(x^2-y^2\\right)$，使得曲线积分\n$$\\int_Ly\\left[2-f\\left(x^2-y^2\\right)\\right]\\mathrm{d}x+xf\\left(x^2-y^2\\right)\\mathrm{d}y$$\n与路径无关，其中 $L$ 为任一不与直线 $y=\\pm x$ 相交的分段光滑曲线。",
+   "answer": "$f\\left(x^2-y^2\\right)=1-\\dfrac{1}{x^2-y^2}$",
+   "solution": "令 $P=y\\big[2-f(x^2-y^2)\\big]$，$Q=xf(x^2-y^2)$，则\n$$\\frac{\\partial P}{\\partial y}=2-f(x^2-y^2)+2y^2f'(x^2-y^2),\\qquad\\frac{\\partial Q}{\\partial x}=f(x^2-y^2)+2x^2f'(x^2-y^2).$$\n由 $\\dfrac{\\partial P}{\\partial y}=\\dfrac{\\partial Q}{\\partial x}$，令 $u=x^2-y^2$ 得\n$$uf'(u)+f(u)-1=0,\\quad\\text{即}\\quad\\big[uf(u)\\big]'=1,$$\n故 $uf(u)=u+C$，$f(u)=1+\\dfrac Cu$。由 $f(1)=0$ 得 $C=-1$，所以 $f(x^2-y^2)=1-\\dfrac1{x^2-y^2}$。",
+   "solutionSource": "官方"
+  },
+  {
+   "no": "三",
+   "score": 14,
+   "type": "证明",
+   "subjects": [
+    "高等数学"
+   ],
+   "topics": [
+    "积分不等式",
+    "柯西不等式",
+    "均值不等式"
+   ],
+   "difficulty": 2,
+   "statement": "设 $f(x)$ 在区间 $[0,1]$ 上连续，且 $1\\leqslant f(x)\\leqslant3$。证明：\n$$1\\leqslant\\int_0^1f(x)\\,\\mathrm{d}x\\int_0^1\\frac1{f(x)}\\,\\mathrm{d}x\\leqslant\\frac43.$$",
+   "answer": "",
+   "solution": "**左边** 由柯西不等式\n$$\\int_0^1f\\,\\mathrm{d}x\\int_0^1\\frac1f\\,\\mathrm{d}x\\geqslant\\Big(\\int_0^1\\sqrt f\\cdot\\frac1{\\sqrt f}\\,\\mathrm{d}x\\Big)^2=1.$$\n\n**右边** 由 $(f-1)(f-3)\\leqslant0$ 得 $\\dfrac{(f-1)(f-3)}{f}\\leqslant0$，即 $f+\\dfrac3f\\leqslant4$，积分得 $\\displaystyle\\int_0^1f\\,\\mathrm{d}x+\\int_0^1\\frac3f\\,\\mathrm{d}x\\leqslant4$。再由 $ab\\leqslant\\frac14(a+b)^2$，\n$$\\int_0^1f\\,\\mathrm{d}x\\int_0^1\\frac3f\\,\\mathrm{d}x\\leqslant\\frac14\\Big[\\int_0^1f\\,\\mathrm{d}x+\\int_0^1\\frac3f\\,\\mathrm{d}x\\Big]^2\\leqslant4,$$\n故 $\\displaystyle\\int_0^1f\\,\\mathrm{d}x\\int_0^1\\frac1f\\,\\mathrm{d}x\\leqslant\\frac43$。",
+   "solutionSource": "官方"
+  },
+  {
+   "no": "四",
+   "score": 12,
+   "type": "计算",
+   "subjects": [
+    "高等数学"
+   ],
+   "topics": [
+    "三重积分",
+    "球坐标",
+    "柱坐标",
+    "区域分解"
+   ],
+   "difficulty": 3,
+   "statement": "计算三重积分 $\\displaystyle\\iiint_{(V)}\\left(x^2+y^2\\right)\\mathrm{d}V$，其中 $(V)$ 是由\n$$x^2+y^2+(z-2)^2\\geqslant4,\\quad x^2+y^2+(z-1)^2\\leqslant9$$\n及 $z\\geqslant0$ 所围成的空间图形。",
+   "answer": "$\\dfrac{256}{3}\\pi$",
+   "solution": "用\"大球减去小球、再减去大球在 $z<0$ 的部分\"计算。\n\n**大球 $V_1$**：$x=r\\sin\\varphi\\cos\\theta,\\ y=r\\sin\\varphi\\sin\\theta,\\ z=1+r\\cos\\varphi$，$0\\leqslant r\\leqslant3$，\n$$\\iiint_{V_1}(x^2+y^2)\\,\\mathrm{d}V=\\int_0^{2\\pi}\\mathrm{d}\\theta\\int_0^\\pi\\sin^3\\varphi\\,\\mathrm{d}\\varphi\\int_0^3r^4\\,\\mathrm{d}r=\\frac{648\\pi}5.$$\n**小球 $V_2$**（球心 $(0,0,2)$，半径 2，整体在 $z\\geqslant0$ 且在大球内）：同理\n$$\\iiint_{V_2}(x^2+y^2)\\,\\mathrm{d}V=2\\pi\\cdot\\frac43\\cdot\\frac{32}5=\\frac{256\\pi}{15}.$$\n**大球在 $z\\leqslant0$ 的部分 $V_3$**：柱坐标，$0\\leqslant r\\leqslant2\\sqrt2$，$1-\\sqrt{9-r^2}\\leqslant z\\leqslant0$，\n$$\\iiint_{V_3}(x^2+y^2)\\,\\mathrm{d}V=\\int_0^{2\\pi}\\mathrm{d}\\theta\\int_0^{2\\sqrt2}r^3\\big(\\sqrt{9-r^2}-1\\big)\\,\\mathrm{d}r=\\frac{136\\pi}5.$$\n所以原积分 $=\\dfrac{648}5\\pi-\\dfrac{256}{15}\\pi-\\dfrac{136}5\\pi=\\dfrac{256}3\\pi$。",
+   "solutionSource": "官方"
+  },
+  {
+   "no": "五",
+   "score": 14,
+   "type": "证明",
+   "subjects": [
+    "高等数学"
+   ],
+   "topics": [
+    "多元函数中值定理",
+    "柯西不等式",
+    "梯度"
+   ],
+   "difficulty": 2,
+   "statement": "设 $f(x,y)$ 在区域 $D$ 内可微，且 $\\sqrt{\\left(\\dfrac{\\partial f}{\\partial x}\\right)^2+\\left(\\dfrac{\\partial f}{\\partial y}\\right)^2}\\leqslant M$，$A(x_1,y_1)$，$B(x_2,y_2)$ 是 $D$ 内两点，线段 $AB$ 包含在 $D$ 内。证明：$\\left|f(x_1,y_1)-f(x_2,y_2)\\right|\\leqslant M|AB|$，其中 $|AB|$ 表示线段 $AB$ 的长度。",
+   "answer": "",
+   "solution": "令 $\\varphi(t)=f\\big(x_1+t(x_2-x_1),\\,y_1+t(y_2-y_1)\\big)$，$t\\in[0,1]$，可导。由拉格朗日中值定理存在 $c\\in(0,1)$，记 $(u,v)$ 为对应点，\n$$\\varphi(1)-\\varphi(0)=\\frac{\\partial f(u,v)}{\\partial u}(x_2-x_1)+\\frac{\\partial f(u,v)}{\\partial v}(y_2-y_1).$$\n由柯西不等式\n$$|f(x_1,y_1)-f(x_2,y_2)|\\leqslant\\sqrt{f_u^2+f_v^2}\\cdot\\sqrt{(x_2-x_1)^2+(y_2-y_1)^2}\\leqslant M|AB|.$$",
+   "solutionSource": "官方"
+  },
+  {
+   "no": "六",
+   "score": 14,
+   "type": "证明",
+   "subjects": [
+    "高等数学"
+   ],
+   "topics": [
+    "积分不等式",
+    "Jensen 不等式",
+    "算术几何平均",
+    "黎曼和"
+   ],
+   "difficulty": 2,
+   "statement": "证明：对于连续函数 $f(x)>0$，有 $\\ln\\displaystyle\\int_0^1f(x)\\,\\mathrm{d}x\\geqslant\\int_0^1\\ln f(x)\\,\\mathrm{d}x$。",
+   "answer": "",
+   "solution": "取 $x_k\\in\\big[\\frac{k-1}n,\\frac kn\\big]$，则 $\\displaystyle\\int_0^1f\\,\\mathrm{d}x=\\lim_{n\\to\\infty}\\frac1n\\sum_{k=1}^nf(x_k)$。由算术–几何平均不等式 $\\big[f(x_1)\\cdots f(x_n)\\big]^{\\frac1n}\\leqslant\\dfrac1n\\sum f(x_k)$，取对数得\n$$\\frac1n\\sum_{k=1}^n\\ln f(x_k)\\leqslant\\ln\\Big[\\frac1n\\sum_{k=1}^nf(x_k)\\Big].$$\n令 $n\\to\\infty$，由 $\\ln$ 的连续性得 $\\displaystyle\\int_0^1\\ln f(x)\\,\\mathrm{d}x\\leqslant\\ln\\int_0^1f(x)\\,\\mathrm{d}x$。",
+   "solutionSource": "官方"
+  },
+  {
+   "no": "七",
+   "score": 14,
+   "type": "证明",
+   "subjects": [
+    "高等数学"
+   ],
+   "topics": [
+    "正项级数",
+    "Abel 变换",
+    "算术几何平均",
+    "比较判别法"
+   ],
+   "difficulty": 4,
+   "statement": "已知 $\\{a_k\\},\\{b_k\\}$ 是正数列，且 $b_{k+1}-b_k\\geqslant\\delta>0$，$k=1,2,\\cdots$，$\\delta$ 为一常数。证明：若级数 $\\displaystyle\\sum_{k=1}^{+\\infty}a_k$ 收敛，则级数 $\\displaystyle\\sum_{k=1}^{+\\infty}\\frac{k\\sqrt[k]{(a_1a_2\\cdots a_k)(b_1b_2\\cdots b_k)}}{b_{k+1}b_k}$ 收敛。",
+   "answer": "",
+   "solution": "令 $S_k=\\displaystyle\\sum_{i=1}^ka_ib_i$，$S_0=0$，则 $a_k=\\dfrac{S_k-S_{k-1}}{b_k}$。Abel 变换：\n$$\\sum_{k=1}^Na_k=\\sum_{k=1}^N\\frac{S_k-S_{k-1}}{b_k}=\\sum_{k=1}^{N-1}\\Big(\\frac{S_k}{b_k}-\\frac{S_k}{b_{k+1}}\\Big)+\\frac{S_N}{b_N}=\\sum_{k=1}^{N-1}\\frac{b_{k+1}-b_k}{b_kb_{k+1}}S_k+\\frac{S_N}{b_N}\\geqslant\\delta\\sum_{k=1}^{N-1}\\frac{S_k}{b_kb_{k+1}}.$$\n故正项级数 $\\displaystyle\\sum\\frac{S_k}{b_kb_{k+1}}$ 收敛。又由算术–几何平均不等式\n$$\\sqrt[k]{(a_1\\cdots a_k)(b_1\\cdots b_k)}=\\sqrt[k]{(a_1b_1)\\cdots(a_kb_k)}\\leqslant\\frac{S_k}k,$$\n得 $\\dfrac{k\\sqrt[k]{(a_1\\cdots a_k)(b_1\\cdots b_k)}}{b_{k+1}b_k}\\leqslant\\dfrac{S_k}{b_kb_{k+1}}$，由比较判别法原级数收敛。",
+   "solutionSource": "官方"
+  }
+ ]
+}
