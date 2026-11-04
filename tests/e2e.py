@@ -310,7 +310,9 @@ def run_modes(W, H):
     check('expand: panel visible again (TEST_STATE)', st.get('panelVisible') is True, str(st))
 
 def main():
-    note('wm size: ' + adb('shell wm size').strip().replace('\n', ' | '))
+    if os.environ.get('HONOR') or SCEN == 'text':  # mimic the user's HONOR HEY3: density 2.25
+        adb('shell wm density 360'); time.sleep(3)
+    note('wm size: ' + adb('shell wm size').strip().replace('\n', ' | ') + ' density: ' + adb('shell wm density').strip().replace('\n', ' | '))
     adb(f'install -r -g {APK}', check=True, timeout=240)
     adb('shell settings put system accelerometer_rotation 0')
     adb('shell settings put system user_rotation 0')
@@ -924,6 +926,8 @@ TEXT_PROMPTS = [
     ('mvt', '在页面上写出拉格朗日中值定理的条件、结论、几何意义，再写一个用它证明不等式的例子'),
     ('ex', '在页面上出一道用泰勒公式求极限的例题，并写出完整的解答过程'),
     ('o1', 'o(1) 表示无穷小量吗？在页面上简短写一下它和 o(x) 的区别'),
+    ('alg', '帮我学习一下高等代数。我还没学行列式。你写一下学习内容'),
+    ('grade', '左上角是我手写的方程，我算出来答案只有 x=2。批改一下：在页面上我写的方程旁边标出来，再告诉我漏了什么'),
 ]
 
 def run_agent(W, H):
@@ -964,6 +968,10 @@ def run_agent(W, H):
             elif e['type'] == 'tool/result' and e['data']['name'].startswith('canvas_write'):
                 note('RES ' + ' '.join(x.get('text', '') for x in e['data']['content'] if x.get('type') == 'text')[:300])
         check('text: canvas_write_text used', 'canvas_write_text' in allt, str(allt))
+        check('text: canvas_annotate used for grading', 'canvas_annotate' in allt, str(allt))
+        check('text: no annotate out-of-page warnings', '超出页面' not in txt)
+        for v in turns.values(): v['ok'] = v['steps'] <= 4
+        check('text: every turn ≤ 4 steps', all(v['ok'] for v in turns.values()), str({k: v['steps'] for k, v in turns.items()}))
         reps = txt.count('\\"replace\\"') + txt.count('已原位替换')
         check('text: no replace/rewrite of text blocks', '已原位替换' not in txt, f'replace hits={reps}')
     else:

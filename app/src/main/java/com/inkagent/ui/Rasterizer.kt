@@ -130,7 +130,11 @@ class Rasterizer(context: Context) {
                         val diag = runCatching { JSONObject(diagRaw) }.getOrElse { JSONObject() }
                         if (diag.has("error")) throw IllegalArgumentException(diag.getString("error"))
                         fun list(k: String) = diag.optJSONArray(k)?.let { a -> (0 until a.length()).map { a.getString(it) } } ?: emptyList()
-                        val vw = view.width.coerceAtLeast(1); val vh = view.height.coerceAtLeast(1)
+                        val vw = view.width.coerceAtLeast(1)
+                        val dn = appCtx.resources.displayMetrics.density
+                        // text blocks (md/note) are laid out at full size even when taller than the view; draw the whole document
+                        val vh = if (kind == "md" || kind == "note") maxOf(view.height, ((h * dpr + 24) * dn).toInt()).coerceAtMost(14000)
+                            else view.height.coerceAtLeast(1)
                         val full = Bitmap.createBitmap(vw, vh, Bitmap.Config.ARGB_8888)
                         val c = Canvas(full)
                         c.translate(-view.scrollX.toFloat(), -view.scrollY.toFloat())

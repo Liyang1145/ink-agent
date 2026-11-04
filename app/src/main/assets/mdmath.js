@@ -2,6 +2,7 @@
 var md = window.markdownit({html:false, linkify:true, breaks:true});
 function esc(s){return String(s).replace(/[&<>"]/g,function(c){return {'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c];});}
 function tex(src, display){
+  src=String(src).replace(/\u00b7/g,'\\cdot ');
   try { return katex.renderToString(src,{displayMode:display,throwOnError:true}); }
   catch(e){
     try { return katex.renderToString(src,{displayMode:display,strict:'ignore',throwOnError:false}); }

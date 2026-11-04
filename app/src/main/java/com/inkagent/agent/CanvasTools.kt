@@ -272,9 +272,43 @@ class CanvasTools(
         val perCss = maxW / NOTE_CSS_W
         val cssW = (colW / perCss).toInt()
         val r = raster.render("note", md, cssW)
+        // too tall for what's left of this page: flow it paragraph by paragraph (no half-empty pages)
+        if (!args.has("replace") && !args.has("x") && !args.has("y") && colW >= maxW - 1) {
+            val aspect0 = r.bitmap.height.toDouble() / r.bitmap.width.coerceAtLeast(1)
+            val cssP0 = if (r.pxPerCss > 0) r.bitmap.width / r.pxPerCss else r.cssWidth.toDouble()
+            val h0 = minOf(maxW, cssP0 * perCss) * aspect0
+            val room = onMain { val pg = ed().pageAt(idx); if (pg == null) 0.0 else {
+                val low = pg.items.maxOfOrNull { it.bounds().bottom }
+                pg.height - pg.width * MARGIN_FRAC - (if (low == null) pg.height * TOP_FRAC else low + pg.width * GAP_FRAC * 2) } }
+            val chunks = splitMd(md)
+            if (h0 > room && chunks.size > 1) {
+                val rep = layoutBlocks(chunks.map { Block2(it, pageW * 0.004) }, false, idx, "note")
+                return rep.replace("（每题下方留了作答空白）", "（按段落续排，字号不变）") + "\n渲染正常：不需要 view_page 检查。"
+            }
+        }
         val cssPainted = if (r.pxPerCss > 0) r.bitmap.width / r.pxPerCss else r.cssWidth.toDouble()
         val a = JSONObject(args.toString()); a.remove("width"); a.remove("scale")
         return place(idx, "note", source, a, r, minOf(maxW, cssPainted * perCss))
+    }
+
+    /** Split markdown at blank lines outside $$…$$; a short heading stays with what follows it. */
+    fun splitMd(md: String): List<String> {
+        val parts = ArrayList<String>(); val cur = StringBuilder(); var inDisp = false
+        for (line in md.split("\n")) {
+            if (Regex("\\$\\$").findAll(line).count() % 2 == 1) inDisp = !inDisp
+            if (line.isBlank() && !inDisp) { if (cur.isNotBlank()) parts.add(cur.toString().trim()); cur.setLength(0) }
+            else cur.append(line).append('\n')
+        }
+        if (cur.isNotBlank()) parts.add(cur.toString().trim())
+        val out = ArrayList<String>()
+        var carry: String? = null
+        for (p in parts) {
+            val q = if (carry != null) carry + "\n\n" + p else p
+            carry = null
+            if (q.startsWith("#") && !q.contains('\n') && q.length < 80) carry = q else out.add(q)
+        }
+        carry?.let { out.add(it) }
+        return out
     }
 
     /** LaTeX with Chinese \text{…} → markdown: \text runs become prose, the rest inline math; pure-math lines stay display. */
@@ -313,7 +347,7 @@ class CanvasTools(
      * Starts on a fresh page at the end of the note when [newPage], else below the content of [startPage].
      * Must run off the main thread. Returns a short report.
      */
-    fun layoutBlocks(blocks: List<Block2>, newPage: Boolean, startPage: Int?): String {
+    fun layoutBlocks(blocks: List<Block2>, newPage: Boolean, startPage: Int?, kind: String = "md"): String {
         val e = ed()
         val cssW = 860
         var idx = onMain {
@@ -328,7 +362,7 @@ class CanvasTools(
         var placed = 0
         for (b in blocks) {
             if (b.md.isBlank()) continue
-            val r = raster.render("md", b.md, cssW)
+            val r = raster.render(kind, b.md, cssW)
             val bytes = ByteArrayOutputStream().use { r.bitmap.compress(Bitmap.CompressFormat.PNG, 100, it); it.toByteArray() }
             val aspect = r.bitmap.height.toDouble() / r.bitmap.width.coerceAtLeast(1)
             val id = "ai" + System.currentTimeMillis().toString(36) + placed
@@ -352,7 +386,7 @@ class CanvasTools(
                 e.agentInsertImage(idx, bytes, Rect(if (b.center) m + (maxW - w) / 2 else m, y, w, h))
                 y += h + b.spaceAfter
             }
-            registry.add(id, bytes, "md", b.md.take(400))
+            registry.add(id, bytes, kind, b.md.take(400))
             placed++
         }
         onMain { if (e.agentCurrentPage() != first) e.goToPage(first) }
