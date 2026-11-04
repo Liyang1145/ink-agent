@@ -210,6 +210,20 @@ class CanvasTools(
             val prefY = if (args.has("y")) args.optDouble("y") else oldRect?.y
             var spot: Rect? = null
             var shrink = 1.0
+            var target = idx
+            if (kind == "note") {
+                // text keeps its size: if it doesn't fit here, continue below the content of the next page
+                // (a new page at the end if needed) instead of shrinking or squeezing beside other content
+                spot = findSpot(page.width, page.height, obstacles, w, w * aspect, prefX, prefY)
+                if (spot == null && old != null) spot = Rect(oldRect!!.x, oldRect.y, w, w * aspect)
+                    .takeIf { it.bottom <= page.height - page.width * MARGIN_FRAC }
+                while (spot == null && target < idx + 20) {
+                    target += 1
+                    if (target >= e.pageCount) e.addPageAtEnd()
+                    val pg = e.pageAt(target) ?: break
+                    spot = findSpot(pg.width, pg.height, pg.items.map { it.bounds() }, w, w * aspect, null, null)
+                }
+            }
             while (spot == null && shrink > 0.39) {
                 spot = findSpot(page.width, page.height, obstacles, w * shrink, w * shrink * aspect, prefX, prefY)
                 if (spot == null) shrink -= 0.1
@@ -226,10 +240,11 @@ class CanvasTools(
                 (kotlin.math.abs(rect.x - (prefX ?: rect.x)) > 1 || kotlin.math.abs(rect.y - (prefY ?: rect.y)) > 1))
                 note.append("指定位置会与已有内容重叠或超出页面，已挪到最近的空白处。")
             if (old != null) e.agentRemoveItems(idx, listOf(old.second))
-            e.agentInsertImage(idx, bytes, rect)
-            if (e.agentCurrentPage() != idx) e.goToPage(idx)
-            val verb = if (old != null) "已原位替换" else "已放到"
-            "$verb 第 ${idx + 1} 页：id=$id，位置 (${rect.x.toInt()}, ${rect.y.toInt()})，尺寸 ${rect.w.toInt()}x${rect.h.toInt()}（页面 ${page.width.toInt()}x${page.height.toInt()}）。$note" to (old != null)
+            if (target != idx) note.append("第 ${idx + 1} 页剩余空白放不下，已接着写到第 ${target + 1} 页（字号不变）。")
+            e.agentInsertImage(target, bytes, rect)
+            if (e.agentCurrentPage() != target) e.goToPage(target)
+            val verb = if (old != null && target == idx) "已原位替换" else "已放到"
+            "$verb 第 ${target + 1} 页：id=$id，位置 (${rect.x.toInt()}, ${rect.y.toInt()})，尺寸 ${rect.w.toInt()}x${rect.h.toInt()}（页面 ${page.width.toInt()}x${page.height.toInt()}）。$note" to (old != null)
         }
         if (replacedOld) registry.remove(listOf(id))
         registry.add(id, bytes, kind, source)
@@ -265,7 +280,7 @@ class CanvasTools(
     /** LaTeX with Chinese \text{…} → markdown: \text runs become prose, the rest inline math; pure-math lines stay display. */
     fun latexToNote(src: String): String? {
         if (!Regex("[\u4e00-\u9fff]").containsMatchIn(src)) return null
-        return src.split(Regex("\n\\s*\n")).map { it.trim() }.filter { it.isNotEmpty() }.joinToString("\n\n") { line ->
+        return src.split(Regex(if (src.contains("\\begin")) "\n\\s*\n" else "\n\\s*\n|\\\\\\\\(\\[[^\\]]*\\])?")).map { it.trim() }.filter { it.isNotEmpty() }.joinToString("\n\n") { line ->
             if (!line.contains("\\text{")) return@joinToString "$$$line$$"
             val out = StringBuilder(); val math = StringBuilder(); var i = 0
             fun flush() {
