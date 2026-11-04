@@ -95,8 +95,15 @@ class AgentController(private val activity: Activity, private val editorRef: () 
     private fun systemPrompt(): String {
         val user = settings.systemPrompt
         val env = canvasTools?.envPrompt() ?: "你运行在平板笔记应用 InkAgent 里，可以用工具查看和修改用户当前打开的笔记页面（view_page、list_pages、canvas_plot、canvas_write_latex、canvas_draw_svg、canvas_remove），以及管理模型服务商（manage_provider）。用户消息里的 @N 表示引用第 N 页。"
-        return if (user.isBlank()) env else "$user\n\n$env"
+        val gate = if (!settings.canvasAccess)
+            "\n\n【画布权限已关闭】用户关闭了你查看和写入笔记页面的权限：你看不到用户的笔记，也不能在页面上写字画图。所有内容直接在对话里用 Markdown/LaTeX 回答；需要看用户的东西时，请用户用框选截屏或相册把图片发给你。"
+            else if (overlayActive) "\n\n【悬浮窗模式】用户此刻在其他应用里通过悬浮窗和你对话，屏幕上看到的是那个应用，不是笔记。笔记页面工具操作的是 InkAgent 里的笔记，用户现在看不到；除非用户明确要求写到笔记里，否则直接在对话里回答，问题内容以用户发来的截图为准。"
+            else ""
+        return (if (user.isBlank()) env else "$user\n\n$env") + gate
     }
+
+    fun isCanvasTool(name: String) = name.startsWith("canvas_") || name == "view_page" || name == "list_pages"
+    fun setCanvasAccess(on: Boolean) { settings.canvasAccess = on; panel.setCanvasAccess(on) }
 
     // ---------------- panel placement (read by AgentShell) ----------------
     fun changeMode(m: String) {
@@ -218,6 +225,8 @@ class AgentController(private val activity: Activity, private val editorRef: () 
             if (overlayActive) com.inkagent.overlay.OverlayService.instance?.startCapture() ?: toast("请先在设置里开启「在其他应用上显示悬浮球」")
             else captureInApp()
         }
+        override fun canvasAccess(): Boolean = settings.canvasAccess
+        override fun onSetCanvasAccess(on: Boolean) = setCanvasAccess(on)
         override fun onExportSession(id: String) = exportSession(id.ifEmpty { agent.session.id })
         override fun onInputFocus(focused: Boolean) { com.inkagent.overlay.OverlayService.instance?.onInputFocus(focused) }
         override fun listSessions(): String {
@@ -694,6 +703,8 @@ class AgentController(private val activity: Activity, private val editorRef: () 
         panel = AgentPanel(activity, host)
         panelSlot.addView(panel.view, ViewGroup.LayoutParams(-1, -1))
         canvasTools = CanvasTools(editorRef, raster, attachDir, registry).also { it.register(tools) { settings.tavilyKey } }
+        tools.hidden = { n -> !settings.canvasAccess && isCanvasTool(n) }
+        tools.deny = { n, a -> if (!settings.canvasAccess && n == "library" && a.optString("action") == "insert") "用户已关闭 AI 的画布权限，不能插入到页面。把内容直接写在对话里。" else null }
         ProviderTools(settings, ::confirmBlocking) { ui.post { updateHeader() } }.register(tools)
         DebugTools(activity, editorRef, attachDir, { agent.session }, { debugInfo() }).register(tools)
         val lib = com.inkagent.library.Library(activity.applicationContext)
@@ -747,6 +758,7 @@ class AgentController(private val activity: Activity, private val editorRef: () 
         if (i.hasExtra("test_overlay")) setOverlayEnabled(i.getBooleanExtra("test_overlay", false))
         if (i.getBooleanExtra("test_settings", false)) ui.postDelayed({ openSettings() }, 500)
         if (i.getBooleanExtra("test_sessions", false)) ui.postDelayed({ panel.openSessions() }, 500)
+        if (i.hasExtra("test_canvas")) setCanvasAccess(i.getBooleanExtra("test_canvas", true))
         if (i.getBooleanExtra("test_library", false)) ui.postDelayed({ openLibrary() }, 500)
         // test_exec: base64 JSON {"tool": name, "args": {...}} — run one tool directly (no model) and log the result
         i.getStringExtra("test_exec")?.let { b64 ->

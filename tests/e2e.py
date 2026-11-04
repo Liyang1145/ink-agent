@@ -371,6 +371,14 @@ def main():
     check('strokes: ink drawn', dark_near(scr, (lx1 + lx2) // 2, ly) and dark_near(scr, ox + s // 2, oy + s // 2))
     if SCEN in ('agent', 'text'):
         run_agent(W, H)
+        if SCEN == 'text':  # canvas permission switch: off → canvas tools refused, on → work again
+            r = exec_tool(ex + ' --ez test_canvas false', 'view_page', {})
+            note('canvas off view_page -> ' + r[:160]); check('canvas off: view_page refused', r.startswith('ERROR') and '画布权限' in r, r[:200])
+            r = exec_tool(ex, 'canvas_write_text', {'markdown': '测试'})
+            check('canvas off: canvas_write_text refused', r.startswith('ERROR'), r[:200])
+            time.sleep(2); shot('canvas_off_panel')
+            r = exec_tool(ex + ' --ez test_canvas true', 'list_pages', {})
+            check('canvas on again: list_pages ok', r.startswith('OK'), r[:200])
         return finish()
     if SCEN == 'library':
         run_library(ex)

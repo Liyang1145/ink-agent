@@ -47,6 +47,8 @@ class AgentPanel(context: Context, private val host: Host) {
         fun onPickImage() {}
         fun onOpenLibrary() {}
         fun onExportSession(id: String) {}
+        fun canvasAccess(): Boolean = true
+        fun onSetCanvasAccess(on: Boolean) {}
         /** Composer focus changed (the overlay window becomes focusable for the IME). */
         fun onInputFocus(focused: Boolean) {}
     }
@@ -98,6 +100,8 @@ class AgentPanel(context: Context, private val host: Host) {
             @JavascriptInterface fun capture() { main.post { host.onCapture() } }
             @JavascriptInterface fun pickImage() { main.post { host.onPickImage() } }
             @JavascriptInterface fun openLibrary() { main.post { host.onOpenLibrary() } }
+            @JavascriptInterface fun canvasAccess(): Boolean = host.canvasAccess()
+            @JavascriptInterface fun setCanvasAccess(on: Boolean) { main.post { host.onSetCanvasAccess(on) } }
             @JavascriptInterface fun exportSession(id: String) { main.post { host.onExportSession(id) } }
             @JavascriptInterface fun inputFocus(f: Boolean) { main.post { host.onInputFocus(f) } }
         }, "Native")
@@ -165,6 +169,7 @@ class AgentPanel(context: Context, private val host: Host) {
     fun setModel(t: String) = js("setModel(${q(t)})")
     fun setTitle(t: String) = js("setTitle(${q(t)})")
     fun setWindowMode(m: String) = js("setWindowMode(${q(m)})")
+    fun setCanvasAccess(on: Boolean) = js("setCanvasAccess($on)")
     fun blurInput() = js("(function(){var a=document.activeElement;if(a&&a.blur)a.blur();})()")
     fun setAttachments(paths: List<String>) {
         val a = JSONArray(); paths.forEach { a.put("file://$it") }

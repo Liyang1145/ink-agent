@@ -26,11 +26,17 @@ interface Tool {
 class ToolRegistry {
     private val tools = LinkedHashMap<String, Tool>()
     fun register(t: Tool) { tools[t.name] = t }
-    fun schemas() = tools.values.map { it.schema() }
+    /** Tools hidden from the model right now (e.g. the user switched off canvas access). */
+    @Volatile var hidden: (String) -> Boolean = { false }
+    /** Non-null = refuse this call with that message (checked after parsing args). */
+    @Volatile var deny: (String, JSONObject) -> String? = { _, _ -> null }
+    fun schemas() = tools.values.filter { !hidden(it.name) }.map { it.schema() }
     fun execute(name: String, rawArgs: String, signal: CancelSignal): ToolResult {
         val tool = tools[name] ?: return ToolResult.error("未知工具：$name")
         val args = try { if (rawArgs.isBlank()) JSONObject() else JSONObject(rawArgs) }
             catch (e: Exception) { return ToolResult.error("参数不是合法 JSON：${e.message}") }
+        if (hidden(name)) return ToolResult.error("用户已关闭 AI 的画布权限，$name 不可用。直接在对话里回答。")
+        deny(name, args)?.let { return ToolResult.error(it) }
         return try { tool.execute(args, signal) } catch (e: InterruptedException) { throw e }
             catch (e: Exception) { ToolResult.error("工具执行出错：${e.message ?: e.javaClass.simpleName}") }
     }

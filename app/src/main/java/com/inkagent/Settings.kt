@@ -97,6 +97,8 @@ class Settings(context: Context) {
     var splitPort: Float get() = prefs.getFloat("splitPort", 0.42f); set(v) = prefs.edit().putFloat("splitPort", v).apply()
 
     /** 「在其他应用上显示悬浮球」: cross-app overlay ball + window (OverlayService). */
+    /** AI may look at / write on the note pages (canvas + view tools). User switch, default on. */
+    var canvasAccess: Boolean get() = prefs.getBoolean("canvasAccess", true); set(v) = prefs.edit().putBoolean("canvasAccess", v).apply()
     var overlayEnabled: Boolean get() = prefs.getBoolean("overlayEnabled", false); set(v) = prefs.edit().putBoolean("overlayEnabled", v).apply()
     /** Cross-app overlay geometry in screen px (-1 = unset). */
     var ovBallRight: Boolean get() = prefs.getBoolean("ovBallRight", true); set(v) = prefs.edit().putBoolean("ovBallRight", v).apply()
