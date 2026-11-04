@@ -282,7 +282,7 @@ class CanvasTools(
                 pg.height - pg.width * MARGIN_FRAC - (if (low == null) pg.height * TOP_FRAC else low + pg.width * GAP_FRAC * 2) } }
             val chunks = splitMd(md)
             if (h0 > room && chunks.size > 1) {
-                val rep = layoutBlocks(chunks.map { Block2(it, pageW * 0.004) }, false, idx, "note")
+                val rep = layoutBlocks(chunks.map { Block2(it, pageW * 0.012) }, false, idx, "note")
                 return rep.replace("（每题下方留了作答空白）", "（按段落续排，字号不变）") + "\n渲染正常：不需要 view_page 检查。"
             }
         }
