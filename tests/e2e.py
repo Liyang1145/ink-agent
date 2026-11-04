@@ -325,7 +325,7 @@ def main():
     adb('shell input keyevent 82'); adb('shell input keyevent 3')
     time.sleep(5)
     ex = f'--es test_key {KEY} --ez test_finger true --es test_mode compact --es test_effort high --es test_agent_mode split'
-    if SCEN == 'agent':  # ClinePass (OpenAI-compatible gateway) driving DeepSeek V4.1 Flash
+    if SCEN in ('agent', 'text'):  # ClinePass (OpenAI-compatible gateway) driving DeepSeek V4.1 Flash
         ex = (f'--es test_key {CLINE} --es test_base https://api.cline.bot/api/v1 --es test_provider ClinePass '
               f'--es test_model deepseek/deepseek-v4.1-flash --es test_effort default --ez test_finger true --es test_mode compact --es test_agent_mode split')
     launch(ex)
@@ -367,7 +367,7 @@ def main():
     shot('strokes')
     scr = raw_screen()
     check('strokes: ink drawn', dark_near(scr, (lx1 + lx2) // 2, ly) and dark_near(scr, ox + s // 2, oy + s // 2))
-    if SCEN == 'agent':
+    if SCEN in ('agent', 'text'):
         run_agent(W, H)
         return finish()
     if SCEN == 'library':
@@ -919,9 +919,17 @@ AGENT_PROMPTS = [
     ('grade', '左上角是我手写的方程，我算出来答案只有 x=2。批改一下：在页面上我写的方程旁边标出来，再告诉我漏了什么'),
 ]
 
+TEXT_PROMPTS = [
+    ('teach', '带我学习一下同阶无穷小、等价无穷小和泰勒展开，把要点和一个例子写到页面上'),
+    ('mvt', '在页面上写出拉格朗日中值定理的条件、结论、几何意义，再写一个用它证明不等式的例子'),
+    ('ex', '在页面上出一道用泰勒公式求极限的例题，并写出完整的解答过程'),
+    ('o1', 'o(1) 表示无穷小量吗？在页面上简短写一下它和 o(x) 的区别'),
+]
+
 def run_agent(W, H):
     """Drawing-tool UX with a real model: each prompt is one turn; record tools used, steps, and images."""
-    for i, (tag, prompt) in enumerate(AGENT_PROMPTS, 1):
+    prompts = TEXT_PROMPTS if SCEN == 'text' else AGENT_PROMPTS
+    for i, (tag, prompt) in enumerate(prompts, 1):
         c = composer()
         if c: tap(c[0], c[1])
         time.sleep(1)
@@ -943,9 +951,23 @@ def run_agent(W, H):
         elif e['type'] == 'tool/result' and cur:
             turns[cur]['tools'].append(e['data']['name']); turns[cur]['errors'] += 1 if e['data'].get('isError') else 0
     for k, v in turns.items(): note(f'agent turn {k}: steps={v["steps"]} tools={v["tools"]} errors={v["errors"]}')
-    check('agent: all turns finished without error', count_events(txt, 'turn/end') >= len(AGENT_PROMPTS) and '"reason":"error"' not in txt)
+    check('agent: all turns finished without error', count_events(txt, 'turn/end') >= len(prompts) and '"reason":"error"' not in txt)
     allt = [t for v in turns.values() for t in v['tools']]
-    for t in ['canvas_plot', 'canvas_geometry', 'canvas_solid', 'canvas_annotate']:
+    if SCEN == 'text':
+        for line in txt.splitlines():
+            try: e = json.loads(line)
+            except Exception: continue
+            if e['type'] == 'assistant/message':
+                for b in e['data'].get('content', []):
+                    if b.get('type') == 'tool-call' and b['name'].startswith('canvas_write'):
+                        note(f"CALL {b['name']} {b['arguments'][:600]}")
+            elif e['type'] == 'tool/result' and e['data']['name'].startswith('canvas_write'):
+                note('RES ' + ' '.join(x.get('text', '') for x in e['data']['content'] if x.get('type') == 'text')[:300])
+        check('text: canvas_write_text used', 'canvas_write_text' in allt, str(allt))
+        reps = txt.count('\\"replace\\"') + txt.count('已原位替换')
+        check('text: no replace/rewrite of text blocks', '已原位替换' not in txt, f'replace hits={reps}')
+    else:
+      for t in ['canvas_plot', 'canvas_geometry', 'canvas_solid', 'canvas_annotate']:
         check(f'agent: {t} used', t in allt, str(allt))
     check('agent: no view_page re-checks after drawing', all(
         'view_page' not in v['tools'][next((j for j, t in enumerate(v['tools']) if t.startswith('canvas_') and t != 'canvas_annotate'), len(v['tools'])):] for v in turns.values()), str(turns))
