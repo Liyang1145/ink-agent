@@ -97,6 +97,7 @@ class AiRegistry(private val file: File) {
 
 private const val MARGIN_FRAC = 0.05 // side/bottom margin, fraction of page width
 private const val TOP_FRAC = 0.04    // top margin, fraction of page height
+private const val NOTE_CSS_W = 860.0  // css width of a full-text-width text column (same as exam sheets)
 private const val GAP_FRAC = 0.015   // clearance kept around existing content, fraction of page width
 
 class CanvasTools(
@@ -196,7 +197,7 @@ class CanvasTools(
             val aspect = r.bitmap.height.toDouble() / r.bitmap.width.coerceAtLeast(1)
             val maxW = page.width * (1 - 2 * MARGIN_FRAC)
             val asked = if (args.has("width")) args.optDouble("width").takeIf { it > 1 } else null
-            val base = asked ?: (if (oldRect != null && kind != "latex") oldRect.w else null) ?: widthPage
+            val base = asked ?: (if (oldRect != null && kind != "latex" && kind != "note") oldRect.w else null) ?: widthPage
                 ?: (r.cssWidth * 0.75 * unit * args.optDouble("scale", 1.0))
             var w = base.coerceIn(page.width * 0.04, maxW)
             // keep SVG labels legible: smallest text at least ~1.6% of the page width (≈ small handwriting)
@@ -243,6 +244,53 @@ class CanvasTools(
     }
 
     class Block2(val md: String, val spaceAfter: Double, val center: Boolean = false)
+
+    /**
+     * Wrapped text block (markdown + math) at the one fixed text size shared with exam sheets: the column is
+     * [NOTE_CSS_W] css px across the full text width, so 26px css text is always ~34 page units tall
+     * regardless of content. A narrower `width` wraps sooner instead of shrinking the text.
+     */
+    fun writeNote(idx: Int, md: String, args: JSONObject, source: String): String {
+        val pageW = onMain { ed().pageAt(idx)?.width ?: 1240.0 }
+        val maxW = pageW * (1 - 2 * MARGIN_FRAC)
+        val colW = (if (args.has("width")) args.optDouble("width") else maxW).coerceIn(maxW * 0.3, maxW)
+        val perCss = maxW / NOTE_CSS_W
+        val cssW = (colW / perCss).toInt()
+        val r = raster.render("note", md, cssW)
+        val cssPainted = if (r.pxPerCss > 0) r.bitmap.width / r.pxPerCss else r.cssWidth.toDouble()
+        val a = JSONObject(args.toString()); a.remove("width"); a.remove("scale")
+        return place(idx, "note", source, a, r, minOf(maxW, cssPainted * perCss))
+    }
+
+    /** LaTeX with Chinese \text{…} → markdown: \text runs become prose, the rest inline math; pure-math lines stay display. */
+    fun latexToNote(src: String): String? {
+        if (!Regex("[\u4e00-\u9fff]").containsMatchIn(src)) return null
+        return src.split(Regex("\n\\s*\n")).map { it.trim() }.filter { it.isNotEmpty() }.joinToString("\n\n") { line ->
+            if (!line.contains("\\text{")) return@joinToString "$$$line$$"
+            val out = StringBuilder(); val math = StringBuilder(); var i = 0
+            fun flush() {
+                val pad = Regex("""^(\\[ ,;:!]|\\q?quad|~|\s)+|(\\[ ,;:!]|\\q?quad|~|\s)+$""")
+                val m = math.toString().replace(pad, "")
+                if (m.isNotEmpty()) out.append('$').append(if (Regex("""\\(frac|lim|sum|int|prod)""").containsMatchIn(m)) "\\displaystyle " else "").append(m).append('$')
+                math.setLength(0)
+            }
+            while (i < line.length) {
+                if (line.startsWith("\\text{", i)) {
+                    var d = 1; var j = i + 6
+                    while (j < line.length && d > 0) { if (line[j] == '{') d++ else if (line[j] == '}') d--; if (d > 0) j++ }
+                    val inner = line.substring(i + 6, minOf(j, line.length))
+                    if (inner.any { it.code > 0x7f } || inner.isBlank()) {
+                        flush(); out.append(inner.replace("\\quad", "　").replace("\\ ", " ").replace("\\,", " ")); i = j + 1
+                    } else { math.append(line, i, minOf(j + 1, line.length)); i = j + 1 }
+                } else if (line.startsWith("\\quad", i) || line.startsWith("\\qquad", i)) {
+                    if (math.isNotBlank()) math.append(if (line.startsWith("\\qquad", i)) "\\qquad" else "\\quad")
+                    else out.append("　")
+                    i += if (line.startsWith("\\qquad", i)) 6 else 5
+                } else { math.append(line[i]); i++ }
+            }
+            flush(); out.toString().replace(Regex(" {2,}"), " ").trim()
+        }
+    }
 
     /**
      * Lay out markdown blocks (problems, a title…) top to bottom as an exam sheet: full text width, each block
@@ -388,8 +436,27 @@ class CanvasTools(
             override fun execute(args: JSONObject, signal: CancelSignal): ToolResult {
                 val idx = pageIndex(args)
                 val src = args.getString("latex")
+                // Chinese sentences inside \text{} can't wrap in KaTeX and force the whole block to shrink:
+                // route them through the wrapping text renderer so the size stays uniform.
+                latexToNote(src)?.let { return ToolResult.text(writeNote(idx, it, args, src)) }
                 val r = raster.render("latex", src)
                 return ToolResult.text(place(idx, "latex", src, args, r, null))
+            }
+        })
+        reg.register(object : Tool {
+            override val name = "canvas_write_text"
+            override val description = "在页面上写一段文字（Markdown，公式用 \$...\$ / \$\$...\$\$），自动换行，字号固定统一。"
+            override val parameters = obj(
+                "text" to t("string", "Markdown 文本"),
+                "page" to t("integer", "页码"), "x" to t("number", "x"), "y" to t("number", "y"),
+                "width" to t("number", "栏宽"), "replace" to t("string", "替换的 id"),
+                required = listOf("text"),
+            )
+            override fun execute(args: JSONObject, signal: CancelSignal): ToolResult {
+                val idx = pageIndex(args)
+                val md = args.optString("text")
+                if (md.isBlank()) return ToolResult.error("text 不能为空")
+                return ToolResult.text(writeNote(idx, md, args, md))
             }
         })
         reg.register(object : Tool {

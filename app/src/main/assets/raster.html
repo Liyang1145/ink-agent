@@ -12,6 +12,7 @@ html{-webkit-text-size-adjust:none;text-size-adjust:none;}
 #box{display:inline-block;width:max-content;padding:6px 10px;color:#1a4fd0;font-size:40px;line-height:1.35;}
 #box svg{display:block;overflow:visible;}
 #box.md{width:auto;font-size:26px;line-height:1.65;color:#111;white-space:normal;padding:4px 6px;}
+#box.note{color:#1a4fd0;} #box.note .katex-display>.katex{text-align:left;} #box.note .katex-display{text-align:left;}
 #box.md p{margin:0 0 .45em;} #box.md ol,#box.md ul{margin:.2em 0 .45em;padding-left:1.6em;} #box.md h1,#box.md h2,#box.md h3{margin:.2em 0 .5em;font-size:1.25em;} #box.md .katex-display{margin:.35em 0;} #box.md .ttl{text-align:center;font-size:1.35em;font-weight:600;margin-bottom:.3em;} #box.md .sub{text-align:center;color:#555;font-size:.85em;margin-bottom:.6em;}
 .katex-display{margin:0 !important;}
 .err{color:#c62828;font-family:monospace;font-size:28px;white-space:pre-wrap;}
@@ -325,8 +326,8 @@ function render(kind, src, widthPx, vw, vh){
   box.style.width=''; box.style.height=''; box.style.transform=''; box.style.paddingLeft=''; box.style.marginLeft='';
   box.className='';
   try{
-    if(kind==='md'){
-      box.className='md'; box.style.width=(widthPx||1000)+'px';
+    if(kind==='md'||kind==='note'){
+      box.className=kind==='note'?'md note':'md'; box.style.width=(widthPx||1000)+'px';
       box.innerHTML=renderWithMath(src);
     } else if(kind==='calib'){
       box.innerHTML='<div style="width:300px;height:300px;background:#000"></div>';
