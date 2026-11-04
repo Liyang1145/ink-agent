@@ -105,8 +105,15 @@ class Rasterizer(context: Context) {
     /** Blocking; must be called off the main thread. */
     fun render(kind: String, source: String, widthCssPx: Int = 0): Result {
         synchronized(lock) {
-            calibrate()
-            return renderOnce(kind, source, widthCssPx)
+            // No pixel calibration: on the HONOR HEY3 the one-off 300×300 square captured as 226×642 (a bad
+            // first frame), which then squashed every render to 35% height. Captures themselves are square;
+            // log css-vs-bitmap aspect instead so a real distortion would show up in applog.
+            return renderOnce(kind, source, widthCssPx).also { r ->
+                if (r.cssWidth > 0 && r.cssHeight > 0 && r.bitmap.width > 20) {
+                    val want = r.cssHeight.toDouble() / r.cssWidth; val got = r.bitmap.height.toDouble() / r.bitmap.width
+                    if (kotlin.math.abs(got / want - 1) > 0.25) com.inkagent.AppLog.i("InkRaster", "aspect check kind=$kind css=${r.cssWidth}x${r.cssHeight} bmp=${r.bitmap.width}x${r.bitmap.height}")
+                }
+            }
         }
     }
 
