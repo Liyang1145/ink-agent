@@ -34,7 +34,7 @@ class DebugTools(
     fun register(reg: ToolRegistry) {
         reg.register(object : Tool {
             override val name = "app_debug"
-            override val description = "检查 InkAgent 应用本身（用户反馈界面/功能有问题、或你怀疑工具行为不对时用）。action：" +
+            override val description = "检查 InkAgent 应用本身（只在用户反馈界面/功能有问题、或你怀疑工具行为不对时用；读用户手写、批改作业请用 view_page，不要用它）。action：" +
                 "info=应用版本、设备、屏幕方向、面板模式、模型配置（不含密钥）、画布状态（页数、当前页、屏幕上可见的页、缩放、滚动方式）；" +
                 "log=应用日志末尾（含网络错误与重试、界面 WebView 的 JS 报错、崩溃堆栈），可用 filter 过滤、lines 控制行数；" +
                 "errors=本会话最近失败的轮次和出错的工具调用；" +

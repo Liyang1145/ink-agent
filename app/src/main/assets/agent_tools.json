@@ -410,13 +410,20 @@
    }
   },
   "canvas_remove": {
-   "description": "删除你放到页面上的 AI 对象：传 id 删除一个，或 all=true 删除该页所有 AI 对象。不会动用户的手写笔迹和用户自己的对象。可撤销。修正图形请用绘图工具的 replace 参数，不要删了重画。",
+   "description": "删除你放到页面上的 AI 对象：id 删除一个，ids 一次删除多个（可以跨页，省略 page 时在所有页里找），或 all=true 删除该页所有 AI 对象。不会动用户的手写笔迹和用户自己的对象。可撤销。修正图形请用绘图工具的 replace 参数，不要删了重画。",
    "parameters": {
     "type": "object",
     "properties": {
      "id": {
       "type": "string",
       "description": "对象 id"
+     },
+     "ids": {
+      "type": "array",
+      "items": {
+       "type": "string"
+      },
+      "description": "一次删除多个对象的 id（例如续排成多块的一段笔记）"
      },
      "all": {
       "type": "boolean",

@@ -360,6 +360,7 @@ class CanvasTools(
             if (low == null) page.height * TOP_FRAC else low + page.width * GAP_FRAC * 2
         }
         var placed = 0
+        val ids = ArrayList<String>()
         for (b in blocks) {
             if (b.md.isBlank()) continue
             val r = raster.render(kind, b.md, cssW)
@@ -387,11 +388,12 @@ class CanvasTools(
                 y += h + b.spaceAfter
             }
             registry.add(id, bytes, kind, b.md.take(400))
-            placed++
+            ids.add(id); placed++
         }
         onMain { if (e.agentCurrentPage() != first) e.goToPage(first) }
         val pages = if (idx == first) "第 ${first + 1} 页" else "第 ${first + 1}–${idx + 1} 页"
-        return "已排版 $placed 块内容到$pages（每题下方留了作答空白）。"
+        return "已排版 $placed 块内容到$pages（每题下方留了作答空白）。" +
+            (if (kind == "note") "各块 id：${ids.joinToString("、")}（要改某一段就 replace 那一块；要整段删掉用 canvas_remove 列出这些 id）。" else "")
     }
 
     /** Model-facing tool texts (assets/agent_tools.json), shared with the offline tool-UX harness. */
@@ -591,16 +593,30 @@ class CanvasTools(
             override val description = "删除你放到页面上的 AI 对象：传 id 删除一个，或 all=true 删除该页所有 AI 对象。不会动用户的手写笔迹和用户自己的对象。可撤销。"
             override val parameters = obj(
                 "id" to t("string", "对象 id"),
+                "ids" to JSONObject().put("type", "array").put("items", JSONObject().put("type", "string")).put("description", "一次删除多个对象的 id"),
                 "all" to t("boolean", "删除该页所有 AI 对象"),
                 "page" to t("integer", "页码，从 1 开始；省略表示当前页"),
             )
             override fun execute(args: JSONObject, signal: CancelSignal): ToolResult {
                 val idx = pageIndex(args)
                 val e = ed()
+                val multi = args.has("ids") && !args.has("page") && !args.optBoolean("all")
+                if (multi) return onMain {
+                    val want = HashSet<String>().apply { args.optJSONArray("ids")?.let { a -> for (k in 0 until a.length()) add(a.optString(k)) }; args.optString("id").takeIf { it.isNotBlank() }?.let { add(it) } }
+                    var n = 0
+                    for (pi in 0 until e.pageCount) {
+                        val page = e.pageAt(pi) ?: continue
+                        val pick = registry.match(page.items).filter { it.first.id in want }
+                        if (pick.isEmpty()) continue
+                        e.agentRemoveItems(pi, pick.map { it.second }); registry.remove(pick.map { it.first.id }); n += pick.size
+                    }
+                    if (n == 0) ToolResult.error("没有找到这些 id 的 AI 对象") else ToolResult.text("删除了 $n 个对象")
+                }
                 return onMain {
                     val page = e.pageAt(idx) ?: return@onMain ToolResult.error("页面不存在")
                     val found = registry.match(page.items)
-                    val pick = if (args.optBoolean("all")) found else found.filter { it.first.id == args.optString("id") }
+                    val want = HashSet<String>().apply { args.optString("id").takeIf { it.isNotBlank() }?.let { add(it) }; args.optJSONArray("ids")?.let { a -> for (k in 0 until a.length()) add(a.optString(k)) } }
+                    val pick = if (args.optBoolean("all")) found else found.filter { it.first.id in want }
                     if (pick.isEmpty()) return@onMain ToolResult.error("第 ${idx + 1} 页上没有找到要删除的 AI 对象")
                     e.agentRemoveItems(idx, pick.map { it.second })
                     registry.remove(pick.map { it.first.id })

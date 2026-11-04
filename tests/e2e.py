@@ -936,6 +936,7 @@ TEXT_PROMPTS = [
     ('o1', 'o(1) 表示无穷小量吗？在页面上简短写一下它和 o(x) 的区别'),
     ('alg', '帮我学习一下高等代数。我还没学行列式。你写一下学习内容'),
     ('grade', '左上角是我手写的方程，我算出来答案只有 x=2。批改一下：在页面上我写的方程旁边标出来，再告诉我漏了什么'),
+    ('del', '把你刚才写在页面上的高等代数学习内容全部删掉，其他的保留'),
 ]
 
 def run_agent(W, H):
@@ -987,7 +988,13 @@ def run_agent(W, H):
         check(f'agent: {t} used', t in allt, str(allt))
     check('agent: no view_page re-checks after drawing', all(
         'view_page' not in v['tools'][next((j for j, t in enumerate(v['tools']) if t.startswith('canvas_') and t != 'canvas_annotate'), len(v['tools'])):] for v in turns.values()), str(turns))
-    check('agent: no remove-and-redraw', 'canvas_remove' not in [t for v in turns.values() if 'canvas_annotate' not in v['tools'] for t in v['tools']], str(allt))
+    def redraw(ts):
+        i = ts.index('canvas_remove') if 'canvas_remove' in ts else -1
+        return i >= 0 and any(t.startswith('canvas_') and t not in ('canvas_remove', 'canvas_annotate') for t in ts[i + 1:])
+    check('agent: no remove-and-redraw', not any(redraw(v['tools']) for v in turns.values() if 'canvas_annotate' not in v['tools']), str(allt))
+    if SCEN == 'text':
+        last = turns.get(max(turns)) if turns else {}
+        check('text: delete turn used canvas_remove without errors', last and 'canvas_remove' in last['tools'] and last['errors'] == 0, str(last))
     st = state('agent_end')
     pg = st.get('page') or {}
     imgs = [i for i in (pg.get('items') or []) if i.get('kind') == 'image']
