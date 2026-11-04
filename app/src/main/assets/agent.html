@@ -281,7 +281,15 @@ function paint(m, settled){
   }
   m.el.innerHTML=html;
   m.el.className='md'+(settled?'':' streaming');
+  fitDisplays(m.el);
 }
+// a display formula wider than the bubble shrinks (down to 70%) before it needs sideways scrolling
+function fitDisplays(root){
+  var ds=root.querySelectorAll('.katex-display');
+  for(var i=0;i<ds.length;i++){ var d=ds[i]; d.style.fontSize='';
+    if(d.clientWidth>0&&d.scrollWidth>d.clientWidth+1) d.style.fontSize=Math.max(70,Math.floor(100*d.clientWidth/d.scrollWidth))+'%'; }
+}
+window.addEventListener('resize',function(){ var ms=document.querySelectorAll('.md'); for(var i=0;i<ms.length;i++) fitDisplays(ms[i]); });
 
 // ======================= presentation policy (dsh ui-chat presentation-policy.ts) =======================
 var POLICIES={

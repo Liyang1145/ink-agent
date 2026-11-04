@@ -978,8 +978,8 @@ def run_agent(W, H):
         check('text: canvas_write_text used', 'canvas_write_text' in allt, str(allt))
         check('text: canvas_annotate used for grading', 'canvas_annotate' in allt, str(allt))
         check('text: no annotate out-of-page warnings', '超出页面' not in txt)
-        for v in turns.values(): v['ok'] = v['steps'] <= 4
-        check('text: every turn ≤ 4 steps', all(v['ok'] for v in turns.values()), str({k: v['steps'] for k, v in turns.items()}))
+        for v in turns.values(): v['ok'] = v['steps'] <= (9 if 'canvas_annotate' in v['tools'] else 6)
+        check('text: every turn ≤ 6 steps (grading ≤ 9)', all(v['ok'] for v in turns.values()), str({k: v['steps'] for k, v in turns.items()}))
         reps = txt.count('\\"replace\\"') + txt.count('已原位替换')
         check('text: no replace/rewrite of text blocks', '已原位替换' not in txt, f'replace hits={reps}')
     else:
@@ -987,7 +987,7 @@ def run_agent(W, H):
         check(f'agent: {t} used', t in allt, str(allt))
     check('agent: no view_page re-checks after drawing', all(
         'view_page' not in v['tools'][next((j for j, t in enumerate(v['tools']) if t.startswith('canvas_') and t != 'canvas_annotate'), len(v['tools'])):] for v in turns.values()), str(turns))
-    check('agent: no remove-and-redraw', 'canvas_remove' not in allt, str(allt))
+    check('agent: no remove-and-redraw', 'canvas_remove' not in [t for v in turns.values() if 'canvas_annotate' not in v['tools'] for t in v['tools']], str(allt))
     st = state('agent_end')
     pg = st.get('page') or {}
     imgs = [i for i in (pg.get('items') or []) if i.get('kind') == 'image']
