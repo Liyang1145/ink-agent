@@ -372,9 +372,16 @@ class OverlayService : Service() {
         val body = FrameLayout(ui).apply { setBackgroundColor(Color.WHITE) }
         card.addView(body, LinearLayout.LayoutParams(-1, 0, 1f))
         root.addView(card, FrameLayout.LayoutParams(-1, -1))
-        val gs = dp(30f)
-        val gripR = Grip(ui, false).apply { contentDescription = "调整悬浮窗大小" }
-        val gripL = Grip(ui, true).apply { contentDescription = "调整悬浮窗左下角" }
+        // resize handles: the card has elevation, so handles need a higher Z or the card swallows their touches
+        val gs = dp(34f); val es = dp(14f); val hz = dp(12f).toFloat()
+        val gripR = Grip(ui, false).apply { contentDescription = "调整悬浮窗大小"; elevation = hz }
+        val gripL = Grip(ui, true).apply { contentDescription = "调整悬浮窗左下角"; elevation = hz }
+        val edgeL = View(ui).apply { contentDescription = "拖动左边调整宽度"; elevation = hz }
+        val edgeR = View(ui).apply { contentDescription = "拖动右边调整宽度"; elevation = hz }
+        val edgeB = View(ui).apply { contentDescription = "拖动下边调整高度"; elevation = hz }
+        root.addView(edgeL, FrameLayout.LayoutParams(es, -1, Gravity.START).apply { topMargin = dp(40f); bottomMargin = gs })
+        root.addView(edgeR, FrameLayout.LayoutParams(es, -1, Gravity.END).apply { topMargin = dp(40f); bottomMargin = gs })
+        root.addView(edgeB, FrameLayout.LayoutParams(-1, es, Gravity.BOTTOM).apply { leftMargin = gs; rightMargin = gs })
         root.addView(gripR, FrameLayout.LayoutParams(gs, gs, Gravity.BOTTOM or Gravity.END))
         root.addView(gripL, FrameLayout.LayoutParams(gs, gs, Gravity.BOTTOM or Gravity.START))
 
@@ -411,18 +418,20 @@ class OverlayService : Service() {
             }
             true
         }
-        fun resizer(left: Boolean) = View.OnTouchListener { _, ev ->
+        fun resizer(left: Boolean, horiz: Boolean = true, vert: Boolean = true) = View.OnTouchListener { _, ev ->
             when (ev.actionMasked) {
                 MotionEvent.ACTION_DOWN -> { rx = ev.rawX; ry = ev.rawY; sx = lp.x; sw = lp.width; sh2 = lp.height }
                 MotionEvent.ACTION_MOVE -> {
                     val sc = screen()
                     val dx = (ev.rawX - rx).toInt(); val dy = (ev.rawY - ry).toInt()
                     if (abs(dx) < slop / 2 && abs(dy) < slop / 2) return@OnTouchListener true
-                    if (left) {
-                        val nx = (sx + dx).coerceIn(0, sx + sw - minW())
-                        lp.width = sw + (sx - nx); lp.x = nx
-                    } else lp.width = (sw + dx).coerceIn(minW(), sc.x - lp.x)
-                    lp.height = (sh2 + dy).coerceIn(minH(), sc.y - lp.y)
+                    if (horiz) {
+                        if (left) {
+                            val nx = (sx + dx).coerceIn(0, sx + sw - minW())
+                            lp.width = sw + (sx - nx); lp.x = nx
+                        } else lp.width = (sw + dx).coerceIn(minW(), sc.x - lp.x)
+                    }
+                    if (vert) lp.height = (sh2 + dy).coerceIn(minH(), sc.y - lp.y)
                     runCatching { wm.updateViewLayout(root, lp) }
                 }
                 MotionEvent.ACTION_UP, MotionEvent.ACTION_CANCEL -> saveWin()
@@ -431,6 +440,9 @@ class OverlayService : Service() {
         }
         gripR.setOnTouchListener(resizer(false))
         gripL.setOnTouchListener(resizer(true))
+        edgeL.setOnTouchListener(resizer(true, vert = false))
+        edgeR.setOnTouchListener(resizer(false, vert = false))
+        edgeB.setOnTouchListener(resizer(false, horiz = false))
         win = root; winLp = lp; content = body
     }
 

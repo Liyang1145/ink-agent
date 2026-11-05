@@ -16,8 +16,17 @@ class Settings(context: Context) {
     var providers: List<Provider>
         get() {
             val raw = prefs.getString("providers", null) ?: return defaults()
-            return try { val a = JSONArray(raw); (0 until a.length()).map { Provider.fromJson(a.getJSONObject(it)) } }
-            catch (_: Exception) { defaults() }
+            val list = try { val a = JSONArray(raw); (0 until a.length()).map { Provider.fromJson(a.getJSONObject(it)) } }
+                catch (_: Exception) { return defaults() }
+            // one-time: add presets introduced after the user saved their list (they can delete them afterwards)
+            if (!prefs.getBoolean("seed_clinepass", false)) {
+                prefs.edit().putBoolean("seed_clinepass", true).apply()
+                if (list.none { it.id == "clinepass" }) {
+                    val out = list + defaults().filter { it.id == "clinepass" }
+                    providers = out; return out
+                }
+            }
+            return list
         }
         set(v) { prefs.edit().putString("providers", JSONArray().also { a -> v.forEach { a.put(it.toJson()) } }.toString()).apply() }
 
@@ -147,6 +156,9 @@ class Settings(context: Context) {
         fun defaults() = listOf(
             Provider("deepseek", "DeepSeek", Protocol.ANTHROPIC_MESSAGES, "https://api.deepseek.com/anthropic", "",
                 listOf("deepseek-flash", "deepseek-v4-pro")),
+            // ClinePass (api.cline.bot, OpenAI-compatible): fill in your key in 模型设置; dsf = DeepSeek V4.1 Flash
+            Provider("clinepass", "ClinePass", Protocol.OPENAI_CHAT, "https://api.cline.bot/api/v1", "",
+                listOf("deepseek/deepseek-v4.1-flash")),
         )
     }
 }

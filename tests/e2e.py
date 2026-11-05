@@ -636,6 +636,18 @@ def run_overlay(W, H):
           and st.get('dataMode') == 'overlay' and (st.get('viewWidth') or 0) > 200 and not (ov.get('ball') or {}).get('shown'),
           f"window={w} panelVisible={st.get('panelVisible')} dataMode={st.get('dataMode')} view={st.get('viewWidth')}x{st.get('viewHeight')}")
     check('overlay window: same session (transcript present)', st.get('userCount', 0) >= 2, f"userCount={st.get('userCount')}")
+    # resize by the bottom-right grip (inside the 8dp shadow padding + 34dp grip) and by the left edge
+    if w.get('w'):
+        d = 2.0
+        gx, gy = w['x'] + w['w'] - int(22 * d), w['y'] + w['h'] - int(22 * d)
+        adb(f'shell input swipe {gx} {gy} {gx - 180} {gy + 140} 700'); time.sleep(1.5)
+        w2 = (ostate('ov_resized').get('overlay') or {}).get('window') or {}
+        check('overlay window: corner grip resizes', w2.get('w', 0) < w['w'] - 100 and w2.get('h', 0) > w['h'] + 80, f'{w} -> {w2}')
+        ex_, ey_ = w2.get('x', 0) + int(10 * d), w2.get('y', 0) + w2.get('h', 0) // 2
+        adb(f'shell input swipe {ex_} {ey_} {ex_ - 150} {ey_} 700'); time.sleep(1.5)
+        w3 = (ostate('ov_resized_left').get('overlay') or {}).get('window') or {}
+        check('overlay window: left edge resizes width', w3.get('w', 0) > w2.get('w', 0) + 100 and w3.get('x', 0) < w2.get('x', 0) - 100, f'{w2} -> {w3}')
+        shot('overlay_resized')
     cap = (st.get('rects') or {}).get('capBtn')
     check('overlay window: 框选截屏 + 打开应用 buttons', cap and cap[4] and ((st.get('rects') or {}).get('modeBtn') or [0] * 5)[4], str(st.get('rects')))
     att0 = st.get('attachments', 0); user0 = st.get('userCount', 0)
