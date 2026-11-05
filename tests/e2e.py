@@ -648,6 +648,7 @@ def run_overlay(W, H):
         w3 = (ostate('ov_resized_left').get('overlay') or {}).get('window') or {}
         check('overlay window: left edge resizes width', w3.get('w', 0) > w2.get('w', 0) + 100 and w3.get('x', 0) < w2.get('x', 0) - 100, f'{w2} -> {w3}')
         shot('overlay_resized')
+        st = ostate('after_resize')
     cap = (st.get('rects') or {}).get('capBtn')
     check('overlay window: 框选截屏 + 打开应用 buttons', cap and cap[4] and ((st.get('rects') or {}).get('modeBtn') or [0] * 5)[4], str(st.get('rects')))
     att0 = st.get('attachments', 0); user0 = st.get('userCount', 0)
