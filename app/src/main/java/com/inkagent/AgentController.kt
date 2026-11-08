@@ -781,7 +781,7 @@ class AgentController(private val activity: Activity, private val editorRef: () 
             "sidebarOpen:!!(s&&s.classList.contains('open')),messageCount:l?l.querySelectorAll('.user,.md').length:0," +
             "userCount:l?l.querySelectorAll('.user').length:0,turnCount:l?l.querySelectorAll('.turn').length:0,innerWidth:window.innerWidth," +
             "layout:(typeof layoutState==='function'?layoutState():null),trayCount:document.querySelectorAll('#tray .att').length," +
-            "dataMode:document.body.getAttribute('data-mode'),rects:(function(){var o={};['input','modeBtn','capBtn','send'].forEach(function(id){var e=document.getElementById(id);" +
+            "dataMode:document.body.getAttribute('data-mode'),rail:(typeof railState==='function'?railState():null),rects:(function(){var o={};['input','modeBtn','capBtn','send'].forEach(function(id){var e=document.getElementById(id);" +
             "if(e){var r=e.getBoundingClientRect();o[id]=[r.left,r.top,r.width,r.height,getComputedStyle(e).display!=='none'&&r.width>0];}});return o;})()," +
             "trayRects:Array.prototype.map.call(document.querySelectorAll('#tray .att img'),function(e){var r=e.getBoundingClientRect();return [r.left,r.top,r.width,r.height];})});})()"
         panel.evalForTest(js) { raw ->

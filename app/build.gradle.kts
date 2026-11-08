@@ -25,8 +25,8 @@ android {
         applicationId = "com.inkagent"
         minSdk = 26
         targetSdk = 36
-        versionCode = 27
-        versionName = "0.6.11"
+        versionCode = 28
+        versionName = "0.6.12"
         ndk {
             abiFilters += listOf("arm64-v8a", "x86_64")
         }

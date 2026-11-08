@@ -481,6 +481,15 @@ def main():
     check('turns: two turns completed', count_events(txt, 'turn/end') >= 2 and '"reason":"error"' not in txt, f'tool errors={len(errs)}')
     st = state('after_turns')
     check('turns: messages rendered in panel (TEST_STATE)', st.get('userCount', 0) >= 2 and st.get('messageCount', 0) >= 3, str(st))
+    rl = st.get('rail') or {}
+    check('rail: one mark per turn', rl.get('on') is True and rl.get('ticks', 0) >= 2, str(rl))
+    if rl.get('rect'):
+        d = st.get('density') or 1
+        rx_ = int(st.get('viewScreenX', 0) + (rl['rect'][0] + 18) * d); ry_ = int(st.get('viewScreenY', 0) + (rl['rect'][1] + 11) * d)
+        tap(rx_, ry_); time.sleep(2)
+        rl2 = state('rail_jump').get('rail') or {}
+        shot('rail_jump')
+        check('rail: tapping the first mark jumps to turn 1', rl2.get('cur') == 0 and (rl2.get('scrollTop', 0) < rl.get('scrollTop', 0) or rl.get('cur') == 0), f'{rl} -> {rl2}')
     lay = st.get('layout') or {}
     pg = st.get('page') or {}
     items = pg.get('items') or []
