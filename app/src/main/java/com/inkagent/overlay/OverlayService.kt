@@ -418,9 +418,17 @@ class OverlayService : Service() {
             }
             true
         }
+        // While dragging, the panel WebView is pinned at its starting pixel size so the window frame moves
+        // at frame rate without re-flowing the transcript (KaTeX/markdown) on every move; one re-layout on release.
+        fun freezePanel(on: Boolean) {
+            val c = body.getChildAt(0) ?: return
+            if (on) {
+                if (c.width > 0 && c.height > 0) c.layoutParams = FrameLayout.LayoutParams(c.width, c.height, Gravity.TOP or Gravity.START)
+            } else c.layoutParams = FrameLayout.LayoutParams(-1, -1)
+        }
         fun resizer(left: Boolean, horiz: Boolean = true, vert: Boolean = true) = View.OnTouchListener { _, ev ->
             when (ev.actionMasked) {
-                MotionEvent.ACTION_DOWN -> { rx = ev.rawX; ry = ev.rawY; sx = lp.x; sw = lp.width; sh2 = lp.height }
+                MotionEvent.ACTION_DOWN -> { rx = ev.rawX; ry = ev.rawY; sx = lp.x; sw = lp.width; sh2 = lp.height; freezePanel(true) }
                 MotionEvent.ACTION_MOVE -> {
                     val sc = screen()
                     val dx = (ev.rawX - rx).toInt(); val dy = (ev.rawY - ry).toInt()
@@ -434,7 +442,7 @@ class OverlayService : Service() {
                     if (vert) lp.height = (sh2 + dy).coerceIn(minH(), sc.y - lp.y)
                     runCatching { wm.updateViewLayout(root, lp) }
                 }
-                MotionEvent.ACTION_UP, MotionEvent.ACTION_CANCEL -> saveWin()
+                MotionEvent.ACTION_UP, MotionEvent.ACTION_CANCEL -> { freezePanel(false); saveWin() }
             }
             true
         }
