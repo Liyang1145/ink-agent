@@ -117,6 +117,27 @@ class AgentController(private val activity: Activity, private val editorRef: () 
     fun commitBall() { settings.ballRight = ballRight; settings.ballY = ballY }
     fun commitSplit() { settings.splitLand = splitLand; settings.splitPort = splitPort }
 
+    // ---------------- live resize without re-flowing the transcript ----------------
+    // Resizing the panel host every frame made the WebView re-flow the whole transcript (markdown + KaTeX) per frame.
+    // While a resize gesture runs, the WebView is pinned at a fixed pixel size (the host clips / pads it); when the hand
+    // pauses for a moment it catches up once at the current size, and the gesture end lays it out for good.
+    private val freezeHandler = Handler(Looper.getMainLooper())
+    private var panelFrozen = false
+    private val catchUp = Runnable { setPanelFrozen(false) }
+    private fun setPanelFrozen(on: Boolean) {
+        val v = panel.view
+        if (on == panelFrozen) return
+        if (on) {
+            if (v.width <= 0 || v.height <= 0 || v.parent == null) return
+            v.layoutParams = android.widget.FrameLayout.LayoutParams(v.width, v.height)
+        } else v.layoutParams = android.widget.FrameLayout.LayoutParams(-1, -1)
+        panelFrozen = on
+    }
+    /** Call on every move of a resize gesture. */
+    fun panelResizeMove() { setPanelFrozen(true); freezeHandler.removeCallbacks(catchUp); freezeHandler.postDelayed(catchUp, 260) }
+    /** Call when a resize gesture ends (or is cancelled). */
+    fun panelResizeEnd() { freezeHandler.removeCallbacks(catchUp); setPanelFrozen(false) }
+
     // ---------------- cross-app overlay (OverlayService) ----------------
     /** Move the one panel WebView (same page, same session) into the overlay window. */
     fun attachPanelToOverlay(parent: ViewGroup) {

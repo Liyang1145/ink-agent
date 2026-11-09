@@ -231,6 +231,14 @@ def composer():
     return find(lambda n: n.get('class') == 'android.widget.EditText' and ('消息' in lab(n) or 'input' in (n.get('resource-id') or '')))\
         or find(lambda n: n.get('class') == 'android.widget.EditText')
 
+def gfx_reset():
+    adb('shell dumpsys gfxinfo com.inkagent reset', timeout=30)
+
+def gfx_note(tag):
+    out = adb('shell dumpsys gfxinfo com.inkagent', timeout=30) or ''
+    keep = [l.strip() for l in out.splitlines() if re.match(r'\s*(Total frames rendered|Janky frames|50th|90th|95th|99th)', l)]
+    note(f'gfx[{tag}]: ' + ' | '.join(keep[:6]))
+
 def swipe(x1, y1, x2, y2, ms=700):
     adb(f'shell input swipe {int(x1)} {int(y1)} {int(x2)} {int(y2)} {ms}')
     time.sleep(1.5)
@@ -278,11 +286,14 @@ def run_modes(W, H):
     c = by_label('调整浮窗左下角')
     check('window: resize corner present', c is not None)
     if c:
+        gfx_reset()
         swipe(c[0], c[1], c[0] - 260, c[1] + 160, 900)
+        gfx_note('inapp_resize')
         st2 = state('window_resized')
         shot('window_resized')
         check('window: resize by corner changes size', st2.get('panelW', 0) > w0 + 150 and st2.get('panelH', 0) > h0 + 60,
               f"{w0}x{h0} -> {st2.get('panelW')}x{st2.get('panelH')}")
+        check('window: panel WebView re-fits after resize', abs((st2.get('viewWidth') or 0) - st2.get('panelW', 0)) <= 2, f"view={st2.get('viewWidth')} panelW={st2.get('panelW')}")
         st = st2
     g = by_label('拖动浮窗')
     if g:
@@ -649,8 +660,13 @@ def run_overlay(W, H):
     if w.get('w'):
         d = 2.0
         gx, gy = w['x'] + w['w'] - int(22 * d), w['y'] + w['h'] - int(22 * d)
+        gfx_reset()
         adb(f'shell input swipe {gx} {gy} {gx - 180} {gy + 140} 700'); time.sleep(1.5)
-        w2 = (ostate('ov_resized').get('overlay') or {}).get('window') or {}
+        gfx_note('overlay_resize')
+        o2 = ostate('ov_resized')
+        w2 = (o2.get('overlay') or {}).get('window') or {}
+        check('overlay window: panel re-fits the window after resize (not left pinned)',
+              abs((o2.get('viewWidth') or 0) - (w2.get('w', 0) - int(16 * d))) <= 4, f"view={o2.get('viewWidth')}x{o2.get('viewHeight')} window={w2}")
         check('overlay window: corner grip resizes', w2.get('w', 0) < w['w'] - 100 and w2.get('h', 0) > w['h'] + 80, f'{w} -> {w2}')
         ex_, ey_ = w2.get('x', 0) + int(10 * d), w2.get('y', 0) + w2.get('h', 0) // 2
         adb(f'shell input swipe {ex_} {ey_} {ex_ - 150} {ey_} 700'); time.sleep(1.5)

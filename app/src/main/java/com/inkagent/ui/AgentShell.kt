@@ -218,8 +218,8 @@ fun AgentShell(ctrl: AgentController, content: @Composable () -> Unit) {
                 dm.background(Color(0xFFF1F2F4))
                     .semantics { contentDescription = "拖动调整分屏比例" }
                     .pointerInput(landscape) {
-                        detectDragGestures(onDragEnd = { ctrl.commitSplit() }, onDragCancel = { ctrl.commitSplit() }) { ch, amt ->
-                            ch.consume()
+                        detectDragGestures(onDragEnd = { ctrl.panelResizeEnd(); ctrl.commitSplit() }, onDragCancel = { ctrl.panelResizeEnd(); ctrl.commitSplit() }) { ch, amt ->
+                            ch.consume(); ctrl.panelResizeMove()
                             val bb = bs.value
                             if (bb.landscape) ctrl.splitLand = (ctrl.splitLand.clampTo(bb.fMin, bb.fMax) - amt.x / bb.W).clampTo(bb.fMin, bb.fMax)
                             else ctrl.splitPort = (ctrl.splitPort.clampTo(bb.fMin, bb.fMax) - amt.y / bb.H).clampTo(bb.fMin, bb.fMax)
@@ -302,8 +302,8 @@ fun AgentShell(ctrl: AgentController, content: @Composable () -> Unit) {
                         .size(with(density) { w.toDp() }, with(density) { h.toDp() })
                         .semantics { contentDescription = label }
                         .pointerInput(label) {
-                            detectDragGestures(onDragEnd = { ctrl.commitWindow() }, onDragCancel = { ctrl.commitWindow() }) { ch, amt ->
-                                ch.consume(); resize(l, r, bt, amt.x, amt.y)
+                            detectDragGestures(onDragEnd = { ctrl.panelResizeEnd(); ctrl.commitWindow() }, onDragCancel = { ctrl.panelResizeEnd(); ctrl.commitWindow() }) { ch, amt ->
+                                ch.consume(); ctrl.panelResizeMove(); resize(l, r, bt, amt.x, amt.y)
                             }
                         },
                 ) {

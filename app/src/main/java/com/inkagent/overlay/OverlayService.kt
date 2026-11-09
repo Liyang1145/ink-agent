@@ -224,6 +224,7 @@ class OverlayService : Service() {
                 windowAnimations = 0
             }
             val slop = ViewConfiguration.get(ui).scaledTouchSlop
+        var movePosted = false
             var downRawX = 0f; var downRawY = 0f; var startX = 0; var startY = 0; var dragging = false
             face.setOnTouchListener { _, ev ->
                 when (ev.actionMasked) {
@@ -412,37 +413,61 @@ class OverlayService : Service() {
                     val sc = screen()
                     lp.x = (sx + ev.rawX - rx).toInt().coerceIn(0, (sc.x - lp.width).coerceAtLeast(0))
                     lp.y = (sy + ev.rawY - ry).toInt().coerceIn(0, (sc.y - lp.height).coerceAtLeast(0))
-                    runCatching { wm.updateViewLayout(root, lp) }
+                    if (!movePosted) { movePosted = true; root.postOnAnimation { movePosted = false; if (root.isAttachedToWindow) runCatching { wm.updateViewLayout(root, lp) } } }
                 }
                 MotionEvent.ACTION_UP, MotionEvent.ACTION_CANCEL -> saveWin()
             }
             true
         }
-        // While dragging, the panel WebView is pinned at its starting pixel size so the window frame moves
-        // at frame rate without re-flowing the transcript (KaTeX/markdown) on every move; one re-layout on release.
-        fun freezePanel(on: Boolean) {
-            val c = body.getChildAt(0) ?: return
-            if (on) {
-                if (c.width > 0 && c.height > 0) c.layoutParams = FrameLayout.LayoutParams(c.width, c.height, Gravity.TOP or Gravity.START)
-            } else c.layoutParams = FrameLayout.LayoutParams(-1, -1)
+        // Live resize, smooth: resizing a system window per move means a binder relayout + a new surface buffer +
+        // a full redraw every event (stylus events arrive faster than frames). Instead, on touch-down the window
+        // grows once to the whole screen (transparent) and the card is placed inside it by root padding; moves only
+        // change that padding (an in-process layout, coalesced to one per frame). The panel WebView stays pinned
+        // (no transcript re-flow) and catches up when the hand pauses. On release the window shrinks to the card.
+        var resizing = false
+        var gx = 0; var gy = 0; var gw = 0; var gh = 0   // card rect (window coords incl. shadow padding) during a resize
+        var wx = 0; var wy = 0   // the expanded window's origin (top never moves; left edge only for left-side drags)
+        fun placeInScreen() {
+            root.setPadding(gx - wx + sh, gy - wy + sh, (wx + lp.width - gx - gw).coerceAtLeast(0) + sh, (wy + lp.height - gy - gh).coerceAtLeast(0) + sh)
+        }
+        fun beginResize(left: Boolean) {
+            if (resizing) return
+            resizing = true
+            gx = lp.x; gy = lp.y; gw = lp.width; gh = lp.height
+            val sc = screen()
+            wx = if (left) 0 else gx; wy = gy
+            lp.x = wx; lp.y = wy; lp.width = (sc.x - wx).coerceAtLeast(gw); lp.height = (sc.y - wy).coerceAtLeast(gh)
+            placeInScreen()
+            runCatching { wm.updateViewLayout(root, lp) }
+        }
+        fun endResize() {
+            if (!resizing) return
+            resizing = false
+            AgentBridge.controller?.panelResizeEnd()
+            lp.x = gx; lp.y = gy; lp.width = gw; lp.height = gh
+            root.setPadding(sh, sh, sh, sh)
+            runCatching { wm.updateViewLayout(root, lp) }
+            saveWin()
         }
         fun resizer(left: Boolean, horiz: Boolean = true, vert: Boolean = true) = View.OnTouchListener { _, ev ->
             when (ev.actionMasked) {
-                MotionEvent.ACTION_DOWN -> { rx = ev.rawX; ry = ev.rawY; sx = lp.x; sw = lp.width; sh2 = lp.height; freezePanel(true) }
+                MotionEvent.ACTION_DOWN -> { rx = ev.rawX; ry = ev.rawY; sx = lp.x; sy = lp.y; sw = lp.width; sh2 = lp.height }
                 MotionEvent.ACTION_MOVE -> {
                     val sc = screen()
                     val dx = (ev.rawX - rx).toInt(); val dy = (ev.rawY - ry).toInt()
-                    if (abs(dx) < slop / 2 && abs(dy) < slop / 2) return@OnTouchListener true
+                    if (!resizing && abs(dx) < slop / 2 && abs(dy) < slop / 2) return@OnTouchListener true
+                    beginResize(left && horiz)
+                    AgentBridge.controller?.panelResizeMove()
                     if (horiz) {
                         if (left) {
                             val nx = (sx + dx).coerceIn(0, sx + sw - minW())
-                            lp.width = sw + (sx - nx); lp.x = nx
-                        } else lp.width = (sw + dx).coerceIn(minW(), sc.x - lp.x)
+                            gw = sw + (sx - nx); gx = nx
+                        } else gw = (sw + dx).coerceIn(minW(), sc.x - sx)
                     }
-                    if (vert) lp.height = (sh2 + dy).coerceIn(minH(), sc.y - lp.y)
-                    runCatching { wm.updateViewLayout(root, lp) }
+                    if (vert) gh = (sh2 + dy).coerceIn(minH(), sc.y - sy)
+                    placeInScreen()
                 }
-                MotionEvent.ACTION_UP, MotionEvent.ACTION_CANCEL -> { freezePanel(false); saveWin() }
+                MotionEvent.ACTION_UP, MotionEvent.ACTION_CANCEL -> endResize()
             }
             true
         }
