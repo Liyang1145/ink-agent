@@ -224,7 +224,6 @@ class OverlayService : Service() {
                 windowAnimations = 0
             }
             val slop = ViewConfiguration.get(ui).scaledTouchSlop
-        var movePosted = false
             var downRawX = 0f; var downRawY = 0f; var startX = 0; var startY = 0; var dragging = false
             face.setOnTouchListener { _, ev ->
                 when (ev.actionMasked) {
@@ -404,6 +403,7 @@ class OverlayService : Service() {
         }
         winFocusable = false
         val slop = ViewConfiguration.get(ui).scaledTouchSlop
+        var movePosted = false
         // move by the bar
         var rx = 0f; var ry = 0f; var sx = 0; var sy = 0; var sw = 0; var sh2 = 0
         bar.setOnTouchListener { _, ev ->
