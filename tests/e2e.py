@@ -760,6 +760,8 @@ def run_overlay(W, H):
     lx, ly, r = int(W * 0.55), int(H * 0.45), int(H * 0.15)
     import math
     loop = [(int(lx + r * math.cos(t / 20 * 2 * math.pi)), int(ly + r * math.sin(t / 20 * 2 * math.pi))) for t in range(21)]
+    # mode is remembered (rect after the long-press above) → a diagonal drag, not a closed loop
+    loop = line(int(W * 0.45), int(H * 0.3), int(W * 0.7), int(H * 0.6), 20)
     overlay_op('drag', "--es pts '" + ';'.join(f'{x},{y}' for x, y in loop) + "'"); time.sleep(2.5)
     st = ostate('capture2_lasso')
     c = (st.get('overlay') or {}).get('capture') or {}
