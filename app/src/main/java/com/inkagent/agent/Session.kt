@@ -85,6 +85,35 @@ class Session(val id: String, private val file: File) {
         return if (t.isNotEmpty()) t.take(24) else if (blocks.any { it is Block.Image }) "图片提问" else null
     }
 
+    /** Plain-text transcript since the last compaction (for the /compact summariser). */
+    @Synchronized
+    fun transcriptForCompact(maxTool: Int = 1200): String {
+        val sb = StringBuilder()
+        val cut = events.indexOfLast { it.type == "context/compact" }
+        if (cut >= 0) sb.append("【更早的摘要】\n").append(events[cut].data.optString("summary")).append("\n\n")
+        for (e in events.subList(cut + 1, events.size)) when (e.type) {
+            "user/message" -> {
+                val bl = Block.listFromJson(e.data.getJSONArray("content"))
+                sb.append("用户：")
+                bl.forEach { b -> when (b) { is Block.Text -> sb.append(b.text).append('\n'); is Block.Image -> sb.append("[图片]\n"); else -> {} } }
+                sb.append('\n')
+            }
+            "assistant/message" -> {
+                val bl = Block.listFromJson(e.data.getJSONArray("content"))
+                bl.forEach { b -> when (b) {
+                    is Block.Text -> if (b.text.isNotBlank()) sb.append("助手：").append(b.text).append("\n\n")
+                    is Block.ToolCall -> sb.append("助手调用工具 ").append(b.name).append('：').append(b.arguments.take(maxTool)).append("\n\n")
+                    else -> {}
+                } }
+            }
+            "tool/result" -> {
+                val t = Block.listFromJson(e.data.getJSONArray("content")).filterIsInstance<Block.Text>().joinToString("\n") { it.text }
+                sb.append("工具结果（").append(e.data.optString("name")).append("）：").append(t.take(maxTool)).append("\n\n")
+            }
+        }
+        return sb.toString()
+    }
+
     /** Next turn number: one more than the last turn/start. */
     fun nextTurn(): Int = (events.lastOrNull { it.type == "turn/start" }?.data?.optInt("turn") ?: 0) + 1
 
@@ -101,7 +130,13 @@ class Session(val id: String, private val file: File) {
             for ((id, name) in pending) out.add(Message(Role.TOOL, listOf(Block.Text("工具调用被中断，没有结果。")), id, name, true))
             pending.clear()
         }
-        for (e in events) when (e.type) {
+        // /compact: everything before the last context/compact is replaced by its summary.
+        val cut = events.indexOfLast { it.type == "context/compact" }
+        if (cut >= 0) {
+            out.add(Message(Role.USER, listOf(Block.Text("【之前的对话已压缩，以下是摘要；原始消息、图片和工具结果已省略】\n\n" + events[cut].data.optString("summary")))))
+            out.add(Message(Role.ASSISTANT, listOf(Block.Text("好的，我已了解之前的内容，接着来。"))))
+        }
+        for (e in events.subList(cut + 1, events.size)) when (e.type) {
             "user/message" -> { repair(); out.add(Message(Role.USER, Block.listFromJson(e.data.getJSONArray("content")))) }
             "assistant/message" -> {
                 repair()

@@ -92,6 +92,42 @@ class Agent(
         signal?.cancel()
     }
 
+    /** /compact: summarise the conversation so far into one context/compact event; later requests send the
+     *  summary instead of the full history. Returns false when the agent is busy. [focus] = extra wishes. */
+    fun compact(focus: String = ""): Boolean {
+        synchronized(lock) { if (running) return false; running = true }
+        listener.onStatus(true)
+        Thread({
+            val sig = CancelSignal(); signal = sig
+            try {
+                val transcript = session.transcriptForCompact()
+                if (transcript.isBlank()) throw LlmException("还没有可压缩的对话")
+                emit("compact/start", JSONObject().put("chars", transcript.length))
+                val cfg = callConfig() ?: throw LlmException("还没有配置模型")
+                val sys = COMPACT_SYSTEM
+                val ask = "下面是到目前为止的完整对话记录。请按要求压缩成摘要。" + (if (focus.isNotBlank()) "\n用户特别要求：$focus" else "") +
+                    "\n\n<对话记录>\n$transcript\n</对话记录>"
+                val gen = Llm.adapter(cfg.provider).generate(cfg, sys, listOf(Message(Role.USER, listOf(Block.Text(ask)))), emptyList(), sig) { }
+                sig.throwIfCancelled()
+                val summary = gen.content.filterIsInstance<Block.Text>().joinToString("") { it.text }.trim()
+                if (summary.isEmpty()) throw LlmException("模型没有返回摘要")
+                val d = JSONObject().put("summary", summary).put("chars", transcript.length).put("model", cfg.model)
+                gen.usage?.let { u -> d.put("usage", u.toJson()) }
+                emit("context/compact", d)
+            } catch (e: Exception) {
+                val msg = if (sig.cancelled) "已取消" else (e.message ?: e.javaClass.simpleName)
+                emit("compact/end", JSONObject().put("error", msg))
+            } finally {
+                signal = null
+                synchronized(lock) { running = false }
+                listener.onStatus(false)
+                val more = synchronized(lock) { nextTurn.isNotEmpty() || nextStep.isNotEmpty() }
+                if (more) wake()
+            }
+        }, "agent-compact").start()
+        return true
+    }
+
     private fun wake() {
         synchronized(lock) { if (running) return; running = true }
         listener.onStatus(true)
@@ -205,3 +241,11 @@ class Agent(
         }
     }
 }
+
+private const val COMPACT_SYSTEM = """你是对话压缩器。把用户与「手写数学笔记 AI 助手」的对话记录压缩成一份摘要，让助手只看摘要也能无缝继续。
+要求：
+- 保留：用户的目标、偏好和明确要求；正在讨论的题目（题干要点、已知条件）；已经得出的结论、答案、关键推导；用户犯过的错误及纠正；尚未完成的事项。
+- 保留画布状态：助手在第几页写/画了什么，对象 id（如 replace 用到的 id），位置大意。
+- 公式用 LaTeX（$...$）。中文书写，分小标题和要点，紧凑，不寒暄，不评价对话本身。
+- 不要编造记录里没有的内容；图片只能写「用户发了图片（内容见上下文描述）」。
+- 长度一般 200～800 字，内容多时可更长。"""

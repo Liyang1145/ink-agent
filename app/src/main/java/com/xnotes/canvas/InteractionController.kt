@@ -666,10 +666,43 @@ class InteractionController(
      *  (ACTION_BUTTON_PRESS/RELEASE), never in the touch buttonState. Latch it here; a release
      *  here also ends an in-progress hover gesture even if the pen has not moved. */
     fun onGenericMotion(e: MotionEvent) {
+        // InkAgent: mouse wheel / touchpad scroll. Wheel scrolls the document (Shift → sideways),
+        // Ctrl+wheel zooms around the pointer. In the paginated view a wheel notch that can't scroll
+        // further turns the page.
+        if (e.actionMasked == MotionEvent.ACTION_SCROLL && (e.isFromSource(android.view.InputDevice.SOURCE_CLASS_POINTER))) {
+            onWheel(e); return
+        }
         if (e.getToolType(0) == MotionEvent.TOOL_TYPE_STYLUS) {
             stylusButtonHeld = (e.buttonState and STYLUS_BUTTON_MASK) != 0
             if (!stylusButtonHeld && hoverActionTool != null) endHoverAction()
         }
+    }
+
+    private var wheelFlipAt = 0L
+    private fun onWheel(e: MotionEvent) {
+        var v = e.getAxisValue(MotionEvent.AXIS_VSCROLL).toDouble()
+        var h = e.getAxisValue(MotionEvent.AXIS_HSCROLL).toDouble()
+        if (v == 0.0 && h == 0.0) return
+        stopFling()
+        if (e.isCtrlPressed) {
+            if (v != 0.0) state.setZoomAnchored(Pt(e.x.toDouble(), e.y.toDouble()), state.zoom * Math.pow(1.12, v))
+        } else {
+            if (e.isShiftPressed && h == 0.0) { h = -v; v = 0.0 }
+            val step = 56.0 * state.devicePxPerDp   // px per wheel notch (touchpads send fractions)
+            val dx = -h * step; val dy = -v * step
+            val bx = state.scrollX; val by = state.scrollY
+            state.scrollBy(dx, dy)
+            if (!state.verticalScroll && state.scrollX == bx && state.scrollY == by) {
+                val now = android.os.SystemClock.uptimeMillis()
+                val d = if (dy != 0.0) dy else dx
+                if (now - wheelFlipAt > 350 && d != 0.0) {
+                    wheelFlipAt = now
+                    state.goToPage(if (d > 0) state.nextPageIndex(state.currentPageIndex()) else state.prevPageIndex(state.currentPageIndex()))
+                }
+            }
+        }
+        onViewChanged()
+        requestRender()
     }
 
     /** Feeder C: Bluetooth/USI pens often deliver the side button only as a KeyEvent, never in any
@@ -1758,6 +1791,7 @@ class InteractionController(
                     state.toPageSpace(i, p)
                 }.filter { it.pageIndex in drawable }, // hidden paginated neighbours don't select
             )
+            if (selection.isNotEmpty()) selectionRegion = listOf(band.topLeft, Pt(band.right, band.top), Pt(band.right, band.bottom), Pt(band.left, band.bottom))
         }
         bandRect = null
         mode = PointerMode.IDLE
@@ -1797,6 +1831,7 @@ class InteractionController(
                 clearSelection()
             } else {
                 setSelection(members)
+                selectionRegion = lassoPoints.toList()
             }
         } else {
             clearSelection()
@@ -1883,6 +1918,7 @@ class InteractionController(
         moveOffset = content - moveOrigin
         val moved = abs(moveOffset.x) > MOVE_EPS || abs(moveOffset.y) > MOVE_EPS
         if (moved) {
+            selectionRegion = null
             val items = selection.map { it.item }
             // Items hold page-space geometry: rotate the on-screen offset into page space.
             val local = state.vectorToPageSpace(moveOffset)
@@ -3193,7 +3229,13 @@ class InteractionController(
 
     // --- selection management ---
 
+    /** InkAgent: the lasso/band (content space) that made the current selection, so 加入Agent can crop
+     *  a large image (e.g. a whole AI-written block) to just the part that was circled. */
+    var selectionRegion: List<Pt>? = null
+        private set
+
     private fun setSelection(items: List<Selected>) {
+        selectionRegion = null
         // Items whose lifted state flips: those leaving the old selection (repainted back
         // into the cache) and those entering it (lifted out of it). Update the selection
         // first so the in-place repair below sees the new lifted set.

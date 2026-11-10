@@ -425,6 +425,11 @@ class AgentController(private val activity: Activity, private val editorRef: () 
     // ---------------- sending ----------------
     private fun send(raw: String): Boolean {
         val text = raw.trim()
+        // /compact [要求]: summarise the context instead of sending a message
+        Regex("^/compact(?:\\s+([\\s\\S]*))?$").matchEntire(text)?.let { m ->
+            if (!agent.compact(m.groupValues.getOrElse(1) { "" }.trim())) { toast("正在回答中，结束后再压缩"); return false }
+            return true
+        }
         val content = ArrayList<Block>()
         content.addAll(attachments)
         val ed = editorRef()

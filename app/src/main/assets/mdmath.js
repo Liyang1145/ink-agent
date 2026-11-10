@@ -3,6 +3,8 @@ var md = window.markdownit({html:false, linkify:true, breaks:true});
 function esc(s){return String(s).replace(/[&<>"]/g,function(c){return {'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c];});}
 function tex(src, display){
   src=String(src).replace(/\u00b7/g,'\\cdot ');
+  // book typesetting: inline math stays text-style (a \dfrac / \displaystyle in a sentence blows up its line height)
+  if (!display && window.INLINE_TEXTSTYLE) src=src.replace(/\\displaystyle\s*/g,'').replace(/\\dfrac/g,'\\frac').replace(/\\dbinom/g,'\\binom');
   try { return katex.renderToString(src,{displayMode:display,throwOnError:true}); }
   catch(e){
     try { return katex.renderToString(src,{displayMode:display,strict:'ignore',throwOnError:false}); }

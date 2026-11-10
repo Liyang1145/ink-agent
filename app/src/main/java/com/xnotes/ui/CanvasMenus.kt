@@ -407,7 +407,7 @@ fun ScreenshotMenu(editor: Editor) {
     val density = LocalDensity.current
 
     val barHeightPx = with(density) { 44.dp.toPx() }
-    val barWidthPx = with(density) { 170.dp.toPx() }
+    val barWidthPx = with(density) { 270.dp.toPx() }
     val gap = with(density) { 10.dp.toPx() }
     val centerX = ((rect.left + rect.right) / 2.0).toFloat()
     val xPx = (centerX - barWidthPx / 2f).coerceAtLeast(with(density) { 8.dp.toPx() })
@@ -416,28 +416,39 @@ fun ScreenshotMenu(editor: Editor) {
     } else {
         rect.bottom.toFloat() + gap
     }
+    // InkAgent: 加入 Agent (the region as pixels — cuts through AI-written blocks) beside 复制为图片.
     Row(
         modifier = Modifier
             .offset(with(density) { xPx.toDp() }, with(density) { yPx.toDp() })
             .clip(MaterialTheme.shapes.medium)
             .background(palette.menuBg.toComposeColor())
-            .border(1.dp, palette.border.toComposeColor(), MaterialTheme.shapes.medium)
-            .clickable { editor.copyScreenshotAsImage() }
-            .padding(horizontal = 14.dp, vertical = 11.dp),
+            .border(1.dp, palette.border.toComposeColor(), MaterialTheme.shapes.medium),
         verticalAlignment = Alignment.CenterVertically,
     ) {
-        Icon(
-            XnotesIcons.copy,
-            contentDescription = stringResource(R.string.copy_as_image),
-            tint = palette.text.toComposeColor(),
-            modifier = Modifier.size(20.dp),
-        )
         Text(
-            stringResource(R.string.copy_as_image),
+            "加入Agent",
             color = palette.text.toComposeColor(),
             fontSize = 14.sp,
-            modifier = Modifier.padding(start = 8.dp),
+            modifier = Modifier.clickable { editor.screenshotToAgent() }.padding(horizontal = 14.dp, vertical = 11.dp),
         )
+        Box(Modifier.size(1.dp, 22.dp).background(palette.border.toComposeColor()))
+        Row(
+            Modifier.clickable { editor.copyScreenshotAsImage() }.padding(horizontal = 14.dp, vertical = 11.dp),
+            verticalAlignment = Alignment.CenterVertically,
+        ) {
+            Icon(
+                XnotesIcons.copy,
+                contentDescription = stringResource(R.string.copy_as_image),
+                tint = palette.text.toComposeColor(),
+                modifier = Modifier.size(20.dp),
+            )
+            Text(
+                stringResource(R.string.copy_as_image),
+                color = palette.text.toComposeColor(),
+                fontSize = 14.sp,
+                modifier = Modifier.padding(start = 8.dp),
+            )
+        }
     }
 }
 

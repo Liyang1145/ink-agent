@@ -20,6 +20,7 @@ import android.graphics.Color
 import android.graphics.Paint
 import android.graphics.PixelFormat
 import android.graphics.Point
+import android.graphics.Rect
 import android.graphics.drawable.GradientDrawable
 import android.hardware.display.DisplayManager
 import android.hardware.display.VirtualDisplay
@@ -635,16 +636,22 @@ class OverlayService : Service() {
         refresh()
     }
 
+    // The mirror target is a fixed L×L square (L = the display's long side), created once per grant and never
+    // resized. Mirroring letterboxes the live display into it, centred and aspect-preserving, in either
+    // orientation — so rotating the tablet (portrait ↔ landscape) needs no VirtualDisplay.resize (which on some
+    // ROMs kept a stale/letterboxed landscape mirror in portrait). grab() crops the centred content back out.
+    private var capSide = 0
     private fun doCapture() {
         val p = projection ?: return
         capturing = true
         try {
             val s = screen(); val dpi = resources.displayMetrics.densityDpi
+            val side = maxOf(s.x, s.y)
             var r = reader
-            if (r == null || r.width != s.x || r.height != s.y) {
+            if (r == null || capSide != side) {
                 synchronized(imgLock) { runCatching { latest?.close() }; latest = null }
                 runCatching { r?.close() }
-                r = ImageReader.newInstance(s.x, s.y, PixelFormat.RGBA_8888, 3)
+                r = ImageReader.newInstance(side, side, PixelFormat.RGBA_8888, 2)
                 r.setOnImageAvailableListener({ rd ->
                     synchronized(imgLock) {
                         runCatching { latest?.close() }; latest = null
@@ -653,9 +660,10 @@ class OverlayService : Service() {
                 }, capHandler)
                 reader = r
                 val v = vd
-                if (v == null) vd = p.createVirtualDisplay("InkAgentCapture", s.x, s.y, dpi,
+                if (v == null) vd = p.createVirtualDisplay("InkAgentCapture", side, side, dpi,
                     DisplayManager.VIRTUAL_DISPLAY_FLAG_AUTO_MIRROR, r.surface, null, null)
-                else { v.resize(s.x, s.y, dpi); v.surface = r.surface }
+                else { v.resize(side, side, dpi); v.surface = r.surface }
+                capSide = side
             } else vd?.surface = r.surface
         } catch (e: Exception) {
             lastError = "capture: ${e.message}"; Log.w(TAG, "capture setup failed", e)
@@ -666,13 +674,34 @@ class OverlayService : Service() {
         main.postDelayed({ grab(0) }, 450)
     }
 
+    var lastFrame = intArrayOf(0, 0)
     private fun grab(attempt: Int) {
-        val bmp = synchronized(imgLock) { latest?.let { runCatching { toBitmap(it) }.getOrNull() } }
-        if (bmp == null && attempt < 5) { main.postDelayed({ grab(attempt + 1) }, 300); return }
+        val raw = synchronized(imgLock) { latest?.let { runCatching { toBitmap(it) }.getOrNull() } }
+        if (raw == null && attempt < 5) { main.postDelayed({ grab(attempt + 1) }, 300); return }
         runCatching { vd?.surface = null }
-        if (bmp == null) { lastError = "no frame"; toast("截屏失败：没有拿到画面"); restoreAfterCapture(); return }
+        if (raw == null) { lastError = "no frame"; toast("截屏失败：没有拿到画面"); restoreAfterCapture(); return }
+        val bmp = fitToScreen(raw)
+        lastFrame = intArrayOf(bmp.width, bmp.height)
+        if ((applicationInfo.flags and android.content.pm.ApplicationInfo.FLAG_DEBUGGABLE) != 0) runCatching {
+            val dir = java.io.File(getExternalFilesDir(null), "raster").apply { mkdirs() }
+            java.io.FileOutputStream(java.io.File(dir, "capture_${captures}_${bmp.width}x${bmp.height}.png")).use { bmp.compress(Bitmap.CompressFormat.PNG, 100, it) }
+        }
         captures++
         showSelector(bmp)
+    }
+
+    /** Cut the display's content (centred, aspect-fit) out of the square mirror frame, at screen pixel size. */
+    private fun fitToScreen(frame: Bitmap): Bitmap {
+        val s = screen()
+        if (frame.width == s.x && frame.height == s.y) return frame
+        val k = minOf(frame.width.toFloat() / s.x, frame.height.toFloat() / s.y)
+        val cw = s.x * k; val ch = s.y * k
+        val l = ((frame.width - cw) / 2f).toInt().coerceAtLeast(0); val t = ((frame.height - ch) / 2f).toInt().coerceAtLeast(0)
+        val src = Rect(l, t, (l + cw).toInt().coerceAtMost(frame.width), (t + ch).toInt().coerceAtMost(frame.height))
+        val out = Bitmap.createBitmap(s.x, s.y, Bitmap.Config.ARGB_8888)
+        Canvas(out).drawBitmap(frame, src, Rect(0, 0, s.x, s.y), Paint(Paint.FILTER_BITMAP_FLAG))
+        frame.recycle()
+        return out
     }
 
     private fun toBitmap(img: Image): Bitmap {
@@ -746,7 +775,7 @@ class OverlayService : Service() {
         o.put("window", w)
         val c = JSONObject().put("shown", selector != null).put("capturing", capturing).put("awaitingConsent", awaitingConsent)
             .put("projection", projection != null).put("consentRequests", consentRequests).put("captures", captures)
-            .put("lastCrop", JSONArray().put(lastCrop[0]).put(lastCrop[1]))
+            .put("lastCrop", JSONArray().put(lastCrop[0]).put(lastCrop[1])).put("lastFrame", JSONArray().put(lastFrame[0]).put(lastFrame[1]))
         selector?.let { s ->
             c.put("mode", if (s.rectMode) "rect" else "lasso").put("hasSelection", s.hasSelection)
             s.selectionBounds()?.let { r -> c.put("sel", JSONArray().put(r.left.toInt()).put(r.top.toInt()).put(r.right.toInt()).put(r.bottom.toInt())) }

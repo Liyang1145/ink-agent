@@ -340,7 +340,7 @@ def main():
     ex = f'--es test_key {KEY} --ez test_finger true --es test_mode compact --es test_effort high --es test_agent_mode split'
     if SCEN in ('agent', 'text'):  # ClinePass (OpenAI-compatible gateway) driving DeepSeek V4.1 Flash
         ex = (f'--es test_key {CLINE} --es test_base https://api.cline.bot/api/v1 --es test_provider ClinePass '
-              f'--es test_model deepseek/deepseek-v4.1-flash --es test_effort default --ez test_finger true --es test_mode compact --es test_agent_mode split')
+              f'--es test_model deepseek/deepseek-v4.1-flash-1017 --es test_effort default --ez test_finger true --es test_mode compact --es test_agent_mode split')
     launch(ex)
     time.sleep(12)
     if not ensure_front(ex): raise SystemExit(1)
@@ -732,6 +732,7 @@ def run_overlay(W, H):
     check('capture: crop matches the rectangle', abs(lc[0] - (x2 - x1)) < 30 and abs(lc[1] - (y2 - y1)) < 30, f'crop={lc} rect={x2 - x1}x{y2 - y1}')
     check('capture: not auto-sent', st.get('userCount', 0) == user0 and count_events(session_text(), 'user/message') == msgs0,
           f"userCount {user0}->{st.get('userCount')}")
+    safe(run_overlay_capture_portrait, W, H)
     safe(run_overlay_editor, W, H)
     # second capture: grant reused (no new consent), default lasso again, 取消 adds nothing
     st = ostate('before_capture2')
@@ -755,7 +756,7 @@ def run_overlay(W, H):
     st = ostate('after_cancel')
     ov = st.get('overlay') or {}
     check('capture: 取消 restores the window, nothing added', not (ov.get('capture') or {}).get('shown') and (ov.get('window') or {}).get('shown') is True
-          and st.get('attachments', 0) == att0 + 1, f"attachments={st.get('attachments')}")
+          and st.get('attachments', 0) == att0 + 1 + PORTRAIT_ATT[0], f"attachments={st.get('attachments')}")
     # 打开应用: back in InkAgent with the same panel (attachment still in the tray)
     mp = web_pt(st, 'modeBtn')
     if mp: tap(mp[0], mp[1])
@@ -766,8 +767,40 @@ def run_overlay(W, H):
     shot('back_in_app_after_overlay')
     check('打开应用: InkAgent in front, overlay gone, panel back in app with the attachment', PKG in f and ov.get('appForeground') is True
           and not (ov.get('ball') or {}).get('shown') and not (ov.get('window') or {}).get('open') and st.get('overlayActive') is False
-          and st.get('panelVisible') is True and st.get('trayCount', 0) == att0 + 1 and st.get('userCount', 0) == user0,
+          and st.get('panelVisible') is True and st.get('trayCount', 0) == att0 + 1 + PORTRAIT_ATT[0] and st.get('userCount', 0) == user0,
           f"focus={f} mode={st.get('mode')} tray={st.get('trayCount')} panelVisible={st.get('panelVisible')}")
+
+PORTRAIT_ATT = [0]
+def run_overlay_capture_portrait(W, H):
+    """Rotate to portrait, capture: the frozen frame must be the portrait screen (not a letterboxed/stale landscape one)."""
+    adb('shell settings put system user_rotation 1'); time.sleep(4)
+    st = ostate('portrait')
+    st0_att = st.get('attachments', 0)
+    sc = st.get('screen') or [0, 0]
+    note(f'portrait screen={sc}')
+    cp = web_pt(st, 'capBtn')
+    if cp: tap(cp[0], cp[1])
+    else: overlay_op('capture')
+    time.sleep(4)
+    st = ostate('portrait_capture')
+    c = (st.get('overlay') or {}).get('capture') or {}
+    shot('portrait_capture_selector')
+    check('portrait capture: selector up, frame = portrait screen size', c.get('shown') is True and c.get('lastFrame') == sc and sc[1] > sc[0],
+          f"frame={c.get('lastFrame')} screen={sc} err={(st.get('overlay') or {}).get('error')}")
+    pw, ph = sc
+    x1, y1, x2, y2 = int(pw * 0.15), int(ph * 0.25), int(pw * 0.6), int(ph * 0.45)
+    pts = ';'.join(f'{x},{y}' for x, y in line(x1, y1, x2, y2, 20))
+    overlay_op('drag', f"--es pts '{x1},{y1};{pts}' --ei hold 800"); time.sleep(3)
+    st = ostate('portrait_rect'); c = (st.get('overlay') or {}).get('capture') or {}
+    ok = c.get('okBtn')
+    if ok: tap(ok[0], ok[1])
+    else: overlay_op('confirm')
+    time.sleep(3)
+    st = ostate('portrait_after'); c = (st.get('overlay') or {}).get('capture') or {}
+    lc = c.get('lastCrop') or [0, 0]
+    if st.get('attachments', 0) > (st0_att or 0): PORTRAIT_ATT[0] = st.get('attachments', 0) - st0_att
+    check('portrait capture: crop matches the rectangle', abs(lc[0] - (x2 - x1)) < 30 and abs(lc[1] - (y2 - y1)) < 30, f'crop={lc} rect={x2 - x1}x{y2 - y1}')
+    adb('shell settings put system user_rotation 0'); time.sleep(4)
 
 def fresh_state(tag=''):
     """TEST_STATE, waiting for a line newer than the ones already in logcat."""

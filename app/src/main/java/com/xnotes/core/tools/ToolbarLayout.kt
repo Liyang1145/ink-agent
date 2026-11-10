@@ -120,6 +120,26 @@ data class ToolbarLayout(val sections: List<ToolbarSection>) {
         return copy(sections = mutable.mapIndexed { idx, e -> sections[idx].copy(entries = e) })
     }
 
+    /** InkAgent: is [item] drawn on the bar (vs. listed in 更多)? */
+    fun isShown(item: ToolbarItem): Boolean = sections.any { s -> s.entries.any { it.item == item && it.visible } }
+
+    /** InkAgent: put [item] on the bar, at the end of the tools section (the one holding 选择/笔). */
+    fun pin(item: ToolbarItem): ToolbarLayout {
+        val stripped = sections.map { s -> s.copy(entries = s.entries.filter { it.item != item }) }
+        val target = stripped.indexOfFirst { s -> s.entries.any { it.visible && (it.item == ToolbarItem.SELECT || it.item == ToolbarItem.PEN) } }
+            .takeIf { it >= 0 } ?: stripped.indexOfFirst { it.hasVisible }.coerceAtLeast(0)
+        return copy(sections = stripped.mapIndexed { i, s -> if (i == target) s.copy(entries = s.entries + ToolbarEntry(item, true)) else s })
+    }
+
+    /** InkAgent: take [item] off the bar into 更多 (the trailing all-hidden section). */
+    fun unpin(item: ToolbarItem): ToolbarLayout {
+        val stripped = sections.map { s -> s.copy(entries = s.entries.filter { it.item != item }) }
+        val last = stripped.lastOrNull()
+        return if (last != null && !last.hasVisible)
+            copy(sections = stripped.dropLast(1) + last.copy(entries = last.entries + ToolbarEntry(item, false)))
+        else copy(sections = stripped + ToolbarSection(listOf(ToolbarEntry(item, false))))
+    }
+
     /** Add any of [among] missing from this layout, visible, so the bar never goes stale
      *  across versions: an item with a designated neighbour ([INSERT_AFTER]) slots in right
      *  after it; anything else is appended to the last section. */
@@ -186,16 +206,16 @@ data class ToolbarLayout(val sections: List<ToolbarSection>) {
         val DEFAULT: ToolbarLayout = run {
             val shown = listOf(
                 listOf(ToolbarItem.HOME, ToolbarItem.TITLE),
-                listOf(ToolbarItem.PEN, ToolbarItem.HIGHLIGHTER, ToolbarItem.ERASER, ToolbarItem.SELECT),
+                listOf(ToolbarItem.PEN, ToolbarItem.HIGHLIGHTER, ToolbarItem.ERASER, ToolbarItem.SELECT, ToolbarItem.SCREENSHOT, ToolbarItem.IMAGE),
                 listOf(ToolbarItem.UNDO, ToolbarItem.REDO),
                 listOf(ToolbarItem.MORE),
             )
             val hidden = listOf(
                 ToolbarItem.SIDEBAR, ToolbarItem.PAGE_NAV, ToolbarItem.COLORS,
                 ToolbarItem.DASHED, ToolbarItem.CALLIGRAPHY, ToolbarItem.SPEED, ToolbarItem.TAPER,
-                ToolbarItem.PAN, ToolbarItem.LASSO, ToolbarItem.SCREENSHOT,
+                ToolbarItem.PAN, ToolbarItem.LASSO,
                 ToolbarItem.WAND, ToolbarItem.SHAPE, ToolbarItem.RULER, ToolbarItem.TEXT, ToolbarItem.TEXT_BOX, ToolbarItem.MARKUP,
-                ToolbarItem.IMAGE, ToolbarItem.STYLES, ToolbarItem.MARGINS, ToolbarItem.VIEW,
+                ToolbarItem.STYLES, ToolbarItem.MARGINS, ToolbarItem.VIEW,
                 ToolbarItem.ZOOM, ToolbarItem.FIT, ToolbarItem.ZOOM_LOCK, ToolbarItem.FULLSCREEN,
             )
             ToolbarLayout(shown.map { g -> ToolbarSection(g.map { ToolbarEntry(it) }) } +

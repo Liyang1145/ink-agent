@@ -1610,6 +1610,18 @@ class Editor(context: Context, val pane: Pane = Pane.PRIMARY) : ToolPopupHost, S
     override fun dismissContextMenu() { contextMenu = null }
     fun dismissScreenshot() = controller.clearScreenshot()
 
+    /** InkAgent: the screenshot tool's rectangle, as pixels, into the agent's attachment tray. */
+    fun screenshotToAgent() {
+        val rect = controller.screenshotRect ?: return
+        val bmp = renderRegionBitmap(rect)
+        controller.clearScreenshot()
+        controller.switchBackAfterScreenshot()
+        if (bmp == null) { message = appContext.getString(R.string.err_copy_image); return }
+        val png = java.io.ByteArrayOutputStream().use { out -> bmp.compress(android.graphics.Bitmap.CompressFormat.PNG, 100, out); out.toByteArray() }
+        com.inkagent.AgentBridge.attachPng(png)
+        message = appContext.getString(R.string.added_to_agent)
+    }
+
     /** Render the screenshot tool's capture rectangle to a PNG and put it on the system clipboard. */
     fun copyScreenshotAsImage() {
         val rect = controller.screenshotRect ?: return
@@ -2232,6 +2244,17 @@ class Editor(context: Context, val pane: Pane = Pane.PRIMARY) : ToolPopupHost, S
         toolbarColors = settings.toolbarColors
         toolbarColorCount = settings.toolbarColorCount
         toolbarLayout = settings.toolbarLayout
+        // InkAgent v0.6.14: 图片 moves onto the bar once for existing layouts (the user can move it back via 更多 → 编辑).
+        runCatching {
+            val sp = viewContext.getSharedPreferences("inkagent_migrations", android.content.Context.MODE_PRIVATE)
+            if (!sp.getBoolean("tb_image_pinned", false)) {
+                var changed = false
+                for (it in listOf(com.xnotes.core.tools.ToolbarItem.SCREENSHOT, com.xnotes.core.tools.ToolbarItem.IMAGE))
+                    if (!toolbarLayout.isShown(it)) { toolbarLayout = toolbarLayout.pin(it); changed = true }
+                if (changed) { settings = settings.copy(toolbarLayout = toolbarLayout); settingsRepo.save(settings) }
+                sp.edit().putBoolean("tb_image_pinned", true).apply()
+            }
+        }
         canvasToolbarLayout = settings.canvasToolbarLayout
         activeColorIndex = settings.activeColor.coerceIn(0, toolbarColorCount - 1)
         // Render always at 1x (the DPI/supersampling control was removed).
@@ -6145,8 +6168,19 @@ class Editor(context: Context, val pane: Pane = Pane.PRIMARY) : ToolPopupHost, S
     fun selectionPng(maxSide: Int = 1600): ByteArray? {
         val sel = controller.selectedItems()
         if (sel.isEmpty()) return null
-        var b = sel.first().item.paintBounds()
-        for (s in sel) b = b.union(s.item.paintBounds())
+        // A picture (an AI-written block, a pasted photo) the loop only partly covers is cut to what was circled;
+        // ink is always taken whole.
+        val region = controller.selectionRegion
+        val clips = HashMap<com.xnotes.canvas.Selected, Rect>()
+        if (region != null) for (s in sel) {
+            if (s.item !is ImageItem) continue
+            val ib = s.item.paintBounds()
+            val rr = Rect.bounding(region.map { state.toPageSpace(s.pageIndex, it) })
+            val l = maxOf(ib.left, rr.left); val t = maxOf(ib.top, rr.top); val r = minOf(ib.right, rr.right); val bt = minOf(ib.bottom, rr.bottom)
+            if (r - l > 4 && bt - t > 4 && (l > ib.left + 2 || t > ib.top + 2 || r < ib.right - 2 || bt < ib.bottom - 2)) clips[s] = Rect(l, t, r - l, bt - t)
+        }
+        var b = clips[sel.first()] ?: sel.first().item.paintBounds()
+        for (s in sel) b = b.union(clips[s] ?: s.item.paintBounds())
         b = b.outset(12.0)
         val scale = minOf(3.0, maxSide / maxOf(b.w, b.h, 1.0))
         val w = (b.w * scale).toInt().coerceAtLeast(1)
@@ -6156,7 +6190,11 @@ class Editor(context: Context, val pane: Pane = Pane.PRIMARY) : ToolPopupHost, S
         val r = surface.renderer()
         r.scale(scale, scale)
         r.translate(-b.left, -b.top)
-        for (s in sel) s.item.paint(r)
+        for (s in sel) {
+            val c = clips[s]
+            if (c == null) { s.item.paint(r); continue }
+            r.save(); r.clipRect(c); s.item.paint(r); r.restore()
+        }
         return java.io.ByteArrayOutputStream().use { out ->
             surface.bitmap.compress(android.graphics.Bitmap.CompressFormat.PNG, 100, out)
             out.toByteArray()
@@ -7621,6 +7659,18 @@ class Editor(context: Context, val pane: Pane = Pane.PRIMARY) : ToolPopupHost, S
     /** Feeder C entry point: route stylus side-button key presses (Bluetooth/USI pens) to the
      *  controller's held latch, and the vendor double-tap/click keycodes to their gesture handlers.
      *  Returns true when consumed, so the host swallows the key. */
+    /** InkAgent: a mouse-wheel / touchpad scroll at screen point ([rawX],[rawY]); true when it landed on this pane's canvas. */
+    fun onWheelAt(ev: android.view.MotionEvent): Boolean {
+        if (!noteOpen || !view.isShown) return false
+        val l = IntArray(2); view.getLocationOnScreen(l)
+        val x = ev.rawX - l[0]; val y = ev.rawY - l[1]
+        if (x < 0 || y < 0 || x >= view.width || y >= view.height) return false
+        val e = android.view.MotionEvent.obtain(ev)
+        e.setLocation(x, y)
+        try { controller.onGenericMotion(e) } finally { e.recycle() }
+        return true
+    }
+
     fun onStylusButtonKey(e: android.view.KeyEvent): Boolean {
         if (e.keyCode == penDoubleTapKeycode) return onPenDoubleTapKey(e)
         if (e.keyCode in penButtonTapKeycodes) return onPenButtonTapKey(e)

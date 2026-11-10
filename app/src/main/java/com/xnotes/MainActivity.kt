@@ -213,6 +213,20 @@ class MainActivity : ComponentActivity() {
         return super.dispatchKeyEvent(event)
     }
 
+    // InkAgent: mouse wheel / touchpad scroll over a note's canvas. Compose does not forward generic
+    // (scroll) events to the interop canvas view, so route them here; the agent panel keeps its own.
+    override fun dispatchGenericMotionEvent(ev: MotionEvent): Boolean {
+        if (ev.actionMasked == MotionEvent.ACTION_SCROLL && ev.isFromSource(android.view.InputDevice.SOURCE_CLASS_POINTER)) {
+            val pv = com.inkagent.AgentBridge.controller?.panel?.view
+            val overPanel = pv != null && pv.isShown && pv.width > 0 && run {
+                val l = IntArray(2); pv.getLocationOnScreen(l)
+                ev.rawX >= l[0] && ev.rawX < l[0] + pv.width && ev.rawY >= l[1] && ev.rawY < l[1] + pv.height
+            }
+            if (!overPanel) editor?.openPanes?.forEach { if (it.onWheelAt(ev)) return true }
+        }
+        return super.dispatchGenericMotionEvent(ev)
+    }
+
     // Older Samsung builds (seen on a Tab S6 Lite, Android 13; gone by Android 15) tag a stylus
     // stroke made with the S-Pen button held with proprietary action codes instead of DOWN/MOVE/UP,
     // so the view tree never opens a touch target and the whole stroke is dropped. Rewrite them

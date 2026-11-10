@@ -332,19 +332,30 @@ private fun MoreMenu(
     onImportTemplate: () -> Unit,
 ) {
     var open by remember { mutableStateOf(false) }
+    var editing by remember { mutableStateOf(false) }
     val hidden = editor.toolbarLayout.sections.flatMap { sec -> sec.entries.filter { !it.visible }.map { it.item } }
         .filter { it != ToolbarItem.MORE && it != ToolbarItem.WAYPOINTS && it != ToolbarItem.MINIMAP }
-    val hiddenTools = hidden.mapNotNull { Tool.fromId(it.id) }.toSet() - setOf(Tool.SELECT)
+    val hiddenTools = hidden.mapNotNull { Tool.fromId(it.id) }.toSet() - setOf(Tool.SELECT, Tool.LASSO)
+    // A tool armed from 更多 shows on the bar itself (left of 更多), highlighted, rather than lighting up 更多.
+    val armedHidden = editor.tool.takeIf { it in hiddenTools }
+    if (armedHidden != null) ToolButton(editor, armedHidden, toolIcons[armedHidden], configForTool, setConfigForTool)
     Box {
-        ToolbarIcon(XnotesIcons.more, stringResource(R.string.more_tools), active = editor.tool in hiddenTools) { open = true }
-        if (open) androidx.compose.material3.DropdownMenu(expanded = true, onDismissRequest = { open = false; setConfigForTool(null) }) {
+        ToolbarIcon(XnotesIcons.more, stringResource(R.string.more_tools)) { open = true; editing = false }
+        if (open) androidx.compose.material3.DropdownMenu(expanded = true, onDismissRequest = { open = false; editing = false; setConfigForTool(null) }) {
             androidx.compose.runtime.CompositionLocalProvider(LocalToolGlide provides null) {
-                Text(
-                    stringResource(R.string.more_tools),
-                    color = LocalPalette.current.textDim.toComposeColor(),
-                    fontSize = 12.sp,
-                    modifier = Modifier.padding(horizontal = 12.dp, vertical = 4.dp),
-                )
+                androidx.compose.foundation.layout.Row(
+                    Modifier.widthIn(min = 240.dp, max = 360.dp).padding(start = 12.dp, end = 4.dp),
+                    verticalAlignment = Alignment.CenterVertically,
+                ) {
+                    Text(
+                        if (editing) "编辑工具栏：点一下在「栏上 / 更多」之间移动" else stringResource(R.string.more_tools),
+                        color = LocalPalette.current.textDim.toComposeColor(),
+                        fontSize = 12.sp,
+                        modifier = Modifier.weight(1f),
+                    )
+                    TextButton(onClick = { editing = !editing }) { Text(if (editing) "完成" else "编辑", fontSize = 13.sp) }
+                }
+                if (editing) { ToolbarArranger(editor); return@CompositionLocalProvider }
                 androidx.compose.foundation.layout.FlowRow(
                     modifier = Modifier.widthIn(max = 360.dp).padding(horizontal = 6.dp),
                     verticalArrangement = Arrangement.Center,
@@ -363,6 +374,52 @@ private fun MoreMenu(
             }
         }
     }
+}
+
+/** InkAgent: names for the toolbar arranger. */
+private val ITEM_NAMES = linkedMapOf(
+    ToolbarItem.PEN to "钢笔", ToolbarItem.HIGHLIGHTER to "荧光笔", ToolbarItem.ERASER to "橡皮", ToolbarItem.IMAGE to "图片/照片",
+    ToolbarItem.SCREENSHOT to "截图", ToolbarItem.UNDO to "撤销", ToolbarItem.REDO to "重做", ToolbarItem.SHAPE to "形状",
+    ToolbarItem.TEXT to "文字", ToolbarItem.TEXT_BOX to "文本框", ToolbarItem.PAN to "平移", ToolbarItem.RULER to "直尺",
+    ToolbarItem.WAND to "魔棒", ToolbarItem.DASHED to "虚线笔", ToolbarItem.CALLIGRAPHY to "书法笔", ToolbarItem.SPEED to "速写笔",
+    ToolbarItem.TAPER to "锥形笔", ToolbarItem.COLORS to "颜色", ToolbarItem.PAGE_NAV to "翻页", ToolbarItem.SIDEBAR to "侧栏",
+    ToolbarItem.STYLES to "页面样式", ToolbarItem.MARGINS to "页边距", ToolbarItem.VIEW to "视图", ToolbarItem.ZOOM to "缩放",
+    ToolbarItem.FIT to "适应页面", ToolbarItem.ZOOM_LOCK to "锁定缩放", ToolbarItem.FULLSCREEN to "全屏", ToolbarItem.MARKUP to "PDF 标注",
+)
+
+/** InkAgent: move items between the bar and 更多 — one tap each, saved at once. */
+@OptIn(androidx.compose.foundation.layout.ExperimentalLayoutApi::class)
+@Composable
+private fun ToolbarArranger(editor: Editor) {
+    val layout = editor.toolbarLayout
+    val present = layout.sections.flatMap { it.entries.map { e -> e.item } }.toSet()
+    val items = ITEM_NAMES.keys.filter { it in present }
+    val palette = LocalPalette.current
+    @Composable
+    fun Group(title: String, list: List<ToolbarItem>, onBar: Boolean) {
+        Text(title, fontSize = 12.sp, color = palette.textDim.toComposeColor(), modifier = Modifier.padding(start = 12.dp, top = 6.dp, bottom = 2.dp))
+        androidx.compose.foundation.layout.FlowRow(Modifier.widthIn(max = 360.dp).padding(horizontal = 8.dp)) {
+            if (list.isEmpty()) Text("（空）", fontSize = 13.sp, color = palette.textDim.toComposeColor(), modifier = Modifier.padding(6.dp))
+            list.forEach { item ->
+                Text(
+                    (if (onBar) "− " else "+ ") + (ITEM_NAMES[item] ?: item.id),
+                    fontSize = 13.sp,
+                    color = palette.text.toComposeColor(),
+                    modifier = Modifier
+                        .padding(3.dp)
+                        .clip(MaterialTheme.shapes.small)
+                        .background(if (onBar) palette.selectionBackground.toComposeColor().copy(alpha = 0.35f) else palette.textDim.toComposeColor().copy(alpha = 0.12f))
+                        .clickable {
+                            editor.applyToolbarLayout(if (onBar) editor.toolbarLayout.unpin(item) else editor.toolbarLayout.pin(item))
+                        }
+                        .padding(horizontal = 10.dp, vertical = 6.dp),
+                )
+            }
+        }
+    }
+    Group("工具栏上（点一下移到更多）", items.filter { layout.isShown(it) }, true)
+    Group("更多里（点一下放到工具栏）", items.filter { !layout.isShown(it) }, false)
+    Box(Modifier.height(6.dp))
 }
 
 /** A stroke/edit tool button: arms the tool, and re-clicking an armed config tool opens its popup. */

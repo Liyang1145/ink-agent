@@ -320,7 +320,7 @@ class CanvasTools(
             fun flush() {
                 val pad = Regex("""^(\\[ ,;:!]|\\q?quad|~|\s)+|(\\[ ,;:!]|\\q?quad|~|\s)+$""")
                 val m = math.toString().replace(pad, "")
-                if (m.isNotEmpty()) out.append('$').append(if (Regex("""\\(frac|lim|sum|int|prod)""").containsMatchIn(m)) "\\displaystyle " else "").append(m).append('$')
+                if (m.isNotEmpty()) out.append('$').append(m).append('$')
                 math.setLength(0)
             }
             while (i < line.length) {
@@ -490,8 +490,11 @@ class CanvasTools(
                 // Chinese sentences inside \text{} can't wrap in KaTeX and force the whole block to shrink:
                 // route them through the wrapping text renderer so the size stays uniform.
                 latexToNote(src)?.let { return ToolResult.text(writeNote(idx, it, args, src)) }
-                val r = raster.render("latex", src)
-                return ToolResult.text(place(idx, "latex", src, args, r, null))
+                // Pure formulas go through the same text renderer too: one body size for everything the AI writes
+                // (the old standalone 40px LaTeX blocks came out bigger than the notes around them).
+                val md = src.split(Regex(if (src.contains("\\begin")) "\n\\s*\n" else "\n\\s*\n")).map { it.trim() }
+                    .filter { it.isNotEmpty() }.joinToString("\n\n") { "$$$it$$" }
+                return ToolResult.text(writeNote(idx, md, args, src))
             }
         })
         reg.register(object : Tool {

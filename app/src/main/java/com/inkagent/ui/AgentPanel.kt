@@ -222,6 +222,9 @@ class AgentPanel(context: Context, private val host: Host) {
                 val img = blocks.filterIsInstance<Block.Image>().firstOrNull()?.path?.let { "file://$it" }
                 js("toolResult(${q(e.data.getString("callId"))}, ${q(text)}, ${e.data.optBoolean("isError")}, ${q(img)})")
             }
+            "compact/start" -> js("compactStart()")
+            "compact/end" -> js("compactEnd(${q(e.data.optString("error"))})")
+            "context/compact" -> js("compactDone(${q(e.data.optString("summary"))}, ${e.data.optInt("chars")})")
             "step/end" -> js("stepEnd()")
             "turn/end" -> js("turnEnd(${q(e.data.optString("reason"))}, ${q(e.data.optString("error"))}, ${e.time})")
         }

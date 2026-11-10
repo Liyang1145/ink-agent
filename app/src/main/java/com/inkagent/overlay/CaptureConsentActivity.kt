@@ -15,8 +15,13 @@ class CaptureConsentActivity : Activity() {
         if (savedInstanceState != null) return
         val mpm = getSystemService(MediaProjectionManager::class.java)
         try {
+            // Android 14+: ask for the whole default display only, so the system dialog skips its
+            // 「整个屏幕 / 单个应用」 choice (single-app capture would break the full-screen selector).
+            val intent = if (android.os.Build.VERSION.SDK_INT >= 34)
+                mpm.createScreenCaptureIntent(android.media.projection.MediaProjectionConfig.createConfigForDefaultDisplay())
+            else mpm.createScreenCaptureIntent()
             @Suppress("DEPRECATION")
-            startActivityForResult(mpm.createScreenCaptureIntent(), REQ)
+            startActivityForResult(intent, REQ)
         } catch (e: Exception) {
             OverlayService.onConsentResult(RESULT_CANCELED, null)
             finish()

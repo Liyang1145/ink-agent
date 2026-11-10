@@ -111,6 +111,9 @@ svg.i{width:18px;height:18px;stroke:currentColor;fill:none;stroke-width:1.7;stro
 .running{display:flex;align-items:center;gap:6px;color:var(--label-3);font-size:14px;margin:6px 0;}
 .running .whale{width:8px;height:8px;border-radius:4px;background:var(--accent);animation:pulse 1s infinite;}
 .notice{color:var(--label-3);font-size:13px;margin:6px 0;}
+.notice.compact{border:1px dashed var(--sep, #d6d9de);border-radius:10px;padding:8px 10px;margin:10px 0;}
+.notice.compact .ch{cursor:pointer;}
+.notice.compact .cb{margin-top:8px;color:var(--label-2, #444);font-size:14px;}
 .notice.err{color:var(--danger);}
 /* ---------- composer (rounded card, + menu, / commands, model on the right) ---------- */
 #composer{flex:none;padding:4px 12px 8px;position:relative;}
@@ -564,6 +567,16 @@ function turnEnd(reason, error, ts){
   else if (failed) el('div','notice err',turn.tail,esc(error||'出错了'));
   turn=null; step=null; end();
 }
+var compactEl=null;
+function compactStart(){ compactEl=el('div','notice compact',log); compactEl.textContent='正在压缩上下文…'; end(); }
+function compactEnd(err){ if(!compactEl) compactEl=el('div','notice compact',log); compactEl.className='notice compact err'; compactEl.textContent='压缩失败：'+err; compactEl=null; end(); }
+function compactDone(summary, chars){
+  var box=compactEl||el('div','notice compact',log); compactEl=null; box.className='notice compact done'; box.innerHTML='';
+  var h=el('div','ch',box); h.textContent='🗜 上下文已压缩（约 '+Math.round(chars/1000)+'k 字 → 摘要），之后的回答只带着摘要。点开查看';
+  var b=el('div','md cb',box); var m={el:b,text:summary,frozen:[]}; paint(m,true); b.style.display='none';
+  h.addEventListener('click',function(){ b.style.display=b.style.display==='none'?'block':'none'; });
+  end();
+}
 function notice(text, isErr){ el('div','notice'+(isErr?' err':''),turn?turn.tail:log).textContent=text; end(); }
 function preview(u){ var p=document.getElementById('pv'); p.querySelector('img').src=u; p.style.display='flex'; }
 
@@ -584,6 +597,7 @@ input.addEventListener('beforeinput',function(e){
 document.addEventListener('keydown',function(e){ if(e.key==='Shift') window.__shiftDown=true; });
 document.addEventListener('keyup',function(e){ if(e.key==='Shift') window.__shiftDown=false; });
 var SLASH=[
+  ['compact','🗜','/compact'],
   ['批改','✓','批改我这一页的解题过程：在页面上标出对错，再告诉我错在哪、怎么改'],
   ['提示','💡','给我一点提示，先别告诉我答案'],
   ['讲解','📖','一步一步讲解这道题的思路'],
@@ -601,10 +615,10 @@ function updateSlash(){
   var q=mt[1]; slashItems=SLASH.filter(function(c){ return !q||c[0].indexOf(q)>=0; });
   if(!slashItems.length){ m.classList.remove('open'); return; }
   slashSel=Math.min(slashSel,slashItems.length-1);
-  m.innerHTML='<div class="ttl">指令</div>'+slashItems.map(function(c,i){ return '<button class="mi'+(i===slashSel?' sel':'')+'" data-i="'+i+'"><span class="k">'+c[1]+'</span>/'+c[0]+'<small>'+c[2].slice(0,14)+'…</small></button>'; }).join('');
+  m.innerHTML='<div class="ttl">指令</div>'+slashItems.map(function(c,i){ return '<button class="mi'+(i===slashSel?' sel':'')+'" data-i="'+i+'"><span class="k">'+c[1]+'</span>/'+c[0]+'<small>'+(c[0]==='compact'?'压缩上下文（可加要求）':c[2].slice(0,14)+'…')+'</small></button>'; }).join('');
   m.classList.add('open');
 }
-function pickSlash(i){ var c=slashItems[i]; if(!c) return; input.value=c[2]; closePops(); autosize(); input.focus(); input.setSelectionRange(input.value.length,input.value.length); }
+function pickSlash(i){ var c=slashItems[i]; if(!c) return; if(c[2].charAt(0)==='/'){ input.value=c[2]; closePops(); send(); return; } input.value=c[2]; closePops(); autosize(); input.focus(); input.setSelectionRange(input.value.length,input.value.length); }
 document.getElementById('slashMenu').addEventListener('click',function(e){ var b=e.target.closest('.mi'); if(b) pickSlash(+b.getAttribute('data-i')); });
 input.addEventListener('input',updateSlash);
 input.addEventListener('keydown',function(e){ var m=document.getElementById('slashMenu'); if(!m.classList.contains('open')) return;
