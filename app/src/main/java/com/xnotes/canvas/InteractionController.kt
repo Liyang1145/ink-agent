@@ -684,10 +684,10 @@ class InteractionController(
         var h = e.getAxisValue(MotionEvent.AXIS_HSCROLL).toDouble()
         if (v == 0.0 && h == 0.0) return
         stopFling()
-        if (e.isCtrlPressed) {
+        if ((e.metaState and android.view.KeyEvent.META_CTRL_ON) != 0) {
             if (v != 0.0) state.setZoomAnchored(Pt(e.x.toDouble(), e.y.toDouble()), state.zoom * Math.pow(1.12, v))
         } else {
-            if (e.isShiftPressed && h == 0.0) { h = -v; v = 0.0 }
+            if ((e.metaState and android.view.KeyEvent.META_SHIFT_ON) != 0 && h == 0.0) { h = -v; v = 0.0 }
             val step = 56.0 * state.devicePxPerDp   // px per wheel notch (touchpads send fractions)
             val dx = -h * step; val dy = -v * step
             val bx = state.scrollX; val by = state.scrollY
