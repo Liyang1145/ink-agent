@@ -26,6 +26,19 @@ class Settings(context: Context) {
                     providers = out; return out
                 }
             }
+            // one-time (v0.6.15): ClinePass subscription models need the cline-pass/ slug; the bare deepseek/… ids bill
+            // pay-as-you-go Cline credits instead (→ "insufficient_credits" on a pass-only account).
+            if (!prefs.getBoolean("seed_clinepass2", false)) {
+                prefs.edit().putBoolean("seed_clinepass2", true).apply()
+                val cp = list.firstOrNull { it.id == "clinepass" }
+                if (cp != null) {
+                    val passIds = PASS_MODELS
+                    val out = list.map { if (it.id == "clinepass") it.copy(models = passIds + it.models.filter { m -> m !in passIds && !m.startsWith("deepseek/deepseek-v4.1-flash") }) else it }
+                    providers = out
+                    if (providerId == "clinepass" && model.startsWith("deepseek/deepseek-v4.1-flash")) model = passIds.first()
+                    return out
+                }
+            }
             return list
         }
         set(v) { prefs.edit().putString("providers", JSONArray().also { a -> v.forEach { a.put(it.toJson()) } }.toString()).apply() }
@@ -158,7 +171,8 @@ class Settings(context: Context) {
                 listOf("deepseek-flash", "deepseek-v4-pro")),
             // ClinePass (api.cline.bot, OpenAI-compatible): fill in your key in 模型设置; dsf = DeepSeek V4.1 Flash
             Provider("clinepass", "ClinePass", Protocol.OPENAI_CHAT, "https://api.cline.bot/api/v1", "",
-                listOf("deepseek/deepseek-v4.1-flash")),
+                PASS_MODELS),
         )
+        val PASS_MODELS = listOf("cline-pass/deepseek-v4.1-flash-1017", "cline-pass/deepseek-v4.1-flash", "cline-pass/deepseek-v4-pro", "cline-pass/glm-5.3", "cline-pass/kimi-k3")
     }
 }

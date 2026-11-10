@@ -340,7 +340,7 @@ def main():
     ex = f'--es test_key {KEY} --ez test_finger true --es test_mode compact --es test_effort high --es test_agent_mode split'
     if SCEN in ('agent', 'text'):  # ClinePass (OpenAI-compatible gateway) driving DeepSeek V4.1 Flash
         ex = (f'--es test_key {CLINE} --es test_base https://api.cline.bot/api/v1 --es test_provider ClinePass '
-              f'--es test_model deepseek/deepseek-v4.1-flash-1017 --es test_effort default --ez test_finger true --es test_mode compact --es test_agent_mode split')
+              f'--es test_model cline-pass/deepseek-v4.1-flash-1017 --es test_effort default --ez test_finger true --es test_mode compact --es test_agent_mode split')
     launch(ex)
     time.sleep(12)
     if not ensure_front(ex): raise SystemExit(1)
