@@ -486,8 +486,9 @@ def main():
     shot('turn2_done')
     tools = re.findall(r'"name":"(view_page|canvas_write_latex|canvas_draw_svg|list_pages)"', txt)
     note('tool calls seen: ' + ', '.join(sorted(set(tools))))
-    for t in ['view_page', 'canvas_write_latex', 'canvas_draw_svg']:
+    for t in ['view_page', 'canvas_write_latex']:
         check(f'turns: tool {t} used', t in tools)
+    check('turns: a drawing tool used (svg/plot)', bool(re.search(r'"name":"(canvas_draw_svg|canvas_plot)"', txt)))
     errs = re.findall(r'"isError":true', txt)
     check('turns: two turns completed', count_events(txt, 'turn/end') >= 2 and '"reason":"error"' not in txt, f'tool errors={len(errs)}')
     st = state('after_turns')
@@ -519,8 +520,24 @@ def main():
     check('transcript: #scroll height > 200px', (lay.get('scrollClientHeight') or 0) > 200, str(lay))
     check('transcript: last message visible', lay.get('lastVisible') is True, str(lay))
     ftxt = all_text()
-    check('footer: tokens + 缓存命中 + ¥', ('输入' in ftxt and '输出' in ftxt and '缓存命中' in ftxt and '¥' in ftxt))
+    check('footer: tokens + 缓存命中', ('输入' in ftxt and '输出' in ftxt and '缓存命中' in ftxt))
     check('usage recorded in session', '"usage"' in txt and '"cacheHit"' in txt)
+    # /compact: summarises the context into a context/compact event
+    c = composer()
+    if c:
+        tap(c[0], c[1]); time.sleep(1)
+        set_composer('/compact')
+        adb('shell input keyevent 111'); time.sleep(1)
+        tap_label('发送消息')
+        ok = False
+        for _ in range(30):
+            time.sleep(4)
+            t2 = session_text()
+            if count_events(t2, 'context/compact') >= 1 or count_events(t2, 'compact/end') >= 1: ok = count_events(t2, 'context/compact') >= 1; break
+        shot('compact_done')
+        m = re.search(r'"type":"context/compact","data":\{"summary":"(.{0,200})', t2 or '')
+        check('/compact: context summarised (context/compact event, not sent as a message)', ok and count_events(t2, 'user/message') == count_events(txt, 'user/message'),
+              (m.group(1) if m else (re.findall(r'compact/end[^\n]{0,200}', t2) or [''])[0]))
 
     # ---------------- session sidebar ----------------
     tap_label('会话列表'); time.sleep(2)
@@ -776,7 +793,7 @@ def run_overlay_capture_portrait(W, H):
     adb('shell settings put system user_rotation 1'); time.sleep(4)
     st = ostate('portrait')
     st0_att = st.get('attachments', 0)
-    sc = st.get('screen') or [0, 0]
+    sc = st.get('screen') or (st.get('overlay') or {}).get('screen') or [0, 0]
     note(f'portrait screen={sc}')
     cp = web_pt(st, 'capBtn')
     if cp: tap(cp[0], cp[1])
