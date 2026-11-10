@@ -764,8 +764,13 @@ def run_overlay(W, H):
     st = ostate('capture2_lasso')
     c = (st.get('overlay') or {}).get('capture') or {}
     shot('capture_lasso_selected')
-    check('capture: grant cached (one consent), lasso selection by default', c.get('shown') is True and c.get('consentRequests') == 1
-          and c.get('mode') == 'lasso' and c.get('hasSelection') is True, str(c)[:400])
+    check('capture: grant cached (one consent), last mode (rectangle) remembered', c.get('shown') is True and c.get('consentRequests') == 1
+          and c.get('mode') == 'rect' and c.get('hasSelection') is True, str(c)[:400])
+    # a stray tap (no drag) must keep the selection so 确定 still works
+    cb0 = c.get('okBtn') or [W // 2, H - 200]
+    tap(cb0[0], max(5, cb0[1] - 120)); time.sleep(1.5)
+    c2 = (ostate('capture2_straytap').get('overlay') or {}).get('capture') or {}
+    check('capture: stray tap keeps the selection', c2.get('shown') is True and c2.get('hasSelection') is True, str(c2)[:300])
     cb = c.get('cancelBtn')
     if cb: tap(cb[0], cb[1])
     else: overlay_op('cancel')

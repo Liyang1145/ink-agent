@@ -37,7 +37,9 @@ import kotlin.math.min
 class CaptureSelectView(ctx: Context, private val shot: Bitmap, private val onResult: (Bitmap?) -> Unit) : FrameLayout(ctx) {
     private val d = resources.displayMetrics.density
     private fun dp(v: Float) = (v * d)
-    var rectMode = false
+    private val prefs = ctx.getSharedPreferences("inkagent_overlay", Context.MODE_PRIVATE)
+    /** Lasso/rectangle choice is remembered for the next capture. */
+    var rectMode = prefs.getBoolean("capture_rect_mode", false)
         private set
     private val pts = ArrayList<Float>() // x0,y0,x1,y1,… (screen px)
     private var rect: RectF? = null
@@ -64,6 +66,9 @@ class CaptureSelectView(ctx: Context, private val shot: Bitmap, private val onRe
             orientation = LinearLayout.HORIZONTAL
             setPadding(dp(6f).toInt(), dp(6f).toInt(), dp(6f).toInt(), dp(6f).toInt())
             background = GradientDrawable().apply { cornerRadius = dp(24f); setColor(0xE6202124.toInt()) }
+            // the bar's own padding/gaps must swallow taps: otherwise a tap at a button's edge fell through to the
+            // selection surface, started a new (empty) selection and left 确定 disabled.
+            isClickable = true
         }
         fun btn(t: String, desc: String, accent: Boolean = false) = TextView(ctx).apply {
             text = t; contentDescription = desc; textSize = 15f; gravity = Gravity.CENTER
@@ -90,6 +95,7 @@ class CaptureSelectView(ctx: Context, private val shot: Bitmap, private val onRe
     private fun setRect(r: Boolean) {
         if (rectMode == r) return
         rectMode = r
+        prefs.edit().putBoolean("capture_rect_mode", r).apply()
         Toast.makeText(context, if (r) "已切换到矩形框选" else "已切换到套索框选", Toast.LENGTH_SHORT).show()
         updateUi()
     }
@@ -155,6 +161,7 @@ class CaptureSelectView(ctx: Context, private val shot: Bitmap, private val onRe
         private var downX = 0f; private var downY = 0f
         private var moved = false
         private var gestureRect = false
+        private var prevPts: List<Float> = emptyList(); private var prevRect: RectF? = null; private var prevSel = false
         private val longPress = Runnable {
             if (!moved) {
                 gestureRect = true
@@ -186,6 +193,7 @@ class CaptureSelectView(ctx: Context, private val shot: Bitmap, private val onRe
                 MotionEvent.ACTION_DOWN -> {
                     downX = x; downY = y; moved = false
                     gestureRect = rectMode
+                    prevPts = ArrayList(pts); prevRect = rect?.let { RectF(it) }; prevSel = hasSelection
                     pts.clear(); rect = null; hasSelection = false
                     if (gestureRect) rect = RectF(x, y, x, y) else { pts.add(x); pts.add(y) }
                     if (!rectMode) postDelayed(longPress, 450)
@@ -207,7 +215,11 @@ class CaptureSelectView(ctx: Context, private val shot: Bitmap, private val onRe
                     val min = dp(12f)
                     hasSelection = if (gestureRect) rect?.let { it.width() > min && it.height() > min } == true
                     else lassoPath()?.let { val b = RectF(); it.computeBounds(b, true); b.width() > min && b.height() > min && pts.size >= 6 } == true
-                    if (!hasSelection) { pts.clear(); rect = null }
+                    if (!hasSelection) {
+                        pts.clear(); rect = null
+                        // a stray tap (no drag, e.g. just beside a button) keeps the selection that was there
+                        if (!moved && prevSel) { pts.addAll(prevPts); rect = prevRect; hasSelection = true }
+                    }
                     updateUi()
                 }
             }
