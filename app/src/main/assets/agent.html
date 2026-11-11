@@ -421,8 +421,36 @@ function turnStart(ts){
   var run=el('div','running',tail,'<span class="whale"></span><span class="t"></span>');
   turn.running=run; startTimer(); end();
 }
-function startTimer(){ stopTimer(); var tick=function(){ if(!turn||!turn.running) return;
-  turn.running.querySelector('.t').innerHTML='深度求索中，用时 '+dur(Date.now()-turn.start)+' ···'; };
+// request phase before the first token, so "waiting" is not mistaken for "thinking" (and vice versa)
+var callPh={ph:'',info:'',at:0}, lastTiming=null;
+function phaseText(){
+  var w=callPh.at?dur(Date.now()-callPh.at):'';
+  switch(callPh.ph){
+    case 'upload': return '正在发送请求（'+fmtB(+callPh.info)+'）';
+    case 'wait': return '已发送，等待模型响应 '+w;
+    case 'queued': return '服务器繁忙，排队中 '+w;
+    case 'first': return '模型已响应，正在生成';
+    default: return '';
+  }
+}
+function fmtB(n){ return n>=1048576?(n/1048576).toFixed(1)+' MB':Math.max(1,Math.round(n/1024))+' KB'; }
+function callPhase(ph, info){
+  if(ph==='timing'){ try{ lastTiming=JSON.parse(info); }catch(e){} timingLine(); return; }
+  if(ph==='queued'&&callPh.ph==='queued'){ callPh.info=info; return; }
+  callPh={ph:ph,info:info,at:Date.now()};
+  if(turn&&turn.running) turn.running.querySelector('.t').innerHTML=runText();
+}
+function runText(){ var p=phaseText(); return (p||'深度求索中')+'，用时 '+dur(Date.now()-turn.start)+' ···'; }
+function sec(ms){ return ms<0?'—':(ms/1000).toFixed(1)+'s'; }
+function timingText(t){
+  if(!t) return '';
+  var s='上一步 首字 '+sec(t.firstToken)+'（准备 '+sec(t.prepared)+' · 上传 '+fmtB(t.bytes)+' 到 '+sec(t.uploaded)+' · 响应 '+sec(t.firstEvent)+(t.keepAlives?' · 排队 '+t.keepAlives+' 次':'')+(t.firstReason>=0?' · 思考 '+sec(t.firstReason):'')+(t.firstText>=0?' · 正文 '+sec(t.firstText):'')+'）';
+  return s;
+}
+function timingLine(){ var more=document.getElementById('statsMore'); if(!more) return; var e=document.getElementById('timingLine');
+  if(!e){ e=document.createElement('div'); e.id='timingLine'; more.appendChild(e); } e.textContent=timingText(lastTiming); }
+function startTimer(){ stopTimer(); callPh={ph:'',info:'',at:0}; var tick=function(){ if(!turn||!turn.running) return;
+  turn.running.querySelector('.t').innerHTML=runText(); };
   tick(); timer=setInterval(tick,1000); }
 function stopTimer(){ if(timer){clearInterval(timer);timer=null;} }
 
@@ -704,6 +732,7 @@ function setStats(d){
   parts.push('会话 输入 '+fmtN(d.session.input)+' 输出 '+fmtN(d.session.output)+' 费用 '+cost(d.session.cost,d.session.known));
   parts.push('上下文 '+fmtN(d.context)+' / '+fmtN(d.window));
   more.innerHTML=parts.join('<br>');
+  timingLine();
 }
 
 // ======================= confirm card =======================

@@ -192,6 +192,7 @@ class AgentPanel(context: Context, private val host: Host) {
         is Chunk.ReasoningDelta -> { if (pendingText.isNotEmpty()) flush(); pendingReason.append(c.text); schedule() }
         is Chunk.ToolCallStart -> { flush(); js("toolStart(${q(c.id)}, ${q(c.name)})") }
         is Chunk.ToolArgsDelta -> { flush(); js("toolArgs(${q(c.id)}, ${q(c.delta)})") }
+        is Chunk.Phase -> { flush(); js("callPhase(${q(c.phase)}, ${q(c.info)})") }
     }
 
     /** Session events drive the transcript structure; live and replayed sessions share this path. */

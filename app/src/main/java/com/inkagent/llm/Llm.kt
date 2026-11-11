@@ -58,6 +58,25 @@ sealed class Chunk {
     data class ReasoningDelta(val text: String) : Chunk()
     data class ToolCallStart(val id: String, val name: String) : Chunk()
     data class ToolArgsDelta(val id: String, val delta: String) : Chunk()
+    /** Request progress before/around the first token: upload / wait / queued / first / timing (json). */
+    data class Phase(val phase: String, val info: String = "") : Chunk()
+}
+
+/**
+ * Wall-clock breakdown of one model call (ms since [start]), so a slow "first token" can be told apart:
+ * slow upload (big images) vs. server not answering vs. server queueing (SSE keep-alives) vs. long silent reasoning.
+ */
+class CallTiming(val onPhase: (String, String) -> Unit = { _, _ -> }) {
+    val start = System.currentTimeMillis()
+    var bytes = 0; var images = 0
+    var prepared = -1L; var uploaded = -1L; var headers = -1L; var firstEvent = -1L; var firstReason = -1L; var firstText = -1L; var firstTool = -1L
+    var keepAlives = 0; var end = -1L
+    fun now() = System.currentTimeMillis() - start
+    /** First visible token: reasoning, text or a tool call, whichever came first. */
+    fun firstToken(): Long = listOf(firstReason, firstText, firstTool).filter { it >= 0 }.minOrNull() ?: -1
+    fun toJson(): JSONObject = JSONObject().put("bytes", bytes).put("images", images).put("prepared", prepared).put("uploaded", uploaded).put("headers", headers)
+        .put("firstEvent", firstEvent).put("firstReason", firstReason).put("firstText", firstText).put("firstTool", firstTool)
+        .put("firstToken", firstToken()).put("keepAlives", keepAlives).put("end", end)
 }
 
 enum class Finish { STOP, TOOL_CALLS, MAX_TOKENS, OTHER }
@@ -156,7 +175,41 @@ object Llm {
         Protocol.OPENAI_CHAT -> OpenAiChatAdapter
     }
 
-    fun imageBase64(path: String): String = Base64.encodeToString(File(path).readBytes(), Base64.NO_WRAP)
+    /** Long side cap for images sent to the model: full-res 2560px page shots made every request (all history images
+     *  are re-sent each step) several MB, which on a slow uplink looked like a 30 s "first token". */
+    const val MAX_IMAGE_SIDE = 1600
+    private val b64Cache = object : LinkedHashMap<String, String>(16, 0.75f, true) {
+        override fun removeEldestEntry(e: MutableMap.MutableEntry<String, String>?) = size > 24
+    }
+    val timing = ThreadLocal<CallTiming?>()
+
+    fun imageBase64(path: String): String {
+        val f = File(path)
+        val key = "$path:${f.lastModified()}:${f.length()}"
+        synchronized(b64Cache) { b64Cache[key]?.let { timing.get()?.let { t -> t.images++ }; return it } }
+        val raw = f.readBytes()
+        var bytes = raw
+        runCatching {
+            val o = android.graphics.BitmapFactory.Options().apply { inJustDecodeBounds = true }
+            android.graphics.BitmapFactory.decodeByteArray(raw, 0, raw.size, o)
+            val side = maxOf(o.outWidth, o.outHeight)
+            if (side > MAX_IMAGE_SIDE) {
+                val bmp = android.graphics.BitmapFactory.decodeByteArray(raw, 0, raw.size)
+                if (bmp != null) {
+                    val sc = MAX_IMAGE_SIDE.toFloat() / side
+                    val sm = android.graphics.Bitmap.createScaledBitmap(bmp, (bmp.width * sc).toInt().coerceAtLeast(1), (bmp.height * sc).toInt().coerceAtLeast(1), true)
+                    val out = java.io.ByteArrayOutputStream()
+                    sm.compress(android.graphics.Bitmap.CompressFormat.PNG, 100, out)
+                    if (sm !== bmp) sm.recycle(); bmp.recycle()
+                    bytes = out.toByteArray()
+                }
+            }
+        }
+        val b = Base64.encodeToString(bytes, Base64.NO_WRAP)
+        synchronized(b64Cache) { b64Cache[key] = b }
+        timing.get()?.let { it.images++ }
+        return b
+    }
 
     internal fun post(url: String, headers: Map<String, String>, body: JSONObject, signal: CancelSignal): HttpURLConnection {
         signal.throwIfCancelled()
@@ -169,8 +222,21 @@ object Llm {
         conn.setRequestProperty("Content-Type", "application/json")
         conn.setRequestProperty("Accept", "text/event-stream")
         headers.forEach { (k, v) -> conn.setRequestProperty(k, v) }
-        conn.outputStream.use { it.write(body.toString().toByteArray(Charsets.UTF_8)) }
+        val payload = body.toString().toByteArray(Charsets.UTF_8)
+        val t = timing.get()
+        t?.bytes = payload.size
+        t?.prepared = t?.now() ?: -1
+        t?.onPhase?.invoke("upload", payload.size.toString())
+        // fixed-length streaming: the body really goes out while we write, so "uploaded" is a true upload time
+        conn.setFixedLengthStreamingMode(payload.size)
+        conn.outputStream.use { os ->
+            var off = 0
+            while (off < payload.size) { signal.throwIfCancelled(); val n = minOf(64 * 1024, payload.size - off); os.write(payload, off, n); off += n }
+        }
+        t?.uploaded = t?.now() ?: -1
+        t?.onPhase?.invoke("wait", "")
         val code = conn.responseCode
+        t?.headers = t?.now() ?: -1
         if (code !in 200..299) {
             val err = conn.errorStream?.bufferedReader()?.use { it.readText() } ?: ""
             throw LlmException("HTTP $code: ${err.take(1200)}")
@@ -186,6 +252,12 @@ object Llm {
             while (true) {
                 signal.throwIfCancelled()
                 val line = r.readLine() ?: break
+                val t = timing.get()
+                if (line.startsWith(":")) { // SSE comment = server keep-alive (DeepSeek sends these while the request is queued)
+                    if (t != null) { t.keepAlives++; if (t.firstEvent < 0) t.onPhase("queued", t.keepAlives.toString()) }
+                    continue
+                }
+                if (t != null && t.firstEvent < 0 && line.startsWith("data:")) { t.firstEvent = t.now(); t.onPhase("first", "") }
                 if (line.isEmpty()) {
                     if (data.isNotEmpty()) {
                         if (!onEvent(event, data.toString())) return

@@ -155,13 +155,32 @@ class Agent(
 
     /** Network hiccups (Wi-Fi handover, screen off, the ROM cutting a background socket) are common on
      *  tablets; retry the request a few times with backoff instead of failing the whole turn. */
+    @Volatile private var lastTiming: CallTiming? = null
     private fun generateWithRetry(cfg: CallConfig, sig: CancelSignal): Generated {
         val max = 4
         var attempt = 1
+        lastTiming = null
         while (true) {
             try {
-                return Llm.adapter(cfg.provider).generate(cfg, systemPrompt(), session.deriveMessages(),
-                    tools.schemas(), sig) { listener.onChunk(it) }
+                val t = CallTiming { ph, info -> listener.onChunk(Chunk.Phase(ph, info)) }
+                Llm.timing.set(t)
+                try {
+                    val g = Llm.adapter(cfg.provider).generate(cfg, systemPrompt(), session.deriveMessages(),
+                        tools.schemas(), sig) { c ->
+                        when (c) {
+                            is Chunk.ReasoningDelta -> if (t.firstReason < 0) t.firstReason = t.now()
+                            is Chunk.TextDelta -> if (t.firstText < 0) t.firstText = t.now()
+                            is Chunk.ToolCallStart -> if (t.firstTool < 0) t.firstTool = t.now()
+                            else -> {}
+                        }
+                        listener.onChunk(c)
+                    }
+                    t.end = t.now()
+                    lastTiming = t
+                    listener.onChunk(Chunk.Phase("timing", t.toJson().toString()))
+                    com.inkagent.AppLog.i("InkAgent", "call timing ${cfg.model}: ${t.toJson()}")
+                    return g
+                } finally { Llm.timing.set(null) }
             } catch (e: Exception) {
                 if (sig.cancelled || attempt >= max || !isTransient(e)) throw e
                 val wait = longArrayOf(2_000, 5_000, 12_000)[attempt - 1]
@@ -212,6 +231,7 @@ class Agent(
                 val am = JSONObject().put("turn", turn).put("step", step)
                     .put("content", Block.listToJson(gen.content)).put("finish", gen.finish.name).put("model", cfg.model)
                 gen.usage?.let { u -> am.put("usage", u.toJson()); pricer(cfg.model, u)?.let { am.put("cost", it) } }
+                lastTiming?.let { am.put("timing", it.toJson()) }
                 emit("assistant/message", am)
 
                 val calls = gen.content.filterIsInstance<Block.ToolCall>()

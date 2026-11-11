@@ -522,6 +522,9 @@ def main():
     ftxt = all_text()
     check('footer: tokens + 缓存命中', ('输入' in ftxt and '输出' in ftxt and '缓存命中' in ftxt))
     check('usage recorded in session', '"usage"' in txt and '"cacheHit"' in txt)
+    mt = re.findall(r'"timing":\{[^}]*\}', txt)
+    note('call timings: ' + ' | '.join(mt[-3:]))
+    check('timing recorded per call (first token, upload bytes)', bool(mt) and '"firstToken"' in mt[-1] and '"bytes"' in mt[-1], str(mt[-1:])[:300])
     # /compact: summarises the context into a context/compact event
     c = composer()
     if c:
