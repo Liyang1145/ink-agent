@@ -175,9 +175,33 @@ object Llm {
         Protocol.OPENAI_CHAT -> OpenAiChatAdapter
     }
 
-    /** Long side cap for images sent to the model: full-res 2560px page shots made every request (all history images
-     *  are re-sent each step) several MB, which on a slow uplink looked like a 30 s "first token". */
-    const val MAX_IMAGE_SIDE = 1600
+    /**
+     * Size an image is sent at, ported from dsh `deepSeekRequestImageDimensions` (llm-deepseek/image-tokens.ts):
+     * DeepSeek turns an image into 14px patches, 3:1 downsampled into 42px token cells, and caps one image at
+     * 1024 tokens; anything larger is shrunk on the server to that grid anyway. So we send the source unchanged
+     * when it already fits the cap, otherwise exactly the grid's resolution (2560x1600 -> 1610x1006,
+     * a 3000x600 strip -> 2940x588). Nothing the model would have seen is lost; only the upload shrinks.
+     */
+    fun requestImageDims(w: Int, h: Int): Pair<Int, Int> {
+        val P = 14; val D = 3; val M = 1024; val C = P * D
+        fun cd(v: Int, d: Int) = (v + d - 1) / d
+        fun gc(p: Int) = cd(p / P, D)
+        fun gt(gh: Int, gw: Int) = gh * (gw + 1) + 2
+        if (w <= 0 || h <= 0) return w to h
+        if (gt(gc(cd(h, P) * P), gc(cd(w, P) * P)) <= M) return w to h
+        val a = h.toDouble() / w
+        val iw = Math.sqrt((M - 2) / a + 0.25) - 0.5; val ih = iw * a
+        val bw: Int; val bh: Int
+        if (iw < 1) { bw = C; bh = ((M - 2) / 2) * C }
+        else if (ih < 1) { bw = ((M - 2) - 1) * C; bh = C }
+        else {
+            val sc = minOf(iw.toInt() * C.toDouble() / w, ih.toInt() * C.toDouble() / h)
+            bw = (w * sc / P).toInt() * P; bh = (h * sc / P).toInt() * P
+        }
+        val long = if (w >= h) bw else bh
+        val s = long.toDouble() / maxOf(w, h)
+        return Math.max(1, Math.round(w * s).toInt()) to Math.max(1, Math.round(h * s).toInt())
+    }
     private val b64Cache = object : LinkedHashMap<String, String>(16, 0.75f, true) {
         override fun removeEldestEntry(e: MutableMap.MutableEntry<String, String>?) = size > 24
     }
@@ -192,12 +216,12 @@ object Llm {
         runCatching {
             val o = android.graphics.BitmapFactory.Options().apply { inJustDecodeBounds = true }
             android.graphics.BitmapFactory.decodeByteArray(raw, 0, raw.size, o)
-            val side = maxOf(o.outWidth, o.outHeight)
-            if (side > MAX_IMAGE_SIDE) {
+            val (tw, th) = requestImageDims(o.outWidth, o.outHeight)
+            if (tw < o.outWidth || th < o.outHeight) {
                 val bmp = android.graphics.BitmapFactory.decodeByteArray(raw, 0, raw.size)
                 if (bmp != null) {
-                    val sc = MAX_IMAGE_SIDE.toFloat() / side
-                    val sm = android.graphics.Bitmap.createScaledBitmap(bmp, (bmp.width * sc).toInt().coerceAtLeast(1), (bmp.height * sc).toInt().coerceAtLeast(1), true)
+                    // lossless PNG at the model's own resolution (dsh only drops to JPEG 85/75/60 past a 4 MB byte cap)
+                    val sm = android.graphics.Bitmap.createScaledBitmap(bmp, tw, th, true)
                     val out = java.io.ByteArrayOutputStream()
                     sm.compress(android.graphics.Bitmap.CompressFormat.PNG, 100, out)
                     if (sm !== bmp) sm.recycle(); bmp.recycle()
