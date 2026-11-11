@@ -824,6 +824,7 @@ class InfiniteInteraction(
         val taken = Scribble.taken(passes, radius, candidates) { c, x, y, r -> c.intersectsCircle(x, y, r) }
         if (taken.isEmpty()) return false
         onWetStroke(null)
+        com.inkagent.InkLog.removed("scribble(infinite) passes=${passes.count}", taken.size)
         onScribbleErase(stroke, taken)
         return true
     }

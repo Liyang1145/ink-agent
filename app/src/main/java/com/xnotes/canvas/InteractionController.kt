@@ -182,6 +182,14 @@ class InteractionController(
     /** A pan tap or a markup tool tap at viewport point [at], told before anything acts on it. */
     var onTap: ((at: Pt) -> Unit)? = null
 
+    /** InkAgent: ink left the page without the toolbar eraser (side button, pen tail, finger, scribble). */
+    var onInkRemoved: ((how: String, n: Int) -> Unit)? = null
+    private var eraseHow = ""
+    private var watchCount = -1
+    private var watchRemovals = 0L
+
+    private fun inkCount(): Int { var n = 0; for (p in state.document.pages) n += p.items.size; return n }
+
     /** PDF text selection: a free pointer's long press on a PDF page selects there (installed by the Editor). */
     var pdfText: PdfTextController? = null
 
@@ -576,12 +584,18 @@ class InteractionController(
     fun onTouch(e: MotionEvent): Boolean {
         when (e.actionMasked) {
             MotionEvent.ACTION_DOWN -> {
+                val c = inkCount()
+                if (watchCount >= 0 && c < watchCount && com.inkagent.InkLog.removals == watchRemovals)
+                    com.inkagent.InkLog.add("UNEXPLAINED ink loss ${watchCount - c} items (count $watchCount -> $c)")
                 tapDown(e)
                 handleDown(e)
+                com.inkagent.InkLog.add("DOWN ${com.inkagent.InkLog.tool(e.getToolType(0))} btn=${e.buttonState} held=$stylusButtonHeld tool=$tool mode=$mode at=${e.x.toInt()},${e.y.toInt()} items=$c")
             }
             MotionEvent.ACTION_POINTER_DOWN -> {
                 tapCandidate = false
+                val before = mode
                 handlePointerDown(e)
+                com.inkagent.InkLog.add("POINTER_DOWN +${com.inkagent.InkLog.tool(e.getToolType(e.actionIndex))} n=${e.pointerCount} mode $before -> $mode")
             }
             MotionEvent.ACTION_MOVE -> {
                 if (tapCandidate && Pt(e.x.toDouble(), e.y.toDouble()).distanceTo(tapDownViewport) > TAP_SLOP) tapCandidate = false
@@ -589,10 +603,14 @@ class InteractionController(
             }
             MotionEvent.ACTION_POINTER_UP -> handlePointerUp(e)
             MotionEvent.ACTION_UP -> {
+                val m = mode
                 handleUp(e)
                 tapUp(e)
+                watchCount = inkCount(); watchRemovals = com.inkagent.InkLog.removals
+                if (m != PointerMode.DRAW) com.inkagent.InkLog.add("UP ${com.inkagent.InkLog.tool(e.getToolType(0))} mode=$m items=$watchCount")
             }
             MotionEvent.ACTION_CANCEL -> {
+                com.inkagent.InkLog.add("CANCEL mode=$mode n=${e.pointerCount}")
                 tapCandidate = false
                 abortGesture()
                 requestRender()
@@ -673,7 +691,9 @@ class InteractionController(
             onWheel(e); return
         }
         if (e.getToolType(0) == MotionEvent.TOOL_TYPE_STYLUS) {
+            val was = stylusButtonHeld
             stylusButtonHeld = (e.buttonState and STYLUS_BUTTON_MASK) != 0
+            if (was != stylusButtonHeld) com.inkagent.InkLog.add("side button (hover) ${if (stylusButtonHeld) "DOWN" else "UP"} state=${e.buttonState}")
             if (!stylusButtonHeld && hoverActionTool != null) endHoverAction()
         }
     }
@@ -718,6 +738,7 @@ class InteractionController(
         ) {
             return false
         }
+        if (stylusButtonHeld != down) com.inkagent.InkLog.add("side button (key $keyCode) ${if (down) "DOWN" else "UP"}")
         stylusButtonHeld = down
         if (!down && hoverActionTool != null) endHoverAction()
         return true
@@ -861,6 +882,12 @@ class InteractionController(
             effectiveTool.isStroke -> beginDraw(content, resolvePressure(e, 0, toolType), effectiveTool, e.eventTime, Pt(vx, vy))
             effectiveTool == Tool.ERASER -> {
                 clearSelection()
+                eraseHow = when {
+                    toolType == MotionEvent.TOOL_TYPE_ERASER -> "笔尾橡皮"
+                    buttonHeld && penButtonTool == Tool.ERASER -> "笔侧键橡皮"
+                    toolType == MotionEvent.TOOL_TYPE_FINGER -> "手指橡皮"
+                    else -> "橡皮工具"
+                }
                 erasingWithFinger = toolType == MotionEvent.TOOL_TYPE_FINGER
                 beginErase(vx, vy)
             }
@@ -1443,6 +1470,8 @@ class InteractionController(
         state.document.dirty = true
         onContentChanged()
         onHaptic()
+        com.inkagent.InkLog.removed("scribble passes=${passes.count} samples=${stroke.sampleCount}", items.size)
+        onInkRemoved?.invoke("划除手势", items.size)
         return true
     }
 
@@ -1562,6 +1591,14 @@ class InteractionController(
 
     private fun endErase() {
         val cmds = ArrayList<Command>()
+        run {
+            val n = if (areaErase()) eraseSnapshots.sumOf { (page, before) -> before.count { b -> page.items.none { it === b } } }
+                    else eraseRemovals.size
+            if (n > 0 || eraseMarkups.isNotEmpty()) {
+                com.inkagent.InkLog.removed("erase/$eraseHow/${if (areaErase()) "area" else "stroke"}", n)
+                if (eraseHow != "橡皮工具" && n > 0) onInkRemoved?.invoke(eraseHow, n)
+            }
+        }
         if (areaErase()) {
             // One drag may split/trim many strokes across pages; commit each touched page's
             // net before/after as one undo step.

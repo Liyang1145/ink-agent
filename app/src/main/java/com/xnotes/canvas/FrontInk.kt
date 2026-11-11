@@ -168,6 +168,7 @@ class FrontInk(
      * the ordinary path and the canvas takes everything the pad was showing at once.
      */
     fun surfaceLost() {
+        com.inkagent.InkLog.add("frontInk surfaceLost holds=${holds.size} live=$live")
         abandon()
         settle()
     }
@@ -414,6 +415,8 @@ class FrontInk(
         val items = holds
         if (items.isEmpty()) return false
         holds = emptyList()
+        val gone = items.count { h -> h.page != null && h.page.items.none { it === h.item } }
+        if (items.size > 1 || gone > 0) com.inkagent.InkLog.add("frontInk settle ${items.size} held, $gone no longer on page")
         handoverTail = null
         // One erased while it was held (a scribble over ink still on the pad) must not come back.
         for (h in items) h.page?.let { page -> if (page.items.any { it === h.item }) state.appendToCache(page, h.item) }

@@ -903,7 +903,11 @@ class Editor(context: Context, val pane: Pane = Pane.PRIMARY) : ToolPopupHost, S
         onContextMenu = { vp, content, locked -> contextMenu = ContextMenuTarget(vp.x, vp.y, content, locked) },
         onAddPageAtEnd = { addPageAtEnd() },
         onHaptic = { runCatching { view.performHapticFeedback(android.view.HapticFeedbackConstants.LONG_PRESS) } },
-    )
+    ).also { c ->
+        // InkAgent v0.6.19: an erase the user may not have meant (pen side button, pen tail, finger, a
+        // stroke read as a scribble-out) is announced with an undo, so a vanished patch is never a mystery.
+        c.onInkRemoved = { how, n -> say("$how 擦掉了 $n 笔", "撤销" to { undo() }) }
+    }
 
     /**
      * Accents from a physical keyboard's dead keys, composed through the layout the user
@@ -5584,6 +5588,7 @@ class Editor(context: Context, val pane: Pane = Pane.PRIMARY) : ToolPopupHost, S
     }
 
     private fun replaceDocument(doc: Document) {
+        com.inkagent.InkLog.removed("replaceDocument", 0)
         saveViewState() // remember the outgoing folder note's view before switching away
         flowText.endSession() // flushes the typing burst so the autosave below carries it
         flushAutosave() // save the outgoing note if it was autosaving to the folder
@@ -5620,7 +5625,7 @@ class Editor(context: Context, val pane: Pane = Pane.PRIMARY) : ToolPopupHost, S
 
 
     /** Run the action a two/three-finger tap or stylus double-tap is mapped to; "none" does nothing. */
-    private fun dispatchTapGesture(action: String) = when {
+    private fun dispatchTapGesture(action: String) = run { if (action != "none") com.inkagent.InkLog.add("tap gesture -> $action") }.let { when {
         // The pen's taps arrive here whichever surface is up; a canvas on top must not edit the note under it.
         canvasOpen -> infinite.dispatchTapGesture(action)
         action == "undo" -> undo()
@@ -5629,7 +5634,7 @@ class Editor(context: Context, val pane: Pane = Pane.PRIMARY) : ToolPopupHost, S
         action == "toggle_eraser" -> toggleTool(Tool.ERASER)
         action == "toggle_previous" -> toggleToPreviousTool()
         else -> Unit
-    }
+    } }
 
     /** Arm [target], or if it is already armed, return to the previous tool (no-op if none yet). */
     private fun toggleTool(target: Tool) {
@@ -5704,6 +5709,7 @@ class Editor(context: Context, val pane: Pane = Pane.PRIMARY) : ToolPopupHost, S
         val command = history.nextUndo
         val pagesBefore = state.document.pages.size
         val was = touchedRegions(command)
+        com.inkagent.InkLog.removed("undo ${command?.javaClass?.simpleName}", 0)
         history.undo()
         bakeMarkups(command)
         afterHistory(
@@ -5718,6 +5724,7 @@ class Editor(context: Context, val pane: Pane = Pane.PRIMARY) : ToolPopupHost, S
         val command = history.nextRedo
         val pagesBefore = state.document.pages.size
         val was = touchedRegions(command)
+        com.inkagent.InkLog.removed("redo ${command?.javaClass?.simpleName}", 0)
         history.redo()
         bakeMarkups(command)
         afterHistory(
@@ -6027,6 +6034,7 @@ class Editor(context: Context, val pane: Pane = Pane.PRIMARY) : ToolPopupHost, S
         val page = pageAt(index) ?: return
         if (page.items.isEmpty()) { message = appContext.getString(R.string.page_already_empty); return }
         val removals = page.items.map { page to it }
+        com.inkagent.InkLog.removed("erasePage $index", removals.size)
         page.items.clear()
         history.push(EraseItems(removals))
         state.invalidatePage(page)
@@ -6290,6 +6298,7 @@ class Editor(context: Context, val pane: Pane = Pane.PRIMARY) : ToolPopupHost, S
         if (items.isEmpty()) return
         controller.clearSelection()
         val removals = items.map { page to it }
+        com.inkagent.InkLog.removed("agent page=$index", items.size)
         for ((p, item) in removals) p.items.remove(item)
         history.push(EraseItems(removals))
         state.document.dirty = true
