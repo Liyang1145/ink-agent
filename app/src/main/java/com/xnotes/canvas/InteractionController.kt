@@ -1592,7 +1592,7 @@ class InteractionController(
     private fun endErase() {
         val cmds = ArrayList<Command>()
         run {
-            val n = if (areaErase()) eraseSnapshots.sumOf { (page, before) -> before.count { b -> page.items.none { it === b } } }
+            val n = if (areaErase()) eraseSnapshots.entries.sumOf { en -> en.value.count { b -> en.key.items.none { it === b } } }
                     else eraseRemovals.size
             if (n > 0 || eraseMarkups.isNotEmpty()) {
                 com.inkagent.InkLog.removed("erase/$eraseHow/${if (areaErase()) "area" else "stroke"}", n)
