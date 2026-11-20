@@ -567,7 +567,8 @@ private class GlideTrip {
  */
 @Composable
 internal fun Modifier.toolGlide(glide: ToolGlide, armed: Any?): Modifier {
-    val target = glide.centers[armed]
+    // The unified select button registers under SELECT; an armed lasso lights that same button.
+    val target = glide.centers[armed] ?: if (armed == Tool.LASSO) glide.centers[Tool.SELECT] else null
     val density = LocalDensity.current
     val bar = LocalBar.current
     val r = with(density) { bar.circle.toPx() / 2 }
