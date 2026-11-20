@@ -754,6 +754,7 @@ class AgentController(private val activity: Activity, private val editorRef: () 
         val lib = com.inkagent.library.Library(activity.applicationContext)
         val libTools = com.inkagent.library.LibraryTools(lib) { canvasTools?.takeIf { editorRef()?.noteOpen == true } }
         libTools.register(tools)
+        tools.register(com.inkagent.agent.AnimTool(java.io.File(activity.cacheDir, "anim")))
         com.inkagent.agent.AppTools(activity, editorRef, { LibraryBridge.userLib(activity) }, ::confirmBlocking).register(tools)
         LibraryBridge.library = lib; LibraryBridge.tools = libTools
         LibraryBridge.compose = { t -> ui.post { if (collapsed) updateCollapsed(false); panel.setComposerForTest(t) } }
@@ -810,6 +811,8 @@ class AgentController(private val activity: Activity, private val editorRef: () 
             Thread {
                 val res = runCatching {
                     val o = JSONObject(String(android.util.Base64.decode(b64, android.util.Base64.DEFAULT)))
+                    // show_animation renders as a card from the call's arguments (normally on assistantEnd)
+                    if (o.optString("tool") == "show_animation") panel.debugAnimCard(o.optJSONObject("args")?.toString() ?: "{}")
                     val r = tools.execute(o.getString("tool"), o.optJSONObject("args")?.toString() ?: "{}", CancelSignal())
                     (if (r.isError) "ERROR " else "OK ") + r.content.filterIsInstance<Block.Text>().joinToString(" | ") { it.text }
                 }.getOrElse { "EXC $it" }

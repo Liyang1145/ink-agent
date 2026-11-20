@@ -29,6 +29,13 @@ svg.i{width:18px;height:18px;stroke:currentColor;fill:none;stroke-width:1.7;stro
 #scrollWrap{position:relative;flex:1 1 0;min-height:0;display:flex;}
 #scroll{flex:1 1 0;min-width:0;min-height:0;overflow-y:auto;overflow-x:hidden;-webkit-overflow-scrolling:touch;}
 #log{padding:12px 14px 24px;max-width:860px;margin:0 auto;}
+.anim{margin:10px 0;border:1px solid rgba(128,128,128,.28);border-radius:14px;overflow:hidden;background:#fff}
+.anim-h{display:flex;align-items:center;gap:4px;padding:5px 8px 5px 12px;color:#333;font-size:13px;background:#f6f6f4}
+.anim-t{flex:1;font-weight:600;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.anim-b{border:0;background:none;color:#2f5fd0;font:inherit;padding:3px 8px;border-radius:8px}
+.anim-f{display:block;width:100%;border:0}
+.anim.big{position:fixed;inset:0;z-index:50;margin:0;border-radius:0;display:flex;flex-direction:column}
+.anim.big .anim-f{flex:1;height:auto}
 .older-btn{display:block;margin:4px auto 14px;padding:6px 14px;border-radius:14px;border:1px solid rgba(128,128,128,.3);background:transparent;color:inherit;opacity:.75;font:inherit;font-size:13px;}
 .older-btn:disabled{opacity:.45}
 /* ---------- turn rail (port of dsh TurnNavigator): one mark per turn, hover/drag previews, tap jumps ---------- */
@@ -339,7 +346,7 @@ var L={
   doing:{thinking:'正在分析请求',readImage:'正在查看画布',write:'正在写入画布',webSearch:'正在搜索网页',webFetch:'正在访问网页',tools:'正在调用工具'},
   done:{thinking:'已完成分析',readImage:'已查看画布',write:'已写入画布',webSearch:'已搜索网页',webFetch:'已访问网页',tools:'已调用工具'}
 };
-var TOOL_NAMES={manage_provider:'管理服务商',list_pages:'列出页面',view_page:'查看页面',canvas_write_latex:'写公式',canvas_draw_svg:'画图',canvas_remove:'删除对象',web_search:'搜索',web_fetch:'访问网页'};
+var TOOL_NAMES={show_animation:'动画讲解',library_manage:'资料库',app_notes:'笔记',manage_provider:'管理服务商',list_pages:'列出页面',view_page:'查看页面',canvas_write_latex:'写公式',canvas_draw_svg:'画图',canvas_remove:'删除对象',web_search:'搜索',web_fetch:'访问网页'};
 // processTitle(): top three categories, "{first}并{second}" with shared 已 prefix
 function processTitle(kinds){
   var counts={}, order=[];
@@ -581,8 +588,35 @@ function toolArgs(callId, d){
   var t=step&&step.tools[callId]; if(!t) return;
   t.args+=d; t.h.querySelector('.arg').textContent=argSummary(t.name,t.args);
 }
+// ---- animation cards (show_animation; three.js runs inside a sandboxed iframe) ----
+var ANIM_SRC='<!doctype html><html><head><meta charset="utf-8"><link rel="stylesheet" href="file:///android_asset/lib/katex/katex.min.css">'+
+ '<style>html,body{margin:0;height:100%;overflow:hidden;background:#fff;font:14px -apple-system,"PingFang SC",sans-serif;color:#222}#stage{position:absolute;inset:0}'+
+ '#labels{position:absolute;inset:0;pointer-events:none;overflow:hidden}.lb{position:absolute;left:0;top:0;white-space:nowrap;font-size:15px;text-shadow:0 0 3px #fff,0 0 3px #fff}'+
+ '#cap{position:absolute;left:10px;right:10px;bottom:8px;text-align:center;font-size:15px;pointer-events:none;text-shadow:0 0 4px #fff,0 0 4px #fff}'+
+ '#ui{position:absolute;left:8px;top:8px;display:flex;flex-direction:column;gap:4px;max-width:60%}.sl{display:flex;align-items:center;gap:6px;background:rgba(255,255,255,.85);border-radius:8px;padding:2px 8px;font-size:13px}.sl input{width:120px}'+
+ '.ub{font:inherit;font-size:13px;border:1px solid #ccd;border-radius:8px;background:rgba(255,255,255,.9);padding:3px 10px;align-self:flex-start}</style></head><body>'+
+ '<div id="stage"></div><div id="labels"></div><div id="cap" style="display:none"></div><div id="ui"></div>'+
+ '<script src="file:///android_asset/lib/three/three.min.js"><\/script><script src="file:///android_asset/lib/three/OrbitControls.js"><\/script>'+
+ '<script src="file:///android_asset/lib/katex/katex.min.js"><\/script><script src="file:///android_asset/anim.js"><\/script>';
+function animKey(code){ var h=0; for(var i=0;i<code.length;i++){ h=((h<<5)-h+code.charCodeAt(i))|0; } return 'a'+(h>>>0).toString(36)+'_'+code.length; }
+function animReport(key, json){ try{ Native.animReport(key, json); }catch(e){} }
+function animCard(raw, host){
+  var a; try{ a=JSON.parse(raw); }catch(e){ return; } if(!a||!a.code) return;
+  var c=el('div','anim',host); var hd=el('div','anim-h',c);
+  el('span','anim-t',hd).textContent=a.title||'动画';
+  var bp=el('button','anim-b',hd,'暂停'), br=el('button','anim-b',hd,'重播'), bf=el('button','anim-b',hd,'放大');
+  var fr=el('iframe','anim-f',c); var h=Math.max(200,Math.min(700,+a.height||340)); fr.style.height=h+'px';
+  fr.setAttribute('sandbox','allow-scripts allow-same-origin');
+  var key=animKey(a.code), paused=false;
+  fr.srcdoc=ANIM_SRC+'<script>window.ANIM_KEY='+JSON.stringify(key)+';runAnim('+JSON.stringify(a.code).replace(/<\//g,'<\\/')+');<\/script></body></html>';
+  bp.onclick=function(){ paused=!paused; try{ fr.contentWindow.animPause(paused); }catch(e){} bp.textContent=paused?'播放':'暂停'; };
+  br.onclick=function(){ paused=false; bp.textContent='暂停'; try{ fr.contentWindow.animRestart(); }catch(e){} };
+  bf.onclick=function(){ var big=c.classList.toggle('big'); bf.textContent=big?'还原':'放大'; fr.style.height=big?'':h+'px'; setTimeout(function(){ try{ fr.contentWindow.animResize(); }catch(e){} },60); };
+  end();
+}
 function assistantEnd(hasTools){
   if (!step) return;
+  for (var id in step.tools){ var tt=step.tools[id]; if(tt.name==='show_animation'&&!tt.anim){ tt.anim=1; animCard(tt.args, turn.answer); } }
   closeThink();
   if (hasTools) finishStepText(true);
   else if (turn.live) { finishStepText(false); }

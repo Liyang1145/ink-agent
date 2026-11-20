@@ -99,6 +99,7 @@ class AgentPanel(context: Context, private val host: Host) {
             @JavascriptInterface fun deleteSession(id: String) { main.post { host.onDeleteSession(id) } }
             @JavascriptInterface fun confirmResult(id: String, ok: Boolean) { main.post { host.onConfirmResult(id, ok) } }
             @JavascriptInterface fun capture() { main.post { host.onCapture() } }
+            @JavascriptInterface fun animReport(key: String, json: String) = com.inkagent.agent.AnimBridge.report(key, json)
             @JavascriptInterface fun loadOlder() { main.post { this@AgentPanel.loadOlder() } }
             @JavascriptInterface fun pickImage() { main.post { host.onPickImage() } }
             @JavascriptInterface fun takePhoto() { main.post { host.onTakePhoto() } }
@@ -240,6 +241,9 @@ class AgentPanel(context: Context, private val host: Host) {
     private var shownFrom = 0
 
     private fun turnStarts(evs: List<SessionEvent>) = evs.indices.filter { evs[it].type == "turn/start" }
+
+    /** Debug (test_exec): put an animation card in the transcript as if the model had just called show_animation. */
+    fun debugAnimCard(rawArgs: String) = js("animCard(${q(rawArgs)}, turn?turn.answer:log)")
 
     fun replay(session: Session) {
         pendingText.setLength(0); pendingReason.setLength(0)
