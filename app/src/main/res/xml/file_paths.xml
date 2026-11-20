@@ -8,4 +8,6 @@
     <cache-path name="export" path="export/" />
     <!-- Camera captures (拍照) before they are decoded and inserted. -->
     <cache-path name="camera" path="camera/" />
+    <!-- Library files (opened in other apps / our PDF importer). -->
+    <files-path name="userlib" path="userlib/files/" />
 </paths>

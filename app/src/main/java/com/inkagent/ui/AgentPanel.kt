@@ -99,6 +99,7 @@ class AgentPanel(context: Context, private val host: Host) {
             @JavascriptInterface fun deleteSession(id: String) { main.post { host.onDeleteSession(id) } }
             @JavascriptInterface fun confirmResult(id: String, ok: Boolean) { main.post { host.onConfirmResult(id, ok) } }
             @JavascriptInterface fun capture() { main.post { host.onCapture() } }
+            @JavascriptInterface fun loadOlder() { main.post { this@AgentPanel.loadOlder() } }
             @JavascriptInterface fun pickImage() { main.post { host.onPickImage() } }
             @JavascriptInterface fun takePhoto() { main.post { host.onTakePhoto() } }
             @JavascriptInterface fun openLibrary() { main.post { host.onOpenLibrary() } }
@@ -233,14 +234,42 @@ class AgentPanel(context: Context, private val host: Host) {
         }
     }
 
+    // ---------------- history paging (dsh: tail window, older pages prepended on demand) ----------------
+    private var shown: Session? = null
+    /** Index into [shown].events of the earliest event currently rendered. */
+    private var shownFrom = 0
+
+    private fun turnStarts(evs: List<SessionEvent>) = evs.indices.filter { evs[it].type == "turn/start" }
+
     fun replay(session: Session) {
         pendingText.setLength(0); pendingReason.setLength(0)
         js("clearAll()")
-        val evs = session.events
-        evs.forEachIndexed { i, e -> event(e, false) }
+        val evs = session.events.toList()
+        val starts = turnStarts(evs)
+        shown = session
+        shownFrom = if (starts.size > HISTORY_PAGE_TURNS) starts[starts.size - HISTORY_PAGE_TURNS] else 0
+        for (i in shownFrom until evs.size) event(evs[i], false)
+        js("setOlder(${starts.count { it < shownFrom }})")
         // a turn interrupted by an app kill has no turn/end
         val lastStart = evs.indexOfLast { it.type == "turn/start" }
         val lastEnd = evs.indexOfLast { it.type == "turn/end" }
-        if (lastStart > lastEnd) js("turnEnd('aborted', '', ${evs.last().time})")
+        if (lastStart > lastEnd && lastStart >= shownFrom) js("turnEnd('aborted', '', ${evs.last().time})")
+    }
+
+    /** Prepend the next older page of whole turns above what is shown, keeping the reader's place. */
+    fun loadOlder() {
+        val s = shown ?: return
+        val evs = s.events.toList()
+        val starts = turnStarts(evs).filter { it < shownFrom }
+        if (starts.isEmpty()) { js("setOlder(0)"); return }
+        val from = if (starts.size > HISTORY_PAGE_TURNS) starts[starts.size - HISTORY_PAGE_TURNS] else 0
+        flush()
+        js("beginOlder()")
+        for (i in from until shownFrom) event(evs[i], false)
+        shownFrom = from
+        js("endOlder(${starts.count { it < from }})")
     }
 }
+
+/** Turns rendered when a session opens, and per 「加载更早的对话」. */
+private const val HISTORY_PAGE_TURNS = 12

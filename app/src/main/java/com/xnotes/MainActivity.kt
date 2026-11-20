@@ -173,7 +173,7 @@ class MainActivity : ComponentActivity() {
                 ed.restoreSession() // heavy load off-thread; loader animates meanwhile
                 val elapsed = android.os.SystemClock.uptimeMillis() - start
                 if (elapsed < MIN_LOADER_MS) kotlinx.coroutines.delay(MIN_LOADER_MS - elapsed)
-                com.inkagent.ui.openStartupNote(ed)
+                com.inkagent.ui.openStartupNote(ed, open = intent?.extras?.keySet()?.any { it.startsWith("test_") } == true)
                 ready = true
                 agentCtrl.applyTestExtras(intent)
                 applyFingerExtra(intent)
@@ -375,7 +375,7 @@ private fun EditorScreen(
     }
     // Backstage is the root of the stack; the editor is pushed on top only when a note is open
     // (editor.noteOpen). Every launch starts on backstage.
-    var backstageView by remember { mutableStateOf(com.xnotes.ui.BackstageView.HOME) }
+    var backstageView by remember { mutableStateOf(com.xnotes.ui.BackstageView.START) }
     var showShareChooser by remember { mutableStateOf(false) }
     var guardAction by remember { mutableStateOf<GuardRequest?>(null) }
     var pendingAfterSave by remember { mutableStateOf<(() -> Unit)?>(null) }
@@ -973,7 +973,7 @@ private fun EditorScreen(
             val actions = PaneActions(
                 onToggleFullscreen = onToggleFullscreen,
                 onOpenBackstage = {
-                    backstageView = com.xnotes.ui.BackstageView.HOME
+                    backstageView = com.xnotes.ui.BackstageView.START
                     guardedAll { editor.goHomeAll() }
                 },
                 onClosePane = { pane -> guarded(pane) { pane.goHome() } },

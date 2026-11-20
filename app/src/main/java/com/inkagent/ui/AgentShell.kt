@@ -380,7 +380,7 @@ fun AgentShell(ctrl: AgentController, content: @Composable () -> Unit) {
 }
 
 /** First launch lands in a note, not on the file explorer: reopen the restored note, or open/create "我的笔记". */
-suspend fun openStartupNote(ed: Editor) {
+suspend fun openStartupNote(ed: Editor, open: Boolean = true) {
     if (ed.noteOpen) return
     if (ed.agentShowRestored()) return
     if (ed.browseRoot == null) ed.useInternalStorage()
@@ -392,5 +392,6 @@ suspend fun openStartupNote(ed: Editor) {
                 ?: ed.createBlankNoteFile(root, rootDoc, "我的笔记")
         }.getOrNull()
     } ?: return
-    ed.openAsync(uri, "我的笔记.xnote")
+    // InkAgent home: launches land on 首页; tests (and only tests) still start inside the note.
+    if (open) ed.openAsync(uri, "我的笔记.xnote")
 }

@@ -164,7 +164,7 @@ import kotlinx.coroutines.withTimeout
 import kotlin.math.roundToInt
 
 /** Which pane the backstage shows on the right. */
-enum class BackstageView { HOME, PREFERENCES, ABOUT, TRASH }
+enum class BackstageView { START, HOME, PREFERENCES, ABOUT, TRASH }
 
 /** Whether the Home explorer is awaiting a new file/folder name. */
 private enum class CreateMode { NONE, FILE, CANVAS, FOLDER }
@@ -333,8 +333,9 @@ private fun BackstageContent(
         when {
             compact && drawerOpen -> dismissDrawer()
             // Preferences, About and Trash are sub-pages of Home: back lands on Home rather than leaving the app.
-            view != BackstageView.HOME -> selectView(BackstageView.HOME)
-            createMode != CreateMode.NONE -> createMode = CreateMode.NONE
+            createMode != CreateMode.NONE && view == BackstageView.HOME -> createMode = CreateMode.NONE
+            // InkAgent: 首页 is the root; 全部笔记, Preferences, About and Trash all step back to it.
+            view != BackstageView.START -> selectView(BackstageView.START)
             else -> onExitApp()
         }
     }
@@ -454,7 +455,9 @@ private fun BackstageSidebar(modifier: Modifier, nav: SidebarNav, onCollapse: ()
         }
         Spacer(Modifier.height(6.dp))
         Column(Modifier.weight(1f).verticalScroll(rememberScrollState())) {
-            Command(XnotesIcons.home, stringResource(R.string.home), selected = nav.homeSelected) { nav.onHome() }
+            Command(XnotesIcons.home, stringResource(R.string.home), selected = nav.view == BackstageView.START) { nav.onSelectView(BackstageView.START) }
+            Command(XnotesIcons.folder, "全部笔记", selected = nav.homeSelected) { nav.onHome() }
+            LibraryCommand()
             nav.recent?.let { on -> Command(XnotesIcons.clock, stringResource(R.string.recent), selected = on) { nav.onRecent() } }
             if (nav.colors.isNotEmpty()) {
                 SidebarLabel(stringResource(R.string.toolbar_colours))
@@ -502,7 +505,10 @@ private fun BackstageRail(modifier: Modifier, nav: SidebarNav, onExpand: () -> U
         }
         Spacer(Modifier.height(10.dp))
         Column(Modifier.weight(1f).verticalScroll(rememberScrollState()), horizontalAlignment = Alignment.CenterHorizontally) {
-            RailItem(XnotesIcons.home, stringResource(R.string.home), selected = nav.homeSelected) { nav.onHome() }
+            RailItem(XnotesIcons.home, stringResource(R.string.home), selected = nav.view == BackstageView.START) { nav.onSelectView(BackstageView.START) }
+            RailItem(XnotesIcons.folder, "全部笔记", selected = nav.homeSelected) { nav.onHome() }
+            val libCtx = androidx.compose.ui.platform.LocalContext.current
+            RailItem(XnotesIcons.database, "资料库", selected = false) { libCtx.startActivity(android.content.Intent(libCtx, com.inkagent.library.LibraryActivity::class.java)) }
             nav.recent?.let { on -> RailItem(XnotesIcons.clock, stringResource(R.string.recent), selected = on) { nav.onRecent() } }
             if (nav.pins.isNotEmpty()) Spacer(Modifier.height(8.dp))
             nav.pins.forEachIndexed { i, pin ->
@@ -567,6 +573,11 @@ private fun BackstageMain(
         }
         Box(Modifier.weight(1f).fillMaxWidth().padding(start = PANE_GUTTER, end = PANE_GUTTER, top = 4.dp, bottom = 12.dp)) {
             when (view) {
+                BackstageView.START -> InkHomePane(
+                    editor, sidebarOpen, onShowSidebar, calls.openFile,
+                    onNewNote = { onBackToHome(); onCreateMode(CreateMode.FILE) },
+                    onAllNotes = onBackToHome,
+                )
                 BackstageView.HOME -> HomePane(editor, calls, createMode, onCreateMode, sidebarOpen, onShowSidebar, link)
                 BackstageView.PREFERENCES -> PreferencesPane(editor, compact, sidebarOpen, onShowSidebar, onBackToHome, onImportCodeTheme, onImportFont)
                 BackstageView.TRASH -> TrashPane(editor, sidebarOpen, onShowSidebar, onOpenPreferences)
@@ -2308,4 +2319,11 @@ internal fun EmptyPane(text: String, art: EmptyArt? = null, actions: (@Composabl
             }
         }
     }
+}
+
+/** InkAgent: the sidebar's 资料库 entry (opens the library screen). */
+@Composable
+private fun LibraryCommand() {
+    val ctx = androidx.compose.ui.platform.LocalContext.current
+    Command(XnotesIcons.database, "资料库") { ctx.startActivity(android.content.Intent(ctx, com.inkagent.library.LibraryActivity::class.java)) }
 }

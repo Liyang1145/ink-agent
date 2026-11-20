@@ -29,6 +29,8 @@ svg.i{width:18px;height:18px;stroke:currentColor;fill:none;stroke-width:1.7;stro
 #scrollWrap{position:relative;flex:1 1 0;min-height:0;display:flex;}
 #scroll{flex:1 1 0;min-width:0;min-height:0;overflow-y:auto;overflow-x:hidden;-webkit-overflow-scrolling:touch;}
 #log{padding:12px 14px 24px;max-width:860px;margin:0 auto;}
+.older-btn{display:block;margin:4px auto 14px;padding:6px 14px;border-radius:14px;border:1px solid rgba(128,128,128,.3);background:transparent;color:inherit;opacity:.75;font:inherit;font-size:13px;}
+.older-btn:disabled{opacity:.45}
 /* ---------- turn rail (port of dsh TurnNavigator): one mark per turn, hover/drag previews, tap jumps ---------- */
 #rail{position:absolute;right:6px;top:50%;width:28px;transform:translateY(-50%);max-height:min(calc(100% - 64px),420px);overflow-y:auto;overscroll-behavior:contain;
   scrollbar-width:none;display:none;z-index:7;touch-action:none;user-select:none;-webkit-user-select:none;cursor:pointer;padding:6px 0;box-sizing:border-box;}
@@ -405,6 +407,27 @@ function toggle(btn, body){ btn.onclick=function(){ body.hidden=!body.hidden; if
 function setOpen(btn, body, open){ body.hidden=!open; if(open) btn.setAttribute('data-open',''); else btn.removeAttribute('data-open'); }
 function showEmpty(){ if(!log.children.length) el('div','empty',log,'在笔记上写下题目，用「选择」圈出来点「加入 Agent」，再发给我'); }
 function clearAll(){ log.innerHTML=''; turn=null; step=null; stopTimer(); showEmpty(); }
+// ---- history paging (dsh-style): only the newest turns are rendered; older pages prepend on demand ----
+var olderBtn=null, olderSaved=null;
+function setOlder(n){
+  if(!olderBtn){ olderBtn=document.createElement('button'); olderBtn.className='older-btn';
+    olderBtn.onclick=function(){ olderBtn.disabled=true; olderBtn.textContent='正在加载…'; try{ Native.loadOlder(); }catch(e){} }; }
+  if(n>0){ olderBtn.disabled=false; olderBtn.textContent='加载更早的对话（还有 '+n+' 轮）'; log.insertBefore(olderBtn, log.firstChild); }
+  else if(olderBtn.parentNode) olderBtn.parentNode.removeChild(olderBtn);
+}
+function beginOlder(){ olderSaved={log:log,turn:turn,step:step,stick:stick,timer:timer}; log=document.createElement('div'); turn=null; step=null; stick=false; timer=null; }
+function endOlder(n){
+  if(!olderSaved) return;
+  var frag=log, real=olderSaved.log; if(timer&&timer!==olderSaved.timer) { try{ clearInterval(timer); }catch(e){} }
+  log=real; turn=olderSaved.turn; step=olderSaved.step; timer=olderSaved.timer;
+  frag.querySelectorAll('.empty').forEach(function(e){ e.remove(); });
+  var h0=scroller.scrollHeight, t0=scroller.scrollTop;
+  var anchor=(olderBtn&&olderBtn.parentNode===log)?olderBtn.nextSibling:log.firstChild;
+  while(frag.firstChild) log.insertBefore(frag.firstChild, anchor);
+  scroller.scrollTop=t0+(scroller.scrollHeight-h0);
+  stick=olderSaved.stick&&false; olderSaved=null;
+  setOlder(n);
+}
 
 function turnStart(ts){
   var e=log.querySelector('.empty'); if(e) e.remove();

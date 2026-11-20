@@ -166,6 +166,44 @@ class SessionStore(private val dir: File) {
 
     fun open(id: String) = Session(id, File(dir, "$id.jsonl"))
 
+    /** What the session list needs, read without parsing every event (dsh: the list never loads histories). */
+    class Info(val id: String, val title: String, val pinned: Boolean, val lastTime: Long, val hasContent: Boolean)
+    private val infoCache = HashMap<String, Pair<Long, Info>>()
+
+    @Synchronized fun infos(): List<Info> {
+        val files = dir.listFiles { f -> f.name.endsWith(".jsonl") } ?: emptyArray()
+        val out = files.map { f ->
+            val key = f.lastModified() * 31 + f.length()
+            infoCache[f.name]?.takeIf { it.first == key }?.second ?: scan(f).also { infoCache[f.name] = key to it }
+        }
+        infoCache.keys.retainAll(files.map { it.name }.toSet())
+        return out.sortedWith(compareByDescending<Info> { it.pinned }.thenByDescending { it.lastTime })
+    }
+
+    private fun scan(f: File): Info {
+        var title: String? = null; var derived: String? = null; var pinned = false; var last = 0L; var has = false
+        val timeRe = Regex("\"time\":(\\d+)")
+        f.forEachLine { l ->
+            when {
+                l.contains("\"type\":\"session/meta\"") -> SessionEvent.parse(l)?.data?.let { d ->
+                    if (d.has("title")) title = d.optString("title"); if (d.has("pinned")) pinned = d.optBoolean("pinned")
+                }
+                else -> {
+                    timeRe.find(l)?.groupValues?.get(1)?.toLongOrNull()?.let { last = it }
+                    if (!has && l.contains("\"type\":\"user/message\"")) {
+                        has = true
+                        derived = SessionEvent.parse(l)?.let { e ->
+                            val blocks = Block.listFromJson(e.data.getJSONArray("content"))
+                            val t = blocks.filterIsInstance<Block.Text>().joinToString(" ") { it.text }.trim()
+                            if (t.isNotEmpty()) t.take(24) else if (blocks.any { it is Block.Image }) "图片提问" else null
+                        }
+                    }
+                }
+            }
+        }
+        return Info(f.name.removeSuffix(".jsonl"), title ?: derived ?: "新对话", pinned, if (last > 0) last else f.lastModified(), has)
+    }
+
     fun create(): Session {
         val id = "s" + System.currentTimeMillis().toString(36)
         return open(id)

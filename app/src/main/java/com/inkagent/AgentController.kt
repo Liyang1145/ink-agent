@@ -44,6 +44,11 @@ object LibraryBridge {
     @Volatile var compose: ((String) -> Unit)? = null
     /** Lay out a paper / problem on the open note (called after the library screen closes). */
     @Volatile var insert: ((String) -> Unit)? = null
+    @Volatile private var user: com.inkagent.library.UserLibrary? = null
+    /** The user's library (folders, tags, imports), shared by the library screen, home and the agent. */
+    @Synchronized fun userLib(ctx: android.content.Context): com.inkagent.library.UserLibrary =
+        user ?: com.inkagent.library.UserLibrary(ctx.applicationContext,
+            library ?: com.inkagent.library.Library(ctx.applicationContext).also { library = it }).also { user = it }
 }
 
 /**
@@ -253,7 +258,7 @@ class AgentController(private val activity: Activity, private val editorRef: () 
         override fun onInputFocus(focused: Boolean) { com.inkagent.overlay.OverlayService.instance?.onInputFocus(focused) }
         override fun listSessions(): String {
             val a = JSONArray()
-            store.list().filter { it.hasContent || it.id == agent.session.id }.forEach {
+            store.infos().filter { it.hasContent || it.id == agent.session.id }.forEach {
                 a.put(JSONObject().put("id", it.id).put("title", it.title).put("time", it.lastTime).put("pinned", it.pinned))
             }
             return JSONObject().put("current", agent.session.id).put("list", a).toString()
@@ -566,6 +571,18 @@ class AgentController(private val activity: Activity, private val editorRef: () 
         panel.setModel(settings.label())
     }
 
+    /** Home screen: recent conversations, without loading their histories. */
+    fun recentSessions(n: Int): List<com.inkagent.agent.SessionStore.Info> = store.infos().filter { it.hasContent }.take(n)
+
+    /** Home screen: open a conversation in the panel. */
+    fun openSessionFromHome(id: String) {
+        if (id != agent.session.id) switchTo(store.open(id))
+        if (collapsed) updateCollapsed(false)
+    }
+
+    /** Home screen: a fresh conversation in the panel. */
+    fun newSessionFromHome() { host.onNewSession(); if (collapsed) updateCollapsed(false) }
+
     private fun switchTo(s: Session) {
         if (agent.running) { toast("先停止当前回答"); return }
         agent.session = s; settings.sessionId = s.id
@@ -737,6 +754,7 @@ class AgentController(private val activity: Activity, private val editorRef: () 
         val lib = com.inkagent.library.Library(activity.applicationContext)
         val libTools = com.inkagent.library.LibraryTools(lib) { canvasTools?.takeIf { editorRef()?.noteOpen == true } }
         libTools.register(tools)
+        com.inkagent.agent.AppTools(activity, editorRef, { LibraryBridge.userLib(activity) }, ::confirmBlocking).register(tools)
         LibraryBridge.library = lib; LibraryBridge.tools = libTools
         LibraryBridge.compose = { t -> ui.post { if (collapsed) updateCollapsed(false); panel.setComposerForTest(t) } }
         LibraryBridge.insert = { id ->
