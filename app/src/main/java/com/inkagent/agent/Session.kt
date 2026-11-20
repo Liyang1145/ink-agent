@@ -84,7 +84,7 @@ class Session(val id: String, private val file: File) {
     }
 
     private fun deriveTitle(): String? {
-        val first = events.firstOrNull { it.type == "user/message" } ?: return null
+        val first = events.firstOrNull { it.type == "user/message" && it.data.optString("kind") != "subagent" } ?: return null
         val blocks = Block.listFromJson(first.data.getJSONArray("content"))
         val t = blocks.filterIsInstance<Block.Text>().joinToString(" ") { it.text }.trim()
         return if (t.isNotEmpty()) t.take(24) else if (blocks.any { it is Block.Image }) "图片提问" else null
@@ -195,7 +195,7 @@ class SessionStore(private val dir: File) {
                 }
                 else -> {
                     timeRe.find(l)?.groupValues?.get(1)?.toLongOrNull()?.let { last = it }
-                    if (!has && l.contains("\"type\":\"user/message\"")) {
+                    if (!has && l.contains("\"type\":\"user/message\"") && !l.contains("\"kind\":\"subagent\"")) {
                         has = true
                         derived = SessionEvent.parse(l)?.let { e ->
                             val blocks = Block.listFromJson(e.data.getJSONArray("content"))
