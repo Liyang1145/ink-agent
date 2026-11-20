@@ -242,6 +242,7 @@ class AgentController(private val activity: Activity, private val editorRef: () 
         }
         override fun onOpenLibrary() { if (overlayActive) openAppThen { openLibrary() } else openLibrary() }
         override fun onPickImage() { activity.startActivity(android.content.Intent(activity, com.inkagent.ui.PickImageActivity::class.java).addFlags(android.content.Intent.FLAG_ACTIVITY_NEW_TASK)) }
+        override fun onTakePhoto() { activity.startActivity(android.content.Intent(activity, com.inkagent.ui.PickImageActivity::class.java).putExtra(com.inkagent.ui.PickImageActivity.EXTRA_CAMERA, true).addFlags(android.content.Intent.FLAG_ACTIVITY_NEW_TASK)) }
         override fun onCapture() {
             if (overlayActive) com.inkagent.overlay.OverlayService.instance?.startCapture() ?: toast("请先在设置里开启「在其他应用上显示悬浮球」")
             else captureInApp()

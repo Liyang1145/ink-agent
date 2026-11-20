@@ -6,4 +6,6 @@
     <cache-path name="clipboard" path="clipboard/" />
     <!-- Session/diagnostic log bundles shared from the agent panel. -->
     <cache-path name="export" path="export/" />
+    <!-- Camera captures (拍照) before they are decoded and inserted. -->
+    <cache-path name="camera" path="camera/" />
 </paths>

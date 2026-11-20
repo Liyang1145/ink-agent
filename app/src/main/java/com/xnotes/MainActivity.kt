@@ -534,6 +534,28 @@ private fun EditorScreen(
         }
     }
 
+    // InkAgent: 拍照插入 — camera writes into cache/camera via FileProvider; decoded upright and inserted on the current page.
+    var pendingPhoto by remember { mutableStateOf<Pair<Editor, String>?>(null) }
+    val takePhotoLauncher = rememberLauncherForActivityResult(ActivityResultContracts.TakePicture()) { ok ->
+        val p = pendingPhoto; pendingPhoto = null
+        if (p != null) scope.launch {
+            val f = java.io.File(p.second)
+            val bytes = kotlinx.coroutines.withContext(kotlinx.coroutines.Dispatchers.IO) {
+                if (!ok) null else runCatching { com.inkagent.Photos.decodeUpright(f, 2560)?.let { com.inkagent.Photos.jpeg(it) } }.getOrNull()
+            }
+            f.delete()
+            if (bytes != null) p.first.insertImageAt(bytes, null) else if (ok) p.first.message = context.getString(R.string.err_read_image)
+        }
+    }
+    androidx.compose.runtime.DisposableEffect(Unit) {
+        com.inkagent.Photos.takeForNote = { ed ->
+            val (f, uri) = com.inkagent.Photos.newTarget(context)
+            pendingPhoto = ed to f.path
+            runCatching { takePhotoLauncher.launch(uri) }.onFailure { pendingPhoto = null; ed.message = "没有找到相机应用" }
+        }
+        onDispose { com.inkagent.Photos.takeForNote = null }
+    }
+
     // A PDF picked from a page's menu in the side panel; its pages go in right after that page.
     val insertPdfLauncher = rememberLauncherForActivityResult(ActivityResultContracts.OpenDocument()) { uri ->
         val pending = pendingPdfInsert; pendingPdfInsert = null

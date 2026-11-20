@@ -752,6 +752,7 @@ private fun ImageMenu(editor: Editor, onInsertImage: () -> Unit, onAddStickers: 
         ToolbarIcon(XnotesIcons.image, stringResource(R.string.tool_image)) { expanded = true }
         DropdownMenu(expanded = expanded, onDismissRequest = { expanded = false }) {
             DropdownMenuItem(text = { Text(stringResource(R.string.paste_image)) }, onClick = { editor.pasteImage(); expanded = false })
+            DropdownMenuItem(text = { Text("拍照插入…") }, onClick = { expanded = false; com.inkagent.Photos.takeForNote?.invoke(editor) })
             DropdownMenuItem(text = { Text(stringResource(R.string.insert_image_ellipsis)) }, onClick = { onInsertImage(); expanded = false })
             DropdownMenuItem(text = { Text(stringResource(R.string.stickers)) }, onClick = { expanded = false; stickersOpen = true })
         }

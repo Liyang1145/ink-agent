@@ -45,6 +45,7 @@ class AgentPanel(context: Context, private val host: Host) {
         /** 「框选截屏」 (overlay window only). */
         fun onCapture() {}
         fun onPickImage() {}
+        fun onTakePhoto() {}
         fun onOpenLibrary() {}
         fun onExportSession(id: String) {}
         fun canvasAccess(): Boolean = true
@@ -99,6 +100,7 @@ class AgentPanel(context: Context, private val host: Host) {
             @JavascriptInterface fun confirmResult(id: String, ok: Boolean) { main.post { host.onConfirmResult(id, ok) } }
             @JavascriptInterface fun capture() { main.post { host.onCapture() } }
             @JavascriptInterface fun pickImage() { main.post { host.onPickImage() } }
+            @JavascriptInterface fun takePhoto() { main.post { host.onTakePhoto() } }
             @JavascriptInterface fun openLibrary() { main.post { host.onOpenLibrary() } }
             @JavascriptInterface fun canvasAccess(): Boolean = host.canvasAccess()
             @JavascriptInterface fun setCanvasAccess(on: Boolean) { main.post { host.onSetCanvasAccess(on) } }
