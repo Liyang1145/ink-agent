@@ -1165,8 +1165,12 @@ def run_library(ex):
     launch(ex + ' --ez test_library true'); time.sleep(6); shot('library_home')
     # InkAgent home (Hark-style) after a cold start, then its idle suggestions
     adb(f'shell am force-stop {PKG}'); time.sleep(2)
-    launch('--ez test_finger true'); time.sleep(5); shot('ink_home')
+    launch('--ez test_finger true'); time.sleep(5)
     ui = adb('shell uiautomator dump /sdcard/ui.xml >/dev/null; cat /sdcard/ui.xml', timeout=60) or ''
+    if '为你准备' not in ui:  # cold start reopened the last note: close it to reach home
+        adb('shell input tap 50 50'); time.sleep(3)
+        ui = adb('shell uiautomator dump /sdcard/ui.xml >/dev/null; cat /sdcard/ui.xml', timeout=60) or ''
+    shot('ink_home')
     check('home: hark-style home shown', '为你准备' in ui and '我的笔记' in ui, ui[:200])
     time.sleep(40); shot('ink_home_suggest')
     log2 = adb('shell run-as com.inkagent cat files/applog.txt', timeout=30) or ''
