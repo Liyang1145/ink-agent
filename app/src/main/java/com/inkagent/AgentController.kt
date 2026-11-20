@@ -580,6 +580,45 @@ class AgentController(private val activity: Activity, private val editorRef: () 
         if (collapsed) updateCollapsed(false)
     }
 
+    /** Home screen: is the agent answering right now (suggestions wait for idle). */
+    fun agentBusy(): Boolean = agent.running
+
+    /** Home screen: start a new conversation with [text] already sent. */
+    fun askFromHome(text: String) {
+        ui.post {
+            if (agent.running) { toast("先停止当前回答"); return@post }
+            switchTo(store.create())
+            if (collapsed) updateCollapsed(false)
+            send(text)
+        }
+    }
+
+    /** Home suggestions: a compact picture of recent study activity (conversations, notes, library). */
+    fun suggestionContext(): String {
+        val sb = StringBuilder()
+        val fmt = java.text.SimpleDateFormat("M月d日 HH:mm", java.util.Locale.CHINA)
+        store.infos().filter { it.hasContent }.take(4).forEachIndexed { i, info ->
+            val t = runCatching { store.open(info.id).transcriptForCompact(300) }.getOrDefault("")
+            sb.append("【对话${i + 1}】${info.title}（${fmt.format(java.util.Date(info.lastTime))}）\n")
+            sb.append(if (t.length > 1400) "…" + t.takeLast(1400) else t).append("\n\n")
+        }
+        runCatching {
+            val ed = editorRef()
+            val root = ed?.browseRoot
+            if (ed != null && root != null) {
+                val rec = ed.recentEntries(root).take(6)
+                if (rec.isNotEmpty()) sb.append("【最近打开的笔记】").append(rec.joinToString("；") { it.entry.name.removeSuffix(".xnote") + "（" + fmt.format(java.util.Date(it.opened)) + "）" }).append("\n")
+            }
+        }
+        runCatching {
+            val lib = LibraryBridge.userLib(activity)
+            lib.ensure()
+            val news = synchronized(lib) { lib.items.values.filter { it.added > 0 }.sortedByDescending { it.added }.take(6).map { it.title + (if (it.tags.isNotEmpty()) " #" + it.tags.joinToString(" #") else "") } }
+            if (news.isNotEmpty()) sb.append("【最近加入资料库】").append(news.joinToString("；")).append("\n")
+        }
+        return sb.toString().trim()
+    }
+
     /** Home screen: a fresh conversation in the panel. */
     fun newSessionFromHome() { host.onNewSession(); if (collapsed) updateCollapsed(false) }
 

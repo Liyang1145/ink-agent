@@ -955,6 +955,15 @@ private fun EditorScreen(
                 },
             )
 
+            // InkAgent's own home sits over the xnotes backstage; 「我的笔记」 drops to the xnotes explorer.
+            if (backstageView == com.xnotes.ui.BackstageView.START && !editor.noteOpen && editor.secondary?.noteOpen != true) {
+                com.xnotes.ui.HarkHome(
+                    editor = editor,
+                    onOpenFile = { uri -> guarded(editor) { openTreeFile(uri) } },
+                    onNotes = { backstageView = com.xnotes.ui.BackstageView.HOME },
+                )
+            }
+
             // TOP LAYER: the open panes (toolbar + canvas each), pushed over backstage. Back acts on
             // the focused pane; its handlers live here so — composed after backstage — they win while
             // a note is open.

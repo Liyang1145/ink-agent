@@ -1163,6 +1163,15 @@ def run_library(ex):
     r = exec_tool(ex, 'show_animation', {'title': '错误示例', 'code': 'A.nonexistent();'}, wait=30)
     note('show_animation bad -> ' + r[:300]); check('anim: error reported', r.startswith('ERROR') or '没有收到' in r, r[:300])
     launch(ex + ' --ez test_library true'); time.sleep(6); shot('library_home')
+    # InkAgent home (Hark-style) after a cold start, then its idle suggestions
+    adb(f'shell am force-stop {PKG}'); time.sleep(2)
+    launch('--ez test_finger true'); time.sleep(5); shot('ink_home')
+    ui = adb('shell uiautomator dump /sdcard/ui.xml >/dev/null; cat /sdcard/ui.xml', timeout=60) or ''
+    check('home: hark-style home shown', '为你准备' in ui and '我的笔记' in ui, ui[:200])
+    time.sleep(40); shot('ink_home_suggest')
+    log2 = adb('shell run-as com.inkagent cat files/applog.txt', timeout=30) or ''
+    sl = [l for l in log2.splitlines() if 'Suggest' in l]
+    note('suggest log: ' + ' | '.join(sl[-3:]))
     log = adb('shell run-as com.inkagent cat files/applog.txt', timeout=30)
     open(f'{OUT}/applog.txt', 'w').write(log or '')
     cal = [l for l in (log or '').splitlines() if 'calibration' in l]

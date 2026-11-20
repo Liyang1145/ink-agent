@@ -277,6 +277,10 @@ private fun BackstageContent(
         animateClose = false
         drawerOpen = false
     }
+    // InkAgent home's 「新建笔记」: land on the explorer with the new-note name field open.
+    LaunchedEffect(HomeRequests.newNote, view) {
+        if (HomeRequests.newNote && view == BackstageView.HOME) { createMode = CreateMode.FILE; HomeRequests.newNote = false }
+    }
     // A sidebar pick the explorer has yet to act on, and the folder or colour filter it is showing.
     var explorerNav by remember { mutableStateOf<ExplorerNav?>(null) }
     var explorerFolder by remember { mutableStateOf<String?>(null) }
