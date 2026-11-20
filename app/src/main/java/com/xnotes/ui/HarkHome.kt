@@ -66,6 +66,7 @@ fun HarkHome(
     onNotes: () -> Unit,
 ) {
     val ctx = LocalContext.current
+    LaunchedEffect(Unit) { com.inkagent.AppLog.i("Home", "hark home shown") } // e2e reads this (Compose text is invisible to uiautomator)
     var recents by remember { mutableStateOf<List<RecentEntry>>(emptyList()) }
     var sessions by remember { mutableStateOf<List<com.inkagent.agent.SessionStore.Info>>(emptyList()) }
     var libCount by remember { mutableStateOf(0) }

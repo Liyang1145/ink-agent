@@ -54,6 +54,11 @@ class Session(val id: String, private val file: File) {
         for (i in fromIndex until events.size) {
             val e = events[i]
             if (e.type == "turn/start") turns++
+            if (e.type == "subagent/end") { // sub-agent spend counts toward the conversation (not its context)
+                com.inkagent.llm.Usage.fromJson(e.data.optJSONObject("usage"))?.let { uu ->
+                    u += uu; if (e.data.has("cost")) cost += e.data.getDouble("cost") else known = false }
+                continue
+            }
             if (e.type != "assistant/message") continue
             val uu = com.inkagent.llm.Usage.fromJson(e.data.optJSONObject("usage")) ?: continue
             u += uu; calls++; last = uu.input

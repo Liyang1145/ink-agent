@@ -30,6 +30,15 @@ class ToolRegistry {
     @Volatile var hidden: (String) -> Boolean = { false }
     /** Non-null = refuse this call with that message (checked after parsing args). */
     @Volatile var deny: (String, JSONObject) -> String? = { _, _ -> null }
+    /** A view with some tools left out (sub-agents); hidden/deny follow this registry's live rules. */
+    fun without(names: Set<String>): ToolRegistry {
+        val parent = this
+        return ToolRegistry().also { r ->
+            tools.values.filter { it.name !in names }.forEach { r.register(it) }
+            r.hidden = { n -> parent.hidden(n) }
+            r.deny = { n, a -> parent.deny(n, a) }
+        }
+    }
     fun schemas() = tools.values.filter { !hidden(it.name) }.map { it.schema() }
     fun execute(name: String, rawArgs: String, signal: CancelSignal): ToolResult {
         val tool = tools[name] ?: return ToolResult.error("未知工具：$name")
@@ -47,7 +56,8 @@ class ToolRegistry {
 // ---------------------------------------------------------------------------
 
 /** Identified user input, like dsh UserMessage. */
-class UserInput(val content: List<Block>, val id: String = "m" + counter.incrementAndGet()) {
+/** [kind] = null for the user's own words; "subagent" for a sub-agent result injected by [SubAgents]. */
+class UserInput(val content: List<Block>, val id: String = "m" + counter.incrementAndGet(), val kind: String? = null) {
     companion object { private val counter = AtomicInteger(0) }
 }
 
@@ -220,7 +230,8 @@ class Agent(
                 synchronized(lock) { while (nextStep.isNotEmpty()) claimed.add(nextStep.removeFirst()) }
                 emit("step/start", JSONObject().put("turn", turn).put("step", step))
                 listener.onStepStart(turn, step)
-                for (m in claimed) emit("user/message", JSONObject().put("id", m.id).put("steer", step > 1).put("content", Block.listToJson(m.content)))
+                for (m in claimed) emit("user/message", JSONObject().put("id", m.id).put("steer", step > 1).put("content", Block.listToJson(m.content))
+                    .apply { m.kind?.let { put("kind", it) } })
                 claimed = mutableListOf()
 
                 val cfg = callConfig() ?: throw LlmException("还没有配置模型：请在设置里添加服务商并选择模型")

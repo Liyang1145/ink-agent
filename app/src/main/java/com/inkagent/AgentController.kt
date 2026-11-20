@@ -72,6 +72,8 @@ class AgentController(private val activity: Activity, private val editorRef: () 
     private val registry = AiRegistry(File(activity.filesDir, "ai_items.json"))
     lateinit var agent: Agent
         private set
+    lateinit var subAgents: com.inkagent.agent.SubAgents
+        private set
     private val attachments = ArrayList<Block.Image>()
 
     /** Compose-observed agent window state (see AgentShell): mode = ball | window | split. */
@@ -237,7 +239,8 @@ class AgentController(private val activity: Activity, private val editorRef: () 
         override fun onOpenSessions() { panel.refreshSessions() }
         override fun onNewSession() = switchTo(store.create())
         override fun onOpenSettings() { if (overlayActive) openAppThen { openSettings() } else openSettings() }
-        override fun onStop() = agent.cancel()
+        override fun onStop() { agent.cancel(); subAgents.cancelAll() }
+        override fun onStopSub(id: String) = subAgents.cancel(id)
         override fun currentPage() = (editorRef()?.agentCurrentPage() ?: 0) + 1
         override fun onCollapse() {
             if (overlayActive) com.inkagent.overlay.OverlayService.instance?.collapseWindow() else updateCollapsed(true)
@@ -807,6 +810,11 @@ class AgentController(private val activity: Activity, private val editorRef: () 
                 }.start()
             }, 700)
         }
+        subAgents = com.inkagent.agent.SubAgents(java.io.File(activity.filesDir, "subagents"), tools, { settings.callConfig() }, { systemPrompt() },
+            { m, u -> settings.cost(m, u) }, { agent }) { s, ev ->
+            ui.post { if (s === agent.session) { panel.event(ev, true); if (ev.type == "subagent/end") pushStats() } }
+        }
+        subAgents.register(tools)
         val session = settings.sessionId?.let { store.open(it) } ?: store.create().also { settings.sessionId = it.id }
         agent = Agent(session, tools, { settings.callConfig() }, { systemPrompt() }, listener) { m, u -> settings.cost(m, u) }
         panel.setPolicy(settings.transcriptMode, settings.collapseTiming)

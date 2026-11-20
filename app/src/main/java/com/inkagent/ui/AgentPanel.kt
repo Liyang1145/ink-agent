@@ -33,6 +33,7 @@ class AgentPanel(context: Context, private val host: Host) {
         fun onNewSession()
         fun onOpenSettings()
         fun onStop()
+        fun onStopSub(id: String) {}
         fun currentPage(): Int
         fun onCollapse()
         fun onToggleMode()
@@ -83,6 +84,7 @@ class AgentPanel(context: Context, private val host: Host) {
             @JavascriptInterface fun newSession() { main.post { host.onNewSession() } }
             @JavascriptInterface fun openSettings() { main.post { host.onOpenSettings() } }
             @JavascriptInterface fun stop() { main.post { host.onStop() } }
+            @JavascriptInterface fun stopSub(id: String) { main.post { host.onStopSub(id) } }
             @JavascriptInterface fun currentPage(): Int = host.currentPage()
             @JavascriptInterface fun collapse() { main.post { host.onCollapse() } }
             @JavascriptInterface fun toggleMode() { main.post { host.onToggleMode() } }
@@ -209,7 +211,7 @@ class AgentPanel(context: Context, private val host: Host) {
                 val content = Block.listFromJson(e.data.getJSONArray("content"))
                 val text = content.filterIsInstance<Block.Text>().joinToString("\n") { it.text }
                 val imgs = JSONArray(); content.filterIsInstance<Block.Image>().forEach { imgs.put("file://" + it.path) }
-                js("userMessage(${q(text)}, $imgs, ${e.data.optBoolean("steer")})")
+                js("userMessage(${q(text)}, $imgs, ${e.data.optBoolean("steer")}, ${q(e.data.optString("kind"))})")
             }
             "assistant/message" -> {
                 val content = Block.listFromJson(e.data.getJSONArray("content"))
@@ -231,6 +233,10 @@ class AgentPanel(context: Context, private val host: Host) {
             "compact/end" -> js("compactEnd(${q(e.data.optString("error"))})")
             "context/compact" -> js("compactDone(${q(e.data.optString("summary"))}, ${e.data.optInt("chars")})")
             "step/end" -> js("stepEnd()")
+            "subagent/start" -> js("subStart(${q(e.data.optString("id"))}, ${q(e.data.optString("title"))}, ${q(e.data.optString("task"))}, ${e.time})")
+            "subagent/tool" -> js("subTool(${q(e.data.optString("id"))}, ${q(e.data.optString("name"))}, ${q(e.data.optString("args"))})")
+            "subagent/anim" -> js("subAnim(${q(e.data.optString("id"))}, ${q(e.data.optString("args"))})")
+            "subagent/end" -> js("subEnd(${q(e.data.optString("id"))}, ${q(e.data.optString("result"))}, ${q(e.data.optString("error"))}, ${e.data.optLong("ms")}, ${e.data.optInt("steps")}, $live)")
             "turn/end" -> js("turnEnd(${q(e.data.optString("reason"))}, ${q(e.data.optString("error"))}, ${e.time})")
         }
     }
@@ -258,6 +264,11 @@ class AgentPanel(context: Context, private val host: Host) {
         val lastStart = evs.indexOfLast { it.type == "turn/start" }
         val lastEnd = evs.indexOfLast { it.type == "turn/end" }
         if (lastStart > lastEnd && lastStart >= shownFrom) js("turnEnd('aborted', '', ${evs.last().time})")
+        // sub-agents that never finished (app killed) and are not running any more
+        val ended = evs.filter { it.type == "subagent/end" }.map { it.data.optString("id") }.toSet()
+        val live = com.inkagent.AgentBridge.controller?.subAgents?.liveIds() ?: emptySet()
+        evs.filter { it.type == "subagent/start" }.map { it.data.optString("id") }
+            .filter { it !in ended && it !in live }.forEach { js("subEnd(${q(it)}, '', '已中断', 0, 0, false)") }
     }
 
     /** Prepend the next older page of whole turns above what is shown, keeping the reader's place. */

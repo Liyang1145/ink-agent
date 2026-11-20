@@ -1162,6 +1162,26 @@ def run_library(ex):
     time.sleep(2); shot('anim_card')
     r = exec_tool(ex, 'show_animation', {'title': '错误示例', 'code': 'A.nonexistent();'}, wait=30)
     note('show_animation bad -> ' + r[:300]); check('anim: error reported', r.startswith('ERROR') or '没有收到' in r, r[:300])
+    # sub-agent: dispatched directly; it makes an animation concurrently, then its result goes back to the main agent
+    r = exec_tool(ex, 'spawn_agent', {'title': '画正弦波动画', 'task': '用 show_animation 做一个平面动画：mode2d 坐标系里画 y=sin(x) 从左到右逐渐画出来（x 从 -6 到 6），配一句 caption。做好后用一两句话总结。不要写画布。'}, wait=20)
+    note('spawn_agent -> ' + r[:300]); check('sub: spawn ok', r.startswith('OK') and 'sub-' in r, r[:300])
+    sub_end = False
+    for _ in range(30):
+        time.sleep(8)
+        txt = session_text()
+        if count_events(txt, 'subagent/end'): sub_end = True; break
+    shot('subagent_done')
+    txt = session_text()
+    check('sub: start/anim/end events in parent session', count_events(txt, 'subagent/start') and count_events(txt, 'subagent/anim') and sub_end, str(sub_end))
+    ends = [e for e in (json.loads(l) for l in txt.splitlines() if 'subagent' in l and l.startswith('{')) if e.get('type') == 'subagent/end']
+    if ends: note('sub end: ' + json.dumps(ends[-1]['data'], ensure_ascii=False)[:500])
+    check('sub: finished without error', ends and not ends[-1]['data'].get('error'), str(ends[-1]['data'] if ends else ''))
+    for _ in range(20):
+        time.sleep(6)
+        txt = session_text()
+        if '"kind":"subagent"' in txt and count_events(txt, 'turn/end') >= 1: break
+    check('sub: result handed back to main agent', '"kind":"subagent"' in txt, '')
+    time.sleep(20); shot('subagent_main_reply')
     launch(ex + ' --ez test_library true'); time.sleep(6); shot('library_home')
     # InkAgent home (Hark-style) after a cold start, then its idle suggestions
     adb(f'shell am force-stop {PKG}'); time.sleep(2)
@@ -1171,7 +1191,8 @@ def run_library(ex):
         adb('shell input tap 50 50'); time.sleep(3)
         ui = adb('shell uiautomator dump /sdcard/ui.xml >/dev/null; cat /sdcard/ui.xml', timeout=60) or ''
     shot('ink_home')
-    check('home: hark-style home shown', '为你准备' in ui and '我的笔记' in ui, ui[:200])
+    hl = adb('shell run-as com.inkagent cat files/applog.txt', timeout=30) or ''
+    check('home: hark-style home shown', 'hark home shown' in hl, ui[:200])
     time.sleep(40); shot('ink_home_suggest')
     log2 = adb('shell run-as com.inkagent cat files/applog.txt', timeout=30) or ''
     sl = [l for l in log2.splitlines() if 'Suggest' in l]

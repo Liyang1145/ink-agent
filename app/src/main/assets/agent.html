@@ -29,6 +29,21 @@ svg.i{width:18px;height:18px;stroke:currentColor;fill:none;stroke-width:1.7;stro
 #scrollWrap{position:relative;flex:1 1 0;min-height:0;display:flex;}
 #scroll{flex:1 1 0;min-width:0;min-height:0;overflow-y:auto;overflow-x:hidden;-webkit-overflow-scrolling:touch;}
 #log{padding:12px 14px 24px;max-width:860px;margin:0 auto;}
+.sub{margin:8px 0;border:1px solid rgba(77,107,254,.22);border-radius:12px;padding:0 10px;background:rgba(77,107,254,.035)}
+.sub-h{display:flex;align-items:center;gap:6px;width:100%;text-align:left;line-height:32px;font-size:13.5px;color:var(--label-2);min-width:0}
+.sub-h .dot{width:7px;height:7px;border-radius:4px;background:var(--label-4);flex:none}
+.sub.run .dot{background:var(--accent);animation:pulse 1s infinite} .sub.ok .dot{background:#2fb36b} .sub.err .dot{background:var(--danger)}
+.sub-h .st{color:var(--accent);font-weight:600;flex:none}
+.sub-h .tt{flex:1;min-width:0;color:var(--label-1);overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.sub-h .ph{flex:none;max-width:45%;color:var(--label-3);font-size:12px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.sub-h .chev{width:12px;height:12px;flex:none;transition:transform .1s;transform:rotate(-90deg)} .sub-h[data-open] .chev{transform:none}
+.sub-x{flex:none;border:0;background:none;color:var(--danger);font:inherit;font-size:12px;padding:0 4px}
+.sub-b{padding:0 0 8px 13px;border-left:2px solid rgba(77,107,254,.15);margin:0 0 8px 2px}
+.sub-task,.sub-step{font-size:12.5px;line-height:20px;color:var(--label-3);overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.sub-task{white-space:normal;color:var(--label-2);margin-bottom:4px}
+.sub-res{font-size:14px;margin-top:6px}
+.sub-anims .anim{margin:4px 0 10px}
+.sub-back{font-size:12.5px;color:var(--label-3);margin:4px 0 2px;text-align:right}
 .anim{margin:10px 0;border:1px solid rgba(128,128,128,.28);border-radius:14px;overflow:hidden;background:#fff}
 .anim-h{display:flex;align-items:center;gap:4px;padding:5px 8px 5px 12px;color:#333;font-size:13px;background:#f6f6f4}
 .anim-t{flex:1;font-weight:600;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
@@ -346,7 +361,7 @@ var L={
   doing:{thinking:'正在分析请求',readImage:'正在查看画布',write:'正在写入画布',webSearch:'正在搜索网页',webFetch:'正在访问网页',tools:'正在调用工具'},
   done:{thinking:'已完成分析',readImage:'已查看画布',write:'已写入画布',webSearch:'已搜索网页',webFetch:'已访问网页',tools:'已调用工具'}
 };
-var TOOL_NAMES={show_animation:'动画讲解',library_manage:'资料库',app_notes:'笔记',manage_provider:'管理服务商',list_pages:'列出页面',view_page:'查看页面',canvas_write_latex:'写公式',canvas_draw_svg:'画图',canvas_remove:'删除对象',web_search:'搜索',web_fetch:'访问网页'};
+var TOOL_NAMES={spawn_agent:'派出子智能体',wait_agents:'等待子智能体',show_animation:'动画讲解',library_manage:'资料库',app_notes:'笔记',manage_provider:'管理服务商',list_pages:'列出页面',view_page:'查看页面',canvas_write_latex:'写公式',canvas_draw_svg:'画图',canvas_remove:'删除对象',web_search:'搜索',web_fetch:'访问网页'};
 // processTitle(): top three categories, "{first}并{second}" with shared 已 prefix
 function processTitle(kinds){
   var counts={}, order=[];
@@ -485,8 +500,13 @@ function startTimer(){ stopTimer(); callPh={ph:'',info:'',at:0}; var tick=functi
   tick(); timer=setInterval(tick,1000); }
 function stopTimer(){ if(timer){clearInterval(timer);timer=null;} }
 
-function userMessage(text, imgs, steer){
+function userMessage(text, imgs, steer, kind){
   if (!turn) turnStart();
+  if (kind==='subagent'){ // a sub-agent's result handed back to the main agent: a quiet line, not a user bubble
+    var m=text.match(/子智能体 (sub-\d+)「([^」]*)」/);
+    el('div','sub-back',turn.users).textContent='↩ 子智能体'+(m?'「'+m[2]+'」':'')+'的结果已交回主线';
+    end(); return;
+  }
   var row=el('div','user-row', steer&&step ? null : turn.users);
   if (steer&&step){ turn.answer.parentNode.insertBefore(row, turn.answer); }
   var b=el('div','user'+(steer&&step?' steer':''),row);
@@ -581,6 +601,8 @@ function argSummary(name, raw){
     if (a.page) return '第'+a.page+'页';
     if (a.svg) return 'svg';
     if (a.action) return a.action+(a.name?(' '+a.name):'');
+    if (a.title) return a.title;
+    if (a.ids) return a.ids.join(' ');
     return '';
   }catch(e){ return maskArgs(name, raw).replace(/\s+/g,' ').slice(0,80); }
 }
@@ -612,6 +634,32 @@ function animCard(raw, host){
   bp.onclick=function(){ paused=!paused; try{ fr.contentWindow.animPause(paused); }catch(e){} bp.textContent=paused?'播放':'暂停'; };
   br.onclick=function(){ paused=false; bp.textContent='暂停'; try{ fr.contentWindow.animRestart(); }catch(e){} };
   bf.onclick=function(){ var big=c.classList.toggle('big'); bf.textContent=big?'还原':'放大'; fr.style.height=big?'':h+'px'; setTimeout(function(){ try{ fr.contentWindow.animResize(); }catch(e){} },60); };
+  end();
+}
+// ---- sub-agent cards (spawn_agent): progress, animations and the result of a concurrently running child agent ----
+var subs={};
+function subCard(id,title){
+  var s=subs[id]; if(s&&s.c.isConnected) return s;
+  var e=log.querySelector('.empty'); if(e) e.remove();
+  var c=el('div','sub run',turn?turn.answer:log);
+  var h=el('div','sub-h',c,'<span class="dot"></span><span class="st">子智能体</span><span class="tt"></span><span class="ph"></span>'+CHEV);
+  h.querySelector('.tt').textContent=title||id;
+  var x=el('button','sub-x',null,'停止'); h.insertBefore(x,h.lastChild); x.onclick=function(ev){ ev.stopPropagation(); try{ Native.stopSub(id); }catch(er){} x.disabled=true; };
+  var b=el('div','sub-b',c); b.hidden=true;
+  var steps=el('div','',b), res=el('div','md sub-res',b), anims=el('div','sub-anims',c);
+  h.onclick=function(){ b.hidden=!b.hidden; if(b.hidden) h.removeAttribute('data-open'); else h.setAttribute('data-open',''); };
+  s={c:c,h:h,b:b,x:x,steps:steps,res:res,anims:anims,n:0,start:Date.now(),done:false}; subs[id]=s; return s;
+}
+function subPh(s,t){ s.h.querySelector('.ph').textContent=t; }
+function subStart(id,title,task,ts){ var s=subCard(id,title); s.start=ts||Date.now(); el('div','sub-task',s.steps).textContent=task; subPh(s,'进行中'); end(); }
+function subTool(id,name,raw){ var s=subCard(id); if(s.done) return; s.n++; var nm=TOOL_NAMES[name]||name, a=argSummary(name,raw);
+  el('div','sub-step',s.steps).textContent='· '+nm+(a?'  '+a:''); subPh(s,nm+'…'); end(); }
+function subAnim(id,raw){ var s=subCard(id); el('div','sub-step',s.steps).textContent='· 动画讲解'; animCard(raw,s.anims); if(!s.done) subPh(s,'动画讲解…'); }
+function subEnd(id,result,err,ms,steps,live){
+  var s=subCard(id); s.done=true; s.c.className='sub '+(err?'err':'ok'); if(s.x.parentNode) s.x.remove();
+  var sec=Math.max(1,Math.round((ms||0)/1000)), tm=sec<60?sec+'秒':Math.floor(sec/60)+'分'+(sec%60)+'秒';
+  subPh(s,(err?err:'已完成')+' · '+tm);
+  if(result){ var m={el:s.res,text:result,frozen:[]}; paint(m,true); s.res.className='md sub-res'; }
   end();
 }
 function assistantEnd(hasTools){
