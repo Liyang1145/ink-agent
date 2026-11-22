@@ -188,7 +188,10 @@ class SessionStore(private val dir: File) {
     private fun scan(f: File): Info {
         var title: String? = null; var derived: String? = null; var pinned = false; var last = 0L; var has = false
         val timeRe = Regex("\"time\":(\\d+)")
-        f.forEachLine { l ->
+        // Android org.json writes "/" as "\/" ("user\/message"): normalise before the substring checks,
+        // otherwise every session but the open one is hidden from the list (lost since v0.6.20).
+        f.forEachLine { raw ->
+            val l = raw.replace("\\/", "/")
             when {
                 l.contains("\"type\":\"session/meta\"") -> SessionEvent.parse(l)?.data?.let { d ->
                     if (d.has("title")) title = d.optString("title"); if (d.has("pinned")) pinned = d.optBoolean("pinned")
