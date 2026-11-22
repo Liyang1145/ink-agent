@@ -57,10 +57,11 @@ function FatLine(o){
     g.setAttribute('side',new THREE.BufferAttribute(new Float32Array(nv),1)); g.setAttribute('dist',new THREE.BufferAttribute(new Float32Array(nv),1));
     var idx=new (nv>65535?Uint32Array:Uint16Array)(cap*6); for(var s=0;s<cap;s++){ var v=s*4,k=s*6; idx[k]=v;idx[k+1]=v+1;idx[k+2]=v+2;idx[k+3]=v;idx[k+4]=v+2;idx[k+5]=v+3; }
     g.setIndex(new THREE.BufferAttribute(idx,1)); }
-  m.setPoints=function(pts,closed){ pts=(pts||[]).map(V); if(closed&&pts.length>2) pts=pts.concat([pts[0]]); var n=Math.max(0,pts.length-1);
+  var pairs=!!o.segments; // segments mode: points are taken two by two as separate segments (grids, ticks)
+  m.setPoints=function(pts,closed){ pts=(pts||[]).map(V); if(closed&&pts.length>2&&!pairs) pts=pts.concat([pts[0]]); var n=pairs?Math.floor(pts.length/2):Math.max(0,pts.length-1);
     if(n>cap||!g.attributes.position) alloc(n);
     var P=g.attributes.position.array,O=g.attributes.other.array,S=g.attributes.side.array,D=g.attributes.dist.array, acc=0;
-    for(var s=0;s<n;s++){ var a=pts[s], b=pts[s+1], v=s*4, L=a.distanceTo(b);
+    for(var s=0;s<n;s++){ var a=pairs?pts[2*s]:pts[s], b=pairs?pts[2*s+1]:pts[s+1], v=s*4, L=a.distanceTo(b); if(pairs) acc=0;
       for(var j=0;j<4;j++){ var me=j<2?a:b, ot=j<2?b:a, q=(v+j)*3; P[q]=me.x;P[q+1]=me.y;P[q+2]=me.z; O[q]=ot.x;O[q+1]=ot.y;O[q+2]=ot.z; S[v+j]=(j%2===0)?1:-1; D[v+j]=j<2?acc:acc+L; }
       acc+=L; }
     ['position','other','side','dist'].forEach(function(k){ g.attributes[k].needsUpdate=true; }); g.setDrawRange(0,n*6); m.points=pts; return m; };
@@ -133,14 +134,14 @@ var A={THREE:THREE, scene:scene, camera:camera, renderer:renderer, controls:cont
   arc:function(center,r,a0,a1,o){ o=o||{}; var l=A.line([],o); l.set=function(cn,rr,b0,b1){ var c=V(cn), n=Math.max(8,Math.ceil(Math.abs(b1-b0)*24)), p=[]; for(var i=0;i<=n;i++){ var a=b0+(b1-b0)*i/n; p.push([c.x+rr*Math.cos(a),c.y+rr*Math.sin(a),c.z]); } return l.setPoints(p); }; return l.set(center,r,a0,a1); },
   axes:function(size,o){ o=o||{}; size=size||4; var g=new THREE.Group(), cs=[C.red,C.green,C.blue], nm=o.names||['x','y','z'], neg=o.negative!==false;
     for(var k=0;k<(o.dims||(is2d?2:3));k++){ var d=[0,0,0]; d[k]=1; var a=A.arrow(V(d).multiplyScalar(neg?-size:0),V(d).multiplyScalar(size+0.3),{color:is2d?C.axis:cs[k],width:is2d?1.6:2}); g.add(a);
-      A.label(nm[k],V(d).multiplyScalar(size+(is2d?0.3:0.6)),{color:is2d?C.axis:cs[k],align:is2d?(k===0?'below':'left'):'center',dx:is2d&&k===0?-2:0,size:16}); }
+      A.label(nm[k],V(d).multiplyScalar(size+(is2d?0.3:0.8)),{color:is2d?C.axis:cs[k],align:is2d?(k===0?'below':'left'):'center',dx:is2d&&k===0?-2:0,size:16}); }
     scene.add(g); return g; },
   grid:function(size,div){ if(is2d){ size=size||10; div=div||10; var s=size/div, p=[]; return A.grid2d(-size/2,size/2,-size/2,size/2,s); }
     var g=new THREE.GridHelper(size||10,div||10,0xc9cdd4,0xe8eaee); scene.add(g); return g; },
-  grid2d:function(x0,x1,y0,y1,s){ var segs=[]; s=s||1; var g=new THREE.Group();
-    for(var x=Math.ceil(x0/s)*s;x<=x1+1e-9;x+=s){ var l=FatLine({color:C.grid,width:1,depthWrite:false,renderOrder:-1}); l.setPoints([[x,y0,-0.01],[x,y1,-0.01]]); g.add(l); }
-    for(var y=Math.ceil(y0/s)*s;y<=y1+1e-9;y+=s){ var l2=FatLine({color:C.grid,width:1,depthWrite:false,renderOrder:-1}); l2.setPoints([[x0,y,-0.01],[x1,y,-0.01]]); g.add(l2); }
-    scene.add(g); return g; },
+  grid2d:function(x0,x1,y0,y1,s){ var p=[]; s=s||1; var n=0;
+    for(var x=Math.ceil(x0/s)*s;x<=x1+1e-9&&n<600;x+=s,n++) p.push([x,y0,-0.01],[x,y1,-0.01]);
+    for(var y=Math.ceil(y0/s)*s;y<=y1+1e-9&&n<1200;y+=s,n++) p.push([x0,y,-0.01],[x1,y,-0.01]);
+    var l=FatLine({color:C.grid,width:1,depthWrite:false,renderOrder:-1,segments:true}); l.setPoints(p); scene.add(l); return l; },
   surface:function(f,xr,yr,o){ o=o||{}; var n=o.samples||60, pos=[], idx=[];
     for(var i=0;i<=n;i++) for(var j=0;j<=n;j++){ var x=xr[0]+(xr[1]-xr[0])*i/n, y=yr[0]+(yr[1]-yr[0])*j/n, r=f(x,y); if(Array.isArray(r)) pos.push(r[0],r[1],r[2]); else pos.push(x,(isFinite(r)?r:0),y); }
     for(i=0;i<n;i++) for(j=0;j<n;j++){ var a=i*(n+1)+j, b=a+n+1; idx.push(a,b,a+1,b,b+1,a+1); }
@@ -153,9 +154,11 @@ var A={THREE:THREE, scene:scene, camera:camera, renderer:renderer, controls:cont
     controls.enableRotate=false; controls.enableDamping=true; controls.dampingFactor=0.15; controls.screenSpacePanning=true; controls.mouseButtons.LEFT=THREE.MOUSE.PAN; controls.touches.ONE=THREE.TOUCH.PAN;
     controls.zoomSpeed=1.2; controls.minZoom=0.4; controls.maxZoom=8; hookControls(); fit2d(); controls.target.set((x0+x1)/2,(y0+y1)/2,0); c.position.set((x0+x1)/2,(y0+y1)/2,10); controls.update();
     var step=o.grid===true||o.grid==null? niceStep(Math.max(x1-x0,y1-y0)/12) : +o.grid;
-    if(o.grid!==false&&step>0){ var m=step*2; A.grid2d(Math.floor(x0/step)*step-m,Math.ceil(x1/step)*step+m,Math.floor(y0/step)*step-m,Math.ceil(y1/step)*step+m,step); }
+    // grid and the negative half-axes reach well past the box, so zooming out / a wider card never shows their ends
+    var ext=Math.max(x1-x0,y1-y0)*1.5;
+    if(o.grid!==false&&step>0){ A.grid2d(Math.floor((x0-ext)/step)*step,Math.ceil((x1+ext)/step)*step,Math.floor((y0-ext)/step)*step,Math.ceil((y1+ext)/step)*step,step); }
     if(o.axes){ var ts=o.ticks||niceStep(Math.max(x1-x0,y1-y0)/8);
-      var ax=A.arrow([Math.min(x0,0)-0.02*(x1-x0),0,0],[x1,0,0],{color:C.axis,width:1.6,head:10}), ay=A.arrow([0,Math.min(y0,0)-0.02*(y1-y0),0],[0,y1,0],{color:C.axis,width:1.6,head:10});
+      var ax=A.arrow([Math.min(x0,0)-ext,0,0],[x1,0,0],{color:C.axis,width:1.6,head:10}), ay=A.arrow([0,Math.min(y0,0)-ext,0],[0,y1,0],{color:C.axis,width:1.6,head:10});
       var nm=o.names||['x','y']; A.label(nm[0],[x1,0,0],{color:C.axis,align:'below',dy:4,dx:-6,size:16}); A.label(nm[1],[0,y1,0],{color:C.axis,align:'left',dx:4,size:16});
       if(o.ticks!==false){ var tk=[];
         for(var x=Math.ceil(x0/ts)*ts;x<x1-ts*0.4;x+=ts){ if(Math.abs(x)<1e-9) continue; tk.push([[x,0,0],[x,0,0]]); A.label(fmt(x),[x,0,0],{color:C.gray,size:12,align:'below',dy:3}); }

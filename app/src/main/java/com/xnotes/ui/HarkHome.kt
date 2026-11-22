@@ -136,6 +136,7 @@ fun HarkHome(
         val side = if (narrow) 20.dp else 32.dp
         val content = (minOf(maxWidth, 920.dp) - side * 2)
         val topGap = (maxHeight * 0.075f).coerceIn(16.dp, 84.dp)
+        val shortH = maxHeight < 760.dp
         Column(
             Modifier.fillMaxSize().verticalScroll(rememberScrollState()).padding(horizontal = side)
                 .graphicsLayer { alpha = appear.value; translationY = (1f - appear.value) * rise },
@@ -193,7 +194,7 @@ fun HarkHome(
                 }
 
                 // suggestions
-                Spacer(Modifier.height(if (maxHeight < 760.dp) 36.dp else 48.dp))
+                Spacer(Modifier.height(if (shortH) 36.dp else 48.dp))
                 Row(Modifier.fillMaxWidth(), verticalAlignment = Alignment.CenterVertically) {
                     Text("为你准备", color = hc.ink, fontFamily = Serif, fontSize = 21.sp, fontWeight = FontWeight.Medium)
                     Spacer(Modifier.width(12.dp))

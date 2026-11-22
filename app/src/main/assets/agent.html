@@ -288,7 +288,7 @@ body.dark .katex-display{color:var(--label-1);}
   <div class="pop" id="slashMenu"></div>
   <div id="box">
     <div id="tray"></div>
-    <textarea id="input" aria-label="消息输入框" rows="1" placeholder="问点什么… / 调用指令，@ 引用页面"></textarea>
+    <textarea id="input" aria-label="消息输入框" rows="1" placeholder="问点什么…（/ 调用指令，@ 引用页面）"></textarea>
     <div id="bar">
       <button id="plus" title="更多" aria-label="更多" onclick="togglePlus()"><svg class="i" viewBox="0 0 24 24"><path d="M12 5v14M5 12h14"/></svg></button>
       <div class="spacer"></div>
@@ -910,7 +910,7 @@ function setStats(d){
   var C=2*Math.PI*6, dash=(C*ctx/100).toFixed(2)+' '+C.toFixed(2);
   var p1='<span class="pill"><svg viewBox="0 0 24 24"><path d="M4.5 16a8 8 0 1115 0"/><path d="M12 15l3.5-4.5"/></svg>'+(d.turns||1)+' 轮 '+(d.steps||0)+' 步'+(d.tps?' · '+Math.round(d.tps)+' tok/s':'')+'</span>';
   var p2='<span class="pill"><svg viewBox="0 0 24 24"><ellipse cx="12" cy="6" rx="7" ry="2.6"/><path d="M5 6v12c0 1.4 3.1 2.6 7 2.6s7-1.2 7-2.6V6"/><path d="M5 12c0 1.4 3.1 2.6 7 2.6s7-1.2 7-2.6"/></svg>'+fmtN(d.session.input+d.session.output)+' tok · 缓存命中 '+pct(d.session.cacheHit,d.session.input)+'</span>';
-  var p3='<span class="pill" title="上下文占用"><svg class="ring" viewBox="0 0 16 16"><circle cx="8" cy="8" r="6" stroke="#e3e6eb" stroke-width="2.4" fill="none"/><circle cx="8" cy="8" r="6" stroke="'+(ctx>80?'#e53935':'#9aa0a8')+'" stroke-width="2.4" fill="none" stroke-dasharray="'+dash+'" transform="rotate(-90 8 8)" stroke-linecap="round"/></svg>'+ctx+'%</span>';
+  var p3='<span class="pill" title="上下文占用"><svg class="ring" viewBox="0 0 16 16"><circle cx="8" cy="8" r="6" style="stroke:var(--fill-2)" stroke-width="2.4" fill="none"/><circle cx="8" cy="8" r="6" stroke="'+(ctx>80?'#e53935':'#9aa0a8')+'" stroke-width="2.4" fill="none" stroke-dasharray="'+dash+'" transform="rotate(-90 8 8)" stroke-linecap="round"/></svg>'+ctx+'%</span>';
   box.innerHTML=p1+p2+p3;
   var parts=[];
   if(d.turn) parts.push('本轮 输入 '+fmtN(d.turn.input)+' 输出 '+fmtN(d.turn.output)+' 缓存命中 '+pct(d.turn.cacheHit,d.turn.input)+' '+cost(d.turn.cost,d.turn.known));

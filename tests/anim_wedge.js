@@ -1,6 +1,6 @@
 // 两个测向扇形求交（roadmap 演示）：A=(0,0)、B=(b,0)，都指向目标 (0,4)，半角 θ=arctan(1/4)
 A.mode2d(-4.2, 9.2, -1.2, 10.2, {grid: 1, axes: true, ticks: 2});
-const th = Math.atan(1 / 4), T = [0, 4], R = 16;
+const th = Math.atan(1 / 4), T = [0, 4], R = 40;
 function clip(poly, nx, ny, c) { // 保留 nx*x+ny*y+c >= 0 的部分
   const out = [];
   for (let i = 0; i < poly.length; i++) {
