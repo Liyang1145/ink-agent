@@ -1201,7 +1201,8 @@ def run_library(ex):
     # v0.6.25: sessions written the way Android org.json writes them ("user\/message") must all be listed
     seed_sessions()
     adb(f'shell am force-stop {PKG}'); time.sleep(2)
-    launch(ex + ' --ez test_sessions true'); time.sleep(6)
+    launch(ex); time.sleep(8)  # test_sessions fires 500ms after a cold start, before the agent is up: open it by tap instead
+    tap_label('会话列表'); time.sleep(2.5)
     stxt = all_text(); shot('session_list')
     found = [t for t in SEED_TITLES if t[:12] in stxt]
     check('sessions: escaped sessions listed after restart', len(found) == len(SEED_TITLES), f'found {len(found)}/{len(SEED_TITLES)} menus={stxt.count("会话操作")}')
