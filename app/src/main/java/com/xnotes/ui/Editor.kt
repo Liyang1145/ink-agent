@@ -4546,28 +4546,9 @@ class Editor(context: Context, val pane: Pane = Pane.PRIMARY) : ToolPopupHost, S
      */
     private fun writeNoteInPlace(uri: String, doc: Document): Boolean = runCatching {
         val assets = codec.imageAssets(doc)
-        val expected = codec.storedEntries(doc, assets).map { (name, file) -> name to file.length() }
+        val expected = codec.storedEntries(doc, assets)
         if (expected.isEmpty()) return@runCatching false
-
         val target = android.net.Uri.parse(uri)
-        // Streams built on a descriptor the provider owns are never closed here: closing one closes
-        // that descriptor, and the ParcelFileDescriptor would then close a number the system may
-        // already have handed to something else. Only the descriptor itself is closed, once.
-        val existing = appContext.contentResolver.openFileDescriptor(target, "r")?.use { pfd ->
-            com.xnotes.format.ZipTail.read(java.io.FileInputStream(pfd.fileDescriptor).channel)
-        } ?: return@runCatching false
-
-        // Every asset has to still be the same file in the same place, or the manifest is not the
-        // only thing that changed and the whole bundle has to be rebuilt.
-        val ordered = existing.entries.sortedBy { it.localOffset }
-        if (ordered.size <= expected.size) return@runCatching false
-        for (i in expected.indices) {
-            val e = ordered[i]
-            if (e.name != expected[i].first || e.size != expected[i].second) return@runCatching false
-            if (e.method != java.util.zip.ZipEntry.STORED) return@runCatching false
-        }
-        val tailStart = ordered[expected.size].localOffset
-        if (tailStart < MIN_SPLICE_BYTES) return@runCatching false
 
         val encodeStart = System.nanoTime()
         val timing = com.xnotes.format.DocumentCodec.WriteTiming()
@@ -4586,6 +4567,15 @@ class Editor(context: Context, val pane: Pane = Pane.PRIMARY) : ToolPopupHost, S
                 val tailDir = com.xnotes.format.ZipTail.read(tail.channel)
                     ?: return@runCatching false
                 appContext.contentResolver.openFileDescriptor(target, "rw")?.use { pfd ->
+                    // Check the exact descriptor we will patch, not a previous read-only
+                    // handle that may have referred to a different provider file.
+                    // Neither stream owns the descriptor; close only the ParcelFileDescriptor.
+                    val current = java.io.FileInputStream(pfd.fileDescriptor).channel
+                    val existing = com.xnotes.format.ZipTail.read(current) ?: return@runCatching false
+                    val ordered = existing.entries.sortedBy { it.localOffset }
+                    val tailStart = com.xnotes.format.ZipTail.matchingAssetPrefix(
+                        current, ordered, expected, tailDir.entries, MIN_SPLICE_BYTES
+                    ) ?: return@runCatching false
                     com.xnotes.format.ZipTail.splice(
                         java.io.FileOutputStream(pfd.fileDescriptor).channel,
                         tailStart,
@@ -6251,9 +6241,23 @@ class Editor(context: Context, val pane: Pane = Pane.PRIMARY) : ToolPopupHost, S
         return b
     }
 
-    /** Add an image item (e.g. an agent-rendered formula) at [rect] on page [index], as one undoable edit. Returns the item. */
-    fun agentInsertImage(index: Int, bytes: ByteArray, rect: Rect): ImageItem {
+    /** Identity of the current in-memory document; do not identify a write target by a reused page number. */
+    fun agentDocumentIdentity(): Any = state.document
+
+    /** Add an agent image, or replace one in the same z-order slot. Registry I/O runs only after
+     * the image is valid, before the visible edit commits. Replacement is one undo step. */
+    fun agentInsertImage(
+        index: Int,
+        bytes: ByteArray,
+        rect: Rect,
+        replacing: ImageItem? = null,
+        beforeEdit: (ImageItem) -> Unit = {},
+    ): ImageItem {
         val page = pageAt(index) ?: throw IllegalStateException("页面 ${index + 1} 不存在（共 ${state.document.pages.size} 页）")
+        val slot = replacing?.let { old ->
+            check(!old.locked) { "不能替换锁定的图片" }
+            page.items.indexOfFirst { it === old }.also { check(it >= 0) { "原图片已不在页面上" } }
+        }
         if (bytes.isEmpty()) throw IllegalStateException("渲染得到的图片为空")
         // imageDir can vanish under us (purged by another pane / OS); recreate it, and fall back to cacheDir.
         val file = run {
@@ -6278,13 +6282,31 @@ class Editor(context: Context, val pane: Pane = Pane.PRIMARY) : ToolPopupHost, S
                 if (o.outWidth > 0 && o.outHeight > 0) com.xnotes.core.pal.ImageSize(o.outWidth, o.outHeight) else null
             }
             ?: run {
-                com.inkagent.AppLog.e("InkAgent", "agentInsertImage: cannot probe ${file.path} (${file.length()} bytes)")
-                throw IllegalStateException("无法读取刚写入的图片（${file.length()} 字节）")
+                val length = file.length()
+                com.inkagent.AppLog.e("InkAgent", "agentInsertImage: cannot probe ${file.path} ($length bytes)")
+                file.delete()
+                throw IllegalStateException("无法读取刚写入的图片（$length 字节）")
             }
         val item = ImageItem(ImageData(file, size.width, size.height), rect)
-        page.items.add(item)
-        state.appendToCache(page, item)
-        history.push(AddItem(page, item))
+        try {
+            beforeEdit(item)
+        } catch (t: Throwable) {
+            file.delete()
+            throw t
+        }
+        if (slot == null) {
+            page.items.add(item)
+            state.appendToCache(page, item)
+            history.push(AddItem(page, item))
+        } else {
+            val before = page.items.toList()
+            val after = before.toMutableList().apply { this[slot] = item }
+            val command = com.xnotes.core.history.ReplacePageItems(page, before, after)
+            controller.clearSelection()
+            command.redo()
+            history.push(command)
+            state.invalidatePage(page)
+        }
         state.document.dirty = true
         refreshContent()
         view.requestRender()

@@ -6,6 +6,8 @@ InkAgent 自 v0.4.0 起基于开源笔记应用 **xnotes**（https://github.com/
 在其画布之上移植了 InkAgent 的 Agent（dsh 风格事件日志会话、工具调用、画布读写工具）。xnotes 的原始 LICENSE 保留在仓库根目录。
 旧版自研画布应用见 tag `v0.3.0`。
 
+开发路线：[可打断语音、实时画板与共享笔记](docs/interactive-learning-roadmap.md)。
+
 ---
 
 以下为上游 xnotes 的原始 README：

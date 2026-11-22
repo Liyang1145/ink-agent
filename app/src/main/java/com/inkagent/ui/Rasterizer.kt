@@ -15,6 +15,7 @@ import android.webkit.WebViewClient
 import org.json.JSONObject
 import java.util.concurrent.CountDownLatch
 import java.util.concurrent.TimeUnit
+import java.util.concurrent.atomic.AtomicBoolean
 
 /**
  * Off-screen KaTeX / SVG renderer for the AI layer. Lives behind the page view
@@ -25,7 +26,10 @@ class Rasterizer(context: Context) {
     val view: WebView
     private val main = Handler(Looper.getMainLooper())
     private var ready = CountDownLatch(1)
-    private var pending: ((Int, Int, Float, String) -> Unit)? = null
+    private class Pending(val id: String, val active: AtomicBoolean, val capture: (Int, Int, Float, String) -> Unit)
+    // pending is only read or written on main; the blocking caller can expire its job immediately.
+    private var pending: Pending? = null
+    private var nextId = 0L // incremented only while holding lock
     private val lock = Object()
 
     private val appCtx = context.applicationContext
@@ -46,7 +50,15 @@ class Rasterizer(context: Context) {
         view.settings.loadWithOverviewMode = false
         view.isVerticalScrollBarEnabled = false
         view.addJavascriptInterface(object {
-            @JavascriptInterface fun done(w: Int, h: Int, dpr: Float, diag: String) { main.post { pending?.invoke(w, h, dpr, diag) } }
+            @JavascriptInterface fun done(id: String, w: Int, h: Int, dpr: Float, diag: String) {
+                main.post {
+                    val job = pending
+                    if (job != null && job.id == id && job.active.get()) {
+                        pending = null
+                        job.capture(w, h, dpr, diag)
+                    }
+                }
+            }
         }, "Raster")
         view.webViewClient = object : WebViewClient() {
             override fun onPageFinished(v: WebView?, url: String?) { ready.countDown() }
@@ -120,12 +132,14 @@ class Rasterizer(context: Context) {
     private fun renderOnce(kind: String, source: String, widthCssPx: Int): Result {
         run<Unit> {
             if (!ready.await(15, TimeUnit.SECONDS)) throw IllegalStateException("渲染器未就绪")
+            val id = (++nextId).toString()
+            val active = AtomicBoolean(true)
             val latch = CountDownLatch(1)
             var out: Result? = null
             var err: Throwable? = null
             main.post {
-                pending = { w, h, dpr, diagRaw ->
-                    pending = null
+                if (!active.get()) return@post
+                pending = Pending(id, active) { w, h, dpr, diagRaw ->
                     try {
                         val diag = runCatching { JSONObject(diagRaw) }.getOrElse { JSONObject() }
                         if (diag.has("error")) throw IllegalArgumentException(diag.getString("error"))
@@ -157,10 +171,15 @@ class Rasterizer(context: Context) {
                     latch.countDown()
                 }
                 val dens = appCtx.resources.displayMetrics.density.coerceAtLeast(1f)
-                val js = "render(${JSONObject.quote(kind)}, ${JSONObject.quote(source)}, $widthCssPx, ${(view.width / dens).toInt()}, ${(view.height / dens).toInt()})"
+                val js = "render(${JSONObject.quote(id)}, ${JSONObject.quote(kind)}, ${JSONObject.quote(source)}, $widthCssPx, ${(view.width / dens).toInt()}, ${(view.height / dens).toInt()})"
                 view.evaluateJavascript(js, null)
             }
-            if (!latch.await(20, TimeUnit.SECONDS)) { main.post { pending = null }; throw IllegalStateException("渲染超时") }
+            try {
+                if (!latch.await(20, TimeUnit.SECONDS)) throw IllegalStateException("渲染超时")
+            } finally {
+                active.set(false)
+                main.post { if (pending?.id == id) pending = null }
+            }
             err?.let { throw it }
             return out!!
         }

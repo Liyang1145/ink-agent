@@ -8,6 +8,7 @@ import com.inkagent.llm.CancelSignal
 import com.inkagent.ui.Rasterizer
 import com.xnotes.core.geometry.Rect
 import com.xnotes.core.model.ImageItem
+import com.xnotes.core.model.Page
 import com.xnotes.ui.Editor
 import org.json.JSONArray
 import org.json.JSONObject
@@ -17,6 +18,8 @@ import java.io.FileOutputStream
 import java.net.HttpURLConnection
 import java.net.URL
 import java.security.MessageDigest
+import java.util.UUID
+import java.util.WeakHashMap
 import java.util.concurrent.CountDownLatch
 import java.util.concurrent.TimeUnit
 import kotlin.math.max
@@ -31,6 +34,14 @@ fun <T> onMain(block: () -> T): T {
     main.post { out = runCatching(block); latch.countDown() }
     if (!latch.await(20, TimeUnit.SECONDS)) throw IllegalStateException("UI 线程超时")
     return out!!.getOrThrow()
+}
+
+/** Never report a retryable timeout after an editor write has claimed the UI. */
+private fun <T> onMainWrite(block: () -> T): T {
+    if (Looper.myLooper() == Looper.getMainLooper()) return block()
+    val edit = UiMutation(block)
+    check(main.post(edit)) { "UI 已关闭，未写入笔记" }
+    return edit.awaitStart(20, TimeUnit.SECONDS)
 }
 
 fun savePng(dir: File, bmp: Bitmap, prefix: String = "img"): Block.Image {
@@ -64,23 +75,46 @@ class AiRegistry(private val file: File) {
     class Entry(val id: String, val sha1: String, val kind: String, val source: String)
     private val entries = LinkedHashMap<String, Entry>()
     private val hashCache = HashMap<String, String>()
+    private val liveEntries = WeakHashMap<ImageItem, Entry>()
 
     init {
         runCatching {
-            val o = JSONObject(file.readText())
+            val o = JSONObject(android.util.AtomicFile(file).readFully().toString(Charsets.UTF_8))
             o.keys().forEach { k -> val e = o.getJSONObject(k); entries[k] = Entry(k, e.getString("sha1"), e.optString("kind"), e.optString("source")) }
         }
     }
 
-    private fun save() {
+    private fun commit(next: LinkedHashMap<String, Entry>) {
         val o = JSONObject()
-        entries.values.forEach { o.put(it.id, JSONObject().put("sha1", it.sha1).put("kind", it.kind).put("source", it.source.take(4000))) }
-        file.parentFile?.mkdirs(); file.writeText(o.toString())
+        next.values.forEach { o.put(it.id, JSONObject().put("sha1", it.sha1).put("kind", it.kind).put("source", it.source.take(4000))) }
+        file.parentFile?.mkdirs()
+        val atomic = android.util.AtomicFile(file)
+        val bytes = o.toString().toByteArray(Charsets.UTF_8)
+        val out = atomic.startWrite()
+        try {
+            out.write(bytes)
+        } catch (t: Throwable) {
+            atomic.failWrite(out)
+            throw t
+        }
+        atomic.finishWrite(out)
+        // Android's finishWrite logs (rather than propagates) some rename failures.
+        check(atomic.readFully().contentEquals(bytes)) { "AI 对象记录未保存，未修改图片" }
+        entries.clear()
+        entries.putAll(next)
     }
 
-    fun add(id: String, bytes: ByteArray, kind: String, source: String) { entries[id] = Entry(id, sha1(bytes), kind, source); save() }
+    fun add(id: String, bytes: ByteArray, kind: String, source: String, item: ImageItem, old: Pair<Entry, ImageItem>? = null) {
+        val entry = Entry(id, sha1(bytes), kind, source)
+        commit(LinkedHashMap(entries).apply { put(id, entry) })
+        old?.let { liveEntries[it.second] = it.first }
+        liveEntries[item] = entry
+    }
 
-    fun remove(ids: Collection<String>) { ids.forEach { entries.remove(it) }; save() }
+    fun remove(matches: Collection<Pair<Entry, ImageItem>>) {
+        commit(LinkedHashMap(entries).apply { matches.forEach { remove(it.first.id) } })
+        matches.forEach { liveEntries[it.second] = it.first }
+    }
 
     fun sha1(bytes: ByteArray): String = MessageDigest.getInstance("SHA-1").digest(bytes).joinToString("") { "%02x".format(it) }
 
@@ -90,8 +124,20 @@ class AiRegistry(private val file: File) {
 
     /** The agent's entries present on [items]: entry → the image item carrying it. */
     fun match(items: List<com.xnotes.core.model.CanvasItem>): List<Pair<Entry, ImageItem>> {
-        val bySha = entries.values.associateBy { it.sha1 }
-        return items.filterIsInstance<ImageItem>().mapNotNull { img -> hashOf(img)?.let { h -> bySha[h]?.let { it to img } } }
+        val bySha = entries.values.groupBy { it.sha1 }
+        val liveHashes = liveEntries.values.mapTo(HashSet()) { it.sha1 }
+        val images = items.filterIsInstance<ImageItem>()
+        val unbound = images.filterNot { liveEntries.containsKey(it) }.mapNotNull { img ->
+            hashOf(img)?.let { it to img }
+        }.groupBy({ it.first }, { it.second })
+        return images.mapNotNull { img ->
+            liveEntries[img]?.let { return@mapNotNull it to img }
+            // Old documents only have hashes. Refuse an ambiguous match instead of picking
+            // one of several identical images, or matching a copy of a known live item.
+            val hash = hashOf(img) ?: return@mapNotNull null
+            if (hash in liveHashes || unbound[hash]?.singleOrNull() !== img) return@mapNotNull null
+            bySha[hash]?.singleOrNull()?.let { it to img }
+        }
     }
 }
 
@@ -115,6 +161,46 @@ class CanvasTools(
         if (n !in 0 until count) throw IllegalArgumentException("没有第 ${n + 1} 页（共 $count 页）")
         return n
     }
+
+    private data class WriteTarget(
+        val editor: Editor,
+        val document: Any,
+        val index: Int,
+        val page: Page,
+        val activePage: Page?,
+        val implicit: Boolean,
+        val signal: CancelSignal?,
+    )
+
+    private fun writeTarget(args: JSONObject, signal: CancelSignal? = null): WriteTarget = onMain {
+        signal?.throwIfCancelled()
+        val e = ed()
+        val active = e.agentCurrentPage()
+        val implicit = !args.has("page")
+        val index = if (implicit) active else args.getInt("page") - 1
+        val page = e.pageAt(index)
+            ?: throw IllegalArgumentException("没有第 ${index + 1} 页（共 ${e.pageCount} 页）")
+        WriteTarget(e, e.agentDocumentIdentity(), index, page, e.pageAt(active), implicit, signal)
+    }
+
+    private fun resolve(target: WriteTarget): Page {
+        target.signal?.throwIfCancelled()
+        check(editor() === target.editor && target.editor.noteOpen &&
+            target.editor.agentDocumentIdentity() === target.document &&
+            target.editor.pageAt(target.index) === target.page &&
+            (!target.implicit || target.editor.pageAt(target.editor.agentCurrentPage()) === target.activePage)) {
+            "笔记或目标页已更改，本次未写入该页"
+        }
+        return target.page
+    }
+
+    private fun showWriteResult(write: WriteTarget, index: Int) {
+        val e = write.editor
+        val active = e.agentCurrentPage()
+        if (active != index && e.pageAt(active) === write.activePage) e.goToPage(index)
+    }
+
+    private fun newId(): String = "ai" + UUID.randomUUID().toString()
 
     private fun describePage(e: Editor, i: Int): String {
         val p = e.pageAt(i) ?: return ""
@@ -178,18 +264,19 @@ class CanvasTools(
     }
 
     /**
-     * Put a rendered object on page [idx]. With args.replace = an AI object id on that page, the old object is
+     * Put a rendered object on the targeted page. With args.replace = an AI object id on that page, the old object is
      * removed and the new one takes its place (same top-left, same width unless given) and keeps its id.
      * Returns the model-facing report: where it went, what the renderer fixed by itself, and any warnings.
      */
-    private fun place(idx: Int, kind: String, source: String, args: JSONObject, r: Rasterizer.Result, widthPage: Double?): String {
-        val e = ed()
+    private fun place(write: WriteTarget, kind: String, source: String, args: JSONObject, r: Rasterizer.Result, widthPage: Double?): String {
+        val e = write.editor
+        val idx = write.index
         val bytes = ByteArrayOutputStream().use { r.bitmap.compress(Bitmap.CompressFormat.PNG, 100, it); it.toByteArray() }
         val replaceId = args.optString("replace", "").trim()
-        var id = "ai" + System.currentTimeMillis().toString(36)
-        val (msg, replacedOld) = onMain {
-            val page = e.pageAt(idx) ?: throw IllegalStateException("页面不存在")
-            val old = if (replaceId.isEmpty()) null else registry.match(page.items).firstOrNull { it.first.id == replaceId }
+        var id = newId()
+        val msg = onMainWrite {
+            val page = resolve(write)
+            val old = if (replaceId.isEmpty()) null else registry.match(page.items).filter { it.first.id == replaceId }.singleOrNull()
                 ?: throw IllegalArgumentException("第 ${idx + 1} 页上没有 id=$replaceId 的 AI 对象（用 list_pages 查看现有 id）")
             val oldRect = old?.second?.bounds()
             if (old != null) id = old.first.id
@@ -217,7 +304,7 @@ class CanvasTools(
                 spot = findSpot(page.width, page.height, obstacles, w, w * aspect, prefX, prefY)
                 if (spot == null && old != null) spot = Rect(oldRect!!.x, oldRect.y, w, w * aspect)
                     .takeIf { it.bottom <= page.height - page.width * MARGIN_FRAC }
-                while (spot == null && target < idx + 20) {
+                while (spot == null && old == null && target < idx + 20) {
                     target += 1
                     if (target >= e.pageCount) e.addPageAtEnd()
                     val pg = e.pageAt(target) ?: break
@@ -239,15 +326,14 @@ class CanvasTools(
             if (spot != null && (prefX != null || prefY != null) && old == null &&
                 (kotlin.math.abs(rect.x - (prefX ?: rect.x)) > 1 || kotlin.math.abs(rect.y - (prefY ?: rect.y)) > 1))
                 note.append("指定位置会与已有内容重叠或超出页面，已挪到最近的空白处。")
-            if (old != null) e.agentRemoveItems(idx, listOf(old.second))
             if (target != idx) note.append("第 ${idx + 1} 页剩余空白放不下，已接着写到第 ${target + 1} 页（字号不变）。")
-            e.agentInsertImage(target, bytes, rect)
-            if (e.agentCurrentPage() != target) e.goToPage(target)
+            e.agentInsertImage(target, bytes, rect, replacing = old?.second) { item ->
+                registry.add(id, bytes, kind, source, item, old)
+            }
+            showWriteResult(write, target)
             val verb = if (old != null && target == idx) "已原位替换" else "已放到"
-            "$verb 第 ${target + 1} 页：id=$id，位置 (${rect.x.toInt()}, ${rect.y.toInt()})，尺寸 ${rect.w.toInt()}x${rect.h.toInt()}（页面 ${page.width.toInt()}x${page.height.toInt()}）。$note" to (old != null)
+            "$verb 第 ${target + 1} 页：id=$id，位置 (${rect.x.toInt()}, ${rect.y.toInt()})，尺寸 ${rect.w.toInt()}x${rect.h.toInt()}（页面 ${page.width.toInt()}x${page.height.toInt()}）。$note"
         }
-        if (replacedOld) registry.remove(listOf(id))
-        registry.add(id, bytes, kind, source)
         val sb = StringBuilder(msg)
         r.notes.forEach { sb.append("\n· ").append(it) }
         if (r.warnings.isEmpty()) sb.append("\n渲染正常：尺寸、位置和防截断都已自动处理，不需要再用 view_page 检查。")
@@ -265,8 +351,8 @@ class CanvasTools(
      * [NOTE_CSS_W] css px across the full text width, so 26px css text is always ~34 page units tall
      * regardless of content. A narrower `width` wraps sooner instead of shrinking the text.
      */
-    fun writeNote(idx: Int, md: String, args: JSONObject, source: String): String {
-        val pageW = onMain { ed().pageAt(idx)?.width ?: 1240.0 }
+    private fun writeNote(write: WriteTarget, md: String, args: JSONObject, source: String): String {
+        val pageW = onMain { resolve(write).width }
         val maxW = pageW * (1 - 2 * MARGIN_FRAC)
         val colW = (if (args.has("width")) args.optDouble("width") else maxW).coerceIn(maxW * 0.3, maxW)
         val perCss = maxW / NOTE_CSS_W
@@ -277,18 +363,20 @@ class CanvasTools(
             val aspect0 = r.bitmap.height.toDouble() / r.bitmap.width.coerceAtLeast(1)
             val cssP0 = if (r.pxPerCss > 0) r.bitmap.width / r.pxPerCss else r.cssWidth.toDouble()
             val h0 = minOf(maxW, cssP0 * perCss) * aspect0
-            val room = onMain { val pg = ed().pageAt(idx); if (pg == null) 0.0 else {
+            val room = onMain {
+                val pg = resolve(write)
                 val low = pg.items.maxOfOrNull { it.bounds().bottom }
-                pg.height - pg.width * MARGIN_FRAC - (if (low == null) pg.height * TOP_FRAC else low + pg.width * GAP_FRAC * 2) } }
+                pg.height - pg.width * MARGIN_FRAC - (if (low == null) pg.height * TOP_FRAC else low + pg.width * GAP_FRAC * 2)
+            }
             val chunks = splitMd(md)
             if (h0 > room && chunks.size > 1) {
-                val rep = layoutBlocks(chunks.map { Block2(it, pageW * 0.012) }, false, idx, "note")
-                return rep.replace("（每题下方留了作答空白）", "（按段落续排，字号不变）") + "\n渲染正常：不需要 view_page 检查。"
+                val rep = layoutBlocks(chunks.map { Block2(it, pageW * 0.012) }, false, write, "note")
+                return rep.replace("（每题下方留了作答空白）", "（按段落续排，字号不变）")
             }
         }
         val cssPainted = if (r.pxPerCss > 0) r.bitmap.width / r.pxPerCss else r.cssWidth.toDouble()
         val a = JSONObject(args.toString()); a.remove("width"); a.remove("scale")
-        return place(idx, "note", source, a, r, minOf(maxW, cssPainted * perCss))
+        return place(write, "note", source, a, r, minOf(maxW, cssPainted * perCss))
     }
 
     /** Split markdown at blank lines outside $$…$$; a short heading stays with what follows it. */
@@ -348,51 +436,86 @@ class CanvasTools(
      * Must run off the main thread. Returns a short report.
      */
     fun layoutBlocks(blocks: List<Block2>, newPage: Boolean, startPage: Int?, kind: String = "md"): String {
-        val e = ed()
+        val args = JSONObject()
+        if (startPage != null) args.put("page", startPage + 1)
+        return layoutBlocks(blocks, newPage, writeTarget(args), kind)
+    }
+
+    private fun layoutBlocks(blocks: List<Block2>, newPage: Boolean, write: WriteTarget, kind: String): String {
+        val e = write.editor
         val cssW = 860
-        var idx = onMain {
-            if (newPage) { e.addPageAtEnd(); e.pageCount - 1 } else (startPage ?: e.agentCurrentPage())
-        }
-        val first = idx
-        var y = onMain {
-            val page = e.pageAt(idx) ?: throw IllegalStateException("页面不存在")
-            val low = page.items.maxOfOrNull { it.bounds().bottom }
-            if (low == null) page.height * TOP_FRAC else low + page.width * GAP_FRAC * 2
-        }
-        var placed = 0
+        var idx = write.index
+        var first = idx
+        var current = write
+        var y: Double? = null
         val ids = ArrayList<String>()
+        fun nextTop(page: Page): Double {
+            val low = page.items.maxOfOrNull { it.bounds().bottom }
+            return if (low == null) page.height * TOP_FRAC else low + page.width * GAP_FRAC * 2
+        }
         for (b in blocks) {
             if (b.md.isBlank()) continue
-            val r = raster.render(kind, b.md, cssW)
-            val bytes = ByteArrayOutputStream().use { r.bitmap.compress(Bitmap.CompressFormat.PNG, 100, it); it.toByteArray() }
-            val aspect = r.bitmap.height.toDouble() / r.bitmap.width.coerceAtLeast(1)
-            val id = "ai" + System.currentTimeMillis().toString(36) + placed
-            onMain {
-                var page = e.pageAt(idx) ?: throw IllegalStateException("页面不存在")
-                val m = page.width * MARGIN_FRAC
-                val maxW = page.width - 2 * m
-                // one fixed scale for every block (css px → page units), so text size is the same across blocks
-                val cssPainted = if (r.pxPerCss > 0) r.bitmap.width / r.pxPerCss else r.cssWidth.toDouble()
-                var w = minOf(maxW, cssPainted * maxW / cssW)
-                var h = w * aspect
-                val maxH = page.height * (1 - TOP_FRAC) - m
-                if (h > maxH) { w *= maxH / h; h = maxH }
-                if (y + h > page.height - m) {
-                    if (idx >= e.pageCount - 1) e.addPageAtEnd()
-                    idx += 1
-                    page = e.pageAt(idx) ?: throw IllegalStateException("页面不存在")
-                    val low = page.items.maxOfOrNull { it.bounds().bottom }
-                    y = if (low == null) page.height * TOP_FRAC else low + page.width * GAP_FRAC * 2
+            val id = newId()
+            try {
+                val r = raster.render(kind, b.md, cssW)
+                val bytes = ByteArrayOutputStream().use { r.bitmap.compress(Bitmap.CompressFormat.PNG, 100, it); it.toByteArray() }
+                val aspect = r.bitmap.height.toDouble() / r.bitmap.width.coerceAtLeast(1)
+                onMainWrite {
+                    resolve(write)
+                    var page = resolve(current)
+                    if (newPage && ids.isEmpty()) {
+                        e.addPageAtEnd()
+                        idx = e.pageCount - 1
+                        first = idx
+                        page = e.pageAt(idx) ?: error("新页面不存在")
+                        current = write.copy(index = idx, page = page, implicit = false)
+                    }
+                    var top = maxOf(y ?: 0.0, nextTop(page))
+                    // One fixed scale for every block. Recalculate if the next page has another size.
+                    fun measure(pg: Page): Pair<Double, Double> {
+                        val maxW = pg.width * (1 - 2 * MARGIN_FRAC)
+                        val cssPainted = if (r.pxPerCss > 0) r.bitmap.width / r.pxPerCss else r.cssWidth.toDouble()
+                        val w = minOf(maxW, cssPainted * maxW / cssW)
+                        val maxH = pg.height * (1 - TOP_FRAC) - pg.width * MARGIN_FRAC
+                        val h = minOf(w * aspect, maxH)
+                        return (h / aspect) to h
+                    }
+                    var (w, h) = measure(page)
+                    if (top + h > page.height - page.width * MARGIN_FRAC) {
+                        if (idx >= e.pageCount - 1) e.addPageAtEnd()
+                        idx += 1
+                        page = e.pageAt(idx) ?: error("下一页不存在")
+                        current = write.copy(index = idx, page = page, implicit = false)
+                        top = nextTop(page)
+                        val size = measure(page)
+                        w = size.first
+                        h = size.second
+                    }
+                    val m = page.width * MARGIN_FRAC
+                    val maxW = page.width - 2 * m
+                    e.agentInsertImage(idx, bytes, Rect(if (b.center) m + (maxW - w) / 2 else m, top, w, h)) { item ->
+                        registry.add(id, bytes, kind, b.md.take(400), item)
+                    }
+                    y = top + h + b.spaceAfter
                 }
-                e.agentInsertImage(idx, bytes, Rect(if (b.center) m + (maxW - w) / 2 else m, y, w, h))
-                y += h + b.spaceAfter
+            } catch (ex: Exception) {
+                if (ids.isEmpty()) throw ex
+                return "排版中止，已成功写入 ${ids.size} 块（id：${ids.joinToString("、")}）。" +
+                    "不要重复提交已完成的块。原因：${ex.message ?: ex.javaClass.simpleName}"
             }
-            registry.add(id, bytes, kind, b.md.take(400))
-            ids.add(id); placed++
+            ids.add(id)
         }
-        onMain { if (e.agentCurrentPage() != first) e.goToPage(first) }
+        // Page navigation after a successful write is optional; losing the target or a
+        // busy dispatcher must not turn a completed write into a retryable failure.
+        if (ids.isNotEmpty()) runCatching {
+            onMainWrite {
+                resolve(write)
+                resolve(current)
+                if (e.pageAt(first) != null) showWriteResult(write, first)
+            }
+        }
         val pages = if (idx == first) "第 ${first + 1} 页" else "第 ${first + 1}–${idx + 1} 页"
-        return "已排版 $placed 块内容到$pages（每题下方留了作答空白）。" +
+        return "已排版 ${ids.size} 块内容到$pages（每题下方留了作答空白）。" +
             (if (kind == "note") "各块 id：${ids.joinToString("、")}（要改某一段就 replace 那一块；要整段删掉用 canvas_remove 列出这些 id）。" else "")
     }
 
@@ -485,16 +608,16 @@ class CanvasTools(
                 required = listOf("latex"),
             )
             override fun execute(args: JSONObject, signal: CancelSignal): ToolResult {
-                val idx = pageIndex(args)
+                val write = writeTarget(args, signal)
                 val src = args.getString("latex")
                 // Chinese sentences inside \text{} can't wrap in KaTeX and force the whole block to shrink:
                 // route them through the wrapping text renderer so the size stays uniform.
-                latexToNote(src)?.let { return ToolResult.text(writeNote(idx, it, args, src)) }
+                latexToNote(src)?.let { return ToolResult.text(writeNote(write, it, args, src)) }
                 // Pure formulas go through the same text renderer too: one body size for everything the AI writes
                 // (the old standalone 40px LaTeX blocks came out bigger than the notes around them).
                 val md = src.split(Regex(if (src.contains("\\begin")) "\n\\s*\n" else "\n\\s*\n")).map { it.trim() }
                     .filter { it.isNotEmpty() }.joinToString("\n\n") { "$$$it$$" }
-                return ToolResult.text(writeNote(idx, md, args, src))
+                return ToolResult.text(writeNote(write, md, args, src))
             }
         })
         reg.register(object : Tool {
@@ -507,10 +630,10 @@ class CanvasTools(
                 required = listOf("text"),
             )
             override fun execute(args: JSONObject, signal: CancelSignal): ToolResult {
-                val idx = pageIndex(args)
+                val write = writeTarget(args, signal)
                 val md = args.optString("text")
                 if (md.isBlank()) return ToolResult.error("text 不能为空")
-                return ToolResult.text(writeNote(idx, md, args, md))
+                return ToolResult.text(writeNote(write, md, args, md))
             }
         })
         reg.register(object : Tool {
@@ -518,12 +641,12 @@ class CanvasTools(
             override val description = "在页面上画坐标系图像或数轴（函数、点、线段、圆、区间）。"
             override val parameters = obj("functions" to t("array", "函数列表"), "x_range" to t("array", "x 范围"))
             override fun execute(args: JSONObject, signal: CancelSignal): ToolResult {
-                val idx = pageIndex(args)
+                val write = writeTarget(args, signal)
                 val spec = JSONObject(args.toString())
                 listOf("page", "width", "replace", "x", "y", "scale").forEach { spec.remove(it) }
-                val pageW = onMain { ed().pageAt(idx)?.width ?: 1240.0 }
+                val pageW = onMain { resolve(write).width }
                 val r = raster.render("plot", spec.toString(), 0)
-                return ToolResult.text(place(idx, "plot", spec.toString(), args, r, pageW * 0.5 * args.optDouble("scale", 1.0)))
+                return ToolResult.text(place(write, "plot", spec.toString(), args, r, pageW * 0.5 * args.optDouble("scale", 1.0)))
             }
         })
         // declarative figures rendered by raster.html (plane geometry / solids)
@@ -532,12 +655,12 @@ class CanvasTools(
             override val description = toolName
             override val parameters = obj()
             override fun execute(args: JSONObject, signal: CancelSignal): ToolResult {
-                val idx = pageIndex(args)
+                val write = writeTarget(args, signal)
                 val spec = JSONObject(args.toString())
                 listOf("page", "width", "replace", "x", "y", "scale").forEach { spec.remove(it) }
-                val pageW = onMain { ed().pageAt(idx)?.width ?: 1240.0 }
+                val pageW = onMain { resolve(write).width }
                 val r = raster.render(kind, spec.toString(), 0)
-                return ToolResult.text(place(idx, kind, spec.toString(), args, r, pageW * frac * args.optDouble("scale", 1.0)))
+                return ToolResult.text(place(write, kind, spec.toString(), args, r, pageW * frac * args.optDouble("scale", 1.0)))
             }
         })
         figureTool("canvas_geometry", "geometry", 0.42)
@@ -547,26 +670,28 @@ class CanvasTools(
             override val description = "canvas_annotate"
             override val parameters = obj()
             override fun execute(args: JSONObject, signal: CancelSignal): ToolResult {
-                val idx = pageIndex(args)
+                val write = writeTarget(args, signal)
                 val spec = JSONObject(args.toString()); spec.remove("page")
                 val r = raster.render("marks", spec.toString(), 0)
                 val box = r.box ?: return ToolResult.error("批改标记渲染失败")
-                val e = ed()
+                val e = write.editor
+                val idx = write.index
                 val bytes = ByteArrayOutputStream().use { r.bitmap.compress(Bitmap.CompressFormat.PNG, 100, it); it.toByteArray() }
                 // the bitmap is the marks' box plus the crop padding (6 device px each side, see Rasterizer.cropToContent)
                 val s = (r.bitmap.width - 12).coerceAtLeast(1) / box[2]
                 val rect = Rect(box[0] - 6 / s, box[1] - 6 / s, r.bitmap.width / s, r.bitmap.height / s)
-                val id = "ai" + System.currentTimeMillis().toString(36)
-                val msg = onMain {
-                    val page = e.pageAt(idx) ?: throw IllegalStateException("页面不存在")
-                    e.agentInsertImage(idx, bytes, rect)
-                    if (e.agentCurrentPage() != idx) e.goToPage(idx)
+                val id = newId()
+                val msg = onMainWrite {
+                    val page = resolve(write)
+                    e.agentInsertImage(idx, bytes, rect) { item ->
+                        registry.add(id, bytes, "annotate", spec.toString(), item)
+                    }
+                    showWriteResult(write, idx)
                     val off = rect.x < 0 || rect.y < 0 || rect.right > page.width || rect.bottom > page.height
                     "已在第 ${idx + 1} 页加上批改标记：id=$id，覆盖区域 (${rect.x.toInt()}, ${rect.y.toInt()}) ${rect.w.toInt()}x${rect.h.toInt()}。" +
                         (if (off) "⚠ 有标记超出页面范围，检查坐标是否用的是页面坐标。" else "") +
                         "标记直接叠在笔迹上，用户可以移动或撤销；canvas_remove 可删除。"
                 }
-                registry.add(id, bytes, "annotate", spec.toString())
                 val sb = StringBuilder(msg); r.warnings.forEach { sb.append("\n⚠ ").append(it) }
                 return ToolResult.text(sb.toString())
             }
@@ -583,12 +708,12 @@ class CanvasTools(
                 required = listOf("svg"),
             )
             override fun execute(args: JSONObject, signal: CancelSignal): ToolResult {
-                val idx = pageIndex(args)
+                val write = writeTarget(args, signal)
                 val src = args.getString("svg")
-                val pageW = onMain { ed().pageAt(idx)?.width ?: 1240.0 }
+                val pageW = onMain { resolve(write).width }
                 val r = raster.render("svg", src, 600)
                 // ~45% of the page for a drawing that fills its own viewBox; wider when content spilled past it
-                return ToolResult.text(place(idx, "svg", src, args, r, pageW * 0.45 * r.contentFrac.coerceIn(0.6, 1.6)))
+                return ToolResult.text(place(write, "svg", src, args, r, pageW * 0.45 * r.contentFrac.coerceIn(0.6, 1.6)))
             }
         })
         reg.register(object : Tool {
@@ -601,28 +726,33 @@ class CanvasTools(
                 "page" to t("integer", "页码，从 1 开始；省略表示当前页"),
             )
             override fun execute(args: JSONObject, signal: CancelSignal): ToolResult {
-                val idx = pageIndex(args)
-                val e = ed()
+                val write = writeTarget(args, signal)
+                val e = write.editor
+                val idx = write.index
                 val multi = args.has("ids") && !args.has("page") && !args.optBoolean("all")
-                if (multi) return onMain {
+                if (multi) return onMainWrite {
+                    resolve(write)
                     val want = HashSet<String>().apply { args.optJSONArray("ids")?.let { a -> for (k in 0 until a.length()) add(a.optString(k)) }; args.optString("id").takeIf { it.isNotBlank() }?.let { add(it) } }
-                    var n = 0
-                    for (pi in 0 until e.pageCount) {
-                        val page = e.pageAt(pi) ?: continue
-                        val pick = registry.match(page.items).filter { it.first.id in want }
-                        if (pick.isEmpty()) continue
-                        e.agentRemoveItems(pi, pick.map { it.second }); registry.remove(pick.map { it.first.id }); n += pick.size
-                    }
-                    if (n == 0) ToolResult.error("没有找到这些 id 的 AI 对象") else ToolResult.text("删除了 $n 个对象")
+                    val locations = (0 until e.pageCount).flatMap { pi ->
+                        e.pageAt(pi)?.let { page ->
+                            registry.match(page.items).filter { it.first.id in want }.map { pi to it }
+                        }.orEmpty()
+                    }.groupBy { it.second.first.id }
+                    // A legacy hash match may name more than one page. Do not guess which to delete.
+                    val picks = locations.values.mapNotNull { it.singleOrNull() }.filterNot { it.second.second.locked }
+                    if (picks.isEmpty()) return@onMainWrite ToolResult.error("没有找到可唯一识别且未锁定的 AI 对象")
+                    registry.remove(picks.map { it.second })
+                    for ((pi, pagePicks) in picks.groupBy { it.first }) e.agentRemoveItems(pi, pagePicks.map { it.second.second })
+                    ToolResult.text("删除了 ${picks.size} 个对象")
                 }
-                return onMain {
-                    val page = e.pageAt(idx) ?: return@onMain ToolResult.error("页面不存在")
-                    val found = registry.match(page.items)
+                return onMainWrite {
+                    val page = resolve(write)
+                    val found = registry.match(page.items).filterNot { it.second.locked }
                     val want = HashSet<String>().apply { args.optString("id").takeIf { it.isNotBlank() }?.let { add(it) }; args.optJSONArray("ids")?.let { a -> for (k in 0 until a.length()) add(a.optString(k)) } }
                     val pick = if (args.optBoolean("all")) found else found.filter { it.first.id in want }
-                    if (pick.isEmpty()) return@onMain ToolResult.error("第 ${idx + 1} 页上没有找到要删除的 AI 对象")
+                    if (pick.isEmpty()) return@onMainWrite ToolResult.error("第 ${idx + 1} 页上没有找到要删除的 AI 对象")
+                    registry.remove(pick)
                     e.agentRemoveItems(idx, pick.map { it.second })
-                    registry.remove(pick.map { it.first.id })
                     ToolResult.text("删除了 ${pick.size} 个对象")
                 }
             }

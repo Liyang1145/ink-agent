@@ -1,11 +1,13 @@
 package com.xnotes.format
 
 import java.io.BufferedInputStream
+import java.io.File
 import java.io.InputStream
 import java.nio.ByteBuffer
 import java.nio.ByteOrder
 import java.nio.channels.Channels
 import java.nio.channels.FileChannel
+import java.util.zip.CRC32
 import java.util.zip.Inflater
 import java.util.zip.InflaterInputStream
 import java.util.zip.ZipEntry
@@ -105,6 +107,89 @@ internal object ZipTail {
         return Directory(entries, cdOffset)
     }
 
+    /**
+     * Return the tail offset only when the layout is unchanged and every retained asset is
+     * byte-identical to its current source file. Codec asset names are positional, so equal
+     * names and sizes are not evidence of identity (notably after reordering images).
+     */
+    fun matchingAssetPrefix(
+        ch: FileChannel,
+        ordered: List<Entry>,
+        expected: List<Pair<String, File>>,
+        newTail: List<Entry>,
+        minimumBytes: Long,
+    ): Long? {
+        if (expected.isEmpty() || newTail.isEmpty() || ordered.size != expected.size + newTail.size) return null
+        val tailStart = ordered[expected.size].localOffset
+        if (tailStart < minimumBytes) return null
+        for (i in newTail.indices) {
+            val entry = ordered[expected.size + i]
+            if (entry.name != newTail[i].name || entry.method != newTail[i].method) return null
+            if (i > 0 && entry.localOffset <= ordered[expected.size + i - 1].localOffset) return null
+        }
+        if (ordered.map { it.name }.toSet().size != ordered.size) return null
+
+        val archived = ByteArray(64 * 1024)
+        val source = ByteArray(archived.size)
+        val chunk = ByteBuffer.wrap(archived)
+        val crc = CRC32()
+        for ((i, asset) in expected.withIndex()) {
+            val (name, file) = asset
+            val e = ordered[i]
+            if (e.name != name || e.method != ZipEntry.STORED ||
+                e.size != file.length() || e.size == MAX_U32 || (i == 0 && e.localOffset != 0L)
+            ) return null
+            val entryEnd = ordered[i + 1].localOffset
+            val header = map(ch, e.localOffset, LOCAL_HEADER) ?: return null
+            val central = ByteBuffer.wrap(e.record).order(ByteOrder.LITTLE_ENDIAN)
+            val flags = header.getShort(6).toInt() and 0xFFFF
+            if (header.getInt(0) != LOCAL_SIG || flags and 0x0800 != flags ||
+                central.getShort(8) != header.getShort(6) ||
+                header.getShort(8).toInt() != ZipEntry.STORED ||
+                header.getInt(14) != central.getInt(16) ||
+                (header.getInt(18).toLong() and MAX_U32) != e.size ||
+                (header.getInt(22).toLong() and MAX_U32) != e.size ||
+                (central.getInt(20).toLong() and MAX_U32) != e.size
+            ) return null
+            val nameLen = header.getShort(26).toInt() and 0xFFFF
+            val extraLen = header.getShort(28).toInt() and 0xFFFF
+            val nameStart = e.localOffset + LOCAL_HEADER
+            var pos = nameStart + nameLen + extraLen
+            if (pos + e.size != entryEnd) return null
+            val nameBytes = name.toByteArray(Charsets.UTF_8)
+            if (nameLen != nameBytes.size ||
+                map(ch, nameStart, nameLen) != ByteBuffer.wrap(nameBytes)
+            ) return null
+
+            crc.reset()
+            file.inputStream().buffered().use { input ->
+                var remaining = e.size
+                while (remaining > 0) {
+                    val count = minOf(remaining, archived.size.toLong()).toInt()
+                    chunk.clear()
+                    chunk.limit(count)
+                    while (chunk.hasRemaining()) {
+                        val n = ch.read(chunk, pos)
+                        if (n <= 0) return null
+                        pos += n
+                    }
+                    var got = 0
+                    while (got < count) {
+                        val n = input.read(source, got, count - got)
+                        if (n <= 0) return null
+                        got += n
+                    }
+                    for (j in 0 until count) if (archived[j] != source[j]) return null
+                    crc.update(archived, 0, count)
+                    remaining -= count
+                }
+                if (input.read() != -1) return null
+            }
+            if (crc.value != (central.getInt(16).toLong() and MAX_U32)) return null
+        }
+        return tailStart
+    }
+
     /** Hand [reader] entry [name] of [ch], inflated when it was deflated, seeking straight to it; null when there is no such entry. */
     fun <T> readEntry(ch: FileChannel, name: String, reader: (InputStream) -> T): T? {
         val entry = read(ch)?.entries?.firstOrNull { it.name == name } ?: return null
@@ -178,7 +263,7 @@ internal object ZipTail {
         var read = 0
         while (read < len) {
             val n = ch.read(buf, at + read)
-            if (n < 0) return null
+            if (n <= 0) return null
             read += n
         }
         buf.rewind()
