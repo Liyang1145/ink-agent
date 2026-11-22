@@ -124,6 +124,8 @@ private fun storeWin(ctrl: AgentController, g: Geo, d: Float) {
 fun AgentShell(ctrl: AgentController, content: @Composable () -> Unit) {
     val landscape = LocalConfiguration.current.orientation == android.content.res.Configuration.ORIENTATION_LANDSCAPE
     val density = LocalDensity.current
+    val dk = com.xnotes.ui.theme.LocalPalette.current.isDark // chrome around the panel follows the app's appearance
+    val paneBg = if (dk) Color(0xFF18191B) else Color.White
     val d = density.density
     val scope = rememberCoroutineScope()
     BoxWithConstraints(Modifier.fillMaxSize()) {
@@ -201,7 +203,7 @@ fun AgentShell(ctrl: AgentController, content: @Composable () -> Unit) {
         val notesEnd = if (split && landscape) with(density) { (panePx + divPx).toDp() } else 0.dp
         val notesBottom = if (split && !landscape) with(density) { (panePx + divPx).toDp() } else 0.dp
         Box(
-            Modifier.fillMaxSize().background(Color.White)
+            Modifier.fillMaxSize().background(paneBg)
                 .padding(end = notesEnd, bottom = notesBottom)
                 .onSizeChanged { ctrl.notesSizePx = intArrayOf(it.width, it.height) },
         ) { content() }
@@ -215,7 +217,7 @@ fun AgentShell(ctrl: AgentController, content: @Composable () -> Unit) {
                 Modifier.offset { IntOffset(0, (H - panePx - divPx).roundToInt()) }
                     .size(with(density) { W.toDp() }, with(density) { divPx.toDp() })
             Box(
-                dm.background(Color(0xFFF1F2F4))
+                dm.background(if (dk) Color(0xFF232427) else Color(0xFFF1F2F4))
                     .semantics { contentDescription = "拖动调整分屏比例" }
                     .pointerInput(landscape) {
                         detectDragGestures(onDragEnd = { ctrl.panelResizeEnd(); ctrl.commitSplit() }, onDragCancel = { ctrl.panelResizeEnd(); ctrl.commitSplit() }) { ch, amt ->
@@ -228,7 +230,7 @@ fun AgentShell(ctrl: AgentController, content: @Composable () -> Unit) {
                 contentAlignment = Alignment.Center,
             ) {
                 val pill = if (landscape) Modifier.size(4.dp, 40.dp) else Modifier.size(40.dp, 4.dp)
-                Box(pill.clip(RoundedCornerShape(2.dp)).background(Color(0xFFB9BEC7)))
+                Box(pill.clip(RoundedCornerShape(2.dp)).background(if (dk) Color(0xFF4A4E55) else Color(0xFFB9BEC7)))
             }
         }
 
@@ -243,12 +245,12 @@ fun AgentShell(ctrl: AgentController, content: @Composable () -> Unit) {
                     .graphicsLayer { scaleX = 0.94f + 0.06f * appear; scaleY = 0.94f + 0.06f * appear; transformOrigin = origin }
                     .shadow(14.dp, RoundedCornerShape(14.dp))
                     .clip(RoundedCornerShape(14.dp))
-                    .background(Color.White)
-                    .border(0.5.dp, Color(0xFFDADDE2), RoundedCornerShape(14.dp)),
+                    .background(paneBg)
+                    .border(0.5.dp, if (dk) Color(0xFF33363C) else Color(0xFFDADDE2), RoundedCornerShape(14.dp)),
             ) {
                 Box(
                     Modifier.align(Alignment.TopStart).fillMaxWidth().height(BAR_DP.dp)
-                        .background(Color(0xFFF6F7F9))
+                        .background(if (dk) Color(0xFF202124) else Color(0xFFF6F7F9))
                         .semantics { contentDescription = "拖动浮窗" }
                         .pointerInput(Unit) {
                             detectDragGestures(onDragEnd = { ctrl.commitWindow() }, onDragCancel = { ctrl.commitWindow() }) { ch, amt ->
@@ -272,7 +274,7 @@ fun AgentShell(ctrl: AgentController, content: @Composable () -> Unit) {
                     if (window) { scaleX = 0.94f + 0.06f * appear; scaleY = 0.94f + 0.06f * appear; transformOrigin = origin }
                 }
                 .clip(hostShape)
-                .background(Color.White)
+                .background(paneBg)
                 .then(if (split) Modifier.windowInsetsPadding(WindowInsets.systemBars).imePadding() else Modifier)
                 .onGloballyPositioned { c ->
                     val p = c.positionInRoot()

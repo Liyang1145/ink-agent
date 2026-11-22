@@ -176,6 +176,11 @@ class AgentPanel(context: Context, private val host: Host) {
     fun setTitle(t: String) = js("setTitle(${q(t)})")
     fun setWindowMode(m: String) = js("setWindowMode(${q(m)})")
     fun setCanvasAccess(on: Boolean) = js("setCanvasAccess($on)")
+    /** Follow the app's appearance (xnotes palette: system/dark/light/oled). */
+    fun setDark(on: Boolean) {
+        view.setBackgroundColor(if (on) 0xFF18191B.toInt() else android.graphics.Color.WHITE)
+        js("setDark($on)")
+    }
     fun blurInput() = js("(function(){var a=document.activeElement;if(a&&a.blur)a.blur();})()")
     fun setAttachments(paths: List<String>) {
         val a = JSONArray(); paths.forEach { a.put("file://$it") }

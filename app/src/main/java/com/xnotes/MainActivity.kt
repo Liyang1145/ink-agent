@@ -167,6 +167,7 @@ class MainActivity : ComponentActivity() {
             val ed = remember { Editor(context).also { editor = it } }
             val agentCtrl = remember { com.inkagent.AgentController(this@MainActivity) { editor?.active }.also { agent = it } }
             LaunchedEffect(ed.fullscreen) { applyFullscreen(ed.fullscreen) }
+            LaunchedEffect(ed.palette.isDark) { agentCtrl.panel.setDark(ed.palette.isDark) } // agent panel follows the app's appearance
             var ready by remember { mutableStateOf(false) }
             LaunchedEffect(Unit) {
                 val start = android.os.SystemClock.uptimeMillis()
@@ -284,7 +285,9 @@ class MainActivity : ComponentActivity() {
     /** Debug hook (tests/e2e.py): a test launch (test_mode / test_finger extra) runs in landscape. */
     private fun applyTestOrientation(i: Intent?) {
         if (applicationInfo.flags and android.content.pm.ApplicationInfo.FLAG_DEBUGGABLE == 0) return
-        if (i?.hasExtra("test_mode") == true || i?.hasExtra("test_finger") == true) {
+        if (i?.getBooleanExtra("test_portrait", false) == true) {
+            requestedOrientation = android.content.pm.ActivityInfo.SCREEN_ORIENTATION_PORTRAIT
+        } else if (i?.hasExtra("test_mode") == true || i?.hasExtra("test_finger") == true) {
             requestedOrientation = android.content.pm.ActivityInfo.SCREEN_ORIENTATION_SENSOR_LANDSCAPE
         }
     }

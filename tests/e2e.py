@@ -1194,6 +1194,15 @@ def run_library(ex):
     hl = adb('shell run-as com.inkagent cat files/applog.txt', timeout=30) or ''
     check('home: hark-style home shown', 'hark home shown' in hl, ui[:200])
     time.sleep(40); shot('ink_home_suggest')
+    # v0.6.24 design review: home in portrait, dark appearance, and the two-wedge teaching animation
+    launch('--ez test_finger true --ez test_portrait true'); time.sleep(6); shot('ink_home_portrait')
+    adb('shell cmd uimode night yes'); time.sleep(6); shot('ink_home_portrait_dark')
+    launch('--ez test_finger true'); time.sleep(6); shot('ink_home_dark')
+    wedge = open(os.path.join(os.path.dirname(os.path.abspath(__file__)), 'anim_wedge.js'), encoding='utf-8').read()
+    r = exec_tool(ex, 'show_animation', {'title': '两个测向扇形求交', 'code': wedge}, wait=30)
+    note('show_animation wedge -> ' + r[:300]); check('anim: wedge demo runs without error', r.startswith('OK'), r[:300])
+    time.sleep(3); shot('anim_wedge_dark')
+    adb('shell cmd uimode night no'); time.sleep(6); shot('anim_wedge')
     log2 = adb('shell run-as com.inkagent cat files/applog.txt', timeout=30) or ''
     sl = [l for l in log2.splitlines() if 'Suggest' in l]
     note('suggest log: ' + ' | '.join(sl[-3:]))
