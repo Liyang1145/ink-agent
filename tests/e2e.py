@@ -1118,6 +1118,21 @@ def exec_tool(ex, tool, args, wait=40):
     return 'TIMEOUT'
 
 
+SEED_TITLES = ['泰勒展开求极限的套路', '行列式按行展开怎么选行', '一致收敛和逐项求导']
+
+def seed_sessions():
+    """Write 3 sessions exactly as org.json would (slashes escaped as \\/), then copy them into files/sessions/."""
+    now = int(time.time() * 1000)
+    for i, t in enumerate(SEED_TITLES):
+        ev = [{'seq': 0, 'time': now - 3600_000 * (i + 1), 'type': 'user/message', 'data': {'content': [{'type': 'text', 'text': t + '？'}]}},
+              {'seq': 1, 'time': now - 3600_000 * (i + 1) + 5000, 'type': 'turn/end', 'data': {}}]
+        body = '\n'.join(json.dumps(e, ensure_ascii=False, separators=(',', ':')).replace('/', '\\/') for e in ev) + '\n'
+        fn = f'seed-{i}.jsonl'; open(f'{OUT}/{fn}', 'w').write(body)
+        adb(f'push {OUT}/{fn} /data/local/tmp/{fn}'); adb(f'shell chmod 644 /data/local/tmp/{fn}')
+        adb(f"shell run-as {PKG} cp /data/local/tmp/{fn} files/sessions/{fn}")
+    note('seeded sessions: ' + adb(f"shell run-as {PKG} ls files/sessions").replace('\n', ' '))
+
+
 def run_library(ex):
     r = exec_tool(ex, 'canvas_write_exam', {'title': '极限练习', 'problems': [
         {'text': '1. 求极限 $\\displaystyle\\lim_{x\\to0}\\frac{x-\\sin x}{x^3}$，并说明用到了哪条展开式。'},
@@ -1183,6 +1198,14 @@ def run_library(ex):
     check('sub: result handed back to main agent', '"kind":"subagent"' in txt, '')
     time.sleep(20); shot('subagent_main_reply')
     launch(ex + ' --ez test_library true'); time.sleep(6); shot('library_home')
+    # v0.6.25: sessions written the way Android org.json writes them ("user\/message") must all be listed
+    seed_sessions()
+    adb(f'shell am force-stop {PKG}'); time.sleep(2)
+    launch(ex + ' --ez test_sessions true'); time.sleep(6)
+    stxt = all_text(); shot('session_list')
+    found = [t for t in SEED_TITLES if t[:12] in stxt]
+    check('sessions: escaped sessions listed after restart', len(found) == len(SEED_TITLES), f'found {len(found)}/{len(SEED_TITLES)} menus={stxt.count("会话操作")}')
+    tap_label('关闭会话列表'); time.sleep(1)
     # InkAgent home (Hark-style) after a cold start, then its idle suggestions
     adb(f'shell am force-stop {PKG}'); time.sleep(2)
     launch('--ez test_finger true'); time.sleep(5)
@@ -1191,6 +1214,7 @@ def run_library(ex):
         adb('shell input tap 50 50'); time.sleep(3)
         ui = adb('shell uiautomator dump /sdcard/ui.xml >/dev/null; cat /sdcard/ui.xml', timeout=60) or ''
     shot('ink_home')
+    note('home recent chats: ' + ', '.join(t[:12] for t in SEED_TITLES if t[:12] in ui))
     hl = adb('shell run-as com.inkagent cat files/applog.txt', timeout=30) or ''
     check('home: hark-style home shown', 'hark home shown' in hl, ui[:200])
     time.sleep(40); shot('ink_home_suggest')
