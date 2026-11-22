@@ -275,7 +275,7 @@ private fun SuggestCard(c: Suggestions.Card, modifier: Modifier, onGo: () -> Uni
     val a = remember { Animatable(0f) }
     LaunchedEffect(Unit) { a.animateTo(1f, tween(240, easing = FastOutSlowInEasing)) }
     Column(
-        modifier.height(224.dp).graphicsLayer { alpha = a.value }.clip(RoundedCornerShape(22.dp)).background(hc.card)
+        modifier.height(228.dp).graphicsLayer { alpha = a.value }.clip(RoundedCornerShape(22.dp)).background(hc.card)
             .border(1.dp, hc.line, RoundedCornerShape(22.dp)).clickable(onClick = onGo).padding(start = 20.dp, end = 8.dp, top = 8.dp, bottom = 18.dp),
     ) {
         Row(verticalAlignment = Alignment.CenterVertically) {
@@ -286,10 +286,13 @@ private fun SuggestCard(c: Suggestions.Card, modifier: Modifier, onGo: () -> Uni
                 Icon(XnotesIcons.close, null, tint = hc.dim, modifier = Modifier.size(15.dp))
             }
         }
+        // a two-line title leaves room for two lines of body, so the text never runs under the button
+        var titleLines by remember(c.id) { mutableStateOf(1) }
         Column(Modifier.padding(end = 12.dp)) {
-            Text(c.title, color = hc.ink, fontFamily = Serif, fontSize = 19.sp, fontWeight = FontWeight.Medium, maxLines = 2, overflow = TextOverflow.Ellipsis, lineHeight = 25.sp)
+            Text(c.title, color = hc.ink, fontFamily = Serif, fontSize = 19.sp, fontWeight = FontWeight.Medium, maxLines = 2, overflow = TextOverflow.Ellipsis, lineHeight = 25.sp,
+                onTextLayout = { titleLines = it.lineCount })
             Spacer(Modifier.height(6.dp))
-            Text(c.body, color = hc.body, fontSize = 14.sp, lineHeight = 21.sp, maxLines = 3, overflow = TextOverflow.Ellipsis)
+            Text(c.body, color = hc.body, fontSize = 14.sp, lineHeight = 21.sp, maxLines = if (titleLines >= 2) 2 else 3, overflow = TextOverflow.Ellipsis)
         }
         Spacer(Modifier.weight(1f))
         Box(Modifier.heightIn(min = 40.dp).clip(RoundedCornerShape(20.dp)).background(hc.primary).clickable(onClick = onGo).padding(horizontal = 18.dp), contentAlignment = Alignment.Center) {

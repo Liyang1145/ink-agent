@@ -143,6 +143,7 @@ svg.i{width:18px;height:18px;stroke:currentColor;fill:none;stroke-width:1.7;stro
 .md blockquote{margin:.5em 0;padding-left:10px;border-left:3px solid var(--border);color:var(--label-2);}
 .md a{color:var(--accent);text-decoration:none;}
 .katex-display{overflow-x:auto;overflow-y:hidden;padding:2px 0;margin:.5em 0;}
+.nb{white-space:nowrap;} .nb .katex-html{white-space:nowrap;}
 .math-err{color:var(--danger);font-family:var(--mono);font-size:13px;}
 .streaming>:last-child::after{content:"";display:inline-block;width:7px;height:7px;border-radius:4px;background:var(--label-1);margin-left:4px;vertical-align:middle;animation:pulse 1s infinite;}
 .running{display:flex;align-items:center;gap:6px;color:var(--label-3);font-size:14px;margin:6px 0;}
@@ -331,7 +332,8 @@ function renderWithMath(src){
       var display=(a!==undefined||b!==undefined);
       var body=a!==undefined?a:b!==undefined?b:c!==undefined?c:d;
       if (d!==undefined && /\s$/.test(d)) return m;
-      maths.push(tex(body.trim(),display));
+      // short inline formulas never break across lines ((x-2)(x+2) split at the minus reads badly); long ones still may
+      var h=tex(body.trim(),display); maths.push(!display&&body.trim().length<=32?'<span class="nb">'+h+'</span>':h);
       var token='MATHTOKEN'+(maths.length-1)+'X';
       return display?'\n\n'+token+'\n\n':token;
     });

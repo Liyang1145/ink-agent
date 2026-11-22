@@ -46,7 +46,7 @@ A.caption('两组测向射线围出的交集（紫色）：$B$ 挪远，面积�
 let b = 6, target = 6;
 A.choice('$b$', [6, 8], 6, v => { target = v; });
 A.onFrame((t, dt) => {
-  b += (target - b) * Math.min(1, dt * 7); if (Math.abs(target - b) < 1e-3) b = target;
+  b = dt > 0 ? b + (target - b) * Math.min(1, dt * 7) : target; if (Math.abs(target - b) < 1e-3) b = target; // 暂停时直接跳到新值
   const k = A.ease(A.seg(t, 0, 1.2)), Bp = [b, 0];
   pB.move(Bp); lB.move(Bp);
   fa.setPoints(fan([0, 0], k)); fb.setPoints(fan(Bp, k));

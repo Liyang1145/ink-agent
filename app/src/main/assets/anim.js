@@ -195,12 +195,13 @@ function loop(now){ requestAnimationFrame(loop);
   var dt=0; if(!paused&&!scrubbing){ if(last!=null) dt=Math.min(0.1,(now-last)/1000); last=now; t+=dt; } else last=null;
   if(DUR&&!LOOP&&t>=DUR&&!paused){ t=DUR; setPaused(true); }
   var moving=!paused||scrubbing||kicked>0; if(kicked>0) kicked--;
-  var tt=(moving||!reported)?step(dt):t; controls.update();
+  controls.update(); if(!moving&&reported) return; // paused and still: nothing to redraw (battery)
+  var tt=step(dt);
   var u=unit(); if(Math.abs(u-lastScale)>1e-9*Math.max(1,u)){ lastScale=u; for(var i=0;i<scaled.length;i++){ try{ scaled[i](u); }catch(e){} } }
   renderer.render(scene,camera); syncTl(tt); if(!prefSent&&t>0) sendPref();
   for(i=0;i<labels.length;i++){ var L=labels[i]; tmp.copy(L.pos).project(camera); var vis=tmp.z<1&&tmp.z>-1;
     L.el.style.visibility=vis?'':'hidden'; L.el.style.transform='translate('+((tmp.x+1)/2*W+L.dx)+'px,'+((1-tmp.y)/2*H+L.dy)+'px) translate('+L.ax+'%,'+L.ay+'%)'; } }
-function setPaused(p){ paused=p; last=null; try{ parent.animState(window.ANIM_KEY,{paused:p}); }catch(e){} }
+function setPaused(p){ paused=p; last=null; kick(); try{ parent.animState(window.ANIM_KEY,{paused:p}); }catch(e){} }
 window.animPause=function(p){ if(!p&&DUR&&!LOOP&&t>=DUR) t=0; setPaused(p); };
 window.animRestart=function(){ t=0; last=null; setPaused(false); kick(); };
 window.animVisible=function(v){ visible=!!v; last=null; };
