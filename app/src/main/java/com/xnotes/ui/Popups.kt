@@ -1025,7 +1025,7 @@ internal fun PopupTitle(text: String) {
 @Composable
 internal fun ToggleRow(label: String, checked: Boolean, onChange: (Boolean) -> Unit) {
     Row(verticalAlignment = Alignment.CenterVertically, horizontalArrangement = Arrangement.SpaceBetween, modifier = Modifier.width(220.dp)) {
-        Text(label, color = LocalPalette.current.text.toComposeColor(), fontSize = 12.sp)
+        Text(label, color = LocalPalette.current.text.toComposeColor(), fontSize = 12.sp, modifier = Modifier.weight(1f))
         Switch(checked = checked, onCheckedChange = onChange)
     }
 }

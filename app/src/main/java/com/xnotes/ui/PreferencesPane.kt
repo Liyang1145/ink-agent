@@ -258,6 +258,9 @@ fun PreferencesPane(
             HorizontalDivider(color = palette.border.toComposeColor())
             SectionTitle(stringResource(R.string.pref_input))
             CheckRow(stringResource(R.string.pref_finger_draws), prefs.fingerDraws) { update(prefs.copy(fingerDraws = it)) }
+            // InkAgent v0.6.26: scribble-to-erase is off by default (it erased handwriting by mistake).
+            var scribbleOn by remember { mutableStateOf(editor.scribbleEraseOn) }
+            CheckRow(stringResource(R.string.caption_scribble_erase), scribbleOn) { scribbleOn = it; editor.setScribbleErase(it) }
             FieldLabel(stringResource(R.string.pref_zoom_lock_pan))
             FlowRow(
                 horizontalArrangement = Arrangement.spacedBy(8.dp),

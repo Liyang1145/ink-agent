@@ -37,8 +37,12 @@ object Scribble {
     /** How nearly along a pass the pen has to keep heading to carry its far end on (cos 25°). */
     private const val AHEAD_COS = 0.9
 
-    /** Passes it takes to be a scribble: an M or a W has four. */
-    private const val MIN_PASSES = 5
+    /**
+     * Passes it takes to be a scribble: an M or a W has four. InkAgent v0.6.26: raised from 5 to 7,
+     * because connected Chinese strokes (三/王/言 written in one go, horizontals joined by short
+     * diagonals) make 5–6 sharp passes; a deliberate scribble-out has more.
+     */
+    private const val MIN_PASSES = 7
 
     /** Median pass, in dp, below which it is a jitter rather than a scribble. */
     private const val MIN_PASS_DP = 8.0
@@ -55,8 +59,12 @@ object Scribble {
     /** The share of each pass, at either end, that belongs to its turns rather than its middle. */
     private const val TURN_FRAC = 0.2
 
-    /** Share of the passes that have to cross something in their middle. */
-    private const val CROSSING_SHARE = 0.5
+    /**
+     * Share of the passes that have to cross something in their middle. InkAgent v0.6.26: raised from
+     * 0.5, so a stroke whose horizontals cross an earlier vertical but whose joins do not stays ink; a
+     * scribble over a word crosses it on nearly every pass.
+     */
+    private const val CROSSING_SHARE = 0.75
 
     /** Reach past the scribble's own ink within which it counts as touching, in dp. */
     const val TOUCH_DP = 2.0

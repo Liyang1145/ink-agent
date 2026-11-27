@@ -139,9 +139,17 @@ data class Settings(
             .put("prefs", prefs.toJson())
             .put("view_defaults", com.xnotes.platform.ViewSettingsJson.write(JSONObject(), viewDefaults))
             .put("finger_draw_auto_checked", fingerDrawAutoChecked)
+            .put(SCRIBBLE_OFF_MIGRATION, true)
     }
 
     companion object {
+        /**
+         * InkAgent v0.6.26 one-time migration: scribble-to-erase was on by default (inherited from
+         * xnotes) and erased handwriting by mistake. Settings written before this flag existed get it
+         * turned off once; after that the user's own toggle is kept.
+         */
+        const val SCRIBBLE_OFF_MIGRATION = "inkagent_scribble_erase_off_v0626"
+
         fun fromJson(o: JSONObject): Settings {
             val toolsObj = o.optJSONObject("tools")
             val tools = HashMap<Tool, ToolConfig>()
@@ -149,6 +157,9 @@ data class Settings(
                 for (tool in ToolDefaults.persistedTools) {
                     toolsObj.optJSONObject(tool.id)?.let { tools[tool] = toolConfig(it, tool) }
                 }
+            }
+            if (!o.optBoolean(SCRIBBLE_OFF_MIGRATION, false)) {
+                tools[Tool.ERASER]?.let { if (it.scribbleErase) tools[Tool.ERASER] = it.copy(scribbleErase = false) }
             }
             val shape = toolsObj?.optJSONObject("shape")?.let { shapeConfig(it) } ?: ShapeConfig()
 

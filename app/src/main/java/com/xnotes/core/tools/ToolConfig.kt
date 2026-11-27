@@ -90,8 +90,12 @@ data class ToolConfig(
     val markupIntensity: Double = DEFAULT_MARKUP_INTENSITY,
     /** Eraser: also take off the PDF text markups it touches. Only used by [Tool.ERASER]. */
     val eraseMarkups: Boolean = true,
-    /** Eraser: a pen scribbled over ink erases what it touches. Only used by [Tool.ERASER]. */
-    val scribbleErase: Boolean = true,
+    /**
+     * Eraser: a pen scribbled over ink erases what it touches. Only used by [Tool.ERASER].
+     * InkAgent v0.6.26: off by default; fast handwriting (connected 三/王/言 strokes over earlier
+     * strokes) was read as a scribble-out and erased ink the user meant to keep.
+     */
+    val scribbleErase: Boolean = false,
 ) {
     companion object {
         const val DEFAULT_MARKUP_INTENSITY = 0.5

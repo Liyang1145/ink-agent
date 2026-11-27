@@ -133,6 +133,12 @@ class ScribbleTest {
         assertNull(Scribble.passes(zigzag(4, 40.0, 10.0), 1.0))
     }
 
+    /** v0.6.26: three horizontals joined in one go (cursive 三, 5 passes) and 言-like 6 passes stay ink. */
+    @Test fun connectedHorizontalsAreNot() {
+        assertNull(Scribble.passes(polyline(listOf(Pt(0.0, 0.0), Pt(40.0, 0.0), Pt(0.0, 10.0), Pt(40.0, 10.0), Pt(0.0, 20.0), Pt(40.0, 20.0))), 1.0))
+        assertNull(Scribble.passes(polyline(listOf(Pt(0.0, 0.0), Pt(40.0, 0.0), Pt(0.0, 8.0), Pt(40.0, 8.0), Pt(0.0, 16.0), Pt(40.0, 16.0), Pt(0.0, 24.0))), 1.0))
+    }
+
     @Test fun looseZigzagIsNot() {
         assertNull(Scribble.passes(zigzag(10, 40.0, 40.0), 1.0))
     }

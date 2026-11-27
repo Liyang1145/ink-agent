@@ -1428,12 +1428,17 @@ class InteractionController(
      */
     private fun scribbleErase(stroke: Stroke, pageIndex: Int): Boolean {
         val eraser = configFor(Tool.ERASER)
-        if (!eraser.scribbleErase || !stroke.tool.isStroke || stroke.tool == Tool.HIGHLIGHTER) return false
+        if (!stroke.tool.isStroke || stroke.tool == Tool.HIGHLIGHTER) return false
         if (crossedSegments.isNotEmpty()) return false // it ran across a page edge
         val page = state.document.pages.getOrNull(pageIndex) ?: return false
         val dpPerUnit = state.zoom / state.devicePxPerDp
         val path = List(stroke.sampleCount) { Pt(stroke.xAt(it), stroke.yAt(it)) }
         val passes = Scribble.passes(path, dpPerUnit) ?: return false
+        if (!eraser.scribbleErase) {
+            // v0.6.26: off by default; say when it would have fired, so a lost-ink report can rule it out.
+            com.inkagent.InkLog.add("scribble-like stroke kept (scribble erase off) passes=${passes.count} samples=${stroke.sampleCount}")
+            return false
+        }
         val radius = stroke.config.baseWidth / 2.0 + Scribble.TOUCH_DP / dpPerUnit
         val reach = Rect.bounding(path).outset(radius)
         val candidates = ArrayList<Any>()

@@ -3662,6 +3662,24 @@ class Editor(context: Context, val pane: Pane = Pane.PRIMARY) : ToolPopupHost, S
 
     private var settingsSaveJob: kotlinx.coroutines.Job? = null
 
+    /** Scribble-to-erase (划除手势擦除), off by default since v0.6.26. */
+    val scribbleEraseOn: Boolean get() = controller.configFor(Tool.ERASER).scribbleErase
+
+    /** Turn scribble-to-erase on or off for both panes and the canvas, and save it. */
+    fun setScribbleErase(on: Boolean) {
+        for (ed in listOfNotNull(this, sibling)) {
+            ed.controller.setToolConfig(Tool.ERASER, ed.controller.configFor(Tool.ERASER).copy(scribbleErase = on))
+            ed.infiniteOrNull?.let { c -> c.updateToolConfig(Tool.ERASER, c.toolConfig(Tool.ERASER).copy(scribbleErase = on)) }
+        }
+        // Only the primary pane writes settings (see persist), so the change is saved through it.
+        val primary = if (pane == Pane.PRIMARY) this else (sibling ?: this)
+        primary.settings = primary.settings.copy(
+            tools = primary.settings.tools + (Tool.ERASER to primary.settings.configFor(Tool.ERASER).copy(scribbleErase = on)),
+        )
+        com.inkagent.InkLog.add("scribble-erase setting -> $on")
+        primary.saveSettingsSoon()
+    }
+
     /** Persist [settings] a moment after the tap that changed them; changes in between share the one write. */
     private fun saveSettingsSoon() {
         settingsSaveJob?.cancel()

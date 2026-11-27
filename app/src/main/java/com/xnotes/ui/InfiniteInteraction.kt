@@ -813,10 +813,15 @@ class InfiniteInteraction(
     /** Scribble to erase: when [stroke] reads as a scribble over ink, erase that instead of committing it. */
     private fun scribbleErase(stroke: Stroke): Boolean {
         val eraser = configFor(Tool.ERASER)
-        if (!eraser.scribbleErase || wandEnabled || !stroke.tool.isStroke || stroke.tool == Tool.HIGHLIGHTER) return false
+        if (wandEnabled || !stroke.tool.isStroke || stroke.tool == Tool.HIGHLIGHTER) return false
         val dpPerUnit = viewport.zoom / devicePxPerDp().coerceAtLeast(1e-9)
         val path = List(stroke.sampleCount) { Pt(stroke.xAt(it), stroke.yAt(it)) }
         val passes = Scribble.passes(path, dpPerUnit) ?: return false
+        if (!eraser.scribbleErase) {
+            // v0.6.26: off by default; say when it would have fired, so a lost-ink report can rule it out.
+            com.inkagent.InkLog.add("scribble-like stroke kept (scribble erase off, infinite) passes=${passes.count}")
+            return false
+        }
         val radius = stroke.config.baseWidth / 2.0 + Scribble.TOUCH_DP / dpPerUnit
         // Images, text and anything locked are spared, as the eraser spares them.
         val candidates = itemsIn(Rect.bounding(path).outset(radius))

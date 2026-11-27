@@ -408,6 +408,25 @@ def main():
     check('eraser: partial erase (ink left & right of cut, gap in middle)', left and right and not mid,
           f'left={left} right={right} middle_ink={mid}')
 
+    # ---------------- v0.6.26: scribble-to-erase is off by default; a zigzag over ink stays ink ----------------
+    select_tool('笔')
+    zx0 = lx1 + 30; zw = max(14, (mx - lx1) // 14); zh = 50
+    corners = [(zx0 + k * zw, ly - zh if k % 2 == 0 else ly + zh) for k in range(11)]  # 10 passes over the line
+    zz = []
+    for k in range(1, len(corners)): zz += line(*corners[k - 1], *corners[k], 6)[:-1]
+    zz.append(corners[-1])
+    stroke(zz)
+    time.sleep(2)
+    shot('zigzag_over_line')
+    scr = raw_screen()
+    ilog = adb('logcat -d -s Ink:I', timeout=30) + (adb('shell run-as com.inkagent cat files/applog.txt', timeout=30) or '')
+    kept = 'scribble-like stroke kept (scribble erase off)' in ilog
+    removed = 'REMOVE how=scribble' in ilog
+    left2 = dark_near(scr, lx1 + 8, ly)  # line start, left of the zigzag
+    peak = dark_near(scr, corners[0][0], corners[0][1] + 4, r=6)  # the zigzag itself was kept as ink
+    check('scribble erase: off by default, zigzag over ink kept (no erase)', kept and not removed and left2 and peak,
+          f'detector_saw_scribble={kept} scribble_removed={removed} line_left={left2} zigzag_ink={peak}')
+
     # ---------------- 选择: lasso (default) around the formula, move it ----------------
     select_tool('选择')
     m = 40
